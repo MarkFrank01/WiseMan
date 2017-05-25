@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zxcx.shitang.ui.MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/home_fragment_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="8dp"
+            android:layout_marginTop="0.5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/home_tab_home"
+                style="@style/BottomTab"
+                android:checked="true"
+                android:text="@string/home_home" />
+
+            <RadioButton
+                android:id="@+id/home_tab_all"
+                style="@style/BottomTab"
+                android:text="@string/home_all" />
+
+            <RadioButton
+                android:id="@+id/home_tab_note"
+                style="@style/BottomTab"
+                android:text="@string/home_note" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"/>
+        <!--app:headerLayout="@layout/nav_header"-->
+        <!--app:menu="@menu/drawer_actions" />-->
+
+</android.support.v4.widget.DrawerLayout>

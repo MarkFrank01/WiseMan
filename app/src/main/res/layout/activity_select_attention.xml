@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="选择你想关注的知识"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:text="开启识堂"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:text="随便看看"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"/>
+
+</LinearLayout>
