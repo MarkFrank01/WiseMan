@@ -10,4 +10,5 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="tv_hot_recommend_card">推荐卡片</string>
     <string name="tv_hot_recommend_card_bag">推荐卡包</string>
+    <string name="title_activity_welcome">WelcomeActivity</string>
 </resources>

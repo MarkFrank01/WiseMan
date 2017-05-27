@@ -7,9 +7,9 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +18,7 @@ import com.zxcx.shitang.R;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BaseActivity extends AppCompatActivity implements BaseView {
+public class BaseActivity extends AppCompatActivity implements BaseView , View.OnClickListener{
     public Activity mActivity;
     public ProgressDialog progressDialog;
 
@@ -93,10 +93,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(title);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
-        }
         return toolbar;
     }
 
@@ -112,24 +108,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+        ImageView ivBack = (ImageView) toolbar.findViewById(R.id.iv_toolbar_back);
+        ivBack.setOnClickListener(this);
         return toolbar;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                super.onBackPressed();//返回
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
     }
 
     public void toastShow(int resId) {
@@ -188,5 +169,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     public void toastFail(String msg) {
         toastShow(msg);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.iv_toolbar_back){
+            onBackPressed();//返回
+        }
     }
 }

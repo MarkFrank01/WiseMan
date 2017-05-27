@@ -13,14 +13,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-
-import com.zxcx.shitang.App;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,12 +24,6 @@ import java.io.File;
 
 public class Utils {
     private static final double EARTH_RADIUS = 6378137.0;
-
-    public static void setImageTransparent(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
-    }
 
     public static void closeInputMethod(Context context) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -69,6 +59,21 @@ public class Utils {
         return new File("/data/data/" + packageName).exists();
     }
 
+    /**
+     * 判断网络是否可用
+     *
+     * @param context Context对象
+     */
+    public static Boolean isNetworkReachable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo current = cm.getActiveNetworkInfo();
+        if (current == null) {
+            return false;
+        }
+        return (current.isAvailable());
+    }
+
     public static int[] getScreenSize(Context context) {
         DisplayMetrics dm ;
         dm = context.getResources().getDisplayMetrics();
@@ -76,40 +81,12 @@ public class Utils {
         return size;
     }
 
-    public static void setImageHeight(View view) {
-        DisplayMetrics dm ;
-        dm = App.getContext().getResources().getDisplayMetrics();
-        int height = dm.widthPixels *3/4;
-        ViewGroup.LayoutParams para = view.getLayoutParams();
-        para.height = height;
-        view.setLayoutParams(para);
-    }
-
-    public static void setLunBoImageHeight(View view) {
-        DisplayMetrics dm ;
-        dm = App.getContext().getResources().getDisplayMetrics();
-        int height = dm.widthPixels *1/2;
-        ViewGroup.LayoutParams para = view.getLayoutParams();
-        para.height = height;
-        view.setLayoutParams(para);
-    }
-
-    public static void setDepotImageHeight(View view) {
-        DisplayMetrics dm ;
-        dm = App.getContext().getResources().getDisplayMetrics();
-        int defaultMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,60,App.getContext().getResources().getDisplayMetrics());
-        int height = (dm.widthPixels-defaultMargin) *3/4;
-        ViewGroup.LayoutParams para = view.getLayoutParams();
-        para.height = height;
-        view.setLayoutParams(para);
-    }
-
     public static Boolean getIsFirstLaunchApp(Context mThis){
-        return SharedPreferencesUtil.getBoolean(mThis, SVTSConstants.isFirstLaunchApp, true);
+        return SharedPreferencesUtil.getBoolean( SVTSConstants.isFirstLaunchApp, true);
     }
 
     public static void setIsFirstLaunchApp(Activity mThis, Boolean value){
-        SharedPreferencesUtil.setBoolean(mThis,SVTSConstants.isFirstLaunchApp,value);
+        SharedPreferencesUtil.saveData(SVTSConstants.isFirstLaunchApp,value);
     }
 
     public static String getAppVersionName(Context context) {

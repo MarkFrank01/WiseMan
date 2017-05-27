@@ -2,43 +2,35 @@ package com.zxcx.shitang.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.widget.Button;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.ui.allCardBag.AllCardBagAdapter;
-import com.zxcx.shitang.ui.allCardBag.AllCardBagBean;
+import com.zxcx.shitang.widget.GetPicBottomDialog;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class Main2Activity extends AppCompatActivity {
 
-    @BindView(R.id.rv_all_card_bag)
-    RecyclerView mRvAllCardBag;
+
+    @BindView(R.id.btn_ceshi)
+    Button mBtnCeshi;
     private ArrayList<MultiItemEntity> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_all_card_bag);
+        setContentView(R.layout.activity_main2);
         ButterKnife.bind(this);
-        for (int i = 0; i < 10; i++) {
-            AllCardBagBean bagBean = new AllCardBagBean();
-            bagBean.setType("分类" + i);
-            for (int j = 0; j < 4; j++) {
-                AllCardBagBean.ContentBean bean = new AllCardBagBean.ContentBean();
-                bean.setTitle("标题" + i + j);
-                bagBean.addSubItem(bean);
-            }
-            mList.add(bagBean);
-        }
-        AllCardBagAdapter adapter = new AllCardBagAdapter(mList);
-        mRvAllCardBag.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
-        mRvAllCardBag.setAdapter(adapter);
+
     }
 
+    @OnClick(R.id.btn_ceshi)
+    public void onViewClicked() {
+        new GetPicBottomDialog(this).show();
+    }
 }

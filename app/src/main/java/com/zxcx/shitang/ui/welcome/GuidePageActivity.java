@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui;
+package com.zxcx.shitang.ui.welcome;
 
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;

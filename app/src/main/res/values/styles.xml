@@ -19,6 +19,10 @@
         <item name="android:onClick">onTabClick</item>
     </style>
 
+    <style name="BottomDialog" parent="Theme.Design.BottomSheetDialog">
+
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>

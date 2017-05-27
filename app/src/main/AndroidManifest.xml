@@ -26,6 +26,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.loginAndRegister.login.LoginActivity"/>
+        <activity android:name=".ui.welcome.WebViewActivity">
+        </activity>
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
