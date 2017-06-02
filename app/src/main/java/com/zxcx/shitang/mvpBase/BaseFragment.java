@@ -116,12 +116,12 @@ public class BaseFragment extends Fragment implements BaseView{
     }
 
     @Override
-    public void showProgress() {
+    public void showLoading() {
 //        showProgressDialog();
     }
 
     @Override
-    public void hideProgress() {
+    public void hideLoading() {
         dismissProgressDialog();
     }
 

@@ -5,9 +5,9 @@ package com.zxcx.shitang.mvpBase;
  */
 public interface BaseView {
 
-    void showProgress();
+    void showLoading();
 
-    void hideProgress();
+    void hideLoading();
 
     void setText(String text);
 

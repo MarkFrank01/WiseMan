@@ -152,12 +152,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView , View.O
     }
 
     @Override
-    public void showProgress() {
+    public void showLoading() {
 //        showProgressDialog();
     }
 
     @Override
-    public void hideProgress() {
+    public void hideLoading() {
         dismissProgressDialog();
     }
 

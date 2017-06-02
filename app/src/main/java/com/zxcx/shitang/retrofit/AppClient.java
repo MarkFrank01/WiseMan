@@ -48,6 +48,7 @@ public class AppClient {
                         .build();
             } else {
                 OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                        .addInterceptor(interceptor)
                         .cache(cache)
                         .build();
                 mRetrofit = new Retrofit.Builder()

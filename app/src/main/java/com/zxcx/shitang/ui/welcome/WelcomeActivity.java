@@ -13,6 +13,18 @@ public class WelcomeActivity extends BaseActivity {
     private Handler mHandler = new Handler();
     private int mCount = 4;
 
+    Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            mCount--;
+            if (mCount == 0){
+
+            }else {
+                mHandler.postDelayed(mRunnable,1000);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,17 +37,5 @@ public class WelcomeActivity extends BaseActivity {
         AppClient.retrofit().create(APIService.class);
         mHandler.post(mRunnable);
     }
-
-    Runnable mRunnable = new Runnable() {
-        @Override
-        public void run() {
-            mCount--;
-            if (mCount == 0){
-
-            }else {
-                mHandler.postDelayed(mRunnable,1000);
-            }
-        }
-    };
 
 }

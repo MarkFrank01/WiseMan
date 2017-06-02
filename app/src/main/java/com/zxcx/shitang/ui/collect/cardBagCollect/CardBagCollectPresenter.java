@@ -1,8 +1,8 @@
 package com.zxcx.shitang.ui.collect.cardBagCollect;
 
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class CardBagCollectPresenter extends BasePresenter<CardBagCollectContract.View> implements CardBagCollectContract.Presenter {
 
@@ -21,6 +21,16 @@ public class CardBagCollectPresenter extends BasePresenter<CardBagCollectContrac
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void showLoading() {
+        mView.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        mView.hideLoading();
     }
 
     public void detachView() {

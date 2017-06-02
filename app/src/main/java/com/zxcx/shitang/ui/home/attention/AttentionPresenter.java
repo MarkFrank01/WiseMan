@@ -1,10 +1,8 @@
 package com.zxcx.shitang.ui.home.attention;
 
-import com.zxcx.shitang.ui.home.attention.AttentionContract;
-import com.zxcx.shitang.ui.home.attention.AttentionModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class AttentionPresenter extends BasePresenter<AttentionContract.View> implements AttentionContract.Presenter {
 
@@ -23,6 +21,16 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void showLoading() {
+        mView.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        mView.hideLoading();
     }
 
     public void detachView() {

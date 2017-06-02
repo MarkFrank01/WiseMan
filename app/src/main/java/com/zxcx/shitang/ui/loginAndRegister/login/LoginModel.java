@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BaseModel;
 
-public class LoginModel extends BaseModel {
-
-    @NonNull
-    private final LoginContract.Presenter mPresent;
+public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
     public LoginModel(@NonNull LoginContract.Presenter present) {
         this.mPresent = present;

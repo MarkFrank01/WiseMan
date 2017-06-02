@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BaseModel;
 
-public class CardCollectModel extends BaseModel {
-
-    @NonNull
-    private final CardCollectContract.Presenter mPresent;
+public class CardCollectModel extends BaseModel<CardCollectContract.Presenter> {
 
     public CardCollectModel(@NonNull CardCollectContract.Presenter present) {
         this.mPresent = present;

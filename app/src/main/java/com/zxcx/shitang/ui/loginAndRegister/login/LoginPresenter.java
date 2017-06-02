@@ -1,10 +1,8 @@
 package com.zxcx.shitang.ui.loginAndRegister.login;
 
-import com.zxcx.shitang.ui.loginAndRegister.login.LoginContract;
-import com.zxcx.shitang.ui.loginAndRegister.login.LoginModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements LoginContract.Presenter {
 
@@ -23,6 +21,16 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void showLoading() {
+        mView.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        mView.hideLoading();
     }
 
     public void detachView() {
