@@ -1,65 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
     tools:context="com.zxcx.shitang.ui.MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
+        android:id="@+id/home_fragment_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
-        <FrameLayout
-            android:id="@+id/home_fragment_content"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingTop="8dp"
-            android:layout_marginTop="0.5dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/home_tab_home"
-                style="@style/BottomTab"
-                android:checked="true"
-                android:text="@string/home_home" />
-
-            <RadioButton
-                android:id="@+id/home_tab_all"
-                style="@style/BottomTab"
-                android:text="@string/home_all" />
-
-            <RadioButton
-                android:id="@+id/home_tab_note"
-                style="@style/BottomTab"
-                android:text="@string/home_note" />
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/nav_view"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingTop="8dp"
+        android:layout_marginTop="0.5dp"
         android:background="@color/white"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:orientation="horizontal">
 
-        <include
-            android:id="@+id/ll_home_navigation_head"
-            layout="@layout/layout_home_navigation_head"/>
+        <RadioButton
+            android:id="@+id/home_tab_home"
+            style="@style/BottomTab"
+            android:checked="true"
+            android:text="@string/home_home" />
 
-        <include layout="@layout/layout_home_navigation_body"/>
+        <RadioButton
+            android:id="@+id/home_tab_all"
+            style="@style/BottomTab"
+            android:text="@string/home_all" />
 
-    </LinearLayout>
+        <RadioButton
+            android:id="@+id/home_tab_note"
+            style="@style/BottomTab"
+            android:text="@string/home_my" />
+    </RadioGroup>
+</LinearLayout>
 
-</android.support.v4.widget.DrawerLayout>

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#51C4FF</color>
+    <color name="colorPrimaryDark">#51C4FF</color>
+    <color name="colorAccent">#95DCFD</color>
     <color name="translate">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="background">#F7F7F7</color>
+    <color name="wireframe">#E4E4E4</color>
+    <color name="wireframe_shallow">#E1E1E1</color>
+    <color name="text_color_40">#404040</color>
+    <color name="text_color_66">#666666</color>
     <color name="text_color_99">#999999</color>
+    <color name="track_off">#E0E0E0</color>
 </resources>

@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:layout_margin="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,38 +14,40 @@
 
         <TextView
             android:id="@+id/tv_dialog_camera"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:gravity="center"
             android:text="拍照"
+            android:textSize="17sp"
+            android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="57dp"/>
 
         <View
-            android:background="@color/text_color_99"
+            android:background="#EBEBEB"
             android:layout_width="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
             android:layout_height="0.5dp"/>
 
         <TextView
             android:id="@+id/tv_dialog_album"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:gravity="center"
             android:text="相册"
+            android:textSize="17sp"
+            android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="57dp"/>
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/tv_dialog_cancel"
         android:background="@drawable/bg_wireframe_5_black"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="取消"
+        android:textSize="17sp"
+        android:textColor="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="57dp"/>
 
 </LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="76.5dp">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_card_bag_list_icon"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"/>
+
+    <TextView
+        android:id="@+id/tv_item_card_bag_list_title"
+        android:text="联想笔记本"
+        android:layout_toRightOf="@+id/iv_item_card_bag_list_icon"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="22.5dp"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_item_card_bag_list_collect_num"
+        android:layout_toRightOf="@+id/iv_item_card_bag_list_icon"
+        android:layout_below="@+id/tv_item_card_bag_list_title"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="22.5dp"
+        android:text="200人收藏  99人认同"
+        android:textSize="11sp"
+        android:textColor="@color/text_color_99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:background="@color/wireframe_shallow"
+        android:layout_marginLeft="78.6dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+</RelativeLayout>

@@ -1,20 +1,20 @@
-package com.zxcx.shitang.ui.collect.cardCollect;
+package com.zxcx.shitang.ui.search;
 
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
-public class CardCollectPresenter extends BasePresenter<CardCollectContract.View> implements CardCollectContract.Presenter {
+public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter {
 
-    private final CardCollectModel mModel;
+    private final SearchModel mModel;
 
-    public CardCollectPresenter(@NonNull CardCollectContract.View view) {
+    public SearchPresenter(@NonNull SearchContract.View view) {
         attachView(view);
-        mModel = new CardCollectModel(this);
+        mModel = new SearchModel(this);
     }
 
     @Override
-    public void getDataSuccess(CardCollectBean bean) {
+    public void getDataSuccess(SearchBean bean) {
         mView.getDataSuccess(bean);
     }
 

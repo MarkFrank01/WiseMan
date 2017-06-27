@@ -25,6 +25,16 @@ public class SelectAttentionPresenter extends BasePresenter<SelectAttentionContr
         mView.toastFail(msg);
     }
 
+    @Override
+    public void showLoading() {
+        mView.showLoading();
+    }
+
+    @Override
+    public void hideLoading() {
+        mView.hideLoading();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

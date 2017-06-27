@@ -1,0 +1,170 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context="com.zxcx.shitang.ui.my.MyFragment">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_attention"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_attention"
+            android:layout_marginLeft="15dp"
+            android:text="@string/tv_common_setting_attention"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="15dp"
+        android:background="@color/wireframe_shallow"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_push"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_push"
+            android:layout_marginLeft="15dp"
+            android:text="@string/tv_common_setting_push"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="42dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            app:switchMinWidth="42dp"
+            android:textOn=""
+            android:textOff=""
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_night_model"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_night_model"
+            android:layout_marginLeft="15dp"
+            android:text="@string/tv_common_setting_night_model"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="42dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            app:switchMinWidth="42dp"
+            android:textOn=""
+            android:textOff=""
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="15dp"
+        android:background="@color/wireframe_shallow"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_only_wifi"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_only_wifi"
+            android:layout_marginLeft="15dp"
+            android:text="@string/tv_common_setting_only_wifi"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="42dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            app:switchMinWidth="42dp"
+            android:textOn=""
+            android:textOff=""
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_clean_cache"
+        android:layout_marginTop="20dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_clean_cache"
+            android:layout_marginLeft="14.5dp"
+            android:text="@string/tv_common_setting_clean_cache"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            tools:text="100M"
+            android:textSize="14sp"
+            android:textColor="@color/text_color_66"
+            android:layout_marginRight="22.5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

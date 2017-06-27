@@ -20,7 +20,7 @@ public class AllCardBagAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity
     public AllCardBagAdapter(List<MultiItemEntity> data) {
         super(data);
         addItemType(0, R.layout.item_title_all_card_bag);
-        addItemType(1,R.layout.item_select_attention);
+        addItemType(1,R.layout.item_attention);
     }
 
     @Override

@@ -1,12 +1,5 @@
 package com.zxcx.shitang.utils;
 
-/**
- * User: Picasso
- * Date: 2016-03-16
- * Time: 17:51
- * FIXME
- */
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -72,13 +65,6 @@ public class Utils {
             return false;
         }
         return (current.isAvailable());
-    }
-
-    public static int[] getScreenSize(Context context) {
-        DisplayMetrics dm ;
-        dm = context.getResources().getDisplayMetrics();
-        int[] size = {dm.widthPixels, dm.heightPixels};
-        return size;
     }
 
     public static Boolean getIsFirstLaunchApp(Context mThis){
