@@ -19,6 +19,7 @@
             android:id="@+id/iv_my_head"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
+            android:src="@drawable/iv_my_head_placeholder"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:riv_oval="true"/>
@@ -74,6 +75,7 @@
         android:layout_height="60dp">
 
         <ImageView
+            android:src="@drawable/tv_my_collect"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="22.5dp"
             android:layout_width="wrap_content"
@@ -106,6 +108,7 @@
         android:layout_height="60dp">
 
         <ImageView
+            android:src="@drawable/tv_my_common_setting"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="22.5dp"
             android:layout_width="wrap_content"
@@ -143,6 +146,7 @@
         android:layout_height="60dp">
 
         <ImageView
+            android:src="@drawable/tv_my_feedback"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="22.5dp"
             android:layout_width="wrap_content"
@@ -180,6 +184,7 @@
         android:layout_height="60dp">
 
         <ImageView
+            android:src="@drawable/tv_my_about_us"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="22.5dp"
             android:layout_width="wrap_content"

@@ -4,24 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="90dp"
+    android:layout_height="90dp">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_item_card_bag_icon"
+        android:id="@+id/iv_item_home_card_bag_icon"
+        android:src="@drawable/iv_item_home_card_bag_icon"
         android:layout_centerInParent="true"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:riv_corner_radius="8dp"/>
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:riv_corner_radius="6dp"/>
 
     <TextView
-        android:id="@+id/tv_item_card_bag_name"
-        tools:text="生活常识"
+        android:id="@+id/tv_item_home_card_bag_title"
+        android:text="生活常识"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:background="@drawable/bg_item_attention_title"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"/>
 
 </RelativeLayout>

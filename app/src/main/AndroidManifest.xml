@@ -13,7 +13,6 @@
         <activity android:name=".ui.loginAndRegister.selectAttention.SelectAttentionActivity"/>
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

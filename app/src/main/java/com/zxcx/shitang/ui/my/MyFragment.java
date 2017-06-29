@@ -76,8 +76,4 @@ public class MyFragment extends Fragment {
     @OnClick(R.id.ll_my_about_us)
     public void onMLlMyAboutUsClicked() {
     }
-
-    @OnClick(R.id.ll_my_share)
-    public void onMLlMyShareClicked() {
-    }
 }

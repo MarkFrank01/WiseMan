@@ -2,53 +2,64 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="168dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerHorizontal="true"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="15dp"
-    android:background="@drawable/bg_item_home_card"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_item_card_icon"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/iv_item_card_icon"/>
-    
-    <TextView
-        android:id="@+id/tv_item_card_title"
+    <LinearLayout
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="14dp"
-        tools:text="笔记本"
-        android:textColor="@color/text_color_40"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:background="@drawable/bg_item_home_card"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_item_card_collect_num"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp"
-        tools:text="200人收藏  200人认同"
-        android:textColor="@color/text_color_99"
-        android:textSize="11dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_item_card_icon"
+            android:src="@drawable/iv_item_card_icon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iv_item_card_icon"
+            app:riv_corner_radius_top_left="6dp"
+            app:riv_corner_radius_top_right="6dp"/>
 
-    <TextView
-        android:id="@+id/tv_item_card_type"
-        android:background="@drawable/bg_item_home_card_type"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="13dp"
-        android:paddingLeft="9dp"
-        android:paddingRight="9dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:gravity="center"
-        android:lineSpacingExtra="15sp"
-        tools:text="数码产品"
-        android:textColor="@color/colorAccent"
-        android:textSize="11sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_item_card_title"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="17dp"
+            android:text="笔记本"
+            android:textColor="@color/text_color_40"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+        <TextView
+            android:id="@+id/tv_item_card_collect_num"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="200人收藏  200人认同"
+            android:textColor="@color/text_color_99"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_item_card_type"
+            android:background="@drawable/bg_item_home_card_type"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="13dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:gravity="center"
+            android:lineSpacingExtra="15sp"
+            android:text="数码产品"
+            android:textColor="@color/colorAccent"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

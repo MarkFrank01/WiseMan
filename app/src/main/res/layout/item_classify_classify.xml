@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_classify_classify"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bg_item_classify"
+        android:layout_marginTop="11dp"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <TextView
+        android:text="热门推荐"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="11dp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/tv_item_title_all_card_bag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_item_classify_ad"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="11dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_item_classify_ad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/iv_item_classify_ad"
+            app:riv_corner_radius="6dp"/>
+
+        <ImageView
+            android:src="@drawable/iv_item_classify_ad_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</LinearLayout>

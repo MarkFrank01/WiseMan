@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/tv_home_search"
+            android:background="@drawable/bg_home_search"
+            android:drawableLeft="@drawable/tv_home_search"
+            android:drawablePadding="7.5dp"
+            android:paddingLeft="8dp"
+            android:text="搜索你想要的内容"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textColor="#B2FFFFFF"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"/>
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_classify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_classify"
+            android:background="@color/white"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

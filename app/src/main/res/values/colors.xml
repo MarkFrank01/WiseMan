@@ -10,6 +10,7 @@
     <color name="wireframe">#E4E4E4</color>
     <color name="wireframe_shallow">#E1E1E1</color>
     <color name="text_color_40">#404040</color>
+    <color name="text_color_33">#333333</color>
     <color name="text_color_66">#666666</color>
     <color name="text_color_99">#999999</color>
     <color name="track_off">#E0E0E0</color>

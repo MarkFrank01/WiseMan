@@ -1,20 +1,20 @@
-package com.zxcx.shitang.ui.allCardBag;
+package com.zxcx.shitang.ui.classify;
 
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
-public class AllCardBagPresenter extends BasePresenter<AllCardBagContract.View> implements AllCardBagContract.Presenter {
+public class ClassifyPresenter extends BasePresenter<ClassifyContract.View> implements ClassifyContract.Presenter {
 
-    private final AllCardBagModel mModel;
+    private final ClassifyModel mModel;
 
-    public AllCardBagPresenter(@NonNull AllCardBagContract.View view) {
+    public ClassifyPresenter(@NonNull ClassifyContract.View view) {
         attachView(view);
-        mModel = new AllCardBagModel(this);
+        mModel = new ClassifyModel(this);
     }
 
     @Override
-    public void getDataSuccess(AllCardBagBean bean) {
+    public void getDataSuccess(ClassifyBean bean) {
         mView.getDataSuccess(bean);
     }
 

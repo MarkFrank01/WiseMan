@@ -27,6 +27,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="Widget.Design.AppBarLayout.NoElevation" parent="Widget.Design.AppBarLayout">
+        <item name="elevation">0dp</item>
+    </style>
+
     <style name="text_16sp_66">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_color_66</item>

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">shitang</string>
     <string name="home_home">首页</string>
-    <string name="home_all">全部</string>
+    <string name="home_classify">分类</string>
     <string name="home_my">我的</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -25,18 +25,20 @@
         <RadioButton
             android:id="@+id/home_tab_home"
             style="@style/BottomTab"
-            android:checked="true"
-            android:text="@string/home_home" />
+            android:text="@string/home_home"
+            android:drawableTop="@drawable/select_home_home"/>
 
         <RadioButton
-            android:id="@+id/home_tab_all"
+            android:id="@+id/home_tab_classify"
             style="@style/BottomTab"
-            android:text="@string/home_all" />
+            android:text="@string/home_classify"
+            android:drawableTop="@drawable/select_home_classify" />
 
         <RadioButton
             android:id="@+id/home_tab_note"
             style="@style/BottomTab"
-            android:text="@string/home_my" />
+            android:text="@string/home_my"
+            android:drawableTop="@drawable/select_home_my" />
     </RadioGroup>
 </LinearLayout>
 

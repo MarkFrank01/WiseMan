@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.home.attention.AttentionFragment;
@@ -73,7 +74,9 @@ public class HomeFragment extends Fragment {
         mTlHome.setupWithViewPager(mVpHome);
         for (int i = 0; i < mTlHome.getTabCount(); i++) {
             TabLayout.Tab tab = mTlHome.getTabAt(i);
-            tab.setText(titles[i]);
+            tab.setCustomView(R.layout.tab_home);
+            ((TextView)tab.getCustomView().findViewById(R.id.tv_tab_home)).setText(titles[i]);
+//            tab.setText(titles[i]);
         }
     }
 
