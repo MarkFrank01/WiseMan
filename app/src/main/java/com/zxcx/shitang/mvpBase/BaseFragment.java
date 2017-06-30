@@ -4,6 +4,7 @@ package com.zxcx.shitang.mvpBase;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.zxcx.shitang.R;
 
+import butterknife.OnClick;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -38,6 +40,13 @@ public class BaseFragment extends Fragment implements BaseView{
     }
 
     public Toolbar initToolBar(View view, String title) {
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(title);
+        return toolbar;
+    }
+
+    public Toolbar initToolBar(View view,@StringRes int title) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(title);

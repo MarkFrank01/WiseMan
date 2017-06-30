@@ -1,16 +1,57 @@
 package com.zxcx.shitang.ui.my;
 
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
+import android.widget.TextView;
 
+import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by anm on 2017/6/26.
  */
 
-public class CommonSettingActivity extends BaseActivity{
+public class CommonSettingActivity extends BaseActivity {
+    @BindView(R.id.sc_common_setting_push)
+    SwitchCompat mScCommonSettingPush;
+    @BindView(R.id.sc_common_setting_night_model)
+    SwitchCompat mScCommonSettingNightModel;
+    @BindView(R.id.sc_common_setting_only_wifi)
+    SwitchCompat mScCommonSettingOnlyWifi;
+    @BindView(R.id.tv_common_setting_clean_cache)
+    TextView mTvCommonSettingCleanCache;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_common_setting);
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.ll_common_setting_attention)
+    public void onMLlCommonSettingAttentionClicked() {
+    }
+
+    @OnClick(R.id.ll_common_setting_push)
+    public void onMLlCommonSettingPushClicked() {
+        mScCommonSettingPush.setChecked(!mScCommonSettingPush.isChecked());
+    }
+
+    @OnClick(R.id.ll_common_setting_night_model)
+    public void onMLlCommonSettingNightModelClicked() {
+        mScCommonSettingNightModel.setChecked(!mScCommonSettingNightModel.isChecked());
+    }
+
+    @OnClick(R.id.ll_common_setting_only_wifi)
+    public void onMLlCommonSettingOnlyWifiClicked() {
+        mScCommonSettingOnlyWifi.setChecked(!mScCommonSettingOnlyWifi.isChecked());
+    }
+
+    @OnClick(R.id.ll_common_setting_clean_cache)
+    public void onMLlCommonSettingCleanCacheClicked() {
     }
 }

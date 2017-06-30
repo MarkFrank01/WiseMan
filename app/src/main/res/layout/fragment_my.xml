@@ -11,6 +11,7 @@
     <include layout="@layout/toolbar"/>
 
     <RelativeLayout
+        android:id="@+id/rl_my_head"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="100dp">
@@ -43,7 +44,7 @@
             android:layout_marginTop="28dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="6666"
+            android:text="6666"
             android:textSize="16sp"
             android:textColor="@color/text_color_40"/>
 
@@ -54,7 +55,7 @@
             android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="查看个人主页/编辑资料"
+            android:text="查看个人主页/编辑资料"
             android:textSize="13sp"
             android:textColor="@color/text_color_99"/>
 
@@ -92,6 +93,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:src="@drawable/common_into"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -125,6 +127,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:src="@drawable/common_into"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -163,6 +166,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
+            android:src="@drawable/common_into"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -201,6 +205,7 @@
             android:text="@string/tv_my_about_us"/>
 
         <ImageView
+            android:src="@drawable/common_into"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"

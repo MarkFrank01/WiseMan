@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.classify.ClassifyFragment;
 import com.zxcx.shitang.ui.home.HomeFragment;
+import com.zxcx.shitang.ui.my.MyFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 switchFragment(ClassifyFragment.newInstance());
                 break;
             case R.id.home_tab_note:
+                switchFragment(MyFragment.newInstance());
                 break;
         }
     }

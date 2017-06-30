@@ -10,9 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.loginAndRegister.selectAttention.SelectAttentionActivity"/>
+        <activity
+            android:name=".ui.loginAndRegister.selectAttention.SelectAttentionActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -20,15 +23,28 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.loginAndRegister.login.LoginActivity"/>
-        <activity android:name=".ui.welcome.WebViewActivity">
+        <activity
+            android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.welcome.WebViewActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".ui.search.SearchActivity"/>
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.UserInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.CommonSettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.my.collect.CollectBagActivity"/>
     </application>
 
 </manifest>

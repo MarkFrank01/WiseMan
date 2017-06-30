@@ -1,14 +1,21 @@
 package com.zxcx.shitang.ui.my;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseFragment;
+import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +27,7 @@ import butterknife.Unbinder;
  * Use the {@link MyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends BaseFragment {
 
     private static MyFragment fragment = null;
     Unbinder unbinder;
@@ -30,8 +37,28 @@ public class MyFragment extends Fragment {
     TextView mTvMyNickName;
     @BindView(R.id.tv_my_collect)
     TextView mTvMyCollect;
+    @BindView(R.id.iv_toolbar_back)
+    ImageView mIvToolbarBack;
+    @BindView(R.id.iv_my_head)
+    RoundedImageView mIvMyHead;
+    @BindView(R.id.rl_my_head)
+    RelativeLayout mRlMyHead;
+    @BindView(R.id.ll_my_collect)
+    LinearLayout mLlMyCollect;
+    @BindView(R.id.tv_my_common_setting)
+    TextView mTvMyCommonSetting;
+    @BindView(R.id.ll_my_common_setting)
+    LinearLayout mLlMyCommonSetting;
+    @BindView(R.id.tv_my_feedback)
+    TextView mTvMyFeedback;
+    @BindView(R.id.ll_my_feedback)
+    LinearLayout mLlMyFeedback;
+    @BindView(R.id.tv_my_about_us)
+    TextView mTvMyAboutUs;
+    @BindView(R.id.ll_my_about_us)
+    LinearLayout mLlMyAboutUs;
 
-    public static MyFragment newInstance(String param1, String param2) {
+    public static MyFragment newInstance() {
         if (fragment == null) {
             fragment = new MyFragment();
         }
@@ -52,28 +79,42 @@ public class MyFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initToolBar(view, R.string.title_my);
+        mIvToolbarBack.setVisibility(View.GONE);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
 
-    @OnClick(R.id.iv_my_head)
+    @OnClick(R.id.rl_my_head)
     public void onMIvMyHeadClicked() {
+        Intent intent = new Intent(getContext(), UserInfoActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_my_collect)
     public void onMLlMyCollectClicked() {
+
     }
 
     @OnClick(R.id.ll_my_common_setting)
     public void onMLlMyCommonSettingClicked() {
+        Intent intent = new Intent(getContext(), CommonSettingActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_my_feedback)
     public void onMLlMyFeedbackClicked() {
+
     }
 
     @OnClick(R.id.ll_my_about_us)
     public void onMLlMyAboutUsClicked() {
+
     }
 }

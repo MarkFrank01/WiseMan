@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.home.attention.AttentionFragment;
 import com.zxcx.shitang.ui.home.hot.HotFragment;
 
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     @BindView(R.id.tl_home)
     TabLayout mTlHome;
