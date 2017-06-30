@@ -9,7 +9,7 @@
     android:layout_marginBottom="15dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="@dimen/dp_168"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -26,40 +26,38 @@
 
         <TextView
             android:id="@+id/tv_item_collect_bag_title"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="17dp"
+            android:layout_below="@+id/iv_item_collect_bag_icon"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15.5dp"
             android:text="笔记本"
             android:textColor="@color/text_color_40"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tv_item_collect_bag_time"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:text="200人收藏  200人认同"
+            android:layout_below="@+id/tv_item_collect_bag_title"
+            android:layout_marginTop="18.5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="16dp"
+            android:text="2017-08-16"
             android:textColor="@color/text_color_99"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tv_item_collect_bag_num"
-            android:background="@drawable/bg_item_home_card_type"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="17dp"
-            android:layout_marginBottom="13dp"
-            android:paddingLeft="9dp"
-            android:paddingRight="9dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:layout_below="@+id/iv_item_collect_bag_icon"
+            android:layout_alignParentRight="true"
             android:gravity="center"
-            android:lineSpacingExtra="15sp"
-            android:text="数码产品"
-            android:textColor="@color/colorAccent"
-            android:textSize="11sp"
+            android:layout_marginTop="42.5dp"
+            android:layout_marginRight="11dp"
+            android:text="56"
+            android:textColor="@color/track_off"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

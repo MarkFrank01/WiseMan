@@ -1,22 +1,22 @@
-package com.zxcx.shitang.ui.my.collect;
+package com.zxcx.shitang.ui.card.cardBag;
 
-import com.zxcx.shitang.ui.my.collect.CollectBagContract;
-import com.zxcx.shitang.ui.my.collect.CollectBagModel;
+import com.zxcx.shitang.ui.card.cardBag.CardBagContract;
+import com.zxcx.shitang.ui.card.cardBag.CardBagModel;
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
 import android.support.annotation.NonNull;
 
-public class CollectBagPresenter extends BasePresenter<CollectBagContract.View> implements CollectBagContract.Presenter {
+public class CardBagPresenter extends BasePresenter<CardBagContract.View> implements CardBagContract.Presenter {
 
-    private final CollectBagModel mModel;
+    private final CardBagModel mModel;
 
-    public CollectBagPresenter(@NonNull CollectBagContract.View view) {
+    public CardBagPresenter(@NonNull CardBagContract.View view) {
         attachView(view);
-        mModel = new CollectBagModel(this);
+        mModel = new CardBagModel(this);
     }
 
     @Override
-    public void getDataSuccess(CollectBagBean bean) {
+    public void getDataSuccess(CardBagBean bean) {
         mView.getDataSuccess(bean);
     }
 

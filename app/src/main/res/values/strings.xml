@@ -26,4 +26,6 @@
     <string name="tv_user_info_sex">性别</string>
     <string name="title_my">我的</string>
     <string name="title_user_info">账户资料</string>
+    <string name="tltle_collect_bag">我的收藏</string>
+    <string name="tv_home_search">搜索你想要的内容</string>
 </resources>

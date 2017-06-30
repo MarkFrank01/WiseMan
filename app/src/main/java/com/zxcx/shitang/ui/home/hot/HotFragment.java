@@ -1,5 +1,7 @@
 package com.zxcx.shitang.ui.home.hot;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
+import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
@@ -88,6 +91,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     @Override
     public void onRefresh() {
         isErr = false;
+        mHotCardAdapter.setEnableLoadMore(false);
         mHotCardAdapter.setEnableLoadMore(true);
         mList.clear();
         getData();
@@ -121,16 +125,18 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager hotCardLayoutManager = new GridLayoutManager(getContext(), 2);
-        mHotCardAdapter = new HotCardAdapter(R.layout.item_home_card, mList);
+        mHotCardAdapter = new HotCardAdapter(mList);
         mHotCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mHotCardAdapter.setOnLoadMoreListener(this, mRvHotCard);
+        mHotCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
         mRvHotCard.setLayoutManager(hotCardLayoutManager);
         mRvHotCard.setAdapter(mHotCardAdapter);
         mRvHotCard.addItemDecoration(new HomeCardItemDecoration());
 
         View view = View.inflate(getContext(),R.layout.head_home_hot,null);
         mRvHotCardBag = (RecyclerView) view.findViewById(R.id.rv_hot_card_bag);
-        mHotCardBagAdapter = new HotCardBagAdapter(R.layout.item_home_card_bag, mList);
+        mHotCardBagAdapter = new HotCardBagAdapter(mList);
+        mHotCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvHotCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvHotCardBag.setAdapter(mHotCardBagAdapter);
         mRvHotCardBag.addItemDecoration(new HomeCardBagItemDecoration());
@@ -141,6 +147,35 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     private void getData() {
         for (int i = 0; i < 10; i++) {
             mList.add(new HotBean());
+        }
+    }
+
+    static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener{
+
+        private Context mContext;
+
+        public CardBagItemClickListener(Context context) {
+            mContext  = context;
+        }
+
+        @Override
+        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            Intent intent = new Intent(mContext, CardBagActivity.class);
+            mContext.startActivity(intent);
+        }
+    }
+
+    static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{
+
+        private Context mContext;
+
+        public CardItemClickListener(Context context) {
+            mContext  = context;
+        }
+
+        @Override
+        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
         }
     }
 }

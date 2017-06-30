@@ -22,6 +22,30 @@ public class ScreenUtils {
     }
 
     /**
+     * 获取屏幕尺寸Width
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics dm ;
+        dm = context.getResources().getDisplayMetrics();
+        int size = dm.widthPixels;
+        return size;
+    }
+
+    /**
+     * 获取屏幕尺寸Height
+     * @param context
+     * @return
+     */
+    public static int getScreenHeight(Context context) {
+        DisplayMetrics dm ;
+        dm = context.getResources().getDisplayMetrics();
+        int size = dm.heightPixels;
+        return size;
+    }
+
+    /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */
     public static int dip2px(Context context, float dpValue) {

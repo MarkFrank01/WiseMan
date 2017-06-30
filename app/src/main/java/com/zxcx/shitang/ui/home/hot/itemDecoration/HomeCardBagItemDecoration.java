@@ -14,6 +14,9 @@ import com.zxcx.shitang.utils.ScreenUtils;
 public class HomeCardBagItemDecoration extends RecyclerView.ItemDecoration {
 
     private int defultSpace = ScreenUtils.dip2px(App.getContext(),6f);
+    int screenWidth = ScreenUtils.getScreenWidth(App.getContext()); //屏幕宽度
+    int itemWidth = ScreenUtils.dip2px(App.getContext(), 168); //每个item的宽度
+    private int space = screenWidth - defultSpace*2 - itemWidth*2;
 
     public HomeCardBagItemDecoration() {
         super();

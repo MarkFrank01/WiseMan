@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseFragment;
+import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 
 import butterknife.BindView;
@@ -99,7 +100,8 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.ll_my_collect)
     public void onMLlMyCollectClicked() {
-
+        Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_my_common_setting)

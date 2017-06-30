@@ -123,6 +123,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Override
     public void onRefresh() {
         isErr = false;
+        mClassifyAdapter.setEnableLoadMore(false);
         mClassifyAdapter.setEnableLoadMore(true);
         mList.clear();
         getData();

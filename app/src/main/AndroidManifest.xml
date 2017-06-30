@@ -44,7 +44,8 @@
         <activity
             android:name=".ui.my.CommonSettingActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.collect.CollectBagActivity"/>
+        <activity android:name=".ui.my.collect.collectFolder.CollectFolderActivity"/>
+        <activity android:name=".ui.card.cardBag.CardBagActivity"/>
     </application>
 
 </manifest>
