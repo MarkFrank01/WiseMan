@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,9 +16,11 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.home.attention.AttentionFragment;
 import com.zxcx.shitang.ui.home.hot.HotFragment;
+import com.zxcx.shitang.ui.search.search.SearchActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class HomeFragment extends BaseFragment {
@@ -60,9 +63,9 @@ public class HomeFragment extends BaseFragment {
         mVpHome.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if (position == 0){
+                if (position == 0) {
                     return mHotFragment;
-                }else {
+                } else {
                     return mAttentionFragment;
                 }
             }
@@ -76,7 +79,7 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < mTlHome.getTabCount(); i++) {
             TabLayout.Tab tab = mTlHome.getTabAt(i);
             tab.setCustomView(R.layout.tab_home);
-            ((TextView)tab.getCustomView().findViewById(R.id.tv_tab_home)).setText(titles[i]);
+            ((TextView) tab.getCustomView().findViewById(R.id.tv_tab_home)).setText(titles[i]);
 //            tab.setText(titles[i]);
         }
     }
@@ -91,5 +94,11 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.tv_home_search)
+    public void onViewClicked() {
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
     }
 }

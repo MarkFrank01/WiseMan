@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import static com.zxcx.shitang.App.getContext;
 
 public class CardBagActivity extends MvpActivity<CardBagPresenter> implements CardBagContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener ,View.OnClickListener{
 
     private static final int TOTAL_COUNTER = 20;
     @BindView(R.id.rv_card_bag_card)
@@ -44,6 +44,9 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     private CardBagListAdapter mCardBagListAdapter;
     private boolean isErr = false;
     private boolean isCard = true;
+    private int showFistItem;
+    private GridLayoutManager mCardBagCardManager;
+    private LinearLayoutManager mCardBagListManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +65,19 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     }
 
     private void initRecyclerView() {
+        mCardBagCardManager = new GridLayoutManager(getContext(), 2);
         mCardBagCardAdapter = new CardBagCardAdapter(mList);
         mCardBagCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagCardAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
-        mRvCardBagCard.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRvCardBagCard.setLayoutManager(mCardBagCardManager);
         mRvCardBagCard.setAdapter(mCardBagCardAdapter);
         mRvCardBagCard.addItemDecoration(new CardBagCardItemDecoration());
 
+        mCardBagListManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mCardBagListAdapter = new CardBagListAdapter(mList);
         mCardBagListAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mCardBagListAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
-        mRvCardBagList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mCardBagListAdapter.setOnLoadMoreListener(this, mRvCardBagList);
+        mRvCardBagList.setLayoutManager(mCardBagListManager);
         mRvCardBagList.setAdapter(mCardBagListAdapter);
     }
 
@@ -104,16 +109,20 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mSrlCardBag.setEnabled(false);
         if (mCardBagCardAdapter.getData().size() > TOTAL_COUNTER) {
             mCardBagCardAdapter.loadMoreEnd(false);
+            mCardBagListAdapter.loadMoreEnd(false);
         } else {
             if (isErr) {
                 getData();
 //                mHotCardAdapter.addData();
                 mCardBagCardAdapter.notifyDataSetChanged();
                 mCardBagCardAdapter.loadMoreComplete();
+                mCardBagListAdapter.notifyDataSetChanged();
+                mCardBagListAdapter.loadMoreComplete();
             } else {
                 isErr = true;
                 Toast.makeText(getContext(), "网络错误", Toast.LENGTH_LONG).show();
                 mCardBagCardAdapter.loadMoreFail();
+                mCardBagListAdapter.loadMoreFail();
             }
         }
         mSrlCardBag.setEnabled(true);
@@ -125,18 +134,22 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         }
     }
 
-    class OnRightClickListener implements View.OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            if (isCard){
-                isCard = !isCard;
-                mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
-
-            }else {
-                isCard = !isCard;
-                mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
-            }
+    @Override
+    public void onClick(View v) {
+        if (isCard){
+            isCard = !isCard;
+            mRvCardBagCard.setVisibility(View.GONE);
+            mRvCardBagList.setVisibility(View.VISIBLE);
+            mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
+            showFistItem = mCardBagCardManager.findFirstVisibleItemPosition();
+            mCardBagListManager.scrollToPosition(showFistItem);
+        }else {
+            isCard = !isCard;
+            mRvCardBagCard.setVisibility(View.VISIBLE);
+            mRvCardBagList.setVisibility(View.GONE);
+            mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
+            showFistItem = mCardBagListManager.findFirstVisibleItemPosition();
+            mCardBagCardManager.scrollToPosition(showFistItem);
         }
     }
 

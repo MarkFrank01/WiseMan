@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="76.5dp">
@@ -8,9 +9,12 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_card_bag_list_icon"
         android:layout_centerVertical="true"
+        android:src="@drawable/iv_item_home_card_icon"
+        android:scaleType="centerCrop"
         android:layout_marginLeft="12dp"
         android:layout_width="44dp"
-        android:layout_height="44dp"/>
+        android:layout_height="44dp"
+        app:riv_corner_radius="4dp"/>
 
     <TextView
         android:id="@+id/tv_item_card_bag_list_title"

@@ -18,7 +18,7 @@ import com.zxcx.shitang.R;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BaseActivity extends AppCompatActivity implements BaseView , View.OnClickListener{
+public class BaseActivity extends AppCompatActivity implements BaseView {
     public Activity mActivity;
     public ProgressDialog progressDialog;
 
@@ -111,8 +111,8 @@ public class BaseActivity extends AppCompatActivity implements BaseView , View.O
         actionBar.setTitle("");
         ImageView ivBack = (ImageView) toolbar.findViewById(R.id.iv_toolbar_back);
         TextView tvBack = (TextView) toolbar.findViewById(R.id.tv_toolbar_back);
-        ivBack.setOnClickListener(this);
-        tvBack.setOnClickListener(this);
+        ivBack.setOnClickListener(new BackListener());
+        tvBack.setOnClickListener(new BackListener());
         return toolbar;
     }
 
@@ -174,10 +174,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView , View.O
         toastShow(msg);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.iv_toolbar_back){
-            onBackPressed();//返回
+    class BackListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.iv_toolbar_back){
+                onBackPressed();//返回
+            }
         }
     }
 }

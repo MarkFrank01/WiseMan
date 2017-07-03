@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_search_result_toolbar"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/tv_home_search"
+            android:background="@drawable/bg_home_search"
+            android:drawableLeft="@drawable/tv_home_search"
+            android:drawablePadding="7.5dp"
+            android:paddingLeft="8dp"
+            android:hint="@string/tv_home_search"
+            android:textColorHint="#B2FFFFFF"
+            android:text="笔"
+            android:textSize="14sp"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="28dp"/>
+
+        <TextView
+            android:id="@+id/tv_search_result_cancel"
+            android:text="@string/common_cancel"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="7dp"
+            android:paddingRight="16.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_search_result"
+        android:layout_below="@+id/ll_search_result_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_result_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

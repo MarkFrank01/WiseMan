@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.search;
+package com.zxcx.shitang.ui.search.search;
 
 import android.support.annotation.NonNull;
 

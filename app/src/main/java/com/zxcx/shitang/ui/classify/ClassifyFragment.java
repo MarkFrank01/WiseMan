@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.classify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
+import com.zxcx.shitang.ui.search.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,5 +157,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     @OnClick(R.id.tv_home_search)
     public void onViewClicked() {
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent);
     }
 }

@@ -7,5 +7,4 @@ package com.zxcx.shitang.utils;
 public class Constants {
     public static final String RESULT_OK = "1";
     public static final String RESULT_FAIL = "0";
-    public static final String SEARCH_HISTORY = "search_history";
 }

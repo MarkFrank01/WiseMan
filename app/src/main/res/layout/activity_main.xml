@@ -16,7 +16,7 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
+        android:layout_height="50dp"
         android:paddingTop="8dp"
         android:layout_marginTop="0.5dp"
         android:background="@color/white"

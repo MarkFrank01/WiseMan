@@ -1,11 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/content"
+    <ImageView
+        android:id="@+id/iv_left_close"
+        android:src="@drawable/common_close"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="206dp">
+        <EditText
+            android:id="@+id/et_search"
+            android:gravity="center_vertical"
+            android:hint="输入你想查找的"
+            android:textColorHint="@color/wireframe_shallow"
+            android:textColor="@color/text_color_66"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@drawable/bg_search_edit"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textSize="18sp"
+            android:background="@null"
+            android:imeOptions="actionSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"/>
 
-</LinearLayout>
+        <View
+            android:layout_below="@+id/et_search"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/wireframe_shallow"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_search_hot"
+        android:layout_below="@id/rl_search"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/text_color_99"
+        android:textSize="12sp"
+        android:text="@string/tv_search_hot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/ll_search_hot_refresh"
+        android:orientation="horizontal"
+        android:layout_below="@id/rl_search"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="7dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_search_hot_refresh"
+            android:src="@drawable/iv_search_refresh"
+            android:layout_marginRight="5.5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_search_hot_refresh"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            android:text="@string/tv_search_hot_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/fl_search_hot"
+        android:layout_below="@id/tv_search_hot"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:flexDirection="row"
+        app:showDividerHorizontal="middle"
+        app:dividerDrawableHorizontal="@color/white"
+        app:showDividerVertical="middle"
+        app:dividerDrawableVertical="@color/white"
+        app:alignItems="center"
+        app:alignContent="flex_start">
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</RelativeLayout>

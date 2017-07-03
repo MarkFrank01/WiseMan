@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".ui.search.SearchActivity"
+            android:name=".ui.search.search.SearchActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.UserInfoActivity"
@@ -46,6 +46,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.my.collect.collectFolder.CollectFolderActivity"/>
         <activity android:name=".ui.card.cardBag.CardBagActivity"/>
+        <activity android:name=".ui.search.result.SearchResultActivity"/>
     </application>
 
 </manifest>

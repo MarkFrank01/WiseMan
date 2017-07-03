@@ -18,7 +18,7 @@
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_item_collect_bag_icon"
-            android:src="@drawable/iv_item_card_icon"
+            android:src="@drawable/iv_item_home_card_icon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/iv_item_card_icon"
             app:riv_corner_radius_top_left="6dp"
