@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.my.collect.collectFolder;
+package com.zxcx.shitang.ui.my.collect.collectCard;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
+import com.zxcx.shitang.ui.my.collect.collectCard.adapter.CollectCardAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
@@ -23,16 +23,17 @@ import butterknife.OnClick;
 
 import static com.zxcx.shitang.App.getContext;
 
-public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> implements CollectFolderContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, CollectFolderAdapter.CollectFolderCheckListener {
+public class CollectCardActivity extends MvpActivity<CollectCardPresenter> implements CollectCardContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener,  CollectCardAdapter.CollectCardCheckListener {
 
-    @BindView(R.id.rv_collect_folder)
-    RecyclerView mRvCollectFolder;
     @BindView(R.id.tv_toolbar_right)
     TextView mTvToolbarRight;
-    private CollectFolderAdapter mCollectFolderAdapter;
-    private List<CollectFolderBean> mList = new ArrayList<>();
-    private List<CollectFolderBean> mCheckedList = new ArrayList<>();
+    @BindView(R.id.rv_collect_card)
+    RecyclerView mRvCollectCard;
+
+    private CollectCardAdapter mCollectCardAdapter;
+    private List<CollectCardBean> mList = new ArrayList<>();
+    private List<CollectCardBean> mCheckedList = new ArrayList<>();
     private boolean isErr = false;
     private int TOTAL_COUNTER = 20;
 
@@ -51,51 +52,51 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     private void initRecyclerView() {
-        mCollectFolderAdapter = new CollectFolderAdapter(mList, this);
-        mCollectFolderAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mCollectFolderAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
-        mRvCollectFolder.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mRvCollectFolder.setAdapter(mCollectFolderAdapter);
-        mRvCollectFolder.addItemDecoration(new CollectFolderItemDecoration());
-        mCollectFolderAdapter.notifyDataSetChanged();
+        mCollectCardAdapter = new CollectCardAdapter(mList, this);
+        mCollectCardAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mCollectCardAdapter.setOnLoadMoreListener(this, mRvCollectCard);
+        mRvCollectCard.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRvCollectCard.setAdapter(mCollectCardAdapter);
+        mRvCollectCard.addItemDecoration(new CollectFolderItemDecoration());
+        mCollectCardAdapter.notifyDataSetChanged();
     }
 
     @Override
-    protected CollectFolderPresenter createPresenter() {
-        return new CollectFolderPresenter(this);
+    protected CollectCardPresenter createPresenter() {
+        return new CollectCardPresenter(this);
     }
 
     @Override
-    public void getDataSuccess(CollectFolderBean bean) {
+    public void getDataSuccess(CollectCardBean bean) {
 
     }
 
     @Override
     public void onLoadMoreRequested() {
-        if (mCollectFolderAdapter.getData().size() > TOTAL_COUNTER) {
-            mCollectFolderAdapter.loadMoreEnd(false);
+        if (mCollectCardAdapter.getData().size() > TOTAL_COUNTER) {
+            mCollectCardAdapter.loadMoreEnd(false);
         } else {
             if (isErr) {
                 getData();
 //                mHotCardAdapter.addData();
-                mCollectFolderAdapter.notifyDataSetChanged();
-                mCollectFolderAdapter.loadMoreComplete();
+                mCollectCardAdapter.notifyDataSetChanged();
+                mCollectCardAdapter.loadMoreComplete();
             } else {
                 isErr = true;
                 Toast.makeText(getContext(), "网络错误", Toast.LENGTH_LONG).show();
-                mCollectFolderAdapter.loadMoreFail();
+                mCollectCardAdapter.loadMoreFail();
             }
         }
     }
 
     private void getData() {
         for (int i = 0; i < 10; i++) {
-            mList.add(new CollectFolderBean());
+            mList.add(new CollectCardBean());
         }
     }
 
     @Override
-    public void onCheckedChanged(CollectFolderBean bean, int position, boolean isChecked) {
+    public void onCheckedChanged(CollectCardBean bean, int position, boolean isChecked) {
         if (isChecked) {
             if (!mCheckedList.contains(bean)) {
                 mCheckedList.add(bean);
@@ -117,17 +118,17 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         switch (mTvToolbarRight.getText().toString()){
             case "编辑":
                 mTvToolbarRight.setText("取消");
-                mCollectFolderAdapter.setDelete(true);
-                mCollectFolderAdapter.notifyDataSetChanged();
+                mCollectCardAdapter.setDelete(true);
+                mCollectCardAdapter.notifyDataSetChanged();
                 break;
             case "取消":
                 mTvToolbarRight.setText("编辑");
-                mCollectFolderAdapter.setDelete(false);
-                mCollectFolderAdapter.notifyDataSetChanged();
+                mCollectCardAdapter.setDelete(false);
+                mCollectCardAdapter.notifyDataSetChanged();
                 break;
             case "删除":
                 mList.removeAll(mCheckedList);
-                mCollectFolderAdapter.notifyDataSetChanged();
+                mCollectCardAdapter.notifyDataSetChanged();
                 mCheckedList.clear();
                 break;
         }

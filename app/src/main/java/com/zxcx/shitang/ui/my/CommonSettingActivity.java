@@ -1,11 +1,13 @@
 package com.zxcx.shitang.ui.my;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseActivity;
+import com.zxcx.shitang.ui.loginAndRegister.selectAttention.SelectAttentionActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +36,8 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_attention)
     public void onMLlCommonSettingAttentionClicked() {
+        Intent intent = new Intent(this, SelectAttentionActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_common_setting_push)

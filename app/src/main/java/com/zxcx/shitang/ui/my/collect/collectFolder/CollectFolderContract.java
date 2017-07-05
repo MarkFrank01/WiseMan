@@ -1,7 +1,7 @@
 package com.zxcx.shitang.ui.my.collect.collectFolder;
 
-import com.zxcx.shitang.mvpBase.MvpView;
 import com.zxcx.shitang.mvpBase.IBasePresenter;
+import com.zxcx.shitang.mvpBase.MvpView;
 
 public interface CollectFolderContract {
 

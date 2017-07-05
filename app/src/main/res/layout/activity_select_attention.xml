@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/iv_select_attention_close"
+        android:layout_marginLeft="9dp"
+        android:src="@drawable/common_close"
+        android:padding="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <TextView
-        android:text="选择你想关注的知识"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:id="@+id/tv_select_attention_title"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="19dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_select_attention_close"
+        android:text="选择你感兴趣的"
+        android:textColor="@color/text_color_66"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_select_attention_next"
+        android:text="下一步"
+        android:textColor="@color/color_tv_select_attention_next"
+        android:textSize="17sp"
+        android:enabled="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="29dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="5.5dp"
+        android:drawableRight="@drawable/selector_select_attention_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_select_attention"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:layout_below="@+id/tv_select_attention_title"
+        android:layout_above="@+id/tv_select_attention_next"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"/>
 
-    <TextView
-        android:text="开启识堂"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
-    <TextView
-        android:text="随便看看"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
-</LinearLayout>
+</RelativeLayout>

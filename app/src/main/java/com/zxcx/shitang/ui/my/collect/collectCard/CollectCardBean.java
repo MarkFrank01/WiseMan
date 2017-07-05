@@ -1,6 +1,6 @@
-package com.zxcx.shitang.ui.my.collect.collectFolder;
+package com.zxcx.shitang.ui.my.collect.collectCard;
 
-public class CollectFolderBean {
+public class CollectCardBean {
     private boolean isChecked;
 
     public boolean isChecked() {

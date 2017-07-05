@@ -17,16 +17,33 @@
         android:orientation="vertical">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_item_collect_bag_icon"
+            android:id="@+id/iv_item_collect_folder_icon"
             android:src="@drawable/iv_item_home_card_icon"
             android:layout_width="match_parent"
             android:layout_height="@dimen/iv_item_card_icon"
+            android:scaleType="centerCrop"
             app:riv_corner_radius_top_left="6dp"
             app:riv_corner_radius_top_right="6dp"/>
 
+        <RelativeLayout
+            android:id="@+id/rl_item_collect_folder"
+            android:visibility="gone"
+            android:background="@drawable/bg_item_collect_folder_select"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iv_item_card_icon">
+
+            <CheckBox
+                android:id="@+id/cb_item_collect_folder"
+                android:button="@drawable/selector_cb_item_collect_folder"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
         <TextView
-            android:id="@+id/tv_item_collect_bag_title"
-            android:layout_below="@+id/iv_item_collect_bag_icon"
+            android:id="@+id/tv_item_collect_folder_title"
+            android:layout_below="@+id/iv_item_collect_folder_icon"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="15.5dp"
             android:text="笔记本"
@@ -36,8 +53,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_collect_bag_time"
-            android:layout_below="@+id/tv_item_collect_bag_title"
+            android:id="@+id/tv_item_collect_folder_time"
+            android:layout_below="@+id/tv_item_collect_folder_title"
             android:layout_marginTop="18.5dp"
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="16dp"
@@ -48,8 +65,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_collect_bag_num"
-            android:layout_below="@+id/iv_item_collect_bag_icon"
+            android:id="@+id/tv_item_collect_folder_num"
+            android:layout_below="@+id/iv_item_collect_folder_icon"
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:layout_marginTop="42.5dp"

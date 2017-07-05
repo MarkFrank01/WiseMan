@@ -47,6 +47,7 @@
         <activity android:name=".ui.my.collect.collectFolder.CollectFolderActivity"/>
         <activity android:name=".ui.card.cardBag.CardBagActivity"/>
         <activity android:name=".ui.search.result.SearchResultActivity"/>
+        <activity android:name=".ui.my.collect.collectCard.CollectCardActivity"/>
     </application>
 
 </manifest>

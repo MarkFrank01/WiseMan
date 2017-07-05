@@ -174,7 +174,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         toastShow(msg);
     }
 
-    class BackListener implements View.OnClickListener{
+    private class BackListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.iv_toolbar_back){

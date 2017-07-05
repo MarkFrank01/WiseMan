@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.my.collect.collectFolder.adapter;
+package com.zxcx.shitang.ui.my.collect.collectCard.adapter;
 
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
+import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
 
 import java.util.List;
 
@@ -17,24 +17,23 @@ import java.util.List;
  * Created by anm on 2017/6/26.
  */
 
-public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,BaseViewHolder> {
-
+public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseViewHolder> {
     private boolean isDelete;
-    private CollectFolderCheckListener mListener;
+    private CollectCardCheckListener mListener;
 
-    public interface CollectFolderCheckListener{
-        void onCheckedChanged(CollectFolderBean bean, int position, boolean isChecked);
+    public interface CollectCardCheckListener {
+        void onCheckedChanged(CollectCardBean bean, int position, boolean isChecked);
     }
 
-    public CollectFolderAdapter(@Nullable List<CollectFolderBean> data, CollectFolderCheckListener listener) {
+    public CollectCardAdapter(@Nullable List<CollectCardBean> data, CollectCardCheckListener listener) {
         super(R.layout.item_collect_folder, data);
         mListener = listener;
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final CollectFolderBean item) {
-        RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_folder);
-        final CheckBox checkBox = helper.getView(R.id.cb_item_collect_folder);
+    protected void convert(final BaseViewHolder helper, final CollectCardBean item) {
+        RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_card);
+        final CheckBox checkBox = helper.getView(R.id.cb_item_collect_card);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

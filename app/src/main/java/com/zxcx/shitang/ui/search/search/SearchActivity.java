@@ -119,6 +119,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                 Intent intent = new Intent(SearchActivity.this,SearchResultActivity.class);
                 startActivity(intent);
+                finish();
 
                 return true;
             }
