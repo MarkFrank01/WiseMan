@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.zxcx.shitang.App;
+
 /**
  * Created by WuXiaolong
  * on 2016/3/31.
  */
 public class SharedPreferencesUtil {
 
-    static Context sContext;
+    static Context sContext = App.getContext();
 
     public static String getString(String key,
                                    final String defaultValue) {

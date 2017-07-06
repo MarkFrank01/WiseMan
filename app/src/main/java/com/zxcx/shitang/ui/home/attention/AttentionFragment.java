@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
+import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.HotBean;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
@@ -176,7 +177,8 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            mContext.startActivity(intent);
         }
     }
 }

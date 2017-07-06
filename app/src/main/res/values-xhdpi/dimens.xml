@@ -1,4 +1,5 @@
 <resources>
     <dimen name="iv_item_card_icon">121dp</dimen>
     <dimen name="dp_168">161dp</dimen>
+    <dimen name="sp_14">14sp</dimen>
 </resources>

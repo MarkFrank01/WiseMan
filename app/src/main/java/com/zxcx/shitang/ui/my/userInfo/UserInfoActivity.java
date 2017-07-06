@@ -57,5 +57,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @OnClick(R.id.tv_user_info_logout)
     public void onMTvUserInfoLogoutClicked() {
+        LogoutDialog dialog = new LogoutDialog();
+        dialog.show(getFragmentManager(),"");
     }
 }

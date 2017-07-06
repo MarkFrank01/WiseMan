@@ -1,17 +1,48 @@
 package com.zxcx.shitang.ui.loginAndRegister.login;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.regex.Pattern;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginContract.View {
+
+    @BindView(R.id.et_login_phone)
+    EditText mEtLoginPhone;
+    @BindView(R.id.et_login_password)
+    EditText mEtLoginPassword;
+    @BindView(R.id.btn_login)
+    Button mBtnLogin;
+
+    String phoneRules = "^1\\d{10}$";
+    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
+        initView();
+    }
+
+    private void initView() {
+        mEtLoginPassword.addTextChangedListener(new LoginTextWatcher());
     }
 
     @Override
@@ -22,5 +53,67 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     public void getDataSuccess(LoginBean bean) {
 
+    }
+
+    @OnClick(R.id.tv_login_register)
+    public void onMTvLoginRegisterClicked() {
+    }
+
+    @OnClick(R.id.tv_login_forget_password)
+    public void onMTvLoginForgetPasswordClicked() {
+    }
+
+    @OnClick(R.id.btn_login)
+    public void onMBtnLoginClicked() {
+
+        Pattern phonePattern = Pattern.compile(this.phoneRules);
+        Pattern passwordPattern = Pattern.compile(this.passwordRules);
+        if (phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()
+                && passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()){
+            SharedPreferencesUtil.saveData(SVTSConstants.userId,"asdasd16545");
+            SharedPreferencesUtil.saveData(SVTSConstants.nickName,"一叶知秋");
+            SharedPreferencesUtil.saveData(SVTSConstants.sex,1);
+            SharedPreferencesUtil.saveData(SVTSConstants.birthday,"1992-06-09");
+            EventBus.getDefault().post(new LoginEvent());
+            finish();
+        }else if (!phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()){
+            toastShow("手机号格式错误!");
+        }else if (!passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()){
+            toastShow("密码格式错误!");
+        }
+    }
+
+    @OnClick(R.id.ll_login_qq)
+    public void onMLlLoginQqClicked() {
+    }
+
+    @OnClick(R.id.ll_login_wechat)
+    public void onMLlLoginWechatClicked() {
+    }
+
+    @OnClick(R.id.ll_login_weibo)
+    public void onMLlLoginWeiboClicked() {
+    }
+
+    class LoginTextWatcher implements TextWatcher{
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (mEtLoginPhone.length()>0&&mEtLoginPassword.length()>0){
+                mBtnLogin.setEnabled(true);
+            }else {
+                mBtnLogin.setEnabled(false);
+            }
+        }
     }
 }

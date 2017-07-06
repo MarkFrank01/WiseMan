@@ -14,9 +14,19 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.LoginEvent;
+import com.zxcx.shitang.event.LogoutEvent;
 import com.zxcx.shitang.mvpBase.BaseFragment;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.StringUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +68,8 @@ public class MyFragment extends BaseFragment {
     TextView mTvMyAboutUs;
     @BindView(R.id.ll_my_about_us)
     LinearLayout mLlMyAboutUs;
+    @BindView(R.id.tv_my_info)
+    TextView mTvMyInfo;
 
     public static MyFragment newInstance() {
         if (fragment == null) {
@@ -76,6 +88,7 @@ public class MyFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -84,6 +97,12 @@ public class MyFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initToolBar(view, R.string.title_my);
         mIvToolbarBack.setVisibility(View.GONE);
+
+        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))){
+            setViewLogout();
+        }else {
+            setViewLogin();
+        }
     }
 
     @Override
@@ -92,16 +111,42 @@ public class MyFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        setViewLogin();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        setViewLogout();
+    }
+
     @OnClick(R.id.rl_my_head)
     public void onMIvMyHeadClicked() {
-        Intent intent = new Intent(getContext(), UserInfoActivity.class);
-        startActivity(intent);
+        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))) {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.ll_my_collect)
     public void onMLlMyCollectClicked() {
-        Intent intent = new Intent(getContext(), CollectFolderActivity.class);
-        startActivity(intent);
+        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))) {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.ll_my_common_setting)
@@ -118,5 +163,20 @@ public class MyFragment extends BaseFragment {
     @OnClick(R.id.ll_my_about_us)
     public void onMLlMyAboutUsClicked() {
 
+    }
+
+    private void setViewLogout() {
+        mTvMyLogin.setVisibility(View.VISIBLE);
+        mTvMyNickName.setVisibility(View.GONE);
+        mTvMyInfo.setVisibility(View.GONE);
+        mIvMyHead.setImageResource(R.drawable.iv_my_head_placeholder);
+    }
+
+    private void setViewLogin() {
+        mTvMyLogin.setVisibility(View.GONE);
+        mTvMyNickName.setVisibility(View.VISIBLE);
+        mTvMyInfo.setVisibility(View.VISIBLE);
+        mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName,""));
+        mIvMyHead.setImageResource(R.drawable.iv_my_head_icon);
     }
 }

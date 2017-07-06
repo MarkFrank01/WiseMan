@@ -26,7 +26,7 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
     }
 
     public CollectCardAdapter(@Nullable List<CollectCardBean> data, CollectCardCheckListener listener) {
-        super(R.layout.item_collect_folder, data);
+        super(R.layout.item_collect_card, data);
         mListener = listener;
     }
 

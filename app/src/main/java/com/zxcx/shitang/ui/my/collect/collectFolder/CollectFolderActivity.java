@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.my.collect.collectFolder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
@@ -24,7 +26,7 @@ import butterknife.OnClick;
 import static com.zxcx.shitang.App.getContext;
 
 public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> implements CollectFolderContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, CollectFolderAdapter.CollectFolderCheckListener {
+        BaseQuickAdapter.RequestLoadMoreListener, CollectFolderAdapter.CollectFolderCheckListener, BaseQuickAdapter.OnItemClickListener{
 
     @BindView(R.id.rv_collect_folder)
     RecyclerView mRvCollectFolder;
@@ -54,6 +56,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         mCollectFolderAdapter = new CollectFolderAdapter(mList, this);
         mCollectFolderAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCollectFolderAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
+        mCollectFolderAdapter.setOnItemClickListener(this);
         mRvCollectFolder.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRvCollectFolder.setAdapter(mCollectFolderAdapter);
         mRvCollectFolder.addItemDecoration(new CollectFolderItemDecoration());
@@ -118,11 +121,18 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
             case "编辑":
                 mTvToolbarRight.setText("取消");
                 mCollectFolderAdapter.setDelete(true);
+                mCollectFolderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+                });
                 mCollectFolderAdapter.notifyDataSetChanged();
                 break;
             case "取消":
                 mTvToolbarRight.setText("编辑");
                 mCollectFolderAdapter.setDelete(false);
+                mCollectFolderAdapter.setOnItemClickListener(this);
                 mCollectFolderAdapter.notifyDataSetChanged();
                 break;
             case "删除":
@@ -131,5 +141,11 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
                 mCheckedList.clear();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Intent intent = new Intent(this, CollectCardActivity.class);
+        startActivity(intent);
     }
 }

@@ -16,7 +16,7 @@ import com.zxcx.shitang.R;
 public class StringUtils {
 
     public static boolean isEmpty(String s){
-        if (s == null || s.isEmpty()){
+        if (s == null || s.isEmpty() || s.length() == 0 || "".equals(s)){
             return true;
         }else {
             return false;

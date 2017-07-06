@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.my.collect.collectCard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.my.collect.collectCard.adapter.CollectCardAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
@@ -24,7 +26,7 @@ import butterknife.OnClick;
 import static com.zxcx.shitang.App.getContext;
 
 public class CollectCardActivity extends MvpActivity<CollectCardPresenter> implements CollectCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener,  CollectCardAdapter.CollectCardCheckListener {
+        BaseQuickAdapter.RequestLoadMoreListener,  CollectCardAdapter.CollectCardCheckListener, BaseQuickAdapter.OnItemClickListener {
 
     @BindView(R.id.tv_toolbar_right)
     TextView mTvToolbarRight;
@@ -40,7 +42,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collect_folder);
+        setContentView(R.layout.activity_collect_card);
         ButterKnife.bind(this);
         initToolBar(R.string.tltle_collect_folder);
 
@@ -55,6 +57,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mCollectCardAdapter = new CollectCardAdapter(mList, this);
         mCollectCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCollectCardAdapter.setOnLoadMoreListener(this, mRvCollectCard);
+        mCollectCardAdapter.setOnItemClickListener(this);
         mRvCollectCard.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRvCollectCard.setAdapter(mCollectCardAdapter);
         mRvCollectCard.addItemDecoration(new CollectFolderItemDecoration());
@@ -119,11 +122,18 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
             case "编辑":
                 mTvToolbarRight.setText("取消");
                 mCollectCardAdapter.setDelete(true);
+                mCollectCardAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                    }
+                });
                 mCollectCardAdapter.notifyDataSetChanged();
                 break;
             case "取消":
                 mTvToolbarRight.setText("编辑");
                 mCollectCardAdapter.setDelete(false);
+                mCollectCardAdapter.setOnItemClickListener(this);
                 mCollectCardAdapter.notifyDataSetChanged();
                 break;
             case "删除":
@@ -132,5 +142,11 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
                 mCheckedList.clear();
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Intent intent = new Intent(this, CardDetailsActivity.class);
+        startActivity(intent);
     }
 }

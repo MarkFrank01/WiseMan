@@ -16,11 +16,12 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
+import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
-import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
-import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardBagAdapter;
+import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
+import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
 import java.util.ArrayList;
@@ -175,7 +176,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            mContext.startActivity(intent);
         }
     }
 }
