@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.ui.loginAndRegister.selectAttention.SelectAttentionActivity;
+import com.zxcx.shitang.utils.DataCleanManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +33,9 @@ public class CommonSettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_common_setting);
         ButterKnife.bind(this);
+
+        initToolBar("通用设置");
+        updateCacheSize();
     }
 
     @OnClick(R.id.ll_common_setting_attention)
@@ -57,5 +61,16 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_clean_cache)
     public void onMLlCommonSettingCleanCacheClicked() {
+        DataCleanManager.cleanApplicationData(this);
+        updateCacheSize();
+        toastShow("清理成功");
+    }
+
+    private void updateCacheSize() {
+        try {
+            mTvCommonSettingCleanCache.setText(DataCleanManager.getTotalCacheSize(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

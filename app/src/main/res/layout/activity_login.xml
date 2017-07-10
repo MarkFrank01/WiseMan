@@ -8,17 +8,20 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_marginLeft="23.8dp"
-        android:layout_marginTop="34.3dp"
+        android:id="@+id/iv_login_close"
+        android:layout_marginLeft="13.8dp"
+        android:layout_marginTop="24.3dp"
+        android:padding="10dp"
         android:src="@drawable/common_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/et_login_phone"
-        android:layout_marginTop="203dp"
+        android:layout_marginTop="146dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_below="@id/iv_login_close"
         android:maxLength="11"
         android:hint="手机号 (86)"
         android:textSize="16sp"
@@ -60,7 +63,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="20dp"
         android:text="注册"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/text_color_66"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -73,7 +76,7 @@
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
         android:text="忘记密码"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/text_color_66"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

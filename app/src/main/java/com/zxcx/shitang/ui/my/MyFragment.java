@@ -18,6 +18,7 @@ import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.event.LogoutEvent;
 import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
@@ -162,7 +163,8 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.ll_my_about_us)
     public void onMLlMyAboutUsClicked() {
-
+        Intent intent = new Intent(getContext(), AboutUSActivity.class);
+        startActivity(intent);
     }
 
     private void setViewLogout() {

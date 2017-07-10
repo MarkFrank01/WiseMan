@@ -44,11 +44,29 @@
         <activity
             android:name=".ui.my.CommonSettingActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.collect.collectFolder.CollectFolderActivity"/>
-        <activity android:name=".ui.card.cardBag.CardBagActivity"/>
-        <activity android:name=".ui.search.result.SearchResultActivity"/>
-        <activity android:name=".ui.my.collect.collectCard.CollectCardActivity"/>
-        <activity android:name=".ui.card.card.cardDetails.CardDetailsActivity"/>
+        <activity
+            android:name=".ui.my.collect.collectFolder.CollectFolderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.cardBag.CardBagActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.search.result.SearchResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.collect.collectCard.CollectCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.cardDetails.CardDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.register.RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.my.aboutUS.AboutUSActivity">
+        </activity>
     </application>
 
 </manifest>

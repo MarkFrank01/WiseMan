@@ -1,14 +1,18 @@
 package com.zxcx.shitang.ui.loginAndRegister.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
+import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
@@ -31,10 +35,13 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     String phoneRules = "^1\\d{10}$";
     String passwordRules = "^[a-zA-Z0-9]{6,16}$";
+    Pattern phonePattern = Pattern.compile(phoneRules);
+    Pattern passwordPattern = Pattern.compile(passwordRules);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -42,6 +49,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     }
 
     private void initView() {
+        mEtLoginPhone.addTextChangedListener(new LoginTextWatcher());
         mEtLoginPassword.addTextChangedListener(new LoginTextWatcher());
     }
 
@@ -57,29 +65,25 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.tv_login_register)
     public void onMTvLoginRegisterClicked() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_login_forget_password)
     public void onMTvLoginForgetPasswordClicked() {
+        Intent intent = new Intent(this, ForgetPasswordActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_login)
     public void onMBtnLoginClicked() {
-
-        Pattern phonePattern = Pattern.compile(this.phoneRules);
-        Pattern passwordPattern = Pattern.compile(this.passwordRules);
-        if (phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()
-                && passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()){
-            SharedPreferencesUtil.saveData(SVTSConstants.userId,"asdasd16545");
-            SharedPreferencesUtil.saveData(SVTSConstants.nickName,"一叶知秋");
-            SharedPreferencesUtil.saveData(SVTSConstants.sex,1);
-            SharedPreferencesUtil.saveData(SVTSConstants.birthday,"1992-06-09");
+        if (checkPhone() && checkPassword()) {
+            SharedPreferencesUtil.saveData(SVTSConstants.userId, "asdasd16545");
+            SharedPreferencesUtil.saveData(SVTSConstants.nickName, "一叶知秋");
+            SharedPreferencesUtil.saveData(SVTSConstants.sex, 1);
+            SharedPreferencesUtil.saveData(SVTSConstants.birthday, "1992-06-09");
             EventBus.getDefault().post(new LoginEvent());
             finish();
-        }else if (!phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()){
-            toastShow("手机号格式错误!");
-        }else if (!passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()){
-            toastShow("密码格式错误!");
         }
     }
 
@@ -95,7 +99,30 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     public void onMLlLoginWeiboClicked() {
     }
 
-    class LoginTextWatcher implements TextWatcher{
+    @OnClick(R.id.iv_login_close)
+    public void onViewClicked() {
+        finish();
+    }
+
+    private boolean checkPhone() {
+        if (phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()) {
+            return true;
+        }else {
+            toastShow("手机号格式错误!");
+            return false;
+        }
+    }
+
+    private boolean checkPassword() {
+        if (passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()) {
+            return true;
+        }else {
+            toastShow("密码格式错误!");
+            return false;
+        }
+    }
+
+    class LoginTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,9 +136,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (mEtLoginPhone.length()>0&&mEtLoginPassword.length()>0){
+            if (mEtLoginPhone.length() > 0 && mEtLoginPassword.length() > 0) {
                 mBtnLogin.setEnabled(true);
-            }else {
+            } else {
                 mBtnLogin.setEnabled(false);
             }
         }
