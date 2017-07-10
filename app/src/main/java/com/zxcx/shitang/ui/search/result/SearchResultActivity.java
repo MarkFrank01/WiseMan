@@ -7,9 +7,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -19,6 +22,7 @@ import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.search.result.adapter.SearchResultCardAdapter;
 import com.zxcx.shitang.ui.search.result.adapter.SearchResultCardBagAdapter;
+import com.zxcx.shitang.utils.Utils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
 import java.util.ArrayList;
@@ -36,10 +40,10 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     RecyclerView mRvSearchResultCard;
     @BindView(R.id.srl_search_result)
     SwipeRefreshLayout mSrlSearchResult;
-    @BindView(R.id.tv_home_search)
-    EditText mTvHomeSearch;
     RecyclerView mRvSearchResultCardBag;
     LinearLayout mLLHeadSearchResultCardBag;
+    @BindView(R.id.et_search_result)
+    EditText mEtSearchResult;
 
     private SearchResultCardBagAdapter mCardBagAdapter;
     private SearchResultCardAdapter mCardAdapter;
@@ -55,6 +59,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         getData();
 
         initRecyclerView();
+        mEtSearchResult.setOnEditorActionListener(new SearchListener());
         mSrlSearchResult.setOnRefreshListener(this);
         mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimary));
     }
@@ -134,6 +139,22 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     @OnClick(R.id.tv_search_result_cancel)
     public void onViewClicked() {
         finish();
+    }
+
+    class SearchListener implements TextView.OnEditorActionListener {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
+            if (actionId == EditorInfo.IME_ACTION_SEARCH
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+
+                Utils.closeInputMethod(SearchResultActivity.this);
+
+                return true;
+            }
+            return false;
+        }
     }
 
     static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener {

@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/tv_home_search"
+            android:id="@+id/et_search_result"
             android:background="@drawable/bg_home_search"
             android:drawableLeft="@drawable/tv_home_search"
             android:drawablePadding="7.5dp"
