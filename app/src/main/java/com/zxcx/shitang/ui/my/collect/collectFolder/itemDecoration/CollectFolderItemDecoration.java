@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.zxcx.shitang.App;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.utils.ScreenUtils;
 
@@ -16,8 +15,8 @@ import static com.zxcx.shitang.App.getContext;
 
 public class CollectFolderItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int defultSpace = ScreenUtils.dip2px(getContext(),12f);
-    int screenWidth = ScreenUtils.getScreenWidth(getContext()); //屏幕宽度
+    private int defultSpace = ScreenUtils.dip2px(12f);
+    int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
     float x = getContext().getResources().getDimension(R.dimen.dp_168);
     int space = (int) ((screenWidth - defultSpace*2 - x*2)/2);
 
@@ -38,7 +37,7 @@ public class CollectFolderItemDecoration extends RecyclerView.ItemDecoration {
 
 
         if (parent.getChildLayoutPosition(view) < 2){
-            outRect.top = ScreenUtils.dip2px(App.getContext(), 18f);
+            outRect.top = ScreenUtils.dip2px(18f);
         }
     }
 }

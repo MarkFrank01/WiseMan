@@ -1,22 +1,25 @@
 package com.zxcx.shitang.ui.card.card.collectDialog;
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
+import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.ui.home.hot.HotBean;
+import com.zxcx.shitang.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,6 @@ public class SelectCollectFolderDialog extends DialogFragment {
     private Context mContext;
 
     public SelectCollectFolderDialog() {
-        mContext = getActivity();
     }
 
     @Nullable
@@ -57,8 +59,23 @@ public class SelectCollectFolderDialog extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getData();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mContext = getActivity();
         initRecyclerView();
+
+        Window window = getDialog().getWindow();
+        window.setBackgroundDrawableResource(R.color.translate);
+        window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
+        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
+        lp.gravity = Gravity.BOTTOM;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = ScreenUtils.dip2px(327);
+        window.setAttributes(lp);
     }
 
     @Override
@@ -67,21 +84,15 @@ public class SelectCollectFolderDialog extends DialogFragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.iv_dialog_collect_folder_add)
-    public void onViewClicked() {
-        FragmentManager fragmentManager = getActivity().getFragmentManager();
-
-    }
-
     private void initRecyclerView() {
 
-        LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        
+        LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+
         mAdapter = new SelectCollectFolderAdapter(mList);
-        mAdapter.setOnItemClickListener(new CollectFolderItemClickListener(mContext));
+        mAdapter.setOnItemClickListener(new CollectFolderItemClickListener());
         mRvDialogSelectCollectFolder.setLayoutManager(hotCardBagLayoutManager);
         mRvDialogSelectCollectFolder.setAdapter(mAdapter);
-        
+
     }
 
     private void getData() {
@@ -90,18 +101,23 @@ public class SelectCollectFolderDialog extends DialogFragment {
         }
     }
 
-    static class CollectFolderItemClickListener implements BaseQuickAdapter.OnItemClickListener{
+    @OnClick(R.id.iv_dialog_collect_folder_close)
+    public void onMIvDialogCollectFolderCloseClicked() {
+        dismiss();
+    }
 
-        private Context mContext;
+    @OnClick(R.id.iv_dialog_collect_folder_add)
+    public void onMIvDialogCollectFolderAddClicked() {
+        AddCollectFolderDialog addCollectFolderDialog = new AddCollectFolderDialog();
+        addCollectFolderDialog.show(getFragmentManager(),"");
+    }
 
-        public CollectFolderItemClickListener(Context context) {
-            mContext  = context;
-        }
+    private class CollectFolderItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            Intent intent = new Intent(mContext, CardBagActivity.class);
-            mContext.startActivity(intent);
+            EventBus.getDefault().post(new CollectSuccessEvent());
+            SelectCollectFolderDialog.this.dismiss();
         }
     }
 }

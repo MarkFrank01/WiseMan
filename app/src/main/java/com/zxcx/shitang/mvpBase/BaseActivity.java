@@ -110,9 +110,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
         ImageView ivBack = (ImageView) toolbar.findViewById(R.id.iv_toolbar_back);
-        TextView tvBack = (TextView) toolbar.findViewById(R.id.tv_toolbar_back);
         ivBack.setOnClickListener(new BackListener());
-        tvBack.setOnClickListener(new BackListener());
         return toolbar;
     }
 

@@ -1,5 +1,7 @@
 package com.zxcx.shitang.ui.card.cardBag;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.shitang.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
@@ -60,6 +63,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
         mSrlCardBag.setOnRefreshListener(this);
         mSrlCardBag.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
         mIvToolbarRight.setOnClickListener(this);
     }
@@ -69,14 +73,17 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mCardBagCardAdapter = new CardBagCardAdapter(mList);
         mCardBagCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagCardAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
+        mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
         mRvCardBagCard.setLayoutManager(mCardBagCardManager);
         mRvCardBagCard.setAdapter(mCardBagCardAdapter);
         mRvCardBagCard.addItemDecoration(new CardBagCardItemDecoration());
+        mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
 
         mCardBagListManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mCardBagListAdapter = new CardBagListAdapter(mList);
         mCardBagListAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagListAdapter.setOnLoadMoreListener(this, mRvCardBagList);
+        mCardBagListAdapter.setOnItemClickListener(new CardItemClickListener(this));
         mRvCardBagList.setLayoutManager(mCardBagListManager);
         mRvCardBagList.setAdapter(mCardBagListAdapter);
     }
@@ -150,6 +157,23 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
             showFistItem = mCardBagListManager.findFirstVisibleItemPosition();
             mCardBagCardManager.scrollToPosition(showFistItem);
+        }
+    }
+
+
+
+    static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{
+
+        private Context mContext;
+
+        public CardItemClickListener(Context context) {
+            mContext  = context;
+        }
+
+        @Override
+        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            mContext.startActivity(intent);
         }
     }
 

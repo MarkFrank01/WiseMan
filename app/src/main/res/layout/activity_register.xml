@@ -44,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/iv_register_phone_clear"/>
+            android:padding="12dp"
+            android:src="@drawable/iv_phone_clear"/>
 
         <View
             android:layout_below="@+id/et_register_phone"

@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.DisplayMetrics;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,9 +18,16 @@ import java.io.File;
 public class Utils {
     private static final double EARTH_RADIUS = 6378137.0;
 
-    public static void closeInputMethod(Context context) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);
+    public static void showInputMethod(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(editText,0);
+//        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+    }
+
+    public static void closeInputMethod(EditText editText) {
+        InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
     }
 
     // 返回单位是米

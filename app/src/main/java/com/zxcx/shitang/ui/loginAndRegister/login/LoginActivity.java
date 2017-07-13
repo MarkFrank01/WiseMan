@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.LoginEvent;
@@ -37,6 +39,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     String passwordRules = "^[a-zA-Z0-9]{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
+    @BindView(R.id.iv_login_phone_clear)
+    ImageView mIvLoginPhoneClear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     private void initView() {
         mEtLoginPhone.addTextChangedListener(new LoginTextWatcher());
+        mEtLoginPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtLoginPassword.addTextChangedListener(new LoginTextWatcher());
     }
 
@@ -107,7 +112,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     private boolean checkPhone() {
         if (phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("手机号格式错误!");
             return false;
         }
@@ -116,7 +121,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     private boolean checkPassword() {
         if (passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("密码格式错误!");
             return false;
         }
@@ -140,6 +145,29 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
                 mBtnLogin.setEnabled(true);
             } else {
                 mBtnLogin.setEnabled(false);
+            }
+        }
+    }
+
+
+    class PhoneTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (mEtLoginPhone.length() > 0) {
+                mIvLoginPhoneClear.setVisibility(View.VISIBLE);
+            } else {
+                mIvLoginPhoneClear.setVisibility(View.GONE);
             }
         }
     }

@@ -2,6 +2,7 @@ package com.zxcx.shitang.ui.search.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.search.result.SearchResultActivity;
 import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.Utils;
 
 import java.util.List;
 
@@ -74,8 +76,16 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                 ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
 
-                mlp.setMargins(0, ScreenUtils.dip2px(mActivity, 15), ScreenUtils.dip2px(mActivity, 10), 0);
+                mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
             }
+
+            //延迟弹出软键盘
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Utils.showInputMethod(mEtSearch);
+                }
+            },100);
         }
     }
 
@@ -119,6 +129,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                 Intent intent = new Intent(SearchActivity.this,SearchResultActivity.class);
                 startActivity(intent);
+                Utils.closeInputMethod(mEtSearch);
                 finish();
 
                 return true;

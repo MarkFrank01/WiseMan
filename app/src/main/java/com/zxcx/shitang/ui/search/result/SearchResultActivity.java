@@ -149,7 +149,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
-                Utils.closeInputMethod(SearchResultActivity.this);
+                Utils.closeInputMethod(mEtSearchResult);
 
                 return true;
             }

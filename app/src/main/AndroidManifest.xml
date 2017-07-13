@@ -65,8 +65,12 @@
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.aboutUS.AboutUSActivity">
-        </activity>
+        <activity
+            android:name=".ui.my.aboutUS.AboutUSActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.feedback.FeedbackActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

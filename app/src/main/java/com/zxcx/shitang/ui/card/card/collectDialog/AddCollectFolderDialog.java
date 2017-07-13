@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.AddCollectFolderDialogEvent;
+import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,6 +69,20 @@ public class AddCollectFolderDialog extends DialogFragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Window window = getDialog().getWindow();
+        window.setBackgroundDrawableResource(R.color.translate);
+        window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), 0);
+        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
+        lp.gravity = Gravity.CENTER;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = ScreenUtils.dip2px(327);
+        window.setAttributes(lp);
     }
 
     @Override

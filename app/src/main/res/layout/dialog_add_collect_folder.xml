@@ -12,13 +12,13 @@
         android:id="@+id/ll_dialog_add_collect_folder"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="14dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_common_close"
             android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical"
             android:src="@drawable/common_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -28,7 +28,6 @@
             android:gravity="center_horizontal"
             android:textColor="@color/text_color_40"
             android:textSize="14sp"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
@@ -53,7 +52,7 @@
         android:textColor="@color/text_color_66"
         android:textColorHint="@color/wireframe_shallow"
         android:cursorVisible="true"
-        android:textCursorDrawable="@drawable/bg_search_edit"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:background="@null"
         android:drawableBottom="@drawable/bottom_dialog_add_collecr_folder"
         android:drawablePadding="7dp"

@@ -22,8 +22,6 @@ public class WebViewActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_toolbar_back)
     ImageView mIvToolbarBack;
-    @BindView(R.id.tv_toolbar_back)
-    TextView mTvToolbarBack;
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.tv_toolbar_right)
@@ -42,6 +40,11 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
 
+        initWebView();
+        getIntentData();
+    }
+
+    private void initWebView() {
         mWebView = new WebView(this);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//支持js
@@ -60,7 +63,6 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView.setWebChromeClient(new WebChromeClient());
 
         mLlWebView.addView(mWebView);
-        getIntentData();
     }
 
     private void getIntentData() {

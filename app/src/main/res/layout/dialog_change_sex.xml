@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog_select_collect_folder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:id="@+id/rg_change_sex"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <RadioButton
+            android:id="@+id/rb_change_sex_man"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingLeft="12dp"
+            android:checked="true"
+            android:button="@drawable/selector_man"
+            android:text="帅哥"
+            android:textSize="17sp"
+            android:textColor="@color/color_dialog_change_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rb_change_sex_woman"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingLeft="12dp"
+            android:button="@drawable/selector_woman"
+            android:text="美女"
+            android:textSize="17sp"
+            android:textColor="@color/color_dialog_change_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        
+    </RadioGroup>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_below="@+id/rg_change_sex"
+        android:background="@color/wireframe_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    
+    <LinearLayout
+        android:layout_below="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_cancel"
+            android:text="@string/common_cancel"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/wireframe_dialog"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_confirm"
+            android:text="@string/common_confirm"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    
+</RelativeLayout>
