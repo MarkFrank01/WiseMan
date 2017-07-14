@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
+import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.search.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -85,6 +86,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     private void initRecyclerView() {
         mClassifyAdapter = new ClassifyAdapter(mList);
+        mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
         manager = new GridLayoutManager(getContext(), 3);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -98,7 +100,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         });
         mRvClassify.setAdapter(mClassifyAdapter);
         mRvClassify.setLayoutManager(manager);
-        mClassifyAdapter.expandAll();
     }
 
     @Override
@@ -159,5 +160,20 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     public void onViewClicked() {
         Intent intent = new Intent(getContext(), SearchActivity.class);
         startActivity(intent);
+    }
+
+    class OnClassifyItemClickListener implements BaseQuickAdapter.OnItemChildClickListener{
+
+        @Override
+        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            switch (view.getId()){
+                case R.id.rl_item_classify:
+                    Intent intent = new Intent(getActivity(), CardBagActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.iv_item_classify_ad:
+                    break;
+            }
+        }
     }
 }

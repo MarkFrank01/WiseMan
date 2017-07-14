@@ -15,15 +15,25 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.HotBean;
-import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
-import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardBagAdapter;
+import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
+import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.StringUtils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +58,8 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private HotCardAdapter mHotCardAdapter;
     private List<HotBean> mList = new ArrayList<>();
     private boolean isErr = false;
+    private String mUserId = SharedPreferencesUtil.getString(SVTSConstants.userId,"");
+    private View mEmptyView;
 
     public static AttentionFragment newInstance() {
         if (fragment == null) {
@@ -60,6 +72,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_attention, container, false);
         unbinder = ButterKnife.bind(this, root);
+        EventBus.getDefault().register(this);
         return root;
     }
 
@@ -72,11 +85,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getData();
-
-        initRecyclerView();
-        mSrlAttentionCard.setOnRefreshListener(this);
-        mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        initView();
     }
 
     @Override
@@ -88,6 +97,12 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SelectAttentionEvent event) {
+        onRefresh();
     }
 
     @Override
@@ -110,7 +125,25 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mSrlAttentionCard.setEnabled(true);
     }
 
-    private void initRecyclerView() {
+    private void initView() {
+        mSrlAttentionCard.setOnRefreshListener(this);
+        mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+
+        mEmptyView = View.inflate(getContext(),R.layout.empty_attention,null);
+        mEmptyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserId = SharedPreferencesUtil.getString(SVTSConstants.userId,"");
+                if (StringUtils.isEmpty(mUserId)){
+                    toastShow("还未登录，请先登录");
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager hotCardLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -131,6 +164,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mRvAttentionCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mHotCardAdapter.addHeaderView(view);
+        mHotCardAdapter.setEmptyView(mEmptyView);
     }
 
     private void getData() {

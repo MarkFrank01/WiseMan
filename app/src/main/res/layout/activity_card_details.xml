@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.percent.PercentRelativeLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:id="@+id/ll_card_details"
+        android:layout_marginTop="12.5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_card_details_back"
+            android:layout_marginLeft="6.5dp"
+            android:padding="10dp"
+            android:src="@drawable/iv_card_details_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="3/35"
+            android:textColor="@color/text_color_66"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_card_details_name"
-        android:text="笔记本"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ll_card_details"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:text="变色龙"
+        android:textSize="30sp"
+        android:textColor="@color/text_color_40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:background="@drawable/bg_card_details_3"
-        android:layout_below="@+id/tv_card_details_name"
-        app:layout_marginTopPercent="25.4%"
-        app:layout_widthPercent="80.3%"
-        app:layout_heightPercent="54.7%"
+    <TextView
+        android:id="@+id/tv_card_details_subhead"
+        android:layout_below="@id/tv_card_details_name"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="12dp"
+        android:text="靠调节皮肤表面的纳米晶体变色"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/iv_card_details"
+        android:src="@drawable/iv_item_home_card_icon"
         android:layout_centerHorizontal="true"
-        app:riv_corner_radius="4dp"/>
+        android:layout_below="@+id/tv_card_details_subhead"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:scaleType="centerCrop"/>
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:background="@drawable/bg_card_details_2"
-        android:layout_below="@+id/tv_card_details_name"
-        app:layout_marginTopPercent="12.7%"
-        app:layout_widthPercent="86.1%"
-        app:layout_heightPercent="66.4%"
+    <TextView
+        android:id="@+id/tv_card_details_content"
+        android:layout_marginTop="8.5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_below="@id/iv_card_details"
+        android:lineSpacingExtra="5.5dp"
+        android:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_66"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:riv_corner_radius="4dp"/>
-
-
-    <android.support.percent.PercentRelativeLayout
-        android:background="@drawable/bg_card_details_1"
-        android:layout_below="@+id/tv_card_details_name"
-        android:layout_centerHorizontal="true"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_marginTopPercent="14.2%"
-        app:layout_widthPercent="92%"
-        app:layout_heightPercent="63.4%">
-
-        <TextView
-            android:id="@+id/tv_card_details_subhead"
-            app:layout_marginTopPercent="35%"
-            android:layout_marginLeft="22.5dp"
-            android:text="据说白色的花才会活"
-            android:textSize="16sp"
-            android:textColor="@color/colorPrimary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_card_details_content"
-            android:layout_below="@+id/tv_card_details_subhead"
-            android:layout_marginTop="11.5dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginRight="13dp"
-            android:text="不宜与酒同时饮用小儿不宜饮用喝咖啡，不宜吸烟不宜长期用咖啡不宜短时间内大量饮用孕妇不宜过量饮用咖，啡饮用前不应长时间的煎煮的胺氧化酶用，饮咖啡忌吃多酶片及维生素素，不宜与酒同时饮用小儿不宜用，喝咖啡不宜吸烟，不宜长期用不宜短时间内大量饮用孕妇不宜过量饮用咖啡，饮用前不应长时间的煎煮服单。"
-            android:textSize="@dimen/sp_14"
-            android:lineSpacingExtra="4.5dp"
-            android:textColor="@color/text_color_66"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
 
         <CheckBox
             android:id="@+id/cb_card_details_collect"
@@ -80,7 +93,6 @@
             android:layout_height="wrap_content"
             android:button="@drawable/selector_cb_card_details_collect"
             android:layout_marginLeft="21dp"
-            android:layout_marginBottom="13dp"
             android:layout_alignParentBottom="true"
             android:text="200"
             android:textSize="12sp"
@@ -92,43 +104,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/selector_cb_card_details_like"
-            android:layout_marginBottom="13dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/cb_card_details_collect"
+            android:layout_marginLeft="28dp"
             android:text="200"
             android:textSize="12sp"
             android:textColor="@color/text_color_99"
             android:paddingLeft="7.5dp"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_card_details_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="13dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:text="200"
-            android:textSize="12sp"
-            android:textColor="@color/text_color_99"
-            android:textStyle="bold"
             android:layout_marginRight="25.5dp"
-            android:drawableLeft="@drawable/selector_tv_card_details_share"
-            android:drawablePadding="7dp"/>
+            android:src="@drawable/selector_tv_card_details_share"/>
 
-    </android.support.percent.PercentRelativeLayout>
+    </RelativeLayout>
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_card_details"
-        android:src="@drawable/iv_item_home_card_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tv_card_details_name"
-        android:layout_marginTop="19.5dp"
-        android:layout_width="315dp"
-        android:layout_height="200dp"
-        app:layout_widthPercent="84%"
-        app:layout_heightPercent="30%"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius="6dp"/>
-
-</android.support.percent.PercentRelativeLayout>
+</RelativeLayout>

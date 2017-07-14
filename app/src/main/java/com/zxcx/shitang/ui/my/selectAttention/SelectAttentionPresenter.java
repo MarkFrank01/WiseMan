@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.loginAndRegister.selectAttention;
+package com.zxcx.shitang.ui.my.selectAttention;
 
 import android.support.annotation.NonNull;
 

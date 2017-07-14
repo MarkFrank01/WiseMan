@@ -2,4 +2,5 @@
     <dimen name="iv_item_card_icon">155dp</dimen>
     <dimen name="dp_168">186.5dp</dimen>
     <dimen name="sp_14">16sp</dimen>
+    <dimen name="dp_110">117dp</dimen>
 </resources>

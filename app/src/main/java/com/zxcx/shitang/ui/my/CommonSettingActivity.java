@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseActivity;
-import com.zxcx.shitang.ui.loginAndRegister.selectAttention.SelectAttentionActivity;
+import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.shitang.utils.DataCleanManager;
 
 import butterknife.BindView;

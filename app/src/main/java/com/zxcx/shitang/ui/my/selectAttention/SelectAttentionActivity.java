@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.loginAndRegister.selectAttention;
+package com.zxcx.shitang.ui.my.selectAttention;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,8 +9,11 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.loginAndRegister.selectAttention.adapter.SelectAttentionAdapter;
+import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -84,10 +87,13 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     @OnClick(R.id.iv_select_attention_close)
     public void onMIvSelectAttentionCloseClicked() {
+        finish();
     }
 
     @OnClick(R.id.tv_select_attention_next)
     public void onMTvSelectAttentionNextClicked() {
+        EventBus.getDefault().post(new SelectAttentionEvent());
+        finish();
     }
 
     @Override

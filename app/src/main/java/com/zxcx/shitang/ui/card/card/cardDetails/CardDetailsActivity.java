@@ -2,10 +2,13 @@ package com.zxcx.shitang.ui.card.card.cardDetails;
 
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
@@ -32,13 +35,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @BindView(R.id.cb_card_details_like)
     CheckBox mCbCardDetailsLike;
     @BindView(R.id.iv_card_details)
-    RoundedImageView mIvCardDetails;
+    ImageView mIvCardDetails;
 
     SelectCollectFolderDialog mSelectCollectFolderDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_details);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -46,7 +50,19 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         TextPaint tp = mTvCardDetailsSubhead.getPaint();
         tp.setFakeBoldText(true);
 
+        mTvCardDetailsSubhead.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION );
+
         mSelectCollectFolderDialog = new SelectCollectFolderDialog();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus){
+            ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
+            para.height = mIvCardDetails.getWidth() * 3/4;
+            mIvCardDetails.setLayoutParams(para);
+        }
     }
 
     @Override
@@ -65,6 +81,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CollectSuccessEvent event) {
+        mCbCardDetailsCollect.setChecked(true);
+    }
+
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
     }
@@ -77,8 +98,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CollectSuccessEvent event) {
-        mCbCardDetailsCollect.setChecked(true);
+    @OnClick(R.id.iv_card_details_back)
+    public void onBackClicked() {
+        finish();
     }
 }

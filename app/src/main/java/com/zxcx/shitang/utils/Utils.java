@@ -8,8 +8,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.zxcx.shitang.App;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,6 +52,15 @@ public class Utils {
 
     private static double rad(double d) {
         return d * Math.PI / 180.0;
+    }
+
+    public static void setImageHeight(View view) {
+        DisplayMetrics dm ;
+        dm = App.getContext().getResources().getDisplayMetrics();
+        int height = dm.widthPixels *3/4;
+        ViewGroup.LayoutParams para = view.getLayoutParams();
+        para.height = height;
+        view.setLayoutParams(para);
     }
 
     /**

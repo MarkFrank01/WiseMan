@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.shitang.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
@@ -172,7 +172,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            Intent intent = new Intent(mContext, CardBagCardDetailsActivity.class);
             mContext.startActivity(intent);
         }
     }

@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.loginAndRegister.selectAttention.SelectAttentionActivity"
+            android:name=".ui.my.selectAttention.SelectAttentionActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.MainActivity"
@@ -71,6 +71,8 @@
         <activity
             android:name=".ui.my.feedback.FeedbackActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity">
+        </activity>
     </application>
 
 </manifest>
