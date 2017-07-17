@@ -2,8 +2,6 @@ package com.zxcx.shitang.ui.card.card.cardDetails;
 
 import android.os.Bundle;
 import android.text.TextPaint;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -50,8 +48,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         TextPaint tp = mTvCardDetailsSubhead.getPaint();
         tp.setFakeBoldText(true);
 
-        mTvCardDetailsSubhead.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION );
-
         mSelectCollectFolderDialog = new SelectCollectFolderDialog();
     }
 
@@ -59,9 +55,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus){
-            ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
-            para.height = mIvCardDetails.getWidth() * 3/4;
-            mIvCardDetails.setLayoutParams(para);
+//            TextViewUtils.adjustTvTextSize(mTvCardDetailsContent);
         }
     }
 

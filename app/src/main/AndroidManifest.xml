@@ -73,6 +73,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity">
         </activity>
+        <activity android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"/>
     </application>
 
 </manifest>

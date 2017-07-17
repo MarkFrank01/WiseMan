@@ -73,26 +73,6 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
 
     }
 
-    Runnable setDjs = new Runnable() {
-        @Override
-        public void run() {
-            mTvForgetPasswordSendVerification.setText(count + " S");
-            count--;
-
-            if (count < 0) {
-                handler.removeCallbacks(setDjs);
-                mTvForgetPasswordSendVerification.setEnabled(true);
-                mTvForgetPasswordSendVerification.setText("重新发送验证码");
-
-                count = 60;
-
-                return;
-            }
-
-            handler.postDelayed(setDjs, 1000);
-        }
-    };
-
     @OnClick(R.id.iv_forget_password_close)
     public void onMIvForgetPasswordCloseClicked() {
         onBackPressed();
@@ -143,6 +123,26 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             return false;
         }
     }
+
+    Runnable setDjs = new Runnable() {
+        @Override
+        public void run() {
+            mTvForgetPasswordSendVerification.setText(count + " S");
+            count--;
+
+            if (count < 0) {
+                handler.removeCallbacks(setDjs);
+                mTvForgetPasswordSendVerification.setEnabled(true);
+                mTvForgetPasswordSendVerification.setText("重新发送验证码");
+
+                count = 60;
+
+                return;
+            }
+
+            handler.postDelayed(setDjs, 1000);
+        }
+    };
 
     class NextCheckNullTextWatcher implements TextWatcher {
 

@@ -2,7 +2,6 @@ package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.zxcx.shitang.R;
@@ -28,8 +27,6 @@ public class CardBagCardDetailsActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_bag_card_details);
         ButterKnife.bind(this);
-
-        mVpCardBagCardDetails.setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION );
 
         for (int i = 0; i < 20; i++) {
             mList.add("666");
