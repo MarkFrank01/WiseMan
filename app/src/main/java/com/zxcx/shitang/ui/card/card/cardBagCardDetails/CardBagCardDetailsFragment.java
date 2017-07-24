@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
-import com.zxcx.shitang.ui.card.card.collectDialog.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.dialog.SelectCollectFolderDialog;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;

@@ -4,6 +4,9 @@ package com.zxcx.shitang.retrofit;
 import com.zxcx.shitang.App;
 import com.zxcx.shitang.BuildConfig;
 import com.zxcx.shitang.utils.FileUtil;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.TimeStampMD5andKL;
 import com.zxcx.shitang.utils.Utils;
 
 import java.io.File;
@@ -11,6 +14,7 @@ import java.io.IOException;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -22,10 +26,10 @@ import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 
 public class AppClient {
-    public static Retrofit mRetrofit;
+    private static APIService sAPIService;
 
-    public static Retrofit retrofit() {
-        if (mRetrofit == null) {
+    public static APIService getAPIService() {
+        if (sAPIService == null) {
 
             //设置缓存 10M
             File httpCacheDirectory = new File(FileUtil.getAvailableCacheDir(), "responses");
@@ -34,13 +38,14 @@ public class AppClient {
             // Log信息拦截器
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            Retrofit retrofit;
             if (BuildConfig.LOG) {
                 OkHttpClient okHttpClient = new OkHttpClient.Builder()
                         .addInterceptor(loggingInterceptor)
                         .addInterceptor(interceptor)
                         .cache(cache)
                         .build();
-                mRetrofit = new Retrofit.Builder()
+                retrofit = new Retrofit.Builder()
                         .baseUrl(APIService.API_SERVER_URL)
                         .addConverterFactory(FastJsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -51,25 +56,29 @@ public class AppClient {
                         .addInterceptor(interceptor)
                         .cache(cache)
                         .build();
-                mRetrofit = new Retrofit.Builder()
+                retrofit = new Retrofit.Builder()
                         .baseUrl(APIService.API_SERVER_URL)
                         .addConverterFactory(FastJsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .client(okHttpClient)
                         .build();
             }
-
-
+            sAPIService = retrofit.create(APIService.class);
         }
-        return mRetrofit;
+        return sAPIService;
     }
 
     /**
-     * 先判断网络，网络好的时候，移除header后添加haunch失效时间为1小时，网络未连接的情况下设置缓存时间为4周
+     * 给所有请求加上token和timeStamp
      */
     public static Interceptor interceptor = new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
+
+            long localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0);
+            long serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0);
+            String token = SharedPreferencesUtil.getString(SVTSConstants.token,"");
+            String timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp,serverTimeStamp);
 
             Request request = chain.request();
             if (!Utils.isNetworkReachable(App.getContext())) {
@@ -79,30 +88,21 @@ public class AppClient {
 //                LogCat.i("no network");
             }
 
-            Response response = chain.proceed(request);
-//            LogCat.i("response=" + response);
+            // 添加新的参数
+            HttpUrl.Builder urlBuilder = request.url()
+                    .newBuilder()
+                    .scheme(request.url().scheme())
+                    .host(request.url().host())
+                    .addQueryParameter("timeStamp", timeStamp)
+                    .addQueryParameter("token", token);
 
-            if (response.code() == 200) {
-                if (Utils.isNetworkReachable(App.getContext())) {
-                    int maxAge = 0 * 60; // 有网络时 设置缓存超时时间0个小时
-//                    LogCat.i("has network maxAge=" + maxAge);
-                    response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
-                            .removeHeader("Pragma")////清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
-                            .build();
-                } else {
-//                    LogCat.i("network error");
-                    int maxStale = 60 * 60 * 24 * 28; // 无网络时，设置超时为4周
-//                    LogCat.i("has maxStale=" + maxStale);
-                    response.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .removeHeader("Pragma")
-                            .build();
-//                    LogCat.i("response build maxStale=" + maxStale);
-                }
-            }
+            // 新的请求
+            Request newRequest = request.newBuilder()
+                    .method(request.method(), request.body())
+                    .url(urlBuilder.build())
+                    .build();
 
-            return response;
+            return chain.proceed(newRequest);
         }
     };
 

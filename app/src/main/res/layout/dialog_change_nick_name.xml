@@ -14,7 +14,7 @@
         android:background="@null"
         android:hint="修改昵称"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
-        android:textColorHint="@color/wireframe_shallow"
+        android:textColorHint="@color/line"
         android:textColor="@color/text_color_40"
         android:textSize="17sp"
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
     <View
         android:id="@+id/view_line"
         android:layout_below="@+id/et_dialog_change_nick_name"
-        android:background="@color/wireframe_dialog"
+        android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"/>
 
         <View
-            android:background="@color/wireframe_dialog"
+            android:background="@color/line"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
 

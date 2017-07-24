@@ -1,86 +1,229 @@
 package com.zxcx.shitang.widget;
 
-import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.utils.FileUtil;
+import com.zxcx.shitang.utils.ScreenUtils;
 
-import butterknife.BindView;
+import java.io.File;
+import java.io.IOException;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by anm on 2017/5/27.
  */
 
-public class GetPicBottomDialog extends Dialog {
+public class GetPicBottomDialog extends DialogFragment {
 
-    @BindView(R.id.tv_dialog_camera)
-    TextView mTvDialogCamera;
-    @BindView(R.id.tv_dialog_album)
-    TextView mTvDialogAlbum;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
+    private static final int REQUEST_CODE_USER_ALBUM = 1;
+    private static final int REQUEST_CODE_TAKE_PHOTO = 2;
+    private static final int REQUEST_CODE_CUT_PHOTO = 3;
+
     private Unbinder mUnbinder;
     private Context mContext;
     private GetPicDialogListener mListener;
+    private Bitmap cutImageBitmap;
+    private Uri tempUri;
+    private String imagePath;
+    private File file;
 
     public interface GetPicDialogListener {
-        void onCameraClick();
-
-        void onAlbumClick();
+        void onGetSuccess(Uri file);
     }
 
     public void setListener(GetPicDialogListener listener) {
         mListener = listener;
     }
 
-    public GetPicBottomDialog(@NonNull Context context) {
-        super(context, R.style.BottomDialog);
-        mContext = context;
-    }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = View.inflate(mContext, R.layout.bottom_dialog_change_head_portrait, null);
+
+        try {
+            file = FileUtil.createFile(FileUtil.PATH_BASE, "head.png");
+            tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ContentValues values = new ContentValues();
+            tempUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        }
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.bottom_dialog_change_head_portrait, container);
         mUnbinder = ButterKnife.bind(this,view);
-        setContentView(view);
-        setCanceledOnTouchOutside(true);
-        Window window = getWindow();
-        assert window != null;
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.BOTTOM; // 紧贴底部
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT; // 宽度持平
-        window.setAttributes(lp);
+        return view;
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    public void onStart() {
+        super.onStart();
+
+        mContext = getActivity();
+
+        Window window = getDialog().getWindow();
+        window.setBackgroundDrawableResource(R.color.translate);
+        window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
+        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
+        lp.gravity = Gravity.BOTTOM;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
         mUnbinder.unbind();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @OnClick(R.id.tv_dialog_camera)
     public void onMTvDialogCameraClicked() {
-        mListener.onCameraClick();
+
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            /***
+             * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的
+             * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图
+             * 如果不使用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰
+             */
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+
+        } else {
+
+        }
     }
 
     @OnClick(R.id.tv_dialog_album)
     public void onMTvDialogAlbumClicked() {
-        mListener.onAlbumClick();
+
+        // 激活系统图库，选择一张图片
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+        startActivityForResult(intent, REQUEST_CODE_USER_ALBUM);
     }
 
     @OnClick(R.id.tv_dialog_cancel)
     public void onMTvDialogCancelClicked() {
         dismiss();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                /**
+                 * 用户相册
+                 */
+                case REQUEST_CODE_USER_ALBUM:
+                    doPhoto(data);
+                    break;
+
+                /**
+                 * 拍照
+                 */
+                case REQUEST_CODE_TAKE_PHOTO:
+                    startPhotoZoom(tempUri);
+                    break;
+
+                /**
+                 * 裁剪处理
+                 */
+                case REQUEST_CODE_CUT_PHOTO:
+                    imagePath = tempUri.getPath();
+                    mListener.onGetSuccess(tempUri);
+                    this.dismiss();
+                    break;
+            }
+        }
+    }
+
+    private void doPhoto(Intent data) {
+        if (data != null) {
+
+            // 这个方法是根据Uri获取Bitmap图片的静态方法
+
+            // 取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
+            Uri photoUri = data.getData();
+            // 返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取
+            if (photoUri != null) {
+                startPhotoZoom(photoUri);
+            } else {
+                // android拍照获得图片URI为空的处理方法http://www.xuebuyuan.com/1929552.html
+                // 这样做取得是缩略图,以下链接是取得原始图片
+                // http://blog.csdn.net/beyond0525/article/details/8940840
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    // 这里是有些拍照后的图片是直接存放到Bundle中的所以我们可以从这里面获取Bitmap图片
+                    // Bitmap imageBitmap =
+                    // extras.getParcelable("data");
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    photoUri = Uri
+                            .parse(MediaStore.Images.Media.insertImage(
+                                    getActivity().getContentResolver(), imageBitmap,
+                                    null, null));
+
+                    startPhotoZoom(photoUri);
+                }
+            }
+        }
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.setDataAndType(uri, "image/*");
+        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        intent.putExtra("return-data", false);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 600);
+        intent.putExtra("outputY", 600);
+        startActivityForResult(intent, REQUEST_CODE_CUT_PHOTO);
     }
 }

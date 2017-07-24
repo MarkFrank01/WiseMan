@@ -13,6 +13,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         mModel = new LoginModel(this);
     }
 
+    public void phoneLogin(String phone, String password, String appType, String appChannel, String appVersion){
+        mModel.phoneLogin(phone,password,appType,appChannel,appVersion);
+    }
+
     @Override
     public void getDataSuccess(LoginBean bean) {
         mView.getDataSuccess(bean);

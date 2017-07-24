@@ -6,17 +6,17 @@
 
 
     <ImageView
-        android:background="@mipmap/guide_5"
+        android:background="@drawable/guide_4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/guide_button"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/guide_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
 </RelativeLayout>

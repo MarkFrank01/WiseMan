@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">shitang</string>
+    <string name="app_name">识堂</string>
     <string name="home_home">首页</string>
     <string name="home_classify">分类</string>
     <string name="home_my">我的</string>
@@ -36,4 +36,12 @@
     <string name="et_feedback_content">想吐槽点什么吗?</string>
     <string name="common_close">关闭</string>
     <string name="common_confirm">确定</string>
+    <string name="wechat">微信</string>
+    <string name="moments">朋友圈</string>
+    <string name="qq">QQ</string>
+    <string name="qzone">QQ空间</string>
+    <string name="weibo">微博</string>
+    <string name="save">本地保存</string>
+    <string name="more">更多</string>
+    <string name="network_error">网络异常</string>
 </resources>

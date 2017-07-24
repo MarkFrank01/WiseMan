@@ -11,14 +11,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.Utils;
 
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 public class RegisterActivity extends MvpActivity<RegisterPresenter> implements RegisterContract.View {
 
@@ -34,6 +43,8 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     EditText mEtRegisterPassword;
     @BindView(R.id.btn_register)
     Button mBtnRegister;
+    @BindView(R.id.tv_register_send_over)
+    TextView mTvRegisterSendOver;
 
     private int count = 60;
     Handler handler = new Handler();
@@ -49,6 +60,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
+        SMSSDK.registerEventHandler(new EventHandle());
 
         CheckNullTextWatcher textWatcher = new CheckNullTextWatcher();
         mEtRegisterPhone.addTextChangedListener(textWatcher);
@@ -58,13 +70,23 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterAllEventHandler();
+    }
+
+    @Override
     protected RegisterPresenter createPresenter() {
         return new RegisterPresenter(this);
     }
 
     @Override
     public void getDataSuccess(RegisterBean bean) {
-
+        SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getUser().getId());
+        SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
+        SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
+        SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
+        finish();
     }
 
     @OnClick(R.id.iv_register_close)
@@ -80,15 +102,20 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @OnClick(R.id.tv_register_send_verification)
     public void onMTvRegisterSendVerificationClicked() {
         if (checkPhone()) {
-            mTvRegisterSendVerification.setEnabled(false);
-            handler.post(setDjs);
+            SMSSDK.getVerificationCode("86",mEtRegisterPhone.getText().toString());
         }
     }
 
     @OnClick(R.id.btn_register)
     public void onMBtnRegisterClicked() {
         if (checkPhone() && checkPassword()) {
-            finish();
+            String phone = mEtRegisterPhone.getText().toString();
+            String password = mEtRegisterPassword.getText().toString();
+            String code = mEtRegisterVerificationCode.getText().toString();
+            String appType = Constants.APP_TYPE;
+            String appChannel = WalleChannelReader.getChannel(this);
+            String appVersion = Utils.getAppVersionName(this);
+            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);
         }
     }
 
@@ -96,12 +123,15 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     public void onMTvRegisterAgreementClicked() {
     }
 
+    @OnClick(R.id.tv_register_send_over)
+    public void onViewClicked() {
+    }
 
 
     private boolean checkPhone() {
         if (phonePattern.matcher(mEtRegisterPhone.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("手机号格式错误!");
             return false;
         }
@@ -110,7 +140,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     private boolean checkPassword() {
         if (passwordPattern.matcher(mEtRegisterPassword.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("密码格式错误!");
             return false;
         }
@@ -136,7 +166,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         }
     };
 
-    class CheckNullTextWatcher implements TextWatcher{
+    class CheckNullTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -151,15 +181,15 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         @Override
         public void afterTextChanged(Editable s) {
             if (mEtRegisterPhone.length() > 0 && mEtRegisterVerificationCode.length() > 0
-                    && mEtRegisterPassword.length() > 0){
+                    && mEtRegisterPassword.length() > 0) {
                 mBtnRegister.setEnabled(true);
-            }else {
+            } else {
                 mBtnRegister.setEnabled(false);
             }
         }
     }
 
-    class PhoneTextWatcher implements TextWatcher{
+    class PhoneTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -173,11 +203,59 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (mEtRegisterPhone.length() > 0 ){
+            if (mEtRegisterPhone.length() > 0) {
                 mIvRegisterPhoneClear.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mIvRegisterPhoneClear.setVisibility(View.GONE);
             }
+            mTvRegisterSendVerification.setVisibility(View.VISIBLE);
+            mTvRegisterSendOver.setVisibility(View.GONE);
+        }
+    }
+
+    class EventHandle extends EventHandler {
+        @Override
+        public void afterEvent(final int event, final int result, final Object data) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (result == SMSSDK.RESULT_COMPLETE) {
+                        //回调完成
+                        if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                            //提交验证码成功
+
+                        } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                            //获取验证码成功
+                            mTvRegisterSendVerification.setEnabled(false);
+                            handler.post(setDjs);
+                        } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                            //返回支持发送验证码的国家列表
+                        }
+                    } else {
+                        // 根据服务器返回的网络错误，给toast提示
+                        try {
+                            Throwable throwable = (Throwable) data;
+                            throwable.printStackTrace();
+                            JSONObject object = JSON.parseObject(throwable.getMessage());
+                            String des = object.getString("detail");//错误描述
+                            int status = object.getInteger("status");//错误代码
+                            switch (status) {
+                                case 457:
+                                    toastShow("手机号格式错误!");
+                                    break;
+                                case 463:
+                                case 464:
+                                case 465:
+                                    mTvRegisterSendVerification.setVisibility(View.GONE);
+                                    mTvRegisterSendOver.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            //do something
+                        }
+                    }
+                }
+            });
         }
     }
 }

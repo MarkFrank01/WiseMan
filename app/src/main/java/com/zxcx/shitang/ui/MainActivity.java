@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.classify.ClassifyFragment;
 import com.zxcx.shitang.ui.home.HomeFragment;
 import com.zxcx.shitang.ui.my.MyFragment;
+import com.zxcx.shitang.ui.welcome.WebViewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +38,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         mHomeTabHome.performClick();
+
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra("hasAd",false)){
+            Intent intent1 = new Intent(this, WebViewActivity.class);
+            intent1.putExtra("title",intent.getStringExtra("title"));
+            intent1.putExtra("url",intent.getStringExtra("url"));
+            startActivity(intent1);
+        }
     }
 
     @OnClick({R.id.home_tab_home, R.id.home_tab_classify, R.id.home_tab_note})

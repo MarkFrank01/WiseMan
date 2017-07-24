@@ -21,5 +21,7 @@ public class SVTSConstants {
     public static final String isBindQQ = "is_bind_qq";
     public static final String isBindWX = "is_bind_wx";
 
+    public static final String localTimeStamp = "local_time_stamp";
+    public static final String serverTimeStamp = "server_time_stamp";
 
 }

@@ -3,15 +3,15 @@ package com.zxcx.shitang.retrofit;
 public class BaseBean<T> {
 
     private T data;
-    private String success;
+    private String code;
     private String message;
 
-    public String getSuccess() {
-        return success;
+    public String getCode() {
+        return code;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMessage() {
@@ -34,7 +34,7 @@ public class BaseBean<T> {
     public String toString() {
         return "JsonObjectResult{" +
                 "data=" + data +
-                ", success='" + success + '\'' +
+                ", code='" + code + '\'' +
                 ", message='" + message + '\'' +
                 '}';
     }

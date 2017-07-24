@@ -15,10 +15,10 @@ import java.util.regex.Pattern;
 public class TimeStampMD5andKL {
 
     // 规定的超时时间界限
-    private Long defaultTimeOut;
+    private static Long defaultTimeOut;
 
     // 密钥
-    private final String secretKey = "ZXCX@LiuSan";
+    private static final String secretKey = "ZXCX@LiuSan";
 
     /**
      * MD5加密，32位
@@ -27,7 +27,7 @@ public class TimeStampMD5andKL {
      *            要加密
      * @return
      */
-    private String MD5(String inStr) {
+    private static String MD5(String inStr) {
         MessageDigest md5 = null;
         try {
             md5 = MessageDigest.getInstance("MD5");
@@ -63,7 +63,7 @@ public class TimeStampMD5andKL {
      *            要加密的内容
      * @return
      */
-    private String KL(String inStr) {
+    private static String KL(String inStr) {
         // String s = new String(inStr);
         char[] a = inStr.toCharArray();
         for (int i = 0; i < a.length; i++) {
@@ -80,7 +80,7 @@ public class TimeStampMD5andKL {
      *            要解密的内容
      * @return
      */
-    private String JM(String inStr) {
+    private static String JM(String inStr) {
         char[] a = inStr.toCharArray();
         for (int i = 0; i < a.length; i++) {
             a[i] = (char) (a[i] ^ '*');
@@ -98,7 +98,7 @@ public class TimeStampMD5andKL {
      *            服务器时间
      * @return
      */
-    public String JiamiByMiYue(Long appLocalStartTime, Long serverStartTime) {
+    public static String JiamiByMiYue(Long appLocalStartTime, Long serverStartTime) {
         // 模拟算出当前服务器时间戳
         // System.currentTimeMillis() -- 当前APP的本地时间戳
         // appLocalStartTime -- APP开启的本地时间戳
@@ -137,7 +137,7 @@ public class TimeStampMD5andKL {
      *            需要解密的内容
      * @return
      */
-    private Long JieMiByMiYue(String ciphertext) {
+    private static Long JieMiByMiYue(String ciphertext) {
         // 拿到密钥MD5加密后的值
         String key = MD5(secretKey);
 
@@ -181,7 +181,7 @@ public class TimeStampMD5andKL {
      *            客户端返回的参数
      * @return
      */
-    public boolean CheckTimeStampIsLegitimate(String timeStamp) {
+    public static boolean CheckTimeStampIsLegitimate(String timeStamp) {
         // 获取当前时间
         long now = System.currentTimeMillis();
         // 解析时间戳
@@ -202,7 +202,7 @@ public class TimeStampMD5andKL {
      *            要检测的内容
      * @return
      */
-    private boolean IsNumeric(String str) {
+    private static boolean IsNumeric(String str) {
         // 通过正则表达式判断字符串是不是纯数字组成
         Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();

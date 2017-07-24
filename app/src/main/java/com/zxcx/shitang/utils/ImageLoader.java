@@ -2,6 +2,7 @@ package com.zxcx.shitang.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -42,27 +43,30 @@ public class ImageLoader {
         }
     }
 
-    public static void load(Activity activity, File file, int defaultImage, ImageView imageView) {
+    public static void load(Activity activity, Uri uri, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(activity)
+                .load(uri)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .into(imageView);
+    }
 
-        {
-            GlideApp
-                    .with(activity)
-                    .load(file)
-                    .placeholder(defaultImage)
-                    .error(defaultImage)
-                    .into(imageView);
-        }
+    public static void load(Activity activity, File file, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(activity)
+                .load(file)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .into(imageView);
     }
 
     public static void load(Context context, File file, int defaultImage, ImageView imageView) {
-
-        {
-            GlideApp
-                    .with(context)
-                    .load(file)
-                    .placeholder(defaultImage)
-                    .error(defaultImage)
-                    .into(imageView);
-        }
+        GlideApp
+                .with(context)
+                .load(file)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .into(imageView);
     }
 }

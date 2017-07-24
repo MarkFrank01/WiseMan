@@ -5,8 +5,13 @@ import com.zxcx.shitang.retrofit.BaseArrayBean;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.utils.Constants;
 
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscription;
+
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -21,31 +26,31 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class BaseModel<T extends IBasePresenter> {
-    public Disposable subscription;
+    protected Disposable subscription;
 //    public ApiStores apiStores = AppClient.retrofit().create(ApiStores.class);
     private CompositeDisposable mCompositeSubscription = null;
 
     public T mPresent;
 
-    public <T> ObservableTransformer<T, T> io_main() {
-        return new ObservableTransformer<T, T>() {
+    protected <T> FlowableTransformer<T, T> io_main() {
+        return new FlowableTransformer<T, T>() {
             @Override
-            public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
+            public Publisher<T> apply(@NonNull Flowable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
     }
 
-    public <T> ObservableTransformer<T, T> io_main_loading() {
-        return new ObservableTransformer<T, T>() {
+    protected <T> FlowableTransformer<T, T> io_main_loading() {
+        return new FlowableTransformer<T, T>() {
             @Override
-            public ObservableSource<T> apply(@NonNull Observable<T> upstream) {
+            public Publisher<T> apply(@NonNull Flowable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnSubscribe(new Consumer<Disposable>() {
+                        .doOnSubscribe(new Consumer<Subscription>() {
                             @Override
-                            public void accept(@NonNull Disposable disposable) throws Exception {
+                            public void accept(@NonNull Subscription subscription) throws Exception {
                                 mPresent.showLoading();
                             }
                         })
@@ -59,16 +64,16 @@ public class BaseModel<T extends IBasePresenter> {
         };
     }
 
-    public <T> ObservableTransformer<BaseBean<T>, T> handleResult() {
-        return new ObservableTransformer<BaseBean<T>, T>() {
+    protected  <T> FlowableTransformer<BaseBean<T>, T> handleResult() {
+        return new FlowableTransformer<BaseBean<T>, T>() {
             @Override
-            public ObservableSource<T> apply(@NonNull Observable<BaseBean<T>> upstream) {
+            public Publisher<T> apply(@NonNull Flowable<BaseBean<T>> upstream) {
                 return upstream.map(new Function<BaseBean<T>, T>() {
                                         @Override
                                         public T apply(@NonNull BaseBean<T> result) throws Exception {
-                                            if (Constants.RESULT_OK.equals(result.getSuccess())) {
+                                            if (Constants.RESULT_OK.equals(result.getCode())) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL.equals(result.getSuccess())) {
+                                            } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
                                                 mPresent.getDataFail(result.getMessage());
                                             } else {
 
@@ -82,7 +87,7 @@ public class BaseModel<T extends IBasePresenter> {
         };
     }
 
-    public <T> ObservableTransformer<BaseArrayBean<T>, List<T>> handleArrayResult() {
+    protected <T> ObservableTransformer<BaseArrayBean<T>, List<T>> handleArrayResult() {
         return new ObservableTransformer<BaseArrayBean<T>, List<T>>() {
             @Override
             public ObservableSource<List<T>> apply(@NonNull Observable<BaseArrayBean<T>> upstream) {
@@ -111,7 +116,7 @@ public class BaseModel<T extends IBasePresenter> {
         }
     }
 
-    public void addSubscription(Disposable subscription) {
+    protected void addSubscription(Disposable subscription) {
         if (mCompositeSubscription == null) {
             mCompositeSubscription = new CompositeDisposable();
         }

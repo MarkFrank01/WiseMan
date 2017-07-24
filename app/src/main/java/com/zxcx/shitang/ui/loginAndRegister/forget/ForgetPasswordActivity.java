@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 
@@ -20,6 +22,8 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
@@ -41,6 +45,8 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     Button mBtnForgetPasswordComplete;
     @BindView(R.id.ll_forget_password_complete)
     LinearLayout mLlForgetPasswordComplete;
+    @BindView(R.id.tv_forget_password_send_over)
+    TextView mTvForgetPasswordSendOver;
 
     private int count = 60;
     Handler handler = new Handler();
@@ -56,11 +62,19 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
 
+        SMSSDK.registerEventHandler(new EventHandle());
+
         mEtForgetPasswordPhone.addTextChangedListener(new NextCheckNullTextWatcher());
         mEtForgetPasswordPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtForgetPasswordVerificationCode.addTextChangedListener(new NextCheckNullTextWatcher());
         mEtForgetPasswordPassword.addTextChangedListener(new CompleteCheckNullTextWatcher());
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterAllEventHandler();
     }
 
     @Override
@@ -86,16 +100,14 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     @OnClick(R.id.tv_forget_password_send_verification)
     public void onMTvForgetPasswordSendVerificationClicked() {
         if (checkPhone()) {
-            mTvForgetPasswordSendVerification.setEnabled(false);
-            handler.post(setDjs);
+            SMSSDK.getVerificationCode("86",mEtForgetPasswordPhone.getText().toString());
         }
     }
 
     @OnClick(R.id.btn_forget_password_next)
     public void onMBtnForgetPasswordNextClicked() {
         if (checkPhone()) {
-            mLlForgetPasswordNext.setVisibility(View.GONE);
-            mLlForgetPasswordComplete.setVisibility(View.VISIBLE);
+            SMSSDK.submitVerificationCode("86",mEtForgetPasswordPhone.getText().toString(),mEtForgetPasswordVerificationCode.getText().toString());
         }
     }
 
@@ -106,10 +118,14 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         }
     }
 
+    @OnClick(R.id.tv_forget_password_send_over)
+    public void onViewClicked() {
+    }
+
     private boolean checkPhone() {
         if (phonePattern.matcher(mEtForgetPasswordPhone.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("手机号格式错误!");
             return false;
         }
@@ -118,7 +134,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     private boolean checkPassword() {
         if (passwordPattern.matcher(mEtForgetPasswordPassword.getText().toString()).matches()) {
             return true;
-        }else {
+        } else {
             toastShow("密码格式错误!");
             return false;
         }
@@ -207,6 +223,55 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             } else {
                 mIvForgetPasswordPhoneClear.setVisibility(View.GONE);
             }
+            mTvForgetPasswordSendVerification.setVisibility(View.VISIBLE);
+            mTvForgetPasswordSendOver.setVisibility(View.GONE);
+        }
+    }
+
+    class EventHandle extends EventHandler {
+        @Override
+        public void afterEvent(final int event, final int result, final Object data) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (result == SMSSDK.RESULT_COMPLETE) {
+                        //回调完成
+                        if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                            //提交验证码成功
+                            mLlForgetPasswordNext.setVisibility(View.GONE);
+                            mLlForgetPasswordComplete.setVisibility(View.VISIBLE);
+                        } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                            //获取验证码成功
+                            mTvForgetPasswordSendVerification.setEnabled(false);
+                            handler.post(setDjs);
+                        } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+                            //返回支持发送验证码的国家列表
+                        }
+                    } else {
+                        // 根据服务器返回的网络错误，给toast提示
+                        try {
+                            Throwable throwable = (Throwable) data;
+                            throwable.printStackTrace();
+                            JSONObject object = JSON.parseObject(throwable.getMessage());
+                            String des = object.getString("detail");//错误描述
+                            int status = object.getInteger("status");//错误代码
+                            switch (status) {
+                                case 457:
+                                    toastShow("手机号格式错误!");
+                                    break;
+                                case 463:
+                                case 464:
+                                case 465:
+                                    mTvForgetPasswordSendVerification.setVisibility(View.GONE);
+                                    mTvForgetPasswordSendOver.setVisibility(View.VISIBLE);
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            //do something
+                        }
+                    }
+                }
+            });
         }
     }
 }

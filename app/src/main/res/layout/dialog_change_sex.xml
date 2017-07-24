@@ -45,7 +45,7 @@
     <View
         android:id="@+id/view_line"
         android:layout_below="@+id/rg_change_sex"
-        android:background="@color/wireframe_dialog"
+        android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     
@@ -65,7 +65,7 @@
             android:layout_height="match_parent"/>
 
         <View
-            android:background="@color/wireframe_dialog"
+            android:background="@color/line"
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
 

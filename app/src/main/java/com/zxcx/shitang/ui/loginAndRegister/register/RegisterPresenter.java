@@ -1,10 +1,8 @@
 package com.zxcx.shitang.ui.loginAndRegister.register;
 
-import com.zxcx.shitang.ui.loginAndRegister.register.RegisterContract;
-import com.zxcx.shitang.ui.loginAndRegister.register.RegisterModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {
 
@@ -13,6 +11,10 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     public RegisterPresenter(@NonNull RegisterContract.View view) {
         attachView(view);
         mModel = new RegisterModel(this);
+    }
+
+    public void phoneRegister(String phone, String code, String password, String appType, String appChannel, String appVersion){
+        mModel.phoneRegister(phone,code,password,appType,appChannel,appVersion);
     }
 
     @Override

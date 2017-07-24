@@ -1,6 +1,5 @@
 package com.zxcx.shitang.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -88,11 +87,11 @@ public class Utils {
         return (current.isAvailable());
     }
 
-    public static Boolean getIsFirstLaunchApp(Context mThis){
-        return SharedPreferencesUtil.getBoolean( SVTSConstants.isFirstLaunchApp, true);
+    public static Boolean getIsFirstLaunchApp(){
+        return SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLaunchApp, true);
     }
 
-    public static void setIsFirstLaunchApp(Activity mThis, Boolean value){
+    public static void setIsFirstLaunchApp(Boolean value){
         SharedPreferencesUtil.saveData(SVTSConstants.isFirstLaunchApp,value);
     }
 

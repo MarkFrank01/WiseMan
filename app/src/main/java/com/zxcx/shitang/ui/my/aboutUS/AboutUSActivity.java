@@ -3,6 +3,8 @@ package com.zxcx.shitang.ui.my.aboutUS;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.UpgradeInfo;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.utils.Utils;
@@ -15,6 +17,8 @@ public class AboutUSActivity extends BaseActivity {
 
     @BindView(R.id.tv_about_us_versions)
     TextView mTvAboutUsVersions;
+    @BindView(R.id.tv_about_us_new_versions)
+    TextView mTvAboutUsNewVersions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +28,16 @@ public class AboutUSActivity extends BaseActivity {
 
         initToolBar("关于我们");
         mTvAboutUsVersions.setText(Utils.getAppVersionName(this));
+
+        UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
+        if (upgradeInfo != null) {
+            mTvAboutUsNewVersions.setText(upgradeInfo.versionName);
+        }
     }
 
     @OnClick(R.id.ll_about_us_check_update)
     public void onMLlAboutUsCheckUpdateClicked() {
+        Beta.checkUpgrade(true,false);
     }
 
     @OnClick(R.id.ll_about_us_visit)

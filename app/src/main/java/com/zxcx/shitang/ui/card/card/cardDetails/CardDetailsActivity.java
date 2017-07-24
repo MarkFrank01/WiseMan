@@ -1,7 +1,9 @@
 package com.zxcx.shitang.ui.card.card.cardDetails;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -10,7 +12,8 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.collectDialog.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.dialog.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.dialog.ShareWayDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -20,7 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
+public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View ,
+        ShareWayDialog.DefaultShareDialogListener{
 
     @BindView(R.id.tv_card_details_name)
     TextView mTvCardDetailsName;
@@ -82,6 +86,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
+        ShareWayDialog shareWayDialog = new ShareWayDialog();
+        shareWayDialog.show(getFragmentManager(),"");
     }
 
     @OnClick(R.id.cb_card_details_collect)
@@ -95,5 +101,15 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.iv_card_details_back)
     public void onBackClicked() {
         finish();
+    }
+
+    @Override
+    public void onDefaultShareClick() {
+        View tempView = getWindow().getDecorView();
+//View tempView = button; //获取 Button 的截图
+        tempView.setDrawingCacheEnabled(true);
+
+        Bitmap bitmap = tempView.getDrawingCache();
+        tempView.setDrawingCacheEnabled(false);
     }
 }

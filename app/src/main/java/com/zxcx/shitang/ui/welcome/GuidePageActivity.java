@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.welcome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -7,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.utils.Utils;
@@ -27,27 +28,25 @@ public class GuidePageActivity extends AppCompatActivity {
     /**
      * 5张引导页面的图片
      */
-    private int[] mImgIds = new int[]{R.mipmap.guide_1, R.mipmap.guide_2,
-            R.mipmap.guide_3, R.mipmap.guide_4, R.mipmap.guide_5};
+    private int[] mImgIds = new int[]{R.drawable.guide_1, R.drawable.guide_2,
+            R.drawable.guide_3, R.drawable.guide_4};
     /**
      * 图片资源容器
      */
     private List<ImageView> mImageViews = new ArrayList<>();
 
-
-    private ImageView[] indicator_imgs = new ImageView[5];//存放引到图片数组
     private boolean isScrolling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_guide_page);
         ButterKnife.bind(this);
 
         initImgData();
 
         if (isFirstLaunchApp()) {
-            initIndicator();
             initViewPager();
         } else {
             jumpToIndexActivity();
@@ -70,7 +69,7 @@ public class GuidePageActivity extends AppCompatActivity {
      * @return 是-true 否-false
      */
     private boolean isFirstLaunchApp() {
-        return Utils.getIsFirstLaunchApp(this);
+        return Utils.getIsFirstLaunchApp();
     }
 
 
@@ -79,10 +78,10 @@ public class GuidePageActivity extends AppCompatActivity {
      */
     private void jumpToIndexActivity() {
 
-        Utils.setIsFirstLaunchApp(GuidePageActivity.this,false);
+        Utils.setIsFirstLaunchApp(false);
 
-        /*Intent intent = new Intent(this, WelcomeActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
 
         finish();
     }
@@ -143,16 +142,6 @@ public class GuidePageActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // 改变所有导航的背景图片为：未选中
-                for (int i = 0; i < indicator_imgs.length; i++) {
-
-                    indicator_imgs[i].setBackgroundResource(R.mipmap.white);
-
-                }
-
-                // 改变当前背景图片为：选中
-                indicator_imgs[position].setBackgroundResource(R.mipmap.black);
-
 
             }
 
@@ -165,32 +154,5 @@ public class GuidePageActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    /**
-     * 初始化引导图标
-     * 动态创建多个小圆点，然后组装到线性布局里
-     */
-    private void initIndicator(){
-
-        ImageView imgView;
-        View v = findViewById(R.id.indicator);// 线性水平布局，负责动态调整导航图标
-
-        for (int i = 0; i < indicator_imgs.length; i++) {
-            imgView = new ImageView(this);
-            LinearLayout.LayoutParams params_linear = new LinearLayout.LayoutParams(20,20);
-            params_linear.setMargins(7, 10, 7, 10);
-            imgView.setLayoutParams(params_linear);
-            indicator_imgs[i] = imgView;
-
-            if (i == 0) { // 初始化第一个为选中状态
-
-                indicator_imgs[i].setBackgroundResource(R.mipmap.black);
-            } else {
-                indicator_imgs[i].setBackgroundResource(R.mipmap.white);
-            }
-            ((ViewGroup)v).addView(indicator_imgs[i]);
-        }
-
     }
 }

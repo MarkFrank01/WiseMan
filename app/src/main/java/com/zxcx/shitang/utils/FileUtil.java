@@ -23,10 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
-/**
- * Created by WuXiaolong on 2015/12/19.
- */
 public class FileUtil {
 
     /**
@@ -43,7 +39,8 @@ public class FileUtil {
 
     public static String SDCard_PATH_BASE = Environment.getExternalStorageDirectory().getPath() + "/";
 
-    public static String PATH_BASE = "chips";
+    public static String PATH_BASE = Environment.getExternalStorageDirectory()
+            .getPath() +"/识堂/";
     /**
      * 拍照路径
      */
@@ -242,6 +239,31 @@ public class FileUtil {
             return;
         }
         File file = createFile(path, name);
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+        } finally {
+            try {
+                if (fileOutputStream != null) {
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 保存bitmap成图片
+     */
+    public static void saveBitmap(Bitmap bitmap, String name)
+            throws IOException {
+        if (bitmap == null) {
+            return;
+        }
+        File file = createFile(App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath(), name);
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);

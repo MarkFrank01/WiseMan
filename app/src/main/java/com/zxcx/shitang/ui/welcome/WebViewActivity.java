@@ -1,7 +1,6 @@
 package com.zxcx.shitang.ui.welcome;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -14,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends BaseActivity {
 
     @BindView(R.id.iv_toolbar_back)
     ImageView mIvToolbarBack;
@@ -46,6 +46,8 @@ public class WebViewActivity extends AppCompatActivity {
 
     private void initWebView() {
         mWebView = new WebView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mWebView.setLayoutParams(params);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);//支持js
         webSettings.setUseWideViewPort(true);//将图片调整到适合webview的大小
@@ -68,7 +70,7 @@ public class WebViewActivity extends AppCompatActivity {
     private void getIntentData() {
         String title = getIntent().getStringExtra("title");
         String url = getIntent().getStringExtra("url");
-        mToolbarTitle.setText(title);
+        initToolBar(title);
         mWebView.loadUrl(url);
     }
 

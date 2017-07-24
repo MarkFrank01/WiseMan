@@ -1,9 +1,13 @@
 package com.zxcx.shitang.ui.my.userInfo;
 
+import android.Manifest;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeBirthdayDialogEvent;
 import com.zxcx.shitang.event.ChangeNickNameDialogEvent;
@@ -15,6 +19,8 @@ import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.StringUtils;
+import com.zxcx.shitang.widget.GetPicBottomDialog;
+import com.zxcx.shitang.widget.PermissionDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,8 +29,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
-public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements UserInfoContract.View {
+public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements UserInfoContract.View,
+        GetPicBottomDialog.GetPicDialogListener {
 
     @BindView(R.id.tv_user_info_head)
     TextView mTvUserInfoHead;
@@ -117,6 +126,28 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @OnClick(R.id.rl_user_info_head)
     public void onMRlUserInfoHeadClicked() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(@NonNull Permission permission) throws Exception {
+                        if (permission.granted) {
+                            // `permission.name` is granted !
+                            GetPicBottomDialog getPicBottomDialog = new GetPicBottomDialog();
+                            getPicBottomDialog.setListener(UserInfoActivity.this);
+                            getPicBottomDialog.show(getFragmentManager(),"UserInfo");
+                        } else if (permission.shouldShowRequestPermissionRationale){
+                            // Denied permission without ask never again
+                            toastShow("权限已被拒绝！无法进行操作");
+                        } else {
+                            // Denied permission with ask never again
+                            // Need to go to the settings
+                            PermissionDialog permissionDialog = new PermissionDialog();
+                            permissionDialog.show(getFragmentManager(),"");
+                        }
+                    }
+                });
     }
 
     @OnClick(R.id.rl_user_info_nick_name)
@@ -156,5 +187,10 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     public void onMTvUserInfoLogoutClicked() {
         LogoutDialog dialog = new LogoutDialog();
         dialog.show(getFragmentManager(), "");
+    }
+
+    @Override
+    public void onGetSuccess(Uri file) {
+        ImageLoader.load(this,file,R.drawable.iv_my_head_icon,mIvUserInfoHead);
     }
 }

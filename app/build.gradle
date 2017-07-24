@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'walle'
+apply from: 'tinker-support.gradle'
 
 android {
     compileSdkVersion 25
@@ -10,7 +11,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'TAG', '"putong"'
@@ -52,6 +53,10 @@ android {
         targetCompatibility 1.7
         sourceCompatibility 1.7
     }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -60,7 +65,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //retrofit2
+
     //fastjson retrofit2 转换器
+
     //fastjson
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.android.support:support-v4:25.3.1'
@@ -79,19 +86,25 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.57.android'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'//点击事件过滤
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'//动态权限获取
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.16'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.16'//简洁RecyclerView-Adapter
     compile 'com.jakewharton:butterknife:8.6.0'
-    compile 'com.makeramen:roundedimageview:2.3.0'
-    compile 'com.meituan.android.walle:library:1.1.3'
+    compile 'com.makeramen:roundedimageview:2.3.0'//圆角ImageView
+    compile 'com.meituan.android.walle:library:1.1.3'//瓦力多渠道打包
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+    compile name:'SMSSDK-3.0.0',ext:'aar'
 }
 repositories {
     mavenCentral()
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
+    }
 }
 walle {
     // 指定渠道包的输出路径

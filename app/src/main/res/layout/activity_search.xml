@@ -24,7 +24,7 @@
             android:id="@+id/et_search"
             android:gravity="center_vertical"
             android:hint="输入你想查找的"
-            android:textColorHint="@color/wireframe_shallow"
+            android:textColorHint="@color/line"
             android:textColor="@color/text_color_66"
             android:cursorVisible="true"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
@@ -43,7 +43,7 @@
             android:layout_below="@+id/et_search"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@color/wireframe_shallow"
+            android:background="@color/line"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
