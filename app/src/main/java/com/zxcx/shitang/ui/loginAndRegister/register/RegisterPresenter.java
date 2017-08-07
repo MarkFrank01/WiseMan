@@ -13,7 +13,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
         mModel = new RegisterModel(this);
     }
 
-    public void phoneRegister(String phone, String code, String password, String appType, String appChannel, String appVersion){
+    public void phoneRegister(String phone, String code, String password, int appType, String appChannel, String appVersion){
         mModel.phoneRegister(phone,code,password,appType,appChannel,appVersion);
     }
 

@@ -13,7 +13,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void phoneLogin(String phone, String password, String appType, String appChannel, String appVersion){
+    public void phoneLogin(String phone, String password, int appType, String appChannel, String appVersion){
         subscription = AppClient.getAPIService().phoneLogin(phone,password,appType,appChannel,appVersion)
                 .compose(this.<BaseBean<LoginBean>>io_main())
                 .compose(this.<LoginBean>handleResult())

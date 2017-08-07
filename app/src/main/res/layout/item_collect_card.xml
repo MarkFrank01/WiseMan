@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,7 +37,8 @@
 
     <TextView
         android:id="@+id/tv_item_collect_card_title"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/iv_item_collect_card_icon"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
         android:text="笔记本"
         android:textColor="@color/text_color_40"
@@ -47,7 +48,8 @@
 
     <TextView
         android:id="@+id/tv_item_collect_card_collect_num"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/tv_item_collect_card_title"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="23.5dp"
         android:text="%1$d人收藏  %2$d人认同"
@@ -56,4 +58,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-</LinearLayout>
+</RelativeLayout>

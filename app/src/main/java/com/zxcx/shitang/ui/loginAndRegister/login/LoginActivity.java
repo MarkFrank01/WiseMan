@@ -5,21 +5,17 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
-import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
-import com.zxcx.shitang.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,7 +44,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -91,12 +86,18 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @OnClick(R.id.btn_login)
     public void onMBtnLoginClicked() {
         if (checkPhone() && checkPassword()) {
-            String phone = mEtLoginPhone.getText().toString();
+            /*String phone = mEtLoginPhone.getText().toString();
             String password = mEtLoginPassword.getText().toString();
-            String appType = Constants.APP_TYPE;
+            int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);
+            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);*/
+            SharedPreferencesUtil.saveData(SVTSConstants.userId, "asdasd16545");
+            SharedPreferencesUtil.saveData(SVTSConstants.nickName, "一叶知秋");
+            SharedPreferencesUtil.saveData(SVTSConstants.sex, 1);
+            SharedPreferencesUtil.saveData(SVTSConstants.birthday, "1992-06-09");
+            EventBus.getDefault().post(new LoginEvent());
+            finish();
         }
     }
 

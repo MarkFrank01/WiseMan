@@ -14,7 +14,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void phoneRegister(String phone, String code, String password, String appType, String appChannel, String appVersion){
+    public void phoneRegister(String phone, String code, String password, int appType, String appChannel, String appVersion){
         subscription = AppClient.getAPIService().phoneRegistered(phone,code,password,appType,appChannel,appVersion)
                 .compose(this.<BaseBean<RegisterBean>>io_main())
                 .compose(this.<RegisterBean>handleResult())

@@ -70,6 +70,7 @@ public class WelcomeActivity extends BaseActivity {
     private void gotoMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        mHandler.removeCallbacks(mRunnable);
         finish();
     }
 }

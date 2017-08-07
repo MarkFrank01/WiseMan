@@ -2,9 +2,10 @@ package com.zxcx.shitang.ui.card.card.cardDetails;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextPaint;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View ,
-        ShareWayDialog.DefaultShareDialogListener{
+public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View,
+        ShareWayDialog.DefaultShareDialogListener {
 
     @BindView(R.id.tv_card_details_name)
     TextView mTvCardDetailsName;
@@ -40,11 +41,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     ImageView mIvCardDetails;
 
     SelectCollectFolderDialog mSelectCollectFolderDialog;
+    @BindView(R.id.scv_card_details)
+    NestedScrollView mScvCardDetails;
+    @BindView(R.id.tv_card_details_title)
+    TextView mTvCardDetailsTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_card_details);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -58,8 +62,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus){
+        if (hasFocus) {
 //            TextViewUtils.adjustTvTextSize(mTvCardDetailsContent);
+            ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
+            para.height = mIvCardDetails.getWidth() * 3 / 4;
+            mIvCardDetails.setLayoutParams(para);
         }
     }
 
@@ -87,13 +94,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
         ShareWayDialog shareWayDialog = new ShareWayDialog();
-        shareWayDialog.show(getFragmentManager(),"");
+        shareWayDialog.setListener(this);
+        shareWayDialog.show(getFragmentManager(), "");
     }
 
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
-        if (mCbCardDetailsCollect.isChecked()){
-            mSelectCollectFolderDialog.show(getFragmentManager(),"1");
+        if (mCbCardDetailsCollect.isChecked()) {
+            mSelectCollectFolderDialog.show(getFragmentManager(), "1");
             mCbCardDetailsCollect.setChecked(false);
         }
     }
@@ -106,7 +114,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void onDefaultShareClick() {
         View tempView = getWindow().getDecorView();
-//View tempView = button; //获取 Button 的截图
+        //View tempView = button; //获取 Button 的截图
         tempView.setDrawingCacheEnabled(true);
 
         Bitmap bitmap = tempView.getDrawingCache();

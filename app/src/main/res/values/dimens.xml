@@ -8,4 +8,7 @@
     <dimen name="dp_card_details_subhead">16sp</dimen>
     <dimen name="dp_card_details_name">30sp</dimen>
     <dimen name="dp_card_details_content_1">5dp</dimen>
+    <dimen name="dp_card_details_scv_top">10dp</dimen>
+    <dimen name="dp_card_details_subhead_top">10dp</dimen>
+    <dimen name="dp_card_details_content_top">15dp</dimen>
 </resources>

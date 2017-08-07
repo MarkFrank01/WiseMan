@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,13 +12,10 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
-import com.zxcx.shitang.utils.Utils;
 
 import java.util.regex.Pattern;
 
@@ -56,7 +52,6 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
 
@@ -109,13 +104,14 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @OnClick(R.id.btn_register)
     public void onMBtnRegisterClicked() {
         if (checkPhone() && checkPassword()) {
-            String phone = mEtRegisterPhone.getText().toString();
+            /*String phone = mEtRegisterPhone.getText().toString();
             String password = mEtRegisterPassword.getText().toString();
             String code = mEtRegisterVerificationCode.getText().toString();
-            String appType = Constants.APP_TYPE;
+            int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);
+            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);*/
+            finish();
         }
     }
 

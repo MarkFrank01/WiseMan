@@ -74,7 +74,7 @@
         <activity
             android:name=".ui.welcome.GuidePageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -86,6 +86,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
@@ -95,6 +96,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.search.search.SearchActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.UserInfoActivity"
@@ -104,7 +106,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.collect.collectFolder.CollectFolderActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.card.cardBag.CardBagActivity"
             android:screenOrientation="portrait"/>
@@ -113,15 +116,19 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.collect.collectCard.CollectCardActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.card.card.cardDetails.CardDetailsActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.aboutUS.AboutUSActivity"
@@ -131,9 +138,11 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.selectAttention.SelectAttentionActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"

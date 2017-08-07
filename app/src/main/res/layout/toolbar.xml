@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:minHeight="?actionBarSize"
+    android:fitsSystemWindows="true"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp">
     <!--android:paddingTop="@dimen/status_bar_height"-->
