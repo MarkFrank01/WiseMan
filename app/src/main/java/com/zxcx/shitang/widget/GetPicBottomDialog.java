@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -50,7 +51,7 @@ public class GetPicBottomDialog extends DialogFragment {
     private File file;
 
     public interface GetPicDialogListener {
-        void onGetSuccess(Uri file);
+        void onGetSuccess(Uri uri);
     }
 
     public void setListener(GetPicDialogListener listener) {
@@ -61,9 +62,15 @@ public class GetPicBottomDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        }
         try {
             file = FileUtil.createFile(FileUtil.PATH_BASE, "head.png");
-            tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
+            }else {
+                tempUri = Uri.fromFile(file);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             ContentValues values = new ContentValues();

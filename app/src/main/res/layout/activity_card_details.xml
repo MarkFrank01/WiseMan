@@ -102,6 +102,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -140,7 +141,7 @@
                 <TextView
                     android:id="@+id/tv_card_details_content"
                     android:lineSpacingExtra="@dimen/dp_card_details_content_1"
-                    android:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。"
+                    android:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。666"
                     android:textSize="@dimen/dp_card_details_content"
                     android:textColor="@color/text_color_66"
                     android:layout_width="match_parent"

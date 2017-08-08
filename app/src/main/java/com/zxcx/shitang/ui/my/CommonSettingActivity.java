@@ -13,6 +13,7 @@ import com.zxcx.shitang.utils.DataCleanManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by anm on 2017/6/26.
@@ -36,6 +37,7 @@ public class CommonSettingActivity extends BaseActivity {
 
         initToolBar("通用设置");
         updateCacheSize();
+        mScCommonSettingPush.setChecked(!JPushInterface.isPushStopped(this));
     }
 
     @OnClick(R.id.ll_common_setting_attention)
@@ -47,6 +49,11 @@ public class CommonSettingActivity extends BaseActivity {
     @OnClick(R.id.ll_common_setting_push)
     public void onMLlCommonSettingPushClicked() {
         mScCommonSettingPush.setChecked(!mScCommonSettingPush.isChecked());
+        if (JPushInterface.isPushStopped(this)){
+            JPushInterface.resumePush(this);
+        }else {
+            JPushInterface.stopPush(this);
+        }
     }
 
     @OnClick(R.id.ll_common_setting_night_model)

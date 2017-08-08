@@ -15,6 +15,7 @@ import com.zxcx.shitang.event.ChangeSexDialogEvent;
 import com.zxcx.shitang.event.UpdataUserInfoEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.utils.DateTimeUtils;
+import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
@@ -190,7 +191,13 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Override
-    public void onGetSuccess(Uri file) {
-        ImageLoader.load(this,file,R.drawable.iv_my_head_icon,mIvUserInfoHead);
+    public void onGetSuccess(Uri uri) {
+        String imagePath;
+        ImageLoader.load(this,uri,R.drawable.iv_my_head_icon,mIvUserInfoHead);
+        if (uri.getScheme().equals("content")){
+            imagePath = FileUtil.getImagePathFromUriOnKitKat(uri);
+        }else if (uri.getScheme().equals("file")){
+            imagePath = uri.getPath();
+        }
     }
 }

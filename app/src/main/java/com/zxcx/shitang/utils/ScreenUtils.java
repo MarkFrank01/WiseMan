@@ -1,8 +1,13 @@
 package com.zxcx.shitang.utils;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 
 import com.zxcx.shitang.App;
+import com.zxcx.shitang.R;
 
 /**
  * Created by anm on 2017/6/20.
@@ -57,5 +62,27 @@ public class ScreenUtils {
     public static int px2dip(float pxValue) {
         final float scale = App.getContext().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
+    }
+
+    /**
+     * 截取scrollview的屏幕
+     * @param viewGroup
+     * @return
+     */
+    public static Bitmap getBitmapByView(ViewGroup viewGroup) {
+        float h = App.getContext().getResources().getDimension(R.dimen.dp_card_details_scv_top);
+        Bitmap bitmap = null;
+        // 获取scrollview实际高度
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            h += viewGroup.getChildAt(i).getHeight();
+        }
+        // 创建对应大小的bitmap
+        bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
+                Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.translate(0,App.getContext().getResources().getDimension(R.dimen.dp_card_details_scv_top));
+        canvas.drawColor(ContextCompat.getColor(App.getContext(),R.color.white));
+        viewGroup.draw(canvas);
+        return bitmap;
     }
 }

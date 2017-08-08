@@ -37,6 +37,15 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+        <receiver
+            android:name=".receiver.OpenNotification"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
         <!-- ShareSDK的activity -->
         <activity
             android:name="com.mob.tools.MobUIShell"

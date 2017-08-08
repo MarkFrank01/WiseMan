@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
@@ -16,14 +17,24 @@ import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jiguang.analytics.android.api.JAnalyticsInterface;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
 
 public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginContract.View {
 
@@ -33,13 +44,15 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     EditText mEtLoginPassword;
     @BindView(R.id.btn_login)
     Button mBtnLogin;
+    @BindView(R.id.iv_login_phone_clear)
+    ImageView mIvLoginPhoneClear;
 
     String phoneRules = "^1\\d{10}$";
     String passwordRules = "^[a-zA-Z0-9]{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
-    @BindView(R.id.iv_login_phone_clear)
-    ImageView mIvLoginPhoneClear;
+
+    PlatformActionListener mChannelLoginListener = new ChannelLoginListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +109,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             SharedPreferencesUtil.saveData(SVTSConstants.nickName, "一叶知秋");
             SharedPreferencesUtil.saveData(SVTSConstants.sex, 1);
             SharedPreferencesUtil.saveData(SVTSConstants.birthday, "1992-06-09");
+
+            cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult",true);
+            lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));
+            JAnalyticsInterface.onEvent(this, lEvent);
+
             EventBus.getDefault().post(new LoginEvent());
             finish();
         }
@@ -103,14 +121,23 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.ll_login_qq)
     public void onMLlLoginQqClicked() {
+        Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        qq.setPlatformActionListener(mChannelLoginListener);
+        qq.showUser(null);
     }
 
     @OnClick(R.id.ll_login_wechat)
     public void onMLlLoginWechatClicked() {
+        Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+        wechat.setPlatformActionListener(mChannelLoginListener);
+        wechat.showUser(null);
     }
 
     @OnClick(R.id.ll_login_weibo)
     public void onMLlLoginWeiboClicked() {
+        Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        weibo.setPlatformActionListener(mChannelLoginListener);
+        weibo.showUser(null);
     }
 
     @OnClick(R.id.iv_login_close)
@@ -133,6 +160,43 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         } else {
             toastShow("密码格式错误!");
             return false;
+        }
+    }
+
+    class ChannelLoginListener implements PlatformActionListener{
+
+        @Override
+        public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+            if (i == Platform.ACTION_USER_INFOR) {
+                PlatformDb platDB = platform.getDb();//获取数平台数据DB
+                //通过DB获取各种数据
+                platDB.getToken();
+                platDB.getUserGender();
+                platDB.getUserIcon();
+                platDB.getUserId();
+                platDB.getUserName();
+            }
+        }
+
+        @Override
+        public void onError(Platform platform, int i, Throwable throwable) {
+            throwable.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    toastShow("登录失败");
+                }
+            });
+        }
+
+        @Override
+        public void onCancel(Platform platform, int i) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    toastShow("登录取消");
+                }
+            });
         }
     }
 

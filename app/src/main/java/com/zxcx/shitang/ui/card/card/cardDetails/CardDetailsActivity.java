@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextPaint;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -14,7 +13,10 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.card.card.dialog.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.dialog.ShareCardDialog;
 import com.zxcx.shitang.ui.card.card.dialog.ShareWayDialog;
+import com.zxcx.shitang.utils.FileUtil;
+import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -113,11 +115,15 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void onDefaultShareClick() {
-        View tempView = getWindow().getDecorView();
-        //View tempView = button; //获取 Button 的截图
-        tempView.setDrawingCacheEnabled(true);
+        Bitmap bitmap = ScreenUtils.getBitmapByView(mScvCardDetails);
+        String fileName = FileUtil.getFileName();
+        String imagePath = FileUtil.PATH_BASE + fileName;
+        FileUtil.saveBitmapToSDCard(bitmap,FileUtil.PATH_BASE,fileName);
 
-        Bitmap bitmap = tempView.getDrawingCache();
-        tempView.setDrawingCacheEnabled(false);
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("imagePath", imagePath);
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(),"");
     }
 }

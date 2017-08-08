@@ -87,3 +87,15 @@
 -dontwarn org.apache.commons.codec.binary.**
 #保持Behavior类名不变
 -keep public class * extends android.support.design.widget.CoordinatorLayout.Behavior { *; }
+#JPush
+-dontoptimize
+-dontpreverify
+
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }
+#JAnalytics
+-keep public class cn.jiguang.analytics.android.api.** { *; }

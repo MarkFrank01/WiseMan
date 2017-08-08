@@ -102,7 +102,7 @@ public class ShareCardDialog extends DialogFragment {
     }
 
     private void showShare(String platform) {
-        final OnekeyShare oks = new OnekeyShare();
+        OnekeyShare oks = new OnekeyShare();
         //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
         if (platform != null) {
             oks.setPlatform(platform);
@@ -118,7 +118,7 @@ public class ShareCardDialog extends DialogFragment {
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
 //        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImagePath(mImagePath);//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
 //        oks.setUrl("http://sharesdk.cn");
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用

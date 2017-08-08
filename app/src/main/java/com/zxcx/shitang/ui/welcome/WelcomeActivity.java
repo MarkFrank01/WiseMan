@@ -53,6 +53,9 @@ public class WelcomeActivity extends BaseActivity {
 
     @OnClick(R.id.iv_welcome_ad)
     public void onMIvWelcomeAdClicked() {
+
+
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("hasAd",true);
         intent.putExtra("title","百度");
@@ -69,6 +72,10 @@ public class WelcomeActivity extends BaseActivity {
 
     private void gotoMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = getIntent().getBundleExtra("push");
+        if (bundle != null){
+            intent.putExtra("push",bundle);
+        }
         startActivity(intent);
         mHandler.removeCallbacks(mRunnable);
         finish();

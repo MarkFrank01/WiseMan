@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.Utils;
 
 import java.util.ArrayList;
@@ -79,6 +80,19 @@ public class GuidePageActivity extends AppCompatActivity {
         Utils.setIsFirstLaunchApp(false);
 
         Intent intent = new Intent(this, WelcomeActivity.class);
+        Bundle bundle = getIntent().getBundleExtra("push");
+        if (bundle != null){
+            String type = bundle.getString("type");
+            switch (type){
+                case Constants.PUSH_TYPE_CARD_BAG:
+                case Constants.PUSH_TYPE_CARD:
+                case Constants.PUSH_TYPE_AD:
+                    intent.putExtra("push",bundle);
+                    break;
+                default:
+                    break;
+            }
+        }
         startActivity(intent);
 
         finish();

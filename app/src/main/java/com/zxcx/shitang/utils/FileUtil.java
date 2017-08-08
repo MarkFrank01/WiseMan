@@ -1,7 +1,9 @@
 package com.zxcx.shitang.utils;
 
 import android.annotation.SuppressLint;
+import android.content.ContentUris;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,8 +11,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.zxcx.shitang.App;
@@ -45,12 +50,12 @@ public class FileUtil {
      * 拍照路径
      */
 
-    public static String PATH_PHOTOGRAPH = PATH_BASE + "Photograph";
+    public static String PATH_PHOTOGRAPH = PATH_BASE + "Photograph/";
     /**
      * 相册路径
      */
-    public static String PATH_ALBUM = PATH_BASE + "/Album";
-    public static String PATH_RECORD = PATH_BASE + "/Record";
+    public static String PATH_ALBUM = PATH_BASE + "/Album/";
+    public static String PATH_RECORD = PATH_BASE + "/Record/";
 
     private static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
@@ -141,9 +146,7 @@ public class FileUtil {
             Bitmap bitmap = extras.getParcelable("data");
             Log.e("putong", "saveFile bitmap=" + bitmap);
             if (bitmap != null) {
-                File baseFile = getBaseFile(filePath);
-
-                saveBitmap(bitmap, baseFile, getFileName());
+                saveBitmapToSDCard(bitmap, filePath, getFileName());
                 if (!bitmap.isRecycled()) {
                     bitmap.recycle();
                 }
@@ -207,77 +210,6 @@ public class FileUtil {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, src, dst, paint);
         return output;
-    }
-
-    public static void saveBitmap(Bitmap bitmap, File baseFile, String fileName) {
-        FileOutputStream fileOutputStream = null;
-        File fileOutput = new File(baseFile, "/" + fileName);
-
-        try {
-            fileOutputStream = new FileOutputStream(fileOutput);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileOutputStream != null) {
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 保存bitmap成图片
-     */
-    public static void saveBitmap(Bitmap bitmap, String path, String name)
-            throws IOException {
-        if (bitmap == null) {
-            return;
-        }
-        File file = createFile(path, name);
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-        } finally {
-            try {
-                if (fileOutputStream != null) {
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 保存bitmap成图片
-     */
-    public static void saveBitmap(Bitmap bitmap, String name)
-            throws IOException {
-        if (bitmap == null) {
-            return;
-        }
-        File file = createFile(App.getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getPath(), name);
-        FileOutputStream fileOutputStream = null;
-        try {
-            fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-        } finally {
-            try {
-                if (fileOutputStream != null) {
-                    fileOutputStream.flush();
-                    fileOutputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 
@@ -383,14 +315,14 @@ public class FileUtil {
      * @param photoName
      * @param path
      */
-    public static void savePhotoToSDCard(Bitmap photoBitmap, String path, String photoName){
+    public static void saveBitmapToSDCard(Bitmap photoBitmap, String path, String photoName){
         if (checkSDCardAvailable()) {
             File dir = new File(path);
             if (!dir.exists()){
                 dir.mkdirs();
             }
 
-            File photoFile = new File(path , photoName + ".png");
+            File photoFile = new File(path , photoName);
             FileOutputStream fileOutputStream = null;
             try {
                 fileOutputStream = new FileOutputStream(photoFile);
@@ -413,5 +345,43 @@ public class FileUtil {
                 }
             }
         }
+    }
+
+    public static String getImagePathFromUri(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = App.getContext().getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+
+            cursor.close();
+        }
+        return path;
+    }
+
+    public static String getImagePathFromUriOnKitKat(Uri uri) {
+        String imagePath = null;
+
+        if (DocumentsContract.isDocumentUri(App.getContext(), uri)) {
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                //Log.d(TAG, uri.toString());
+                String id = docId.split(":")[1];
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePathFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                //Log.d(TAG, uri.toString());
+                Uri contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"),
+                        Long.valueOf(docId));
+                imagePath = getImagePathFromUri(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            //Log.d(TAG, "content: " + uri.toString());
+            imagePath = getImagePathFromUri(uri, null);
+        }
+
+        return imagePath;
     }
 }
