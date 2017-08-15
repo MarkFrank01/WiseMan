@@ -1,10 +1,12 @@
-package com.zxcx.shitang.ui.my.feedback;
+package com.zxcx.shitang.ui.my.feedback.feedback;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +31,8 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
     LinearLayout mLlFeedbackCommit;
     @BindView(R.id.ll_feedback_success)
     LinearLayout mLlFeedbackSuccess;
+    @BindView(R.id.iv_toolbar_back)
+    ImageView mIvToolbarBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,6 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         ButterKnife.bind(this);
 
         initToolBar(R.string.tv_my_feedback);
-        mTvToolbarRight.setText("帮助");
         mEtFeedbackContent.addTextChangedListener(new CommitTextWatcher());
     }
 
@@ -51,17 +54,13 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     }
 
-    @OnClick(R.id.tv_toolbar_right)
-    public void onMTvToolbarRightClicked() {
-
-    }
-
     @OnClick(R.id.btn_feedback_commit)
     public void onMBtnFeedbackCommitClicked() {
-
+        mLlFeedbackCommit.setVisibility(View.GONE);
+        mLlFeedbackSuccess.setVisibility(View.VISIBLE);
     }
 
-    class CommitTextWatcher implements TextWatcher {
+    private class CommitTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

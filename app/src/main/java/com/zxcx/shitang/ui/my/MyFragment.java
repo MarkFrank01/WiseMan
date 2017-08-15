@@ -21,7 +21,7 @@ import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
-import com.zxcx.shitang.ui.my.feedback.FeedbackActivity;
+import com.zxcx.shitang.ui.my.feedback.feedback.FeedbackActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;

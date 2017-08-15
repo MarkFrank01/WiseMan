@@ -1,10 +1,8 @@
-package com.zxcx.shitang.ui.my.feedback;
-
-import com.zxcx.shitang.ui.my.feedback.FeedbackContract;
-import com.zxcx.shitang.ui.my.feedback.FeedbackModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
+package com.zxcx.shitang.ui.my.feedback.feedback;
 
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> implements FeedbackContract.Presenter {
 

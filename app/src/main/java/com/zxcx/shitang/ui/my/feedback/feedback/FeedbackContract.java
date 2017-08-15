@@ -1,8 +1,7 @@
-package com.zxcx.shitang.ui.my.feedback;
+package com.zxcx.shitang.ui.my.feedback.feedback;
 
 import com.zxcx.shitang.mvpBase.MvpView;
 import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.ui.my.feedback.FeedbackBean;
 
 public interface FeedbackContract {
 
