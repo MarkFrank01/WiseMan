@@ -12,10 +12,13 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
+import com.zxcx.shitang.utils.Utils;
 
 import java.util.regex.Pattern;
 
@@ -104,14 +107,14 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @OnClick(R.id.btn_register)
     public void onMBtnRegisterClicked() {
         if (checkPhone() && checkPassword()) {
-            /*String phone = mEtRegisterPhone.getText().toString();
+            String phone = mEtRegisterPhone.getText().toString();
             String password = mEtRegisterPassword.getText().toString();
             String code = mEtRegisterVerificationCode.getText().toString();
             int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);*/
-            finish();
+            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);
+//            finish();
         }
     }
 
