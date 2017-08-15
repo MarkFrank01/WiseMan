@@ -10,7 +10,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="16dp"
             android:text="推荐卡包"
-            android:textColor="@color/text_color_33"
+            android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"/>
@@ -23,7 +23,7 @@
         <View
             android:id="@+id/bg_item_classify"
             android:layout_marginTop="16dp"
-            android:background="#EEEEEE"
+            android:background="@color/fault"
             android:layout_width="match_parent"
             android:layout_height="10dp"/>
 
@@ -32,7 +32,7 @@
             android:layout_marginLeft="12dp"
             android:layout_marginBottom="16dp"
             android:text="推荐卡片"
-            android:textColor="@color/text_color_33"
+            android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13sp"/>

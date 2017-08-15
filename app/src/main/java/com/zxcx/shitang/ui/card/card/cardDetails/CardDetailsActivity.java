@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.card.card.cardDetails;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
@@ -12,9 +13,10 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.dialog.SelectCollectFolderDialog;
-import com.zxcx.shitang.ui.card.card.dialog.ShareCardDialog;
-import com.zxcx.shitang.ui.card.card.dialog.ShareWayDialog;
+import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
+import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
+import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
 import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ScreenUtils;
 
@@ -125,5 +127,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         bundle.putString("imagePath", imagePath);
         shareCardDialog.setArguments(bundle);
         shareCardDialog.show(getFragmentManager(),"");
+    }
+
+    @Override
+    public void onDiyShareClick() {
+        Intent intent = new Intent(this, DiyShareActivity.class);
+        startActivity(intent);
     }
 }

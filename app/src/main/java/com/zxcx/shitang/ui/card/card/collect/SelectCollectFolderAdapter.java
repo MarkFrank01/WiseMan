@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.card.card.dialog;
+package com.zxcx.shitang.ui.card.card.collect;
 
 import android.support.annotation.Nullable;
 

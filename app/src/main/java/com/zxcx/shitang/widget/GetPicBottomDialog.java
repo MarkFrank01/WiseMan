@@ -4,6 +4,8 @@ import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +27,7 @@ import com.zxcx.shitang.utils.ScreenUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,9 +52,16 @@ public class GetPicBottomDialog extends DialogFragment {
     private Uri tempUri;
     private String imagePath;
     private File file;
+    private int cutX = 1;
+    private int cutY = 1;
+    private UriType mUriType;
+
+    public enum UriType {
+        file,media
+    }
 
     public interface GetPicDialogListener {
-        void onGetSuccess(Uri uri);
+        void onGetSuccess(UriType UriType, Uri uri);
     }
 
     public void setListener(GetPicDialogListener listener) {
@@ -62,7 +72,10 @@ public class GetPicBottomDialog extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            cutX = bundle.getInt("cutX", 1);
+            cutY = bundle.getInt("cutY", 1);
         }
         try {
             file = FileUtil.createFile(FileUtil.PATH_BASE, "head.png");
@@ -71,17 +84,19 @@ public class GetPicBottomDialog extends DialogFragment {
             }else {
                 tempUri = Uri.fromFile(file);
             }
+            mUriType = UriType.file;
         } catch (IOException e) {
             e.printStackTrace();
             ContentValues values = new ContentValues();
             tempUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            mUriType = UriType.media;
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bottom_dialog_change_head_portrait, container);
+        View view = inflater.inflate(R.layout.bottom_dialog_get_pic, container);
         mUnbinder = ButterKnife.bind(this,view);
         return view;
     }
@@ -120,11 +135,6 @@ public class GetPicBottomDialog extends DialogFragment {
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            /***
-             * 需要说明一下，以下操作使用照相机拍照，拍照后的图片会存放在相册中的
-             * 这里使用的这种方式有一个好处就是获取的图片是拍照后的原图
-             * 如果不使用ContentValues存放照片路径的话，拍照后获取的图片为缩略图不清晰
-             */
             intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
@@ -173,7 +183,7 @@ public class GetPicBottomDialog extends DialogFragment {
                  */
                 case REQUEST_CODE_CUT_PHOTO:
                     imagePath = tempUri.getPath();
-                    mListener.onGetSuccess(tempUri);
+                    mListener.onGetSuccess(mUriType,tempUri);
                     this.dismiss();
                     break;
             }
@@ -226,11 +236,16 @@ public class GetPicBottomDialog extends DialogFragment {
         intent.putExtra("return-data", false);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
         // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", cutX);
+        intent.putExtra("aspectY", cutY);
         // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 600);
-        intent.putExtra("outputY", 600);
+        intent.putExtra("outputX", cutX * 600);
+        intent.putExtra("outputY", cutY * 600);
+        List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            getActivity().grantUriPermission(packageName, tempUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         startActivityForResult(intent, REQUEST_CODE_CUT_PHOTO);
     }
 }

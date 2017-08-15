@@ -2,13 +2,20 @@ package com.zxcx.shitang.ui.my;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.ChangeNightModeEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.shitang.utils.DataCleanManager;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +45,13 @@ public class CommonSettingActivity extends BaseActivity {
         initToolBar("通用设置");
         updateCacheSize();
         mScCommonSettingPush.setChecked(!JPushInterface.isPushStopped(this));
+        mScCommonSettingPush.setOnCheckedChangeListener(new OnPushCheckChange());
+        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        mScCommonSettingNightModel.setChecked(isNight);
+        mScCommonSettingNightModel.setOnCheckedChangeListener(new OnNightModeCheckChange());
+        boolean isOnlyWifi = SharedPreferencesUtil.getBoolean(SVTSConstants.isOnlyWifi, false);
+        mScCommonSettingOnlyWifi.setChecked(isOnlyWifi);
+        mScCommonSettingOnlyWifi.setOnCheckedChangeListener(new OnOnlyWifiCheckChange());
     }
 
     @OnClick(R.id.ll_common_setting_attention)
@@ -49,11 +63,6 @@ public class CommonSettingActivity extends BaseActivity {
     @OnClick(R.id.ll_common_setting_push)
     public void onMLlCommonSettingPushClicked() {
         mScCommonSettingPush.setChecked(!mScCommonSettingPush.isChecked());
-        if (JPushInterface.isPushStopped(this)){
-            JPushInterface.resumePush(this);
-        }else {
-            JPushInterface.stopPush(this);
-        }
     }
 
     @OnClick(R.id.ll_common_setting_night_model)
@@ -78,6 +87,41 @@ public class CommonSettingActivity extends BaseActivity {
             mTvCommonSettingCleanCache.setText(DataCleanManager.getTotalCacheSize(this));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private class OnPushCheckChange implements CompoundButton.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (JPushInterface.isPushStopped(mActivity)){
+                JPushInterface.resumePush(mActivity);
+            }else {
+                JPushInterface.stopPush(mActivity);
+            }
+        }
+    }
+
+    private class OnNightModeCheckChange implements CompoundButton.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            SharedPreferencesUtil.saveData(SVTSConstants.isNight,isChecked);
+            if (isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            EventBus.getDefault().post(new ChangeNightModeEvent());
+            recreate();
+        }
+    }
+
+    private class OnOnlyWifiCheckChange implements CompoundButton.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            SharedPreferencesUtil.saveData(SVTSConstants.isOnlyWifi,isChecked);
         }
     }
 }

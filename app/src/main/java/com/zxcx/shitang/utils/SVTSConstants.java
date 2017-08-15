@@ -3,7 +3,8 @@ package com.zxcx.shitang.utils;
 public class SVTSConstants {
 
     public static final String isFirstLaunchApp = "is_first_launch_app";
-    public static final String isPushMessage = "is_push_message";
+    public static final String isNight = "is_night";
+    public static final String isOnlyWifi = "is_only_wifi";
 
     public static final String userName = "user_name";
     public static final String userPsd = "user_psd";

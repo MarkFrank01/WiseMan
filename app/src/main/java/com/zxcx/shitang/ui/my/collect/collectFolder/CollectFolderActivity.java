@@ -73,6 +73,13 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     public void onBackPressed() {
         if (mLlCollectFolderAdd.getVisibility() == View.VISIBLE){
             onMIvCommonCloseClicked();
+        }else if (mLlCollectFolder.getVisibility() == View.VISIBLE){
+            mCheckedList.clear();
+            mLlCollectFolder.setVisibility(View.GONE);
+            mTvToolbarRight.setText("编辑");
+            mCollectFolderAdapter.setDelete(false);
+            mCollectFolderAdapter.setOnItemClickListener(this);
+            mCollectFolderAdapter.notifyDataSetChanged();
         }else {
             super.onBackPressed();
         }

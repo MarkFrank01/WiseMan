@@ -20,7 +20,7 @@
         android:id="@+id/tv_item_attention_title"
         android:text="生活常识"
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/text_item_card_bag"
         android:textSize="12sp"
         android:background="@drawable/bg_item_attention_title"
         android:layout_alignParentBottom="true"

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:background="@drawable/bg_wireframe_5_black"
+        android:background="@drawable/bg_dialog"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -234,7 +234,7 @@
 
     <TextView
         android:id="@+id/tv_dialog_cancel"
-        android:background="@drawable/bg_wireframe_5_black"
+        android:background="@drawable/bg_dialog"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="取消"

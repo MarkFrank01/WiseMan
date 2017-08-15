@@ -7,19 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
-        android:id="@+id/bg_item_classify"
-        android:layout_marginTop="11dp"
-        android:background="@color/background"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
     <TextView
+        android:id="@+id/tv_item_title_all_card_bag"
         android:text="热门推荐"
+        android:textSize="13sp"
+        android:textColor="@color/text_color_40"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="11dp"
         android:layout_marginLeft="5dp"
-        android:id="@+id/tv_item_title_all_card_bag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

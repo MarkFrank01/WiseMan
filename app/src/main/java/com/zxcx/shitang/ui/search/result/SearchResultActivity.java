@@ -61,7 +61,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         initRecyclerView();
         mEtSearchResult.setOnEditorActionListener(new SearchListener());
         mSrlSearchResult.setOnRefreshListener(this);
-        mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimary));
+        mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryFinal));
     }
 
     @Override

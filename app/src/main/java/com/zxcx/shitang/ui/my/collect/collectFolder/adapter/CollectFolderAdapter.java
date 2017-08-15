@@ -46,22 +46,25 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
         });
         if (isDelete){
             relativeLayout.setVisibility(View.VISIBLE);
+            if (item.isChecked()){
+                checkBox.setChecked(true);
+            }else {
+                checkBox.setChecked(false);
+            }
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    item.setChecked(isChecked);
+                    mListener.onCheckedChanged(item,helper.getAdapterPosition(),isChecked);
+                }
+            });
         }else {
             relativeLayout.setVisibility(View.GONE);
-        }
-        if (item.isChecked()){
-            checkBox.setChecked(true);
-        }else {
+            item.setChecked(false);
+            checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(false);
         }
-
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                item.setChecked(isChecked);
-                mListener.onCheckedChanged(item,helper.getAdapterPosition(),isChecked);
-            }
-        });
 
 
         RoundedImageView imageView = helper.getView(R.id.iv_item_collect_folder_icon);

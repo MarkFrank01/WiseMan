@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/white_final"
     tools:context="com.zxcx.shitang.ui.welcome.WelcomeActivity">
 
     <ImageView
@@ -21,9 +21,9 @@
         android:layout_alignParentRight="true"
         android:text="跳过广告"
         android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_color_ff"
         android:gravity="center"
-        android:background="#33000000"
+        android:background="@drawable/bg_welcome_skip"
         android:layout_width="72dp"
         android:layout_height="24dp"/>
 
@@ -39,7 +39,7 @@
             android:id="@+id/iv_welcome_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@color/colorPrimary"
+            android:src="@color/colorPrimaryFinal"
             android:layout_marginRight="10dp"/>
 
         <TextView

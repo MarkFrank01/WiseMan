@@ -132,6 +132,10 @@
             android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.card.card.share.DiyShareActivity"
+            android:theme="@style/AppTheme.FullScreen"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
             android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>

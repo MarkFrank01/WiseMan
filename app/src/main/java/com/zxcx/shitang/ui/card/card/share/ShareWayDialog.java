@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.card.card.dialog;
+package com.zxcx.shitang.ui.card.card.share;
 
 import android.app.DialogFragment;
 import android.content.Context;
@@ -31,6 +31,7 @@ public class ShareWayDialog extends DialogFragment {
 
     public interface DefaultShareDialogListener {
         void onDefaultShareClick();
+        void onDiyShareClick();
     }
 
     public void setListener(DefaultShareDialogListener listener) {
@@ -70,13 +71,17 @@ public class ShareWayDialog extends DialogFragment {
     @OnClick(R.id.tv_dialog_share_default)
     public void onMTvDialogShareDefaultClicked() {
         mListener.onDefaultShareClick();
+        dismiss();
     }
 
     @OnClick(R.id.tv_dialog_share_diy)
     public void onMTvDialogShareDiyClicked() {
+        mListener.onDiyShareClick();
+        dismiss();
     }
 
     @OnClick(R.id.tv_dialog_share_cancel)
     public void onMTvDialogShareCancelClicked() {
+        dismiss();
     }
 }

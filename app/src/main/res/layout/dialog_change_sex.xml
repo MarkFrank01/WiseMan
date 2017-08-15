@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg_dialog_select_collect_folder"
+    android:background="@drawable/bg_dialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -58,7 +58,7 @@
             android:id="@+id/tv_dialog_cancel"
             android:text="@string/common_cancel"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryFinal"
             android:textSize="17sp"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -73,7 +73,7 @@
             android:id="@+id/tv_dialog_confirm"
             android:text="@string/common_confirm"
             android:gravity="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryFinal"
             android:textSize="17sp"
             android:layout_weight="1"
             android:layout_width="0dp"

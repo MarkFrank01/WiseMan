@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.ChangeNightModeEvent;
+import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.classify.ClassifyFragment;
@@ -19,11 +20,15 @@ import com.zxcx.shitang.ui.my.MyFragment;
 import com.zxcx.shitang.ui.welcome.WebViewActivity;
 import com.zxcx.shitang.utils.Constants;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.home_fragment_content)
     FrameLayout mHomeFragmentContent;
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         mHomeTabHome.performClick();
 
@@ -48,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         //判断是否点击了广告或通知
         gotoADActivity(intent);
         gotoNotificationActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.home_tab_home, R.id.home_tab_classify, R.id.home_tab_note})
@@ -63,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 switchFragment(MyFragment.newInstance());
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangeNightModeEvent event) {
+        this.recreate();
     }
 
     private void switchFragment(Fragment newFragment) {

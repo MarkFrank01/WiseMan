@@ -75,7 +75,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         initRecyclerView();
         mSrlHotCard.setOnRefreshListener(this);
-        mSrlHotCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        mSrlHotCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
     }
 
     @Override

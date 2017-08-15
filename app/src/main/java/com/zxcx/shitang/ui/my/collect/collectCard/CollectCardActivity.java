@@ -77,6 +77,13 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void onBackPressed() {
         if (mLlCollectFolderEdit.getVisibility() == View.VISIBLE){
             onMIvCommonCloseClicked();
+        }else if (mLlCollectCardEdit.getVisibility() == View.VISIBLE){
+            mCheckedList.clear();
+            mLlCollectCardEdit.setVisibility(View.GONE);
+            mTvToolbarRight.setText("编辑");
+            mCollectCardAdapter.setDelete(false);
+            mCollectCardAdapter.setOnItemClickListener(this);
+            mCollectCardAdapter.notifyDataSetChanged();
         }else {
             super.onBackPressed();
         }

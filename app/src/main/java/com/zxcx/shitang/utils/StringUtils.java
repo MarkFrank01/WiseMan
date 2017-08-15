@@ -32,7 +32,7 @@ public class StringUtils {
             int index = value.indexOf(key);
             if (index >= 0) {
                 while (index < value.length() && index >= 0) {
-                    style.setSpan(new ForegroundColorSpan(ContextCompat.getColor(App.getContext(), R.color.colorPrimary)), index, index + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    style.setSpan(new ForegroundColorSpan(ContextCompat.getColor(App.getContext(), R.color.colorPrimaryFinal)), index, index + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     textView.setText(style);
                     index = value.indexOf(key, index + key.length());
                 }

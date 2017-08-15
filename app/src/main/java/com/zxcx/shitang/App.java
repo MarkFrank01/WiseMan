@@ -2,6 +2,7 @@ package com.zxcx.shitang;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
@@ -9,6 +10,8 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zxcx.shitang.ui.MainActivity;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
@@ -40,6 +43,13 @@ public class App extends Application {
         //极光统计
         JAnalyticsInterface.setDebugMode(true);
         JAnalyticsInterface.init(context);
+
+        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
+        if (isNight){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     public static Context getContext() {

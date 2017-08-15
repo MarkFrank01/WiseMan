@@ -23,7 +23,7 @@
             android:padding="12dp"
             android:textSize="14sp"
             android:textColor="@color/text_color_40"
-            android:textColorHint="#A9A9A9"
+            android:textColorHint="@color/line"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:layout_width="match_parent"
             android:layout_height="120dp"/>
@@ -40,7 +40,7 @@
             android:inputType="phone|textEmailAddress"
             android:textSize="14sp"
             android:textColor="@color/text_color_40"
-            android:textColorHint="#A9A9A9"
+            android:textColorHint="@color/line"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:layout_width="match_parent"
             android:layout_height="44dp"/>
@@ -103,7 +103,7 @@
             android:background="@drawable/bg_btn_login"
             android:text="@string/common_close"
             android:textSize="17sp"
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_ff"
             android:layout_width="match_parent"
             android:layout_height="45dp"/>
 

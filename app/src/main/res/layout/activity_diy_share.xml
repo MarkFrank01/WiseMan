@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsBehavior">
+
+        <RelativeLayout
+            android:id="@+id/ll_card_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12.5dp">
+
+            <ImageView
+                android:id="@+id/iv_card_details_back"
+                android:layout_marginLeft="6.5dp"
+                android:src="@drawable/iv_card_details_back"
+                android:padding="10dp"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_card_details_title"
+                android:visibility="gone"
+                android:text="变色龙"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/dp_card_details_subhead"
+                android:textColor="@color/text_color_40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_card_details_number"
+                android:text=""
+                android:textColor="@color/text_color_66"
+                android:textSize="12sp"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:layout_marginRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_card_details"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <CheckBox
+                android:id="@+id/cb_card_details_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_cb_card_details_collect"
+                android:layout_marginLeft="21dp"
+                android:layout_alignParentBottom="true"
+                android:text="200"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_99"
+                android:paddingLeft="7.5dp"/>
+
+            <CheckBox
+                android:id="@+id/cb_card_details_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_cb_card_details_like"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/cb_card_details_collect"
+                android:layout_marginLeft="28dp"
+                android:text="200"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_99"
+                android:paddingLeft="7.5dp"/>
+
+            <ImageView
+                android:id="@+id/tv_card_details_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="25.5dp"
+                android:src="@drawable/selector_tv_card_details_share"/>
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scv_card_details"
+            android:layout_above="@id/rl_card_details"
+            android:layout_below="@id/ll_card_details"
+            android:layout_marginTop="@dimen/dp_card_details_scv_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_card_details_name"
+                    android:layout_marginLeft="12dp"
+                    android:text="变色龙"
+                    android:textSize="@dimen/dp_card_details_name"
+                    android:textColor="@color/text_color_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"/>
+
+                <TextView
+                    android:id="@+id/tv_card_details_subhead"
+                    android:layout_marginLeft="12dp"
+                    android:text="靠调节皮肤表面的纳米晶体变色"
+                    android:textSize="@dimen/dp_card_details_subhead"
+                    android:textColor="@color/text_color_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="@dimen/dp_card_details_subhead_top"/>
+
+                <FrameLayout
+                    android:id="@+id/fl_diy_share"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="@dimen/dp_card_details_content_top">
+
+                    <ImageView
+                        android:id="@+id/iv_card_details"
+                        android:src="@drawable/iv_item_home_card_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"/>
+
+                    <LinearLayout
+                        android:id="@+id/ll_diy_share"
+                        android:background="@color/opacity_30"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        
+                        <ImageView
+                            android:src="@drawable/iv_diy_share_camera"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"/>
+
+                        <TextView
+                            android:text="点击替换你的卡片分享页面"
+                            android:layout_marginTop="16dp"
+                            android:textSize="14sp"
+                            android:textColor="@color/white_final"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_card_details_content"
+                    android:lineSpacingExtra="@dimen/dp_card_details_content_1"
+                    android:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。666"
+                    android:textSize="@dimen/dp_card_details_content"
+                    android:textColor="@color/text_color_66"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="@dimen/dp_card_details_content_top"
+                    android:layout_marginBottom="20dp"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

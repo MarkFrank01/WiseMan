@@ -167,7 +167,7 @@
             android:id="@+id/tv_register_agreement"
             android:text="识堂协议"
             android:textSize="14sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryFinal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

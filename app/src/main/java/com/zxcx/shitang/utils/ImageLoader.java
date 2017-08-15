@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zxcx.shitang.R;
 
 import java.io.File;
@@ -67,6 +68,17 @@ public class ImageLoader {
                 .load(file)
                 .placeholder(defaultImage)
                 .error(defaultImage)
+                .into(imageView);
+    }
+
+    public static void loadWithClear(Activity activity, Uri uri, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(activity)
+                .load(uri)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
+                .skipMemoryCache( true )
                 .into(imageView);
     }
 }

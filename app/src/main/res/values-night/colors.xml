@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#666666</color>
+    <color name="colorPrimaryDark">#666666</color>
+    <color name="colorAccent">#88DDFF</color>
+    <color name="colorPrimaryFinal">#55CCFF</color>
+    <color name="translate">#00000000</color>
+    <color name="opacity_30">#4C000000</color>
+    <color name="opacity_40">#66000000</color>
+    <color name="opacity_50">#7F000000</color>
+    <color name="opacity_60">#99000000</color>
+    <color name="white">#3C3C3C</color>
+    <color name="bg_details">#4A4A4A</color>
+    <color name="bg_top_search">#C1C1C1</color>
+    <color name="dialog_background">#4A4A4A</color>
+    <color name="white_final">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="background">#4A4A4A</color>
+    <color name="wireframe">#666666</color>
+    <color name="line">#666666</color>
+    <color name="fault">#3C3C3C</color>
+    <color name="text_item_card_bag">#DBDBDB</color>
+    <color name="text_color_ff">#C1C1C1</color>
+    <color name="text_color_40">#C1C1C1</color>
+    <color name="text_color_66">#999999</color>
+    <color name="text_color_99">#666666</color>
+    <color name="text_color_top_search">#666666</color>
+</resources>

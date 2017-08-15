@@ -127,7 +127,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     private void initView() {
         mSrlAttentionCard.setOnRefreshListener(this);
-        mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
 
         mEmptyView = View.inflate(getContext(),R.layout.empty_attention,null);
         mEmptyView.setOnClickListener(new View.OnClickListener() {

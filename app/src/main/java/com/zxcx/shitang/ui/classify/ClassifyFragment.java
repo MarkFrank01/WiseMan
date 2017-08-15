@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
+import com.zxcx.shitang.ui.classify.itemDecoration.ClassifyItemDecoration;
 import com.zxcx.shitang.ui.search.search.SearchActivity;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         initRecyclerView();
 
         mSrlClassify.setOnRefreshListener(this);
-        mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
     }
 
     private void getData() {
@@ -100,6 +101,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         });
         mRvClassify.setAdapter(mClassifyAdapter);
         mRvClassify.setLayoutManager(manager);
+        mRvClassify.addItemDecoration(new ClassifyItemDecoration(mList));
     }
 
     @Override

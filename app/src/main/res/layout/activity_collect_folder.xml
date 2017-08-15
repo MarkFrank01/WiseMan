@@ -14,7 +14,7 @@
     <LinearLayout
         android:id="@+id/ll_collect_folder"
         android:visibility="gone"
-        android:background="@mipmap/white"
+        android:background="@color/dialog_background"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -42,14 +42,14 @@
     <LinearLayout
         android:id="@+id/ll_collect_folder_add"
         android:visibility="gone"
-        android:background="#99000000"
+        android:background="@color/opacity_60"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/rl_collect_folder_add"
-            android:background="@color/white"
+            android:background="@color/dialog_background"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="327dp">

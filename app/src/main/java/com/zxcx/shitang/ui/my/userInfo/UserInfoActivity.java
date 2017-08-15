@@ -191,13 +191,15 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Override
-    public void onGetSuccess(Uri uri) {
+    public void onGetSuccess(GetPicBottomDialog.UriType UriType, Uri uri) {
         String imagePath;
-        ImageLoader.load(this,uri,R.drawable.iv_my_head_icon,mIvUserInfoHead);
-        if (uri.getScheme().equals("content")){
-            imagePath = FileUtil.getImagePathFromUriOnKitKat(uri);
-        }else if (uri.getScheme().equals("file")){
-            imagePath = uri.getPath();
+        ImageLoader.loadWithClear(this,uri,R.drawable.iv_my_head_icon,mIvUserInfoHead);
+        if (UriType == GetPicBottomDialog.UriType.file){
+            imagePath = FileUtil.PATH_BASE + "head.png";
+        }else {
+            if (uri.getScheme().equals("content")){
+                imagePath = FileUtil.getImagePathFromUriOnKitKat(uri);
+            }
         }
     }
 }

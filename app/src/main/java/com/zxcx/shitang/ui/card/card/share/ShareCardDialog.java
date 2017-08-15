@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.card.card.dialog;
+package com.zxcx.shitang.ui.card.card.share;
 
 import android.app.DialogFragment;
 import android.os.Bundle;

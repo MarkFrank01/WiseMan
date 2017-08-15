@@ -33,9 +33,6 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
                     helper.setVisible(R.id.rl_item_classify_ad,true);
                     helper.addOnClickListener(R.id.iv_item_classify_ad);
                 }
-                if (helper.getLayoutPosition() == 0){
-                    helper.setVisible(R.id.bg_item_classify,false);
-                }
                 break;
             case ClassifyBean.TYPE_CARD_BAG:
 
