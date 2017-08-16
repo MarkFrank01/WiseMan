@@ -15,6 +15,7 @@ import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
+import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
@@ -80,6 +81,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
+        //极光统计
+        cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult",true);
+        lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));
+        JAnalyticsInterface.onEvent(this, lEvent);
+        //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         finish();
     }
@@ -99,23 +105,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @OnClick(R.id.btn_login)
     public void onMBtnLoginClicked() {
         if (checkPhone() && checkPassword()) {
-            /*String phone = mEtLoginPhone.getText().toString();
+            String phone = mEtLoginPhone.getText().toString();
             String password = mEtLoginPassword.getText().toString();
             int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);*/
-            SharedPreferencesUtil.saveData(SVTSConstants.userId, "asdasd16545");
-            SharedPreferencesUtil.saveData(SVTSConstants.nickName, "一叶知秋");
-            SharedPreferencesUtil.saveData(SVTSConstants.sex, 1);
-            SharedPreferencesUtil.saveData(SVTSConstants.birthday, "1992-06-09");
-
-            cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult",true);
-            lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));
-            JAnalyticsInterface.onEvent(this, lEvent);
-
-            EventBus.getDefault().post(new LoginEvent());
-            finish();
+            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);
         }
     }
 
