@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.home.attention.AttentionFragment;
 import com.zxcx.shitang.ui.home.hot.HotFragment;
 import com.zxcx.shitang.ui.search.search.SearchActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +60,11 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -82,6 +90,20 @@ public class HomeFragment extends BaseFragment {
             ((TextView) tab.getCustomView().findViewById(R.id.tv_tab_home)).setText(titles[i]);
 //            tab.setText(titles[i]);
         }
+        mTlHome.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                EventBus.getDefault().post(new HomeClickRefreshEvent());
+            }
+        });
     }
 
     @Override

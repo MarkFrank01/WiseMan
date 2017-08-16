@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.event.SelectAttentionEvent;
+import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
@@ -42,10 +42,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AttentionFragment extends MvpFragment<AttentionPresenter> implements AttentionContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int TOTAL_COUNTER = 30;
+    private static final int REQUEST_LOGIN = 0;
+    private static final int REQUEST_SELECT_ATTENTION = 1;
     private static AttentionFragment fragment = null;
     RecyclerView mRvAttentionCardBag;
     @BindView(R.id.rv_attention_card)
@@ -72,13 +76,22 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_attention, container, false);
         unbinder = ButterKnife.bind(this, root);
-        EventBus.getDefault().register(this);
         return root;
     }
 
     @Override
     protected AttentionPresenter createPresenter() {
         return new AttentionPresenter(this);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser){
+            EventBus.getDefault().register(this);
+        }else {
+            EventBus.getDefault().unregister(this);
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
@@ -97,12 +110,37 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUEST_LOGIN){
+                onRefresh();
+            }else if (requestCode == REQUEST_SELECT_ATTENTION) {
+                onRefresh();
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(SelectAttentionEvent event) {
+    public void onMessageEvent(HomeClickRefreshEvent event) {
+        mRvAttentionCard.smoothScrollToPosition(0);
+        mSrlAttentionCard.setRefreshing(true);
         onRefresh();
+    }
+
+    @Override
+    public void onRefresh() {
+        isErr = false;
+        mHotCardAdapter.setEnableLoadMore(false);
+        mHotCardAdapter.setEnableLoadMore(true);
+        mList.clear();
+        getData();
+        mHotCardAdapter.notifyDataSetChanged();
+        if (mSrlAttentionCard.isRefreshing()) {
+            mSrlAttentionCard.setRefreshing(false);
+        }
     }
 
     @Override
@@ -137,10 +175,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
                 if (StringUtils.isEmpty(mUserId)){
                     toastShow("还未登录，请先登录");
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,REQUEST_LOGIN);
                 }else {
                     Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent,REQUEST_SELECT_ATTENTION);
                 }
             }
         });
@@ -170,19 +208,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private void getData() {
         for (int i = 0; i < 10; i++) {
             mList.add(new HotBean());
-        }
-    }
-
-    @Override
-    public void onRefresh() {
-        isErr = false;
-        mHotCardAdapter.setEnableLoadMore(false);
-        mHotCardAdapter.setEnableLoadMore(true);
-        mList.clear();
-        getData();
-        mHotCardAdapter.notifyDataSetChanged();
-        if (mSrlAttentionCard.isRefreshing()) {
-            mSrlAttentionCard.setRefreshing(false);
         }
     }
 
