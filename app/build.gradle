@@ -115,6 +115,8 @@ dependencies {
     compile 'cn.jiguang.sdk:jpush:3.0.8'
     compile 'cn.jiguang.sdk:janalytics:latest.release'
     compile 'cn.jiguang.sdk:jcore:1.1.6'
+    //高斯模糊
+    compile 'jp.wasabeef:blurry:2.1.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'

@@ -1,6 +1,7 @@
 package com.zxcx.shitang.ui.card.card.share;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import java.util.HashMap;
@@ -65,6 +67,12 @@ public class ShareCardDialog extends DialogFragment {
     public void onStop() {
         super.onStop();
         mUnbinder.unbind();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        FileUtil.deleteFile(mImagePath);
     }
 
     @OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone, R.id.ll_share_weibo, R.id.ll_share_save, R.id.ll_share_more, R.id.tv_dialog_cancel})

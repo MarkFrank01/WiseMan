@@ -228,6 +228,19 @@ public class FileUtil {
     }
 
     /**
+     * 删除指定文件
+     *
+     * @param path
+     */
+    public static void deleteFile(String path) {
+        if (!fileExist(path)) {
+            return;
+        }
+        File file = new File(path);
+        file.delete();
+    }
+
+    /**
      * 判断文件是否存在
      *
      * @param path
@@ -236,6 +249,20 @@ public class FileUtil {
      */
     public static boolean fileExist(String path, String name) {
         File file = new File(path + name);
+        if (file.exists() & !file.isDirectory()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断文件是否存在
+     *
+     * @param path
+     * @return
+     */
+    public static boolean fileExist(String path) {
+        File file = new File(path);
         if (file.exists() & !file.isDirectory()) {
             return true;
         }
