@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import jp.wasabeef.blurry.Blurry;
 
 public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog.GetPicDialogListener {
 
@@ -62,6 +63,8 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
     @BindView(R.id.scv_card_details)
     NestedScrollView mScvCardDetails;
 
+    private boolean isFirst = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +83,15 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
             ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
             para.height = mIvCardDetails.getWidth() * 3 / 4;
             mIvCardDetails.setLayoutParams(para);
+
+            if (isFirst) {
+                isFirst = false;
+                Blurry.with(this)
+                        .radius(10)
+                        .sampling(2)
+                        .capture(mIvCardDetails)
+                        .into(mIvCardDetails);
+            }
         }
     }
 
@@ -134,7 +146,7 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
 
     @Override
     public void onGetSuccess(GetPicBottomDialog.UriType uriType, Uri uri) {
-        ImageLoader.load(this,uri,R.drawable.iv_my_head_icon,mIvCardDetails);
+        ImageLoader.loadWithClear(this,uri,R.drawable.iv_my_head_icon,mIvCardDetails);
         mLlDiyShare.setVisibility(View.GONE);
     }
 }
