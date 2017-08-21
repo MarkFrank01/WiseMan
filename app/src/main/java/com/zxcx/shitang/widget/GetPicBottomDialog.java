@@ -55,13 +55,14 @@ public class GetPicBottomDialog extends DialogFragment {
     private int cutX = 1;
     private int cutY = 1;
     private UriType mUriType;
+    private String mImagePath;
 
     public enum UriType {
         file,media
     }
 
     public interface GetPicDialogListener {
-        void onGetSuccess(UriType UriType, Uri uri);
+        void onGetSuccess(UriType UriType, Uri uri, String imagePath);
     }
 
     public void setListener(GetPicDialogListener listener) {
@@ -78,7 +79,8 @@ public class GetPicBottomDialog extends DialogFragment {
             cutY = bundle.getInt("cutY", 1);
         }
         try {
-            file = FileUtil.createFile(FileUtil.PATH_BASE, "head.png");
+            mImagePath = FileUtil.getFileName();
+            file = FileUtil.createFile(FileUtil.PATH_BASE, mImagePath);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
             }else {
@@ -183,7 +185,7 @@ public class GetPicBottomDialog extends DialogFragment {
                  */
                 case REQUEST_CODE_CUT_PHOTO:
                     imagePath = tempUri.getPath();
-                    mListener.onGetSuccess(mUriType,tempUri);
+                    mListener.onGetSuccess(mUriType,tempUri,mImagePath);
                     this.dismiss();
                     break;
             }
