@@ -79,7 +79,7 @@ public class GetPicBottomDialog extends DialogFragment {
             cutY = bundle.getInt("cutY", 1);
         }
         try {
-            mImagePath = FileUtil.getFileName();
+            mImagePath = FileUtil.PATH_BASE + FileUtil.getFileName();
             file = FileUtil.createFile(FileUtil.PATH_BASE, mImagePath);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);

@@ -27,11 +27,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements UserInfoContract.View,
         GetPicBottomDialog.GetPicDialogListener {
@@ -204,6 +208,25 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                 return;
             }
         }
+        File file = new File(path);
+        Luban.with(this)
+                .load(file)                     //传人要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+                    @Override
+                    public void onSuccess(File file) {
+                        //  压缩成功后调用，返回压缩后的图片文件
+                        toastShow(file.getPath()+file.getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //  当压缩过程出现问题时调用
+                    }
+                }).launch();    //启动压缩
 
         /*String fileName = FileUtil.getFileName();
         String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
