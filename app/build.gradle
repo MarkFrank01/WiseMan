@@ -115,6 +115,9 @@ dependencies {
     compile 'cn.jiguang.sdk:jpush:3.0.8'
     compile 'cn.jiguang.sdk:janalytics:latest.release'
     compile 'cn.jiguang.sdk:jcore:1.1.6'
+    compile 'com.aliyun.dpa:oss-android-sdk:2.3.0'
+    //鲁班
+    compile 'top.zibin:Luban:1.1.2'
     //高斯模糊
     compile 'jp.wasabeef:blurry:2.1.1'
     testCompile 'junit:junit:4.12'

@@ -27,11 +27,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements UserInfoContract.View,
         GetPicBottomDialog.GetPicDialogListener {
@@ -191,15 +195,75 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Override
-    public void onGetSuccess(GetPicBottomDialog.UriType UriType, Uri uri) {
-        String imagePath;
+    public void onGetSuccess(GetPicBottomDialog.UriType UriType, Uri uri, String imagePath) {
+        String path = null;
         ImageLoader.loadWithClear(this,uri,R.drawable.iv_my_head_icon,mIvUserInfoHead);
         if (UriType == GetPicBottomDialog.UriType.file){
-            imagePath = FileUtil.PATH_BASE + "head.png";
+            path = imagePath;
         }else {
             if (uri.getScheme().equals("content")){
-                imagePath = FileUtil.getImagePathFromUriOnKitKat(uri);
+                path = FileUtil.getImagePathFromUriOnKitKat(uri);
+            }else {
+                toastShow("获取图片出错");
+                return;
             }
         }
+        File file = new File(path);
+        Luban.with(this)
+                .load(file)                     //传人要压缩的图片
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+                    @Override
+                    public void onSuccess(File file) {
+                        //  压缩成功后调用，返回压缩后的图片文件
+                        toastShow(file.getPath()+file.getName());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //  当压缩过程出现问题时调用
+                    }
+                }).launch();    //启动压缩
+
+        /*String fileName = FileUtil.getFileName();
+        String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
+// 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
+
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider("<StsToken.AccessKeyId>", "<StsToken.SecretKeyId>", "<StsToken.SecurityToken>");
+        OSSCredentialProvider credentialProvider = new OSSCustomSignerCredentialProvider() {
+            @Override
+            public String signContent(String content) {
+                // 您需要在这里依照OSS规定的签名算法，实现加签一串字符内容，并把得到的签名传拼接上AccessKeyId后返回
+                // 一般实现是，将字符内容post到您的业务服务器，然后返回签名
+                // 如果因为某种原因加签失败，描述error信息后，返回nil
+                // 以下是用本地算法进行的演示
+                return "OSS " + "LTAICoP8M5xeN9ZZ" + ":" + base64(hmac-sha1("aE4ysjCAatNiMDVV5WRDo6JzfTZ7qH", content));
+            }
+        };
+        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
+        // 构造上传请求
+        PutObjectRequest put = new PutObjectRequest("shitang-head", fileName, path);
+        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+
+            }
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                }
+            }
+        });
+// task.cancel(); // 可以取消任务
+// task.waitUntilFinished(); // 可以等待直到任务完成*/
     }
 }

@@ -145,7 +145,7 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
     }
 
     @Override
-    public void onGetSuccess(GetPicBottomDialog.UriType uriType, Uri uri) {
+    public void onGetSuccess(GetPicBottomDialog.UriType uriType, Uri uri, String imagePath) {
         ImageLoader.loadWithClear(this,uri,R.drawable.iv_my_head_icon,mIvCardDetails);
         mLlDiyShare.setVisibility(View.GONE);
     }
