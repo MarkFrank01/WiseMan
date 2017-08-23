@@ -21,7 +21,6 @@
 
     <RelativeLayout
         android:id="@+id/rl_item_collect_folder"
-        android:visibility="gone"
         android:background="@drawable/bg_item_collect_folder_select"
         android:layout_width="match_parent"
         android:layout_height="126dp">
@@ -29,7 +28,10 @@
         <CheckBox
             android:id="@+id/cb_item_collect_folder"
             android:button="@drawable/selector_cb_item_collect_folder"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

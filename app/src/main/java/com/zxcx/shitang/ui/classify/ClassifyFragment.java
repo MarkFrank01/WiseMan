@@ -18,7 +18,6 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ClassifyClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
-import com.zxcx.shitang.ui.classify.itemDecoration.ClassifyItemDecoration;
 import com.zxcx.shitang.ui.search.search.SearchActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,9 +150,9 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         for (int i = 0; i < 10; i++) {
             ClassifyBean bagBean = new ClassifyBean();
             bagBean.setType(ClassifyBean.TYPE_CLASSIFY);
-            if (i != 0) bagBean.setImgUrl("66");
             mList.add(bagBean);
-            for (int j = 0; j < 6; j++) {
+            int x = new Random().nextInt(10) + 1;
+            for (int j = 0; j < x; j++) {
                 ClassifyBean children = new ClassifyBean();
                 children.setType(ClassifyBean.TYPE_CARD_BAG);
                 mList.add(children);
@@ -163,7 +163,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     private void initRecyclerView() {
         mClassifyAdapter = new ClassifyAdapter(mList);
         mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
-        manager = new GridLayoutManager(getContext(), 3);
+        manager = new GridLayoutManager(getContext(), 4);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -176,7 +176,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         });
         mRvClassify.setAdapter(mClassifyAdapter);
         mRvClassify.setLayoutManager(manager);
-        mRvClassify.addItemDecoration(new ClassifyItemDecoration(mList));
     }
 
     class OnClassifyItemClickListener implements BaseQuickAdapter.OnItemChildClickListener{
@@ -187,8 +186,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
                 case R.id.rl_item_classify:
                     Intent intent = new Intent(getActivity(), CardBagActivity.class);
                     startActivity(intent);
-                    break;
-                case R.id.iv_item_classify_ad:
                     break;
             }
         }

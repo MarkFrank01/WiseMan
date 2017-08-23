@@ -14,7 +14,6 @@ public class ClassifyBean implements MultiItemEntity{
     public static final int TYPE_CLASSIFY = 1;
     public static final int TYPE_CARD_BAG = 2;
 
-    private String imgUrl;
     private String title;
     private int type;
 
@@ -29,14 +28,6 @@ public class ClassifyBean implements MultiItemEntity{
     @Override
     public int getItemType() {
         return type;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
     }
 
     public String getTitle() {

@@ -19,9 +19,9 @@ import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
+import com.zxcx.shitang.ui.home.attention.adapter.AttentionCardBagAdapter;
 import com.zxcx.shitang.ui.home.hot.HotBean;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
-import com.zxcx.shitang.ui.home.hot.adapter.HotCardBagAdapter;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
@@ -58,7 +58,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @BindView(R.id.srl_attention_card)
     SwipeRefreshLayout mSrlAttentionCard;
 
-    private HotCardBagAdapter mHotCardBagAdapter;
+    private AttentionCardBagAdapter mAttentionCardBagAdapter;
     private HotCardAdapter mHotCardAdapter;
     private List<HotBean> mList = new ArrayList<>();
     private boolean isErr = false;
@@ -195,10 +195,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         View view = View.inflate(getContext(),R.layout.head_home_attention,null);
         mRvAttentionCardBag = (RecyclerView) view.findViewById(R.id.rv_attention_card_bag);
-        mHotCardBagAdapter = new HotCardBagAdapter(mList);
-        mHotCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
+        mAttentionCardBagAdapter = new AttentionCardBagAdapter(mList);
+        mAttentionCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvAttentionCardBag.setLayoutManager(hotCardBagLayoutManager);
-        mRvAttentionCardBag.setAdapter(mHotCardBagAdapter);
+        mRvAttentionCardBag.setAdapter(mAttentionCardBagAdapter);
         mRvAttentionCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mHotCardAdapter.addHeaderView(view);
