@@ -162,12 +162,19 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
         mLlCollectFolderAdd.startAnimation(animation);
         mLlCollectFolderAdd.setVisibility(View.GONE);
+        mEtDialogAddCollectFolder.setText("");
         mLlCollectFolder.setVisibility(View.VISIBLE);
         Utils.closeInputMethod(mEtDialogAddCollectFolder);
     }
 
     @OnClick(R.id.iv_dialog_collect_folder_confirm)
     public void onMIvDialogCollectFolderConfirmClicked() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
+        mLlCollectFolderAdd.startAnimation(animation);
+        mLlCollectFolderAdd.setVisibility(View.GONE);
+        mEtDialogAddCollectFolder.setText("");
+        mLlCollectFolder.setVisibility(View.VISIBLE);
+        Utils.closeInputMethod(mEtDialogAddCollectFolder);
     }
 
     @OnClick(R.id.ll_collect_folder_add)
