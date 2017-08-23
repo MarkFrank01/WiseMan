@@ -38,6 +38,7 @@ public class ClassifyItemDecoration extends RecyclerView.ItemDecoration {
         final int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
+            //获取在RecyclerView中的实际位置
             int position = parent.getChildAdapterPosition(child);
             if (mList.get(position).getItemType() == ClassifyBean.TYPE_CLASSIFY){
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
