@@ -202,12 +202,19 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
         mLlCollectFolderEdit.startAnimation(animation);
         mLlCollectFolderEdit.setVisibility(View.GONE);
+        mEtEditCollectFolder.setText("");
         mLlCollectCardEdit.setVisibility(View.VISIBLE);
         Utils.closeInputMethod(mEtEditCollectFolder);
     }
 
     @OnClick(R.id.iv_dialog_collect_folder_confirm)
     public void onMIvDialogCollectFolderConfirmClicked() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
+        mLlCollectFolderEdit.startAnimation(animation);
+        mLlCollectFolderEdit.setVisibility(View.GONE);
+        mEtEditCollectFolder.setText("");
+        mLlCollectCardEdit.setVisibility(View.VISIBLE);
+        Utils.closeInputMethod(mEtEditCollectFolder);
     }
 
     @OnClick(R.id.rl_collect_folder_edit)
