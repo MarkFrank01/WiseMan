@@ -147,7 +147,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     }
 
     private void getData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             ClassifyBean bagBean = new ClassifyBean();
             bagBean.setType(ClassifyBean.TYPE_CLASSIFY);
             mList.add(bagBean);

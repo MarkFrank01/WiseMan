@@ -21,6 +21,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_item_collect_folder"
+        android:visibility="gone"
         android:background="@drawable/bg_item_collect_folder_select"
         android:layout_width="match_parent"
         android:layout_height="126dp">
