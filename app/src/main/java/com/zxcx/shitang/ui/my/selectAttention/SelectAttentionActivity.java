@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.my.selectAttention;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +9,8 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -90,12 +88,12 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     @OnClick(R.id.tv_select_attention_next)
     public void onMTvSelectAttentionNextClicked() {
-        EventBus.getDefault().post(new SelectAttentionEvent());
+        setResult(RESULT_OK,new Intent());
         finish();
     }
 
     @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemClick(BaseQuickAdapter adapter,View view, int position) {
         SelectAttentionBean bean = (SelectAttentionBean) adapter.getData().get(position);
         bean.setChecked(!bean.isChecked());
         mAdapter.notifyItemChanged(position);
