@@ -41,8 +41,8 @@
 
     <LinearLayout
         android:id="@+id/ll_collect_folder_edit"
-        android:visibility="gone"
         android:background="@color/opacity_60"
+        android:visibility="gone"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,13 +50,12 @@
         <RelativeLayout
             android:id="@+id/rl_collect_folder_edit"
             android:background="@color/dialog_background"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="327dp">
 
             <LinearLayout
                 android:id="@+id/ll_dialog_add_collect_folder"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="11dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
@@ -64,7 +63,8 @@
 
                 <ImageView
                     android:id="@+id/iv_common_close"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp"
                     android:src="@drawable/common_close"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -81,7 +81,8 @@
                 <ImageView
                     android:id="@+id/iv_dialog_collect_folder_confirm"
                     android:src="@drawable/iv_dialog_collect_folder_confirm_white"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -90,7 +91,7 @@
             <EditText
                 android:id="@+id/et_edit_collect_folder"
                 android:layout_below="@+id/ll_dialog_add_collect_folder"
-                android:layout_marginTop="43dp"
+                android:layout_marginTop="37dp"
                 android:layout_marginLeft="25.5dp"
                 android:layout_marginRight="25.5dp"
                 android:hint="收藏夹名称"
