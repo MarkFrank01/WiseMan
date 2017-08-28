@@ -87,6 +87,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         JAnalyticsInterface.onEvent(this, lEvent);
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
+        EventBus.getDefault().postSticky(new LoginEvent());
         finish();
     }
 

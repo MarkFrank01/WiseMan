@@ -12,9 +12,6 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -64,7 +61,7 @@ public class BaseModel<T extends IBasePresenter> {
         };
     }
 
-    protected  <T> FlowableTransformer<BaseBean<T>, T> handleResult() {
+    protected <T> FlowableTransformer<BaseBean<T>, T> handleResult() {
         return new FlowableTransformer<BaseBean<T>, T>() {
             @Override
             public Publisher<T> apply(@NonNull Flowable<BaseBean<T>> upstream) {
@@ -87,10 +84,10 @@ public class BaseModel<T extends IBasePresenter> {
         };
     }
 
-    protected <T> ObservableTransformer<BaseArrayBean<T>, List<T>> handleArrayResult() {
-        return new ObservableTransformer<BaseArrayBean<T>, List<T>>() {
+    protected <T> FlowableTransformer<BaseArrayBean<T>, List<T>> handleArrayResult() {
+        return new FlowableTransformer<BaseArrayBean<T>, List<T>>() {
             @Override
-            public ObservableSource<List<T>> apply(@NonNull Observable<BaseArrayBean<T>> upstream) {
+            public Publisher<List<T>> apply(@NonNull Flowable<BaseArrayBean<T>> upstream) {
                 return upstream.map(new Function<BaseArrayBean<T>, List<T>>() {
                                         @Override
                                         public List<T> apply(@NonNull BaseArrayBean<T> result) throws Exception {

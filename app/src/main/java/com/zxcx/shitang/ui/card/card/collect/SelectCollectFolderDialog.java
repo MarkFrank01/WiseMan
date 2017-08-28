@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
-import com.zxcx.shitang.ui.home.hot.HotBean;
+import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +40,7 @@ public class SelectCollectFolderDialog extends DialogFragment {
     Unbinder unbinder;
 
     private SelectCollectFolderAdapter mAdapter;
-    private List<HotBean> mList = new ArrayList<>();
+    private List<HotCardBagBean> mList = new ArrayList<>();
     private Context mContext;
 
     public SelectCollectFolderDialog() {
@@ -97,7 +97,7 @@ public class SelectCollectFolderDialog extends DialogFragment {
 
     private void getData() {
         for (int i = 0; i < 10; i++) {
-            mList.add(new HotBean());
+            mList.add(new HotCardBagBean());
         }
     }
 

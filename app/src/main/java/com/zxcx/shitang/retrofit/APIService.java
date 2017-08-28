@@ -1,5 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
+import com.zxcx.shitang.ui.home.hot.HotCardBean;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
 
@@ -22,4 +24,16 @@ public interface APIService {
             @Query("phoneNumber") String phone, @Query("password") String password,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<HotCardBean>> getHotCard(int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<HotCardBagBean>> getHotCardBag(int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(int userId, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag(int userId, int page, int pageSize);
 }

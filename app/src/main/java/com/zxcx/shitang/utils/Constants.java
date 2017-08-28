@@ -12,4 +12,6 @@ public class Constants {
     public static final String PUSH_TYPE_CARD = "card";
     public static final String PUSH_TYPE_CARD_BAG = "cardBag";
     public static final String PUSH_TYPE_AD = "ad";
+
+    public static final int PAGE_SIZE = 10;
 }

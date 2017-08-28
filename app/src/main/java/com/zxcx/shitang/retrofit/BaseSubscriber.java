@@ -23,7 +23,7 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        mPresenter.getDataFail(App.getContext().getString(R.string.network_error));
+        mPresenter.getDataFail(App.getContext().getString(R.string.data_error));
     }
 
     @Override

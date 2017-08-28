@@ -25,7 +25,6 @@ import com.zxcx.shitang.ui.my.feedback.feedback.FeedbackActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
-import com.zxcx.shitang.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -101,7 +100,7 @@ public class MyFragment extends BaseFragment {
         initToolBar(view, R.string.title_my);
         mIvToolbarBack.setVisibility(View.GONE);
 
-        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))){
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0){
             setViewLogout();
         }else {
             setViewLogin();
@@ -137,7 +136,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.rl_my_head)
     public void onMIvMyHeadClicked() {
-        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))) {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0) {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         }else {
@@ -148,7 +147,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.ll_my_collect)
     public void onMLlMyCollectClicked() {
-        if (StringUtils.isEmpty(SharedPreferencesUtil.getString(SVTSConstants.userId,""))) {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0) {
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         }else {
