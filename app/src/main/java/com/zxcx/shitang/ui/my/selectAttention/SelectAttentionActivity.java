@@ -73,6 +73,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     @Override
     public void postSuccess() {
+
     }
 
     @Override
