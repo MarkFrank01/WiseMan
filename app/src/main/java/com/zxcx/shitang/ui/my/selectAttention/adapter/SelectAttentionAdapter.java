@@ -1,10 +1,7 @@
 package com.zxcx.shitang.ui.my.selectAttention.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,14 +23,10 @@ public class SelectAttentionAdapter extends BaseQuickAdapter<SelectAttentionBean
 
     @Override
     protected void convert(final BaseViewHolder helper, final SelectAttentionBean item) {
-        LinearLayout linearLayout = helper.getView(R.id.ll_item_select_attention_select);
-        TextView tvTitle = helper.getView(R.id.tv_item_select_attention_title);
         if (item.isChecked()){
-            linearLayout.setVisibility(View.VISIBLE);
-            tvTitle.setVisibility(View.GONE);
+            helper.setVisible(R.id.iv_item_select_attention_select,true);
         }else {
-            linearLayout.setVisibility(View.GONE);
-            tvTitle.setVisibility(View.VISIBLE);
+            helper.setVisible(R.id.iv_item_select_attention_select,false);
         }
 
         ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();

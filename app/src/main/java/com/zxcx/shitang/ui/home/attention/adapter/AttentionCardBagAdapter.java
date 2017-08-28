@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.home.hot.adapter;
+package com.zxcx.shitang.ui.home.attention.adapter;
 
 import android.support.annotation.Nullable;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * Created by anm on 2017/6/26.
  */
 
-public class HotCardBagAdapter extends BaseQuickAdapter<HotBean,BaseViewHolder> {
-    public HotCardBagAdapter(@Nullable List<HotBean> data) {
-        super(R.layout.item_hot_card_bag, data);
+public class AttentionCardBagAdapter extends BaseQuickAdapter<HotBean,BaseViewHolder> {
+    public AttentionCardBagAdapter(@Nullable List<HotBean> data) {
+        super(R.layout.item_attention_card_bag, data);
     }
 
     @Override

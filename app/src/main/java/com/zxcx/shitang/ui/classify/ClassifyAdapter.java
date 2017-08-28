@@ -27,12 +27,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
     protected void convert(final BaseViewHolder helper, MultiItemEntity item) {
         switch (helper.getItemViewType()) {
             case ClassifyBean.TYPE_CLASSIFY:
-                if (((ClassifyBean)item).getImgUrl() == null){
-                    helper.setVisible(R.id.rl_item_classify_ad,false);
-                }else {
-                    helper.setVisible(R.id.rl_item_classify_ad,true);
-                    helper.addOnClickListener(R.id.iv_item_classify_ad);
-                }
+
                 break;
             case ClassifyBean.TYPE_CARD_BAG:
 
@@ -40,8 +35,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
 
                 ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
                 int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-                para.width = (screenWidth - ScreenUtils.dip2px(12*2) - ScreenUtils.dip2px(10*2)) / 3;
-                para.height = (screenWidth - ScreenUtils.dip2px(12*2) - ScreenUtils.dip2px(10*2)) / 3;
+                para.width = (screenWidth - ScreenUtils.dip2px(5*3) - ScreenUtils.dip2px(12*2)) / 4;
                 helper.itemView.setLayoutParams(para);
                 break;
         }

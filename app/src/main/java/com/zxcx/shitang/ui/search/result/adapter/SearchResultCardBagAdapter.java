@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SearchResultCardBagAdapter extends BaseQuickAdapter<SearchResultBean,BaseViewHolder> {
     public SearchResultCardBagAdapter(@Nullable List<SearchResultBean> data) {
-        super(R.layout.item_home_card_bag, data);
+        super(R.layout.item_hot_card_bag, data);
     }
 
     @Override

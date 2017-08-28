@@ -29,7 +29,10 @@
         <CheckBox
             android:id="@+id/cb_item_collect_folder"
             android:button="@drawable/selector_cb_item_collect_folder"
-            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
