@@ -217,7 +217,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager hotCardLayoutManager = new GridLayoutManager(getContext(), 2);
-        mHotCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>());
+        mHotCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>(),mActivity);
         mHotCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mHotCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mHotCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
@@ -228,7 +228,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         View view = View.inflate(getContext(),R.layout.head_home_attention,null);
         mRvAttentionCardBag = (RecyclerView) view.findViewById(R.id.rv_attention_card_bag);
-        mAttentionCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>());
+        mAttentionCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>(), mActivity);
         mAttentionCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvAttentionCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvAttentionCardBag.setAdapter(mAttentionCardBagAdapter);

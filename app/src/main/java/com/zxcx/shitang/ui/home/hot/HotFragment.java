@@ -164,7 +164,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager hotCardLayoutManager = new GridLayoutManager(getContext(), 2);
-        mHotCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>());
+        mHotCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>(),mActivity);
         mHotCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mHotCardAdapter.setOnLoadMoreListener(this, mRvHotCard);
         mHotCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
@@ -175,7 +175,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         View view = View.inflate(getContext(),R.layout.head_home_hot,null);
         mRvHotCardBag = (RecyclerView) view.findViewById(R.id.rv_hot_card_bag);
-        mHotCardBagAdapter = new HotCardBagAdapter(new ArrayList<HotCardBagBean>());
+        mHotCardBagAdapter = new HotCardBagAdapter(new ArrayList<HotCardBagBean>(),mActivity);
         mHotCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvHotCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvHotCardBag.setAdapter(mHotCardBagAdapter);
