@@ -1,6 +1,5 @@
 package com.zxcx.shitang.ui.home.hot.adapter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 
@@ -20,11 +19,8 @@ import java.util.List;
 
 public class HotCardAdapter extends BaseQuickAdapter<HotCardBean,BaseViewHolder> {
 
-    private Context mContext;
-
-    public HotCardAdapter(@Nullable List<HotCardBean> data, Context context) {
+    public HotCardAdapter(@Nullable List<HotCardBean> data) {
         super(R.layout.item_home_card, data);
-        mContext = context;
     }
 
     @Override

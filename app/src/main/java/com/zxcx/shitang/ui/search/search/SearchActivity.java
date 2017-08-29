@@ -19,8 +19,10 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.search.result.SearchResultActivity;
 import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.StringUtils;
 import com.zxcx.shitang.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +38,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     FlexboxLayout mFlSearchHot;
 
     String[] mStrings = {"签", "标签", "长标签", "这是一个长标签", "这也是一个长标签", "签", "标签", "长标签", "这是一个长标签", "这也是一个长标签"};
+    List<String> mList = new ArrayList<>();
     @BindView(R.id.iv_search_hot_refresh)
     ImageView mIvSearchHotRefresh;
 
@@ -45,38 +48,14 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
 
-        for (int i = 0; i < 10; i++) {
-            TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
-            textView.setText(mStrings[i]);
-            mFlSearchHot.addView(textView);
-        }
-
         mEtSearch.setOnEditorActionListener(new SearchListener());
+        mPresenter.getSearchHot();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-
-            List<FlexLine> flexLines = mFlSearchHot.getFlexLines();
-            int num = 0;
-            if (flexLines.size() > 2) {
-                num += flexLines.get(0).getItemCount();
-                num += flexLines.get(1).getItemCount();
-                mFlSearchHot.removeAllViews();
-            }
-            for (int i = 0; i < num; i++) {
-                TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
-                textView.setText(mStrings[i]);
-                textView.setOnClickListener(this);
-                mFlSearchHot.addView(textView);
-
-                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
-
-                mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
-            }
-
             //延迟弹出软键盘
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -93,8 +72,10 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
-    public void getDataSuccess(SearchBean bean) {
-
+    public void getDataSuccess(List<String> bean) {
+        mList.addAll(bean);
+        refreshLabel();
+        mIvSearchHotRefresh.clearAnimation();
     }
 
     @OnClick(R.id.iv_left_close)
@@ -102,19 +83,41 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         finish();
     }
 
-    @OnClick(R.id.rl_search)
-    public void onMRlSearchClicked() {
-    }
-
     @OnClick(R.id.ll_search_hot_refresh)
     public void onRefreshClicked() {
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_search_refresh);
         mIvSearchHotRefresh.startAnimation(animation);
+        mPresenter.getSearchHot();
     }
 
     @Override
     public void onClick(View v) {
         mEtSearch.setText(((TextView)v).getText());
+    }
+
+    private void refreshLabel() {
+        for (int i = 0; i < 10; i++) {
+            TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
+            textView.setText(mList.get(i));
+            mFlSearchHot.addView(textView);
+        }
+        List<FlexLine> flexLines = mFlSearchHot.getFlexLines();
+        int num = 0;
+        if (flexLines.size() > 2) {
+            num += flexLines.get(0).getItemCount();
+            num += flexLines.get(1).getItemCount();
+            mFlSearchHot.removeAllViews();
+        }
+        for (int i = 0; i < num; i++) {
+            TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
+            textView.setText(mStrings[i]);
+            textView.setOnClickListener(this);
+            mFlSearchHot.addView(textView);
+
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
+
+            mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
+        }
     }
 
     class SearchListener implements TextView.OnEditorActionListener {
@@ -125,7 +128,13 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
+                if (StringUtils.isEmpty(v.getText().toString())){
+                    toastShow("搜索内容不能为空！");
+                    return true;
+                }
+
                 Intent intent = new Intent(SearchActivity.this,SearchResultActivity.class);
+                intent.putExtra("keyword",v.getText().toString());
                 startActivity(intent);
                 Utils.closeInputMethod(mEtSearch);
                 finish();

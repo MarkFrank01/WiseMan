@@ -4,6 +4,8 @@ import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBean;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
+import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
+import com.zxcx.shitang.ui.search.result.SearchCardBean;
 
 import io.reactivex.Flowable;
 import retrofit2.http.POST;
@@ -36,4 +38,13 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag(int userId, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<String>> getSearchHot();
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<SearchCardBean>> searchCard(String keyword, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<SearchCardBagBean>> searchCardBag(String keyword, int page, int pageSize);
 }

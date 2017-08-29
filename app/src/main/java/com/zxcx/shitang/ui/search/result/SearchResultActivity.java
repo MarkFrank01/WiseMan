@@ -13,15 +13,17 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.search.result.adapter.SearchResultCardAdapter;
 import com.zxcx.shitang.ui.search.result.adapter.SearchResultCardBagAdapter;
+import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.StringUtils;
 import com.zxcx.shitang.utils.Utils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
@@ -35,7 +37,6 @@ import butterknife.OnClick;
 public class SearchResultActivity extends MvpActivity<SearchResultPresenter> implements SearchResultContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private static final int TOTAL_COUNTER = 30;
     @BindView(R.id.rv_search_result_card)
     RecyclerView mRvSearchResultCard;
     @BindView(R.id.srl_search_result)
@@ -47,8 +48,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
     private SearchResultCardBagAdapter mCardBagAdapter;
     private SearchResultCardAdapter mCardAdapter;
-    private List<SearchResultBean> mList = new ArrayList<>();
-    private boolean isErr = false;
+    private String mKeyword;
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
 
-        getData();
+        initData();
 
         initRecyclerView();
         mEtSearchResult.setOnEditorActionListener(new SearchListener());
@@ -70,48 +71,61 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     }
 
     @Override
-    public void getDataSuccess(SearchResultBean bean) {
-
-    }
-
-    @Override
     public void onRefresh() {
-        isErr = false;
+        page = 1;
         mCardAdapter.setEnableLoadMore(false);
         mCardAdapter.setEnableLoadMore(true);
-        mList.clear();
-        getData();
-        mCardAdapter.notifyDataSetChanged();
-        if (mSrlSearchResult.isRefreshing()) {
-            mSrlSearchResult.setRefreshing(false);
-        }
+        mCardAdapter.getData().clear();
+        mCardBagAdapter.getData().clear();
+        searchCard();
+        searchCardBag();
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSrlSearchResult.setEnabled(false);
-        if (mCardAdapter.getData().size() > TOTAL_COUNTER) {
-            mCardAdapter.loadMoreEnd(false);
-        } else {
-            if (isErr) {
-                getData();
-//                mCardAdapter.addData();
-                mCardAdapter.notifyDataSetChanged();
-                mCardAdapter.loadMoreComplete();
-            } else {
-                isErr = true;
-                Toast.makeText(mActivity, "网络错误", Toast.LENGTH_LONG).show();
-                mCardAdapter.loadMoreFail();
-            }
-        }
+        searchCard();
         mSrlSearchResult.setEnabled(true);
+    }
+
+    @Override
+    public void searchCardBagSuccess(List<SearchCardBagBean> list) {
+        if (page == 1){
+            mCardBagAdapter.notifyDataSetChanged();
+        }
+        mCardBagAdapter.addData(list);
+        if (mCardBagAdapter.getData().size() == 0){
+            View view = View.inflate(mActivity,R.layout.view_no_data,null);
+            mCardBagAdapter.setEmptyView(view);
+        }
+    }
+
+    @Override
+    public void getDataSuccess(List<SearchCardBean> list) {
+        if (mSrlSearchResult.isRefreshing()) {
+            mSrlSearchResult.setRefreshing(false);
+        }
+        if (page == 1){
+            mCardAdapter.notifyDataSetChanged();
+        }
+        page++;
+        mCardAdapter.addData(list);
+        if (list.size() < Constants.PAGE_SIZE){
+            mCardAdapter.loadMoreEnd(false);
+        }else {
+            mCardAdapter.loadMoreComplete();
+        }
+        if (mCardBagAdapter.getData().size() == 0){
+            View view = View.inflate(mActivity,R.layout.view_no_data,null);
+            mCardAdapter.setEmptyView(view);
+        }
     }
 
     private void initRecyclerView() {
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager hotCardLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-        mCardAdapter = new SearchResultCardAdapter(mList);
+        mCardAdapter = new SearchResultCardAdapter(new ArrayList<SearchCardBean>(), mKeyword);
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvSearchResultCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
@@ -121,7 +135,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         View view = View.inflate(mActivity, R.layout.head_search_result, null);
         mRvSearchResultCardBag = (RecyclerView) view.findViewById(R.id.rv_search_result_card_bag);
         mLLHeadSearchResultCardBag = (LinearLayout) view.findViewById(R.id.ll_head_search_result_card_bag);
-        mCardBagAdapter = new SearchResultCardBagAdapter(mList);
+        mCardBagAdapter = new SearchResultCardBagAdapter(new ArrayList<SearchCardBagBean>(),mKeyword);
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvSearchResultCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvSearchResultCardBag.setAdapter(mCardBagAdapter);
@@ -130,15 +144,22 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         mCardAdapter.addHeaderView(view);
     }
 
-    private void getData() {
-        for (int i = 0; i < 10; i++) {
-            mList.add(new SearchResultBean());
-        }
-    }
-
     @OnClick(R.id.tv_search_result_cancel)
     public void onViewClicked() {
         finish();
+    }
+
+    private void initData() {
+        mKeyword = getIntent().getStringExtra("keyword");
+        mEtSearchResult.setText(mKeyword);
+    }
+
+    private void searchCard() {
+        mPresenter.searchCard(mKeyword,page, Constants.PAGE_SIZE);
+    }
+
+    private void searchCardBag() {
+        mPresenter.searchCardBag(mKeyword);
     }
 
     class SearchListener implements TextView.OnEditorActionListener {
@@ -149,6 +170,12 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
+                if (StringUtils.isEmpty(v.getText().toString())){
+                    toastShow("搜索内容不能为空！");
+                    return true;
+                }
+                mKeyword = v.getText().toString();
+                onRefresh();
                 Utils.closeInputMethod(mEtSearchResult);
 
                 return true;
@@ -157,7 +184,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         }
     }
 
-    static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener {
+    private static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         private Context mContext;
 
@@ -167,12 +194,15 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            SearchCardBagBean bean = (SearchCardBagBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagActivity.class);
+            intent.putExtra("id",bean.getId());
+            intent.putExtra("name",bean.getName());
             mContext.startActivity(intent);
         }
     }
 
-    static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
+    private static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         private Context mContext;
 
@@ -182,7 +212,11 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+            SearchCardBean bean = (SearchCardBean) adapter.getData().get(position);
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            intent.putExtra("id",bean.getId());
+            intent.putExtra("name",bean.getName());
+            mContext.startActivity(intent);
         }
     }
 }

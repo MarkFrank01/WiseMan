@@ -55,8 +55,8 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @BindView(R.id.srl_attention_card)
     SwipeRefreshLayout mSrlAttentionCard;
 
-    private AttentionCardBagAdapter mAttentionCardBagAdapter;
-    private HotCardAdapter mHotCardAdapter;
+    private AttentionCardBagAdapter mCardBagAdapter;
+    private HotCardAdapter mCardAdapter;
     private boolean isErr = false;
     private int mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     private View mEmptyView;
@@ -139,10 +139,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void onRefresh() {
         page = 1;
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-        mHotCardAdapter.setEnableLoadMore(false);
-        mHotCardAdapter.setEnableLoadMore(true);
-        mHotCardAdapter.getData().clear();
-        mAttentionCardBagAdapter.getData().clear();
+        mCardAdapter.setEnableLoadMore(false);
+        mCardAdapter.setEnableLoadMore(true);
+        mCardAdapter.getData().clear();
+        mCardBagAdapter.getData().clear();
         getHotCard(mUserId);
         getHotCardBag(mUserId);
     }
@@ -157,10 +157,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
         if (page == 1){
-            mAttentionCardBagAdapter.notifyDataSetChanged();
+            mCardBagAdapter.notifyDataSetChanged();
         }
-        mAttentionCardBagAdapter.addData(list);
-        if (mAttentionCardBagAdapter.getData().size() == 0){
+        mCardBagAdapter.addData(list);
+        if (mCardBagAdapter.getData().size() == 0){
             //占空图
         }
     }
@@ -171,16 +171,16 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
             mSrlAttentionCard.setRefreshing(false);
         }
         if (page == 1){
-            mHotCardAdapter.notifyDataSetChanged();
+            mCardAdapter.notifyDataSetChanged();
         }
         page++;
-        mHotCardAdapter.addData(list);
+        mCardAdapter.addData(list);
         if (list.size() < Constants.PAGE_SIZE){
-            mHotCardAdapter.loadMoreEnd(false);
+            mCardAdapter.loadMoreEnd(false);
         }else {
-            mHotCardAdapter.loadMoreComplete();
+            mCardAdapter.loadMoreComplete();
         }
-        if (mAttentionCardBagAdapter.getData().size() == 0){
+        if (mCardBagAdapter.getData().size() == 0){
             //占空图
         }
     }
@@ -189,9 +189,9 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void toastFail(String msg) {
         super.toastFail(msg);
         if ("未选择兴趣".equals(msg)) {
-            mHotCardAdapter.setEmptyView(mEmptyView);
+            mCardAdapter.setEmptyView(mEmptyView);
         }else {
-            mHotCardAdapter.loadMoreFail();
+            mCardAdapter.loadMoreFail();
         }
     }
 
@@ -217,25 +217,25 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager hotCardLayoutManager = new GridLayoutManager(getContext(), 2);
-        mHotCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>(),mActivity);
-        mHotCardAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mHotCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
-        mHotCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        mHotCardAdapter.setOnItemChildClickListener(new CardTypeClickListener(mActivity));
+        mCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>());
+        mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
+        mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
+        mCardAdapter.setOnItemChildClickListener(new CardTypeClickListener(mActivity));
         mRvAttentionCard.setLayoutManager(hotCardLayoutManager);
-        mRvAttentionCard.setAdapter(mHotCardAdapter);
+        mRvAttentionCard.setAdapter(mCardAdapter);
         mRvAttentionCard.addItemDecoration(new HomeCardItemDecoration());
 
         View view = View.inflate(getContext(),R.layout.head_home_attention,null);
         mRvAttentionCardBag = (RecyclerView) view.findViewById(R.id.rv_attention_card_bag);
-        mAttentionCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>(), mActivity);
-        mAttentionCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
+        mCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>());
+        mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvAttentionCardBag.setLayoutManager(hotCardBagLayoutManager);
-        mRvAttentionCardBag.setAdapter(mAttentionCardBagAdapter);
+        mRvAttentionCardBag.setAdapter(mCardBagAdapter);
         mRvAttentionCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
-        mHotCardAdapter.addHeaderView(view);
-        mHotCardAdapter.setEmptyView(mEmptyView);
+        mCardAdapter.addHeaderView(view);
+        mCardAdapter.setEmptyView(mEmptyView);
     }
 
     private void getHotCard(int userId) {

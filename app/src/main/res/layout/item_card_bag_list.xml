@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="76.5dp">
@@ -33,7 +34,7 @@
         android:layout_below="@+id/tv_item_card_bag_list_title"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="22.5dp"
-        android:text="200人收藏  99人认同"
+        tools:text="@string/tv_item_home_card_num"
         android:textSize="11sp"
         android:textColor="@color/text_color_99"
         android:layout_width="wrap_content"

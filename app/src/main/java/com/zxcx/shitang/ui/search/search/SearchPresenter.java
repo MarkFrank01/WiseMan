@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
+import java.util.List;
+
 public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter {
 
     private final SearchModel mModel;
@@ -13,8 +15,12 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mModel = new SearchModel(this);
     }
 
+    public void getSearchHot(){
+        mModel.getSearchHot();
+    }
+
     @Override
-    public void getDataSuccess(SearchBean bean) {
+    public void getDataSuccess(List<String> bean) {
         mView.getDataSuccess(bean);
     }
 
