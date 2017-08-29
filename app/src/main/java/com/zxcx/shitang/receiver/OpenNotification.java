@@ -31,12 +31,13 @@ public class OpenNotification extends BroadcastReceiver {
             JSONObject json = JSON.parseObject(extra);
             String type = json.getString("type");
             String id = json.getString("id");
+            String name = json.getString("name");
             String url = json.getString("url");
-            gotoActivity(context, type, id, url);
+            gotoActivity(context, type, id, name, url);
         }
     }
 
-    private void gotoActivity(Context context, String type, String id, String url) {
+    private void gotoActivity(Context context, String type, String id, String name, String url) {
         //判断app进程是否存活
         if(SystemUtils.isProessRunning(context, context.getPackageName())){
             //如果存活的话，就直接启动DetailActivity，但要考虑一种情况，就是app的进程虽然仍然在
@@ -65,6 +66,7 @@ public class OpenNotification extends BroadcastReceiver {
                     return;
             }
             detailIntent.putExtra("id", id);
+            detailIntent.putExtra("id", name);
             detailIntent.putExtra("url", url);
             context.startActivity(detailIntent);
         }else {

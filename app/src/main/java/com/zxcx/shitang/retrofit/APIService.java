@@ -1,5 +1,6 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.ui.card.cardBag.CardBagBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBean;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginBean;
@@ -47,4 +48,7 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<SearchCardBagBean>> searchCardBag(String keyword, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<CardBagBean>> getCardBagCardList(int id, int page, int pageSize);
 }

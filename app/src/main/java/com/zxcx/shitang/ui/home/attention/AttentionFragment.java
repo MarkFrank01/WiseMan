@@ -256,7 +256,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagActivity.class);
+            intent.putExtra("id",bean.getBagId());
+            intent.putExtra("name",bean.getBagName());
             mContext.startActivity(intent);
         }
     }
@@ -271,7 +274,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            intent.putExtra("id",bean.getId());
+            intent.putExtra("name",bean.getName());
             mContext.startActivity(intent);
         }
     }

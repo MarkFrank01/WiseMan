@@ -175,6 +175,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
                     return true;
                 }
                 mKeyword = v.getText().toString();
+                mCardAdapter.setKeyword(mKeyword);
+                mCardBagAdapter.setKeyword(mKeyword);
                 onRefresh();
                 Utils.closeInputMethod(mEtSearchResult);
 

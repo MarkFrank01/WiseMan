@@ -1,10 +1,10 @@
 package com.zxcx.shitang.ui.card.cardBag;
 
-import com.zxcx.shitang.ui.card.cardBag.CardBagContract;
-import com.zxcx.shitang.ui.card.cardBag.CardBagModel;
+import android.support.annotation.NonNull;
+
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
-import android.support.annotation.NonNull;
+import java.util.List;
 
 public class CardBagPresenter extends BasePresenter<CardBagContract.View> implements CardBagContract.Presenter {
 
@@ -15,8 +15,12 @@ public class CardBagPresenter extends BasePresenter<CardBagContract.View> implem
         mModel = new CardBagModel(this);
     }
 
+    public void getCardBagCardList(int id, int page, int pageSize){
+        mModel.getCardBagCardList(id,page,pageSize);
+    }
+
     @Override
-    public void getDataSuccess(CardBagBean bean) {
+    public void getDataSuccess(List<CardBagBean> bean) {
         mView.getDataSuccess(bean);
     }
 

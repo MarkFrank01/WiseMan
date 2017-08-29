@@ -202,7 +202,10 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagActivity.class);
+            intent.putExtra("id",bean.getBagId());
+            intent.putExtra("name",bean.getBagName());
             mContext.startActivity(intent);
         }
     }
