@@ -2,6 +2,8 @@ package com.zxcx.shitang.ui.classify;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.util.List;
+
 public class ClassifyBean implements MultiItemEntity{
 
 
@@ -12,22 +14,13 @@ public class ClassifyBean implements MultiItemEntity{
 
 
     public static final int TYPE_CLASSIFY = 1;
-    public static final int TYPE_CARD_BAG = 2;
 
     private String title;
-    private int type;
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
+    private List<ClassifyCardBagBean> dataList;
 
     @Override
     public int getItemType() {
-        return type;
+        return TYPE_CLASSIFY;
     }
 
     public String getTitle() {
@@ -36,6 +29,14 @@ public class ClassifyBean implements MultiItemEntity{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<ClassifyCardBagBean> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<ClassifyCardBagBean> dataList) {
+        this.dataList = dataList;
     }
 }
 

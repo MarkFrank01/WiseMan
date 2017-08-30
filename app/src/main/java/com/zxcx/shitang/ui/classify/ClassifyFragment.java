@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -26,15 +25,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements ClassifyContract.View ,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener{
+public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements ClassifyContract.View,
+        SwipeRefreshLayout.OnRefreshListener{
 
     @BindView(R.id.rv_classify)
     RecyclerView mRvClassify;
@@ -44,10 +42,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @BindView(R.id.srl_classify)
     SwipeRefreshLayout mSrlClassify;
 
-    private List<MultiItemEntity> mList = new ArrayList<>();
     private ClassifyAdapter mClassifyAdapter;
-    private int TOTAL_COUNTER = 20;
-    private boolean isErr = false;
     private static ClassifyFragment fragment = null;
     private GridLayoutManager manager;
 
@@ -82,16 +77,11 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getData();
         initRecyclerView();
+        getClassify();
 
         mSrlClassify.setOnRefreshListener(this);
         mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
-    }
-
-    @Override
-    public void getDataSuccess(ClassifyBean bean) {
-
     }
 
     @Override
@@ -109,35 +99,23 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     @Override
     public void onRefresh() {
-        isErr = false;
-        mClassifyAdapter.setEnableLoadMore(false);
-        mClassifyAdapter.setEnableLoadMore(true);
-        mList.clear();
-        getData();
-        mClassifyAdapter.notifyDataSetChanged();
-        if (mSrlClassify.isRefreshing()) {
-            mSrlClassify.setRefreshing(false);
-        }
+        mClassifyAdapter.getData().clear();
+        getClassify();
     }
 
     @Override
-    public void onLoadMoreRequested() {
-        mSrlClassify.setEnabled(false);
-        if (mClassifyAdapter.getData().size() > TOTAL_COUNTER) {
-            mClassifyAdapter.loadMoreEnd(false);
-        } else {
-            if (isErr) {
-                getData();
-//                mClassifyAdapter.addData();
-                mClassifyAdapter.notifyDataSetChanged();
-                mClassifyAdapter.loadMoreComplete();
-            } else {
-                isErr = true;
-                Toast.makeText(getContext(), "网络错误", Toast.LENGTH_LONG).show();
-                mClassifyAdapter.loadMoreFail();
-            }
+    public void getDataSuccess(List<ClassifyBean> list) {
+        if (mSrlClassify.isRefreshing()) {
+            mSrlClassify.setRefreshing(false);
         }
-        mSrlClassify.setEnabled(true);
+        mClassifyAdapter.notifyDataSetChanged();
+        for (ClassifyBean bean : list) {
+            mClassifyAdapter.addData(bean);
+            mClassifyAdapter.addData(bean.getDataList());
+        }
+        if (mClassifyAdapter.getData().size() == 0){
+            //占空图
+        }
     }
 
     @OnClick(R.id.tv_home_search)
@@ -146,28 +124,18 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         startActivity(intent);
     }
 
-    private void getData() {
-        for (int i = 0; i < 5; i++) {
-            ClassifyBean bagBean = new ClassifyBean();
-            bagBean.setType(ClassifyBean.TYPE_CLASSIFY);
-            mList.add(bagBean);
-            int x = new Random().nextInt(10) + 1;
-            for (int j = 0; j < x; j++) {
-                ClassifyBean children = new ClassifyBean();
-                children.setType(ClassifyBean.TYPE_CARD_BAG);
-                mList.add(children);
-            }
-        }
+    private void getClassify() {
+        mPresenter.getClassify();
     }
 
     private void initRecyclerView() {
-        mClassifyAdapter = new ClassifyAdapter(mList);
+        mClassifyAdapter = new ClassifyAdapter(new ArrayList<MultiItemEntity>());
         mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
         manager = new GridLayoutManager(getContext(), 4);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(mClassifyAdapter.getItemViewType(position) == ClassifyBean.TYPE_CARD_BAG){
+                if(mClassifyAdapter.getItemViewType(position) == ClassifyCardBagBean.TYPE_CARD_BAG){
                     return 1;
                 }else {
                     return manager.getSpanCount();
@@ -184,7 +152,10 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
             switch (view.getId()){
                 case R.id.rl_item_classify:
+                    ClassifyCardBagBean cardBagBean = (ClassifyCardBagBean) adapter.getData().get(position);
                     Intent intent = new Intent(getActivity(), CardBagActivity.class);
+                    intent.putExtra("id",cardBagBean.getId());
+                    intent.putExtra("name",cardBagBean.getName());
                     startActivity(intent);
                     break;
             }

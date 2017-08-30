@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
+import java.util.List;
+
 public class ClassifyPresenter extends BasePresenter<ClassifyContract.View> implements ClassifyContract.Presenter {
 
     private final ClassifyModel mModel;
@@ -13,8 +15,12 @@ public class ClassifyPresenter extends BasePresenter<ClassifyContract.View> impl
         mModel = new ClassifyModel(this);
     }
 
+    public void getClassify(){
+        mModel.getClassify();
+    }
+
     @Override
-    public void getDataSuccess(ClassifyBean bean) {
+    public void getDataSuccess(List<ClassifyBean> bean) {
         mView.getDataSuccess(bean);
     }
 
