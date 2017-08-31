@@ -59,11 +59,11 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
                 return upstream.map(new Function<BaseArrayBean<T>, List<T>>() {
                                         @Override
                                         public List<T> apply(@io.reactivex.annotations.NonNull BaseArrayBean<T> result) throws Exception {
-                                            if (Constants.RESULT_OK.equals(result.getSuccess())) {
+                                            if (Constants.RESULT_OK.equals(result.getCode())) {
                                                 return result.getData();
-                                            } else if ("2".equals(result.getSuccess())) {
+                                            } else if ("2".equals(result.getCode())) {
                                                 mPresent.getDataFail("未选择兴趣");
-                                            } else if (Constants.RESULT_FAIL.equals(result.getSuccess())) {
+                                            } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
                                                 mPresent.getDataFail(result.getMessage());
                                             } else {
 

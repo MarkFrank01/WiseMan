@@ -120,6 +120,8 @@ dependencies {
     compile 'top.zibin:Luban:1.1.2'
     //高斯模糊
     compile 'jp.wasabeef:blurry:2.1.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'

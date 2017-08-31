@@ -71,11 +71,10 @@ public class BaseModel<T extends IBasePresenter> {
                                             if (Constants.RESULT_OK.equals(result.getCode())) {
                                                 return result.getData();
                                             } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
-                                                mPresent.getDataFail(result.getMessage());
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-
+                                                throw new Exception();
                                             }
-                                            throw new Exception();
                                         }
                                     }
 
@@ -91,14 +90,13 @@ public class BaseModel<T extends IBasePresenter> {
                 return upstream.map(new Function<BaseArrayBean<T>, List<T>>() {
                                         @Override
                                         public List<T> apply(@NonNull BaseArrayBean<T> result) throws Exception {
-                                            if (Constants.RESULT_OK.equals(result.getSuccess())) {
+                                            if (Constants.RESULT_OK.equals(result.getCode())) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL.equals(result.getSuccess())) {
-                                                mPresent.getDataFail(result.getMessage());
+                                            } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-
+                                                throw new Exception();
                                             }
-                                            throw new Exception();
                                         }
                                     }
 
