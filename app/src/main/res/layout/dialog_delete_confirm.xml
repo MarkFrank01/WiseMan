@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_dialog_delete_confirm"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="21dp"
+        android:paddingBottom="21dp"
+        android:background="@null"
+        android:text="确定完全删除该收藏夹及内容吗"
+        android:textColor="@color/text_color_40"
+        android:textSize="17sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_below="@+id/tv_dialog_delete_confirm"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    
+    <LinearLayout
+        android:layout_below="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_cancel"
+            android:text="@string/common_cancel"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryFinal"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_confirm"
+            android:text="@string/common_confirm"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryFinal"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    
+</RelativeLayout>
