@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -25,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,15 +45,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     SwipeRefreshLayout mSrlClassify;
 
     private ClassifyAdapter mClassifyAdapter;
-    private static ClassifyFragment fragment = null;
     private GridLayoutManager manager;
-
-    public static ClassifyFragment newInstance() {
-        if (fragment == null) {
-            fragment = new ClassifyFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -152,10 +146,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
             switch (view.getId()){
                 case R.id.rl_item_classify:
-                    ClassifyCardBagBean cardBagBean = (ClassifyCardBagBean) adapter.getData().get(position);
                     Intent intent = new Intent(getActivity(), CardBagActivity.class);
-                    intent.putExtra("id",cardBagBean.getId());
-                    intent.putExtra("name",cardBagBean.getName());
                     startActivity(intent);
                     break;
             }

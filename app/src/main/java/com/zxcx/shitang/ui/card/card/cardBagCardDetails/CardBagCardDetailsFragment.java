@@ -42,7 +42,6 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
 
     public static final String CARD_ID = "CARD_ID";
 
-    private static CardBagCardDetailsFragment fragment;
     Unbinder unbinder;
 
 
@@ -53,7 +52,7 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
             fragment = new CardBagCardDetailsFragment();
             fragment.setArguments(args);
         }*/
-        fragment = new CardBagCardDetailsFragment();
+        CardBagCardDetailsFragment fragment = new CardBagCardDetailsFragment();
         return fragment;
     }
 
@@ -85,6 +84,12 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        mActivity = null;
+        super.onDestroy();
     }
 
     @Override

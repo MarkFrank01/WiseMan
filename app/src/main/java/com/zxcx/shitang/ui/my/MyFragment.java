@@ -42,7 +42,6 @@ import butterknife.Unbinder;
  */
 public class MyFragment extends BaseFragment {
 
-    private static MyFragment fragment = null;
     Unbinder unbinder;
     @BindView(R.id.tv_my_login)
     TextView mTvMyLogin;
@@ -72,13 +71,6 @@ public class MyFragment extends BaseFragment {
     LinearLayout mLlMyAboutUs;
     @BindView(R.id.tv_my_info)
     TextView mTvMyInfo;
-
-    public static MyFragment newInstance() {
-        if (fragment == null) {
-            fragment = new MyFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

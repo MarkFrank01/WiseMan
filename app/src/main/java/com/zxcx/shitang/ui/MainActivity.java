@@ -38,10 +38,13 @@ public class MainActivity extends BaseActivity {
     RadioButton mHomeTabHome;
     @BindView(R.id.home_tab_classify)
     RadioButton mHomeTabAll;
-    @BindView(R.id.home_tab_note)
-    RadioButton mHomeTabNote;
+    @BindView(R.id.home_tab_my)
+    RadioButton mHomeTabMy;
 
     private Fragment mCurrentFragment = new Fragment();
+    private HomeFragment mHomeFragment = new HomeFragment();
+    private ClassifyFragment mClassifyFragment = new ClassifyFragment();
+    private MyFragment mMyFragment = new MyFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,17 +67,17 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.home_tab_home, R.id.home_tab_classify, R.id.home_tab_note})
+    @OnClick({R.id.home_tab_home, R.id.home_tab_classify, R.id.home_tab_my})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.home_tab_home:
-                switchFragment(HomeFragment.newInstance());
+                switchFragment(mHomeFragment);
                 break;
             case R.id.home_tab_classify:
-                switchFragment(ClassifyFragment.newInstance());
+                switchFragment(mClassifyFragment);
                 break;
-            case R.id.home_tab_note:
-                switchFragment(MyFragment.newInstance());
+            case R.id.home_tab_my:
+                switchFragment(mMyFragment);
                 break;
         }
     }
@@ -90,9 +93,9 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = fm.beginTransaction();
 
         if(mCurrentFragment == newFragment){
-            if (newFragment == HomeFragment.newInstance()){
+            if (newFragment == mHomeFragment){
                 EventBus.getDefault().post(new HomeClickRefreshEvent());
-            }else if (newFragment == ClassifyFragment.newInstance()){
+            }else if (newFragment == mClassifyFragment){
                 EventBus.getDefault().post(new ClassifyClickRefreshEvent());
             }
         }else {
