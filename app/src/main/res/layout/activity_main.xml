@@ -34,7 +34,7 @@
             android:drawableTop="@drawable/select_home_classify" />
 
         <RadioButton
-            android:id="@+id/home_tab_note"
+            android:id="@+id/home_tab_my"
             style="@style/BottomTab"
             android:text="@string/home_my"
             android:drawableTop="@drawable/select_home_my" />

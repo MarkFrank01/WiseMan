@@ -48,15 +48,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     private ClassifyAdapter mClassifyAdapter;
     private int TOTAL_COUNTER = 20;
     private boolean isErr = false;
-    private static ClassifyFragment fragment = null;
     private GridLayoutManager manager;
-
-    public static ClassifyFragment newInstance() {
-        if (fragment == null) {
-            fragment = new ClassifyFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

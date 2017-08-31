@@ -35,16 +35,8 @@ public class HomeFragment extends BaseFragment {
     Unbinder unbinder;
     private HotFragment mHotFragment = HotFragment.newInstance();
     private AttentionFragment mAttentionFragment = AttentionFragment.newInstance();
-    private static HomeFragment fragment = null;
 
     private String[] titles = new String[]{"热门推荐", "我关注的"};
-
-    public static HomeFragment newInstance() {
-        if (fragment == null) {
-            fragment = new HomeFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
