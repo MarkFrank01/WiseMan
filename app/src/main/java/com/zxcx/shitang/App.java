@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -20,6 +22,7 @@ import cn.jpush.android.api.JPushInterface;
 public class App extends Application {
     private static Context context;
     public static App app;
+    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
@@ -44,6 +47,9 @@ public class App extends Application {
         JAnalyticsInterface.setDebugMode(true);
         JAnalyticsInterface.init(context);
 
+        //LeakCanary
+        refWatcher = LeakCanary.install(this);
+
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
         if (isNight){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -54,6 +60,11 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        App application = (App) context.getApplicationContext();
+        return application.refWatcher;
     }
 
 }
