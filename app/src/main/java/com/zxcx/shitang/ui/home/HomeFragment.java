@@ -33,8 +33,8 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.vp_home)
     ViewPager mVpHome;
     Unbinder unbinder;
-    private HotFragment mHotFragment = HotFragment.newInstance();
-    private AttentionFragment mAttentionFragment = AttentionFragment.newInstance();
+    private HotFragment mHotFragment = new HotFragment();
+    private AttentionFragment mAttentionFragment = new AttentionFragment();
 
     private String[] titles = new String[]{"热门推荐", "我关注的"};
 

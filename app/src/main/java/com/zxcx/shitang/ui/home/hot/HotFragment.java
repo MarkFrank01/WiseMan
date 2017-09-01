@@ -40,7 +40,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int TOTAL_COUNTER = 30;
-    private static HotFragment fragment = null;
     RecyclerView mRvHotCardBag;
     @BindView(R.id.rv_hot_card)
     RecyclerView mRvHotCard;
@@ -52,13 +51,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     private HotCardAdapter mHotCardAdapter;
     private List<HotBean> mList = new ArrayList<>();
     private boolean isErr = false;
-
-    public static HotFragment newInstance() {
-        if (fragment == null) {
-            fragment = new HotFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

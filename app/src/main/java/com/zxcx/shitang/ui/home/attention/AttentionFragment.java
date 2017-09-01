@@ -50,7 +50,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private static final int TOTAL_COUNTER = 30;
     private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_SELECT_ATTENTION = 1;
-    private static AttentionFragment fragment = null;
     RecyclerView mRvAttentionCardBag;
     @BindView(R.id.rv_attention_card)
     RecyclerView mRvAttentionCard;
@@ -64,13 +63,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private boolean isErr = false;
     private String mUserId = SharedPreferencesUtil.getString(SVTSConstants.userId,"");
     private View mEmptyView;
-
-    public static AttentionFragment newInstance() {
-        if (fragment == null) {
-            fragment = new AttentionFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
