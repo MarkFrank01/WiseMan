@@ -1,13 +1,18 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.card.cardBag.CardBagBean;
 import com.zxcx.shitang.ui.classify.ClassifyBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBean;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
+import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
+import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.POST;
@@ -55,4 +60,22 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<ClassifyBean>> getClassify();
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<CollectFolderBean>> getCollectFolder(int userId, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> deleteCollectFolder(int userId, List<Integer> idList);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> addCollectFolder(int userId, String name);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> changeCollectFolderName(int userId, int id, String name);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(int userId, int id, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> deleteCollectCard(int userId, int id, List<Integer> idList);
 }

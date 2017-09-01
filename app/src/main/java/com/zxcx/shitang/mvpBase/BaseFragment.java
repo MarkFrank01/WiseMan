@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zxcx.shitang.App;
 import com.zxcx.shitang.R;
 
+import butterknife.OnClick;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -107,7 +107,6 @@ public class BaseFragment extends Fragment implements BaseView{
     public void onDestroy() {
         super.onDestroy();
         onUnsubscribe();
-        App.getRefWatcher(getActivity()).watch(this);
     }
 
     private CompositeDisposable mCompositeSubscription;

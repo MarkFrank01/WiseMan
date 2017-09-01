@@ -1,15 +1,17 @@
 package com.zxcx.shitang.ui.my.collect.collectFolder;
 
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.mvpBase.MvpView;
+import com.zxcx.shitang.mvpBase.GetPostView;
+import com.zxcx.shitang.mvpBase.IGetPostPresenter;
+
+import java.util.List;
 
 public interface CollectFolderContract {
 
-    interface View extends MvpView<CollectFolderBean> {
+    interface View extends GetPostView<List<CollectFolderBean>> {
 
     }
 
-    interface Presenter extends IBasePresenter<CollectFolderBean> {
+    interface Presenter extends IGetPostPresenter<List<CollectFolderBean>> {
 
     }
 }
