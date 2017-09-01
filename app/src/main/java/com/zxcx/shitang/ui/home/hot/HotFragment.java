@@ -39,7 +39,6 @@ import butterknife.Unbinder;
 public class HotFragment extends MvpFragment<HotPresenter> implements HotContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private static HotFragment fragment = null;
     RecyclerView mRvHotCardBag;
     @BindView(R.id.rv_hot_card)
     RecyclerView mRvHotCard;
@@ -50,13 +49,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     private HotCardBagAdapter mCardBagAdapter;
     private HotCardAdapter mCardAdapter;
     private int page = 1;
-
-    public static HotFragment newInstance() {
-        if (fragment == null) {
-            fragment = new HotFragment();
-        }
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
