@@ -1,10 +1,10 @@
 package com.zxcx.shitang.ui.my.collect.collectCard;
 
-import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardContract;
-import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardModel;
+import android.support.annotation.NonNull;
+
 import com.zxcx.shitang.mvpBase.BasePresenter;
 
-import android.support.annotation.NonNull;
+import java.util.List;
 
 public class CollectCardPresenter extends BasePresenter<CollectCardContract.View> implements CollectCardContract.Presenter {
 
@@ -15,14 +15,36 @@ public class CollectCardPresenter extends BasePresenter<CollectCardContract.View
         mModel = new CollectCardModel(this);
     }
 
+    public void getCollectCard(int userId, int id, int page, int pageSize){
+        mModel.getCollectCard(userId, id, page,pageSize);
+    }
+
+    public void deleteCollectCard(int userId, int id, List<Integer> idList){
+        mModel.deleteCollectCard(userId, id, idList);
+    }
+
+    public void changeCollectFolderName(int userId, int id, String name){
+        mModel.changeCollectFolderName(userId, id, name);
+    }
+
     @Override
-    public void getDataSuccess(CollectCardBean bean) {
+    public void getDataSuccess(List<CollectCardBean> bean) {
         mView.getDataSuccess(bean);
     }
 
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void postSuccess() {
+        mView.postSuccess();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        mView.postFail(msg);
     }
 
     @Override

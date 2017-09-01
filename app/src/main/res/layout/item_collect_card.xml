@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/tv_item_collect_card_collect_num"
+        android:id="@+id/tv_item_collect_card_num"
         android:layout_below="@id/tv_item_collect_card_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"

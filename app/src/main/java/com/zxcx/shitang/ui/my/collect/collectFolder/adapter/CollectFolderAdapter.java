@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
+import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import java.util.List;
@@ -36,6 +37,11 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
 
     @Override
     protected void convert(final BaseViewHolder helper, final CollectFolderBean item) {
+
+        helper.setText(R.id.tv_item_collect_folder_title,item.getName());
+        helper.setText(R.id.tv_item_collect_folder_time,item.getTime());
+        helper.setText(R.id.tv_item_collect_folder_num,item.getNum());
+
         RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_folder);
         final CheckBox checkBox = helper.getView(R.id.cb_item_collect_folder);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -66,13 +72,14 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
             checkBox.setChecked(false);
         }
 
-
         RoundedImageView imageView = helper.getView(R.id.iv_item_collect_folder_icon);
         ViewGroup.LayoutParams para = imageView.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
         imageView.setLayoutParams(para);
         relativeLayout.setLayoutParams(para);
+
+        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
     }
 
     public boolean isDelete() {

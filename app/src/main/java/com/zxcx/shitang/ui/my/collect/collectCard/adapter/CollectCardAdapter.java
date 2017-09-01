@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
+import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import java.util.List;
@@ -35,6 +36,10 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
 
     @Override
     protected void convert(final BaseViewHolder helper, final CollectCardBean item) {
+
+        helper.setText(R.id.tv_item_collect_card_title,item.getName());
+        helper.setText(R.id.tv_item_collect_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
+
         RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_card);
         final CheckBox checkBox = helper.getView(R.id.cb_item_collect_card);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +76,8 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
         para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
         imageView.setLayoutParams(para);
         relativeLayout.setLayoutParams(para);
+
+        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
     }
 
     public boolean isDelete() {

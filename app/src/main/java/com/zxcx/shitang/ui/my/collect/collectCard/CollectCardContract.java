@@ -1,16 +1,17 @@
 package com.zxcx.shitang.ui.my.collect.collectCard;
 
-import com.zxcx.shitang.mvpBase.MvpView;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
+import com.zxcx.shitang.mvpBase.GetPostView;
+import com.zxcx.shitang.mvpBase.IGetPostPresenter;
+
+import java.util.List;
 
 public interface CollectCardContract {
 
-    interface View extends MvpView<CollectCardBean> {
+    interface View extends GetPostView<List<CollectCardBean>> {
 
     }
 
-    interface Presenter extends IBasePresenter<CollectCardBean> {
+    interface Presenter extends IGetPostPresenter<List<CollectCardBean>> {
 
     }
 }

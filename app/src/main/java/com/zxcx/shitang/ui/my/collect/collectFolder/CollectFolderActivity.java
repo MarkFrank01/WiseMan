@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.ChangeCollectFolderNameEvent;
 import com.zxcx.shitang.event.DeleteConfirmEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardActivity;
@@ -60,7 +61,6 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     @BindView(R.id.iv_dialog_collect_folder_confirm)
     ImageView mIvDialogCollectFolderConfirm;
     private CollectFolderAdapter mCollectFolderAdapter;
-    private List<CollectFolderBean> mList = new ArrayList<>();
     private List<CollectFolderBean> mCheckedList = new ArrayList<>();
     private int page = 1;
     private int mAction;
@@ -106,6 +106,12 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected CollectFolderPresenter createPresenter() {
         return new CollectFolderPresenter(this);
     }
@@ -145,7 +151,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     @Override
     public void postSuccess() {
         if (mAction == ACTION_DELETE){
-            mList.removeAll(mCheckedList);
+            mCollectFolderAdapter.getData().removeAll(mCheckedList);
             mCollectFolderAdapter.notifyDataSetChanged();
             mCheckedList.clear();
         }else if (mAction == ACTION_ADD){
@@ -166,6 +172,17 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
             idList.add(bean.getId());
         }
         mPresenter.deleteCollectFolder(mUserId,idList);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangeCollectFolderNameEvent event) {
+        List<CollectFolderBean> list = mCollectFolderAdapter.getData();
+        for (CollectFolderBean bean : list) {
+            if (bean.getId() == event.getId()){
+                bean.setName(event.getName());
+                mCollectFolderAdapter.notifyItemChanged(list.indexOf(bean));
+            }
+        }
     }
 
     @OnClick(R.id.ll_collect_folder)
@@ -273,7 +290,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     private void initRecyclerView() {
-        mCollectFolderAdapter = new CollectFolderAdapter(mList, this);
+        mCollectFolderAdapter = new CollectFolderAdapter(new ArrayList<CollectFolderBean>(), this);
         mCollectFolderAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCollectFolderAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
         mCollectFolderAdapter.setOnItemClickListener(this);
