@@ -1,19 +1,18 @@
 package com.zxcx.shitang.ui.my.selectAttention;
 
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.mvpBase.MvpView;
+import com.zxcx.shitang.mvpBase.GetPostView;
+import com.zxcx.shitang.mvpBase.IGetPostPresenter;
 
 import java.util.List;
 
 public interface SelectAttentionContract {
 
-    interface View extends MvpView<SelectAttentionBean> {
-        void postSuccess();
-        void postFail();
+    interface View extends GetPostView<List<SelectAttentionBean>> {
+
     }
 
-    interface Presenter extends IBasePresenter<SelectAttentionBean> {
-        void selectAttention(List<String> cardBagId);
+    interface Presenter extends IGetPostPresenter<List<SelectAttentionBean>> {
+
     }
 }
 

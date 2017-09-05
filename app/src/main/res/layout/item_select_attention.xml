@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_select_attention_select"
+            android:id="@+id/tv_item_select_attention_name"
             android:text="生活常识"
             android:textSize="14sp"
             android:layout_centerInParent="true"

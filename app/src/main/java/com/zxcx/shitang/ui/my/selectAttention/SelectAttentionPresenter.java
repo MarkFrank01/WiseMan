@@ -15,14 +15,32 @@ public class SelectAttentionPresenter extends BasePresenter<SelectAttentionContr
         mModel = new SelectAttentionModel(this);
     }
 
+    public void getAttentionList(int userId){
+        mModel.getAttentionList(userId);
+    }
+
+    public void changeAttentionList(int userId, List<Integer> idList){
+        mModel.changeAttentionList(userId, idList);
+    }
+
     @Override
-    public void getDataSuccess(SelectAttentionBean bean) {
+    public void getDataSuccess(List<SelectAttentionBean> bean) {
         mView.getDataSuccess(bean);
     }
 
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void postSuccess() {
+
+    }
+
+    @Override
+    public void postFail(String msg) {
+
     }
 
     @Override
@@ -38,11 +56,6 @@ public class SelectAttentionPresenter extends BasePresenter<SelectAttentionContr
     public void detachView() {
         super.detachView();
         mModel.onDestroy();
-    }
-
-    @Override
-    public void selectAttention(List<String> cardBagId) {
-
     }
 }
 

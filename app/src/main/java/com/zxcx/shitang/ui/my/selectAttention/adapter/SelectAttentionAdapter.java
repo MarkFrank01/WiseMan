@@ -5,8 +5,10 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionBean;
+import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import java.util.List;
@@ -34,5 +36,9 @@ public class SelectAttentionAdapter extends BaseQuickAdapter<SelectAttentionBean
         para.width = (screenWidth - ScreenUtils.dip2px(12*2) - ScreenUtils.dip2px(10*2)) / 3;
         para.height = (screenWidth - ScreenUtils.dip2px(12*2) - ScreenUtils.dip2px(10*2)) / 3;
         helper.itemView.setLayoutParams(para);
+
+        helper.setText(R.id.tv_item_select_attention_name,item.getName());
+        RoundedImageView imageView = helper.getView(R.id.iv_item_select_attention_icon);
+        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
     }
 }

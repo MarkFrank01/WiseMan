@@ -11,24 +11,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.HomeClickRefreshEvent;
+import com.zxcx.shitang.event.LoginEvent;
+import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.attention.adapter.AttentionCardBagAdapter;
-import com.zxcx.shitang.ui.home.hot.HotBean;
+import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
+import com.zxcx.shitang.ui.home.hot.HotCardBean;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
-import com.zxcx.shitang.utils.StringUtils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,8 +43,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static android.app.Activity.RESULT_OK;
 
 public class AttentionFragment extends MvpFragment<AttentionPresenter> implements AttentionContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {

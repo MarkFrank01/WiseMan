@@ -9,6 +9,7 @@ import com.zxcx.shitang.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
+import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
 
@@ -78,4 +79,10 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseBean<PostBean>> deleteCollectCard(int userId, int id, List<Integer> idList);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList(int userId, int page, int pageSize);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> changeAttentionList(int userId, List<Integer> idList);
 }

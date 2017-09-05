@@ -11,10 +11,13 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,59 +31,57 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     @BindView(R.id.rv_select_attention)
     RecyclerView mRvSelectAttention;
 
-    private ArrayList<SelectAttentionBean> mList = new ArrayList<>();
     private ArrayList<SelectAttentionBean> mCheckedList = new ArrayList<>();
     private SelectAttentionAdapter mAdapter;
+    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_attention);
         ButterKnife.bind(this);
-        getData();
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         initRecyclerView();
+        getAttentionList();
     }
 
-    private void getData() {
-        for (int i = 0; i < 12; i++) {
-            if (i%2 == 0) {
-                mList.add(new SelectAttentionBean());
-            }else {
-                SelectAttentionBean bean = new SelectAttentionBean();
-                bean.setChecked(true);
-                mList.add(bean);
-                mCheckedList.add(bean);
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
+    }
+
+    private void getAttentionList() {
+        mPresenter.getAttentionList(mUserId);
+    }
+
+    @Override
+    public void getDataSuccess(List<SelectAttentionBean> list) {
+        mAdapter.addData(list);
+        if (mAdapter.getData().size() == 0){
+            //占空图
         }
-        checkNext();
     }
 
-    private void initRecyclerView() {
-        mAdapter = new SelectAttentionAdapter(mList);
-        mAdapter.setOnItemClickListener(this);
-        GridLayoutManager manager = new GridLayoutManager(mActivity, 3);
-        mRvSelectAttention.setAdapter(mAdapter);
-        mRvSelectAttention.setLayoutManager(manager);
+    @Override
+    public void toastFail(String msg) {
+        super.toastFail(msg);
+    }
+
+    @Override
+    public void postSuccess() {
+        EventBus.getDefault().postSticky(new SelectAttentionEvent());
+        finish();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
     }
 
     @Override
     protected SelectAttentionPresenter createPresenter() {
         return new SelectAttentionPresenter(this);
-    }
-
-    @Override
-    public void getDataSuccess(SelectAttentionBean bean) {
-
-    }
-
-    @Override
-    public void postSuccess() {
-
-    }
-
-    @Override
-    public void postFail() {
-
     }
 
     @OnClick(R.id.iv_select_attention_close)
@@ -90,8 +91,11 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     @OnClick(R.id.tv_select_attention_next)
     public void onMTvSelectAttentionNextClicked() {
-        EventBus.getDefault().postSticky(new SelectAttentionEvent());
-        finish();
+        List<Integer> idList = new ArrayList<>();
+        for (SelectAttentionBean bean : mCheckedList) {
+            idList.add(bean.getId());
+        }
+        mPresenter.changeAttentionList(mUserId,idList);
     }
 
     @Override
@@ -110,6 +114,14 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
             }
         }
         checkNext();
+    }
+
+    private void initRecyclerView() {
+        mAdapter = new SelectAttentionAdapter(new ArrayList<SelectAttentionBean>());
+        mAdapter.setOnItemClickListener(this);
+        GridLayoutManager manager = new GridLayoutManager(mActivity, 3);
+        mRvSelectAttention.setAdapter(mAdapter);
+        mRvSelectAttention.setLayoutManager(manager);
     }
 
     private void checkNext() {
