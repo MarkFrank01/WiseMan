@@ -22,6 +22,7 @@ import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
 import com.zxcx.shitang.ui.my.feedback.feedback.FeedbackActivity;
+import com.zxcx.shitang.ui.my.feedback.help.HelpActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
@@ -156,7 +157,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.ll_my_feedback)
     public void onMLlMyFeedbackClicked() {
-        Intent intent = new Intent(getContext(), FeedbackActivity.class);
+        Intent intent = new Intent(getContext(), HelpActivity.class);
         startActivity(intent);
     }
 

@@ -157,8 +157,9 @@
         <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.feedback.help.HelpActivity">
-        </activity>
+        <activity
+            android:name=".ui.my.feedback.help.HelpActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
