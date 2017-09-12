@@ -18,7 +18,7 @@ import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.event.LoginEvent;
 import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.attention.adapter.AttentionCardBagAdapter;
 import com.zxcx.shitang.ui.home.hot.HotCardBagBean;

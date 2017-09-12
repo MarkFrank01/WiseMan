@@ -1,6 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
 import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.shitang.ui.card.cardBag.CardBagBean;
 import com.zxcx.shitang.ui.classify.ClassifyBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
@@ -91,4 +92,16 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseBean<PostBean>> changeUserInfo(int userId, String userIcon, String name, Integer sex, String birthday);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<CardDetailsBean>> getCardDetails(int userId, int cardId);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> likeCard(int userId, int cardId);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> removeCollectCard(int userId, int cardId);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> feedback(int userId, String content);
 }

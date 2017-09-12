@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.shitang.ui.MainActivity;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.welcome.WebViewActivity;
 import com.zxcx.shitang.utils.Constants;

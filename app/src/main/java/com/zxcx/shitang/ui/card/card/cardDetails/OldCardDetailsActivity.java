@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View,
+public class OldCardDetailsActivity extends MvpActivity<OldCardDetailsPresenter> implements OldCardDetailsContract.View,
         ShareWayDialog.DefaultShareDialogListener {
 
     @BindView(R.id.tv_card_details_name)
@@ -81,12 +81,12 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
-    protected CardDetailsPresenter createPresenter() {
-        return new CardDetailsPresenter(this);
+    protected OldCardDetailsPresenter createPresenter() {
+        return new OldCardDetailsPresenter(this);
     }
 
     @Override
-    public void getDataSuccess(CardDetailsBean bean) {
+    public void getDataSuccess(OldCardDetailsBean bean) {
 
     }
 

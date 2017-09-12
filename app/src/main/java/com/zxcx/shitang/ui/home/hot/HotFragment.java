@@ -16,7 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.shitang.ui.home.hot.adapter.HotCardBagAdapter;

@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.shitang.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;

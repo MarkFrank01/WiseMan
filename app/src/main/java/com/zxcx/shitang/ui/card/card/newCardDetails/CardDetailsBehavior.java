@@ -1,4 +1,4 @@
-package com.zxcx.shitang.ui.card.card.cardDetails;
+package com.zxcx.shitang.ui.card.card.newCardDetails;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

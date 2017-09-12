@@ -14,7 +14,7 @@ import com.zxcx.shitang.event.ChangeNightModeEvent;
 import com.zxcx.shitang.event.ClassifyClickRefreshEvent;
 import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
-import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.CardBagActivity;
 import com.zxcx.shitang.ui.classify.ClassifyFragment;
 import com.zxcx.shitang.ui.home.HomeFragment;

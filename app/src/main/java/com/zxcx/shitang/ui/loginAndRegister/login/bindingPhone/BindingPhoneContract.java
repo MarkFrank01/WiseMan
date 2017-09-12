@@ -1,8 +1,7 @@
 package com.zxcx.shitang.ui.loginAndRegister.login.bindingPhone;
 
+import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.mvpBase.MvpView;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.ui.loginAndRegister.login.bindingPhone.BindingPhoneBean;
 
 public interface BindingPhoneContract {
 
@@ -10,7 +9,7 @@ public interface BindingPhoneContract {
 
     }
 
-    interface Presenter extends IBasePresenter<BindingPhoneBean> {
+    interface Presenter extends IGetPresenter<BindingPhoneBean> {
 
     }
 }

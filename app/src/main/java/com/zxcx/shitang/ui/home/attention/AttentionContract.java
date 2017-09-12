@@ -1,6 +1,6 @@
 package com.zxcx.shitang.ui.home.attention;
 
-import com.zxcx.shitang.mvpBase.IBasePresenter;
+import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.mvpBase.MvpView;
 import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
 import com.zxcx.shitang.ui.home.hot.HotCardBean;
@@ -13,7 +13,7 @@ public interface AttentionContract {
         void getHotCardBagSuccess(List<HotCardBagBean> list);
     }
 
-    interface Presenter extends IBasePresenter<List<HotCardBean>> {
+    interface Presenter extends IGetPresenter<List<HotCardBean>> {
         void getHotCardBagSuccess(List<HotCardBagBean> list);
     }
 }

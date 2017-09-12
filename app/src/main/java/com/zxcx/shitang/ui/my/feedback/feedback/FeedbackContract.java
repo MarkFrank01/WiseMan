@@ -1,15 +1,16 @@
 package com.zxcx.shitang.ui.my.feedback.feedback;
 
-import com.zxcx.shitang.mvpBase.MvpView;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
+import com.zxcx.shitang.mvpBase.IPostPresenter;
+import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.mvpBase.PostView;
 
 public interface FeedbackContract {
 
-    interface View extends MvpView<FeedbackBean> {
+    interface View extends PostView<PostBean> {
 
     }
 
-    interface Presenter extends IBasePresenter<FeedbackBean> {
+    interface Presenter extends IPostPresenter<PostBean> {
 
     }
 }

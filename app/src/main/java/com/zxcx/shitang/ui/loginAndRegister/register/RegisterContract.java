@@ -1,8 +1,7 @@
 package com.zxcx.shitang.ui.loginAndRegister.register;
 
+import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.mvpBase.MvpView;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
 
 public interface RegisterContract {
 
@@ -10,7 +9,7 @@ public interface RegisterContract {
 
     }
 
-    interface Presenter extends IBasePresenter<RegisterBean> {
+    interface Presenter extends IGetPresenter<RegisterBean> {
 
     }
 }

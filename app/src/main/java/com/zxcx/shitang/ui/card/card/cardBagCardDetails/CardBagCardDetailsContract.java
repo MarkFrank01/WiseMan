@@ -1,8 +1,7 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
+import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.mvpBase.MvpView;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
-import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsBean;
 
 public interface CardBagCardDetailsContract {
 
@@ -10,7 +9,7 @@ public interface CardBagCardDetailsContract {
 
     }
 
-    interface Presenter extends IBasePresenter<CardBagCardDetailsBean> {
+    interface Presenter extends IGetPresenter<CardBagCardDetailsBean> {
 
     }
 }
