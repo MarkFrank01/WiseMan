@@ -19,6 +19,7 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeCollectFolderNameEvent;
 import com.zxcx.shitang.event.DeleteConfirmEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
@@ -149,7 +150,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     @Override
-    public void postSuccess() {
+    public void postSuccess(PostBean bean) {
         if (mAction == ACTION_DELETE){
             mCollectFolderAdapter.getData().removeAll(mCheckedList);
             mCollectFolderAdapter.notifyDataSetChanged();

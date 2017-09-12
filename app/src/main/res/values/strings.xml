@@ -41,6 +41,8 @@
     <string name="save">本地保存</string>
     <string name="more">更多</string>
     <string name="network_error">网络异常</string>
+    <string name="change_error">修改失败</string>
+    <string name="add_error">添加失败</string>
     <string name="data_error">数据异常</string>
     <string name="tv_collect_folder_add">添加收藏夹</string>
     <string name="tv_collect_card_edit">修改收藏夹名字</string>

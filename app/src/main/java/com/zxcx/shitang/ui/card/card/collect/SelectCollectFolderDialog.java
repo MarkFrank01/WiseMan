@@ -1,6 +1,5 @@
 package com.zxcx.shitang.ui.card.card.collect;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +15,18 @@ import android.view.WindowManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
-import com.zxcx.shitang.ui.home.hot.HotCardBagBean;
+import com.zxcx.shitang.mvpBase.BaseDialog;
+import com.zxcx.shitang.mvpBase.IGetPostPresenter;
+import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.retrofit.AppClient;
+import com.zxcx.shitang.retrofit.BaseArrayBean;
+import com.zxcx.shitang.retrofit.BaseBean;
+import com.zxcx.shitang.retrofit.BaseSubscriber;
+import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
+import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,15 +42,16 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/4.
  */
 
-public class SelectCollectFolderDialog extends DialogFragment {
+public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPresenter<List<CollectFolderBean>,PostBean> {
 
     @BindView(R.id.rv_dialog_select_collect_folder)
     RecyclerView mRvDialogSelectCollectFolder;
     Unbinder unbinder;
 
     private SelectCollectFolderAdapter mAdapter;
-    private List<HotCardBagBean> mList = new ArrayList<>();
     private Context mContext;
+    private int cardId;
+    private int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
 
     public SelectCollectFolderDialog() {
     }
@@ -58,13 +68,14 @@ public class SelectCollectFolderDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getData();
+        getCollectFolder(userId,1,10000);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
+        cardId = getArguments().getInt("cardId");
         mContext = getActivity();
         initRecyclerView();
 
@@ -85,20 +96,13 @@ public class SelectCollectFolderDialog extends DialogFragment {
     }
 
     private void initRecyclerView() {
-
         LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
 
-        mAdapter = new SelectCollectFolderAdapter(mList);
+        mAdapter = new SelectCollectFolderAdapter(new ArrayList<CollectFolderBean>());
         mAdapter.setOnItemClickListener(new CollectFolderItemClickListener());
         mRvDialogSelectCollectFolder.setLayoutManager(hotCardBagLayoutManager);
         mRvDialogSelectCollectFolder.setAdapter(mAdapter);
 
-    }
-
-    private void getData() {
-        for (int i = 0; i < 10; i++) {
-            mList.add(new HotCardBagBean());
-        }
     }
 
     @OnClick(R.id.iv_dialog_collect_folder_close)
@@ -112,12 +116,69 @@ public class SelectCollectFolderDialog extends DialogFragment {
         addCollectFolderDialog.show(getFragmentManager(),"");
     }
 
+    public void getCollectFolder(int userId, int page, int pageSize){
+        subscription = AppClient.getAPIService().getCollectFolder(userId, page,pageSize)
+                .compose(this.<BaseArrayBean<CollectFolderBean>>io_main())
+                .compose(this.<CollectFolderBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<CollectFolderBean>>(this) {
+                    @Override
+                    public void onNext(List<CollectFolderBean> list) {
+                        SelectCollectFolderDialog.this.getDataSuccess(list);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    public void addCollectCard(int userId, int folderId, int cardId){
+        subscription = AppClient.getAPIService().addCollectCard(userId, folderId, cardId)
+                .compose(this.<BaseBean<PostBean>>io_main())
+                .compose(this.<PostBean>handleResult())
+                .subscribeWith(new PostSubscriber<PostBean>(this) {
+                    @Override
+                    public void onNext(PostBean bean) {
+                        SelectCollectFolderDialog.this.postSuccess(bean);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    @Override
+    public void getDataSuccess(List<CollectFolderBean> bean) {
+        mAdapter.addData(bean);
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        toastShow(msg);
+    }
+
+    @Override
+    public void postSuccess(PostBean bean) {
+        EventBus.getDefault().post(new CollectSuccessEvent());
+        SelectCollectFolderDialog.this.dismiss();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
     private class CollectFolderItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            EventBus.getDefault().post(new CollectSuccessEvent());
-            SelectCollectFolderDialog.this.dismiss();
+            CollectFolderBean bean = (CollectFolderBean) adapter.getData().get(position);
+            addCollectCard(userId,bean.getId(),cardId);
         }
     }
 }

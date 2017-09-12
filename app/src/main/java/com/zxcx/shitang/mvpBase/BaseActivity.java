@@ -116,7 +116,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     public void toastShow(int resId) {
         Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
-        Toast toast = new Toast(this);
     }
 
     public void toastShow(String resId) {

@@ -3,6 +3,7 @@ package com.zxcx.shitang.ui.my.collect.collectFolder;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
+import com.zxcx.shitang.mvpBase.PostBean;
 
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class CollectFolderPresenter extends BasePresenter<CollectFolderContract.
     }
 
     @Override
-    public void postSuccess() {
-        mView.postSuccess();
+    public void postSuccess(PostBean bean) {
+        mView.postSuccess(bean);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
                     @Override
                     public void onNext(PostBean bean) {
-                        mPresent.postSuccess();
+                        mPresent.postSuccess(bean);
                     }
                 });
         addSubscription(subscription);
@@ -49,8 +49,8 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
                 .compose(this.<PostBean>handleResult())
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean list) {
-                        mPresent.postSuccess();
+                    public void onNext(PostBean bean) {
+                        mPresent.postSuccess(bean);
                     }
                 });
         addSubscription(subscription);

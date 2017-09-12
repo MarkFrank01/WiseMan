@@ -38,7 +38,7 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
                     @Override
                     public void onNext(PostBean bean) {
-                        mPresent.postSuccess();
+                        mPresent.postSuccess(bean);
                     }
                 });
         addSubscription(subscription);

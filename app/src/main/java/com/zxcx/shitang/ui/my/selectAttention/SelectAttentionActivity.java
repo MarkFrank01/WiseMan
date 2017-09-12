@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
@@ -69,7 +70,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     }
 
     @Override
-    public void postSuccess() {
+    public void postSuccess(PostBean bean) {
         EventBus.getDefault().postSticky(new SelectAttentionEvent());
         finish();
     }

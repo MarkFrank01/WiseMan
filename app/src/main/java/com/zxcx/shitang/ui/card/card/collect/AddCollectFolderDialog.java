@@ -1,6 +1,5 @@
 package com.zxcx.shitang.ui.card.card.collect;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -16,7 +15,15 @@ import android.widget.ImageView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.AddCollectFolderDialogEvent;
+import com.zxcx.shitang.mvpBase.BaseDialog;
+import com.zxcx.shitang.mvpBase.IPostPresenter;
+import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.retrofit.AppClient;
+import com.zxcx.shitang.retrofit.BaseBean;
+import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,7 +36,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/4.
  */
 
-public class AddCollectFolderDialog extends DialogFragment {
+public class AddCollectFolderDialog extends BaseDialog implements IPostPresenter<PostBean>{
 
     @BindView(R.id.iv_dialog_collect_folder_confirm)
     ImageView mIvDialogCollectFolderConfirm;
@@ -91,6 +98,30 @@ public class AddCollectFolderDialog extends DialogFragment {
         unbinder.unbind();
     }
 
+    public void addCollectFolder(int userId, String name){
+        subscription = AppClient.getAPIService().addCollectFolder(userId, name)
+                .compose(this.<BaseBean<PostBean>>io_main())
+                .compose(this.<PostBean>handleResult())
+                .subscribeWith(new PostSubscriber<PostBean>(this) {
+                    @Override
+                    public void onNext(PostBean bean) {
+                        AddCollectFolderDialog.this.postSuccess(bean);
+                    }
+                });
+        addSubscription(subscription);
+    }
+
+    @Override
+    public void postSuccess(PostBean bean) {
+        EventBus.getDefault().post(new AddCollectFolderDialogEvent());
+        this.dismiss();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
+    }
+
     @OnClick(R.id.iv_common_close)
     public void onMIvCommonCloseClicked() {
         this.dismiss();
@@ -99,7 +130,9 @@ public class AddCollectFolderDialog extends DialogFragment {
     @OnClick(R.id.iv_dialog_collect_folder_confirm)
     public void onMIvDialogCollectFolderConfirmClicked() {
         if (mEtDialogAddCollectFolder.length()>0){
-            EventBus.getDefault().post(new AddCollectFolderDialogEvent());
+            int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
+            String name = mEtDialogAddCollectFolder.getText().toString();
+            addCollectFolder(userId,name);
         }
     }
 }

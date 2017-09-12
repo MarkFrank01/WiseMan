@@ -1,5 +1,6 @@
 package com.zxcx.shitang.utils;
 
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -21,6 +22,10 @@ public class StringUtils {
         }else {
             return false;
         }
+    }
+
+    public static String getString(@StringRes int id){
+        return App.getContext().getString(id);
     }
 
     public static void setTextviewColorAndBold(TextView textView, String key, String value) {

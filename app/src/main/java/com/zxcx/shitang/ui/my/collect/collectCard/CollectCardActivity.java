@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeCollectFolderNameEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.my.collect.collectCard.adapter.CollectCardAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
@@ -140,7 +141,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     @Override
-    public void postSuccess() {
+    public void postSuccess(PostBean bean) {
         if (mAction == ACTION_DELETE){
             mCollectCardAdapter.getData().removeAll(mCheckedList);
             mCollectCardAdapter.notifyDataSetChanged();

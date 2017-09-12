@@ -22,6 +22,7 @@ import com.zxcx.shitang.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -77,6 +78,10 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @Override
     public void getDataSuccess(LoginBean bean) {
+        Date date = new Date();
+        SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, date.getTime());
+        SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, bean.getServiceStartTime());
+        SharedPreferencesUtil.saveData(SVTSConstants.token, bean.getToken());
         SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getUser().getId());
         SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());

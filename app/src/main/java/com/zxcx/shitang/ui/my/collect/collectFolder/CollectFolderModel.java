@@ -37,7 +37,7 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
                     @Override
                     public void onNext(PostBean bean) {
-                        mPresent.postSuccess();
+                        mPresent.postSuccess(bean);
                     }
                 });
         addSubscription(subscription);
@@ -49,8 +49,8 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
                 .compose(this.<PostBean>handleResult())
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean list) {
-                        mPresent.postSuccess();
+                    public void onNext(PostBean bean) {
+                        mPresent.postSuccess(bean);
                     }
                 });
         addSubscription(subscription);

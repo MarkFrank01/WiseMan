@@ -78,6 +78,9 @@ public interface APIService {
     Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(int userId, int id, int page, int pageSize);
 
     @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> addCollectCard(int userId, int folderId, int cardId);
+
+    @POST("user/PhoneLogin")
     Flowable<BaseBean<PostBean>> deleteCollectCard(int userId, int id, List<Integer> idList);
 
     @POST("user/PhoneLogin")
@@ -85,4 +88,7 @@ public interface APIService {
 
     @POST("user/PhoneLogin")
     Flowable<BaseBean<PostBean>> changeAttentionList(int userId, List<Integer> idList);
+
+    @POST("user/PhoneLogin")
+    Flowable<BaseBean<PostBean>> changeUserInfo(int userId, String userIcon, String name, Integer sex, String birthday);
 }

@@ -210,7 +210,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         }
         File file = new File(path);
         Luban.with(this)
-                .load(file)                     //传人要压缩的图片
+                .load(file)                     //传入要压缩的图片
                 .setCompressListener(new OnCompressListener() { //设置回调
                     @Override
                     public void onStart() {
