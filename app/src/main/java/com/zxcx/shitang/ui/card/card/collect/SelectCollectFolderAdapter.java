@@ -20,6 +20,7 @@ public class SelectCollectFolderAdapter extends BaseQuickAdapter<CollectFolderBe
 
     @Override
     protected void convert(BaseViewHolder helper, CollectFolderBean item) {
-
+        helper.setText(R.id.tv_item_dialog_collect_folder_name,item.getName());
+        helper.setText(R.id.tv_item_dialog_collect_folder_num,item.getNum()+"");
     }
 }

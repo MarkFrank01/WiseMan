@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.ChangeBirthdayDialogEvent;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.mvpBase.IGetPostPresenter;
@@ -29,6 +30,8 @@ import com.zxcx.shitang.utils.ScreenUtils;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +65,7 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.dialog_select_collect_folder, container, false);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -93,6 +97,7 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initRecyclerView() {
@@ -103,6 +108,13 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         mRvDialogSelectCollectFolder.setLayoutManager(hotCardBagLayoutManager);
         mRvDialogSelectCollectFolder.setAdapter(mAdapter);
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ChangeBirthdayDialogEvent event) {
+        mAdapter.getData().clear();
+        mAdapter.notifyDataSetChanged();
+        getCollectFolder(userId,1,10000);
     }
 
     @OnClick(R.id.iv_dialog_collect_folder_close)
