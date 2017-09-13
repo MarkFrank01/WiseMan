@@ -89,4 +89,14 @@ public class ChangeBirthdayDialog extends BaseDialog implements IPostPresenter<P
     public void postFail(String msg) {
         this.dismiss();
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

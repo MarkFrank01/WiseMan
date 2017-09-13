@@ -105,4 +105,14 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<P
     public void postFail(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

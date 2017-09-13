@@ -135,4 +135,14 @@ public class AddCollectFolderDialog extends BaseDialog implements IPostPresenter
             addCollectFolder(userId,name);
         }
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }

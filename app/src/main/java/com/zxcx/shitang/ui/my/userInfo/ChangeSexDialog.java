@@ -106,4 +106,14 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<PostBe
     public void postFail(String msg) {
 
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
 }
