@@ -76,6 +76,14 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser){
             EventBus.getDefault().register(this);
+            if (mUserId == 0){
+                toastShow(getString(R.string.need_login));
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }else {
+                getHotCard();
+                getHotCardBag();
+            }
         }else {
             EventBus.getDefault().unregister(this);
         }
@@ -87,14 +95,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         super.onViewCreated(view, savedInstanceState);
 
         initView();
-        if (mUserId == 0){
-            toastShow(getString(R.string.need_login));
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-        }else {
-            getHotCard(mUserId);
-            getHotCardBag(mUserId);
-        }
     }
 
     @Override
@@ -134,14 +134,14 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mCardAdapter.setEnableLoadMore(true);
         mCardAdapter.getData().clear();
         mCardBagAdapter.getData().clear();
-        getHotCard(mUserId);
-        getHotCardBag(mUserId);
+        getHotCard();
+        getHotCardBag();
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSrlAttentionCard.setEnabled(false);
-        getHotCard(mUserId);
+        getHotCard();
         mSrlAttentionCard.setEnabled(true);
     }
 
@@ -229,12 +229,12 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mCardAdapter.setEmptyView(mEmptyView);
     }
 
-    private void getHotCard(int userId) {
-        mPresenter.getHotCard(userId, page, Constants.PAGE_SIZE);
+    private void getHotCard() {
+        mPresenter.getHotCard(page, Constants.PAGE_SIZE);
     }
 
-    private void getHotCardBag(int userId) {
-        mPresenter.getHotCardBag(userId);
+    private void getHotCardBag() {
+        mPresenter.getHotCardBag();
     }
 
     static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener{

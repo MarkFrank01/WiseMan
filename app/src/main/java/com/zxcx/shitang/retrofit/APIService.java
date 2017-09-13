@@ -22,31 +22,31 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-    String API_SERVER_URL = "http://120.77.180.183:8043/";
+    String API_SERVER_URL = "http://120.77.180.183:8043";
 
-    @POST("user/PhoneRegistered")
+    @POST("/user/PhoneRegistered")
     Flowable<BaseBean<RegisterBean>> phoneRegistered(
             @Query("phoneNumber") String phone,@Query("SMSCode") String code,
             @Query("password") String password, @Query("appType") int appType,
             @Query("appChannel") String appChannel,@Query("appVersion") String appVersion);
 
-    @POST("user/PhoneLogin")
+    @POST("/user/PhoneLogin")
     Flowable<BaseBean<LoginBean>> phoneLogin(
             @Query("phoneNumber") String phone, @Query("password") String password,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<HotCardBean>> getHotCard(int page, int pageSize);
+    @POST("/article/getRecommendArticle")
+    Flowable<BaseArrayBean<HotCardBean>> getHotCard(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<HotCardBagBean>> getHotCardBag(int page, int pageSize);
+    @POST("/collection/getRecommendCollection")
+    Flowable<BaseArrayBean<HotCardBagBean>> getHotCardBag();
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(int userId, int page, int pageSize);
+    @POST("/article/getFollowArticle")
+    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag(int userId, int page, int pageSize);
+    @POST("/collection/getFollowCollection")
+    Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag();
 
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<String>> getSearchHot();
@@ -60,7 +60,7 @@ public interface APIService {
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<CardBagBean>> getCardBagCardList(int id, int page, int pageSize);
 
-    @POST("user/PhoneLogin")
+    @POST("/classify/getAllClassify")
     Flowable<BaseArrayBean<ClassifyBean>> getClassify();
 
     @POST("user/PhoneLogin")

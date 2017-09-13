@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.mvpBase.PostBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,15 +50,20 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         return new FeedbackPresenter(this);
     }
 
-    @Override
-    public void getDataSuccess(FeedbackBean bean) {
-
-    }
-
     @OnClick(R.id.btn_feedback_commit)
     public void onMBtnFeedbackCommitClicked() {
         mLlFeedbackCommit.setVisibility(View.GONE);
         mLlFeedbackSuccess.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void postSuccess(PostBean bean) {
+
+    }
+
+    @Override
+    public void postFail(String msg) {
+
     }
 
     private class CommitTextWatcher implements TextWatcher {

@@ -1,9 +1,14 @@
 package com.zxcx.shitang.ui.home.hot;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class HotCardBagBean {
 
+    @JSONField(name = "id")
     private int id;
+    @JSONField(name = "titleImage")
     private String imageUrl;
+    @JSONField(name = "title")
     private String name;
 
     public int getId() {

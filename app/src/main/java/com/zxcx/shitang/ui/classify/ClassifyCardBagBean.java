@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.classify;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 /**
@@ -10,8 +11,11 @@ public class ClassifyCardBagBean implements MultiItemEntity{
 
     public static final int TYPE_CARD_BAG = 2;
 
+    @JSONField(name = "id")
     private int id;
+    @JSONField(name = "titleImage")
     private String imageUrl;
+    @JSONField(name = "title")
     private String name;
 
     @Override

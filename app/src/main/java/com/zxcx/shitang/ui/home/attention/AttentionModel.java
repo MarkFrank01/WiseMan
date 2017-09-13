@@ -24,8 +24,8 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void getAttentionCard(int userId, int page, int pageSize){
-        subscription = AppClient.getAPIService().getAttentionCard(userId, page,pageSize)
+    public void getAttentionCard(int page, int pageSize){
+        subscription = AppClient.getAPIService().getAttentionCard(page,pageSize)
                 .compose(this.<BaseArrayBean<HotCardBean>>io_main())
                 .compose(this.<HotCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBean>>(mPresent) {
@@ -37,8 +37,8 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
         addSubscription(subscription);
     }
 
-    public void getAttentionCardBag(int userId){
-        subscription = AppClient.getAPIService().getAttentionCardBag(userId, 1,1000)
+    public void getAttentionCardBag(){
+        subscription = AppClient.getAPIService().getAttentionCardBag()
                 .compose(this.<BaseArrayBean<HotCardBagBean>>io_main())
                 .compose(this.<HotCardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBagBean>>(mPresent) {

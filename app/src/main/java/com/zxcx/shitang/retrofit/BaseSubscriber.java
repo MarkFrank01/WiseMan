@@ -2,7 +2,7 @@ package com.zxcx.shitang.retrofit;
 
 import com.zxcx.shitang.App;
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.mvpBase.IBasePresenter;
+import com.zxcx.shitang.mvpBase.IGetPresenter;
 
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -12,9 +12,9 @@ import io.reactivex.subscribers.DisposableSubscriber;
 
 public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
 
-    private IBasePresenter mPresenter;
+    private IGetPresenter mPresenter;
 
-    public BaseSubscriber(IBasePresenter presenter) {
+    public BaseSubscriber(IGetPresenter presenter) {
         mPresenter = presenter;
     }
 

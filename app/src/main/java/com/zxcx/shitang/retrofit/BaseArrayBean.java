@@ -1,18 +1,23 @@
 package com.zxcx.shitang.retrofit;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 public class BaseArrayBean<T> {
 
+    @JSONField(name = "data")
     private List<T> data;
-    private String code;
+    @JSONField(name = "code")
+    private int code;
+    @JSONField(name = "message")
     private String message;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

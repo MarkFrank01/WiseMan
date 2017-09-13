@@ -29,7 +29,7 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
     }
 
     public void getHotCardBag(){
-        subscription = AppClient.getAPIService().getHotCardBag(1,1000)
+        subscription = AppClient.getAPIService().getHotCardBag()
                 .compose(this.<BaseArrayBean<HotCardBagBean>>io_main())
                 .compose(this.<HotCardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBagBean>>(mPresent) {

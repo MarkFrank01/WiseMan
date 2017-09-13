@@ -1,9 +1,14 @@
 package com.zxcx.shitang.retrofit;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class BaseBean<T> {
 
+    @JSONField(name = "data")
     private T data;
+    @JSONField(name = "code")
     private String code;
+    @JSONField(name = "message")
     private String message;
 
     public String getCode() {

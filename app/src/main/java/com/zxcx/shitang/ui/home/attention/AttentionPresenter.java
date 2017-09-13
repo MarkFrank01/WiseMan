@@ -17,12 +17,12 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
         mModel = new AttentionModel(this);
     }
 
-    public void getHotCard(int userId, int page, int pageSize){
-        mModel.getAttentionCard(userId, page,pageSize);
+    public void getHotCard(int page, int pageSize){
+        mModel.getAttentionCard(page,pageSize);
     }
 
-    public void getHotCardBag(int userId){
-        mModel.getAttentionCardBag(userId);
+    public void getHotCardBag(){
+        mModel.getAttentionCardBag();
     }
 
     @Override
