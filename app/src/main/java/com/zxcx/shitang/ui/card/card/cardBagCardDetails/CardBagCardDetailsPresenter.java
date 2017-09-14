@@ -1,10 +1,8 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
-import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsContract;
-import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetailsContract.View> implements CardBagCardDetailsContract.Presenter {
 
@@ -33,6 +31,11 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
     @Override
     public void hideLoading() {
         mView.hideLoading();
+    }
+
+    @Override
+    public void startLogin() {
+        mView.startLogin();
     }
 
     public void detachView() {

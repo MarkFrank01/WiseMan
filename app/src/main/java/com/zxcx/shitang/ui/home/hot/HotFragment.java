@@ -48,7 +48,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     private HotCardBagAdapter mCardBagAdapter;
     private HotCardAdapter mCardAdapter;
-    private int page = 1;
+    private int page = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,11 +99,9 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     @Override
     public void onRefresh() {
-        page = 1;
+        page = 0;
         mCardAdapter.setEnableLoadMore(false);
         mCardAdapter.setEnableLoadMore(true);
-        mCardAdapter.getData().clear();
-        mCardBagAdapter.getData().clear();
         getHotCard();
         getHotCardBag();
     }
@@ -117,8 +115,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        if (page == 1){
-            mCardBagAdapter.notifyDataSetChanged();
+        if (page == 0){
+            mCardBagAdapter.setNewData(new ArrayList<HotCardBagBean>());
         }
         mCardBagAdapter.addData(list);
         if (mCardBagAdapter.getData().size() == 0){
@@ -131,8 +129,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         if (mSrlHotCard.isRefreshing()) {
             mSrlHotCard.setRefreshing(false);
         }
-        if (page == 1){
-            mCardAdapter.notifyDataSetChanged();
+        if (page == 0){
+            mCardAdapter.setNewData(new ArrayList<HotCardBean>());
         }
         page++;
         mCardAdapter.addData(list);

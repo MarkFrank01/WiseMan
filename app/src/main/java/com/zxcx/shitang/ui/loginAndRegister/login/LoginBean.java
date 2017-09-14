@@ -8,15 +8,15 @@ public class LoginBean {
      * user : {"avatar":"string","birth":"string","createTime":"2017-07-24T06:46:20.757Z","gender":0,"id":0,"name":"string"}
      */
 
-    private int serviceStartTime;
+    private long serviceStartTime;
     private String token;
     private UserBean user;
 
-    public int getServiceStartTime() {
+    public long getServiceStartTime() {
         return serviceStartTime;
     }
 
-    public void setServiceStartTime(int serviceStartTime) {
+    public void setServiceStartTime(long serviceStartTime) {
         this.serviceStartTime = serviceStartTime;
     }
 

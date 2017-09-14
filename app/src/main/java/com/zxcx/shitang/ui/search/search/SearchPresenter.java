@@ -15,12 +15,12 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mModel = new SearchModel(this);
     }
 
-    public void getSearchHot(){
-        mModel.getSearchHot();
+    public void getSearchHot(int page, int pageSize){
+        mModel.getSearchHot(page, pageSize);
     }
 
     @Override
-    public void getDataSuccess(List<String> bean) {
+    public void getDataSuccess(List<SearchBean> bean) {
         mView.getDataSuccess(bean);
     }
 
@@ -37,6 +37,11 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     @Override
     public void hideLoading() {
         mView.hideLoading();
+    }
+
+    @Override
+    public void startLogin() {
+        mView.startLogin();
     }
 
     public void detachView() {

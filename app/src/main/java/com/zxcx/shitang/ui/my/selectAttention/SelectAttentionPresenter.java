@@ -54,6 +54,11 @@ public class SelectAttentionPresenter extends BasePresenter<SelectAttentionContr
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+        mView.startLogin();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.card.card.collect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -21,6 +22,7 @@ import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
@@ -144,5 +146,10 @@ public class AddCollectFolderDialog extends BaseDialog implements IPostPresenter
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public void startLogin() {
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

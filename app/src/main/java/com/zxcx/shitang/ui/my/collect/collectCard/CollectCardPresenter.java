@@ -58,6 +58,11 @@ public class CollectCardPresenter extends BasePresenter<CollectCardContract.View
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+        mView.startLogin();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

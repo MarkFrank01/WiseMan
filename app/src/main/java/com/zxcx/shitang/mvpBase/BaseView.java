@@ -9,6 +9,8 @@ public interface BaseView {
 
     void hideLoading();
 
+    void startLogin();
+
     void setText(String text);
 
     void toastFail(String msg);

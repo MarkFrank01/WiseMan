@@ -1,10 +1,8 @@
 package com.zxcx.shitang.ui.loginAndRegister.forget;
 
-import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordContract;
-import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordModel;
-import com.zxcx.shitang.mvpBase.BasePresenter;
-
 import android.support.annotation.NonNull;
+
+import com.zxcx.shitang.mvpBase.BasePresenter;
 
 public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements ForgetPasswordContract.Presenter {
 
@@ -33,6 +31,11 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
     @Override
     public void hideLoading() {
         mView.hideLoading();
+    }
+
+    @Override
+    public void startLogin() {
+        mView.startLogin();
     }
 
     public void detachView() {

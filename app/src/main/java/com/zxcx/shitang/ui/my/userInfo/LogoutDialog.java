@@ -30,6 +30,9 @@ public class LogoutDialog extends DialogFragment {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
+                SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long)0);
+                SharedPreferencesUtil.saveData(SVTSConstants.token, "");
                 SharedPreferencesUtil.saveData(SVTSConstants.userId,0);
                 SharedPreferencesUtil.saveData(SVTSConstants.nickName,"");
                 SharedPreferencesUtil.saveData(SVTSConstants.birthday,"");

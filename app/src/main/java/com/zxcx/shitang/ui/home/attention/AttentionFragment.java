@@ -59,6 +59,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private int mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     private View mEmptyView;
     private int page = 1;
+    private boolean isFirst = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,13 +77,15 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser){
             EventBus.getDefault().register(this);
-            if (mUserId == 0){
-                toastShow(getString(R.string.need_login));
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }else {
-                getHotCard();
-                getHotCardBag();
+            if (isFirst) {
+                if (mUserId == 0){
+                    toastShow(getString(R.string.need_login));
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else {
+                    getHotCardBag();
+                }
+                isFirst = false;
             }
         }else {
             EventBus.getDefault().unregister(this);
@@ -134,7 +137,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mCardAdapter.setEnableLoadMore(true);
         mCardAdapter.getData().clear();
         mCardBagAdapter.getData().clear();
-        getHotCard();
         getHotCardBag();
     }
 
@@ -147,6 +149,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
+        getHotCard();
         if (page == 1){
             mCardBagAdapter.notifyDataSetChanged();
         }
@@ -173,17 +176,25 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         }
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
+            mCardAdapter.setEmptyView(mEmptyView);
         }
     }
 
     @Override
     public void toastFail(String msg) {
-        super.toastFail(msg);
-        if ("未选择兴趣".equals(msg)) {
-            mCardAdapter.setEmptyView(mEmptyView);
-        }else {
-            mCardAdapter.loadMoreFail();
+        if (mSrlAttentionCard.isRefreshing()) {
+            mSrlAttentionCard.setRefreshing(false);
         }
+        super.toastFail(msg);
+        mCardAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void startLogin() {
+        if (mSrlAttentionCard.isRefreshing()) {
+            mSrlAttentionCard.setRefreshing(false);
+        }
+        super.startLogin();
     }
 
     private void initView() {

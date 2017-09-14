@@ -30,7 +30,7 @@ public class HotPresenter extends BasePresenter<HotContract.View> implements Hot
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-
+        mView.getHotCardBagSuccess(list);
     }
 
     @Override
@@ -46,6 +46,11 @@ public class HotPresenter extends BasePresenter<HotContract.View> implements Hot
     @Override
     public void hideLoading() {
         mView.hideLoading();
+    }
+
+    @Override
+    public void startLogin() {
+        mView.startLogin();
     }
 
     public void detachView() {

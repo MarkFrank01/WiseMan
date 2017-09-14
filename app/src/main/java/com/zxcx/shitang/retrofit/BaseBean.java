@@ -7,15 +7,15 @@ public class BaseBean<T> {
     @JSONField(name = "data")
     private T data;
     @JSONField(name = "code")
-    private String code;
+    private int code;
     @JSONField(name = "message")
     private String message;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

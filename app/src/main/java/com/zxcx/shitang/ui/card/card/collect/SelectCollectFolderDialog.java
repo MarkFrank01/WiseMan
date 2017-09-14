@@ -1,6 +1,7 @@
 package com.zxcx.shitang.ui.card.card.collect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.zxcx.shitang.retrofit.BaseArrayBean;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
 import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
@@ -183,6 +185,11 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
     @Override
     public void hideLoading() {
 
+    }
+
+    @Override
+    public void startLogin() {
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 
     private class CollectFolderItemClickListener implements BaseQuickAdapter.OnItemClickListener {

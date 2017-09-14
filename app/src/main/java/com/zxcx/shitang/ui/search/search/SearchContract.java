@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface SearchContract {
 
-    interface View extends MvpView<List<String>> {
+    interface View extends MvpView<List<SearchBean>> {
 
     }
 
-    interface Presenter extends IGetPresenter<List<String>> {
+    interface Presenter extends IGetPresenter<List<SearchBean>> {
 
     }
 }

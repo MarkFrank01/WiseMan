@@ -1,8 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
-import com.zxcx.shitang.App;
-import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.IGetPresenter;
+import com.zxcx.shitang.utils.Constants;
 
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -23,7 +22,13 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        mPresenter.getDataFail(App.getContext().getString(R.string.data_error));
+        String code = t.getMessage().substring(0,3);
+        String message = t.getMessage().substring(1);
+        if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
+            mPresenter.startLogin();
+        }else {
+            mPresenter.getDataFail(message);
+        }
     }
 
     @Override

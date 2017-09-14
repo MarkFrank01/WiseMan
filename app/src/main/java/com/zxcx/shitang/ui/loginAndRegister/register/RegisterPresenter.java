@@ -37,6 +37,11 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+        mView.startLogin();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

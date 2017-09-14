@@ -24,6 +24,11 @@ public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> impl
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

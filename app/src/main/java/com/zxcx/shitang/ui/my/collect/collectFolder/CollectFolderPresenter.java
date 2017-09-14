@@ -48,6 +48,11 @@ public class CollectFolderPresenter extends BasePresenter<CollectFolderContract.
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+        mView.startLogin();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();

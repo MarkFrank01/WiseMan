@@ -14,13 +14,13 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void getSearchHot(){
-        subscription = AppClient.getAPIService().getSearchHot()
-                .compose(this.<BaseArrayBean<String>>io_main())
-                .compose(this.<String>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<String>>(mPresent) {
+    public void getSearchHot(int page, int pageSize){
+        subscription = AppClient.getAPIService().getSearchHot(page,pageSize)
+                .compose(this.<BaseArrayBean<SearchBean>>io_main())
+                .compose(this.<SearchBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<SearchBean>>(mPresent) {
                     @Override
-                    public void onNext(List<String> list) {
+                    public void onNext(List<SearchBean> list) {
                         mPresent.getDataSuccess(list);
                     }
                 });

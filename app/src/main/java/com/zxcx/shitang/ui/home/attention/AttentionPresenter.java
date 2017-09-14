@@ -27,7 +27,7 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-
+        mView.getHotCardBagSuccess(list);
     }
 
     @Override
@@ -48,6 +48,11 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
     @Override
     public void hideLoading() {
         mView.hideLoading();
+    }
+
+    @Override
+    public void startLogin() {
+        mView.startLogin();
     }
 
     public void detachView() {

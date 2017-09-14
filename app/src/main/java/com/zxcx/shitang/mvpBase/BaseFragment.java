@@ -3,6 +3,7 @@ package com.zxcx.shitang.mvpBase;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 
-import butterknife.OnClick;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -88,11 +89,6 @@ public class BaseFragment extends Fragment implements BaseView{
 //        }
     }
 
-    public void startLogin() {
-        toastShow("登陆超时，请重新登录");
-
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -107,6 +103,7 @@ public class BaseFragment extends Fragment implements BaseView{
     public void onDestroy() {
         super.onDestroy();
         onUnsubscribe();
+        mActivity = null;
     }
 
     private CompositeDisposable mCompositeSubscription;
@@ -132,6 +129,12 @@ public class BaseFragment extends Fragment implements BaseView{
     @Override
     public void hideLoading() {
         dismissProgressDialog();
+    }
+
+    @Override
+    public void startLogin() {
+        toastShow("登陆超时，请重新登录");
+        startActivity(new Intent(mActivity, LoginActivity.class));
     }
 
     @Override

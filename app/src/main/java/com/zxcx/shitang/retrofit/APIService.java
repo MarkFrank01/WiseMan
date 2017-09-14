@@ -13,6 +13,7 @@ import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
+import com.zxcx.shitang.ui.search.search.SearchBean;
 
 import java.util.List;
 
@@ -48,8 +49,8 @@ public interface APIService {
     @POST("/collection/getFollowCollection")
     Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag();
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<String>> getSearchHot();
+    @POST("/search/getSearchKeyword")
+    Flowable<BaseArrayBean<SearchBean>> getSearchHot(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     @POST("user/PhoneLogin")
     Flowable<BaseArrayBean<SearchCardBean>> searchCard(String keyword, int page, int pageSize);

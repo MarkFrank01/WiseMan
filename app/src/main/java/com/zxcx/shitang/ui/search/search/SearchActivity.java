@@ -37,10 +37,12 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @BindView(R.id.fl_search_hot)
     FlexboxLayout mFlSearchHot;
 
-    String[] mStrings = {"签", "标签", "长标签", "这是一个长标签", "这也是一个长标签", "签", "标签", "长标签", "这是一个长标签", "这也是一个长标签"};
-    List<String> mList = new ArrayList<>();
+    List<SearchBean> mList = new ArrayList<>();
     @BindView(R.id.iv_search_hot_refresh)
     ImageView mIvSearchHotRefresh;
+    private int page = 0;
+    private int pageSize = 10;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         ButterKnife.bind(this);
 
         mEtSearch.setOnEditorActionListener(new SearchListener());
-        mPresenter.getSearchHot();
+        mPresenter.getSearchHot(page,pageSize);
     }
 
     @Override
@@ -72,9 +74,15 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
-    public void getDataSuccess(List<String> bean) {
+    public void getDataSuccess(List<SearchBean> bean) {
+        page++;
+        mList.clear();
+        if (bean.size()<pageSize){
+            page = 0;
+        }
         mList.addAll(bean);
-        refreshLabel();
+        addLabel();
+        handler.postDelayed(refreshLabel,100);
         mIvSearchHotRefresh.clearAnimation();
     }
 
@@ -87,7 +95,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     public void onRefreshClicked() {
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_search_refresh);
         mIvSearchHotRefresh.startAnimation(animation);
-        mPresenter.getSearchHot();
+        mPresenter.getSearchHot(page,pageSize);
     }
 
     @Override
@@ -95,23 +103,12 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         mEtSearch.setText(((TextView)v).getText());
     }
 
-    private void refreshLabel() {
-        for (int i = 0; i < 10; i++) {
+    private void addLabel() {
+        mFlSearchHot.removeAllViews();
+        mFlSearchHot.setVisibility(View.INVISIBLE);
+        for (int i = 0; i < mList.size(); i++) {
             TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
-            textView.setText(mList.get(i));
-            mFlSearchHot.addView(textView);
-        }
-        List<FlexLine> flexLines = mFlSearchHot.getFlexLines();
-        int num = 0;
-        if (flexLines.size() > 2) {
-            num += flexLines.get(0).getItemCount();
-            num += flexLines.get(1).getItemCount();
-            mFlSearchHot.removeAllViews();
-        }
-        for (int i = 0; i < num; i++) {
-            TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
-            textView.setText(mStrings[i]);
-            textView.setOnClickListener(this);
+            textView.setText(mList.get(i).getConent());
             mFlSearchHot.addView(textView);
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
@@ -119,6 +116,31 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
             mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
         }
     }
+
+    Runnable refreshLabel = new Runnable(){
+
+        @Override
+        public void run() {
+            List<FlexLine> flexLines = mFlSearchHot.getFlexLines();
+            if (flexLines.size() > 2) {
+                int num = 0;
+                num += flexLines.get(0).getItemCount();
+                num += flexLines.get(1).getItemCount();
+                mFlSearchHot.removeAllViews();
+                for (int i = 0; i < num; i++) {
+                    TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
+                    textView.setText(mList.get(i).getConent());
+                    textView.setOnClickListener(SearchActivity.this);
+                    mFlSearchHot.addView(textView);
+
+                    ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
+
+                    mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
+                }
+            }
+            mFlSearchHot.setVisibility(View.VISIBLE);
+        }
+    };
 
     class SearchListener implements TextView.OnEditorActionListener {
         @Override

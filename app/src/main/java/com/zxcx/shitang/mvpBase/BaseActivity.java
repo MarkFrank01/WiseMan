@@ -2,6 +2,7 @@ package com.zxcx.shitang.mvpBase;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -57,11 +59,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。
         // "SplashScreen"为页面名称，可自定义
 
-    }
-
-    public void startLogin() {
-        toastShow("登陆超时，请重新登录");
-//        startActivity(new Intent(mActivity, LoginActivity.class));
     }
 
     @Override
@@ -159,6 +156,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     public void hideLoading() {
         dismissProgressDialog();
+    }
+
+    @Override
+    public void startLogin() {
+        toastShow("登陆超时，请重新登录");
+        startActivity(new Intent(mActivity, LoginActivity.class));
     }
 
     @Override

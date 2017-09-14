@@ -68,12 +68,10 @@ public class BaseModel<T extends IBasePresenter> {
                 return upstream.map(new Function<BaseBean<T>, T>() {
                                         @Override
                                         public T apply(@NonNull BaseBean<T> result) throws Exception {
-                                            if (Constants.RESULT_OK.equals(result.getCode())) {
+                                            if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
-                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-                                                throw new Exception();
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }
@@ -90,12 +88,10 @@ public class BaseModel<T extends IBasePresenter> {
                 return upstream.map(new Function<BaseArrayBean<T>, List<T>>() {
                                         @Override
                                         public List<T> apply(@NonNull BaseArrayBean<T> result) throws Exception {
-                                            if (Constants.RESULT_OK.equals(result.getCode())) {
+                                            if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL.equals(result.getCode())) {
-                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-                                                throw new Exception();
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }

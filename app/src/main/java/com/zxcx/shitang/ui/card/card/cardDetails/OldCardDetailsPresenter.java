@@ -33,6 +33,11 @@ public class OldCardDetailsPresenter extends BasePresenter<OldCardDetailsContrac
         mView.hideLoading();
     }
 
+    @Override
+    public void startLogin() {
+        mView.startLogin();
+    }
+
     public void detachView() {
         super.detachView();
         mModel.onDestroy();
