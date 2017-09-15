@@ -1,6 +1,8 @@
 package com.zxcx.shitang.ui.loginAndRegister.login.bindingPhone;
 
-public class BindingPhoneBean {
+import com.zxcx.shitang.retrofit.RetrofitBaen;
+
+public class BindingPhoneBean extends RetrofitBaen {
 
 }
 

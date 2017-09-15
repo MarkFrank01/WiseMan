@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.my.selectAttention;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class SelectAttentionBean {
+public class SelectAttentionBean extends RetrofitBaen {
     @JSONField(name = "interested")
     private boolean isChecked;
     @JSONField(name = "id")

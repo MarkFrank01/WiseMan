@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.search.result;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class SearchCardBean {
+public class SearchCardBean extends RetrofitBaen {
 
     @JSONField(name = "id")
     private int id;

@@ -1,6 +1,8 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
-public class CardBagCardDetailsBean {
+import com.zxcx.shitang.retrofit.RetrofitBaen;
+
+public class CardBagCardDetailsBean extends RetrofitBaen {
 
 }
 

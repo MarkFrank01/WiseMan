@@ -1,9 +1,10 @@
 package com.zxcx.shitang.ui.loginAndRegister.register;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
 
-public class RegisterBean {
+public class RegisterBean extends RetrofitBaen {
 
     /**
      * serviceStartTime : 0

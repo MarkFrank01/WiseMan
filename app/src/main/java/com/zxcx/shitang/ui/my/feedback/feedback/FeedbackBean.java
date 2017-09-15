@@ -1,6 +1,8 @@
 package com.zxcx.shitang.ui.my.feedback.feedback;
 
-public class FeedbackBean {
+import com.zxcx.shitang.retrofit.RetrofitBaen;
+
+public class FeedbackBean extends RetrofitBaen {
 
 }
 

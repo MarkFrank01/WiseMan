@@ -1,6 +1,8 @@
 package com.zxcx.shitang.ui.loginAndRegister.forget;
 
-public class ForgetPasswordBean {
+import com.zxcx.shitang.retrofit.RetrofitBaen;
+
+public class ForgetPasswordBean extends RetrofitBaen {
 
 }
 

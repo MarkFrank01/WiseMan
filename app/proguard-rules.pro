@@ -24,7 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keepattributes InnerClasses
--keep class com.zxcx.shitang.ui.home.hot.** {*;}
+-keep public class * extends com.zxcx.shitang.retrofit.RetrofitBaen { *; }
 -keep class com.zxcx.shitang.retrofit.** {*;}
 #Okhttp+Retrofit
 -dontwarn okhttp3.**
@@ -107,18 +107,3 @@
 -keep class cn.jiguang.** { *; }
 #JAnalytics
 -keep public class cn.jiguang.analytics.android.api.** { *; }
-# RxJava
--keep class rx.schedulers.Schedulers {
-    public static <methods>;
-}
--keep class rx.schedulers.ImmediateScheduler {
-    public <methods>;
-}
--keep class rx.schedulers.TestScheduler {
-    public <methods>;
-}
--keep class rx.schedulers.Schedulers {
-    public static ** test();
-}
--dontwarn rx.internal.util.unsafe.**
--keep class rx.internal.util.unsafe.** { *;}

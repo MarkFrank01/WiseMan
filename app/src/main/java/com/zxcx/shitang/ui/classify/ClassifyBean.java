@@ -2,10 +2,11 @@ package com.zxcx.shitang.ui.classify;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
 import java.util.List;
 
-public class ClassifyBean implements MultiItemEntity{
+public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
 
 
     /**

@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.home.hot;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class HotCardBagBean {
+public class HotCardBagBean extends RetrofitBaen {
 
     @JSONField(name = "id")
     private int id;

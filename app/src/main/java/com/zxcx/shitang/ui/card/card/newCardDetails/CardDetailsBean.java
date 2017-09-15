@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.card.card.newCardDetails;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class CardDetailsBean {
+public class CardDetailsBean extends RetrofitBaen {
 
     @JSONField(name = "like")
     private boolean isLike;

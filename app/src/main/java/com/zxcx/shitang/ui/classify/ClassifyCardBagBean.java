@@ -2,12 +2,13 @@ package com.zxcx.shitang.ui.classify;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
 /**
  * Created by anm on 2017/8/30.
  */
 
-public class ClassifyCardBagBean implements MultiItemEntity{
+public class ClassifyCardBagBean extends RetrofitBaen implements MultiItemEntity{
 
     public static final int TYPE_CARD_BAG = 2;
 

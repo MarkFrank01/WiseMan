@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.my.userInfo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class UserInfoBean {
+public class UserInfoBean extends RetrofitBaen {
     /**
      * avatar : string
      * birth : string

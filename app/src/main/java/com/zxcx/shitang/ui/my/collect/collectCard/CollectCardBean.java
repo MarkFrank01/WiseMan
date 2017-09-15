@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.my.collect.collectCard;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class CollectCardBean {
+public class CollectCardBean extends RetrofitBaen {
     private boolean isChecked;
     @JSONField(name = "id")
     private int id;

@@ -1,8 +1,9 @@
 package com.zxcx.shitang.ui.search.search;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.zxcx.shitang.retrofit.RetrofitBaen;
 
-public class SearchBean {
+public class SearchBean extends RetrofitBaen {
 
 
     /**
