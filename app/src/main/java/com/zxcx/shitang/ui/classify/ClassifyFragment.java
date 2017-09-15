@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -26,7 +25,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -146,7 +144,10 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
             switch (view.getId()){
                 case R.id.rl_item_classify:
+                    ClassifyCardBagBean bean = (ClassifyCardBagBean) adapter.getData().get(position);
                     Intent intent = new Intent(getActivity(), CardBagActivity.class);
+                    intent.putExtra("id",bean.getId());
+                    intent.putExtra("name",bean.getName());
                     startActivity(intent);
                     break;
             }

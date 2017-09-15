@@ -15,12 +15,15 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.retrofit.APIService;
 import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderDialog;
 import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
 import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
 import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
 import com.zxcx.shitang.utils.FileUtil;
+import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.WebViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,15 +66,25 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
-        cardId = getIntent().getIntExtra("cardId",0);
+        cardId = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");
 
         mTvCardDetailsTitle.setText(name);
         mWebView = WebViewUtils.getWebView(this);
         mFlCardDetails.addView(mWebView);
-        mWebView.loadUrl("https://www.baidu.com");
+        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
+        if (isNight){
+            mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleDark/" + cardId);
+        }else {
+            mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        }
 
         mSelectCollectFolderDialog = new SelectCollectFolderDialog();
+        Bundle args = new Bundle();
+        args.putInt("cardId", cardId);
+        mSelectCollectFolderDialog.setArguments(args);
+
+        mPresenter.getCardDetails(cardId);
     }
 
     @Override
@@ -95,10 +108,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
-        mCbCardDetailsCollect.setText(bean.getCollectNum());
-        mCbCardDetailsLike.setText(bean.getLikeNum());
-        mCbCardDetailsCollect.setChecked(bean.getIsCollect() == 1);
-        mCbCardDetailsLike.setChecked(bean.getIsLike() == 1);
+        mCbCardDetailsCollect.setText(bean.getCollectNum() + "");
+        mCbCardDetailsLike.setText(bean.getLikeNum() + "");
+        mCbCardDetailsCollect.setChecked(bean.getIsCollect());
+        mCbCardDetailsLike.setChecked(bean.getIsLike());
     }
 
     @Override
@@ -125,11 +138,24 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
+        //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsCollect.isChecked()) {
-            mCbCardDetailsCollect.setChecked(false);
-        }else {
             mSelectCollectFolderDialog.show(getFragmentManager(), "1");
             mCbCardDetailsCollect.setChecked(false);
+        } else {
+            mCbCardDetailsCollect.setChecked(false);
+            mPresenter.removeCollectCard(cardId);
+        }
+    }
+
+    @OnClick(R.id.cb_card_details_like)
+    public void onMCbCardDetailsLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        if (mCbCardDetailsLike.isChecked()) {
+            mPresenter.likeCard(cardId);
+        } else {
+            mCbCardDetailsLike.setChecked(false);
+            mPresenter.unLikeCard(cardId);
         }
     }
 

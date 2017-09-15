@@ -23,6 +23,7 @@ import com.zxcx.shitang.ui.home.hot.adapter.HotCardBagAdapter;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.shitang.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.LogCat;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -66,10 +67,11 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initRecyclerView();
+
         getHotCard();
         getHotCardBag();
 
-        initRecyclerView();
         mSrlHotCard.setOnRefreshListener(this);
         mSrlHotCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
     }
@@ -100,8 +102,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     @Override
     public void onRefresh() {
         page = 0;
-        mCardAdapter.setEnableLoadMore(false);
-        mCardAdapter.setEnableLoadMore(true);
         getHotCard();
         getHotCardBag();
     }
@@ -138,6 +138,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
             mCardAdapter.loadMoreEnd(false);
         }else {
             mCardAdapter.loadMoreComplete();
+            mCardAdapter.setEnableLoadMore(false);
+            mCardAdapter.setEnableLoadMore(true);
         }
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
@@ -148,6 +150,10 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     public void toastFail(String msg) {
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
+        LogCat.d("出错了"+msg);
+        if (mSrlHotCard.isRefreshing()) {
+            mSrlHotCard.setRefreshing(false);
+        }
     }
 
     private void initRecyclerView() {
@@ -172,6 +178,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         mRvHotCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mCardAdapter.addHeaderView(view);
+        mCardAdapter.setHeaderAndEmpty(true);
     }
 
     private void getHotCard() {
@@ -192,10 +199,10 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+            HotCardBagBean bean = (HotCardBagBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id",bean.getBagId());
-            intent.putExtra("name",bean.getBagName());
+            intent.putExtra("id",bean.getId());
+            intent.putExtra("name",bean.getName());
             mContext.startActivity(intent);
         }
     }

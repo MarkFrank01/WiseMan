@@ -1,13 +1,22 @@
 package com.zxcx.shitang.ui.search.result;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class SearchCardBean {
 
+    @JSONField(name = "id")
     private int id;
+    @JSONField(name = "titleImage")
     private String imageUrl;
+    @JSONField(name = "title")
     private String name;
+    @JSONField(name = "collectingCount")
     private int collectNum;
+    @JSONField(name = "likedUsersCount")
     private int likeNum;
+    @JSONField(name = "collectionName")
     private String bagName;
+    @JSONField(name = "collectionId")
     private int bagId;
 
     public int getId() {

@@ -28,6 +28,9 @@
             tools:text="变色龙"
             android:layout_centerInParent="true"
             android:textSize="@dimen/dp_card_details_subhead"
+            android:maxLines="1"
+            android:maxEms="6"
+            android:ellipsize="end"
             android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

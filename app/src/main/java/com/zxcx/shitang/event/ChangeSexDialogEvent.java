@@ -1,21 +1,23 @@
 package com.zxcx.shitang.event;
 
+import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
+
 /**
  * Created by anm on 2017/7/4.
  */
 
 public class ChangeSexDialogEvent {
-    private int sex;
+    private UserInfoBean mUserInfoBean;
 
-    public ChangeSexDialogEvent(int sex) {
-        this.sex = sex;
+    public ChangeSexDialogEvent(UserInfoBean mUserInfoBean) {
+        this.mUserInfoBean = mUserInfoBean;
     }
 
-    public int getSex() {
-        return sex;
+    public UserInfoBean getUserInfoBean() {
+        return mUserInfoBean;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setUserInfoBean(UserInfoBean userInfoBean) {
+        this.mUserInfoBean = userInfoBean;
     }
 }

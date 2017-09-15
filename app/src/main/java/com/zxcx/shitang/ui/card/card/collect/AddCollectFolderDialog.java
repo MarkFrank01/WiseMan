@@ -23,9 +23,7 @@ import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.PostSubscriber;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
-import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -100,14 +98,14 @@ public class AddCollectFolderDialog extends BaseDialog implements IPostPresenter
         unbinder.unbind();
     }
 
-    public void addCollectFolder(int userId, String name){
-        subscription = AppClient.getAPIService().addCollectFolder(userId, name)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(this) {
+    public void addCollectFolder(String name){
+        subscription = AppClient.getAPIService().addCollectFolder(name)
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(this) {
                     @Override
-                    public void onNext(PostBean bean) {
-                        AddCollectFolderDialog.this.postSuccess(bean);
+                    public void onNext(BaseBean bean) {
+                        AddCollectFolderDialog.this.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);
@@ -132,9 +130,8 @@ public class AddCollectFolderDialog extends BaseDialog implements IPostPresenter
     @OnClick(R.id.iv_dialog_collect_folder_confirm)
     public void onMIvDialogCollectFolderConfirmClicked() {
         if (mEtDialogAddCollectFolder.length()>0){
-            int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
             String name = mEtDialogAddCollectFolder.getText().toString();
-            addCollectFolder(userId,name);
+            addCollectFolder(name);
         }
     }
 

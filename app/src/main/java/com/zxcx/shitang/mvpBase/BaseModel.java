@@ -4,6 +4,7 @@ package com.zxcx.shitang.mvpBase;
 import com.zxcx.shitang.retrofit.BaseArrayBean;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.LogCat;
 
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscription;
@@ -71,6 +72,29 @@ public class BaseModel<T extends IBasePresenter> {
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
                                             } else {
+                                                LogCat.d("wang1");
+                                                throw new Exception(result.getCode() + result.getMessage());
+                                            }
+                                        }
+                                    }
+
+                );
+            }
+        };
+    }
+
+    protected FlowableTransformer<BaseBean, BaseBean> handlePostResult() {
+        return new FlowableTransformer<BaseBean, BaseBean>() {
+            @Override
+            public Publisher<BaseBean> apply(@NonNull Flowable<BaseBean> upstream) {
+                return upstream.map(new Function<BaseBean, BaseBean>() {
+                                        @Override
+                                        public BaseBean apply(@NonNull BaseBean result) throws Exception {
+                                            if (Constants.RESULT_OK == result.getCode()) {
+                                                LogCat.d("wang");
+                                                return result;
+                                            } else {
+                                                LogCat.d("wang2");
                                                 throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
@@ -89,8 +113,10 @@ public class BaseModel<T extends IBasePresenter> {
                                         @Override
                                         public List<T> apply(@NonNull BaseArrayBean<T> result) throws Exception {
                                             if (Constants.RESULT_OK == result.getCode()) {
+                                                LogCat.d("好歹数据解析成功了");
                                                 return result.getData();
                                             } else {
+                                                LogCat.d("wang3");
                                                 throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
@@ -103,7 +129,7 @@ public class BaseModel<T extends IBasePresenter> {
 
     public void onDestroy() {
         if (mCompositeSubscription != null) {
-            mCompositeSubscription.dispose();//取消注册，以避免内存泄露
+            mCompositeSubscription.clear();//取消注册，以避免内存泄露
         }
     }
 

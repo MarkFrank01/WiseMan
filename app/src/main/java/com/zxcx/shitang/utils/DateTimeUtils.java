@@ -24,6 +24,12 @@ public class DateTimeUtils {
         return time;
     }
 
+    public static String getDate(long timestamp) {
+        Date date = new Date(timestamp);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
+
     public static int getYear(String time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = GregorianCalendar.getInstance();

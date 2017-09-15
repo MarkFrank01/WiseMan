@@ -7,4 +7,6 @@ public interface MvpView<T> extends BaseView {
 
     void getDataSuccess(T bean);
 
+    void toastFail(String msg);
+
 }

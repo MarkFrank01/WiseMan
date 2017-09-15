@@ -16,16 +16,16 @@ public class CollectCardPresenter extends BasePresenter<CollectCardContract.View
         mModel = new CollectCardModel(this);
     }
 
-    public void getCollectCard(int userId, int id, int page, int pageSize){
-        mModel.getCollectCard(userId, id, page,pageSize);
+    public void getCollectCard(int id, int page, int pageSize){
+        mModel.getCollectCard(id, page,pageSize);
     }
 
-    public void deleteCollectCard(int userId, int id, List<Integer> idList){
-        mModel.deleteCollectCard(userId, id, idList);
+    public void deleteCollectCard(int id, List<Integer> idList){
+        mModel.deleteCollectCard(id, idList);
     }
 
-    public void changeCollectFolderName(int userId, int id, String name){
-        mModel.changeCollectFolderName(userId, id, name);
+    public void changeCollectFolderName(int id, String name){
+        mModel.changeCollectFolderName(id, name);
     }
 
     @Override

@@ -137,12 +137,6 @@ public class BaseFragment extends Fragment implements BaseView{
         startActivity(new Intent(mActivity, LoginActivity.class));
     }
 
-    @Override
-    public void setText(String text) {
-//        customLoading.setText(text);
-    }
-
-    @Override
     public void toastFail(String msg) {
         toastShow(msg);
     }

@@ -49,7 +49,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     private GridLayoutManager mCardBagCardManager;
     private LinearLayoutManager mCardBagListManager;
     private int mId;
-    private int page = 1;
+    private int page = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mSrlCardBag.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
         mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
+        onRefresh();
     }
 
     @Override
@@ -73,12 +74,8 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     @Override
     public void onRefresh() {
-        page = 1;
+        page = 0;
         mList.clear();
-        mCardBagCardAdapter.setEnableLoadMore(false);
-        mCardBagListAdapter.setEnableLoadMore(false);
-        mCardBagCardAdapter.setEnableLoadMore(true);
-        mCardBagListAdapter.setEnableLoadMore(true);
         getCardBagCardList();
     }
 
@@ -108,12 +105,20 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         }else {
             mCardBagCardAdapter.loadMoreComplete();
             mCardBagListAdapter.loadMoreComplete();
+            mCardBagCardAdapter.setEnableLoadMore(false);
+            mCardBagListAdapter.setEnableLoadMore(false);
+            mCardBagCardAdapter.setEnableLoadMore(true);
+            mCardBagListAdapter.setEnableLoadMore(true);
         }
         if (mCardBagCardAdapter.getData().size() == 0){
             //占空图
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            mCardBagCardAdapter.setEmptyView(view);
         }
         if (mCardBagListAdapter.getData().size() == 0){
             //占空图
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            mCardBagListAdapter.setEmptyView(view);
         }
     }
 

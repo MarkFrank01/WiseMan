@@ -10,9 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,18 +55,28 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     @OnClick(R.id.btn_feedback_commit)
     public void onMBtnFeedbackCommitClicked() {
+        String content = mEtFeedbackContent.getText().toString();
+        String contact = mEtFeedbackPhone.getText().toString();
+        int appType = Constants.APP_TYPE;
+        String appChannel = WalleChannelReader.getChannel(this);
+        String appVersion = Utils.getAppVersionName(this);
+        mPresenter.feedback(content, contact, appType, appChannel, appVersion);
+    }
+
+    @Override
+    public void postSuccess(PostBean bean) {
         mLlFeedbackCommit.setVisibility(View.GONE);
         mLlFeedbackSuccess.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
-
+    public void postFail(String msg) {
+        toastShow(msg);
     }
 
-    @Override
-    public void postFail(String msg) {
-
+    @OnClick(R.id.btn_feedback_close)
+    public void onMBtnFeedbackCloseClicked() {
+        onBackPressed();
     }
 
     private class CommitTextWatcher implements TextWatcher {

@@ -16,6 +16,7 @@ import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.MD5Utils;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
@@ -112,7 +113,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     public void onMBtnLoginClicked() {
         if (checkPhone() && checkPassword()) {
             String phone = mEtLoginPhone.getText().toString();
-            String password = mEtLoginPassword.getText().toString();
+            String password = MD5Utils.md5(mEtLoginPassword.getText().toString());
             int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);

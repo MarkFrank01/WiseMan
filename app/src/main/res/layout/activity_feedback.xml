@@ -62,10 +62,10 @@
 
     <LinearLayout
         android:id="@+id/ll_feedback_success"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_feedback_success"
@@ -97,6 +97,7 @@
             android:layout_height="wrap_content"/>
         
         <Button
+            android:id="@+id/btn_feedback_close"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

@@ -16,16 +16,16 @@ public class CollectFolderPresenter extends BasePresenter<CollectFolderContract.
         mModel = new CollectFolderModel(this);
     }
 
-    public void getCollectFolder(int userId, int page, int pageSize){
-        mModel.getCollectFolder(userId, page,pageSize);
+    public void getCollectFolder(int page, int pageSize){
+        mModel.getCollectFolder(page,pageSize);
     }
 
-    public void deleteCollectFolder(int userId, List<Integer> idList){
-        mModel.deleteCollectFolder(userId, idList);
+    public void deleteCollectFolder(List<Integer> idList){
+        mModel.deleteCollectFolder(idList);
     }
 
-    public void addCollectFolder(int userId, String name){
-        mModel.addCollectFolder(userId, name);
+    public void addCollectFolder(String name){
+        mModel.addCollectFolder(name);
     }
 
     @Override

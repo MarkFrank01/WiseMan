@@ -3,7 +3,7 @@ package com.zxcx.shitang.utils;
 
 public class LogCat {
     private static final boolean DEBUG = true;
-    private static final String TAG = "SHITANG";
+    private static final String TAG = "66666";
 
     public static void v(String msg){
         if (DEBUG) {

@@ -24,6 +24,7 @@ import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderActivity;
 import com.zxcx.shitang.ui.my.feedback.feedback.FeedbackActivity;
 import com.zxcx.shitang.ui.my.feedback.help.HelpActivity;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoActivity;
+import com.zxcx.shitang.utils.ImageLoader;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
@@ -179,6 +180,7 @@ public class MyFragment extends BaseFragment {
         mTvMyNickName.setVisibility(View.VISIBLE);
         mTvMyInfo.setVisibility(View.VISIBLE);
         mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName,""));
-        mIvMyHead.setImageResource(R.drawable.iv_my_head_icon);
+        String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
+        ImageLoader.load(mActivity,headImg,R.drawable.iv_my_head_placeholder,mIvMyHead);
     }
 }

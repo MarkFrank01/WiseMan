@@ -24,8 +24,6 @@ import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.shitang.utils.Constants;
-import com.zxcx.shitang.utils.SVTSConstants;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 import com.zxcx.shitang.widget.DeleteConfirmDialog;
@@ -61,11 +59,10 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     LinearLayout mLlCollectFolderAdd;
     @BindView(R.id.iv_dialog_collect_folder_confirm)
     ImageView mIvDialogCollectFolderConfirm;
-    private CollectFolderAdapter mCollectFolderAdapter;
+    private CollectFolderAdapter mAdapter;
     private List<CollectFolderBean> mCheckedList = new ArrayList<>();
-    private int page = 1;
+    private int page = 0;
     private int mAction;
-    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +72,8 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         EventBus.getDefault().register(this);
         initToolBar(R.string.tltle_collect_folder);
 
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-        getCollectFolder();
         initRecyclerView();
+        getCollectFolder();
 
         mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("编辑");
@@ -87,7 +83,6 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     @Override
     public void onResume() {
         super.onResume();
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     }
 
     @Override
@@ -98,9 +93,9 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
             mCheckedList.clear();
             mLlCollectFolder.setVisibility(View.GONE);
             mTvToolbarRight.setText("编辑");
-            mCollectFolderAdapter.setDelete(false);
-            mCollectFolderAdapter.setOnItemClickListener(this);
-            mCollectFolderAdapter.notifyDataSetChanged();
+            mAdapter.setDelete(false);
+            mAdapter.setOnItemClickListener(this);
+            mAdapter.notifyDataSetChanged();
         }else {
             super.onBackPressed();
         }
@@ -118,7 +113,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     private void getCollectFolder() {
-        mPresenter.getCollectFolder(mUserId,page,Constants.PAGE_SIZE);
+        mPresenter.getCollectFolder(page,Constants.PAGE_SIZE);
     }
 
     @Override
@@ -128,35 +123,41 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
 
     @Override
     public void getDataSuccess(List<CollectFolderBean> list) {
-        if (page == 1){
-            mCollectFolderAdapter.notifyDataSetChanged();
+        if (page == 0){
+            mAdapter.setNewData(list);
+        }else {
+            mAdapter.addData(list);
         }
         page++;
-        mCollectFolderAdapter.addData(list);
         if (list.size() < Constants.PAGE_SIZE){
-            mCollectFolderAdapter.loadMoreEnd(false);
+            mAdapter.loadMoreEnd(false);
         }else {
-            mCollectFolderAdapter.loadMoreComplete();
+            mAdapter.loadMoreComplete();
         }
-        if (mCollectFolderAdapter.getData().size() == 0){
+        if (mAdapter.getData().size() == 0){
             //占空图
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
+            textView.setText(R.string.no_collect_folder);
+            mAdapter.setEmptyView(view);
         }
     }
 
     @Override
     public void toastFail(String msg) {
         super.toastFail(msg);
-        mCollectFolderAdapter.loadMoreFail();
+        mAdapter.loadMoreFail();
     }
 
     @Override
     public void postSuccess(PostBean bean) {
         if (mAction == ACTION_DELETE){
-            mCollectFolderAdapter.getData().removeAll(mCheckedList);
-            mCollectFolderAdapter.notifyDataSetChanged();
+            mAdapter.getData().removeAll(mCheckedList);
+            mAdapter.notifyDataSetChanged();
             mCheckedList.clear();
         }else if (mAction == ACTION_ADD){
-            //// TODO: 2017/8/31  添加收藏夹成功后处理
+            page = 0;
+            getCollectFolder();
         }
     }
 
@@ -172,16 +173,16 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         for (CollectFolderBean bean : mCheckedList) {
             idList.add(bean.getId());
         }
-        mPresenter.deleteCollectFolder(mUserId,idList);
+        mPresenter.deleteCollectFolder(idList);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeCollectFolderNameEvent event) {
-        List<CollectFolderBean> list = mCollectFolderAdapter.getData();
+        List<CollectFolderBean> list = mAdapter.getData();
         for (CollectFolderBean bean : list) {
             if (bean.getId() == event.getId()){
                 bean.setName(event.getName());
-                mCollectFolderAdapter.notifyItemChanged(list.indexOf(bean));
+                mAdapter.notifyItemChanged(list.indexOf(bean));
             }
         }
     }
@@ -216,7 +217,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         Utils.closeInputMethod(mEtDialogAddCollectFolder);
 
         mAction = ACTION_ADD;
-        mPresenter.addCollectFolder(mUserId,name);
+        mPresenter.addCollectFolder(name);
     }
 
     @OnClick(R.id.ll_collect_folder_add)
@@ -235,22 +236,22 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
             case "编辑":
                 mLlCollectFolder.setVisibility(View.VISIBLE);
                 mTvToolbarRight.setText("取消");
-                mCollectFolderAdapter.setDelete(true);
-                mCollectFolderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                mAdapter.setDelete(true);
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         //将整个item的点击事件置空，避免点击其他区域进入收藏夹内
                     }
                 });
-                mCollectFolderAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 break;
             case "取消":
                 mLlCollectFolder.setVisibility(View.GONE);
                 mTvToolbarRight.setText("编辑");
                 mCheckedList.clear();
-                mCollectFolderAdapter.setDelete(false);
-                mCollectFolderAdapter.setOnItemClickListener(this);
-                mCollectFolderAdapter.notifyDataSetChanged();
+                mAdapter.setDelete(false);
+                mAdapter.setOnItemClickListener(this);
+                mAdapter.notifyDataSetChanged();
                 break;
             case "删除":
                 if (mCheckedList.size() == 0){
@@ -291,14 +292,14 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     private void initRecyclerView() {
-        mCollectFolderAdapter = new CollectFolderAdapter(new ArrayList<CollectFolderBean>(), this);
-        mCollectFolderAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mCollectFolderAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
-        mCollectFolderAdapter.setOnItemClickListener(this);
+        mAdapter = new CollectFolderAdapter(new ArrayList<CollectFolderBean>(), this);
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
+        mAdapter.setOnItemClickListener(this);
         mRvCollectFolder.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mRvCollectFolder.setAdapter(mCollectFolderAdapter);
+        mRvCollectFolder.setAdapter(mAdapter);
         mRvCollectFolder.addItemDecoration(new CollectFolderItemDecoration());
-        mCollectFolderAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     class AddCollectFolderTextWatcher implements TextWatcher {

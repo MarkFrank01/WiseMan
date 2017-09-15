@@ -87,6 +87,28 @@ public class BaseDialog extends DialogFragment{
         };
     }
 
+    protected FlowableTransformer<BaseBean, BaseBean> handlePostResult() {
+        return new FlowableTransformer<BaseBean, BaseBean>() {
+            @Override
+            public Publisher<BaseBean> apply(@NonNull Flowable<BaseBean> upstream) {
+                return upstream.map(new Function<BaseBean, BaseBean>() {
+                                        @Override
+                                        public BaseBean apply(@NonNull BaseBean result) throws Exception {
+                                            if (Constants.RESULT_OK == result.getCode()) {
+                                                return result;
+                                            } else if (Constants.RESULT_FAIL == result.getCode()) {
+                                                throw new Exception(result.getCode() + result.getMessage());
+                                            } else {
+                                                throw new Exception();
+                                            }
+                                        }
+                                    }
+
+                );
+            }
+        };
+    }
+
     protected <T> FlowableTransformer<BaseArrayBean<T>, List<T>> handleArrayResult() {
         return new FlowableTransformer<BaseArrayBean<T>, List<T>>() {
             @Override
@@ -120,7 +142,7 @@ public class BaseDialog extends DialogFragment{
     public void onDestroy() {
         super.onDestroy();
         if (mCompositeSubscription != null) {
-            mCompositeSubscription.dispose();//取消注册，以避免内存泄露
+            mCompositeSubscription.clear();//取消注册，以避免内存泄露
         }
     }
 

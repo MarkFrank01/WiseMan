@@ -58,7 +58,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private HotCardAdapter mCardAdapter;
     private int mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     private View mEmptyView;
-    private int page = 1;
+    private int page = 0;
     private boolean isFirst = true;
 
     @Override
@@ -131,10 +131,8 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void onRefresh() {
-        page = 1;
+        page = 0;
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-        mCardAdapter.setEnableLoadMore(false);
-        mCardAdapter.setEnableLoadMore(true);
         mCardAdapter.getData().clear();
         mCardBagAdapter.getData().clear();
         getHotCardBag();
@@ -149,13 +147,16 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        getHotCard();
         if (page == 1){
             mCardBagAdapter.notifyDataSetChanged();
         }
         mCardBagAdapter.addData(list);
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
+            mCardAdapter.setHeaderAndEmpty(false);
+        }else {
+            mCardAdapter.setHeaderAndEmpty(true);
+            getHotCard();
         }
     }
 
@@ -173,10 +174,12 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
             mCardAdapter.loadMoreEnd(false);
         }else {
             mCardAdapter.loadMoreComplete();
+            mCardAdapter.setEnableLoadMore(false);
+            mCardAdapter.setEnableLoadMore(true);
         }
-        if (mCardBagAdapter.getData().size() == 0){
-            //占空图
-            mCardAdapter.setEmptyView(mEmptyView);
+        if (mCardAdapter.getData().size() == 0){
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            mCardAdapter.setEmptyView(view);
         }
     }
 

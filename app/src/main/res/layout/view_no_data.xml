@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tv_no_data"
         android:text="没有相关内容"
         android:textColor="@color/text_color_99"
         android:textSize="17sp"

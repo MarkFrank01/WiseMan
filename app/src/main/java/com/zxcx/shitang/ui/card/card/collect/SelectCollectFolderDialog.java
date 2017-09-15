@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
@@ -27,9 +28,7 @@ import com.zxcx.shitang.retrofit.BaseSubscriber;
 import com.zxcx.shitang.retrofit.PostSubscriber;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
-import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,7 +55,6 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
     private SelectCollectFolderAdapter mAdapter;
     private Context mContext;
     private int cardId;
-    private int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
 
     public SelectCollectFolderDialog() {
     }
@@ -74,14 +72,15 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getCollectFolder(userId,1,10000);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        cardId = getArguments().getInt("cardId");
+        if (getArguments() != null) {
+            cardId = getArguments().getInt("cardId");
+        }
         mContext = getActivity();
         initRecyclerView();
 
@@ -93,6 +92,17 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = ScreenUtils.dip2px(327);
         window.setAttributes(lp);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCollectFolder(0,10000);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
 
     @Override
@@ -116,7 +126,7 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
     public void onMessageEvent(ChangeBirthdayDialogEvent event) {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
-        getCollectFolder(userId,1,10000);
+        getCollectFolder(0,10000);
     }
 
     @OnClick(R.id.iv_dialog_collect_folder_close)
@@ -130,8 +140,8 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         addCollectFolderDialog.show(getFragmentManager(),"");
     }
 
-    public void getCollectFolder(int userId, int page, int pageSize){
-        subscription = AppClient.getAPIService().getCollectFolder(userId, page,pageSize)
+    public void getCollectFolder(int page, int pageSize){
+        subscription = AppClient.getAPIService().getCollectFolder(page,pageSize)
                 .compose(this.<BaseArrayBean<CollectFolderBean>>io_main())
                 .compose(this.<CollectFolderBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CollectFolderBean>>(this) {
@@ -143,22 +153,28 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         addSubscription(subscription);
     }
 
-    public void addCollectCard(int userId, int folderId, int cardId){
-        subscription = AppClient.getAPIService().addCollectCard(userId, folderId, cardId)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(this) {
+    public void addCollectCard(int folderId, int cardId){
+        subscription = AppClient.getAPIService().addCollectCard(folderId, cardId)
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(this) {
                     @Override
-                    public void onNext(PostBean bean) {
-                        SelectCollectFolderDialog.this.postSuccess(bean);
+                    public void onNext(BaseBean bean) {
+                        SelectCollectFolderDialog.this.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);
     }
 
     @Override
-    public void getDataSuccess(List<CollectFolderBean> bean) {
-        mAdapter.addData(bean);
+    public void getDataSuccess(List<CollectFolderBean> list) {
+        mAdapter.addData(list);
+        if (list.size() == 0){
+            View view = View.inflate(getActivity(), R.layout.view_no_data, null);
+            TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
+            textView.setText(R.string.no_collect_folder);
+            mAdapter.setEmptyView(view);
+        }
     }
 
     @Override
@@ -197,7 +213,7 @@ public class SelectCollectFolderDialog extends BaseDialog implements IGetPostPre
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             CollectFolderBean bean = (CollectFolderBean) adapter.getData().get(position);
-            addCollectCard(userId,bean.getId(),cardId);
+            addCollectCard(bean.getId(),cardId);
         }
     }
 }

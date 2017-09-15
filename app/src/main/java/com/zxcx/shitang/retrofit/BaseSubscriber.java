@@ -2,6 +2,7 @@ package com.zxcx.shitang.retrofit;
 
 import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.LogCat;
 
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -24,6 +25,8 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
     public void onError(Throwable t) {
         String code = t.getMessage().substring(0,3);
         String message = t.getMessage().substring(1);
+        t.printStackTrace();
+        LogCat.d(t.getMessage());
         if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
             mPresenter.startLogin();
         }else {

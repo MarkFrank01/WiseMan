@@ -11,8 +11,4 @@ public interface BaseView {
 
     void startLogin();
 
-    void setText(String text);
-
-    void toastFail(String msg);
-
 }

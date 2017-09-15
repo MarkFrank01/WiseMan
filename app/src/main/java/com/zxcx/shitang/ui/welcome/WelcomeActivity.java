@@ -21,7 +21,7 @@ public class WelcomeActivity extends BaseActivity {
     @BindView(R.id.tv_welcome_skip)
     TextView mTvWelcomeSkip;
     private Handler mHandler = new Handler();
-    private int mCount = 1;
+    private int mCount = 3;
 
     Runnable mRunnable = new Runnable() {
         @Override

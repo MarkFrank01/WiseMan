@@ -15,14 +15,11 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeSexDialogEvent;
 import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.mvpBase.IPostPresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.PostSubscriber;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
-import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -35,7 +32,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/13.
  */
 
-public class ChangeSexDialog extends BaseDialog implements IPostPresenter<PostBean>{
+public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserInfoBean>{
 
     Unbinder unbinder;
     @BindView(R.id.rb_change_sex_man)
@@ -80,18 +77,17 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<PostBe
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         sex = mRbChangeSexMan.isChecked() ? 1 : 0;
-        changeSex(userId,sex);
+        changeSex(sex);
     }
 
-    public void changeSex(int userId, int sex){
-        subscription = AppClient.getAPIService().changeUserInfo(userId, null, null, sex, null)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(this) {
+    public void changeSex(int sex){
+        subscription = AppClient.getAPIService().changeUserInfo(null, null, sex, null)
+                .compose(this.<BaseBean<UserInfoBean>>io_main())
+                .compose(this.<UserInfoBean>handleResult())
+                .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
-                    public void onNext(PostBean bean) {
+                    public void onNext(UserInfoBean bean) {
                         ChangeSexDialog.this.postSuccess(bean);
                     }
                 });
@@ -99,8 +95,8 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<PostBe
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
-        EventBus.getDefault().post(new ChangeSexDialogEvent(sex));
+    public void postSuccess(UserInfoBean bean) {
+        EventBus.getDefault().post(new ChangeSexDialogEvent(bean));
         this.dismiss();
     }
 

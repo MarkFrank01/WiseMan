@@ -1,11 +1,18 @@
 package com.zxcx.shitang.ui.my.collect.collectCard;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class CollectCardBean {
     private boolean isChecked;
+    @JSONField(name = "id")
     private int id;
+    @JSONField(name = "title")
     private String name;
+    @JSONField(name = "titleImage")
     private String imageUrl;
+    @JSONField(name = "collectingCount")
     private int collectNum;
+    @JSONField(name = "likedUsersCount")
     private int likeNum;
 
     public boolean isChecked() {

@@ -14,8 +14,20 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
         mModel = new CardDetailsModel(this);
     }
 
-    public void getCardDetails(int userId, int cardId){
-        mModel.getCardDetails(userId, cardId);
+    public void getCardDetails(int cardId){
+        mModel.getCardDetails(cardId);
+    }
+
+    public void likeCard(int cardId){
+        mModel.likeCard(cardId);
+    }
+
+    public void unLikeCard(int cardId){
+        mModel.unLikeCard(cardId);
+    }
+
+    public void removeCollectCard(int cardId){
+        mModel.removeCollectCard(cardId);
     }
 
     @Override

@@ -17,8 +17,8 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void getCollectCard(int userId, int id, int page, int pageSize){
-        subscription = AppClient.getAPIService().getCollectCard(userId, id, page,pageSize)
+    public void getCollectCard(int id, int page, int pageSize){
+        subscription = AppClient.getAPIService().getCollectCard(id, page,pageSize)
                 .compose(this.<BaseArrayBean<CollectCardBean>>io_main())
                 .compose(this.<CollectCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CollectCardBean>>(mPresent) {
@@ -30,8 +30,8 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
         addSubscription(subscription);
     }
 
-    public void deleteCollectCard(int userId, int id, List<Integer> idList){
-        subscription = AppClient.getAPIService().deleteCollectCard(userId, id, idList)
+    public void deleteCollectCard(int id, List<Integer> idList){
+        subscription = AppClient.getAPIService().deleteCollectCard(id, idList)
                 .compose(this.<BaseBean<PostBean>>io_main())
                 .compose(this.<PostBean>handleResult())
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
@@ -43,14 +43,14 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
         addSubscription(subscription);
     }
 
-    public void changeCollectFolderName(int userId, int id, String name){
-        subscription = AppClient.getAPIService().changeCollectFolderName(userId, id, name)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+    public void changeCollectFolderName(int id, String name){
+        subscription = AppClient.getAPIService().changeCollectFolderName(id, name)
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean bean) {
-                        mPresent.postSuccess(bean);
+                    public void onNext(BaseBean bean) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);

@@ -12,8 +12,6 @@ import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
-import com.zxcx.shitang.utils.SVTSConstants;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,14 +32,12 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     private ArrayList<SelectAttentionBean> mCheckedList = new ArrayList<>();
     private SelectAttentionAdapter mAdapter;
-    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_attention);
         ButterKnife.bind(this);
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         initRecyclerView();
         getAttentionList();
     }
@@ -49,16 +45,23 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     @Override
     public void onResume() {
         super.onResume();
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     }
 
     private void getAttentionList() {
-        mPresenter.getAttentionList(mUserId);
+        mPresenter.getAttentionList();
     }
 
     @Override
     public void getDataSuccess(List<SelectAttentionBean> list) {
         mAdapter.addData(list);
+        for (SelectAttentionBean bean : mAdapter.getData()) {
+            if (bean.isChecked()){
+                if (!mCheckedList.contains(bean)) {
+                    mCheckedList.add(bean);
+                }
+            }
+        }
+        checkNext();
         if (mAdapter.getData().size() == 0){
             //占空图
         }
@@ -96,7 +99,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
         for (SelectAttentionBean bean : mCheckedList) {
             idList.add(bean.getId());
         }
-        mPresenter.changeAttentionList(mUserId,idList);
+        mPresenter.changeAttentionList(idList);
     }
 
     @Override

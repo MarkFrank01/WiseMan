@@ -49,7 +49,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     private SearchResultCardBagAdapter mCardBagAdapter;
     private SearchResultCardAdapter mCardAdapter;
     private String mKeyword;
-    private int page = 1;
+    private int page = 0;
+    private View mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +60,17 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
         initData();
 
+        mEmptyView = View.inflate(mActivity,R.layout.view_no_data,null);
         initRecyclerView();
         mEtSearchResult.setOnEditorActionListener(new SearchListener());
         mSrlSearchResult.setOnRefreshListener(this);
         mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.colorPrimaryFinal));
+        onRefresh();
+    }
+
+    private void initData() {
+        mKeyword = getIntent().getStringExtra("keyword");
+        mEtSearchResult.setText(mKeyword);
     }
 
     @Override
@@ -72,13 +80,11 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
     @Override
     public void onRefresh() {
-        page = 1;
-        mCardAdapter.setEnableLoadMore(false);
-        mCardAdapter.setEnableLoadMore(true);
+        page = 0;
         mCardAdapter.getData().clear();
         mCardBagAdapter.getData().clear();
-        searchCard();
         searchCardBag();
+        searchCard();
     }
 
     @Override
@@ -95,7 +101,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         }
         mCardBagAdapter.addData(list);
         if (mCardBagAdapter.getData().size() == 0){
-            View view = View.inflate(mActivity,R.layout.view_no_data,null);
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
             mCardBagAdapter.setEmptyView(view);
         }
     }
@@ -114,10 +120,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
             mCardAdapter.loadMoreEnd(false);
         }else {
             mCardAdapter.loadMoreComplete();
-        }
-        if (mCardBagAdapter.getData().size() == 0){
-            View view = View.inflate(mActivity,R.layout.view_no_data,null);
-            mCardAdapter.setEmptyView(view);
+            mCardAdapter.setEnableLoadMore(false);
+            mCardAdapter.setEnableLoadMore(true);
         }
     }
 
@@ -142,16 +146,13 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         mRvSearchResultCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mCardAdapter.addHeaderView(view);
+        mCardAdapter.setEmptyView(mEmptyView);
+        mCardAdapter.setHeaderAndEmpty(true);
     }
 
     @OnClick(R.id.tv_search_result_cancel)
     public void onViewClicked() {
         finish();
-    }
-
-    private void initData() {
-        mKeyword = getIntent().getStringExtra("keyword");
-        mEtSearchResult.setText(mKeyword);
     }
 
     private void searchCard() {

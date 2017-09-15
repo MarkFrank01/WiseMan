@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.mvpBase.PostBean;
 
 import java.util.regex.Pattern;
 
@@ -80,11 +81,6 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         return new ForgetPasswordPresenter(this);
     }
 
-    @Override
-    public void getDataSuccess(ForgetPasswordBean bean) {
-
-    }
-
     @OnClick(R.id.iv_forget_password_close)
     public void onMIvForgetPasswordCloseClicked() {
         onBackPressed();
@@ -113,7 +109,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     @OnClick(R.id.btn_forget_password_complete)
     public void onMBtnForgetPasswordCompleteClicked() {
         if (checkPassword()) {
-            finish();
+
         }
     }
 
@@ -158,6 +154,16 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             handler.postDelayed(setDjs, 1000);
         }
     };
+
+    @Override
+    public void postSuccess(PostBean bean) {
+
+    }
+
+    @Override
+    public void postFail(String msg) {
+
+    }
 
     class NextCheckNullTextWatcher implements TextWatcher {
 

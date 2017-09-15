@@ -16,6 +16,7 @@ import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.MD5Utils;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
@@ -108,7 +109,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     public void onMBtnRegisterClicked() {
         if (checkPhone() && checkPassword()) {
             String phone = mEtRegisterPhone.getText().toString();
-            String password = mEtRegisterPassword.getText().toString();
+            String password = MD5Utils.md5(mEtRegisterPassword.getText().toString());
             String code = mEtRegisterVerificationCode.getText().toString();
             int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);

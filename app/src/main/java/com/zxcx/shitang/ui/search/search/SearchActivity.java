@@ -101,6 +101,11 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @Override
     public void onClick(View v) {
         mEtSearch.setText(((TextView)v).getText());
+        Intent intent = new Intent(SearchActivity.this,SearchResultActivity.class);
+        intent.putExtra("keyword",mEtSearch.getText().toString());
+        startActivity(intent);
+        Utils.closeInputMethod(mEtSearch);
+        finish();
     }
 
     private void addLabel() {

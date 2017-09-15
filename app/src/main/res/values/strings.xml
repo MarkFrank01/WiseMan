@@ -51,4 +51,6 @@
     <string name="register">注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="login">登录</string>
+    <string name="no_collect_folder">暂无收藏夹，请先添加收藏夹</string>
+    <string name="no_collect_card">暂未收藏卡片</string>
 </resources>

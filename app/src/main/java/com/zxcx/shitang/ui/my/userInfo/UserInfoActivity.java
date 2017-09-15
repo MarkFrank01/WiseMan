@@ -109,24 +109,23 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNickNameDialogEvent event) {
-        mNickName = event.getNickName();
-        mTvUserInfoNickName.setText(mNickName);
+        UserInfoBean bean = event.getUserInfoBean();
+        saveData(bean);
+        initData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeSexDialogEvent event) {
-        mSex = event.getSex();
-        if (mSex == 1) {
-            mTvUserInfoSex.setText("男");
-        } else {
-            mTvUserInfoSex.setText("女");
-        }
+        UserInfoBean bean = event.getUserInfoBean();
+        saveData(bean);
+        initData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeBirthdayDialogEvent event) {
-        mBirth = event.getBirthday();
-        mTvUserInfoBirthday.setText(mBirth);
+        UserInfoBean bean = event.getUserInfoBean();
+        saveData(bean);
+        initData();
     }
 
     @OnClick(R.id.rl_user_info_head)
@@ -192,6 +191,13 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     public void onMTvUserInfoLogoutClicked() {
         LogoutDialog dialog = new LogoutDialog();
         dialog.show(getFragmentManager(), "");
+    }
+
+    private void saveData(UserInfoBean bean) {
+        SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getId());
+        SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getName());
+        SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
+        SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
     }
 
     @Override

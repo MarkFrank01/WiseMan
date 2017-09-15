@@ -6,7 +6,6 @@ import com.zxcx.shitang.mvpBase.BaseModel;
 import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseArrayBean;
-import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
 import com.zxcx.shitang.retrofit.PostSubscriber;
 
@@ -18,8 +17,8 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
         this.mPresent = present;
     }
 
-    public void getAttentionList(int userId){
-        subscription = AppClient.getAPIService().getAttentionList(userId, 1,1000)
+    public void getAttentionList(){
+        subscription = AppClient.getAPIService().getAttentionList()
                 .compose(this.<BaseArrayBean<SelectAttentionBean>>io_main())
                 .compose(this.<SelectAttentionBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SelectAttentionBean>>(mPresent) {
@@ -31,14 +30,14 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
         addSubscription(subscription);
     }
 
-    public void changeAttentionList(int userId, List<Integer> idList){
-        subscription = AppClient.getAPIService().changeAttentionList(userId, idList)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+    public void changeAttentionList(List<Integer> idList){
+        subscription = AppClient.getAPIService().changeAttentionList(idList)
+                .compose(this.<BaseArrayBean<PostBean>>io_main())
+                .compose(this.<PostBean>handleArrayResult())
+                .subscribeWith(new PostSubscriber<List<PostBean>>(mPresent) {
                     @Override
-                    public void onNext(PostBean bean) {
-                        mPresent.postSuccess(bean);
+                    public void onNext(List<PostBean> bean) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);

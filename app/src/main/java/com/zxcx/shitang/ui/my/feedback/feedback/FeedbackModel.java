@@ -13,8 +13,8 @@ public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
         this.mPresent = present;
     }
 
-    public void feedback(int userId, String content){
-        subscription = AppClient.getAPIService().feedback(userId, content)
+    public void feedback(String content, String contact,int appType, String appChannel, String appVersion){
+        subscription = AppClient.getAPIService().feedback(content,contact,appType,appChannel,appVersion)
                 .compose(this.<BaseBean<PostBean>>io_main())
                 .compose(this.<PostBean>handleResult())
                 .subscribeWith(new PostSubscriber<PostBean>(mPresent) {

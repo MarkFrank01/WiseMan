@@ -1,11 +1,18 @@
 package com.zxcx.shitang.ui.my.collect.collectFolder;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class CollectFolderBean {
     private boolean isChecked;
+    @JSONField(name = "id")
     private int id;
+    @JSONField(name = "title")
     private String name;
+    @JSONField(name = "titleImage")
     private String imageUrl;
-    private String time;
+    @JSONField(name = "createTime")
+    private Long time;
+    @JSONField(name = "collect")
     private int num;
 
     public boolean isChecked() {
@@ -40,11 +47,11 @@ public class CollectFolderBean {
         this.imageUrl = imageUrl;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 

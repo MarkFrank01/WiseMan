@@ -23,8 +23,6 @@ import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.shitang.ui.my.collect.collectCard.adapter.CollectCardAdapter;
 import com.zxcx.shitang.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.shitang.utils.Constants;
-import com.zxcx.shitang.utils.SVTSConstants;
-import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
 import com.zxcx.shitang.widget.CustomLoadMoreView;
 
@@ -60,10 +58,9 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     @BindView(R.id.ll_collect_folder_edit)
     LinearLayout mLlCollectFolderEdit;
 
-    private CollectCardAdapter mCollectCardAdapter;
+    private CollectCardAdapter mAdapter;
     private List<CollectCardBean> mCheckedList = new ArrayList<>();
-    private int mUserId;
-    private int page = 1;
+    private int page = 0;
     private int folderId;
     private int mAction;
     private String newName;
@@ -84,7 +81,6 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     private void initData() {
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         String name = getIntent().getStringExtra("name");
         folderId = getIntent().getIntExtra("id",0);
         initToolBar(name);
@@ -99,9 +95,9 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
             mCheckedList.clear();
             mLlCollectCardEdit.setVisibility(View.GONE);
             mTvToolbarRight.setText("编辑");
-            mCollectCardAdapter.setDelete(false);
-            mCollectCardAdapter.setOnItemClickListener(this);
-            mCollectCardAdapter.notifyDataSetChanged();
+            mAdapter.setDelete(false);
+            mAdapter.setOnItemClickListener(this);
+            mAdapter.notifyDataSetChanged();
         }else {
             super.onBackPressed();
         }
@@ -120,31 +116,35 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     @Override
     public void getDataSuccess(List<CollectCardBean> list) {
         if (page == 1){
-            mCollectCardAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
         }
         page++;
-        mCollectCardAdapter.addData(list);
+        mAdapter.addData(list);
         if (list.size() < Constants.PAGE_SIZE){
-            mCollectCardAdapter.loadMoreEnd(false);
+            mAdapter.loadMoreEnd(false);
         }else {
-            mCollectCardAdapter.loadMoreComplete();
+            mAdapter.loadMoreComplete();
         }
-        if (mCollectCardAdapter.getData().size() == 0){
+        if (mAdapter.getData().size() == 0){
             //占空图
+            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
+            textView.setText(R.string.no_collect_card);
+            mAdapter.setEmptyView(view);
         }
     }
 
     @Override
     public void toastFail(String msg) {
         super.toastFail(msg);
-        mCollectCardAdapter.loadMoreFail();
+        mAdapter.loadMoreFail();
     }
 
     @Override
     public void postSuccess(PostBean bean) {
         if (mAction == ACTION_DELETE){
-            mCollectCardAdapter.getData().removeAll(mCheckedList);
-            mCollectCardAdapter.notifyDataSetChanged();
+            mAdapter.getData().removeAll(mCheckedList);
+            mAdapter.notifyDataSetChanged();
             mCheckedList.clear();
         }else if (mAction == ACTION_CHANGE){
             initToolBar(newName);
@@ -159,7 +159,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     private void getCollectCard() {
-        mPresenter.getCollectCard(mUserId, folderId, page, Constants.PAGE_SIZE);
+        mPresenter.getCollectCard(folderId, page, Constants.PAGE_SIZE);
     }
 
     @Override
@@ -186,21 +186,21 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
             case "编辑":
                 mLlCollectCardEdit.setVisibility(View.VISIBLE);
                 mTvToolbarRight.setText("取消");
-                mCollectCardAdapter.setDelete(true);
-                mCollectCardAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                mAdapter.setDelete(true);
+                mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
                     }
                 });
-                mCollectCardAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
                 break;
             case "取消":
                 mLlCollectCardEdit.setVisibility(View.GONE);
                 mTvToolbarRight.setText("编辑");
-                mCollectCardAdapter.setDelete(false);
-                mCollectCardAdapter.setOnItemClickListener(this);
-                mCollectCardAdapter.notifyDataSetChanged();
+                mAdapter.setDelete(false);
+                mAdapter.setOnItemClickListener(this);
+                mAdapter.notifyDataSetChanged();
                 break;
             case "删除":
                 mAction = ACTION_DELETE;
@@ -208,7 +208,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
                 for (CollectCardBean bean : mCheckedList) {
                     idList.add(bean.getId());
                 }
-                mPresenter.deleteCollectCard(mUserId,folderId,idList);
+                mPresenter.deleteCollectCard(folderId,idList);
                 break;
         }
     }
@@ -249,7 +249,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         Utils.closeInputMethod(mEtEditCollectFolder);
 
         mAction = ACTION_CHANGE;
-        mPresenter.changeCollectFolderName(mUserId,folderId,newName);
+        mPresenter.changeCollectFolderName(folderId,newName);
     }
 
     @OnClick(R.id.rl_collect_folder_edit)
@@ -263,14 +263,14 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     private void initRecyclerView() {
-        mCollectCardAdapter = new CollectCardAdapter(new ArrayList<CollectCardBean>(), this);
-        mCollectCardAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mCollectCardAdapter.setOnLoadMoreListener(this, mRvCollectCard);
-        mCollectCardAdapter.setOnItemClickListener(this);
+        mAdapter = new CollectCardAdapter(new ArrayList<CollectCardBean>(), this);
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mAdapter.setOnLoadMoreListener(this, mRvCollectCard);
+        mAdapter.setOnItemClickListener(this);
         mRvCollectCard.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        mRvCollectCard.setAdapter(mCollectCardAdapter);
+        mRvCollectCard.setAdapter(mAdapter);
         mRvCollectCard.addItemDecoration(new CollectFolderItemDecoration());
-        mCollectCardAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
     class AddCollectFolderTextWatcher implements TextWatcher {

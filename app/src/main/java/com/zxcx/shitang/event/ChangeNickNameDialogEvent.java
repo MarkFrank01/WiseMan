@@ -1,21 +1,23 @@
 package com.zxcx.shitang.event;
 
+import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
+
 /**
  * Created by anm on 2017/7/4.
  */
 
 public class ChangeNickNameDialogEvent {
-    private String nickName;
+    private UserInfoBean mUserInfoBean;
 
-    public ChangeNickNameDialogEvent(String nickName) {
-        this.nickName = nickName;
+    public ChangeNickNameDialogEvent(UserInfoBean mUserInfoBean) {
+        this.mUserInfoBean = mUserInfoBean;
     }
 
-    public String getNickName() {
-        return nickName;
+    public UserInfoBean getUserInfoBean() {
+        return mUserInfoBean;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setUserInfoBean(UserInfoBean userInfoBean) {
+        this.mUserInfoBean = userInfoBean;
     }
 }

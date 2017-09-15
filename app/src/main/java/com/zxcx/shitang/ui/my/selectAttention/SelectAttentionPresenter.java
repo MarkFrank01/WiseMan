@@ -16,12 +16,12 @@ public class SelectAttentionPresenter extends BasePresenter<SelectAttentionContr
         mModel = new SelectAttentionModel(this);
     }
 
-    public void getAttentionList(int userId){
-        mModel.getAttentionList(userId);
+    public void getAttentionList(){
+        mModel.getAttentionList();
     }
 
-    public void changeAttentionList(int userId, List<Integer> idList){
-        mModel.changeAttentionList(userId, idList);
+    public void changeAttentionList(List<Integer> idList){
+        mModel.changeAttentionList(idList);
     }
 
     @Override

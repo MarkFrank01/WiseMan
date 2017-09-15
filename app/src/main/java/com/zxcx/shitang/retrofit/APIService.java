@@ -11,6 +11,7 @@ import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionBean;
+import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
 import com.zxcx.shitang.ui.search.search.SearchBean;
@@ -25,84 +26,194 @@ public interface APIService {
 
     String API_SERVER_URL = "http://120.77.180.183:8043";
 
+    /**
+     * 注册
+     */
     @POST("/user/PhoneRegistered")
     Flowable<BaseBean<RegisterBean>> phoneRegistered(
             @Query("phoneNumber") String phone,@Query("SMSCode") String code,
             @Query("password") String password, @Query("appType") int appType,
             @Query("appChannel") String appChannel,@Query("appVersion") String appVersion);
 
+    /**
+     * 登录
+     */
     @POST("/user/PhoneLogin")
     Flowable<BaseBean<LoginBean>> phoneLogin(
             @Query("phoneNumber") String phone, @Query("password") String password,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
 
-    @POST("/article/getRecommendArticle")
-    Flowable<BaseArrayBean<HotCardBean>> getHotCard(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    /**
+     * 修改密码
+     */
+    @POST("/user/ChangePassword")
+    Flowable<BaseBean> changePassword(
+            @Query("phoneNumber") String phone, @Query("password") String password,
+            @Query("appType") int appType, @Query("SMSCode") String code);
 
+    /**
+     * 获取推荐卡片
+     */
+    @POST("/article/getRecommendArticle")
+    Flowable<BaseArrayBean<HotCardBean>> getHotCard(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取推荐卡包
+     */
     @POST("/collection/getRecommendCollection")
     Flowable<BaseArrayBean<HotCardBagBean>> getHotCardBag();
 
+    /**
+     * 获取关注卡片
+     */
     @POST("/article/getFollowArticle")
-    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
+    /**
+     * 获取关注卡包
+     */
     @POST("/collection/getFollowCollection")
     Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag();
 
+    /**
+     * 获取热门搜索关键字
+     */
     @POST("/search/getSearchKeyword")
-    Flowable<BaseArrayBean<SearchBean>> getSearchHot(@Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    Flowable<BaseArrayBean<SearchBean>> getSearchHot(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<SearchCardBean>> searchCard(String keyword, int page, int pageSize);
+    /**
+     * 搜索卡片
+     */
+    @POST("/search/searchArticle")
+    Flowable<BaseArrayBean<SearchCardBean>> searchCard(
+            @Query("keyword") String keyword, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<SearchCardBagBean>> searchCardBag(String keyword, int page, int pageSize);
+    /**
+     * 搜索卡包
+     */
+    @POST("/search/searchCollection")
+    Flowable<BaseArrayBean<SearchCardBagBean>> searchCardBag(
+            @Query("keyword") String keyword, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<CardBagBean>> getCardBagCardList(int id, int page, int pageSize);
+    /**
+     * 获取卡包内卡片列表
+     */
+    @POST("/article/getArticleByCollectionId")
+    Flowable<BaseArrayBean<CardBagBean>> getCardBagCardList(
+            @Query("collectionId") int id, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
+    /**
+     * 获取全部分类
+     */
     @POST("/classify/getAllClassify")
     Flowable<BaseArrayBean<ClassifyBean>> getClassify();
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<CollectFolderBean>> getCollectFolder(int userId, int page, int pageSize);
+    /**
+     * 获取收藏夹列表
+     */
+    @POST("/favorite/getFavoriteList")
+    Flowable<BaseArrayBean<CollectFolderBean>> getCollectFolder(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    /**
+     * 删除收藏夹
+     */
+    @POST("/favorite/deleteCollection")
+    Flowable<BaseBean<PostBean>> deleteCollectFolder(
+            @Query("collectionList") List<Integer> idList);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> deleteCollectFolder(int userId, List<Integer> idList);
+    /**
+     * 添加收藏夹
+     */
+    @POST("/favorite/addFavoriteController")
+    Flowable<BaseBean> addCollectFolder(@Query("collectionTitle") String name);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> addCollectFolder(int userId, String name);
+    /**
+     * 修改收藏夹名称
+     */
+    @POST("/favorite/modifyCollectionName")
+    Flowable<BaseBean> changeCollectFolderName(
+            @Query("collectionId") int id, @Query("collectionTitle") String name);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> changeCollectFolderName(int userId, int id, String name);
+    /**
+     * 获取收藏夹内卡片列表
+     */
+    @POST("/favorite/getFavoriteArticleList")
+    Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(
+            @Query("collectionId") int id, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(int userId, int id, int page, int pageSize);
+    /**
+     * 添加收藏卡片
+     */
+    @POST("/favorite/collectArticle")
+    Flowable<BaseBean> addCollectCard(
+            @Query("collectionId") int folderId, @Query("articleId") int cardId);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> addCollectCard(int userId, int folderId, int cardId);
+    /**
+     * 删除收藏卡片
+     */
+    @POST("/favorite/uncollectArticle")
+    Flowable<BaseBean<PostBean>> deleteCollectCard(
+            @Query("collectionId") int id, @Query("articleIdList") List<Integer> idList);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> deleteCollectCard(int userId, int id, List<Integer> idList);
+    /**
+     * 获取兴趣列表
+     */
+    @POST("/collection/getInterestedCollection")
+    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList();
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList(int userId, int page, int pageSize);
+    /**
+     * 修改兴趣选择列表
+     */
+    @POST("/collection/followCollection")
+    Flowable<BaseArrayBean<PostBean>> changeAttentionList(
+            @Query("collectionList") List<Integer> idList);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> changeAttentionList(int userId, List<Integer> idList);
+    /**
+     * 修改用户信息
+     */
+    @POST("/user/modifyProfile")
+    Flowable<BaseBean<UserInfoBean>> changeUserInfo(
+            @Query("avatar") String userIcon, @Query("name") String name,
+            @Query("gender") Integer sex, @Query("birth") String birthday);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> changeUserInfo(int userId, String userIcon, String name, Integer sex, String birthday);
+    /**
+     * 获取卡片详情
+     */
+    @POST("/article/getArticleBasicInfo")
+    Flowable<BaseBean<CardDetailsBean>> getCardDetails(@Query("articleId") int cardId);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<CardDetailsBean>> getCardDetails(int userId, int cardId);
+    /**
+     *点赞卡片
+     */
+    @POST("/article/setLikeForArticle")
+    Flowable<BaseBean<PostBean>> likeCard(@Query("articleId") int cardId);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> likeCard(int userId, int cardId);
+    /**
+     *取消点赞卡片
+     */
+    @POST("/article/unLikeForArticle")
+    Flowable<BaseBean<PostBean>> unLikeCard(@Query("articleId") int cardId);
 
+    /**
+     *取消收藏卡片
+     */
     @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> removeCollectCard(int userId, int cardId);
+    Flowable<BaseBean<PostBean>> removeCollectCard(@Query("articleId") int cardId);
 
-    @POST("user/PhoneLogin")
-    Flowable<BaseBean<PostBean>> feedback(int userId, String content);
+    /**
+     *提交反馈
+     */
+    @POST("/feedback/sumbitFeedbadk")
+    Flowable<BaseBean<PostBean>> feedback(
+            @Query("content") String content,@Query("contact") String contact,
+            @Query("appType") int appType, @Query("appChannel") String appChannel,
+            @Query("appVersion") String appVersion);
 }
