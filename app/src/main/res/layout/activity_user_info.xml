@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
         <TextView
             android:id="@+id/tv_user_info_head"
             android:text="@string/tv_user_info_head"
@@ -49,7 +49,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
         <TextView
             android:text="@string/tv_user_info_nick_name"
             android:layout_centerVertical="true"
@@ -84,7 +84,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
         <TextView
             android:text="@string/tv_user_info_sex"
             android:layout_centerVertical="true"
@@ -119,7 +119,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
         <TextView
             android:text="@string/tv_user_info_birthday"
             android:layout_centerVertical="true"

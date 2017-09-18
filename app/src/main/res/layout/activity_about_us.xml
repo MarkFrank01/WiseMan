@@ -18,7 +18,7 @@
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
@@ -50,7 +50,7 @@
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
@@ -78,7 +78,7 @@
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
@@ -110,6 +110,6 @@
         android:textSize="16sp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
 
 </LinearLayout>

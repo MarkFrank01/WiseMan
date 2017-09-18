@@ -79,7 +79,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_collect"
@@ -113,7 +113,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_common_setting"
@@ -152,7 +152,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_feedback"
@@ -191,7 +191,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_about_us"

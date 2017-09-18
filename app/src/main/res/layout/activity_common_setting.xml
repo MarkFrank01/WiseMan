@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_attention"
@@ -47,7 +47,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_push"
@@ -79,7 +79,7 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_night_model"
@@ -116,7 +116,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_only_wifi"
@@ -148,7 +148,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_marginLeft="14.5dp"
