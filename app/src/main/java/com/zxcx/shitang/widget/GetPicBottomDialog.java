@@ -2,7 +2,6 @@ package com.zxcx.shitang.widget;
 
 import android.app.DialogFragment;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -46,11 +45,8 @@ public class GetPicBottomDialog extends DialogFragment {
     private static final int REQUEST_CODE_CUT_PHOTO = 3;
 
     private Unbinder mUnbinder;
-    private Context mContext;
     private GetPicDialogListener mListener;
-    private Bitmap cutImageBitmap;
     private Uri tempUri;
-    private String imagePath;
     private File file;
     private int cutX = 1;
     private int cutY = 1;
@@ -79,8 +75,9 @@ public class GetPicBottomDialog extends DialogFragment {
             cutY = bundle.getInt("cutY", 1);
         }
         try {
-            mImagePath = FileUtil.PATH_BASE + FileUtil.getFileName();
-            file = FileUtil.createFile(FileUtil.PATH_BASE, mImagePath);
+            String fileName = "zhizhe_head_image";
+            mImagePath = FileUtil.PATH_BASE +fileName ;
+            file = FileUtil.createFile(FileUtil.PATH_BASE, fileName);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
             }else {
@@ -106,8 +103,6 @@ public class GetPicBottomDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        mContext = getActivity();
 
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
@@ -184,7 +179,6 @@ public class GetPicBottomDialog extends DialogFragment {
                  * 裁剪处理
                  */
                 case REQUEST_CODE_CUT_PHOTO:
-                    imagePath = tempUri.getPath();
                     mListener.onGetSuccess(mUriType,tempUri,mImagePath);
                     this.dismiss();
                     break;

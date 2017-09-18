@@ -5,6 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -17,6 +27,7 @@ import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.utils.DateTimeUtils;
 import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ImageLoader;
+import com.zxcx.shitang.utils.MD5Utils;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.StringUtils;
@@ -55,6 +66,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     private String mNickName;
     private int mSex;
     private String mBirth;
+    private File imageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +102,6 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @Override
     public void onBackPressed() {
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, mNickName);
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, mSex);
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, mBirth);
         EventBus.getDefault().post(new UpdataUserInfoEvent());
         super.onBackPressed();
     }
@@ -103,8 +112,9 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Override
-    public void getDataSuccess(UserInfoBean bean) {
+    public void getDataSuccess(OSSTokenBean bean) {
 
+        uploadImageToOSS(bean);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -202,8 +212,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @Override
     public void onGetSuccess(GetPicBottomDialog.UriType UriType, Uri uri, String imagePath) {
-        String path = null;
-        ImageLoader.loadWithClear(this,uri,R.drawable.iv_my_head_icon,mIvUserInfoHead);
+        String path;
         if (UriType == GetPicBottomDialog.UriType.file){
             path = imagePath;
         }else {
@@ -214,9 +223,9 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                 return;
             }
         }
-        File file = new File(path);
+        imageFile = new File(path);
         Luban.with(this)
-                .load(file)                     //传入要压缩的图片
+                .load(imageFile)                     //传入要压缩的图片
                 .setCompressListener(new OnCompressListener() { //设置回调
                     @Override
                     public void onStart() {
@@ -225,7 +234,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                     @Override
                     public void onSuccess(File file) {
                         //  压缩成功后调用，返回压缩后的图片文件
-                        toastShow(file.getPath()+file.getName());
+                        imageFile = file;
                     }
 
                     @Override
@@ -233,29 +242,27 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                         //  当压缩过程出现问题时调用
                     }
                 }).launch();    //启动压缩
+        mPresenter.getOSS(MD5Utils.md5(String.valueOf(DateTimeUtils.getNowTimestamp())));
+// task.cancel(); // 可以取消任务
 
-        /*String fileName = FileUtil.getFileName();
-        String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
+    }
+
+    private void uploadImageToOSS(OSSTokenBean bean) {
+        final String fileName = FileUtil.getFileName();
+        final String bucketName = "shitang-head";
+        final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
 // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider("<StsToken.AccessKeyId>", "<StsToken.SecretKeyId>", "<StsToken.SecurityToken>");
-        OSSCredentialProvider credentialProvider = new OSSCustomSignerCredentialProvider() {
-            @Override
-            public String signContent(String content) {
-                // 您需要在这里依照OSS规定的签名算法，实现加签一串字符内容，并把得到的签名传拼接上AccessKeyId后返回
-                // 一般实现是，将字符内容post到您的业务服务器，然后返回签名
-                // 如果因为某种原因加签失败，描述error信息后，返回nil
-                // 以下是用本地算法进行的演示
-                return "OSS " + "LTAICoP8M5xeN9ZZ" + ":" + base64(hmac-sha1("aE4ysjCAatNiMDVV5WRDo6JzfTZ7qH", content));
-            }
-        };
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(bean.getAccessKeyId(), bean.getAccessKeySecret(), bean.getSecurityToken());
         OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
         // 构造上传请求
-        PutObjectRequest put = new PutObjectRequest("shitang-head", fileName, path);
+        PutObjectRequest put = new PutObjectRequest(bucketName, fileName, imageFile.getPath());
         OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-
+                String imageUrl = "http://shitang-head.oss-cn-shenzhen.aliyuncs.com/"+fileName;
+                SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
+                ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
             }
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
@@ -269,7 +276,6 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                 }
             }
         });
-// task.cancel(); // 可以取消任务
-// task.waitUntilFinished(); // 可以等待直到任务完成*/
+        task.waitUntilFinished(); // 可以等待直到任务完成
     }
 }

@@ -13,8 +13,12 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
         mModel = new UserInfoModel(this);
     }
 
+    public void getOSS(String uuid){
+        mModel.getOSS(uuid);
+    }
+
     @Override
-    public void getDataSuccess(UserInfoBean bean) {
+    public void getDataSuccess(OSSTokenBean bean) {
         mView.getDataSuccess(bean);
     }
 

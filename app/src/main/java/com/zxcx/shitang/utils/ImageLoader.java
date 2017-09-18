@@ -81,4 +81,26 @@ public class ImageLoader {
                 .skipMemoryCache( true )
                 .into(imageView);
     }
+
+    public static void loadWithClear(Activity activity, String url, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(activity)
+                .load(url)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
+                .skipMemoryCache( true )
+                .into(imageView);
+    }
+
+    public static void loadWithClear(Activity activity, File file, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(activity)
+                .load(file)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .diskCacheStrategy( DiskCacheStrategy.NONE )
+                .skipMemoryCache( true )
+                .into(imageView);
+    }
 }

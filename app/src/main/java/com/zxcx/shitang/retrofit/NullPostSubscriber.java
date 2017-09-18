@@ -1,8 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
-import com.zxcx.shitang.mvpBase.IGetPresenter;
+import com.zxcx.shitang.mvpBase.INullPostPresenter;
 import com.zxcx.shitang.utils.Constants;
-import com.zxcx.shitang.utils.LogCat;
 
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -10,11 +9,11 @@ import io.reactivex.subscribers.DisposableSubscriber;
  * Created by anm on 2017/7/24.
  */
 
-public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
+public abstract class NullPostSubscriber<T> extends DisposableSubscriber<T> {
 
-    private IGetPresenter mPresenter;
+    private INullPostPresenter mPresenter;
 
-    public BaseSubscriber(IGetPresenter presenter) {
+    public NullPostSubscriber(INullPostPresenter presenter) {
         mPresenter = presenter;
     }
 
@@ -25,12 +24,10 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
     public void onError(Throwable t) {
         String code = t.getMessage().substring(0,3);
         String message = t.getMessage().substring(3);
-        t.printStackTrace();
-        LogCat.d(t.getMessage());
         if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
             mPresenter.startLogin();
         }else {
-            mPresenter.getDataFail(message);
+            mPresenter.postFail(message);
         }
     }
 

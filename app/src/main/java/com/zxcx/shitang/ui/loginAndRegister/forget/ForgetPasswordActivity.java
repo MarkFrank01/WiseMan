@@ -15,7 +15,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.MD5Utils;
 
 import java.util.regex.Pattern;
 
@@ -109,12 +110,18 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     @OnClick(R.id.btn_forget_password_complete)
     public void onMBtnForgetPasswordCompleteClicked() {
         if (checkPassword()) {
-
+            String phone = mEtForgetPasswordPhone.getText().toString();
+            String password = MD5Utils.md5(mEtForgetPasswordPassword.getText().toString());
+            String code = mEtForgetPasswordVerificationCode.getText().toString();
+            int appType = Constants.APP_TYPE;
+            mPresenter.changePassword(phone,code,password,appType);
         }
     }
 
     @OnClick(R.id.tv_forget_password_send_over)
     public void onViewClicked() {
+        SMSSendOverDialog dialog = new SMSSendOverDialog();
+        dialog.show(getFragmentManager(),"ForgerPasswordActivity");
     }
 
     private boolean checkPhone() {
@@ -156,13 +163,13 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     };
 
     @Override
-    public void postSuccess(PostBean bean) {
-
+    public void postSuccess() {
+        onBackPressed();
     }
 
     @Override
     public void postFail(String msg) {
-
+        toastShow(msg);
     }
 
     class NextCheckNullTextWatcher implements TextWatcher {

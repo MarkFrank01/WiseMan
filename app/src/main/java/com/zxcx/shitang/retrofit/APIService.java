@@ -11,6 +11,7 @@ import com.zxcx.shitang.ui.loginAndRegister.register.RegisterBean;
 import com.zxcx.shitang.ui.my.collect.collectCard.CollectCardBean;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionBean;
+import com.zxcx.shitang.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
@@ -49,8 +50,8 @@ public interface APIService {
      */
     @POST("/user/ChangePassword")
     Flowable<BaseBean> changePassword(
-            @Query("phoneNumber") String phone, @Query("password") String password,
-            @Query("appType") int appType, @Query("SMSCode") String code);
+            @Query("phoneNumber") String phone, @Query("SMSCode") String code, @Query("password") String password,
+            @Query("appType") int appType);
 
     /**
      * 获取推荐卡片
@@ -216,4 +217,10 @@ public interface APIService {
             @Query("content") String content,@Query("contact") String contact,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
+
+    /**
+     *OSS秘钥获取
+     */
+    @POST("/ossAuth")
+    Flowable<BaseBean<OSSTokenBean>> getOSS(@Query("uuid") String uuid);
 }

@@ -3,7 +3,6 @@ package com.zxcx.shitang.ui.loginAndRegister.forget;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
 
 public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements ForgetPasswordContract.Presenter {
 
@@ -12,6 +11,10 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
     public ForgetPasswordPresenter(@NonNull ForgetPasswordContract.View view) {
         attachView(view);
         mModel = new ForgetPasswordModel(this);
+    }
+
+    public void changePassword(String phone, String code, String password, int appType){
+        mModel.changePassword(phone,code,password,appType);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
 
     }
 

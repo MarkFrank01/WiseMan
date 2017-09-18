@@ -12,6 +12,12 @@ import java.util.GregorianCalendar;
 
 public class DateTimeUtils {
 
+    public static long getNowTimestamp() {
+        Date date = new Date();
+        long timestamp = date.getTime();
+        return timestamp;
+    }
+
     public static String getDate() {
         String time = "";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

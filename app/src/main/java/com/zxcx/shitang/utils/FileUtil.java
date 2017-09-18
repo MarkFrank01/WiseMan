@@ -118,7 +118,7 @@ public class FileUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss",
                 Locale.getDefault());
         Date cruDate = Calendar.getInstance().getTime();
-        String strDate = "/" + sdf.format(cruDate);
+        String strDate = sdf.format(cruDate);
         return strDate + ".png";
     }
 

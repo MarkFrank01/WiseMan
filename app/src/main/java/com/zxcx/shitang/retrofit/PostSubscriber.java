@@ -23,7 +23,7 @@ public abstract class PostSubscriber<T> extends DisposableSubscriber<T> {
     @Override
     public void onError(Throwable t) {
         String code = t.getMessage().substring(0,3);
-        String message = t.getMessage().substring(1);
+        String message = t.getMessage().substring(3);
         if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
             mPresenter.startLogin();
         }else {

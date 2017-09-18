@@ -5,11 +5,11 @@ import com.zxcx.shitang.mvpBase.IGetPresenter;
 
 public interface UserInfoContract {
 
-    interface View extends MvpView<UserInfoBean> {
+    interface View extends MvpView<OSSTokenBean> {
 
     }
 
-    interface Presenter extends IGetPresenter<UserInfoBean> {
+    interface Presenter extends IGetPresenter<OSSTokenBean> {
 
     }
 }
