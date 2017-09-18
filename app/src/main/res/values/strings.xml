@@ -47,7 +47,7 @@
     <string name="tv_collect_folder_add">添加收藏夹</string>
     <string name="tv_collect_card_edit">修改收藏夹名字</string>
     <string name="need_login">还未登录，请先登录</string>
-    <string name="tv_item_home_card_num">%1$d人收藏 %2$d人认同</string>
+    <string name="tv_item_home_card_num">%1$d人收藏\t\t%2$d人认同</string>
     <string name="register">注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="login">登录</string>

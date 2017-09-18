@@ -13,7 +13,7 @@ public class CollectFolderBean extends RetrofitBaen {
     private String imageUrl;
     @JSONField(name = "createTime")
     private Long time;
-    @JSONField(name = "collect")
+    @JSONField(name = "articleCount")
     private int num;
 
     public boolean isChecked() {

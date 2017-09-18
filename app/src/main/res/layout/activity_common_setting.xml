@@ -10,6 +10,17 @@
 
     <include layout="@layout/toolbar"/>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_common_setting_attention"
         android:background="@color/white"
@@ -73,10 +84,20 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_common_setting_night_model"
         android:background="@color/white"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -142,9 +163,19 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_common_setting_clean_cache"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -170,5 +201,10 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

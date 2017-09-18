@@ -12,7 +12,7 @@
         <TextView
             android:layout_marginTop="16dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             android:text="推荐卡包"
             android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:id="@+id/tv_hot_goto_classify"
             android:paddingTop="16dp"
             android:paddingRight="12dp"
-            android:paddingBottom="16dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentRight="true"
             android:text="查看全部 >"
             android:textSize="12sp"
@@ -48,7 +48,7 @@
     <TextView
         android:layout_marginTop="16dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="10dp"
         android:text="推荐卡片"
         android:textColor="@color/text_color_40"
         android:layout_width="wrap_content"

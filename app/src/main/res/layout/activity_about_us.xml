@@ -11,6 +11,11 @@
 
     <include layout="@layout/toolbar"/>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:layout_marginTop="154dp"
         android:background="@color/white"
@@ -70,9 +75,19 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_about_us_visit"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -111,5 +126,10 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

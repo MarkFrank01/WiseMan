@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#666666</color>
-    <color name="colorPrimaryDark">#666666</color>
+    <color name="colorPrimary">#3C3C3C</color>
+    <color name="colorPrimaryDark">#3C3C3C</color>
     <color name="colorAccent">#88DDFF</color>
     <color name="button_blue">#55CCFF</color>
     <color name="translate">#00000000</color>
@@ -11,7 +11,7 @@
     <color name="opacity_60">#99000000</color>
     <color name="white">#3C3C3C</color>
     <color name="bg_details">#4A4A4A</color>
-    <color name="bg_top_search">#C1C1C1</color>
+    <color name="bg_top_search">#4A4A4A</color>
     <color name="dialog_background">#4A4A4A</color>
     <color name="white_final">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -20,6 +20,7 @@
     <color name="line">#666666</color>
     <color name="fault">#3C3C3C</color>
     <color name="text_item_card_bag">#DBDBDB</color>
+    <color name="toolbar_title">#DBDBDB</color>
     <color name="text_color_ff">#C1C1C1</color>
     <color name="text_color_40">#C1C1C1</color>
     <color name="text_color_66">#999999</color>

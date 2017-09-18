@@ -206,7 +206,7 @@ public interface APIService {
     /**
      *取消收藏卡片
      */
-    @POST("user/PhoneLogin")
+    @POST("/favorite/uncollectSingleArticle")
     Flowable<BaseBean<PostBean>> removeCollectCard(@Query("articleId") int cardId);
 
     /**

@@ -30,7 +30,7 @@
             android:textColor="@color/text_color_top_search"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="28dp"/>
+            android:layout_height="32dp"/>
 
     </RelativeLayout>
 
@@ -39,7 +39,7 @@
         app:tabIndicatorColor="@color/translate"
         app:tabSelectedTextColor="@color/translate"
         app:tabMode="fixed"
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="40dp">
     </android.support.design.widget.TabLayout>

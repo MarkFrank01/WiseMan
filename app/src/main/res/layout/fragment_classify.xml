@@ -28,7 +28,7 @@
             android:textColor="@color/text_color_top_search"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="28dp"/>
+            android:layout_height="32dp"/>
 
     </RelativeLayout>
 

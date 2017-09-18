@@ -19,6 +19,8 @@ public class HotCardBean extends RetrofitBaen {
     private String bagName;
     @JSONField(name = "collectionId")
     private int bagId;
+    @JSONField(name = "classifyColor")
+    private String color;
 
     public int getId() {
         return id;
@@ -74,6 +76,14 @@ public class HotCardBean extends RetrofitBaen {
 
     public void setBagId(int bagId) {
         this.bagId = bagId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
 

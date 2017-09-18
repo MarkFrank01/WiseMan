@@ -11,6 +11,11 @@
 
     <include layout="@layout/toolbar"/>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,31 +26,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <TextView
-                    android:layout_marginLeft="15dp"
-                    android:layout_gravity="center"
-                    tools:text="卡包的内容分类是什么原则"
-                    android:textSize="16sp"
-                    android:textColor="@color/text_color_66"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-                <ImageView
-                    android:layout_marginRight="15dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/common_into"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
             <View
-                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/line"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
@@ -130,6 +112,40 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_marginLeft="15dp"
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    tools:text="卡包的内容分类是什么原则"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_66"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/common_into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

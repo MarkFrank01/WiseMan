@@ -215,7 +215,10 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        CollectCardBean bean = (CollectCardBean) adapter.getData().get(position);
         Intent intent = new Intent(this, CardDetailsActivity.class);
+        intent.putExtra("id",bean.getId());
+        intent.putExtra("name",bean.getName());
         startActivity(intent);
     }
 

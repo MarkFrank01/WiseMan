@@ -10,6 +10,17 @@
 
     <include layout="@layout/toolbar"/>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <RelativeLayout
         android:id="@+id/rl_my_head"
         android:background="@color/white"
@@ -73,9 +84,19 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_my_collect"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -218,5 +239,10 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

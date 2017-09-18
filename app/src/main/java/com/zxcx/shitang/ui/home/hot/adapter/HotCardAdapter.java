@@ -1,7 +1,11 @@
 package com.zxcx.shitang.ui.home.hot.adapter;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -36,5 +40,16 @@ public class HotCardAdapter extends BaseQuickAdapter<HotCardBean,BaseViewHolder>
         helper.setText(R.id.tv_item_home_card_title,item.getName());
         helper.setText(R.id.tv_item_home_card_type,item.getBagName());
         helper.setText(R.id.tv_item_home_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
+
+        TextView title = helper.getView(R.id.tv_item_home_card_title);
+        TextPaint paint = title.getPaint();
+        paint.setFakeBoldText(true);
+
+        if (item.getColor() != null) {
+            TextView cardBag = helper.getView(R.id.tv_item_home_card_type);
+            cardBag.setTextColor(Color.parseColor(item.getColor()));
+            GradientDrawable drawable =(GradientDrawable)cardBag.getBackground();
+            drawable.setStroke(1,Color.parseColor(item.getColor()));
+        }
     }
 }
