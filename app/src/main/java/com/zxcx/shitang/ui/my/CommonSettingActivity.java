@@ -11,6 +11,7 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeNightModeEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.DataCleanManager;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
@@ -107,6 +108,7 @@ public class CommonSettingActivity extends BaseActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             SharedPreferencesUtil.saveData(SVTSConstants.isNight,isChecked);
+            Constants.IS_NIGHT = isChecked;
             if (isChecked){
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }else {

@@ -10,15 +10,25 @@
     <ImageView
         android:id="@+id/iv_login_close"
         android:layout_marginLeft="13.8dp"
-        android:layout_marginTop="24.3dp"
+        android:layout_marginTop="6dp"
         android:padding="10dp"
         android:src="@drawable/common_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ImageView
+        android:id="@+id/iv_login_logo"
+        android:layout_below="@+id/iv_login_close"
+        android:src="@drawable/logo"
+        android:layout_marginTop="34dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="57dp"
+        android:layout_height="57dp"/>
+
     <RelativeLayout
         android:id="@+id/rl_login_phone"
-        android:layout_marginTop="134dp"
+        android:layout_below="@+id/iv_login_logo"
+        android:layout_marginTop="38dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
@@ -34,8 +44,8 @@
             android:cursorVisible="true"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:background="@null"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:paddingBottom="11.5dp"
+            android:paddingTop="11.5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"/>
@@ -47,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="12dp"
+            android:padding="11.5dp"
             android:src="@drawable/iv_phone_clear"/>
 
         <View
@@ -83,7 +93,7 @@
         android:layout_below="@id/et_login_password"
         android:padding="5dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         android:text="@string/register"
         android:textSize="14sp"
         android:textColor="@color/text_color_66"
@@ -95,7 +105,7 @@
         android:layout_below="@id/et_login_password"
         android:padding="5dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         android:layout_alignParentRight="true"
         android:text="@string/forget_password"
         android:textSize="14sp"
@@ -107,7 +117,7 @@
         android:id="@+id/btn_login"
         android:background="@drawable/bg_btn_login"
         android:layout_below="@id/tv_login_register"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="29dp"
         android:text="@string/login"
         android:textSize="17sp"
         android:textColor="@color/color_btn_login"

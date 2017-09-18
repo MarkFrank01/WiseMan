@@ -3,7 +3,7 @@
     <color name="colorPrimary">#666666</color>
     <color name="colorPrimaryDark">#666666</color>
     <color name="colorAccent">#88DDFF</color>
-    <color name="colorPrimaryFinal">#55CCFF</color>
+    <color name="button_blue">#55CCFF</color>
     <color name="translate">#00000000</color>
     <color name="opacity_30">#4C000000</color>
     <color name="opacity_40">#66000000</color>

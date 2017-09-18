@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="7dp"
         android:padding="10dp"
         android:src="@drawable/common_close"/>
 
@@ -167,7 +167,7 @@
             android:id="@+id/tv_register_agreement"
             android:text="识堂协议"
             android:textSize="14sp"
-            android:textColor="@color/colorPrimaryFinal"
+            android:textColor="@color/button_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

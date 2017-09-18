@@ -61,7 +61,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         initRecyclerView();
 
         mSrlCardBag.setOnRefreshListener(this);
-        mSrlCardBag.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
+        mSrlCardBag.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
         mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
         onRefresh();

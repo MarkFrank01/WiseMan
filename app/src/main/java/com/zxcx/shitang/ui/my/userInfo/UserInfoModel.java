@@ -6,6 +6,7 @@ import com.zxcx.shitang.mvpBase.BaseModel;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
+import com.zxcx.shitang.retrofit.PostSubscriber;
 
 public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
     public UserInfoModel(@NonNull UserInfoContract.Presenter present) {
@@ -23,6 +24,18 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
                     }
                 });
         addSubscription(subscription);
+    }
+
+    public void changeImageUrl(String imageUrl){
+        subscription = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null)
+                .compose(this.<BaseBean<UserInfoBean>>io_main())
+                .compose(this.<UserInfoBean>handleResult())
+                .subscribeWith(new PostSubscriber<UserInfoBean>(mPresent) {
+                    @Override
+                    public void onNext(UserInfoBean bean) {
+                        mPresent.postSuccess(bean);
+                    }
+                });
     }
 }
 

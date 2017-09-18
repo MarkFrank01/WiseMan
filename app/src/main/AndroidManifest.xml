@@ -92,8 +92,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
             android:screenOrientation="portrait"/>
@@ -138,12 +137,10 @@
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.aboutUS.AboutUSActivity"
             android:screenOrientation="portrait"/>
@@ -152,8 +149,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.selectAttention.SelectAttentionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
             android:screenOrientation="portrait"

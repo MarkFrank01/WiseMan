@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="52dp">
         <ImageView
-            android:src="@drawable/iv_collect_folder"
+            android:src="@drawable/iv_collect_card_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView

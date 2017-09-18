@@ -11,9 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.GotoClassifyEvent;
 import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
@@ -73,7 +75,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         getHotCardBag();
 
         mSrlHotCard.setOnRefreshListener(this);
-        mSrlHotCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
+        mSrlHotCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
     }
 
     @Override
@@ -170,6 +172,14 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         mRvHotCard.addItemDecoration(new HomeCardItemDecoration());
 
         View view = View.inflate(getContext(),R.layout.head_home_hot,null);
+        //查看全部按钮
+        TextView textView = (TextView) view.findViewById(R.id.tv_hot_goto_classify);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new GotoClassifyEvent());
+            }
+        });
         mRvHotCardBag = (RecyclerView) view.findViewById(R.id.rv_hot_card_bag);
         mCardBagAdapter = new HotCardBagAdapter(new ArrayList<HotCardBagBean>());
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));

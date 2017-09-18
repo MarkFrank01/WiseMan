@@ -15,4 +15,5 @@ public class Constants {
     public static final String PUSH_TYPE_AD = "ad";
 
     public static final int PAGE_SIZE = 16;
+    public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
 }

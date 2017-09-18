@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.shitang.utils.Constants;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -47,6 +49,20 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initStatusBar();
+    }
+
+    private void initStatusBar() {
+        if (!Constants.IS_NIGHT){
+            ImmersionBar.with(this)
+                    .statusBarColor(R.color.white_final)
+                    .statusBarDarkFont(true)
+                    .flymeOSStatusBarFontColor(R.color.black)
+                    .fitsSystemWindows(true)
+                    .init();
+        }else {
+
+        }
     }
 
     public void onResume() {
@@ -64,6 +80,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ImmersionBar.with(this).destroy();
         if (mCompositeSubscription != null) {
             mCompositeSubscription.dispose();//取消注册，以避免内存泄露
         }

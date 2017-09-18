@@ -73,7 +73,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         getClassify();
 
         mSrlClassify.setOnRefreshListener(this);
-        mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimaryFinal));
+        mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
     }
 
     @Override

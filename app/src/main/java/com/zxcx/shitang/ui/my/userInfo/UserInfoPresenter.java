@@ -46,5 +46,15 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
         super.detachView();
         mModel.onDestroy();
     }
+
+    @Override
+    public void postSuccess(UserInfoBean bean) {
+        mView.postSuccess(bean);
+    }
+
+    @Override
+    public void postFail(String msg) {
+        mView.postFail(msg);
+    }
 }
 

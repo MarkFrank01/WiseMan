@@ -39,7 +39,7 @@
             android:id="@+id/iv_welcome_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@color/colorPrimaryFinal"
+            android:src="@color/button_blue"
             android:layout_marginRight="10dp"/>
 
         <TextView

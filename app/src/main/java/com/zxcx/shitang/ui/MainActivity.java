@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeNightModeEvent;
 import com.zxcx.shitang.event.ClassifyClickRefreshEvent;
+import com.zxcx.shitang.event.GotoClassifyEvent;
 import com.zxcx.shitang.event.HomeClickRefreshEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
@@ -85,6 +86,11 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GotoClassifyEvent event) {
+        mHomeTabAll.performClick();
     }
 
     private void switchFragment(Fragment newFragment) {

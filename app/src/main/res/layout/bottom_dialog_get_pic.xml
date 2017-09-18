@@ -17,7 +17,7 @@
             android:gravity="center"
             android:text="拍照"
             android:textSize="17sp"
-            android:textColor="@color/colorPrimaryFinal"
+            android:textColor="@color/button_blue"
             android:layout_width="match_parent"
             android:layout_height="57dp"/>
 
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="相册"
             android:textSize="17sp"
-            android:textColor="@color/colorPrimaryFinal"
+            android:textColor="@color/button_blue"
             android:layout_width="match_parent"
             android:layout_height="57dp"/>
 
@@ -46,7 +46,7 @@
         android:gravity="center"
         android:text="取消"
         android:textSize="17sp"
-        android:textColor="@color/colorPrimaryFinal"
+        android:textColor="@color/button_blue"
         android:layout_width="match_parent"
         android:layout_height="57dp"/>
 

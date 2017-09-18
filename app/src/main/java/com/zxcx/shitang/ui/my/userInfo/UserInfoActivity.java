@@ -67,6 +67,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     private int mSex;
     private String mBirth;
     private File imageFile;
+    private int mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     private void initData() {
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.imgUrl, 0);
         mHeadImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
         ImageLoader.load(mActivity,mHeadImg,R.drawable.iv_my_head_placeholder,mIvUserInfoHead);
         mNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
@@ -115,6 +117,16 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     public void getDataSuccess(OSSTokenBean bean) {
 
         uploadImageToOSS(bean);
+    }
+
+    @Override
+    public void postSuccess(UserInfoBean bean) {
+        saveData(bean);
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -248,8 +260,8 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     private void uploadImageToOSS(OSSTokenBean bean) {
-        final String fileName = FileUtil.getFileName();
-        final String bucketName = "shitang-head";
+        final String fileName = "user/" + mUserId + FileUtil.getFileName();
+        final String bucketName = "zhizhe";
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
 // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 
@@ -260,7 +272,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                String imageUrl = "http://shitang-head.oss-cn-shenzhen.aliyuncs.com/"+fileName;
+                String imageUrl = "http://zhizhe.oss-cn-shenzhen.aliyuncs.com/"+fileName;
                 SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
                 ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
             }
