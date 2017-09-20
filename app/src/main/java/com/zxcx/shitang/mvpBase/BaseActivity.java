@@ -56,7 +56,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         if (!Constants.IS_NIGHT){
             ImmersionBar.with(this)
                     .statusBarColor(R.color.white_final)
-                    .statusBarDarkFont(true)
+                    .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.black)
                     .fitsSystemWindows(true)
                     .init();

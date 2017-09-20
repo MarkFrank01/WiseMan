@@ -35,7 +35,7 @@ public class HotCardAdapter extends BaseQuickAdapter<HotCardBean,BaseViewHolder>
         para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
         imageView.setLayoutParams(para);
 
-        helper.addOnClickListener(R.id.tv_item_home_card_type);
+        helper.addOnClickListener(R.id.fl_item_home_card_type);
         ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
         helper.setText(R.id.tv_item_home_card_title,item.getName());
         helper.setText(R.id.tv_item_home_card_type,item.getBagName());

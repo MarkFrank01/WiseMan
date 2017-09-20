@@ -3,6 +3,7 @@ package com.zxcx.shitang.ui.loginAndRegister.forget;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -68,7 +69,10 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         mEtForgetPasswordPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtForgetPasswordVerificationCode.addTextChangedListener(new NextCheckNullTextWatcher());
         mEtForgetPasswordPassword.addTextChangedListener(new CompleteCheckNullTextWatcher());
-
+        TextPaint paint = mBtnForgetPasswordNext.getPaint();
+        paint.setFakeBoldText(true);
+        TextPaint paint1 = mBtnForgetPasswordComplete.getPaint();
+        paint1.setFakeBoldText(true);
     }
 
     @Override

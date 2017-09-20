@@ -70,17 +70,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_push"
+        <CheckBox
+            android:id="@+id/cb_common_setting_push"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 
@@ -112,17 +108,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_night_model"
+        <CheckBox
+            android:id="@+id/cb_common_setting_night_model"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 
@@ -149,17 +141,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_only_wifi"
+        <CheckBox
+            android:id="@+id/cb_common_setting_only_wifi"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 

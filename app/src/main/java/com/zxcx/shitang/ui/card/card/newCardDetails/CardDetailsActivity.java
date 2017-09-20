@@ -58,6 +58,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private WebView mWebView;
     private int cardId;
     private String name;
+    private int likeNum;
+    private int collectNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +110,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
-        mCbCardDetailsCollect.setText(bean.getCollectNum() + "");
-        mCbCardDetailsLike.setText(bean.getLikeNum() + "");
+
+        collectNum = bean.getCollectNum();
+        likeNum = bean.getLikeNum();
+        mCbCardDetailsCollect.setText(collectNum + "");
+        mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
     }
@@ -127,6 +132,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CollectSuccessEvent event) {
         mCbCardDetailsCollect.setChecked(true);
+        collectNum++;
+        mCbCardDetailsCollect.setText(collectNum + "");
     }
 
     @OnClick(R.id.tv_card_details_share)
@@ -145,6 +152,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         } else {
             mCbCardDetailsCollect.setChecked(false);
             mPresenter.removeCollectCard(cardId);
+            collectNum--;
+            mCbCardDetailsCollect.setText(collectNum + "");
         }
     }
 
@@ -153,9 +162,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsLike.isChecked()) {
             mPresenter.likeCard(cardId);
+            likeNum++;
+            mCbCardDetailsLike.setText(likeNum + "");
         } else {
             mCbCardDetailsLike.setChecked(false);
             mPresenter.unLikeCard(cardId);
+            likeNum--;
+            mCbCardDetailsLike.setText(likeNum + "");
         }
     }
 

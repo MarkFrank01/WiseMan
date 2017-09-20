@@ -3,6 +3,7 @@ package com.zxcx.shitang.ui.loginAndRegister.register;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -66,6 +67,8 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         mEtRegisterPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtRegisterPassword.addTextChangedListener(textWatcher);
         mEtRegisterVerificationCode.addTextChangedListener(textWatcher);
+        TextPaint paint = mBtnRegister.getPaint();
+        paint.setFakeBoldText(true);
     }
 
     @Override
@@ -246,6 +249,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
                                 case 463:
                                 case 464:
                                 case 465:
+                                    toastShow("验证码发送失败，请重试");
                                     mTvRegisterSendVerification.setVisibility(View.GONE);
                                     mTvRegisterSendOver.setVisibility(View.VISIBLE);
                                     break;

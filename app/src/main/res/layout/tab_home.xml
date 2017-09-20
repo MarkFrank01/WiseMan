@@ -10,7 +10,8 @@
         android:id="@+id/tv_tab_home"
         android:textColor="@color/color_tab_text_home"
         android:textSize="14sp"
-        android:gravity="center"
+        android:gravity="center_horizontal|bottom"
+        android:paddingBottom="6dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

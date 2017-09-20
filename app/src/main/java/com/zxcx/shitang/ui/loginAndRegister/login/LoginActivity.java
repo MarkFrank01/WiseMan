@@ -3,11 +3,15 @@ package com.zxcx.shitang.ui.loginAndRegister.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextPaint;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
@@ -70,6 +74,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mEtLoginPhone.addTextChangedListener(new LoginTextWatcher());
         mEtLoginPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtLoginPassword.addTextChangedListener(new LoginTextWatcher());
+        mEtLoginPassword.setOnEditorActionListener(new LoginListener());
+        TextPaint paint = mBtnLogin.getPaint();
+        paint.setFakeBoldText(true);
     }
 
     @Override
@@ -111,14 +118,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.btn_login)
     public void onMBtnLoginClicked() {
-        if (checkPhone() && checkPassword()) {
-            String phone = mEtLoginPhone.getText().toString();
-            String password = MD5Utils.md5(mEtLoginPassword.getText().toString());
-            int appType = Constants.APP_TYPE;
-            String appChannel = WalleChannelReader.getChannel(this);
-            String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);
-        }
+        login();
     }
 
     @OnClick(R.id.ll_login_qq)
@@ -145,6 +145,17 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @OnClick(R.id.iv_login_close)
     public void onViewClicked() {
         finish();
+    }
+
+    private void login() {
+        if (checkPhone() && checkPassword()) {
+            String phone = mEtLoginPhone.getText().toString();
+            String password = MD5Utils.md5(mEtLoginPassword.getText().toString());
+            int appType = Constants.APP_TYPE;
+            String appChannel = WalleChannelReader.getChannel(this);
+            String appVersion = Utils.getAppVersionName(this);
+            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);
+        }
     }
 
     private boolean checkPhone() {
@@ -244,6 +255,20 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             } else {
                 mIvLoginPhoneClear.setVisibility(View.GONE);
             }
+        }
+    }
+
+    private class LoginListener implements TextView.OnEditorActionListener {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
+            if (actionId == EditorInfo.IME_ACTION_SEARCH
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                login();
+                return true;
+            }
+            return false;
         }
     }
 }

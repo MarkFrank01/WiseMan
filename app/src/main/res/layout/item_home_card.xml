@@ -27,7 +27,7 @@
         android:textColor="@color/text_color_40"
         android:textSize="16sp"
         android:maxLines="1"
-        android:maxEms="3"
+        android:maxEms="6"
         android:ellipsize="end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -42,20 +42,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tv_item_home_card_type"
-        android:background="@drawable/bg_item_home_card_type"
+    <FrameLayout
+        android:id="@+id/fl_item_home_card_type"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="16dp"
-        android:paddingLeft="9dp"
-        android:paddingRight="9dp"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp"
-        android:gravity="center"
-        tools:text="数码产品"
-        android:textColor="@color/colorAccent"
-        android:textSize="11sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item_home_card_type"
+            android:background="@drawable/bg_item_home_card_type"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:gravity="center"
+            tools:text="数码产品"
+            android:textColor="@color/colorAccent"
+            android:textSize="11sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
 </LinearLayout>

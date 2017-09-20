@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.zxcx.shitang.mvpBase.BaseFragment;
 import com.zxcx.shitang.ui.home.attention.AttentionFragment;
 import com.zxcx.shitang.ui.home.hot.HotFragment;
 import com.zxcx.shitang.ui.search.search.SearchActivity;
+import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -79,7 +81,10 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < mTlHome.getTabCount(); i++) {
             TabLayout.Tab tab = mTlHome.getTabAt(i);
             tab.setCustomView(R.layout.tab_home);
-            ((TextView) tab.getCustomView().findViewById(R.id.tv_tab_home)).setText(titles[i]);
+            TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_home);
+            textView.setText(titles[i]);
+            TextPaint paint = textView.getPaint();
+            paint.setFakeBoldText(true);
 //            tab.setText(titles[i]);
         }
         mTlHome.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -96,6 +101,11 @@ public class HomeFragment extends BaseFragment {
                 EventBus.getDefault().post(new HomeClickRefreshEvent());
             }
         });
+
+        ViewGroup.LayoutParams para = mTlHome.getLayoutParams();
+        int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
+        para.width = screenWidth * 2/3;
+        mTlHome.setLayoutParams(para);
     }
 
     @Override

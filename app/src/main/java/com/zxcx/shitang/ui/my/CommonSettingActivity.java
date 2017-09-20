@@ -3,7 +3,7 @@ package com.zxcx.shitang.ui.my;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.SwitchCompat;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -28,12 +28,12 @@ import cn.jpush.android.api.JPushInterface;
  */
 
 public class CommonSettingActivity extends BaseActivity {
-    @BindView(R.id.sc_common_setting_push)
-    SwitchCompat mScCommonSettingPush;
-    @BindView(R.id.sc_common_setting_night_model)
-    SwitchCompat mScCommonSettingNightModel;
-    @BindView(R.id.sc_common_setting_only_wifi)
-    SwitchCompat mScCommonSettingOnlyWifi;
+    @BindView(R.id.cb_common_setting_push)
+    CheckBox mScCommonSettingPush;
+    @BindView(R.id.cb_common_setting_night_model)
+    CheckBox mScCommonSettingNightModel;
+    @BindView(R.id.cb_common_setting_only_wifi)
+    CheckBox mScCommonSettingOnlyWifi;
     @BindView(R.id.tv_common_setting_clean_cache)
     TextView mTvCommonSettingCleanCache;
 
