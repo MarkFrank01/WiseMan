@@ -3,7 +3,6 @@ package com.zxcx.shitang.ui.my.feedback.feedback;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
 
 public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> implements FeedbackContract.Presenter {
 
@@ -39,7 +38,7 @@ public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> impl
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
 
     }
 

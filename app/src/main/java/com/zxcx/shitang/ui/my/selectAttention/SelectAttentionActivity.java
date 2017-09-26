@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.SelectAttentionEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.my.selectAttention.adapter.SelectAttentionAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -75,7 +74,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
         EventBus.getDefault().postSticky(new SelectAttentionEvent());
         finish();
     }

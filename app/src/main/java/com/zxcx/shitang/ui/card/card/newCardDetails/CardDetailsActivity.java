@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.APIService;
 import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
@@ -123,7 +122,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
         if (mAction == Action.collect){
 
         }else if (mAction == Action.unCollect){

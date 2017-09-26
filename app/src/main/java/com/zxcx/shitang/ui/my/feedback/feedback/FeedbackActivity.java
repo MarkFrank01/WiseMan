@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.Utils;
 
@@ -64,7 +63,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
         mLlFeedbackCommit.setVisibility(View.GONE);
         mLlFeedbackSuccess.setVisibility(View.VISIBLE);
     }

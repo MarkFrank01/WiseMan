@@ -15,13 +15,12 @@ import com.zxcx.shitang.event.AddCollectFolderDialogEvent;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.mvpBase.BaseRxJava;
-import com.zxcx.shitang.mvpBase.IGetPostPresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.mvpBase.INullGetPostPresenter;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseArrayBean;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
-import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.retrofit.NullPostSubscriber;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.collect.collectFolder.CollectFolderBean;
 
@@ -40,7 +39,7 @@ import butterknife.OnClick;
  * Created by anm on 2017/7/4.
  */
 
-public class SelectCollectFolderActivity extends BaseActivity implements IGetPostPresenter<List<CollectFolderBean>, PostBean> {
+public class SelectCollectFolderActivity extends BaseActivity implements INullGetPostPresenter<List<CollectFolderBean>> {
 
 
     @BindView(R.id.iv_toolbar_back)
@@ -117,10 +116,10 @@ public class SelectCollectFolderActivity extends BaseActivity implements IGetPos
         mDisposable = AppClient.getAPIService().addCollectCard(folderId, cardId)
                 .compose(BaseRxJava.<BaseBean>io_main())
                 .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(this) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        SelectCollectFolderActivity.this.postSuccess(new PostBean());
+                        SelectCollectFolderActivity.this.postSuccess();
                     }
                 });
         addSubscription(mDisposable);
@@ -143,7 +142,7 @@ public class SelectCollectFolderActivity extends BaseActivity implements IGetPos
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
         EventBus.getDefault().post(new CollectSuccessEvent());
         finish();
     }

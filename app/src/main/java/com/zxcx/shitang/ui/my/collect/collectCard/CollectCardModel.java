@@ -3,12 +3,11 @@ package com.zxcx.shitang.ui.my.collect.collectCard;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BaseModel;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseArrayBean;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
-import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.retrofit.NullPostSubscriber;
 
 import java.util.List;
 
@@ -34,10 +33,10 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
         subscription = AppClient.getAPIService().deleteCollectCard(id, idList)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        mPresent.postSuccess(new PostBean());
+                        mPresent.postSuccess();
                     }
                 });
         addSubscription(subscription);
@@ -47,10 +46,10 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
         subscription = AppClient.getAPIService().changeCollectFolderName(id, name)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        mPresent.postSuccess(new PostBean());
+                        mPresent.postSuccess();
                     }
                 });
         addSubscription(subscription);

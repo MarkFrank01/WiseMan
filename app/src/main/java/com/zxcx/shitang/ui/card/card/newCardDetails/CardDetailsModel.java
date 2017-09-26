@@ -3,11 +3,10 @@ package com.zxcx.shitang.ui.card.card.newCardDetails;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BaseModel;
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
 import com.zxcx.shitang.retrofit.BaseSubscriber;
-import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.retrofit.NullPostSubscriber;
 
 public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
     public CardDetailsModel(@NonNull CardDetailsContract.Presenter present) {
@@ -31,10 +30,10 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
         subscription = AppClient.getAPIService().likeCard(cardId)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
                     @Override
                     public void onNext(BaseBean bea) {
-                        mPresent.postSuccess(new PostBean());
+                        mPresent.postSuccess();
                     }
                 });
         addSubscription(subscription);
@@ -44,10 +43,10 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
         subscription = AppClient.getAPIService().unLikeCard(cardId)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
                     @Override
                     public void onNext(BaseBean bea) {
-                        mPresent.postSuccess(new PostBean());
+                        mPresent.postSuccess();
                     }
                 });
         addSubscription(subscription);
@@ -57,10 +56,10 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
         subscription = AppClient.getAPIService().removeCollectCard(cardId)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
                     @Override
                     public void onNext(BaseBean bea) {
-                        mPresent.postSuccess(new PostBean());
+                        mPresent.postSuccess();
                     }
                 });
         addSubscription(subscription);

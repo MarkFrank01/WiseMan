@@ -15,11 +15,10 @@ import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.AddCollectFolderDialogEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
 import com.zxcx.shitang.mvpBase.BaseRxJava;
-import com.zxcx.shitang.mvpBase.IPostPresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
+import com.zxcx.shitang.mvpBase.INullPostPresenter;
 import com.zxcx.shitang.retrofit.AppClient;
 import com.zxcx.shitang.retrofit.BaseBean;
-import com.zxcx.shitang.retrofit.PostSubscriber;
+import com.zxcx.shitang.retrofit.NullPostSubscriber;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.utils.Utils;
 
@@ -33,7 +32,7 @@ import butterknife.OnClick;
  * Created by anm on 2017/7/4.
  */
 
-public class AddCollectFolderActivity extends BaseActivity implements IPostPresenter<PostBean> {
+public class AddCollectFolderActivity extends BaseActivity implements INullPostPresenter {
 
 
     @BindView(R.id.et_add_collect_folder)
@@ -97,17 +96,17 @@ public class AddCollectFolderActivity extends BaseActivity implements IPostPrese
         mDisposable = AppClient.getAPIService().addCollectFolder(name)
                 .compose(BaseRxJava.<BaseBean>io_main())
                 .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(this) {
+                .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        AddCollectFolderActivity.this.postSuccess(new PostBean());
+                        AddCollectFolderActivity.this.postSuccess();
                     }
                 });
         addSubscription(mDisposable);
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
+    public void postSuccess() {
         EventBus.getDefault().post(new AddCollectFolderDialogEvent());
         finish();
     }

@@ -3,7 +3,6 @@ package com.zxcx.shitang.ui.card.card.newCardDetails;
 import android.support.annotation.NonNull;
 
 import com.zxcx.shitang.mvpBase.BasePresenter;
-import com.zxcx.shitang.mvpBase.PostBean;
 
 public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View> implements CardDetailsContract.Presenter {
 
@@ -61,8 +60,8 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     }
 
     @Override
-    public void postSuccess(PostBean bean) {
-        mView.postSuccess(bean);
+    public void postSuccess() {
+        mView.postSuccess();
     }
 
     @Override
