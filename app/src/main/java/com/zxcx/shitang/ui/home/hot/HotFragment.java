@@ -92,6 +92,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mCardAdapter = null;
+        mCardBagAdapter = null;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -171,7 +173,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         mRvHotCard.setAdapter(mCardAdapter);
         mRvHotCard.addItemDecoration(new HomeCardItemDecoration());
 
-        View view = View.inflate(getContext(),R.layout.head_home_hot,null);
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.head_home_hot,null);
         //查看全部按钮
         TextView textView = (TextView) view.findViewById(R.id.tv_hot_goto_classify);
         textView.setOnClickListener(new View.OnClickListener() {

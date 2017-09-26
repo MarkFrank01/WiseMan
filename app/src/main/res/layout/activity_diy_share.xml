@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="@dimen/toolbar_height">
 
             <CheckBox
                 android:id="@+id/cb_card_details_collect"

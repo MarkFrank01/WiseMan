@@ -178,7 +178,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
             mCardAdapter.setEnableLoadMore(true);
         }
         if (mCardAdapter.getData().size() == 0){
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardAdapter.setEmptyView(view);
         }
     }
@@ -205,7 +205,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         int color = ContextCompat.getColor(getContext(), R.color.button_blue);
         mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
 
-        mEmptyView = View.inflate(getContext(),R.layout.empty_attention,null);
+        mEmptyView = LayoutInflater.from(mActivity).inflate(R.layout.empty_attention,null);
         mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,7 +232,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mRvAttentionCard.setAdapter(mCardAdapter);
         mRvAttentionCard.addItemDecoration(new HomeCardItemDecoration());
 
-        View view = View.inflate(getContext(),R.layout.head_home_attention,null);
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.head_home_attention,null);
         mRvAttentionCardBag = (RecyclerView) view.findViewById(R.id.rv_attention_card_bag);
         mCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>());
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));

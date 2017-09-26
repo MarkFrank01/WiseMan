@@ -1,6 +1,5 @@
 package com.zxcx.shitang.ui.card.card.share;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import butterknife.ButterKnife;
@@ -22,7 +22,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/5/27.
  */
 
-public class ShareWayDialog extends DialogFragment {
+public class ShareWayDialog extends BaseDialog {
 
 
     private Unbinder mUnbinder;

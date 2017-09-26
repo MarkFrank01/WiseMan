@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -75,6 +76,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         initRecyclerView();
         getCollectFolder();
 
+        mIvDialogCollectFolderConfirm.setEnabled(false);
         mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("编辑");
         mEtDialogAddCollectFolder.addTextChangedListener(new AddCollectFolderTextWatcher());
@@ -136,7 +138,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         }
         if (mAdapter.getData().size() == 0){
             //占空图
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
             textView.setText(R.string.no_collect_folder);
             mAdapter.setEmptyView(view);
@@ -316,9 +318,9 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         @Override
         public void afterTextChanged(Editable s) {
             if (s.length() > 0) {
-                mIvDialogCollectFolderConfirm.setImageResource(R.drawable.iv_dialog_collect_folder_confirm_blue);
+                mIvDialogCollectFolderConfirm.setEnabled(true);
             } else {
-                mIvDialogCollectFolderConfirm.setImageResource(R.drawable.iv_dialog_collect_folder_confirm_white);
+                mIvDialogCollectFolderConfirm.setEnabled(false);
             }
         }
     }

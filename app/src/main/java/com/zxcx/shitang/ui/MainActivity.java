@@ -86,6 +86,7 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
+        mHomeTabHome.performClick();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

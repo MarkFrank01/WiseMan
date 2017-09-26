@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.LoginEvent;
+import com.zxcx.shitang.event.RegisterEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.shitang.ui.loginAndRegister.register.RegisterActivity;
@@ -26,6 +27,8 @@ import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -66,8 +69,14 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initView() {
@@ -95,13 +104,27 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
         //极光统计
-        cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult",true);
+        cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult", true);
         lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));
         JAnalyticsInterface.onEvent(this, lEvent);
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
+        Utils.closeInputMethod(mEtLoginPassword);
         finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RegisterEvent event) {
+        //登录成功通知
+        EventBus.getDefault().post(new LoginEvent());
+        EventBus.getDefault().postSticky(new LoginEvent());
+        finish();
+    }
+
+    @OnClick(R.id.iv_login_phone_clear)
+    public void onMIvLoginPhoneClearClicked() {
+        mEtLoginPhone.setText("");
     }
 
     @OnClick(R.id.tv_login_register)
@@ -154,7 +177,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             int appType = Constants.APP_TYPE;
             String appChannel = WalleChannelReader.getChannel(this);
             String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneLogin(phone,password,appType,appChannel,appVersion);
+            mPresenter.phoneLogin(phone, password, appType, appChannel, appVersion);
         }
     }
 
@@ -176,7 +199,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         }
     }
 
-    class ChannelLoginListener implements PlatformActionListener{
+    class ChannelLoginListener implements PlatformActionListener {
 
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {

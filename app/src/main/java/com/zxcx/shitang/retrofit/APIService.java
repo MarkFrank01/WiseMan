@@ -1,6 +1,5 @@
 package com.zxcx.shitang.retrofit;
 
-import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.shitang.ui.card.cardBag.CardBagBean;
 import com.zxcx.shitang.ui.classify.ClassifyBean;
@@ -16,6 +15,7 @@ import com.zxcx.shitang.ui.my.userInfo.UserInfoBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBagBean;
 import com.zxcx.shitang.ui.search.result.SearchCardBean;
 import com.zxcx.shitang.ui.search.search.SearchBean;
+import com.zxcx.shitang.ui.welcome.WelcomeBean;
 
 import java.util.List;
 
@@ -126,7 +126,7 @@ public interface APIService {
      * 删除收藏夹
      */
     @POST("/favorite/deleteCollection")
-    Flowable<BaseBean<PostBean>> deleteCollectFolder(
+    Flowable<BaseBean> deleteCollectFolder(
             @Query("collectionList") List<Integer> idList);
 
     /**
@@ -161,7 +161,7 @@ public interface APIService {
      * 删除收藏卡片
      */
     @POST("/favorite/uncollectArticle")
-    Flowable<BaseBean<PostBean>> deleteCollectCard(
+    Flowable<BaseBean> deleteCollectCard(
             @Query("collectionId") int id, @Query("articleIdList") List<Integer> idList);
 
     /**
@@ -174,7 +174,7 @@ public interface APIService {
      * 修改兴趣选择列表
      */
     @POST("/collection/followCollection")
-    Flowable<BaseArrayBean<PostBean>> changeAttentionList(
+    Flowable<BaseBean> changeAttentionList(
             @Query("collectionList") List<Integer> idList);
 
     /**
@@ -195,25 +195,25 @@ public interface APIService {
      *点赞卡片
      */
     @POST("/article/setLikeForArticle")
-    Flowable<BaseBean<PostBean>> likeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean> likeCard(@Query("articleId") int cardId);
 
     /**
      *取消点赞卡片
      */
     @POST("/article/unLikeForArticle")
-    Flowable<BaseBean<PostBean>> unLikeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean> unLikeCard(@Query("articleId") int cardId);
 
     /**
      *取消收藏卡片
      */
     @POST("/favorite/uncollectSingleArticle")
-    Flowable<BaseBean<PostBean>> removeCollectCard(@Query("articleId") int cardId);
+    Flowable<BaseBean> removeCollectCard(@Query("articleId") int cardId);
 
     /**
      *提交反馈
      */
     @POST("/feedback/sumbitFeedbadk")
-    Flowable<BaseBean<PostBean>> feedback(
+    Flowable<BaseBean> feedback(
             @Query("content") String content,@Query("contact") String contact,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
@@ -223,4 +223,10 @@ public interface APIService {
      */
     @POST("/ossAuth")
     Flowable<BaseBean<OSSTokenBean>> getOSS(@Query("uuid") String uuid);
+
+    /**
+     *OSS秘钥获取
+     */
+    @POST("/ad/getAdByAdNum")
+    Flowable<BaseArrayBean<WelcomeBean>> getAD(@Query("adNum") String adNum);
 }

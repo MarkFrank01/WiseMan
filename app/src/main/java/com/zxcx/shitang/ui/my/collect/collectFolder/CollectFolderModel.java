@@ -32,12 +32,12 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
 
     public void deleteCollectFolder(List<Integer> idList){
         subscription = AppClient.getAPIService().deleteCollectFolder(idList)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean bean) {
-                        mPresent.postSuccess(bean);
+                    public void onNext(BaseBean bean) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);

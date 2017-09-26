@@ -18,7 +18,7 @@ import java.util.List;
 public class AttentionCardBagAdapter extends BaseQuickAdapter<HotCardBagBean,BaseViewHolder> {
 
     public AttentionCardBagAdapter(@Nullable List<HotCardBagBean> data) {
-        super(R.layout.item_attention_card_bag, data);
+        super(R.layout.item_hot_card_bag, data);
     }
 
     @Override

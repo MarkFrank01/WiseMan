@@ -9,6 +9,7 @@
     tools:context="com.zxcx.shitang.ui.my.MyFragment">
 
     <include layout="@layout/toolbar"/>
+    <include layout="@layout/view_line"/>
 
     <View
         android:background="@color/line"

@@ -1,5 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.App;
+import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.IGetPresenter;
 import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.LogCat;
@@ -23,14 +25,18 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        String code = t.getMessage().substring(0,3);
-        String message = t.getMessage().substring(3);
-        t.printStackTrace();
-        LogCat.d(t.getMessage());
-        if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
-            mPresenter.startLogin();
+        if (t.getMessage() != null) {
+            String code = t.getMessage().substring(0, 3);
+            String message = t.getMessage().substring(3);
+            t.printStackTrace();
+            LogCat.d(t.getMessage());
+            if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)) {
+                mPresenter.startLogin();
+            } else {
+                mPresenter.getDataFail(message);
+            }
         }else {
-            mPresenter.getDataFail(message);
+            mPresenter.getDataFail(App.getContext().getString(R.string.network_error));
         }
     }
 

@@ -11,8 +11,7 @@
         android:id="@+id/ll_search_result_toolbar"
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
+        android:layout_height="@dimen/toolbar_height"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
@@ -25,6 +24,7 @@
             android:paddingLeft="8dp"
             android:hint="@string/tv_home_search"
             android:textColorHint="@color/text_color_top_search"
+            android:cursorVisible="false"
             android:text="笔"
             android:textSize="14sp"
             android:layout_centerInParent="true"
@@ -37,7 +37,7 @@
             android:imeOptions="actionSearch"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="28dp"/>
+            android:layout_height="30dp"/>
 
         <TextView
             android:id="@+id/tv_search_result_cancel"
@@ -51,6 +51,11 @@
             android:layout_height="match_parent"/>
 
     </LinearLayout>
+    <include
+        android:layout_below="@+id/ll_search_result_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        layout="@layout/view_line"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_search_result"

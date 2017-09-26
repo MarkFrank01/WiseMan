@@ -37,7 +37,7 @@
         <EditText
             android:id="@+id/et_login_phone"
             android:maxLength="11"
-            android:hint="手机号 (86)"
+            android:hint=" 手机号 (86)"
             android:textSize="16sp"
             android:textColor="@color/text_color_40"
             android:textColorHint="@color/line"
@@ -75,7 +75,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:maxLength="16"
-        android:hint="密码"
+        android:hint=" 密码"
         android:textSize="16sp"
         android:textColor="@color/text_color_40"
         android:textColorHint="@color/line"

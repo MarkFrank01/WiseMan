@@ -10,6 +10,7 @@
     tools:context="com.zxcx.shitang.ui.my.feedback.help.HelpActivity">
 
     <include layout="@layout/toolbar"/>
+    <include layout="@layout/view_line"/>
 
     <View
         android:background="@color/line"

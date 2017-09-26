@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.loginAndRegister.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -15,12 +16,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.event.RegisterEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.loginAndRegister.forget.SMSSendOverDialog;
+import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.MD5Utils;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.Utils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.regex.Pattern;
 
@@ -88,6 +94,9 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
+        Intent intent = new Intent(this, SelectAttentionActivity.class);
+        startActivity(intent);
+        EventBus.getDefault().post(new RegisterEvent());
         finish();
     }
 
@@ -128,6 +137,8 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     @OnClick(R.id.tv_register_send_over)
     public void onViewClicked() {
+        SMSSendOverDialog dialog = new SMSSendOverDialog();
+        dialog.show(getFragmentManager(),"");
     }
 
 

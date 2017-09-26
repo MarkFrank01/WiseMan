@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="15dp">
+
+            <com.zxcx.shitang.widget.DatePickerView
+                android:id="@+id/year_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/year"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp" />
+
+            <com.zxcx.shitang.widget.DatePickerView
+                android:id="@+id/month_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/month"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp" />
+
+            <com.zxcx.shitang.widget.DatePickerView
+                android:id="@+id/day_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/day"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp" />
+
+            <com.zxcx.shitang.widget.DatePickerView
+                android:id="@+id/hour_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/hour_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/hour"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp" />
+
+            <com.zxcx.shitang.widget.DatePickerView
+                android:id="@+id/minute_pv"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/minute_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="@string/minute"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_below="@+id/et_dialog_change_nick_name"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_below="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_cancel"
+            android:text="@string/common_cancel"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_confirm"
+            android:text="@string/common_confirm"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

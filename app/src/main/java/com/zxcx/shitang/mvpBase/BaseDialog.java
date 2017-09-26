@@ -29,7 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BaseDialog extends DialogFragment{
 
-    protected Disposable subscription;
+    protected Disposable mDisposable;
     //    public ApiStores apiStores = AppClient.retrofit().create(ApiStores.class);
     private CompositeDisposable mCompositeSubscription = null;
 
@@ -74,10 +74,8 @@ public class BaseDialog extends DialogFragment{
                                         public T apply(@NonNull BaseBean<T> result) throws Exception {
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL == result.getCode()) {
-                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-                                                throw new Exception();
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }
@@ -96,10 +94,8 @@ public class BaseDialog extends DialogFragment{
                                         public BaseBean apply(@NonNull BaseBean result) throws Exception {
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result;
-                                            } else if (Constants.RESULT_FAIL == result.getCode()) {
-                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-                                                throw new Exception();
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }
@@ -118,10 +114,8 @@ public class BaseDialog extends DialogFragment{
                                         public List<T> apply(@NonNull BaseArrayBean<T> result) throws Exception {
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
-                                            } else if (Constants.RESULT_FAIL == result.getCode()) {
-                                                throw new Exception(result.getCode() + result.getMessage());
                                             } else {
-                                                throw new Exception();
+                                                throw new Exception(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }

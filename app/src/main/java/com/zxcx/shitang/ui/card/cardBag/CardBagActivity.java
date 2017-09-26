@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -112,12 +113,12 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         }
         if (mCardBagCardAdapter.getData().size() == 0){
             //占空图
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardBagCardAdapter.setEmptyView(view);
         }
         if (mCardBagListAdapter.getData().size() == 0){
             //占空图
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardBagListAdapter.setEmptyView(view);
         }
     }

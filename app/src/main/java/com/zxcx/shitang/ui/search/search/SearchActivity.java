@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -55,6 +56,12 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
+    protected void onDestroy() {
+        Utils.closeInputMethod(mEtSearch);
+        super.onDestroy();
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
@@ -88,7 +95,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     @OnClick(R.id.iv_left_close)
     public void onMIvLeftCloseClicked() {
-        finish();
+        onBackPressed();
     }
 
     @OnClick(R.id.ll_search_hot_refresh)
@@ -112,7 +119,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         mFlSearchHot.removeAllViews();
         mFlSearchHot.setVisibility(View.INVISIBLE);
         for (int i = 0; i < mList.size(); i++) {
-            TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
+            TextView textView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null);
             textView.setText(mList.get(i).getConent());
             mFlSearchHot.addView(textView);
 
@@ -133,7 +140,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
                 num += flexLines.get(1).getItemCount();
                 mFlSearchHot.removeAllViews();
                 for (int i = 0; i < num; i++) {
-                    TextView textView = (TextView) View.inflate(mActivity, R.layout.item_search_hot, null);
+                    TextView textView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null);
                     textView.setText(mList.get(i).getConent());
                     textView.setOnClickListener(SearchActivity.this);
                     mFlSearchHot.addView(textView);

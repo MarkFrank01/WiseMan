@@ -1,5 +1,7 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.App;
+import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.IPostPresenter;
 import com.zxcx.shitang.utils.Constants;
 
@@ -22,12 +24,16 @@ public abstract class PostSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        String code = t.getMessage().substring(0,3);
-        String message = t.getMessage().substring(3);
-        if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
-            mPresenter.startLogin();
-        }else {
-            mPresenter.postFail(message);
+        if (t.getMessage() != null) {
+            String code = t.getMessage().substring(0,3);
+            String message = t.getMessage().substring(3);
+            if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)){
+                mPresenter.startLogin();
+            }else {
+                mPresenter.postFail(message);
+            }
+        } else {
+            mPresenter.postFail(App.getContext().getString(R.string.network_error));
         }
     }
 

@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -50,7 +51,9 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     private SearchResultCardAdapter mCardAdapter;
     private String mKeyword;
     private int page = 0;
-    private View mEmptyView;
+    private View mHeaderView;
+    private TextView mTvHeadCard;
+    private View mViewHeadInterval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +63,16 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
         initData();
 
-        mEmptyView = View.inflate(mActivity,R.layout.view_no_data,null);
         initRecyclerView();
         mEtSearchResult.setOnEditorActionListener(new SearchListener());
         mSrlSearchResult.setOnRefreshListener(this);
         mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.button_blue));
         onRefresh();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initData() {
@@ -81,8 +88,6 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     @Override
     public void onRefresh() {
         page = 0;
-        mCardAdapter.getData().clear();
-        mCardBagAdapter.getData().clear();
         searchCardBag();
         searchCard();
     }
@@ -96,14 +101,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
     @Override
     public void searchCardBagSuccess(List<SearchCardBagBean> list) {
-        if (page == 1){
-            mCardBagAdapter.notifyDataSetChanged();
-        }
-        mCardBagAdapter.addData(list);
-        if (mCardBagAdapter.getData().size() == 0){
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
-            mCardBagAdapter.setEmptyView(view);
-        }
+        mCardBagAdapter.setNewData(list);
+        checkNullShow();
     }
 
     @Override
@@ -111,8 +110,8 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         if (mSrlSearchResult.isRefreshing()) {
             mSrlSearchResult.setRefreshing(false);
         }
-        if (page == 1){
-            mCardAdapter.notifyDataSetChanged();
+        if (page == 0){
+            mCardAdapter.setNewData(new ArrayList<SearchCardBean>());
         }
         page++;
         mCardAdapter.addData(list);
@@ -122,6 +121,26 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
             mCardAdapter.loadMoreComplete();
             mCardAdapter.setEnableLoadMore(false);
             mCardAdapter.setEnableLoadMore(true);
+        }
+        checkNullShow();
+    }
+
+    private void checkNullShow() {
+        if (mCardBagAdapter.getData().size() == 0 && mCardAdapter.getData().size() == 0){
+            mHeaderView.setVisibility(View.GONE);
+            View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
+            mCardAdapter.setEmptyView(emptyView);
+        }else if (mCardBagAdapter.getData().size() == 0){
+            mLLHeadSearchResultCardBag.setVisibility(View.GONE);
+            mTvHeadCard.setVisibility(View.VISIBLE);
+            mViewHeadInterval.setVisibility(View.VISIBLE);
+        }else if (mCardAdapter.getData().size() == 0){
+            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
+            mCardAdapter.isUseEmpty(false);
+            mTvHeadCard.setVisibility(View.GONE);
+            mViewHeadInterval.setVisibility(View.GONE);
+        }else {
+
         }
     }
 
@@ -136,22 +155,27 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         mRvSearchResultCard.setLayoutManager(hotCardLayoutManager);
         mRvSearchResultCard.setAdapter(mCardAdapter);
 
-        View view = View.inflate(mActivity, R.layout.head_search_result, null);
-        mRvSearchResultCardBag = (RecyclerView) view.findViewById(R.id.rv_search_result_card_bag);
-        mLLHeadSearchResultCardBag = (LinearLayout) view.findViewById(R.id.ll_head_search_result_card_bag);
+        mHeaderView = LayoutInflater.from(mActivity).inflate(R.layout.head_search_result, null);
+        mRvSearchResultCardBag = (RecyclerView) mHeaderView.findViewById(R.id.rv_search_result_card_bag);
+        mLLHeadSearchResultCardBag = (LinearLayout) mHeaderView.findViewById(R.id.ll_head_search_result_card_bag);
+        mTvHeadCard = (TextView) mHeaderView.findViewById(R.id.tv_head_search_card);
+        mViewHeadInterval = mHeaderView.findViewById(R.id.view_head_search_result);
+
         mCardBagAdapter = new SearchResultCardBagAdapter(new ArrayList<SearchCardBagBean>(),mKeyword);
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvSearchResultCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvSearchResultCardBag.setAdapter(mCardBagAdapter);
         mRvSearchResultCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
-        mCardAdapter.addHeaderView(view);
-        mCardAdapter.setEmptyView(mEmptyView);
+        mCardAdapter.addHeaderView(mHeaderView);
+        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
+        mCardAdapter.setEmptyView(emptyView);
         mCardAdapter.setHeaderAndEmpty(true);
     }
 
     @OnClick(R.id.tv_search_result_cancel)
     public void onViewClicked() {
+        Utils.closeInputMethod(mEtSearchResult);
         finish();
     }
 

@@ -3,6 +3,7 @@ package com.zxcx.shitang.ui.my.userInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeSexDialogEvent;
@@ -32,13 +35,21 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/13.
  */
 
-public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserInfoBean>{
+public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserInfoBean> {
 
     Unbinder unbinder;
     @BindView(R.id.rb_change_sex_man)
     RadioButton mRbChangeSexMan;
     @BindView(R.id.rb_change_sex_woman)
     RadioButton mRbChangeSexWoman;
+    @BindView(R.id.rg_change_sex)
+    RadioGroup mRgChangeSex;
+    @BindView(R.id.view_line)
+    View mViewLine;
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
+    @BindView(R.id.tv_dialog_confirm)
+    TextView mTvDialogConfirm;
     private int sex;
 
     @Nullable
@@ -48,6 +59,15 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserIn
         View view = inflater.inflate(R.layout.dialog_change_sex, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextPaint tp = mTvDialogCancel.getPaint();
+        tp.setFakeBoldText(true);
+        tp = mTvDialogConfirm.getPaint();
+        tp.setFakeBoldText(true);
     }
 
     @Override
@@ -81,8 +101,8 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserIn
         changeSex(sex);
     }
 
-    public void changeSex(int sex){
-        subscription = AppClient.getAPIService().changeUserInfo(null, null, sex, null)
+    public void changeSex(int sex) {
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, sex, null)
                 .compose(this.<BaseBean<UserInfoBean>>io_main())
                 .compose(this.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
@@ -91,7 +111,7 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserIn
                         ChangeSexDialog.this.postSuccess(bean);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     @Override

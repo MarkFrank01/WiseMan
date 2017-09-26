@@ -9,6 +9,7 @@
     <color name="opacity_40">#66000000</color>
     <color name="opacity_50">#80000000</color>
     <color name="opacity_60">#99000000</color>
+    <color name="opacity_70">#B2000000</color>
     <color name="white">#FFFFFF</color>
     <color name="bg_details">#FFFFFF</color>
     <color name="bg_top_search">#EEEEEE</color>

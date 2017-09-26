@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
 import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
 import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
@@ -44,7 +44,6 @@ public class OldCardDetailsActivity extends MvpActivity<OldCardDetailsPresenter>
     @BindView(R.id.iv_card_details)
     ImageView mIvCardDetails;
 
-    SelectCollectFolderDialog mSelectCollectFolderDialog;
     @BindView(R.id.scv_card_details)
     NestedScrollView mScvCardDetails;
     @BindView(R.id.tv_card_details_title)
@@ -59,8 +58,6 @@ public class OldCardDetailsActivity extends MvpActivity<OldCardDetailsPresenter>
 
         TextPaint tp = mTvCardDetailsSubhead.getPaint();
         tp.setFakeBoldText(true);
-
-        mSelectCollectFolderDialog = new SelectCollectFolderDialog();
     }
 
     @Override
@@ -105,7 +102,8 @@ public class OldCardDetailsActivity extends MvpActivity<OldCardDetailsPresenter>
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
         if (mCbCardDetailsCollect.isChecked()) {
-            mSelectCollectFolderDialog.show(getFragmentManager(), "1");
+            Intent intent = new Intent(mActivity,SelectCollectFolderActivity.class);
+            startActivity(intent);
             mCbCardDetailsCollect.setChecked(false);
         }
     }

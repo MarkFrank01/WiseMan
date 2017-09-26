@@ -24,13 +24,13 @@
     <string name="title_my">我的</string>
     <string name="title_user_info">账户资料</string>
     <string name="tltle_collect_folder">我的收藏</string>
-    <string name="tv_home_search">搜索你想要的内容</string>
+    <string name="tv_home_search"> 搜索你想要的内容</string>
     <string name="tv_search_hot">热搜榜</string>
     <string name="tv_search_hot_refresh">换一批</string>
     <string name="common_cancel">取消</string>
     <string name="btn_commit_feedback">提交反馈</string>
-    <string name="et_feedback_phone">请留下手机或邮箱等联系方式</string>
-    <string name="et_feedback_content">想吐槽点什么吗?</string>
+    <string name="et_feedback_phone"> 请留下手机或邮箱等联系方式</string>
+    <string name="et_feedback_content"> 想吐槽点什么吗?</string>
     <string name="common_close">关闭</string>
     <string name="common_confirm">确定</string>
     <string name="wechat">微信</string>
@@ -53,4 +53,10 @@
     <string name="login">登录</string>
     <string name="no_collect_folder">暂无收藏夹，请先添加收藏夹</string>
     <string name="no_collect_card">暂未收藏卡片</string>
+
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.ChangeNightModeEvent;
 import com.zxcx.shitang.mvpBase.BaseActivity;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.shitang.utils.Constants;
 import com.zxcx.shitang.utils.DataCleanManager;
@@ -57,8 +58,14 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_attention)
     public void onMLlCommonSettingAttentionClicked() {
-        Intent intent = new Intent(this, SelectAttentionActivity.class);
-        startActivity(intent);
+        int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
+        if (userId == 0){
+            toastShow("请先登录");
+            startActivity(new Intent(mActivity, LoginActivity.class));
+        }else {
+            Intent intent = new Intent(this, SelectAttentionActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.ll_common_setting_push)

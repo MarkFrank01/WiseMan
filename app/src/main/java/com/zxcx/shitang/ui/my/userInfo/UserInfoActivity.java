@@ -31,6 +31,7 @@ import com.zxcx.shitang.utils.MD5Utils;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.StringUtils;
+import com.zxcx.shitang.widget.CustomDatePicker;
 import com.zxcx.shitang.widget.GetPicBottomDialog;
 import com.zxcx.shitang.widget.PermissionDialog;
 
@@ -39,6 +40,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,6 +126,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     @Override
     public void postSuccess(UserInfoBean bean) {
         saveData(bean);
+        initData();
     }
 
     @Override
@@ -194,18 +199,26 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         if (StringUtils.isEmpty(mBirth)) {
             mBirth = DateTimeUtils.getDate();
         }
-
-        int year = DateTimeUtils.getYear(mBirth);
-        int month = DateTimeUtils.getMonth(mBirth);
-        int day = DateTimeUtils.getDay(mBirth);
-
-        ChangeBirthdayDialog changeBirthdayDialog = new ChangeBirthdayDialog();
+        mBirth = mBirth + " 00:00";
+        /*ChangeBirthdayDialog changeBirthdayDialog = new ChangeBirthdayDialog();
         Bundle bundle = new Bundle();
         bundle.putInt("year", year);
         bundle.putInt("month", month);
         bundle.putInt("day", day);
         changeBirthdayDialog.setArguments(bundle);
-        changeBirthdayDialog.show(getFragmentManager(), "");
+        changeBirthdayDialog.show(getFragmentManager(), "");*/
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        String now = sdf.format(new Date());
+        CustomDatePicker customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                String date = time.split(" ")[0];
+                mPresenter.changeBirth(date);
+            }
+        }, "1900-01-01 00:00", now); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(false); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+        customDatePicker1.show(mBirth);
 
     }
 
@@ -274,6 +287,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 String imageUrl = "http://zhizhe.oss-cn-shenzhen.aliyuncs.com/"+fileName;
                 SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
+                mPresenter.changeImageUrl(imageUrl);
                 ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
             }
             @Override

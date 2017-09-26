@@ -25,4 +25,8 @@ public class SVTSConstants {
     public static final String localTimeStamp = "local_time_stamp";
     public static final String serverTimeStamp = "server_time_stamp";
 
+    public static final String adImageUrl = "ad_image_url";
+    public static final String adUrl = "ad_url";
+    public static final String adTitle = "ad_title";
+
 }

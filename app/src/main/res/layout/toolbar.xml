@@ -4,9 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/toolbar_height"
     android:background="@color/colorPrimary"
-    android:minHeight="?actionBarSize"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp">
     <!--android:paddingTop="@dimen/status_bar_height"-->
@@ -18,8 +17,7 @@
         android:paddingRight="15dp"
         android:visibility="visible"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"/>
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -37,8 +35,7 @@
         android:paddingLeft="15dp"
         android:visibility="gone"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"/>
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/tv_toolbar_right"
@@ -46,7 +43,7 @@
         android:paddingRight="15dp"
         android:textSize="16sp"
         android:visibility="gone"
-        android:textColor="@color/text_color_ff"
+        android:textColor="@color/text_color_66"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

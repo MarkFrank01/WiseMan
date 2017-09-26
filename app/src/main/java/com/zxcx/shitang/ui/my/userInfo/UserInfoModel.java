@@ -37,6 +37,18 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
                     }
                 });
     }
+
+    public void changeBirth(String birth){
+        subscription = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
+                .compose(this.<BaseBean<UserInfoBean>>io_main())
+                .compose(this.<UserInfoBean>handleResult())
+                .subscribeWith(new PostSubscriber<UserInfoBean>(mPresent) {
+                    @Override
+                    public void onNext(UserInfoBean bean) {
+                        mPresent.postSuccess(bean);
+                    }
+                });
+    }
 }
 
 

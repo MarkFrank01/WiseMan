@@ -8,9 +8,11 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.utils.Constants;
+import com.zxcx.shitang.utils.ScreenUtils;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -25,6 +28,7 @@ import io.reactivex.disposables.Disposable;
 public class BaseActivity extends AppCompatActivity implements BaseView {
     public Activity mActivity;
     public ProgressDialog progressDialog;
+    private boolean isFirst = true;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -52,14 +56,29 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         initStatusBar();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus&&isFirst){
+            isFirst = false;
+        }
+    }
+
     private void initStatusBar() {
         if (!Constants.IS_NIGHT){
-            ImmersionBar.with(this)
-                    .statusBarColor(R.color.white_final)
-                    .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.black)
-                    .fitsSystemWindows(true)
-                    .init();
+            if (ScreenUtils.isFullScreen(this)) {
+                ImmersionBar.with(this)
+                        .statusBarColor(R.color.white_final)
+                        .statusBarDarkFont(true, 0.2f)
+                        .flymeOSStatusBarFontColor(R.color.black)
+                        .init();
+            }else {
+                ImmersionBar.with(this)
+                        .statusBarColor(R.color.white_final)
+                        .statusBarDarkFont(true, 0.2f)
+                        .flymeOSStatusBarFontColor(R.color.black)
+                        .fitsSystemWindows(true)
+                        .init();
+            }
         }else {
 
         }
@@ -86,11 +105,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         }
     }
 
+    protected Disposable mDisposable;
     private CompositeDisposable mCompositeSubscription;
 
     public void onUnsubscribe() {
         if (mCompositeSubscription != null) {
-            mCompositeSubscription.dispose();//取消注册，以避免内存泄露
+            mCompositeSubscription.clear();//取消注册，以避免内存泄露
         }
     }
 
@@ -129,11 +149,25 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     }
 
     public void toastShow(int resId) {
-        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(this);
+        toast.setView(linearLayout);
+        tvToast.setText(resId);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
+//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
     }
 
     public void toastShow(String resId) {
-        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(this);
+        toast.setView(linearLayout);
+        tvToast.setText(resId);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
 

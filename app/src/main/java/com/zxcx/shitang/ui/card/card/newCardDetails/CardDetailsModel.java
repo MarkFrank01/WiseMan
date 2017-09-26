@@ -29,12 +29,12 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void likeCard(int cardId){
         subscription = AppClient.getAPIService().likeCard(cardId)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean bea) {
-                        mPresent.postSuccess(bea);
+                    public void onNext(BaseBean bea) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);
@@ -42,12 +42,12 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void unLikeCard(int cardId){
         subscription = AppClient.getAPIService().unLikeCard(cardId)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean bea) {
-                        mPresent.postSuccess(bea);
+                    public void onNext(BaseBean bea) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);
@@ -55,12 +55,12 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void removeCollectCard(int cardId){
         subscription = AppClient.getAPIService().removeCollectCard(cardId)
-                .compose(this.<BaseBean<PostBean>>io_main())
-                .compose(this.<PostBean>handleResult())
-                .subscribeWith(new PostSubscriber<PostBean>(mPresent) {
+                .compose(this.<BaseBean>io_main())
+                .compose(handlePostResult())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresent) {
                     @Override
-                    public void onNext(PostBean bea) {
-                        mPresent.postSuccess(bea);
+                    public void onNext(BaseBean bea) {
+                        mPresent.postSuccess(new PostBean());
                     }
                 });
         addSubscription(subscription);

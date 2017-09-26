@@ -1,21 +1,24 @@
 package com.zxcx.shitang.widget;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.DeleteConfirmEvent;
+import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -24,9 +27,15 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class DeleteConfirmDialog extends DialogFragment{
+public class DeleteConfirmDialog extends BaseDialog {
 
     Unbinder unbinder;
+    @BindView(R.id.tv_dialog_delete_confirm)
+    TextView mTvDialogDeleteConfirm;
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
+    @BindView(R.id.tv_dialog_confirm)
+    TextView mTvDialogConfirm;
 
     @Nullable
     @Override
@@ -52,6 +61,15 @@ public class DeleteConfirmDialog extends DialogFragment{
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextPaint tp = mTvDialogCancel.getPaint();
+        tp.setFakeBoldText(true);
+        tp = mTvDialogConfirm.getPaint();
+        tp.setFakeBoldText(true);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -65,5 +83,6 @@ public class DeleteConfirmDialog extends DialogFragment{
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
         EventBus.getDefault().post(new DeleteConfirmEvent());
+        this.dismiss();
     }
 }

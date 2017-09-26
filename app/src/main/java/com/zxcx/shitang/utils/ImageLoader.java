@@ -103,4 +103,11 @@ public class ImageLoader {
                 .skipMemoryCache( true )
                 .into(imageView);
     }
+
+    public static void download(Activity activity, String url) {
+        GlideApp
+                .with(activity)
+                .load(url)
+                .getDownloadOnlyRequest();
+    }
 }

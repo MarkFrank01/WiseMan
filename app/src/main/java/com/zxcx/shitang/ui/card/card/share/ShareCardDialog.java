@@ -1,20 +1,26 @@
 package com.zxcx.shitang.ui.card.card.share;
 
-import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ScreenUtils;
 
+import java.io.File;
 import java.util.HashMap;
 
 import butterknife.ButterKnife;
@@ -34,7 +40,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  * Created by anm on 2017/5/27.
  */
 
-public class ShareCardDialog extends DialogFragment {
+public class ShareCardDialog extends BaseDialog {
 
 
     private Unbinder mUnbinder;
@@ -100,13 +106,29 @@ public class ShareCardDialog extends DialogFragment {
                 showShare(plat.getName());
                 break;
             case R.id.ll_share_save:
+                Toast.makeText(getActivity(),"图片已保存在" + mImagePath, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ll_share_more:
+                getMoreShare();
                 break;
             case R.id.tv_dialog_cancel:
                 dismiss();
                 break;
         }
+    }
+
+    private void getMoreShare() {
+        File file = new File(mImagePath);
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
+        }else {
+            uri = Uri.fromFile(file);
+        }
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(shareIntent);
     }
 
     private void showShare(String platform) {

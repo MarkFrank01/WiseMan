@@ -1,6 +1,5 @@
 package com.zxcx.shitang.widget;
 
-import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,14 +12,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.zxcx.shitang.R;
+import com.zxcx.shitang.mvpBase.BaseDialog;
 import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.ScreenUtils;
 
@@ -28,6 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -38,11 +41,17 @@ import static android.app.Activity.RESULT_OK;
  * Created by anm on 2017/5/27.
  */
 
-public class GetPicBottomDialog extends DialogFragment {
+public class GetPicBottomDialog extends BaseDialog {
 
     private static final int REQUEST_CODE_USER_ALBUM = 1;
     private static final int REQUEST_CODE_TAKE_PHOTO = 2;
     private static final int REQUEST_CODE_CUT_PHOTO = 3;
+    @BindView(R.id.tv_dialog_camera)
+    TextView mTvDialogCamera;
+    @BindView(R.id.tv_dialog_album)
+    TextView mTvDialogAlbum;
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
 
     private Unbinder mUnbinder;
     private GetPicDialogListener mListener;
@@ -54,7 +63,7 @@ public class GetPicBottomDialog extends DialogFragment {
     private String mImagePath;
 
     public enum UriType {
-        file,media
+        file, media
     }
 
     public interface GetPicDialogListener {
@@ -76,11 +85,11 @@ public class GetPicBottomDialog extends DialogFragment {
         }
         try {
             String fileName = "zhizhe_head_image";
-            mImagePath = FileUtil.PATH_BASE +fileName ;
+            mImagePath = FileUtil.PATH_BASE + fileName;
             file = FileUtil.createFile(FileUtil.PATH_BASE, fileName);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
-            }else {
+                tempUri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".fileProvider", file);
+            } else {
                 tempUri = Uri.fromFile(file);
             }
             mUriType = UriType.file;
@@ -96,8 +105,17 @@ public class GetPicBottomDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_dialog_get_pic, container);
-        mUnbinder = ButterKnife.bind(this,view);
+        mUnbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextPaint tp = mTvDialogAlbum.getPaint();
+        tp.setFakeBoldText(true);
+        tp = mTvDialogCamera.getPaint();
+        tp.setFakeBoldText(true);
     }
 
     @Override
@@ -116,14 +134,9 @@ public class GetPicBottomDialog extends DialogFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onDestroyView() {
+        super.onDestroyView();
         mUnbinder.unbind();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @OnClick(R.id.tv_dialog_camera)
@@ -135,7 +148,6 @@ public class GetPicBottomDialog extends DialogFragment {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
-
         } else {
 
         }
@@ -179,7 +191,7 @@ public class GetPicBottomDialog extends DialogFragment {
                  * 裁剪处理
                  */
                 case REQUEST_CODE_CUT_PHOTO:
-                    mListener.onGetSuccess(mUriType,tempUri,mImagePath);
+                    mListener.onGetSuccess(mUriType, tempUri, mImagePath);
                     this.dismiss();
                     break;
             }

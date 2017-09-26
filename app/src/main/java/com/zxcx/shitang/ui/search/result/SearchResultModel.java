@@ -28,7 +28,7 @@ public class SearchResultModel extends BaseModel<SearchResultContract.Presenter>
     }
 
     public void searchCardBag(String keyword){
-        subscription = AppClient.getAPIService().searchCardBag(keyword,1,1000)
+        subscription = AppClient.getAPIService().searchCardBag(keyword,0,1000)
                 .compose(this.<BaseArrayBean<SearchCardBagBean>>io_main())
                 .compose(this.<SearchCardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SearchCardBagBean>>(mPresent) {

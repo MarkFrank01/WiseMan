@@ -1,5 +1,6 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpFragment;
-import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,7 +39,7 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
     @BindView(R.id.iv_card_details)
     ImageView mIvCardDetails;
 
-    SelectCollectFolderDialog mSelectCollectFolderDialog;
+    SelectCollectFolderActivity mSelectCollectFolderActivity;
 
     public static final String CARD_ID = "CARD_ID";
 
@@ -72,7 +73,7 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSelectCollectFolderDialog = new SelectCollectFolderDialog();
+        mSelectCollectFolderActivity = new SelectCollectFolderActivity();
 
         ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
         para.height = (ScreenUtils.getScreenWidth() - ScreenUtils.dip2px(12*2)) * 3 / 4;
@@ -109,8 +110,7 @@ public class CardBagCardDetailsFragment extends MvpFragment<CardBagCardDetailsPr
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
         if (mCbCardDetailsCollect.isChecked()) {
-            mSelectCollectFolderDialog.show(getActivity().getFragmentManager(), "");
-            mCbCardDetailsCollect.setChecked(false);
+            startActivity(new Intent(mActivity,SelectCollectFolderActivity.class));
         }
     }
 

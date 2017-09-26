@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_dialog_logout"
+        android:text="登出后就没办法收藏卡片和评论咯"
+        android:textSize="17sp"
+        android:textColor="@color/text_color_40"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="32.5dp"
+        android:layout_marginRight="32.5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_below="@id/tv_dialog_logout"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    
+    <LinearLayout
+        android:layout_below="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_cancel"
+            android:text="@string/common_cancel"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_confirm"
+            android:text="@string/common_confirm"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    
+</RelativeLayout>

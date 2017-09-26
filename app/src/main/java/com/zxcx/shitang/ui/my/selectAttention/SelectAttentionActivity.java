@@ -53,14 +53,16 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     @Override
     public void getDataSuccess(List<SelectAttentionBean> list) {
-        mAdapter.addData(list);
-        for (SelectAttentionBean bean : mAdapter.getData()) {
+        for (SelectAttentionBean bean : list) {
             if (bean.isChecked()){
                 if (!mCheckedList.contains(bean)) {
                     mCheckedList.add(bean);
                 }
             }
         }
+        list.removeAll(mCheckedList);
+        mAdapter.addData(list);
+        mAdapter.addData(mCheckedList);
         checkNext();
         if (mAdapter.getData().size() == 0){
             //占空图
@@ -112,10 +114,14 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
             if (!mCheckedList.contains(bean)) {
                 mCheckedList.add(bean);
             }
+            mAdapter.remove(position);
+            mAdapter.addData(bean);
         } else {
             if (mCheckedList.contains(bean)) {
                 mCheckedList.remove(bean);
             }
+            mAdapter.remove(position);
+            mAdapter.addData(0,bean);
         }
         checkNext();
     }

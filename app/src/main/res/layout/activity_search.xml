@@ -23,7 +23,7 @@
         <EditText
             android:id="@+id/et_search"
             android:gravity="center_vertical"
-            android:hint="输入你想查找的"
+            android:hint=" 输入你想查找的"
             android:textColorHint="@color/line"
             android:textColor="@color/text_color_66"
             android:cursorVisible="true"

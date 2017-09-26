@@ -3,6 +3,7 @@ package com.zxcx.shitang.ui.my.userInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zxcx.shitang.R;
@@ -38,6 +40,12 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
     Unbinder unbinder;
     @BindView(R.id.et_dialog_change_nick_name)
     EditText mEtDialogChangeNickName;
+    @BindView(R.id.view_line)
+    View mViewLine;
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
+    @BindView(R.id.tv_dialog_confirm)
+    TextView mTvDialogConfirm;
 
     @Nullable
     @Override
@@ -46,6 +54,15 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
         View view = inflater.inflate(R.layout.dialog_change_nick_name, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextPaint tp = mTvDialogCancel.getPaint();
+        tp.setFakeBoldText(true);
+        tp = mTvDialogConfirm.getPaint();
+        tp.setFakeBoldText(true);
     }
 
     @Override
@@ -75,13 +92,13 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        if (mEtDialogChangeNickName.length()>0) {
+        if (mEtDialogChangeNickName.length() > 0) {
             changeNickName(mEtDialogChangeNickName.getText().toString());
         }
     }
 
-    public void changeNickName(String name){
-        subscription = AppClient.getAPIService().changeUserInfo(null, name, null, null)
+    public void changeNickName(String name) {
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null)
                 .compose(this.<BaseBean<UserInfoBean>>io_main())
                 .compose(this.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
@@ -90,7 +107,7 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
                         ChangeNickNameDialog.this.postSuccess(bean);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     @Override

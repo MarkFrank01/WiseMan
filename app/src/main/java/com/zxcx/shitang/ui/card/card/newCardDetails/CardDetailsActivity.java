@@ -16,10 +16,11 @@ import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.mvpBase.PostBean;
 import com.zxcx.shitang.retrofit.APIService;
-import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderDialog;
+import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
 import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
 import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.SVTSConstants;
 import com.zxcx.shitang.utils.ScreenUtils;
@@ -54,12 +55,19 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @BindView(R.id.fl_card_details)
     FrameLayout mFlCardDetails;
 
-    SelectCollectFolderDialog mSelectCollectFolderDialog;
     private WebView mWebView;
     private int cardId;
     private String name;
     private int likeNum;
     private int collectNum;
+    private Action mAction;
+
+    private enum Action{
+        collect,
+        unCollect,
+        like,
+        unLike
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +88,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         }else {
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         }
-
-        mSelectCollectFolderDialog = new SelectCollectFolderDialog();
-        Bundle args = new Bundle();
-        args.putInt("cardId", cardId);
-        mSelectCollectFolderDialog.setArguments(args);
 
         mPresenter.getCardDetails(cardId);
     }
@@ -121,16 +124,37 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void postSuccess(PostBean bean) {
+        if (mAction == Action.collect){
 
+        }else if (mAction == Action.unCollect){
+            collectNum--;
+            mCbCardDetailsCollect.setText(collectNum + "");
+        }else if (mAction == Action.like){
+            likeNum++;
+            mCbCardDetailsLike.setText(likeNum + "");
+        }else if (mAction == Action.unLike){
+            likeNum--;
+            mCbCardDetailsLike.setText(likeNum + "");
+        }
     }
 
     @Override
     public void postFail(String msg) {
+        toastShow(msg);
+        if (mAction == Action.collect){
 
+        }else if (mAction == Action.unCollect){
+            mCbCardDetailsCollect.setChecked(true);
+        }else if (mAction == Action.like){
+            mCbCardDetailsLike.setChecked(false);
+        }else if (mAction == Action.unLike){
+            mCbCardDetailsLike.setChecked(true);
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CollectSuccessEvent event) {
+        toastShow("收藏成功");
         mCbCardDetailsCollect.setChecked(true);
         collectNum++;
         mCbCardDetailsCollect.setText(collectNum + "");
@@ -147,13 +171,19 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onCollectClicked() {
         //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsCollect.isChecked()) {
-            mSelectCollectFolderDialog.show(getFragmentManager(), "1");
             mCbCardDetailsCollect.setChecked(false);
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0){
+                Intent intent = new Intent(mActivity,SelectCollectFolderActivity.class);
+                intent.putExtra("cardId", cardId);
+                startActivity(intent);
+            }else {
+                toastShow("请先登录");
+                startActivity(new Intent(mActivity, LoginActivity.class));
+            }
         } else {
+            mAction = Action.unCollect;
             mCbCardDetailsCollect.setChecked(false);
             mPresenter.removeCollectCard(cardId);
-            collectNum--;
-            mCbCardDetailsCollect.setText(collectNum + "");
         }
     }
 
@@ -161,14 +191,17 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onMCbCardDetailsLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsLike.isChecked()) {
-            mPresenter.likeCard(cardId);
-            likeNum++;
-            mCbCardDetailsLike.setText(likeNum + "");
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0){
+                mAction = Action.like;
+                mPresenter.likeCard(cardId);
+            }else {
+                toastShow("请先登录");
+                startActivity(new Intent(mActivity, LoginActivity.class));
+            }
         } else {
+            mAction = Action.unLike;
             mCbCardDetailsLike.setChecked(false);
             mPresenter.unLikeCard(cardId);
-            likeNum--;
-            mCbCardDetailsLike.setText(likeNum + "");
         }
     }
 

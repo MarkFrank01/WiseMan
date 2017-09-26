@@ -65,7 +65,7 @@ public class ChangeBirthdayDialog extends BaseDialog implements IPostPresenter<U
     }
 
     public void changeBirthday(String birth){
-        subscription = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
                 .compose(this.<BaseBean<UserInfoBean>>io_main())
                 .compose(this.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {

@@ -13,6 +13,14 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
         mModel = new UserInfoModel(this);
     }
 
+    public void changeImageUrl(String imageUrl){
+        mModel.changeImageUrl(imageUrl);
+    }
+
+    public void changeBirth(String birth){
+        mModel.changeBirth(birth);
+    }
+
     public void getOSS(String uuid){
         mModel.getOSS(uuid);
     }

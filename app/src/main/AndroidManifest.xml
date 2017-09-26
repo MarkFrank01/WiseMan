@@ -125,16 +125,13 @@
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.card.card.cardDetails.OldCardDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.share.DiyShareActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
             android:screenOrientation="portrait"/>
@@ -159,6 +156,12 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.feedback.help.HelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.collect.AddCollectFolderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.collect.SelectCollectFolderActivity"
             android:screenOrientation="portrait"/>
     </application>
 

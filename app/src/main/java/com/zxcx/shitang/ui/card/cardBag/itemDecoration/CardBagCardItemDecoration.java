@@ -13,6 +13,7 @@ import com.zxcx.shitang.utils.ScreenUtils;
 public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
 
     private int defultSpace = ScreenUtils.dip2px(12f);
+    private int bottomSpace = ScreenUtils.dip2px(15f);
     private int space = (int) (ScreenUtils.dip2px(15f)/2);
 
     public CardBagCardItemDecoration() {
@@ -30,9 +31,18 @@ public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
             outRect.right = defultSpace;
         }
 
-
-        if (parent.getChildLayoutPosition(view) < 2){
+        if (parent.getChildAdapterPosition(view) < 2){
             outRect.top = ScreenUtils.dip2px(18f);
+        }
+
+        if (parent.getAdapter().getItemCount() %2 == 1) {
+            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-3)){
+                outRect.bottom = bottomSpace;
+            }
+        } else {
+            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-2)){
+                outRect.bottom = bottomSpace;
+            }
         }
     }
 }

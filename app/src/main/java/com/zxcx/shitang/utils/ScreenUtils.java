@@ -1,10 +1,12 @@
 package com.zxcx.shitang.utils;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.zxcx.shitang.App;
 import com.zxcx.shitang.R;
@@ -84,5 +86,19 @@ public class ScreenUtils {
         canvas.drawColor(ContextCompat.getColor(App.getContext(),R.color.white));
         viewGroup.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * @param activity
+     * @return 判断当前手机是否是全屏
+     */
+    public static boolean isFullScreen(Activity activity) {
+        int flag = activity.getWindow().getAttributes().flags;
+        if((flag & WindowManager.LayoutParams.FLAG_FULLSCREEN)
+                == WindowManager.LayoutParams.FLAG_FULLSCREEN) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

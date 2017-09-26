@@ -62,12 +62,12 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
 
     @Override
     public void postSuccess(PostBean bean) {
-
+        mView.postSuccess(bean);
     }
 
     @Override
     public void postFail(String msg) {
-
+        mView.postFail(msg);
     }
 }
 

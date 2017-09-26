@@ -6,7 +6,7 @@
     android:layout_centerHorizontal="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="15dp"
+    android:padding="0.5dp"
     android:background="@drawable/bg_item_home_card"
     android:orientation="vertical">
 

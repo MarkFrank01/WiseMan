@@ -10,5 +10,6 @@
     tools:context="com.zxcx.shitang.ui.welcome.WebViewActivity">
 
     <include layout="@layout/toolbar"/>
+    <include layout="@layout/view_line"/>
 
 </LinearLayout>

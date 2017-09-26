@@ -2,17 +2,18 @@ package com.zxcx.shitang.widget;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.zxcx.shitang.mvpBase.BaseDialog;
+
 /**
  * Created by anm on 2017/7/21.
  */
 
-public class PermissionDialog extends DialogFragment{
+public class PermissionDialog extends BaseDialog{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
