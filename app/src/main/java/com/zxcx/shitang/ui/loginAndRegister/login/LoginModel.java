@@ -14,7 +14,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
     }
 
     public void phoneLogin(String phone, String password, int appType, String appChannel, String appVersion){
-        subscription = AppClient.getAPIService().phoneLogin(phone,password,appType,appChannel,appVersion)
+        mDisposable = AppClient.getAPIService().phoneLogin(phone,password,appType,appChannel,appVersion)
                 .compose(this.<BaseBean<LoginBean>>io_main())
                 .compose(this.<LoginBean>handleResult())
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresent) {
@@ -23,7 +23,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
                         mPresent.getDataSuccess(loginBean);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

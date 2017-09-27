@@ -15,7 +15,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
     }
 
     public void phoneRegister(String phone, String code, String password, int appType, String appChannel, String appVersion){
-        subscription = AppClient.getAPIService().phoneRegistered(phone,code,password,appType,appChannel,appVersion)
+        mDisposable = AppClient.getAPIService().phoneRegistered(phone,code,password,appType,appChannel,appVersion)
                 .compose(this.<BaseBean<RegisterBean>>io_main())
                 .compose(this.<RegisterBean>handleResult())
                 .subscribeWith(new BaseSubscriber<RegisterBean>(mPresent) {
@@ -24,7 +24,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
                         mPresent.getDataSuccess(registerBean);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
 }

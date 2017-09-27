@@ -14,7 +14,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
     }
 
     public void getOSS(String uuid){
-        subscription = AppClient.getAPIService().getOSS(uuid)
+        mDisposable = AppClient.getAPIService().getOSS(uuid)
                 .compose(this.<BaseBean<OSSTokenBean>>io_main())
                 .compose(this.<OSSTokenBean>handleResult())
                 .subscribeWith(new BaseSubscriber<OSSTokenBean>(mPresent) {
@@ -23,11 +23,11 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
                         mPresent.getDataSuccess(bean);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void changeImageUrl(String imageUrl){
-        subscription = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null)
+        mDisposable = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null)
                 .compose(this.<BaseBean<UserInfoBean>>io_main())
                 .compose(this.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(mPresent) {
@@ -39,7 +39,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
     }
 
     public void changeBirth(String birth){
-        subscription = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
                 .compose(this.<BaseBean<UserInfoBean>>io_main())
                 .compose(this.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(mPresent) {

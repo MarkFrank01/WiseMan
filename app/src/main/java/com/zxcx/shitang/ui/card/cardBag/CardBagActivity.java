@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.mvpBase.MvpActivity;
-import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.shitang.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.shitang.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
@@ -51,6 +51,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     private LinearLayoutManager mCardBagListManager;
     private int mId;
     private int page = 0;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +149,8 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     private void initData() {
         mId = getIntent().getIntExtra("id", 0);
-        initToolBar(getIntent().getStringExtra("name"));
+        mName = getIntent().getStringExtra("name");
+        initToolBar(mName);
     }
 
     private void initRecyclerView() {
@@ -171,7 +173,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mRvCardBagList.setAdapter(mCardBagListAdapter);
     }
 
-    static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
+    class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         private Context mContext;
 
@@ -182,9 +184,10 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             CardBagBean bean = (CardBagBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardDetailsActivity.class);
-            intent.putExtra("id",bean.getId());
-            intent.putExtra("name",bean.getName());
+            Intent intent = new Intent(mContext, CardBagCardDetailsActivity.class);
+            intent.putExtra("id",mId);
+            intent.putExtra("cardId",bean.getId());
+            intent.putExtra("name",mName);
             mContext.startActivity(intent);
         }
     }

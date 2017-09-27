@@ -17,7 +17,7 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
     }
 
     public void getCollectCard(int id, int page, int pageSize){
-        subscription = AppClient.getAPIService().getCollectCard(id, page,pageSize)
+        mDisposable = AppClient.getAPIService().getCollectCard(id, page,pageSize)
                 .compose(this.<BaseArrayBean<CollectCardBean>>io_main())
                 .compose(this.<CollectCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CollectCardBean>>(mPresent) {
@@ -26,11 +26,11 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void deleteCollectCard(int id, List<Integer> idList){
-        subscription = AppClient.getAPIService().deleteCollectCard(id, idList)
+        mDisposable = AppClient.getAPIService().deleteCollectCard(id, idList)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -39,11 +39,11 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void changeCollectFolderName(int id, String name){
-        subscription = AppClient.getAPIService().changeCollectFolderName(id, name)
+        mDisposable = AppClient.getAPIService().changeCollectFolderName(id, name)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -52,7 +52,7 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

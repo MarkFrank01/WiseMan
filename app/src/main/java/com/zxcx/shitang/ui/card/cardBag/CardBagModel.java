@@ -15,7 +15,7 @@ public class CardBagModel extends BaseModel<CardBagContract.Presenter> {
     }
 
     public void getCardBagCardList(int id, int page, int pageSize){
-        subscription = AppClient.getAPIService().getCardBagCardList(id,page,pageSize)
+        mDisposable = AppClient.getAPIService().getCardBagCardList(id,page,pageSize)
                 .compose(this.<BaseArrayBean<CardBagBean>>io_main())
                 .compose(this.<CardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CardBagBean>>(mPresent) {
@@ -24,7 +24,7 @@ public class CardBagModel extends BaseModel<CardBagContract.Presenter> {
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
     
 }

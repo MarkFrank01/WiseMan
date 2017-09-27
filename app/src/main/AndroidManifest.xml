@@ -149,8 +149,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>

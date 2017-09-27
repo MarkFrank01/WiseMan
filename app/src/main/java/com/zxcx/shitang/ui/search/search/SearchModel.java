@@ -15,7 +15,7 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
     }
 
     public void getSearchHot(int page, int pageSize){
-        subscription = AppClient.getAPIService().getSearchHot(page,pageSize)
+        mDisposable = AppClient.getAPIService().getSearchHot(page,pageSize)
                 .compose(this.<BaseArrayBean<SearchBean>>io_main())
                 .compose(this.<SearchBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SearchBean>>(mPresent) {
@@ -24,7 +24,7 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

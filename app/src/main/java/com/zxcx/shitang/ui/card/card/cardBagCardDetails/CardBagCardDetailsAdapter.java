@@ -13,11 +13,11 @@ import java.util.List;
 public class CardBagCardDetailsAdapter extends FragmentStatePagerAdapter {
 
     private int mCount;
-    private List<String> mList;
+    private List<Integer> mList;
 
-    public CardBagCardDetailsAdapter(FragmentManager fm, int count, List<String> list) {
+    public CardBagCardDetailsAdapter(FragmentManager fm,  List<Integer> list) {
         super(fm);
-        mCount = count;
+        mCount = list.size();
         mList = list;
     }
 

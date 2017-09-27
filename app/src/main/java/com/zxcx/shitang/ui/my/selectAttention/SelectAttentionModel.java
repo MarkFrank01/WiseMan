@@ -18,7 +18,7 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
     }
 
     public void getAttentionList(){
-        subscription = AppClient.getAPIService().getAttentionList()
+        mDisposable = AppClient.getAPIService().getAttentionList()
                 .compose(this.<BaseArrayBean<SelectAttentionBean>>io_main())
                 .compose(this.<SelectAttentionBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SelectAttentionBean>>(mPresent) {
@@ -27,11 +27,11 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void changeAttentionList(List<Integer> idList){
-        subscription = AppClient.getAPIService().changeAttentionList(idList)
+        mDisposable = AppClient.getAPIService().changeAttentionList(idList)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -40,7 +40,7 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

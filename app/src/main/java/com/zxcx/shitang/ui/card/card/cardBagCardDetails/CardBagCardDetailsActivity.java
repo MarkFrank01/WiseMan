@@ -1,36 +1,248 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zxcx.shitang.R;
-import com.zxcx.shitang.mvpBase.BaseActivity;
+import com.zxcx.shitang.event.CollectSuccessEvent;
+import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
+import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
+import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
+import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
+import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.shitang.utils.FileUtil;
+import com.zxcx.shitang.utils.SVTSConstants;
+import com.zxcx.shitang.utils.ScreenUtils;
+import com.zxcx.shitang.utils.SharedPreferencesUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class CardBagCardDetailsActivity extends BaseActivity {
+public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPresenter> implements CardBagCardDetailsContract.View,
+        ShareWayDialog.DefaultShareDialogListener, ViewPager.OnPageChangeListener {
 
     @BindView(R.id.vp_card_bag_card_details)
     ViewPager mVpCardBagCardDetails;
+    @BindView(R.id.iv_card_details_back)
+    ImageView mIvCardDetailsBack;
+    @BindView(R.id.tv_card_details_title)
+    TextView mTvCardDetailsTitle;
+    @BindView(R.id.ll_card_details)
+    RelativeLayout mLlCardDetails;
+    @BindView(R.id.cb_card_details_collect)
+    CheckBox mCbCardDetailsCollect;
+    @BindView(R.id.cb_card_details_like)
+    CheckBox mCbCardDetailsLike;
+    @BindView(R.id.tv_card_details_share)
+    ImageView mTvCardDetailsShare;
+    @BindView(R.id.rl_card_details)
+    RelativeLayout mRlCardDetails;
+    @BindView(R.id.tv_card_details_num)
+    TextView mTvCardDetailsNum;
 
     private CardBagCardDetailsAdapter mAdapter;
-    private List<String> mList = new ArrayList<>();
+    private List<Integer> mList = new ArrayList<>();
+    private String name;
+    private int id;
+    private int cardId;
+    private int likeNum;
+    private int collectNum;
+    private Action mAction;
+
+    private enum Action {
+        unCollect,
+        like,
+        unLike
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_bag_card_details);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
-        for (int i = 0; i < 20; i++) {
-            mList.add("666");
-        }
+        id = getIntent().getIntExtra("id", 0);
+        cardId = getIntent().getIntExtra("cardId", 0);
+        name = getIntent().getStringExtra("name");
 
-        mAdapter = new CardBagCardDetailsAdapter(getSupportFragmentManager(),20,mList);
+        mTvCardDetailsTitle.setText(name);
+
+        mPresenter.getAllCardId(id);
+
+        mPresenter.getCardDetails(cardId);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected CardBagCardDetailsPresenter createPresenter() {
+        return new CardBagCardDetailsPresenter(this);
+    }
+
+    @Override
+    public void getAllCardIdSuccess(List<Integer> bean) {
+        mList.addAll(bean);
+        mAdapter = new CardBagCardDetailsAdapter(getSupportFragmentManager(), mList);
         mVpCardBagCardDetails.setAdapter(mAdapter);
+
+        int position = mList.indexOf(cardId);
+        mVpCardBagCardDetails.setCurrentItem(position);
+        mVpCardBagCardDetails.addOnPageChangeListener(this);
+
+        String num = position + 1 + "/" + mList.size();
+        mTvCardDetailsNum.setText(num);
+    }
+
+    @Override
+    public void getDataSuccess(CardDetailsBean bean) {
+        collectNum = bean.getCollectNum();
+        likeNum = bean.getLikeNum();
+        mCbCardDetailsCollect.setText(collectNum + "");
+        mCbCardDetailsLike.setText(likeNum + "");
+        mCbCardDetailsCollect.setChecked(bean.getIsCollect());
+        mCbCardDetailsLike.setChecked(bean.getIsLike());
+    }
+
+    @Override
+    public void postSuccess() {
+        if (mAction == Action.unCollect) {
+            collectNum--;
+            mCbCardDetailsCollect.setText(collectNum + "");
+        } else if (mAction == Action.like) {
+            likeNum++;
+            mCbCardDetailsLike.setText(likeNum + "");
+        } else if (mAction == Action.unLike) {
+            likeNum--;
+            mCbCardDetailsLike.setText(likeNum + "");
+        }
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
+        if (mAction == Action.unCollect) {
+            mCbCardDetailsCollect.setChecked(true);
+        } else if (mAction == Action.like) {
+            mCbCardDetailsLike.setChecked(false);
+        } else if (mAction == Action.unLike) {
+            mCbCardDetailsLike.setChecked(true);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CollectSuccessEvent event) {
+        toastShow("收藏成功");
+        mCbCardDetailsCollect.setChecked(true);
+        collectNum++;
+        mCbCardDetailsCollect.setText(collectNum + "");
+    }
+
+    @OnClick(R.id.tv_card_details_share)
+    public void onShareClicked() {
+        ShareWayDialog shareWayDialog = new ShareWayDialog();
+        shareWayDialog.setListener(this);
+        shareWayDialog.show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.cb_card_details_collect)
+    public void onCollectClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        if (mCbCardDetailsCollect.isChecked()) {
+            mCbCardDetailsCollect.setChecked(false);
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
+                intent.putExtra("cardId", cardId);
+                startActivity(intent);
+            } else {
+                toastShow("请先登录");
+                startActivity(new Intent(mActivity, LoginActivity.class));
+            }
+        } else {
+            mAction = Action.unCollect;
+            mCbCardDetailsCollect.setChecked(false);
+            mPresenter.removeCollectCard(cardId);
+        }
+    }
+
+    @OnClick(R.id.cb_card_details_like)
+    public void onMCbCardDetailsLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        if (mCbCardDetailsLike.isChecked()) {
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                mAction = Action.like;
+                mPresenter.likeCard(cardId);
+            } else {
+                toastShow("请先登录");
+                startActivity(new Intent(mActivity, LoginActivity.class));
+            }
+        } else {
+            mAction = Action.unLike;
+            mCbCardDetailsLike.setChecked(false);
+            mPresenter.unLikeCard(cardId);
+        }
+    }
+
+    @OnClick(R.id.iv_card_details_back)
+    public void onBackClicked() {
+        finish();
+    }
+
+    @Override
+    public void onDefaultShareClick() {
+        Bitmap bitmap = ScreenUtils.getBitmapByView(mVpCardBagCardDetails);
+        String fileName = FileUtil.getFileName();
+        String imagePath = FileUtil.PATH_BASE + fileName;
+        FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
+
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("imagePath", imagePath);
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(), "");
+    }
+
+    @Override
+    public void onDiyShareClick() {
+        Intent intent = new Intent(this, DiyShareActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        cardId = mList.get(position);
+        mPresenter.getCardDetails(cardId);
+        String num = position + 1 + "/" + mList.size();
+        mTvCardDetailsNum.setText(num);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

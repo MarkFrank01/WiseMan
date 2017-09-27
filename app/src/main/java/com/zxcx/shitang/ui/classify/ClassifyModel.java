@@ -16,7 +16,7 @@ public class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
     }
 
     public void getClassify(){
-        subscription = AppClient.getAPIService().getClassify()
+        mDisposable = AppClient.getAPIService().getClassify()
                 .compose(this.<BaseArrayBean<ClassifyBean>>io_main())
                 .compose(this.<ClassifyBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<ClassifyBean>>(mPresent) {
@@ -25,7 +25,7 @@ public class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

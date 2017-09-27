@@ -13,7 +13,7 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
     }
 
     public void changePassword(String phone, String code, String password, int appType){
-        subscription = AppClient.getAPIService().changePassword(phone,code,password,appType)
+        mDisposable = AppClient.getAPIService().changePassword(phone,code,password,appType)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -22,7 +22,7 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

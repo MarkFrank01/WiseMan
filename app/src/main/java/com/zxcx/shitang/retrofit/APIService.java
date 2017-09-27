@@ -225,8 +225,14 @@ public interface APIService {
     Flowable<BaseBean<OSSTokenBean>> getOSS(@Query("uuid") String uuid);
 
     /**
-     *OSS秘钥获取
+     *获取广告
      */
     @POST("/ad/getAdByAdNum")
     Flowable<BaseArrayBean<WelcomeBean>> getAD(@Query("adNum") String adNum);
+
+    /**
+     *获取广告
+     */
+    @POST("/collection/getAllArticleIdByCollectionId")
+    Flowable<BaseArrayBean<Integer>> getAllCardId(@Query("collectionId") int cardBagId);
 }

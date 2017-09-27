@@ -17,7 +17,7 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
     }
 
     public void getCollectFolder(int page, int pageSize){
-        subscription = AppClient.getAPIService().getCollectFolder(page,pageSize)
+        mDisposable = AppClient.getAPIService().getCollectFolder(page,pageSize)
                 .compose(this.<BaseArrayBean<CollectFolderBean>>io_main())
                 .compose(this.<CollectFolderBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CollectFolderBean>>(mPresent) {
@@ -26,11 +26,11 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void deleteCollectFolder(List<Integer> idList){
-        subscription = AppClient.getAPIService().deleteCollectFolder(idList)
+        mDisposable = AppClient.getAPIService().deleteCollectFolder(idList)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -39,11 +39,11 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void addCollectFolder(String name){
-        subscription = AppClient.getAPIService().addCollectFolder(name)
+        mDisposable = AppClient.getAPIService().addCollectFolder(name)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -52,7 +52,7 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

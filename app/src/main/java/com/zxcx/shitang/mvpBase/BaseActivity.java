@@ -8,6 +8,7 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -155,6 +156,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         toast.setView(linearLayout);
         tvToast.setText(resId);
         toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,200);
         toast.show();
 //        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
     }
@@ -167,6 +169,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         toast.setView(linearLayout);
         tvToast.setText(resId);
         toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,200);
         toast.show();
     }
 

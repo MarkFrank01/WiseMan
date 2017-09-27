@@ -15,7 +15,7 @@ public class SearchResultModel extends BaseModel<SearchResultContract.Presenter>
     }
 
     public void searchCard(String keyword, int page, int pageSize){
-        subscription = AppClient.getAPIService().searchCard(keyword,page,pageSize)
+        mDisposable = AppClient.getAPIService().searchCard(keyword,page,pageSize)
                 .compose(this.<BaseArrayBean<SearchCardBean>>io_main())
                 .compose(this.<SearchCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SearchCardBean>>(mPresent) {
@@ -24,11 +24,11 @@ public class SearchResultModel extends BaseModel<SearchResultContract.Presenter>
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void searchCardBag(String keyword){
-        subscription = AppClient.getAPIService().searchCardBag(keyword,0,1000)
+        mDisposable = AppClient.getAPIService().searchCardBag(keyword,0,1000)
                 .compose(this.<BaseArrayBean<SearchCardBagBean>>io_main())
                 .compose(this.<SearchCardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SearchCardBagBean>>(mPresent) {
@@ -37,7 +37,7 @@ public class SearchResultModel extends BaseModel<SearchResultContract.Presenter>
                         mPresent.searchCardBagSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

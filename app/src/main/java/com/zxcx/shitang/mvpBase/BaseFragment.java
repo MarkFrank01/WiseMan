@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,11 +62,24 @@ public class BaseFragment extends Fragment implements BaseView{
 //        Log.d(TAG, mActivity + "=onDestroy");
 //    }
     public void toastShow(int resId) {
-        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(mActivity);
+        toast.setView(linearLayout);
+        tvToast.setText(resId);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void toastShow(String resId) {
-        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(mActivity);
+        toast.setView(linearLayout);
+        tvToast.setText(resId);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 //
 //    CustomLoading customLoading;

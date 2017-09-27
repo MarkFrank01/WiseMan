@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class BaseModel<T extends IBasePresenter> {
-    protected Disposable subscription;
+    protected Disposable mDisposable;
 //    public ApiStores apiStores = AppClient.retrofit().create(ApiStores.class);
     private CompositeDisposable mCompositeSubscription = null;
 

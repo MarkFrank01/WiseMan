@@ -16,7 +16,7 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
     }
 
     public void getHotCard(int page, int pageSize){
-        subscription = AppClient.getAPIService().getHotCard(page,pageSize)
+        mDisposable = AppClient.getAPIService().getHotCard(page,pageSize)
                 .compose(this.<BaseArrayBean<HotCardBean>>io_main())
                 .compose(this.<HotCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBean>>(mPresent) {
@@ -25,11 +25,11 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
                         mPresent.getDataSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 
     public void getHotCardBag(){
-        subscription = AppClient.getAPIService().getHotCardBag()
+        mDisposable = AppClient.getAPIService().getHotCardBag()
                 .compose(this.<BaseArrayBean<HotCardBagBean>>io_main())
                 .compose(this.<HotCardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBagBean>>(mPresent) {
@@ -38,7 +38,7 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
                         mPresent.getHotCardBagSuccess(list);
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 

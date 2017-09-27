@@ -1,16 +1,19 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
-import com.zxcx.shitang.mvpBase.IGetPresenter;
-import com.zxcx.shitang.mvpBase.MvpView;
+import com.zxcx.shitang.mvpBase.INullGetPostPresenter;
+import com.zxcx.shitang.mvpBase.NullGetPostView;
+import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
+
+import java.util.List;
 
 public interface CardBagCardDetailsContract {
 
-    interface View extends MvpView<CardBagCardDetailsBean> {
-
+    interface View extends NullGetPostView<CardDetailsBean> {
+        void getAllCardIdSuccess(List<Integer> list);
     }
 
-    interface Presenter extends IGetPresenter<CardBagCardDetailsBean> {
-
+    interface Presenter extends INullGetPostPresenter<CardDetailsBean> {
+        void getAllCardIdSuccess(List<Integer> list);
     }
 }
 

@@ -13,7 +13,7 @@ public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
     }
 
     public void feedback(String content, String contact,int appType, String appChannel, String appVersion){
-        subscription = AppClient.getAPIService().feedback(content,contact,appType,appChannel,appVersion)
+        mDisposable = AppClient.getAPIService().feedback(content,contact,appType,appChannel,appVersion)
                 .compose(this.<BaseBean>io_main())
                 .compose(handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
@@ -22,7 +22,7 @@ public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
                         mPresent.postSuccess();
                     }
                 });
-        addSubscription(subscription);
+        addSubscription(mDisposable);
     }
 }
 
