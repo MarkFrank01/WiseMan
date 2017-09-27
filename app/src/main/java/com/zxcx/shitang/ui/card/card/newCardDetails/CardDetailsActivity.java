@@ -62,7 +62,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private Action mAction;
 
     private enum Action{
-        collect,
         unCollect,
         like,
         unLike
@@ -87,7 +86,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         }else {
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         }
-
         mPresenter.getCardDetails(cardId);
     }
 
@@ -123,9 +121,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void postSuccess() {
-        if (mAction == Action.collect){
-
-        }else if (mAction == Action.unCollect){
+        if (mAction == Action.unCollect){
             collectNum--;
             mCbCardDetailsCollect.setText(collectNum + "");
         }else if (mAction == Action.like){
@@ -140,9 +136,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        if (mAction == Action.collect){
-
-        }else if (mAction == Action.unCollect){
+        if (mAction == Action.unCollect){
             mCbCardDetailsCollect.setChecked(true);
         }else if (mAction == Action.like){
             mCbCardDetailsLike.setChecked(false);
