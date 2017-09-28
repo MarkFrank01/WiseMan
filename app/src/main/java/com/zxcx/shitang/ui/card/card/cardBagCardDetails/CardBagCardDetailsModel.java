@@ -20,11 +20,11 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
 
     public void getAllCardId(int cardBagId) {
         mDisposable = AppClient.getAPIService().getAllCardId(cardBagId)
-                .compose(BaseRxJava.<BaseArrayBean<Integer>>io_main())
-                .compose(BaseRxJava.<Integer>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<Integer>>(mPresent) {
+                .compose(BaseRxJava.<BaseArrayBean<CardBagCardDetailsBean>>io_main())
+                .compose(BaseRxJava.<CardBagCardDetailsBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<CardBagCardDetailsBean>>(mPresent) {
                     @Override
-                    public void onNext(List<Integer> list) {
+                    public void onNext(List<CardBagCardDetailsBean> list) {
                         mPresent.getAllCardIdSuccess(list);
                     }
                 });

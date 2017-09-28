@@ -9,11 +9,11 @@ import java.util.List;
 public interface CardBagCardDetailsContract {
 
     interface View extends NullGetPostView<CardDetailsBean> {
-        void getAllCardIdSuccess(List<Integer> list);
+        void getAllCardIdSuccess(List<CardBagCardDetailsBean> list);
     }
 
     interface Presenter extends INullGetPostPresenter<CardDetailsBean> {
-        void getAllCardIdSuccess(List<Integer> list);
+        void getAllCardIdSuccess(List<CardBagCardDetailsBean> list);
     }
 }
 

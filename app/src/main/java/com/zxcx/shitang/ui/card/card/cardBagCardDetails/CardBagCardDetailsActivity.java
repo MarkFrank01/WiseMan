@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity;
 import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
@@ -43,7 +44,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     ImageView mIvCardDetailsBack;
     @BindView(R.id.tv_card_details_title)
     TextView mTvCardDetailsTitle;
-    @BindView(R.id.ll_card_details)
+    @BindView(R.id.toolbar)
     RelativeLayout mLlCardDetails;
     @BindView(R.id.cb_card_details_collect)
     CheckBox mCbCardDetailsCollect;
@@ -57,7 +58,8 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     TextView mTvCardDetailsNum;
 
     private CardBagCardDetailsAdapter mAdapter;
-    private List<Integer> mList = new ArrayList<>();
+    private List<Integer> mIdList = new ArrayList<>();
+    private ArrayList<CardBagCardDetailsBean> mAllCardList = new ArrayList<>();
     private String name;
     private int id;
     private int cardId;
@@ -81,10 +83,15 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         id = getIntent().getIntExtra("id", 0);
         cardId = getIntent().getIntExtra("cardId", 0);
         name = getIntent().getStringExtra("name");
+        ArrayList<CardBagCardDetailsBean> list = getIntent().getParcelableArrayListExtra("allCard");
 
         mTvCardDetailsTitle.setText(name);
 
-        mPresenter.getAllCardId(id);
+        if (list != null && list.size() != 0) {
+            getAllCardIdSuccess(list);
+        } else {
+            mPresenter.getAllCardId(id);
+        }
 
         mPresenter.getCardDetails(cardId);
     }
@@ -101,16 +108,20 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     }
 
     @Override
-    public void getAllCardIdSuccess(List<Integer> bean) {
-        mList.addAll(bean);
-        mAdapter = new CardBagCardDetailsAdapter(getSupportFragmentManager(), mList);
+    public void getAllCardIdSuccess(List<CardBagCardDetailsBean> list) {
+        mAllCardList.clear();
+        mAllCardList.addAll(list);
+        for (CardBagCardDetailsBean bean : list) {
+            mIdList.add(bean.getId());
+        }
+        mAdapter = new CardBagCardDetailsAdapter(getSupportFragmentManager(), mIdList);
         mVpCardBagCardDetails.setAdapter(mAdapter);
 
-        int position = mList.indexOf(cardId);
+        int position = mIdList.indexOf(cardId);
         mVpCardBagCardDetails.setCurrentItem(position);
         mVpCardBagCardDetails.addOnPageChangeListener(this);
 
-        String num = position + 1 + "/" + mList.size();
+        String num = position + 1 + "/" + mIdList.size();
         mTvCardDetailsNum.setText(num);
     }
 
@@ -203,6 +214,17 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         }
     }
 
+    @OnClick(R.id.tv_card_details_num)
+    public void onMTvCardDetailsNumClicked() {
+        Intent intent = new Intent(this, CardBagAllCardActivity.class);
+        intent.putExtra("name",name);
+        intent.putExtra("id",id);
+        intent.putExtra("cardId",cardId);
+        intent.putParcelableArrayListExtra("allCard", mAllCardList);
+        startActivity(intent);
+        overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
+    }
+
     @OnClick(R.id.iv_card_details_back)
     public void onBackClicked() {
         finish();
@@ -235,9 +257,9 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
 
     @Override
     public void onPageSelected(int position) {
-        cardId = mList.get(position);
+        cardId = mIdList.get(position);
         mPresenter.getCardDetails(cardId);
-        String num = position + 1 + "/" + mList.size();
+        String num = position + 1 + "/" + mIdList.size();
         mTvCardDetailsNum.setText(num);
     }
 

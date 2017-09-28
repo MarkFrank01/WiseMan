@@ -10,7 +10,6 @@
     tools:context="com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity">
 
     <include layout="@layout/toolbar"/>
-    <include layout="@layout/view_line"/>
 
     <View
         android:layout_marginTop="154dp"

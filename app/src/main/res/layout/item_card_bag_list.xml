@@ -10,7 +10,7 @@
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_card_bag_list_icon"
         android:layout_centerVertical="true"
-        android:src="@drawable/iv_item_home_card_icon"
+        tools:src="@drawable/iv_item_home_card_icon"
         android:scaleType="centerCrop"
         android:layout_marginLeft="12dp"
         android:layout_width="44dp"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_item_card_bag_list_title"
-        android:text="联想笔记本"
+        tools:text="联想笔记本"
         android:layout_toRightOf="@+id/iv_item_card_bag_list_icon"
         android:layout_marginTop="19dp"
         android:layout_marginLeft="22.5dp"

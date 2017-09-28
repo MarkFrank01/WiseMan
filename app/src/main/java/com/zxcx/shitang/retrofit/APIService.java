@@ -1,5 +1,6 @@
 package com.zxcx.shitang.retrofit;
 
+import com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsBean;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.shitang.ui.card.cardBag.CardBagBean;
 import com.zxcx.shitang.ui.classify.ClassifyBean;
@@ -234,5 +235,5 @@ public interface APIService {
      *获取广告
      */
     @POST("/collection/getAllArticleIdByCollectionId")
-    Flowable<BaseArrayBean<Integer>> getAllCardId(@Query("collectionId") int cardBagId);
+    Flowable<BaseArrayBean<CardBagCardDetailsBean>> getAllCardId(@Query("collectionId") int cardBagId);
 }

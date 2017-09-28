@@ -40,7 +40,7 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
     TextView mTvCardDetailsTitle;
     @BindView(R.id.tv_card_details_number)
     TextView mTvCardDetailsNumber;
-    @BindView(R.id.ll_card_details)
+    @BindView(R.id.toolbar)
     RelativeLayout mLlCardDetails;
     @BindView(R.id.cb_card_details_collect)
     CheckBox mCbCardDetailsCollect;

@@ -51,9 +51,9 @@ public class OldCardDetailsBehavior extends CoordinatorLayout.Behavior<RelativeL
                 +target.findViewById(R.id.tv_card_details_name).getTop();
         int scrollY = target.getScrollY();
         if (scrollY + finalY>topHeight){
-            child.findViewById(R.id.ll_card_details).findViewById(R.id.tv_card_details_title).setVisibility(View.VISIBLE);
+            child.findViewById(R.id.toolbar).findViewById(R.id.tv_card_details_title).setVisibility(View.VISIBLE);
         }else {
-            child.findViewById(R.id.ll_card_details).findViewById(R.id.tv_card_details_title).setVisibility(View.GONE);
+            child.findViewById(R.id.toolbar).findViewById(R.id.tv_card_details_title).setVisibility(View.GONE);
         }
         return super.onNestedFling(coordinatorLayout,child,target,velocityX,velocityY,consumed);
     }
@@ -64,9 +64,9 @@ public class OldCardDetailsBehavior extends CoordinatorLayout.Behavior<RelativeL
         int topHeight = target.findViewById(R.id.tv_card_details_name).getHeight()
                 +target.findViewById(R.id.tv_card_details_name).getTop();
         if (target.getScrollY()+dyConsumed>topHeight){
-            child.findViewById(R.id.ll_card_details).findViewById(R.id.tv_card_details_title).setVisibility(View.VISIBLE);
+            child.findViewById(R.id.toolbar).findViewById(R.id.tv_card_details_title).setVisibility(View.VISIBLE);
         }else {
-            child.findViewById(R.id.ll_card_details).findViewById(R.id.tv_card_details_title).setVisibility(View.GONE);
+            child.findViewById(R.id.toolbar).findViewById(R.id.tv_card_details_title).setVisibility(View.GONE);
         }
     }
 }

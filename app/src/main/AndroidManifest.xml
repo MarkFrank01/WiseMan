@@ -149,7 +149,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="standard"/>
         <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
@@ -162,6 +163,8 @@
         <activity
             android:name=".ui.card.card.collect.SelectCollectFolderActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity">
+        </activity>
     </application>
 
 </manifest>

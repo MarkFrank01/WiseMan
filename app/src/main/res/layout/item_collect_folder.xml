@@ -11,7 +11,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_collect_folder_icon"
-        android:src="@drawable/iv_item_home_card_icon"
+        tools:src="@drawable/iv_item_home_card_icon"
         android:layout_width="match_parent"
         android:layout_height="126dp"
         android:scaleType="centerCrop"
@@ -45,7 +45,7 @@
         android:maxLines="1"
         android:maxEms="6"
         android:ellipsize="end"
-        android:text="笔记本"
+        tools:text="笔记本"
         android:textColor="@color/text_color_40"
         android:textSize="15sp"
         android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
         android:gravity="center"
         android:layout_marginTop="42.5dp"
         android:layout_marginRight="11dp"
-        android:text="56"
+        tools:text="56"
         android:textColor="@color/line"
         android:textSize="20sp"
         android:layout_width="wrap_content"

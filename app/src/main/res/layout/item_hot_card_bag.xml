@@ -10,7 +10,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_home_card_bag_icon"
-        android:src="@drawable/iv_item_home_card_bag_icon"
+        tools:src="@drawable/iv_item_home_card_bag_icon"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"
         android:layout_width="145dp"
@@ -18,7 +18,7 @@
         app:riv_corner_radius="6dp"/>
     <TextView
         android:id="@+id/tv_item_home_card_bag_title"
-        android:text="生活常识"
+        tools:text="生活常识"
         android:gravity="center"
         android:textColor="@color/text_item_card_bag"
         android:textSize="14sp"

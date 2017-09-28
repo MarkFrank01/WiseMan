@@ -4,15 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
-
-    <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
 
     <View
         android:layout_marginTop="10dp"
@@ -38,7 +34,7 @@
         
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_user_info_head"
-            android:src="@drawable/iv_my_head_placeholder"
+            tools:src="@drawable/iv_my_head_placeholder"
             android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -72,7 +68,7 @@
 
         <TextView
             android:id="@+id/tv_user_info_nick_name"
-            android:text="一叶知秋"
+            tools:text="一叶知秋"
             android:textSize="14sp"
             android:maxLines="1"
             android:maxLength="8"
@@ -109,7 +105,7 @@
 
         <TextView
             android:id="@+id/tv_user_info_sex"
-            android:text="男"
+            tools:text="男"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -144,7 +140,7 @@
 
         <TextView
             android:id="@+id/tv_user_info_birthday"
-            android:text="1999-12-10"
+            tools:text="1999-12-10"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

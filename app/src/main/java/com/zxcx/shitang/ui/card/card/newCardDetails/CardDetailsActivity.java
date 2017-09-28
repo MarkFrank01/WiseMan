@@ -41,7 +41,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     ImageView mIvCardDetailsBack;
     @BindView(R.id.tv_card_details_title)
     TextView mTvCardDetailsTitle;
-    @BindView(R.id.ll_card_details)
+    @BindView(R.id.toolbar)
     RelativeLayout mLlCardDetails;
     @BindView(R.id.cb_card_details_collect)
     CheckBox mCbCardDetailsCollect;

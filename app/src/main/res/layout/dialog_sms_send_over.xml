@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="验证码次数上限提示"
+        android:text="提示"
         android:textSize="17sp"
         android:textColor="@color/text_color_40"/>
 
@@ -22,7 +22,7 @@
         android:layout_marginLeft="17.5dp"
         android:layout_marginRight="17.5dp"
         android:layout_marginBottom="16dp"
-        android:text="为避免短信发放次数过多影响用户，12小时内仅发送最多5条验证码，24小时发送最多10条验证码"
+        android:text="验证次数已达上限，请12小时后再试"
         android:textSize="14sp"
         android:textColor="@color/text_color_66"/>
 

@@ -37,7 +37,7 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
     }
 
     @Override
-    public void getAllCardIdSuccess(List<Integer> list) {
+    public void getAllCardIdSuccess(List<CardBagCardDetailsBean> list) {
         mView.getAllCardIdSuccess(list);
     }
 
