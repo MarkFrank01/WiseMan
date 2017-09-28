@@ -56,9 +56,9 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
-    protected void onDestroy() {
+    public void onBackPressed() {
         Utils.closeInputMethod(mEtSearch);
-        super.onDestroy();
+        super.onBackPressed();
     }
 
     @Override

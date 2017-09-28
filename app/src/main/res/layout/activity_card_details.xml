@@ -12,7 +12,7 @@
         app:layout_behavior="com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsBehavior">
 
         <RelativeLayout
-            android:id="@+id/toolbar"
+            android:id="@+id/ll_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12.5dp">
@@ -96,7 +96,7 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scv_card_details"
             android:layout_above="@id/rl_card_details"
-            android:layout_below="@id/toolbar"
+            android:layout_below="@+id/ll_toolbar"
             android:layout_marginTop="@dimen/dp_card_details_scv_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

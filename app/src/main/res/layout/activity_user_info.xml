@@ -8,7 +8,9 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <View
         android:layout_marginTop="10dp"

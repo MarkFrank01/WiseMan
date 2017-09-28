@@ -8,7 +8,9 @@
     android:orientation="vertical"
     tools:context="com.zxcx.shitang.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_all_card"

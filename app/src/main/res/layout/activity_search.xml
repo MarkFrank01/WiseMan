@@ -10,8 +10,9 @@
     <ImageView
         android:id="@+id/iv_left_close"
         android:src="@drawable/common_close"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="24dp"
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -19,7 +20,7 @@
         android:id="@+id/rl_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="206dp">
+        android:layout_marginTop="196dp">
         <EditText
             android:id="@+id/et_search"
             android:gravity="center_vertical"

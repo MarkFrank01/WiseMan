@@ -9,7 +9,9 @@
     android:layout_height="match_parent"
     tools:context="com.zxcx.shitang.ui.welcome.WebViewActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
 
 </LinearLayout>

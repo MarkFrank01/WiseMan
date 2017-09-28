@@ -7,7 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <LinearLayout
         android:id="@+id/ll_collect_folder"
@@ -32,7 +34,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_collect_folder"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/ll_toolbar"
         android:layout_above="@id/ll_collect_folder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

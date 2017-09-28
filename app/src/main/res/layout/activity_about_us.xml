@@ -9,7 +9,9 @@
     android:orientation="vertical"
     tools:context="com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <View
         android:layout_marginTop="154dp"

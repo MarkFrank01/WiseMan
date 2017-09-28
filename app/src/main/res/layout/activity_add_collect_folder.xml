@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
     <EditText
         android:id="@+id/et_add_collect_folder"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@+id/ll_toolbar"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="37.5dp"
         android:layout_marginRight="37.5dp"

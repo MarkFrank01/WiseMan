@@ -9,7 +9,9 @@
     android:orientation="vertical"
     tools:context="com.zxcx.shitang.ui.my.feedback.help.HelpActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"

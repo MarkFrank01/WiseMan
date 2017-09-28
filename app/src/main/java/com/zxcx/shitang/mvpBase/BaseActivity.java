@@ -54,13 +54,13 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initStatusBar();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (hasFocus&&isFirst){
             isFirst = false;
+            initStatusBar();
         }
     }
 
