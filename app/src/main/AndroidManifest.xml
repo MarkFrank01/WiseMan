@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.zxcx.shitang"
+<manifest package="com.zxcx.zhizhe"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
 
     <application
-        android:name=".App"
+        android:name="com.zxcx.zhizhe.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -36,7 +36,7 @@
         </provider>
 
         <receiver
-            android:name=".receiver.OpenNotification"
+            android:name="com.zxcx.zhizhe.receiver.OpenNotification"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
@@ -68,7 +68,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.zxcx.zhizhe.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -78,7 +78,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent"/>
         <activity
-            android:name=".ui.welcome.GuidePageActivity"
+            android:name="com.zxcx.zhizhe.ui.welcome.GuidePageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
@@ -88,82 +88,82 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.zxcx.zhizhe.ui.MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:name="com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.welcome.WebViewActivity"
+            android:name="com.zxcx.zhizhe.ui.welcome.WebViewActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name="com.zxcx.zhizhe.ui.welcome.WelcomeActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.search.search.SearchActivity"
+            android:name="com.zxcx.zhizhe.ui.search.search.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
-            android:name=".ui.my.userInfo.UserInfoActivity"
+            android:name="com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.CommonSettingActivity"
+            android:name="com.zxcx.zhizhe.ui.my.CommonSettingActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.collect.collectFolder.CollectFolderActivity"
+            android:name="com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.cardBag.CardBagActivity"
+            android:name="com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.search.result.SearchResultActivity"
+            android:name="com.zxcx.zhizhe.ui.search.result.SearchResultActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.collect.collectCard.CollectCardActivity"
+            android:name="com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.card.cardDetails.OldCardDetailsActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.cardDetails.OldCardDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.share.DiyShareActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.share.DiyShareActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.loginAndRegister.register.RegisterActivity"
+            android:name="com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
+            android:name="com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.aboutUS.AboutUSActivity"
+            android:name="com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.feedback.feedback.FeedbackActivity"
+            android:name="com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.selectAttention.SelectAttentionActivity"
+            android:name="com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
             android:screenOrientation="portrait"
             android:launchMode="standard"/>
         <activity
-            android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
+            android:name="com.zxcx.zhizhe.ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.feedback.help.HelpActivity"
+            android:name="com.zxcx.zhizhe.ui.my.feedback.help.HelpActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.collect.AddCollectFolderActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.collect.AddCollectFolderActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.collect.SelectCollectFolderActivity"
+            android:name="com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity">
+        <activity android:name="com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity">
         </activity>
     </application>
 

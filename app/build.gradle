@@ -7,7 +7,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.zxcx.shitang"
+        applicationId "com.zxcx.zhizhe"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
@@ -27,7 +27,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: 'com.zxcx.shitang.MyEventBusIndex']
+                arguments = [eventBusIndex: 'com.zxcx.zhizhe.MyEventBusIndex']
             }
         }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.zxcx.shitang.ui.my.MyFragment">
+    tools:context="com.zxcx.zhizhe.ui.my.MyFragment">
 
     <include
         android:id="@+id/ll_toolbar"

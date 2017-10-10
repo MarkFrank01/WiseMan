@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zxcx.shitang.ui.welcome.WebViewActivity">
+    tools:context="com.zxcx.zhizhe.ui.welcome.WebViewActivity">
 
     <include
         android:id="@+id/ll_toolbar"

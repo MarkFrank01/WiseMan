@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context="com.zxcx.shitang.ui.welcome.WelcomeActivity">
+    tools:context="com.zxcx.zhizhe.ui.welcome.WelcomeActivity">
 
     <ImageView
         android:id="@+id/iv_welcome_ad"
