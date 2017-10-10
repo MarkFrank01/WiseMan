@@ -1,7 +1,6 @@
 package com.zxcx.shitang.ui.card.card.cardBagCardDetails;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.CheckBox;
@@ -12,16 +11,13 @@ import android.widget.TextView;
 import com.zxcx.shitang.R;
 import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
+import com.zxcx.shitang.retrofit.APIService;
 import com.zxcx.shitang.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity;
 import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.shitang.ui.card.card.newCardDetails.CardDetailsBean;
-import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
 import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
-import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
-import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.SVTSConstants;
-import com.zxcx.shitang.utils.ScreenUtils;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,7 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPresenter> implements CardBagCardDetailsContract.View,
-        ShareWayDialog.DefaultShareDialogListener, ViewPager.OnPageChangeListener {
+         ViewPager.OnPageChangeListener {
 
     @BindView(R.id.vp_card_bag_card_details)
     ViewPager mVpCardBagCardDetails;
@@ -44,8 +40,6 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     ImageView mIvCardDetailsBack;
     @BindView(R.id.tv_card_details_title)
     TextView mTvCardDetailsTitle;
-    @BindView(R.id.toolbar)
-    RelativeLayout mLlCardDetails;
     @BindView(R.id.cb_card_details_collect)
     CheckBox mCbCardDetailsCollect;
     @BindView(R.id.cb_card_details_like)
@@ -171,9 +165,12 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
 
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
-        ShareWayDialog shareWayDialog = new ShareWayDialog();
-        shareWayDialog.setListener(this);
-        shareWayDialog.show(getFragmentManager(), "");
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title",name);
+        bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(), "");
     }
 
     @OnClick(R.id.cb_card_details_collect)
@@ -230,25 +227,6 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         finish();
     }
 
-    @Override
-    public void onDefaultShareClick() {
-        Bitmap bitmap = ScreenUtils.getBitmapByView(mVpCardBagCardDetails);
-        String fileName = FileUtil.getFileName();
-        String imagePath = FileUtil.PATH_BASE + fileName;
-        FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
-
-        ShareCardDialog shareCardDialog = new ShareCardDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString("imagePath", imagePath);
-        shareCardDialog.setArguments(bundle);
-        shareCardDialog.show(getFragmentManager(), "");
-    }
-
-    @Override
-    public void onDiyShareClick() {
-        Intent intent = new Intent(this, DiyShareActivity.class);
-        startActivity(intent);
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -267,4 +245,23 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     public void onPageScrollStateChanged(int state) {
 
     }
+    /*@Override
+    public void onDefaultShareClick() {
+        Bitmap bitmap = ScreenUtils.getBitmapByView(mVpCardBagCardDetails);
+        String fileName = FileUtil.getFileName();
+        String imagePath = FileUtil.PATH_BASE + fileName;
+        FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
+
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("imagePath", imagePath);
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(), "");
+    }
+
+    @Override
+    public void onDiyShareClick() {
+        Intent intent = new Intent(this, DiyShareActivity.class);
+        startActivity(intent);
+    }*/
 }

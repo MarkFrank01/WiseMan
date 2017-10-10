@@ -163,6 +163,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_share_save"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -206,6 +207,11 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
 
             <View
                 android:layout_weight="1"

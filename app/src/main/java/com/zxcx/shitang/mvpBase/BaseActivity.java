@@ -53,18 +53,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initStatusBar();
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus&&isFirst){
-            isFirst = false;
-            initStatusBar();
-        }
-    }
-
-    private void initStatusBar() {
+    public void initStatusBar() {
         if (!Constants.IS_NIGHT){
             if (ScreenUtils.isFullScreen(this)) {
                 ImmersionBar.with(this)

@@ -1,7 +1,6 @@
 package com.zxcx.shitang.ui.card.card.newCardDetails;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -16,13 +15,9 @@ import com.zxcx.shitang.event.CollectSuccessEvent;
 import com.zxcx.shitang.mvpBase.MvpActivity;
 import com.zxcx.shitang.retrofit.APIService;
 import com.zxcx.shitang.ui.card.card.collect.SelectCollectFolderActivity;
-import com.zxcx.shitang.ui.card.card.share.DiyShareActivity;
 import com.zxcx.shitang.ui.card.card.share.ShareCardDialog;
-import com.zxcx.shitang.ui.card.card.share.ShareWayDialog;
 import com.zxcx.shitang.ui.loginAndRegister.login.LoginActivity;
-import com.zxcx.shitang.utils.FileUtil;
 import com.zxcx.shitang.utils.SVTSConstants;
-import com.zxcx.shitang.utils.ScreenUtils;
 import com.zxcx.shitang.utils.SharedPreferencesUtil;
 import com.zxcx.shitang.utils.WebViewUtils;
 
@@ -34,15 +29,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View,
-        ShareWayDialog.DefaultShareDialogListener {
+public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
 
     @BindView(R.id.iv_card_details_back)
     ImageView mIvCardDetailsBack;
     @BindView(R.id.tv_card_details_title)
     TextView mTvCardDetailsTitle;
-    @BindView(R.id.toolbar)
-    RelativeLayout mLlCardDetails;
     @BindView(R.id.cb_card_details_collect)
     CheckBox mCbCardDetailsCollect;
     @BindView(R.id.cb_card_details_like)
@@ -53,6 +45,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     RelativeLayout mRlCardDetails;
     @BindView(R.id.fl_card_details)
     FrameLayout mFlCardDetails;
+    @BindView(R.id.ll_toolbar)
+    RelativeLayout mLlToolbar;
 
     private WebView mWebView;
     private int cardId;
@@ -61,7 +55,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private int collectNum;
     private Action mAction;
 
-    private enum Action{
+    private enum Action {
         unCollect,
         like,
         unLike
@@ -80,10 +74,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mTvCardDetailsTitle.setText(name);
         mWebView = WebViewUtils.getWebView(this);
         mFlCardDetails.addView(mWebView);
-        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
-        if (isNight){
+        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        if (isNight) {
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleDark/" + cardId);
-        }else {
+        } else {
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         }
         mPresenter.getCardDetails(cardId);
@@ -121,13 +115,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void postSuccess() {
-        if (mAction == Action.unCollect){
+        if (mAction == Action.unCollect) {
             collectNum--;
             mCbCardDetailsCollect.setText(collectNum + "");
-        }else if (mAction == Action.like){
+        } else if (mAction == Action.like) {
             likeNum++;
             mCbCardDetailsLike.setText(likeNum + "");
-        }else if (mAction == Action.unLike){
+        } else if (mAction == Action.unLike) {
             likeNum--;
             mCbCardDetailsLike.setText(likeNum + "");
         }
@@ -136,11 +130,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        if (mAction == Action.unCollect){
+        if (mAction == Action.unCollect) {
             mCbCardDetailsCollect.setChecked(true);
-        }else if (mAction == Action.like){
+        } else if (mAction == Action.like) {
             mCbCardDetailsLike.setChecked(false);
-        }else if (mAction == Action.unLike){
+        } else if (mAction == Action.unLike) {
             mCbCardDetailsLike.setChecked(true);
         }
     }
@@ -155,9 +149,12 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
-        ShareWayDialog shareWayDialog = new ShareWayDialog();
-        shareWayDialog.setListener(this);
-        shareWayDialog.show(getFragmentManager(), "");
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", name);
+        bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(), "");
     }
 
     @OnClick(R.id.cb_card_details_collect)
@@ -165,11 +162,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsCollect.isChecked()) {
             mCbCardDetailsCollect.setChecked(false);
-            if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0){
-                Intent intent = new Intent(mActivity,SelectCollectFolderActivity.class);
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
                 intent.putExtra("cardId", cardId);
                 startActivity(intent);
-            }else {
+            } else {
                 toastShow("请先登录");
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
@@ -184,10 +181,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onMCbCardDetailsLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
         if (mCbCardDetailsLike.isChecked()) {
-            if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0){
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 mAction = Action.like;
                 mPresenter.likeCard(cardId);
-            }else {
+            } else {
                 toastShow("请先登录");
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
@@ -203,7 +200,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         finish();
     }
 
-    @Override
+    /*@Override
     public void onDefaultShareClick() {
         Bitmap bitmap = ScreenUtils.getBitmapByView(mWebView);
         String fileName = FileUtil.getFileName();
@@ -221,5 +218,5 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onDiyShareClick() {
         Intent intent = new Intent(this, DiyShareActivity.class);
         startActivity(intent);
-    }
+    }*/
 }
