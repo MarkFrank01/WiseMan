@@ -75,7 +75,6 @@ dependencies {
     })
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile name: 'SMSSDK-3.0.0', ext: 'aar'
     //状态栏工具
     //retrofit2
     //fastjson retrofit2 转换器
@@ -120,6 +119,7 @@ dependencies {
     compile 'com.aliyun.dpa:oss-android-sdk:2.3.0'
     compile 'top.zibin:Luban:1.1.2'
     compile 'jp.wasabeef:blurry:2.1.1'
+    compile name: 'SMSSDK-3.0.0', ext: 'aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'

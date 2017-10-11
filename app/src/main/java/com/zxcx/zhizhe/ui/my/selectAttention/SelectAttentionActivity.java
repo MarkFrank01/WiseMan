@@ -41,11 +41,6 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
         getAttentionList();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     private void getAttentionList() {
         mPresenter.getAttentionList();
     }

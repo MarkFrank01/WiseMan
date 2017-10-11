@@ -113,29 +113,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_share_weibo"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:src="@drawable/weibo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
-
-                <TextView
-                    android:layout_marginTop="9dp"
-                    android:text="@string/weibo"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
 
 
             <View
@@ -162,8 +139,7 @@
                 android:layout_height="match_parent"/>
 
             <LinearLayout
-                android:id="@+id/ll_share_save"
-                android:visibility="gone"
+                android:id="@+id/ll_share_weibo"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -171,13 +147,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/save"
+                    android:src="@drawable/weibo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"/>
 
                 <TextView
                     android:layout_marginTop="9dp"
-                    android:text="@string/save"
+                    android:text="@string/weibo"
                     android:textSize="12sp"
                     android:textColor="@color/text_color_99"
                     android:layout_width="wrap_content"
@@ -186,7 +162,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_share_more"
+                android:id="@+id/ll_share_copy"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -194,29 +170,19 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/more"
+                    android:src="@drawable/copy"
                     android:layout_width="40dp"
                     android:layout_height="40dp"/>
 
                 <TextView
                     android:layout_marginTop="9dp"
-                    android:text="@string/more"
+                    android:text="@string/copy"
                     android:textSize="12sp"
                     android:textColor="@color/text_color_99"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-            <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
 
             <View
                 android:layout_weight="1"

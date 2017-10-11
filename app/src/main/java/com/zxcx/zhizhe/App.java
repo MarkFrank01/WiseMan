@@ -30,7 +30,7 @@ public class App extends MultiDexApplication {
         context = getApplicationContext();
 
         //SMSSDK,ShareSDK
-        MobSDK.init(context, "1e10ca582d273", "09e1ee677112d1e4ebca49138dc38481");
+        MobSDK.init(context, "2056f7654d8f4", "4f929b988ab98c88d4e9811e5a9d208c");
 
         //Bugly
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);

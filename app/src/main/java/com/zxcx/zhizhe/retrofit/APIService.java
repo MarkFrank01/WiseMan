@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterBean;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardBean;
@@ -27,6 +28,7 @@ import retrofit2.http.Query;
 public interface APIService {
 
     String API_SERVER_URL = "http://120.77.180.183:8043";
+//    String API_SERVER_URL = "http://192.168.1.102:8043";
 
     /**
      * 注册
@@ -47,12 +49,41 @@ public interface APIService {
             @Query("appVersion") String appVersion);
 
     /**
+     * 第三方注册
+     */
+    @POST("/user/thirdPartyRegistered")
+    Flowable<BaseBean<ChannelRegisterBean>> channelRegister(
+            @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
+            @Query("avatar") String userIcon, @Query("name") String name,
+            @Query("gender") Integer sex, @Query("birth") String birthday,
+            @Query("phoneNumber") String phone,@Query("SMSCode") String code,
+            @Query("appType") int appType, @Query("appChannel") String appChannel,
+            @Query("appVersion") String appVersion);
+
+    /**
+     * 第三方登录
+     */
+    @POST("/user/thirdPartyLogin")
+    Flowable<BaseBean<LoginBean>> channelLogin(
+            @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
+            @Query("appType") int appType, @Query("appChannel") String appChannel,
+            @Query("appVersion") String appVersion);
+
+    /**
      * 修改密码
      */
     @POST("/user/ChangePassword")
     Flowable<BaseBean> changePassword(
             @Query("phoneNumber") String phone, @Query("SMSCode") String code, @Query("password") String password,
             @Query("appType") int appType);
+
+    /**
+     * 修改用户信息
+     */
+    @POST("/user/modifyProfile")
+    Flowable<BaseBean<UserInfoBean>> changeUserInfo(
+            @Query("avatar") String userIcon, @Query("name") String name,
+            @Query("gender") Integer sex, @Query("birth") String birthday);
 
     /**
      * 获取推荐卡片
@@ -177,14 +208,6 @@ public interface APIService {
     @POST("/collection/followCollection")
     Flowable<BaseBean> changeAttentionList(
             @Query("collectionList") List<Integer> idList);
-
-    /**
-     * 修改用户信息
-     */
-    @POST("/user/modifyProfile")
-    Flowable<BaseBean<UserInfoBean>> changeUserInfo(
-            @Query("avatar") String userIcon, @Query("name") String name,
-            @Query("gender") Integer sex, @Query("birth") String birthday);
 
     /**
      * 获取卡片详情

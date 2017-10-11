@@ -1,7 +1,9 @@
 package com.zxcx.zhizhe.ui.card.card.share;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -77,7 +79,7 @@ public class ShareCardDialog extends BaseDialog {
 //        FileUtil.deleteFile(url);
     }
 
-    @OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone, R.id.ll_share_weibo, R.id.ll_share_save, R.id.ll_share_more, R.id.tv_dialog_cancel})
+    @OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone, R.id.ll_share_weibo, R.id.ll_share_copy, R.id.tv_dialog_cancel})
     public void onViewClicked(View view) {
         Platform plat;
         switch (view.getId()) {
@@ -101,11 +103,8 @@ public class ShareCardDialog extends BaseDialog {
                 plat = ShareSDK.getPlatform(SinaWeibo.NAME);
                 showShare(plat.getName());
                 break;
-            /*case R.id.ll_share_save:
-                Toast.makeText(getActivity(),"图片已保存在" + url, Toast.LENGTH_SHORT).show();
-                break;*/
-            case R.id.ll_share_more:
-                getMoreShare();
+            case R.id.ll_share_copy:
+                copy();
                 break;
             case R.id.tv_dialog_cancel:
                 dismiss();
@@ -113,19 +112,11 @@ public class ShareCardDialog extends BaseDialog {
         }
     }
 
-    private void getMoreShare() {
-        /*File file = new File(url);
-        Uri uri;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            uri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName()+".fileProvider", file);
-        }else {
-            uri = Uri.fromFile(file);
-        }*/
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);//添加分享内容标题
-        shareIntent.putExtra(Intent.EXTRA_TEXT, url);//添加分享内容
-        startActivity(shareIntent);
+    private void copy() {
+        toastShow("复制成功");
+        ClipboardManager clipboardManager = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(title, url);
+        clipboardManager.setPrimaryClip(clip);
     }
 
     private void showShare(String platform) {
@@ -135,13 +126,13 @@ public class ShareCardDialog extends BaseDialog {
             oks.setPlatform(platform);
         }
         //关闭sso授权
-        oks.disableSSOWhenAuthorize();
+//        oks.disableSSOWhenAuthorize();
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
         oks.setTitle(title);
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
         oks.setTitleUrl(url);
         // text是分享文本，所有平台都需要这个字段
-//        oks.setText("我是分享文本");
+        oks.setText("1");
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
 //        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数

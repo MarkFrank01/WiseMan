@@ -17,6 +17,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         mModel.phoneLogin(phone,password,appType,appChannel,appVersion);
     }
 
+    public void channelLogin(int channelType, String openId, int appType, String appChannel, String appVersion){
+        mModel.channelLogin(channelType,openId,appType,appChannel,appVersion);
+    }
+
     @Override
     public void getDataSuccess(LoginBean bean) {
         mView.getDataSuccess(bean);
@@ -25,6 +29,16 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
+    }
+
+    @Override
+    public void channelLoginSuccess(LoginBean bean) {
+        mView.channelLoginSuccess(bean);
+    }
+
+    @Override
+    public void channelLoginNeedRegister() {
+        mView.channelLoginNeedRegister();
     }
 
     @Override

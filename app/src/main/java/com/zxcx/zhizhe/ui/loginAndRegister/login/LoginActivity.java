@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.RegisterEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.zhizhe.utils.Constants;
@@ -63,6 +64,9 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     Pattern passwordPattern = Pattern.compile(passwordRules);
 
     PlatformActionListener mChannelLoginListener = new ChannelLoginListener();
+    private int channelType; // 1-QQ 2-WeChat 3-Weibo
+    private int appType;
+    private String userName, userId, userIcon, userGender, appChannel, appVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,10 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         initView();
+
+        appType = Constants.APP_TYPE;
+        appChannel = WalleChannelReader.getChannel(this);
+        appVersion = Utils.getAppVersionName(this);
     }
 
     @Override
@@ -114,6 +122,23 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         finish();
     }
 
+    @Override
+    public void channelLoginSuccess(LoginBean bean) {
+        getDataSuccess(bean);
+    }
+
+    @Override
+    public void channelLoginNeedRegister() {
+        toastShow("请绑定手机号码");
+        Intent intent = new Intent(this, ChannelRegisterActivity.class);
+        intent.putExtra("userId",userId);
+        intent.putExtra("userName",userName);
+        intent.putExtra("userIcon",userIcon);
+        intent.putExtra("userGender",userGender);
+        intent.putExtra("channelType",channelType);
+        startActivity(intent);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RegisterEvent event) {
         //登录成功通知
@@ -146,6 +171,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.ll_login_qq)
     public void onMLlLoginQqClicked() {
+        channelType = 1;
         Platform qq = ShareSDK.getPlatform(QQ.NAME);
         qq.setPlatformActionListener(mChannelLoginListener);
         qq.showUser(null);
@@ -153,6 +179,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.ll_login_wechat)
     public void onMLlLoginWechatClicked() {
+        channelType = 2;
         Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
         wechat.setPlatformActionListener(mChannelLoginListener);
         wechat.showUser(null);
@@ -160,6 +187,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.ll_login_weibo)
     public void onMLlLoginWeiboClicked() {
+        channelType = 3;
         Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
         weibo.setPlatformActionListener(mChannelLoginListener);
         weibo.showUser(null);
@@ -174,9 +202,6 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         if (checkPhone() && checkPassword()) {
             String phone = mEtLoginPhone.getText().toString();
             String password = MD5Utils.md5(mEtLoginPassword.getText().toString());
-            int appType = Constants.APP_TYPE;
-            String appChannel = WalleChannelReader.getChannel(this);
-            String appVersion = Utils.getAppVersionName(this);
             mPresenter.phoneLogin(phone, password, appType, appChannel, appVersion);
         }
     }
@@ -206,11 +231,11 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
             if (i == Platform.ACTION_USER_INFOR) {
                 PlatformDb platDB = platform.getDb();//获取数平台数据DB
                 //通过DB获取各种数据
-                platDB.getToken();
-                platDB.getUserGender();
-                platDB.getUserIcon();
-                platDB.getUserId();
-                platDB.getUserName();
+                userGender = platDB.getUserGender();
+                userIcon = platDB.getUserIcon();
+                userId = platDB.getUserId();
+                userName = platDB.getUserName();
+                mPresenter.channelLogin(channelType,userId,appType,appChannel,appVersion);
             }
         }
 

@@ -163,8 +163,12 @@
         <activity
             android:name="com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity">
-        </activity>
+        <activity
+            android:name="com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
