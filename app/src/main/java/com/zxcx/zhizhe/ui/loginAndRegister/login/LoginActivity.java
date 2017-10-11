@@ -23,15 +23,13 @@ import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
-import com.zxcx.zhizhe.utils.SVTSConstants;
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -103,14 +101,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @Override
     public void getDataSuccess(LoginBean bean) {
-        Date date = new Date();
-        SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, date.getTime());
-        SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, bean.getServiceStartTime());
-        SharedPreferencesUtil.saveData(SVTSConstants.token, bean.getToken());
-        SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getUser().getId());
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
+        ZhiZheUtils.saveLoginData(bean);
         //极光统计
         cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult", true);
         lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));

@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.loginAndRegister.channelRegister;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 
 public class ChannelRegisterPresenter extends BasePresenter<ChannelRegisterContract.View> implements ChannelRegisterContract.Presenter {
 
@@ -19,7 +20,7 @@ public class ChannelRegisterPresenter extends BasePresenter<ChannelRegisterContr
     }
 
     @Override
-    public void getDataSuccess(ChannelRegisterBean bean) {
+    public void getDataSuccess(LoginBean bean) {
         mView.getDataSuccess(bean);
     }
 

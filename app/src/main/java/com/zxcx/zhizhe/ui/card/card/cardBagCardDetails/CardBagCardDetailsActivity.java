@@ -55,6 +55,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     private List<Integer> mIdList = new ArrayList<>();
     private ArrayList<CardBagCardDetailsBean> mAllCardList = new ArrayList<>();
     private String name;
+    private String imageUrl;
     private int id;
     private int cardId;
     private int likeNum;
@@ -123,6 +124,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     public void getDataSuccess(CardDetailsBean bean) {
         collectNum = bean.getCollectNum();
         likeNum = bean.getLikeNum();
+        imageUrl = bean.getImageUrl();
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
@@ -169,6 +171,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         Bundle bundle = new Bundle();
         bundle.putString("title",name);
         bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        bundle.putString("imageUrl",imageUrl);
         shareCardDialog.setArguments(bundle);
         shareCardDialog.show(getFragmentManager(), "");
     }

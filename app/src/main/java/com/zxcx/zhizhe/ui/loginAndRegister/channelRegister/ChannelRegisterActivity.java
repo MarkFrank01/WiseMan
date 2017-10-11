@@ -19,11 +19,11 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RegisterEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
-import com.zxcx.zhizhe.utils.SVTSConstants;
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -109,14 +109,11 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
     }
 
     @Override
-    public void getDataSuccess(ChannelRegisterBean bean) {
-        SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getUser().getId());
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getUser().getName());
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getUser().getGender());
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getUser().getBirth());
+    public void getDataSuccess(LoginBean bean) {
+        ZhiZheUtils.saveLoginData(bean);
+        EventBus.getDefault().post(new RegisterEvent());
         Intent intent = new Intent(this, SelectAttentionActivity.class);
         startActivity(intent);
-        EventBus.getDefault().post(new RegisterEvent());
         finish();
     }
 

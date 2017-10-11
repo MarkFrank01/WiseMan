@@ -6,9 +6,7 @@ import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
-import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
-import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterBean;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
@@ -34,7 +32,7 @@ public interface APIService {
      * 注册
      */
     @POST("/user/PhoneRegistered")
-    Flowable<BaseBean<RegisterBean>> phoneRegistered(
+    Flowable<BaseBean<LoginBean>> phoneRegistered(
             @Query("phoneNumber") String phone,@Query("SMSCode") String code,
             @Query("password") String password, @Query("appType") int appType,
             @Query("appChannel") String appChannel,@Query("appVersion") String appVersion);
@@ -52,7 +50,7 @@ public interface APIService {
      * 第三方注册
      */
     @POST("/user/thirdPartyRegistered")
-    Flowable<BaseBean<ChannelRegisterBean>> channelRegister(
+    Flowable<BaseBean<LoginBean>> channelRegister(
             @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
             @Query("avatar") String userIcon, @Query("name") String name,
             @Query("gender") Integer sex, @Query("birth") String birthday,

@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 
 
 public class ChannelRegisterModel extends BaseModel<ChannelRegisterContract.Presenter> {
@@ -18,12 +19,12 @@ public class ChannelRegisterModel extends BaseModel<ChannelRegisterContract.Pres
                               String birthday, String phone, String code, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().channelRegister(channelType,openId,userIcon,name,
                 sex,birthday,phone,code,appType,appChannel,appVersion)
-                .compose(this.<BaseBean<ChannelRegisterBean>>io_main())
-                .compose(this.<ChannelRegisterBean>handleResult())
-                .subscribeWith(new BaseSubscriber<ChannelRegisterBean>(mPresent) {
+                .compose(this.<BaseBean<LoginBean>>io_main())
+                .compose(this.<LoginBean>handleResult())
+                .subscribeWith(new BaseSubscriber<LoginBean>(mPresent) {
                     @Override
-                    public void onNext(ChannelRegisterBean registerBean) {
-                        mPresent.getDataSuccess(registerBean);
+                    public void onNext(LoginBean bean) {
+                        mPresent.getDataSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);

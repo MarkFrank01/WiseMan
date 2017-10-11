@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.card.card.share;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
@@ -42,6 +41,7 @@ public class ShareCardDialog extends BaseDialog {
     private Unbinder mUnbinder;
     private String url;
     private String title;
+    private String imageUrl;
 
     @Nullable
     @Override
@@ -50,6 +50,7 @@ public class ShareCardDialog extends BaseDialog {
         mUnbinder = ButterKnife.bind(this, view);
         url = getArguments().getString("url");
         title = getArguments().getString("title");
+        imageUrl = getArguments().getString("imageUrl");
         return view;
     }
 
@@ -68,15 +69,9 @@ public class ShareCardDialog extends BaseDialog {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         mUnbinder.unbind();
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-//        FileUtil.deleteFile(url);
     }
 
     @OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone, R.id.ll_share_weibo, R.id.ll_share_copy, R.id.tv_dialog_cancel})
@@ -107,7 +102,7 @@ public class ShareCardDialog extends BaseDialog {
                 copy();
                 break;
             case R.id.tv_dialog_cancel:
-                dismiss();
+                this.dismiss();
                 break;
         }
     }
@@ -115,7 +110,7 @@ public class ShareCardDialog extends BaseDialog {
     private void copy() {
         toastShow("复制成功");
         ClipboardManager clipboardManager = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(title, url);
+        ClipData clip = ClipData.newPlainText(title, title+"\n"+url);
         clipboardManager.setPrimaryClip(clip);
     }
 
@@ -132,9 +127,9 @@ public class ShareCardDialog extends BaseDialog {
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
         oks.setTitleUrl(url);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText("1");
+        oks.setText(title);
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-//        oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
+        oks.setImageUrl(imageUrl);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 //        oks.setImagePath(url);//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
@@ -150,17 +145,17 @@ public class ShareCardDialog extends BaseDialog {
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+                toastShow("分享成功");
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-
+                toastShow(throwable.getMessage());
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-
+                toastShow("分享取消");
             }
         });
 

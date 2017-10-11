@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class SelectAttentionAdapter extends BaseQuickAdapter<SelectAttentionBean
 
         helper.setText(R.id.tv_item_select_attention_name,item.getName());
         RoundedImageView imageView = helper.getView(R.id.iv_item_select_attention_icon);
-        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
+        String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
     }
 }

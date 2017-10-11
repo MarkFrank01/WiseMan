@@ -19,6 +19,8 @@ public class AboutUSActivity extends BaseActivity {
     TextView mTvAboutUsVersions;
     @BindView(R.id.tv_about_us_new_versions)
     TextView mTvAboutUsNewVersions;
+    @BindView(R.id.tv_about_us_logo)
+    TextView mTvAboutUsLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class AboutUSActivity extends BaseActivity {
 
         initToolBar("关于我们");
         mTvAboutUsVersions.setText(Utils.getAppVersionName(this));
+        mTvAboutUsLogo.setText(getString(R.string.tv_about_us_logo,Utils.getAppVersionName(this)));
 
         UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
         if (upgradeInfo != null) {
@@ -37,7 +40,7 @@ public class AboutUSActivity extends BaseActivity {
 
     @OnClick(R.id.ll_about_us_check_update)
     public void onMLlAboutUsCheckUpdateClicked() {
-        Beta.checkUpgrade(true,false);
+        Beta.checkUpgrade(true, false);
     }
 
     @OnClick(R.id.ll_about_us_visit)

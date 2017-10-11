@@ -54,6 +54,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private int likeNum;
     private int collectNum;
     private Action mAction;
+    private String imageUrl;
 
     private enum Action {
         unCollect,
@@ -69,9 +70,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         EventBus.getDefault().register(this);
 
         cardId = getIntent().getIntExtra("id", 0);
-        name = getIntent().getStringExtra("name");
 
-        mTvCardDetailsTitle.setText(name);
         mWebView = WebViewUtils.getWebView(this);
         mFlCardDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
@@ -107,6 +106,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
         collectNum = bean.getCollectNum();
         likeNum = bean.getLikeNum();
+        imageUrl = bean.getImageUrl();
+        name = bean.getName();
+        mTvCardDetailsTitle.setText(name);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
@@ -153,6 +155,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         Bundle bundle = new Bundle();
         bundle.putString("title", name);
         bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        bundle.putString("imageUrl",imageUrl);
         shareCardDialog.setArguments(bundle);
         shareCardDialog.show(getFragmentManager(), "");
     }

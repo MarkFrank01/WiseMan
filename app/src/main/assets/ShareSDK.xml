@@ -55,8 +55,8 @@
     <SinaWeibo
         Id="1"
         SortId="1"
-        AppKey="568898243"
-        AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
+        AppKey="2797113248"
+        AppSecret="2a4ecc5a2aa05aca245e01c6aee3e6cb"
         RedirectUrl="http://www.sharesdk.cn"
         ShareByAppClient="true"
 		IsNewApi = "true"
@@ -93,8 +93,8 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxac8cb0c3f9b06b05"
+        AppSecret="7dac5a6b10709f3cef1903d5e76a1cb1"
 		userName="gh_afb25ac019c9"
 		path="/page/API/pages/share/share"
         BypassApproval="false"
@@ -103,8 +103,8 @@
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxac8cb0c3f9b06b05"
+        AppSecret="7dac5a6b10709f3cef1903d5e76a1cb1"
         BypassApproval="false"
         Enable="true" />
         

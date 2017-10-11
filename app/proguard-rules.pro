@@ -73,6 +73,9 @@
   **[] $VALUES;
   public *;
 }
+-dontwarn com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool
+-dontwarn com.bumptech.glide.load.resource.bitmap.Downsampler
+-dontwarn com.bumptech.glide.load.resource.bitmap.HardwareConfigState
 #Bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
@@ -89,6 +92,10 @@
 -keep class **.R{*;}
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
+#WeChat
+-keep class com.tencent.mm.opensdk.** {*;}
+-keep class com.tencent.wxop.** {*;}
+-keep class com.tencent.mm.sdk.** {*;}
 #OSS
 -keep class com.alibaba.sdk.android.oss.** { *; }
 -dontwarn okio.**

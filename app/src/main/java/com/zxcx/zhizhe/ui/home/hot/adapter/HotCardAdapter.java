@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
 
@@ -36,7 +37,10 @@ public class HotCardAdapter extends BaseQuickAdapter<HotCardBean,BaseViewHolder>
         imageView.setLayoutParams(para);
 
         helper.addOnClickListener(R.id.fl_item_home_card_type);
-        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
+
+        String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+
         helper.setText(R.id.tv_item_home_card_title,item.getName());
         helper.setText(R.id.tv_item_home_card_type,item.getBagName());
         helper.setText(R.id.tv_item_home_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));

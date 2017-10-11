@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class CardBagCardAdapter extends BaseQuickAdapter<CardBagBean,BaseViewHol
         para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
         imageView.setLayoutParams(para);
 
-        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
+        String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
         helper.setText(R.id.tv_item_card_bag_card_title,item.getName());
         helper.setText(R.id.tv_item_card_bag_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
     }

@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
 
@@ -80,7 +81,8 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
         imageView.setLayoutParams(para);
         relativeLayout.setLayoutParams(para);
 
-        ImageLoader.load(mContext,item.getImageUrl(),R.mipmap.image_morenlogo,imageView);
+        String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
     }
 
     public boolean isDelete() {

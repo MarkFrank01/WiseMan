@@ -13,6 +13,10 @@ public class CardDetailsBean extends RetrofitBaen {
     private int likeNum;
     @JSONField(name = "collectingCount")
     private int collectNum;
+    @JSONField(name = "titleImage")
+    private String imageUrl;
+    @JSONField(name = "title")
+    private String name;
 
     public boolean getIsLike() {
         return isLike;
@@ -44,6 +48,38 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setCollectNum(int collectNum) {
         this.collectNum = collectNum;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
+    }
+
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

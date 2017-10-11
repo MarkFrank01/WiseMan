@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.loginAndRegister.register;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 
 public class RegisterPresenter extends BasePresenter<RegisterContract.View> implements RegisterContract.Presenter {
 
@@ -18,7 +19,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     }
 
     @Override
-    public void getDataSuccess(RegisterBean bean) {
+    public void getDataSuccess(LoginBean bean) {
         mView.getDataSuccess(bean);
     }
 
