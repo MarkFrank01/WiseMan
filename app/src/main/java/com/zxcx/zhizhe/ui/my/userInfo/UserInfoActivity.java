@@ -31,6 +31,7 @@ import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.CustomDatePicker;
 import com.zxcx.zhizhe.widget.GetPicBottomDialog;
 import com.zxcx.zhizhe.widget.PermissionDialog;
@@ -85,12 +86,12 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     private void initData() {
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.imgUrl, 0);
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
         mHeadImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
         ImageLoader.load(mActivity,mHeadImg,R.drawable.iv_my_head_placeholder,mIvUserInfoHead);
         mNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
         mTvUserInfoNickName.setText(mNickName);
-        mSex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 0);
+        mSex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
         if (mSex == 1) {
             mTvUserInfoSex.setText("男");
         } else {
@@ -125,7 +126,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @Override
     public void postSuccess(UserInfoBean bean) {
-        saveData(bean);
+        ZhiZheUtils.saveUserInfo(bean);
         initData();
     }
 
@@ -137,21 +138,21 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNickNameDialogEvent event) {
         UserInfoBean bean = event.getUserInfoBean();
-        saveData(bean);
+        ZhiZheUtils.saveUserInfo(bean);
         initData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeSexDialogEvent event) {
         UserInfoBean bean = event.getUserInfoBean();
-        saveData(bean);
+        ZhiZheUtils.saveUserInfo(bean);
         initData();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeBirthdayDialogEvent event) {
         UserInfoBean bean = event.getUserInfoBean();
-        saveData(bean);
+        ZhiZheUtils.saveUserInfo(bean);
         initData();
     }
 
@@ -226,13 +227,6 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     public void onMTvUserInfoLogoutClicked() {
         LogoutDialog dialog = new LogoutDialog();
         dialog.show(getFragmentManager(), "");
-    }
-
-    private void saveData(UserInfoBean bean) {
-        SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getId());
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getName());
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
     }
 
     @Override
