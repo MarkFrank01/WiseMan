@@ -56,6 +56,11 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
+    public void initStatusBar() {
+        //覆盖父类方法
+    }
+
+    @Override
     public void onBackPressed() {
         Utils.closeInputMethod(mEtSearch);
         super.onBackPressed();

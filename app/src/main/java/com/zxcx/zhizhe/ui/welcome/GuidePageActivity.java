@@ -52,6 +52,11 @@ public class GuidePageActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void initStatusBar() {
+        //覆盖父类方法
+    }
+
     private void initImgData() {
         for (int imgId : mImgIds) {
             ImageView imageView = new ImageView(getApplicationContext());
