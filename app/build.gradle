@@ -138,6 +138,8 @@ dependencies {
     compile 'top.zibin:Luban:1.1.2'
     //高斯模糊
     //compile 'jp.wasabeef:blurry:2.1.1'
+    //加载状态布局管理
+    compile 'com.kingja.loadsir:loadsir:1.2.2'
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
