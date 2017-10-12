@@ -57,7 +57,7 @@
         android:layout_marginTop="18.5dp"
         android:layout_marginLeft="12dp"
         android:layout_marginBottom="16dp"
-        android:text="2017-08-16"
+        tools:text="2017-08-16"
         android:textColor="@color/text_color_99"
         android:textSize="12sp"
         android:layout_width="wrap_content"

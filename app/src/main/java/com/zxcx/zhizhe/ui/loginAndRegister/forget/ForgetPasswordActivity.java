@@ -278,8 +278,13 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
                                 case 463:
                                 case 464:
                                 case 465:
+                                case 477:
+                                case 478:
                                     mTvForgetPasswordSendVerification.setVisibility(View.GONE);
                                     mTvForgetPasswordSendOver.setVisibility(View.VISIBLE);
+                                    break;
+                                default:
+                                    toastShow(des);
                                     break;
                             }
                         } catch (Exception e) {

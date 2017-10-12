@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/tv_dialog_logout"
-        android:text="登出后就没办法收藏卡片和评论咯"
+        android:text="退出账号无法收藏卡片？确定退出？"
         android:textSize="17sp"
         android:textColor="@color/text_color_40"
         android:layout_centerHorizontal="true"

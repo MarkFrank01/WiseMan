@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/iv_item_select_attention_select"
-            tools:src="@drawable/cb_item_collect_folder_checked"
+            android:src="@drawable/cb_item_collect_folder_checked"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="8dp"

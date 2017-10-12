@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/tv_item_card_bag_name"
-        android:text="生活常识"
+        tools:text="生活常识"
         android:gravity="center"
         android:textColor="@color/text_color_66"
         android:textSize="14sp"

@@ -57,7 +57,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     @Override
     public void initStatusBar() {
-        //覆盖父类方法
+        //覆盖父类修改状态栏方法
     }
 
     @Override

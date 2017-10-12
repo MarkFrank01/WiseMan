@@ -13,7 +13,7 @@
     <string name="tv_my_about_us">关于我们</string>
     <string name="tv_common_setting_clean_cache">清理缓存</string>
     <string name="tv_common_setting_night_model">夜间模式</string>
-    <string name="tv_common_setting_push">最新提醒</string>
+    <string name="tv_common_setting_push">消息推送</string>
     <string name="tv_common_setting_attention">兴趣偏好</string>
     <string name="tv_common_setting_only_wifi">仅WIFI下加载高清图片</string>
     <string name="tv_my_feedback">意见反馈</string>
@@ -29,7 +29,7 @@
     <string name="common_cancel">取消</string>
     <string name="btn_commit_feedback">提交反馈</string>
     <string name="et_feedback_phone"> 请留下手机或邮箱等联系方式</string>
-    <string name="et_feedback_content"> 想吐槽点什么吗?</string>
+    <string name="et_feedback_content"> 请留下你的意见或建议</string>
     <string name="common_close">关闭</string>
     <string name="common_confirm">确定</string>
     <string name="wechat">微信</string>
@@ -51,8 +51,8 @@
     <string name="register">注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="login">登录</string>
-    <string name="no_collect_folder">暂无收藏夹，请先添加收藏夹</string>
-    <string name="no_collect_card">暂未收藏卡片</string>
+    <string name="no_collect_folder">暂无收藏夹</string>
+    <string name="no_collect_card">暂无收藏卡片</string>
 
     <string name="year">年</string>
     <string name="month">月</string>

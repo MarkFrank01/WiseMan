@@ -257,9 +257,13 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
                                 case 463:
                                 case 464:
                                 case 465:
-                                    toastShow("验证码发送失败，请重试");
+                                case 477:
+                                case 478:
                                     mTvRegisterSendVerification.setVisibility(View.GONE);
                                     mTvRegisterSendOver.setVisibility(View.VISIBLE);
+                                    break;
+                                default:
+                                    toastShow(des);
                                     break;
                             }
                         } catch (Exception e) {

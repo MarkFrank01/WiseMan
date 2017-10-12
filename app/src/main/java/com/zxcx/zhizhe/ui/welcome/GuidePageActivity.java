@@ -54,7 +54,7 @@ public class GuidePageActivity extends BaseActivity {
 
     @Override
     public void initStatusBar() {
-        //覆盖父类方法
+        //覆盖父类修改状态栏方法
     }
 
     private void initImgData() {

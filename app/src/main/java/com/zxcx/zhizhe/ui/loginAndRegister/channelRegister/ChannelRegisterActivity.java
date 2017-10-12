@@ -101,6 +101,7 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
+        handler.removeCallbacks(setDjs);
     }
 
     @Override
@@ -262,9 +263,13 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
                                 case 463:
                                 case 464:
                                 case 465:
-                                default:
+                                case 477:
+                                case 478:
                                     mTvRegisterSendVerification.setVisibility(View.GONE);
                                     mTvRegisterSendOver.setVisibility(View.VISIBLE);
+                                    break;
+                                default:
+                                    toastShow(des);
                                     break;
                             }
                         } catch (Exception e) {
