@@ -29,7 +29,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import jp.wasabeef.blurry.Blurry;
 
 public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog.GetPicDialogListener {
 
@@ -86,11 +85,13 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
 
             if (isFirst) {
                 isFirst = false;
+/*
                 Blurry.with(this)
                         .radius(10)
                         .sampling(2)
                         .capture(mIvCardDetails)
                         .into(mIvCardDetails);
+*/
             }
         }
     }

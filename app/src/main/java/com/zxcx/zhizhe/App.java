@@ -49,6 +49,7 @@ public class App extends MultiDexApplication {
         //LeakCanary
         refWatcher = LeakCanary.install(this);
 
+        //夜间模式
         if (Constants.IS_NIGHT){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else {

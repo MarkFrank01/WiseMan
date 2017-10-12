@@ -39,6 +39,12 @@ public class SharedPreferencesUtil {
         return PreferenceManager.getDefaultSharedPreferences(sContext).contains(key);
     }
 
+    public static void deleteKey(final String key) {
+        if (PreferenceManager.getDefaultSharedPreferences(sContext).contains(key)){
+            PreferenceManager.getDefaultSharedPreferences(sContext).edit().remove(key).apply();
+        }
+    }
+
     public static void saveData(final String key,
                                   final boolean value) {
         final SharedPreferences settings = PreferenceManager
