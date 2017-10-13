@@ -29,7 +29,7 @@ public class GuidePageActivity extends BaseActivity {
      * 5张引导页面的图片
      */
     private int[] mImgIds = new int[]{R.drawable.guide_1, R.drawable.guide_2,
-            R.drawable.guide_3, R.drawable.guide_4};
+            R.drawable.guide_3};
     /**
      * 图片资源容器
      */

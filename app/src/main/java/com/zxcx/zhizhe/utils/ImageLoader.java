@@ -14,7 +14,7 @@ import java.io.File;
 public class ImageLoader {
 
     public static void load(Activity activity, String url, ImageView imageView) {
-        load(activity, url, R.mipmap.image_morenlogo, imageView);
+        load(activity, url, R.color.background, imageView);
     }
 
     public static void load(Context context, String url, int defaultImage, ImageView imageView) {

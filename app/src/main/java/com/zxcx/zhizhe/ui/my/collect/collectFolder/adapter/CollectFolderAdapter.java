@@ -82,7 +82,7 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
         relativeLayout.setLayoutParams(para);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
     }
 
     public boolean isDelete() {

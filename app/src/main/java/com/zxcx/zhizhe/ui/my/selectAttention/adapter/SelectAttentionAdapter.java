@@ -41,6 +41,6 @@ public class SelectAttentionAdapter extends BaseQuickAdapter<SelectAttentionBean
         helper.setText(R.id.tv_item_select_attention_name,item.getName());
         RoundedImageView imageView = helper.getView(R.id.iv_item_select_attention_icon);
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
     }
 }

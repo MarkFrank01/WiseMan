@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.home.attention;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BaseModel;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
@@ -14,17 +15,17 @@ import java.util.List;
 public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
 
     public AttentionModel(@NonNull AttentionContract.Presenter present) {
-        this.mPresent = present;
+        this.mPresenter = present;
     }
 
     public void getAttentionCard(int page, int pageSize){
         mDisposable = AppClient.getAPIService().getAttentionCard(page,pageSize)
-                .compose(this.<BaseArrayBean<HotCardBean>>io_main())
-                .compose(this.<HotCardBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<HotCardBean>>(mPresent) {
+                .compose(BaseRxJava.<BaseArrayBean<HotCardBean>>io_main())
+                .compose(BaseRxJava.<HotCardBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<HotCardBean>>(mPresenter) {
                     @Override
                     public void onNext(List<HotCardBean> list) {
-                        mPresent.getDataSuccess(list);
+                        mPresenter.getDataSuccess(list);
                     }
                 });
         addSubscription(mDisposable);
@@ -32,12 +33,12 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
 
     public void getAttentionCardBag(){
         mDisposable = AppClient.getAPIService().getAttentionCardBag()
-                .compose(this.<BaseArrayBean<HotCardBagBean>>io_main())
-                .compose(this.<HotCardBagBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<HotCardBagBean>>(mPresent) {
+                .compose(BaseRxJava.<BaseArrayBean<HotCardBagBean>>io_main())
+                .compose(BaseRxJava.<HotCardBagBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<HotCardBagBean>>(mPresenter) {
                     @Override
                     public void onNext(List<HotCardBagBean> list) {
-                        mPresent.getHotCardBagSuccess(list);
+                        mPresenter.getHotCardBagSuccess(list);
                     }
                 });
         addSubscription(mDisposable);

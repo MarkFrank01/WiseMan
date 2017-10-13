@@ -26,9 +26,7 @@
         tools:text="笔记本"
         android:textColor="@color/text_color_40"
         android:textSize="16sp"
-        android:maxLines="1"
-        android:maxEms="6"
-        android:ellipsize="end"
+        style="@style/tv_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

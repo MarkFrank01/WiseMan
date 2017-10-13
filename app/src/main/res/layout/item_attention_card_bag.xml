@@ -21,9 +21,10 @@
         android:gravity="center"
         android:textColor="@color/text_item_card_bag"
         android:textSize="12sp"
-        android:background="@drawable/bg_item_attention_title"
+        style="@style/tv_card"
+        android:background="@drawable/bg_item_attention_select"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="24dp"/>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

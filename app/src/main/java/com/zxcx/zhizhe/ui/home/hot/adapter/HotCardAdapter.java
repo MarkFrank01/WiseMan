@@ -39,7 +39,7 @@ public class HotCardAdapter extends BaseQuickAdapter<HotCardBean,BaseViewHolder>
         helper.addOnClickListener(R.id.fl_item_home_card_type);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
 
         helper.setText(R.id.tv_item_home_card_title,item.getName());
         helper.setText(R.id.tv_item_home_card_type,item.getBagName());

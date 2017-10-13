@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseModel;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
@@ -14,17 +15,17 @@ import com.zxcx.zhizhe.utils.LogCat;
 public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
     public LoginModel(@NonNull LoginContract.Presenter present) {
-        this.mPresent = present;
+        this.mPresenter = present;
     }
 
     public void phoneLogin(String phone, String password, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().phoneLogin(phone,password,appType,appChannel,appVersion)
-                .compose(this.<BaseBean<LoginBean>>io_main())
-                .compose(this.<LoginBean>handleResult())
-                .subscribeWith(new BaseSubscriber<LoginBean>(mPresent) {
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<LoginBean>handleResult())
+                .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        mPresent.getDataSuccess(loginBean);
+                        mPresenter.getDataSuccess(loginBean);
                     }
                 });
         addSubscription(mDisposable);
@@ -32,12 +33,12 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
     public void channelLogin(int channelType, String openId, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().channelLogin(channelType,openId,appType,appChannel,appVersion)
-                .compose(this.<BaseBean<LoginBean>>io_main())
-                .compose(this.<LoginBean>handleResult())
-                .subscribeWith(new BaseSubscriber<LoginBean>(mPresent) {
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<LoginBean>handleResult())
+                .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        mPresent.getDataSuccess(loginBean);
+                        mPresenter.getDataSuccess(loginBean);
                     }
 
                     @Override
@@ -48,12 +49,12 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
                             t.printStackTrace();
                             LogCat.d(t.getMessage());
                             if (String.valueOf(Constants.NEED_LOGIN).equals(code)) {
-                                mPresent.channelLoginNeedRegister();
+                                mPresenter.channelLoginNeedRegister();
                             } else {
-                                mPresent.getDataFail(message);
+                                mPresenter.getDataFail(message);
                             }
                         }else {
-                            mPresent.getDataFail(App.getContext().getString(R.string.network_error));
+                            mPresenter.getDataFail(App.getContext().getString(R.string.network_error));
                         }
                     }
                 });

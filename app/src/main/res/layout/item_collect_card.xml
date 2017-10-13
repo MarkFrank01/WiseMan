@@ -42,14 +42,12 @@
         android:layout_below="@id/iv_item_collect_card_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:maxLines="1"
-        android:maxEms="6"
-        android:ellipsize="end"
         tools:text="笔记本"
         android:textColor="@color/text_color_40"
         android:textSize="16sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        style="@style/tv_card"/>
 
     <TextView
         android:id="@+id/tv_item_collect_card_num"

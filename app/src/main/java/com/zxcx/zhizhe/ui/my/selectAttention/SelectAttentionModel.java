@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.selectAttention;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BaseModel;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseBean;
@@ -14,17 +15,17 @@ import java.util.List;
 public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Presenter> {
 
     public SelectAttentionModel(@NonNull SelectAttentionContract.Presenter present) {
-        this.mPresent = present;
+        this.mPresenter = present;
     }
 
     public void getAttentionList(){
         mDisposable = AppClient.getAPIService().getAttentionList()
-                .compose(this.<BaseArrayBean<SelectAttentionBean>>io_main())
-                .compose(this.<SelectAttentionBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<SelectAttentionBean>>(mPresent) {
+                .compose(BaseRxJava.<BaseArrayBean<SelectAttentionBean>>io_main())
+                .compose(BaseRxJava.<SelectAttentionBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<SelectAttentionBean>>(mPresenter) {
                     @Override
                     public void onNext(List<SelectAttentionBean> list) {
-                        mPresent.getDataSuccess(list);
+                        mPresenter.getDataSuccess(list);
                     }
                 });
         addSubscription(mDisposable);
@@ -32,12 +33,12 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
 
     public void changeAttentionList(List<Integer> idList){
         mDisposable = AppClient.getAPIService().changeAttentionList(idList)
-                .compose(this.<BaseBean>io_main())
-                .compose(handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
+                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        mPresent.postSuccess();
+                        mPresenter.postSuccess();
                     }
                 });
         addSubscription(mDisposable);

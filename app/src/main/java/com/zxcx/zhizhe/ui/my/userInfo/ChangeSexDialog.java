@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeSexDialogEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
@@ -103,8 +104,8 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserIn
 
     public void changeSex(int sex) {
         mDisposable = AppClient.getAPIService().changeUserInfo(null, null, sex, null)
-                .compose(this.<BaseBean<UserInfoBean>>io_main())
-                .compose(this.<UserInfoBean>handleResult())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
                     public void onNext(UserInfoBean bean) {

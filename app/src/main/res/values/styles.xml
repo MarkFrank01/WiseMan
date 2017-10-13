@@ -58,5 +58,16 @@
         <item name="android:textColor">@color/text_color_66</item>
     </style>
 
+    <style name="tv_card">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxEms">6</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="tv_single">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 
 </resources>

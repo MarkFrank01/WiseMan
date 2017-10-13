@@ -37,7 +37,7 @@ public class SearchResultCardAdapter extends BaseQuickAdapter<SearchCardBean,Bas
         StringUtils.setTextviewColorAndBold(title,mKeyword,item.getName());
         RoundedImageView imageView = helper.getView(R.id.iv_item_card_bag_list_icon);
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
         helper.setText(R.id.tv_item_card_bag_list_collect_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
     }
 }

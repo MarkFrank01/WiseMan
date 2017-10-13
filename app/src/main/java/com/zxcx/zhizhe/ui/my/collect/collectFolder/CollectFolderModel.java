@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.collect.collectFolder;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BaseModel;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseBean;
@@ -13,17 +14,17 @@ import java.util.List;
 
 public class CollectFolderModel extends BaseModel<CollectFolderContract.Presenter> {
     public CollectFolderModel(@NonNull CollectFolderContract.Presenter present) {
-        this.mPresent = present;
+        this.mPresenter = present;
     }
 
     public void getCollectFolder(int page, int pageSize){
         mDisposable = AppClient.getAPIService().getCollectFolder(page,pageSize)
-                .compose(this.<BaseArrayBean<CollectFolderBean>>io_main())
-                .compose(this.<CollectFolderBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<CollectFolderBean>>(mPresent) {
+                .compose(BaseRxJava.<BaseArrayBean<CollectFolderBean>>io_main())
+                .compose(BaseRxJava.<CollectFolderBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<CollectFolderBean>>(mPresenter) {
                     @Override
                     public void onNext(List<CollectFolderBean> list) {
-                        mPresent.getDataSuccess(list);
+                        mPresenter.getDataSuccess(list);
                     }
                 });
         addSubscription(mDisposable);
@@ -31,12 +32,12 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
 
     public void deleteCollectFolder(List<Integer> idList){
         mDisposable = AppClient.getAPIService().deleteCollectFolder(idList)
-                .compose(this.<BaseBean>io_main())
-                .compose(handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
+                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        mPresent.postSuccess();
+                        mPresenter.postSuccess();
                     }
                 });
         addSubscription(mDisposable);
@@ -44,12 +45,12 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
 
     public void addCollectFolder(String name){
         mDisposable = AppClient.getAPIService().addCollectFolder(name)
-                .compose(this.<BaseBean>io_main())
-                .compose(handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresent) {
+                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {
-                        mPresent.postSuccess();
+                        mPresenter.postSuccess();
                     }
                 });
         addSubscription(mDisposable);

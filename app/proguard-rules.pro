@@ -114,3 +114,6 @@
 -keep class cn.jiguang.** { *; }
 #JAnalytics
 -keep public class cn.jiguang.analytics.android.api.** { *; }
+#LoadSir
+-dontwarn com.kingja.loadsir.**
+-keep class com.kingja.loadsir.** {*;}

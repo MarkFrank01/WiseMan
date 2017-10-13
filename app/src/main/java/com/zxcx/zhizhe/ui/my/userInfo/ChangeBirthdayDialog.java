@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 
 import com.zxcx.zhizhe.event.ChangeBirthdayDialogEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
@@ -66,8 +67,8 @@ public class ChangeBirthdayDialog extends BaseDialog implements IPostPresenter<U
 
     public void changeBirthday(String birth){
         mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
-                .compose(this.<BaseBean<UserInfoBean>>io_main())
-                .compose(this.<UserInfoBean>handleResult())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
                     public void onNext(UserInfoBean bean) {

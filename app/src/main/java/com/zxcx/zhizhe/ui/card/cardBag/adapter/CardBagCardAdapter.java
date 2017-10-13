@@ -32,7 +32,7 @@ public class CardBagCardAdapter extends BaseQuickAdapter<CardBagBean,BaseViewHol
         imageView.setLayoutParams(para);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.mipmap.image_morenlogo,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
         helper.setText(R.id.tv_item_card_bag_card_title,item.getName());
         helper.setText(R.id.tv_item_card_bag_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
     }

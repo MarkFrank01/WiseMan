@@ -127,20 +127,27 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
 
     private void checkNullShow() {
         if (mCardBagAdapter.getData().size() == 0 && mCardAdapter.getData().size() == 0){
+            mCardAdapter.isUseEmpty(true);
             mHeaderView.setVisibility(View.GONE);
             View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardAdapter.setEmptyView(emptyView);
         }else if (mCardBagAdapter.getData().size() == 0){
+            mHeaderView.setVisibility(View.VISIBLE);
             mLLHeadSearchResultCardBag.setVisibility(View.GONE);
             mTvHeadCard.setVisibility(View.VISIBLE);
-            mViewHeadInterval.setVisibility(View.VISIBLE);
-        }else if (mCardAdapter.getData().size() == 0){
-            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
             mCardAdapter.isUseEmpty(false);
+        }else if (mCardAdapter.getData().size() == 0){
+            mHeaderView.setVisibility(View.VISIBLE);
+            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
             mTvHeadCard.setVisibility(View.GONE);
             mViewHeadInterval.setVisibility(View.GONE);
+            mCardAdapter.isUseEmpty(false);
         }else {
-
+            mHeaderView.setVisibility(View.VISIBLE);
+            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
+            mTvHeadCard.setVisibility(View.VISIBLE);
+            mViewHeadInterval.setVisibility(View.VISIBLE);
+            mCardAdapter.isUseEmpty(false);
         }
     }
 
