@@ -13,10 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
+import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -60,12 +65,26 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private View mEmptyView;
     private int page = 0;
     private boolean isFirst = true;
+    private LoadService loadService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_attention, container, false);
         unbinder = ButterKnife.bind(this, root);
-        return root;
+
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new HomeLoadingCallback())
+                .addCallback(new NetworkErrorCallback())
+                .setDefaultCallback(HomeLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(root, new Callback.OnReloadListener() {
+            @Override
+            public void onReload(View v) {
+                loadService.showCallback(HomeLoadingCallback.class);
+                onRefresh();
+            }
+        });
+        return loadService.getLoadLayout();
     }
 
     @Override
@@ -82,6 +101,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
                     toastShow(getString(R.string.need_login));
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
+                    loadService.showSuccess();
                 }else {
                     getHotCardBag();
                 }
@@ -147,9 +167,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        if (page == 1){
+        if (page == 0){
             mCardBagAdapter.notifyDataSetChanged();
         }
+        loadService.showSuccess();
         mCardBagAdapter.addData(list);
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
@@ -165,7 +186,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         if (mSrlAttentionCard.isRefreshing()) {
             mSrlAttentionCard.setRefreshing(false);
         }
-        if (page == 1){
+        if (page == 0){
             mCardAdapter.notifyDataSetChanged();
         }
         page++;
@@ -190,6 +211,9 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         }
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
+        if (page == 0){
+            loadService.showCallback(NetworkErrorCallback.class);
+        }
     }
 
     @Override

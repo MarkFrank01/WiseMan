@@ -16,7 +16,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
 
     public void getOSS(String uuid){
         mDisposable = AppClient.getAPIService().getOSS(uuid)
-                .compose(BaseRxJava.<BaseBean<OSSTokenBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<OSSTokenBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<OSSTokenBean>handleResult())
                 .subscribeWith(new BaseSubscriber<OSSTokenBean>(mPresenter) {
                     @Override
@@ -29,7 +29,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
 
     public void changeImageUrl(String imageUrl){
         mDisposable = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(mPresenter) {
                     @Override
@@ -41,7 +41,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
 
     public void changeBirth(String birth){
         mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(mPresenter) {
                     @Override

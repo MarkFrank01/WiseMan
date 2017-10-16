@@ -32,7 +32,7 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
 
     public void deleteCollectCard(int id, List<Integer> idList){
         mDisposable = AppClient.getAPIService().deleteCollectCard(id, idList)
-                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
@@ -45,7 +45,7 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
 
     public void changeCollectFolderName(int id, String name){
         mDisposable = AppClient.getAPIService().changeCollectFolderName(id, name)
-                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override

@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.mvpBase;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -18,18 +17,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.widget.LoadingDialog;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BaseActivity extends AppCompatActivity implements BaseView {
+public class BaseActivity extends AppCompatActivity implements BaseView ,Callback.OnReloadListener{
     public Activity mActivity;
-    public ProgressDialog progressDialog;
+    private LoadingDialog mLoadingDialog;
     private boolean isFirst = true;
+    public LoadService loadService;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -55,6 +58,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     protected void onCreate(Bundle savedInstanceState) {
         initStatusBar();
         super.onCreate(savedInstanceState);
+        mLoadingDialog = new LoadingDialog();
+        initLoadSir();
+    }
+
+    public void initLoadSir() {
+
     }
 
     public void initStatusBar() {
@@ -166,43 +175,15 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         toast.show();
     }
 
-
-    public ProgressDialog showProgress(Activity activity) {
-        progressDialog = new ProgressDialog(activity);
-        progressDialog.setMessage("加载中");
-        progressDialog.show();
-        return progressDialog;
-    }
-
-//    CustomLoading customLoading;
-
-//    public CustomLoading showProgressDialog() {
-////        progressDialog = new ProgressDialog(mActivity);
-////        progressDialog.setMessage("加载中");
-//////        progressDialog.setCancelable(false);
-////        progressDialog.show();
-//        customLoading = new CustomLoading(mActivity, R.style.CustomDialog);
-//        customLoading.show();
-//        return customLoading;
-//    }
-
-    public void dismissProgressDialog() {
-//        if (progressDialog != null && progressDialog.isShowing()) {
-//            progressDialog.dismiss();// progressDialog.hide();会导致android.view.WindowLeaked
-//        }
-//        if (customLoading != null && customLoading.isShowing()) {
-//            customLoading.dismiss();
-//        }
-    }
-
     @Override
     public void showLoading() {
-//        showProgressDialog();
+        mLoadingDialog.show(getFragmentManager(),"");
     }
 
     @Override
     public void hideLoading() {
-        dismissProgressDialog();
+        if (mLoadingDialog != null && mLoadingDialog.isAdded())
+        mLoadingDialog.dismiss();
     }
 
     @Override
@@ -213,6 +194,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     public void toastFail(String msg) {
         toastShow(msg);
+    }
+
+    @Override
+    public void onReload(View v) {
+
     }
 
     private class BackListener implements View.OnClickListener{

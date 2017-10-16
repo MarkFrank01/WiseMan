@@ -30,7 +30,6 @@ import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardBagAdapter;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
-import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,6 +71,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         loadService = loadSir.register(root, new Callback.OnReloadListener() {
             @Override
             public void onReload(View v) {
+                loadService.showCallback(HomeLoadingCallback.class);
                 onRefresh();
             }
         });
@@ -139,7 +139,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
         mCardBagAdapter.setNewData(new ArrayList<HotCardBagBean>());
         mCardBagAdapter.addData(list);
-        checkSuccess();
+        loadService.showSuccess();
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
         }
@@ -152,11 +152,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         }
         if (page == 0){
             mCardAdapter.setNewData(new ArrayList<HotCardBean>());
-            mCardAdapter.addData(list);
-            checkSuccess();
-        }else {
-            mCardAdapter.addData(list);
         }
+        mCardAdapter.addData(list);
         page++;
         if (list.size() < Constants.PAGE_SIZE){
             mCardAdapter.loadMoreEnd(false);
@@ -165,7 +162,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
             mCardAdapter.setEnableLoadMore(false);
             mCardAdapter.setEnableLoadMore(true);
         }
-        if (mCardBagAdapter.getData().size() == 0){
+        if (mCardAdapter.getData().size() == 0){
             //占空图
         }
     }
@@ -174,18 +171,11 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     public void toastFail(String msg) {
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
-        LogCat.d("出错了"+msg);
         if (mSrlHotCard.isRefreshing()) {
             mSrlHotCard.setRefreshing(false);
         }
         if (page == 0){
             loadService.showCallback(NetworkErrorCallback.class);
-        }
-    }
-
-    public void checkSuccess() {
-        if (mCardAdapter.getData().size() > 0 && mCardBagAdapter.getData().size() > 0){
-            loadService.showSuccess();
         }
     }
 

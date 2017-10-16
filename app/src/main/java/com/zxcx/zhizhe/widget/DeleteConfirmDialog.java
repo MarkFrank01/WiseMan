@@ -53,7 +53,7 @@ public class DeleteConfirmDialog extends BaseDialog {
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
         window.getDecorView().setPadding(ScreenUtils.dip2px(27.5f), 0, ScreenUtils.dip2px(27.5f), 0);
-        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
+        WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = Gravity.CENTER;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;

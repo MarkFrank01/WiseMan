@@ -20,7 +20,7 @@ public class ChannelRegisterModel extends BaseModel<ChannelRegisterContract.Pres
                               String birthday, String phone, String code, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().channelRegister(channelType,openId,userIcon,name,
                 sex,birthday,phone,code,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<LoginBean>handleResult())
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override

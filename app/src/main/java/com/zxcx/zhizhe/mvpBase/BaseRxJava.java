@@ -59,14 +59,14 @@ public class BaseRxJava{
     public static <T> FlowableTransformer<BaseBean<T>, T> handleResult() {
         return new FlowableTransformer<BaseBean<T>, T>() {
             @Override
-            public Publisher<T> apply(@NonNull Flowable<BaseBean<T>> upstream) {
+            public Publisher<T> apply(@NonNull final Flowable<BaseBean<T>> upstream) {
                 return upstream.map(new Function<BaseBean<T>, T>() {
                                         @Override
                                         public T apply(@NonNull BaseBean<T> result) throws Exception {
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
                                             } else {
-                                                throw new Exception(result.getCode() + result.getMessage());
+                                                throw new RuntimeException(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }
@@ -86,7 +86,7 @@ public class BaseRxJava{
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result;
                                             } else {
-                                                throw new Exception(result.getCode() + result.getMessage());
+                                                throw new RuntimeException(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }
@@ -106,7 +106,7 @@ public class BaseRxJava{
                                             if (Constants.RESULT_OK == result.getCode()) {
                                                 return result.getData();
                                             } else {
-                                                throw new Exception(result.getCode() + result.getMessage());
+                                                throw new RuntimeException(result.getCode() + result.getMessage());
                                             }
                                         }
                                     }

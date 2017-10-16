@@ -67,7 +67,7 @@ public class ChangeBirthdayDialog extends BaseDialog implements IPostPresenter<U
 
     public void changeBirthday(String birth){
         mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main_loading(this))
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override

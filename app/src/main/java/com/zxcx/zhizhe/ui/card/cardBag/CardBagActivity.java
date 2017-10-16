@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagCardAdapter;
@@ -75,6 +78,22 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     }
 
     @Override
+    public void initLoadSir() {
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new CardBagLoadingCallback())
+                .addCallback(new NetworkErrorCallback())
+                .setDefaultCallback(CardBagLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(this, this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        loadService.showCallback(CardBagLoadingCallback.class);
+        onRefresh();
+    }
+
+    @Override
     public void onRefresh() {
         page = 0;
         mList.clear();
@@ -90,10 +109,11 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     @Override
     public void getDataSuccess(List<CardBagBean> list) {
+        loadService.showSuccess();
         if (mSrlCardBag.isRefreshing()) {
             mSrlCardBag.setRefreshing(false);
         }
-        if (page == 1){
+        if (page == 0){
             mCardBagCardAdapter.notifyDataSetChanged();
             mCardBagListAdapter.notifyDataSetChanged();
         }
@@ -121,6 +141,14 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             //占空图
             View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardBagListAdapter.setEmptyView(view);
+        }
+    }
+
+    @Override
+    public void toastFail(String msg) {
+        super.toastFail(msg);
+        if (page == 0) {
+            loadService.showCallback(NetworkErrorCallback.class);
         }
     }
 

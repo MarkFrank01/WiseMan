@@ -64,11 +64,6 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     }
 
     @Override
-    public void toastFail(String msg) {
-        super.toastFail(msg);
-    }
-
-    @Override
     public void postSuccess() {
         EventBus.getDefault().postSticky(new SelectAttentionEvent());
         finish();

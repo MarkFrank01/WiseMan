@@ -110,6 +110,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     @OnClick(R.id.tv_register_send_verification)
     public void onMTvRegisterSendVerificationClicked() {
         if (checkPhone()) {
+            showLoading();
             SMSSDK.getVerificationCode("86",mEtRegisterPhone.getText().toString());
         }
     }
@@ -230,6 +231,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    hideLoading();
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         //回调完成
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {

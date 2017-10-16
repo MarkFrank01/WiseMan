@@ -25,7 +25,8 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-    String API_SERVER_URL = "http://120.77.180.183:8043";
+//    String API_SERVER_URL = "http://120.77.180.183:8043";
+    String API_SERVER_URL = "http://119.23.18.65:8043";
 //    String API_SERVER_URL = "http://192.168.1.102:8043";
 
     /**

@@ -13,8 +13,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.kingja.loadsir.callback.Callback;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
+import com.zxcx.zhizhe.loadCallback.ClassifyLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.search.search.SearchActivity;
@@ -44,12 +50,26 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     private ClassifyAdapter mClassifyAdapter;
     private GridLayoutManager manager;
+    private LoadService loadService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_classify, container, false);
         unbinder = ButterKnife.bind(this, root);
-        return root;
+
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new HomeLoadingCallback())
+                .addCallback(new NetworkErrorCallback())
+                .setDefaultCallback(HomeLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(root, new Callback.OnReloadListener() {
+            @Override
+            public void onReload(View v) {
+                loadService.showCallback(HomeLoadingCallback.class);
+                onRefresh();
+            }
+        });
+        return loadService.getLoadLayout();
     }
 
     @Override
@@ -97,6 +117,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     @Override
     public void getDataSuccess(List<ClassifyBean> list) {
+        loadService.showSuccess();
         if (mSrlClassify.isRefreshing()) {
             mSrlClassify.setRefreshing(false);
         }
@@ -108,6 +129,12 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         if (mClassifyAdapter.getData().size() == 0){
             //占空图
         }
+    }
+
+    @Override
+    public void toastFail(String msg) {
+        super.toastFail(msg);
+        loadService.showCallback(ClassifyLoadingCallback.class);
     }
 
     @OnClick(R.id.tv_home_search)

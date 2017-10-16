@@ -25,15 +25,21 @@ public abstract class BaseSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
+        mPresenter.hideLoading();
         if (t.getMessage() != null) {
             String code = t.getMessage().substring(0, 3);
-            String message = t.getMessage().substring(3);
-            t.printStackTrace();
-            LogCat.d(t.getMessage());
-            if (String.valueOf(Constants.TOKEN_OUTTIME).equals(code)) {
-                mPresenter.startLogin();
-            } else {
-                mPresenter.getDataFail(message);
+            try {
+                int code1 = Integer.parseInt(code);
+                String message = t.getMessage().substring(3);
+                t.printStackTrace();
+                LogCat.d(t.getMessage());
+                if (Constants.TOKEN_OUTTIME == code1) {
+                    mPresenter.startLogin();
+                } else {
+                    mPresenter.getDataFail(message);
+                }
+            } catch (NumberFormatException e) {
+                mPresenter.getDataFail(App.getContext().getString(R.string.network_error));
             }
         }else {
             mPresenter.getDataFail(App.getContext().getString(R.string.network_error));

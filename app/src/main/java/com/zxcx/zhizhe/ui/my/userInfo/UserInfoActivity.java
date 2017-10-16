@@ -268,7 +268,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     private void uploadImageToOSS(OSSTokenBean bean) {
         final String fileName = "user/" + mUserId + FileUtil.getFileName();
-        final String bucketName = "zhizhe";
+        final String bucketName = "zhizhe-prod";
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
 // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 
@@ -279,7 +279,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                String imageUrl = "http://zhizhe.oss-cn-shenzhen.aliyuncs.com/"+fileName;
+                String imageUrl = "http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/"+fileName;
                 SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
                 mPresenter.changeImageUrl(imageUrl);
                 ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);

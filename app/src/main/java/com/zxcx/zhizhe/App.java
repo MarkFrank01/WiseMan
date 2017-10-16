@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
@@ -11,6 +12,9 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.zxcx.zhizhe.loadCallback.EmptyCallback;
+import com.zxcx.zhizhe.loadCallback.LoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.Constants;
 
@@ -55,6 +59,14 @@ public class App extends MultiDexApplication {
         }else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+
+        //LoadSir
+        LoadSir.beginBuilder()
+                .addCallback(new NetworkErrorCallback())
+                .addCallback(new EmptyCallback())
+                .addCallback(new LoadingCallback())
+                .setDefaultCallback(LoadingCallback.class)
+                .commit();
     }
 
     public static Context getContext() {

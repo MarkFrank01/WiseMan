@@ -18,7 +18,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
 
     public void phoneRegister(String phone, String code, String password, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().phoneRegistered(phone,code,password,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<LoginBean>handleResult())
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override

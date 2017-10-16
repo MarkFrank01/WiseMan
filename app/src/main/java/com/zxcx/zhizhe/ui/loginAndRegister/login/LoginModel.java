@@ -20,7 +20,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
     public void phoneLogin(String phone, String password, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().phoneLogin(phone,password,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<LoginBean>handleResult())
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
@@ -33,7 +33,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
     public void channelLogin(int channelType, String openId, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().channelLogin(channelType,openId,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<LoginBean>>io_main_loading(mPresenter))
                 .compose(BaseRxJava.<LoginBean>handleResult())
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
@@ -43,15 +43,21 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
 
                     @Override
                     public void onError(Throwable t) {
+                        mPresenter.hideLoading();
                         if (t.getMessage() != null) {
                             String code = t.getMessage().substring(0, 3);
-                            String message = t.getMessage().substring(3);
-                            t.printStackTrace();
-                            LogCat.d(t.getMessage());
-                            if (String.valueOf(Constants.NEED_LOGIN).equals(code)) {
-                                mPresenter.channelLoginNeedRegister();
-                            } else {
-                                mPresenter.getDataFail(message);
+                            try {
+                                int code1 = Integer.parseInt(code);
+                                String message = t.getMessage().substring(3);
+                                t.printStackTrace();
+                                LogCat.d(t.getMessage());
+                                if (Constants.TOKEN_OUTTIME == code1) {
+                                    mPresenter.channelLoginNeedRegister();
+                                } else {
+                                    mPresenter.getDataFail(message);
+                                }
+                            } catch (NumberFormatException e) {
+                                mPresenter.getDataFail(App.getContext().getString(R.string.network_error));
                             }
                         }else {
                             mPresenter.getDataFail(App.getContext().getString(R.string.network_error));

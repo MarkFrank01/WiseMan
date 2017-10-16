@@ -73,7 +73,7 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
         window.getDecorView().setPadding(ScreenUtils.dip2px(27.5f), 0, ScreenUtils.dip2px(27.5f), 0);
-        WindowManager.LayoutParams lp = getDialog().getWindow().getAttributes();
+        WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = Gravity.CENTER;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -100,7 +100,7 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
 
     public void changeNickName(String name) {
         mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main_loading(this))
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override

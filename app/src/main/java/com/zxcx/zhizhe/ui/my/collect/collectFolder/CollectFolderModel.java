@@ -32,7 +32,7 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
 
     public void deleteCollectFolder(List<Integer> idList){
         mDisposable = AppClient.getAPIService().deleteCollectFolder(idList)
-                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
@@ -45,7 +45,7 @@ public class CollectFolderModel extends BaseModel<CollectFolderContract.Presente
 
     public void addCollectFolder(String name){
         mDisposable = AppClient.getAPIService().addCollectFolder(name)
-                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override

@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.card.card.newCardDetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.CheckBox;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity;
@@ -102,8 +105,18 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
-    public void getDataSuccess(CardDetailsBean bean) {
+    public void initLoadSir() {
+        loadService = LoadSir.getDefault().register(this,this);
+    }
 
+    @Override
+    public void onReload(View v) {
+        mPresenter.getCardDetails(cardId);
+    }
+
+    @Override
+    public void getDataSuccess(CardDetailsBean bean) {
+        loadService.showSuccess();
         collectNum = bean.getCollectNum();
         likeNum = bean.getLikeNum();
         imageUrl = bean.getImageUrl();
@@ -113,6 +126,12 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
+    }
+
+    @Override
+    public void toastFail(String msg) {
+        super.toastFail(msg);
+        loadService.showCallback(NetworkErrorCallback.class);
     }
 
     @Override

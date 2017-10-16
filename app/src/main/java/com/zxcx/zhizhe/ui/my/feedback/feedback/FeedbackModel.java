@@ -15,7 +15,7 @@ public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
 
     public void feedback(String content, String contact,int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().feedback(content,contact,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<BaseBean>io_main())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
