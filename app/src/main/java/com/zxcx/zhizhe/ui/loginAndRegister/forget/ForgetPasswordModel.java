@@ -15,8 +15,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
 
     public void changePassword(String phone, String code, String password, int appType){
         mDisposable = AppClient.getAPIService().changePassword(phone,code,password,appType)
-                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {

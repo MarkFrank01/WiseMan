@@ -25,7 +25,6 @@ public abstract class PostSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        mPresenter.hideLoading();
         if (t.getMessage() != null) {
             String code = t.getMessage().substring(0,3);
             try {

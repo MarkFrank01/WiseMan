@@ -16,8 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
+import com.zxcx.zhizhe.loadCallback.LoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.adapter.CollectCardAdapter;
@@ -81,6 +84,18 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mEtEditCollectFolder.addTextChangedListener(new AddCollectFolderTextWatcher());
     }
 
+    @Override
+    public void initLoadSir() {
+        loadService = LoadSir.getDefault().register(this, this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        super.onReload(v);
+        loadService.showCallback(LoadingCallback.class);
+        getCollectCard();
+    }
+
     private void initData() {
         String name = getIntent().getStringExtra("name");
         folderId = getIntent().getIntExtra("id",0);
@@ -118,6 +133,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void getDataSuccess(List<CollectCardBean> list) {
         if (page == 0){
             mAdapter.notifyDataSetChanged();
+            loadService.showSuccess();
         }
         page++;
         mAdapter.addData(list);
@@ -139,6 +155,9 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void toastFail(String msg) {
         super.toastFail(msg);
         mAdapter.loadMoreFail();
+        if (page == 0){
+            loadService.showCallback(NetworkErrorCallback.class);
+        }
     }
 
     @Override

@@ -38,8 +38,7 @@ public class BaseRxJava{
         return new FlowableTransformer<T, T>() {
             @Override
             public Publisher<T> apply(@NonNull Flowable<T> upstream) {
-                return upstream.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                return upstream
                         .doOnSubscribe(new Consumer<Subscription>() {
                             @Override
                             public void accept(@NonNull Subscription subscription) throws Exception {
@@ -51,7 +50,9 @@ public class BaseRxJava{
                             public void run() throws Exception {
                                 presenter.hideLoading();
                             }
-                        });
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
             }
         };
     }

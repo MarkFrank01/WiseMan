@@ -114,8 +114,8 @@ public class SelectCollectFolderActivity extends BaseActivity implements INullGe
 
     public void addCollectCard(int folderId, int cardId) {
         mDisposable = AppClient.getAPIService().addCollectCard(folderId, cardId)
-                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
                 .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
                     @Override
                     public void onNext(BaseBean bean) {

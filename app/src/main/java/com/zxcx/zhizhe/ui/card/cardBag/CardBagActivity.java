@@ -109,13 +109,13 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     @Override
     public void getDataSuccess(List<CardBagBean> list) {
-        loadService.showSuccess();
         if (mSrlCardBag.isRefreshing()) {
             mSrlCardBag.setRefreshing(false);
         }
         if (page == 0){
             mCardBagCardAdapter.notifyDataSetChanged();
             mCardBagListAdapter.notifyDataSetChanged();
+            loadService.showSuccess();
         }
         page++;
         mList.addAll(list);

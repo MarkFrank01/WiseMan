@@ -20,7 +20,6 @@ import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
-import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
@@ -100,8 +99,8 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
 
     public void changeNickName(String name) {
         mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main_loading(this))
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
+                .compose(BaseRxJava.<UserInfoBean>io_main_loading(this))
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
                     public void onNext(UserInfoBean bean) {

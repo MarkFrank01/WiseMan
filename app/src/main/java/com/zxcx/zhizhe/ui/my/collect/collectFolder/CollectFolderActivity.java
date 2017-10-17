@@ -16,9 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
 import com.zxcx.zhizhe.event.DeleteConfirmEvent;
+import com.zxcx.zhizhe.loadCallback.LoadingCallback;
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardActivity;
 import com.zxcx.zhizhe.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
@@ -82,6 +85,18 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     @Override
+    public void initLoadSir() {
+        loadService = LoadSir.getDefault().register(this, this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        super.onReload(v);
+        loadService.showCallback(LoadingCallback.class);
+        getCollectFolder();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
     }
@@ -126,6 +141,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     public void getDataSuccess(List<CollectFolderBean> list) {
         if (page == 0){
             mAdapter.setNewData(list);
+            loadService.showSuccess();
         }else {
             mAdapter.addData(list);
         }
@@ -148,6 +164,9 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     public void toastFail(String msg) {
         super.toastFail(msg);
         mAdapter.loadMoreFail();
+        if (page == 0) {
+            loadService.showCallback(NetworkErrorCallback.class);
+        }
     }
 
     @Override

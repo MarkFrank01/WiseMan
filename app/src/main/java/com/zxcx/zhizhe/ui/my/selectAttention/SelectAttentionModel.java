@@ -33,8 +33,8 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
 
     public void changeAttentionList(List<Integer> idList){
         mDisposable = AppClient.getAPIService().changeAttentionList(idList)
-                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {
