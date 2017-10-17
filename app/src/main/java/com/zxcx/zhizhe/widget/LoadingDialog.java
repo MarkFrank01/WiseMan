@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.widget;
 
+import android.app.Dialog;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -46,8 +47,8 @@ public class LoadingDialog extends BaseDialog {
     @Override
     public void onStart() {
         super.onStart();
-
-        Window window = getDialog().getWindow();
+        Dialog dialog = getDialog();
+        Window window = dialog.getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.dimAmount = 0.0f;

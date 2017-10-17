@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
@@ -54,11 +55,15 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
     TextView mTvRegisterSendOver;
     @BindView(R.id.btn_register)
     Button mBtnRegister;
+    @BindView(R.id.et_register_password)
+    EditText mEtRegisterPassword;
 
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
+    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
+    Pattern passwordPattern = Pattern.compile(passwordRules);
     private int channelType; // 1-QQ 2-WeChat 3-Weibo
     private int appType, sex;
     private String userName, userId, userIcon, userGender, appChannel, appVersion;
@@ -79,9 +84,9 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
         paint.setFakeBoldText(true);
 
         initData();
+        initLoadSir();
     }
 
-    @Override
     public void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new LoadingCallback())
@@ -98,11 +103,11 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
         userName = intent.getStringExtra("userName");
         userIcon = intent.getStringExtra("userIcon");
         userGender = intent.getStringExtra("userGender");
-        channelType = intent.getIntExtra("channelType",1);
+        channelType = intent.getIntExtra("channelType", 1);
 
-        if ("m".equals(userGender)){
+        if ("m".equals(userGender)) {
             sex = 1;
-        }else {
+        } else {
             sex = 2;
         }
     }
@@ -147,10 +152,11 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
 
     @OnClick(R.id.btn_register)
     public void onMBtnRegisterClicked() {
-        if (checkPhone()) {
+        if (checkPhone() && checkPassword()) {
             String phone = mEtRegisterPhone.getText().toString();
             String code = mEtRegisterVerificationCode.getText().toString();
-            mPresenter.channelRegister(channelType,userId,userIcon,userName,sex,null,phone,code,appType,appChannel,appVersion);
+            String password = MD5Utils.md5(mEtRegisterPassword.getText().toString());
+            mPresenter.channelRegister(channelType, userId, password, userIcon, userName, sex, null, phone, code, appType, appChannel, appVersion);
         }
     }
 
@@ -170,6 +176,15 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
             return true;
         } else {
             toastShow("手机号格式错误!");
+            return false;
+        }
+    }
+
+    private boolean checkPassword() {
+        if (passwordPattern.matcher(mEtRegisterPassword.getText().toString()).matches()) {
+            return true;
+        } else {
+            toastShow("密码格式错误!");
             return false;
         }
     }
@@ -208,7 +223,7 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (mEtRegisterPhone.length() > 0 && mEtRegisterVerificationCode.length() > 0) {
+            if (mEtRegisterPhone.length() > 0 && mEtRegisterVerificationCode.length() > 0 && mEtRegisterPassword.length() > 0) {
                 mBtnRegister.setEnabled(true);
             } else {
                 mBtnRegister.setEnabled(false);

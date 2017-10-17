@@ -51,7 +51,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
         mActivity = this;
-
     }
 
     @Override
@@ -59,10 +58,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         initStatusBar();
         super.onCreate(savedInstanceState);
         mLoadingDialog = new LoadingDialog();
-        initLoadSir();
-    }
-
-    public void initLoadSir() {
 
     }
 
@@ -142,7 +137,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     public Toolbar initToolBar() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_toolbar);
+        Toolbar toolbar = (Toolbar) linearLayout.findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");

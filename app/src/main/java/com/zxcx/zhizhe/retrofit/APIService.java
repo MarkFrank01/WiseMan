@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.retrofit;
 
+import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsBean;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
@@ -26,8 +28,9 @@ import retrofit2.http.Query;
 public interface APIService {
 
 //    String API_SERVER_URL = "http://120.77.180.183:8043";
-    String API_SERVER_URL = "http://119.23.18.65:8043";
+//    String API_SERVER_URL = "http://119.23.18.65:8043";
 //    String API_SERVER_URL = "http://192.168.1.102:8043";
+    String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
     /**
      * 注册
@@ -53,11 +56,11 @@ public interface APIService {
     @POST("/user/thirdPartyRegistered")
     Flowable<BaseBean<LoginBean>> channelRegister(
             @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
-            @Query("avatar") String userIcon, @Query("name") String name,
-            @Query("gender") Integer sex, @Query("birth") String birthday,
-            @Query("phoneNumber") String phone,@Query("SMSCode") String code,
-            @Query("appType") int appType, @Query("appChannel") String appChannel,
-            @Query("appVersion") String appVersion);
+            @Query("password") String password, @Query("avatar") String userIcon,
+            @Query("name") String name, @Query("gender") Integer sex,
+            @Query("birth") String birthday, @Query("phoneNumber") String phone,
+            @Query("SMSCode") String code, @Query("appType") int appType,
+            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
     /**
      * 第三方登录
@@ -69,12 +72,33 @@ public interface APIService {
             @Query("appVersion") String appVersion);
 
     /**
-     * 修改密码
+     * 获取绑定状态列表
+     */
+    @POST("/user/getBandingInfo")
+    Flowable<BaseBean<UserInfoBean>> getBandingInfo();
+
+    /**
+     * 第三方绑定解绑
+     */
+    @POST("/user/thirdPartyBindingUnbinding")
+    Flowable<BaseBean<UserInfoBean>> channelBinding(
+            @Query("thirdPartyType") int channelType, @Query("type") int type,
+            @Query("openId") String openId);
+
+    /**
+     * 忘记密码
      */
     @POST("/user/ChangePassword")
-    Flowable<BaseBean> changePassword(
+    Flowable<BaseBean> forgetPassword(
             @Query("phoneNumber") String phone, @Query("SMSCode") String code, @Query("password") String password,
             @Query("appType") int appType);
+
+    /**
+     * 修改密码
+     */
+    @POST("/user/modifyPassword")
+    Flowable<BaseBean> changePassword(
+            @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     /**
      * 修改用户信息

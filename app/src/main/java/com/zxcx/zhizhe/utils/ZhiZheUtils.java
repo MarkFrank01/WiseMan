@@ -27,6 +27,9 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
         SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, bean.getAvatar());
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, bean.isBandingWeixin());
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, bean.isBandingQQ());
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, bean.isBandingWeibo());
     }
 
     public static String getHDImageUrl(String imageUrl) {

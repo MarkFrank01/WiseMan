@@ -50,9 +50,10 @@ android {
         debug {
             minifyEnabled false
             signingConfig signingConfigs.release
+            applicationIdSuffix '.test'
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release

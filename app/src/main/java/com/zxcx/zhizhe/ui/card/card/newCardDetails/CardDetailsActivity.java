@@ -83,6 +83,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         }
         mPresenter.getCardDetails(cardId);
+
+        initLoadSir();
     }
 
     @Override
@@ -104,7 +106,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         return new CardDetailsPresenter(this);
     }
 
-    @Override
     public void initLoadSir() {
         loadService = LoadSir.getDefault().register(this,this);
     }

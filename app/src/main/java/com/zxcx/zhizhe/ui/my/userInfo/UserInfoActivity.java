@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.Manifest;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,8 +23,10 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeBirthdayDialogEvent;
 import com.zxcx.zhizhe.event.ChangeNickNameDialogEvent;
 import com.zxcx.zhizhe.event.ChangeSexDialogEvent;
+import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UpdataUserInfoEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ImageLoader;
@@ -136,6 +139,11 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        finish();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNickNameDialogEvent event) {
         UserInfoBean bean = event.getUserInfoBean();
         ZhiZheUtils.saveUserInfo(bean);
@@ -220,13 +228,12 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         customDatePicker1.showSpecificTime(false); // 不显示时和分
         customDatePicker1.setIsLoop(false); // 不允许循环滚动
         customDatePicker1.show(mBirth);
-
     }
 
-    @OnClick(R.id.tv_user_info_logout)
-    public void onMTvUserInfoLogoutClicked() {
-        LogoutDialog dialog = new LogoutDialog();
-        dialog.show(getFragmentManager(), "");
+    @OnClick(R.id.rl_user_info_safety)
+    public void onMRlUserInfoSafetyClicked() {
+        Intent intent = new Intent(this, UserSafetyActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -268,7 +275,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     private void uploadImageToOSS(OSSTokenBean bean) {
         final String fileName = "user/" + mUserId + FileUtil.getFileName();
-        final String bucketName = "zhizhe-prod";
+        final String bucketName = getString(R.string.bucket_name);
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
 // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 
@@ -279,7 +286,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                String imageUrl = "http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/"+fileName;
+                String imageUrl = "http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/"+fileName;
                 SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
                 mPresenter.changeImageUrl(imageUrl);
                 ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);

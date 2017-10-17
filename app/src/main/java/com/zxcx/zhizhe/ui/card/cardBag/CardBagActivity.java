@@ -70,6 +70,8 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
         onRefresh();
+
+        initLoadSir();
     }
 
     @Override
@@ -77,7 +79,6 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         return new CardBagPresenter(this);
     }
 
-    @Override
     public void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new CardBagLoadingCallback())

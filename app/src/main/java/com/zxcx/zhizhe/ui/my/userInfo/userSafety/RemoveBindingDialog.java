@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.userInfo;
+package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,11 +12,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.LogoutEvent;
+import com.zxcx.zhizhe.event.RemoveBindingEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,7 +27,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/6.
  */
 
-public class LogoutDialog extends BaseDialog {
+public class RemoveBindingDialog extends BaseDialog {
 
     @BindView(R.id.tv_dialog_logout)
     TextView mTvDialogLogout;
@@ -53,6 +51,7 @@ public class LogoutDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTvDialogLogout.setText("是否解除绑定?");
         TextPaint tp = mTvDialogCancel.getPaint();
         tp.setFakeBoldText(true);
         tp = mTvDialogConfirm.getPaint();
@@ -86,20 +85,6 @@ public class LogoutDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-
-        SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.token, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, false);
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, false);
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, false);
-        EventBus.getDefault().post(new LogoutEvent());
-        this.dismiss();
-        getActivity().finish();
+        EventBus.getDefault().post(new RemoveBindingEvent());
     }
 }

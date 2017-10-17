@@ -118,7 +118,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             String password = MD5Utils.md5(mEtForgetPasswordPassword.getText().toString());
             String code = mEtForgetPasswordVerificationCode.getText().toString();
             int appType = Constants.APP_TYPE;
-            mPresenter.changePassword(phone,code,password,appType);
+            mPresenter.forgetPassword(phone,code,password,appType);
         }
     }
 

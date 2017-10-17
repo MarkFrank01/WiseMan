@@ -6,6 +6,7 @@
       <w>fastjson</w>
       <w>okhttp</w>
       <w>rxjava</w>
+      <w>wechat</w>
       <w>weibo</w>
     </words>
   </dictionary>

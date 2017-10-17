@@ -19,8 +19,9 @@ public class SVTSConstants {
     public static final String imgUrl = "img_url";
 
     public static final String openId = "open_id";
-    public static final String isBindQQ = "is_bind_qq";
-    public static final String isBindWX = "is_bind_wx";
+    public static final String isBindingQQ = "is_binding_qq";
+    public static final String isBindingWX = "is_binding_wx";
+    public static final String isBindingWB = "is_binding_wb";
 
     public static final String localTimeStamp = "local_time_stamp";
     public static final String serverTimeStamp = "server_time_stamp";

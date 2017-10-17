@@ -15,9 +15,9 @@ public class ChannelRegisterModel extends BaseModel<ChannelRegisterContract.Pres
         this.mPresenter = present;
     }
 
-    public void channelRegister(int channelType, String openId, String userIcon, String name, Integer sex,
+    public void channelRegister(int channelType, String openId, String password, String userIcon, String name, Integer sex,
                               String birthday, String phone, String code, int appType, String appChannel, String appVersion){
-        mDisposable = AppClient.getAPIService().channelRegister(channelType,openId,userIcon,name,
+        mDisposable = AppClient.getAPIService().channelRegister(channelType,openId,password,userIcon,name,
                 sex,birthday,phone,code,appType,appChannel,appVersion)
                 .compose(BaseRxJava.<LoginBean>handleResult())
                 .compose(BaseRxJava.<LoginBean>io_main_loading(mPresenter))

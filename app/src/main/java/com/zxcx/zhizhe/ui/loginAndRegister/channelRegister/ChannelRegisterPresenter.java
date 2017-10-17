@@ -14,9 +14,9 @@ public class ChannelRegisterPresenter extends BasePresenter<ChannelRegisterContr
         mModel = new ChannelRegisterModel(this);
     }
 
-    public void channelRegister(int channelType, String openId, String userIcon, String name, Integer sex,
+    public void channelRegister(int channelType, String openId, String password, String userIcon, String name, Integer sex,
                                 String birthday, String phone, String code, int appType, String appChannel, String appVersion){
-        mModel.channelRegister(channelType,openId,userIcon,name, sex,birthday,phone,code,appType,appChannel,appVersion);
+        mModel.channelRegister(channelType,openId,password,userIcon,name, sex,birthday,phone,code,appType,appChannel,appVersion);
     }
 
     @Override

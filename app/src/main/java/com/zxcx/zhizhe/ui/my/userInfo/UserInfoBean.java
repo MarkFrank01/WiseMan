@@ -25,6 +25,12 @@ public class UserInfoBean extends RetrofitBaen {
     private int id;
     @JSONField(name = "name")
     private String name;
+    @JSONField(name = "bandingQQ")
+    private boolean bandingQQ;
+    @JSONField(name = "bandingWeibo")
+    private boolean bandingWeibo;
+    @JSONField(name = "bandingWeixin")
+    private boolean bandingWeixin;
 
     public String getAvatar() {
         return avatar;
@@ -72,6 +78,30 @@ public class UserInfoBean extends RetrofitBaen {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isBandingQQ() {
+        return bandingQQ;
+    }
+
+    public void setBandingQQ(boolean bandingQQ) {
+        this.bandingQQ = bandingQQ;
+    }
+
+    public boolean isBandingWeibo() {
+        return bandingWeibo;
+    }
+
+    public void setBandingWeibo(boolean bandingWeibo) {
+        this.bandingWeibo = bandingWeibo;
+    }
+
+    public boolean isBandingWeixin() {
+        return bandingWeixin;
+    }
+
+    public void setBandingWeixin(boolean bandingWeixin) {
+        this.bandingWeixin = bandingWeixin;
     }
 }
 

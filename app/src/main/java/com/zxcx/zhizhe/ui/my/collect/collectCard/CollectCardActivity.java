@@ -82,9 +82,10 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("编辑");
         mEtEditCollectFolder.addTextChangedListener(new AddCollectFolderTextWatcher());
+
+        initLoadSir();
     }
 
-    @Override
     public void initLoadSir() {
         loadService = LoadSir.getDefault().register(this, this);
     }

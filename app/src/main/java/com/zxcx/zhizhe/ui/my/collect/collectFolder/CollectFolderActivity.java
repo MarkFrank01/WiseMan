@@ -82,9 +82,10 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("编辑");
         mEtDialogAddCollectFolder.addTextChangedListener(new AddCollectFolderTextWatcher());
+
+        initLoadSir();
     }
 
-    @Override
     public void initLoadSir() {
         loadService = LoadSir.getDefault().register(this, this);
     }
