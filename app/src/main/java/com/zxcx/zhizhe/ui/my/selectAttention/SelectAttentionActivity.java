@@ -103,14 +103,10 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
             if (!mCheckedList.contains(bean)) {
                 mCheckedList.add(bean);
             }
-            mAdapter.remove(position);
-            mAdapter.addData(bean);
         } else {
             if (mCheckedList.contains(bean)) {
                 mCheckedList.remove(bean);
             }
-            mAdapter.remove(position);
-            mAdapter.addData(0,bean);
         }
         checkNext();
     }

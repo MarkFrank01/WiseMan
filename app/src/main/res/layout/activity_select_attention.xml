@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/tv_select_attention_next"
-        android:text="下一步"
+        android:text="完成"
         android:textColor="@color/color_tv_select_attention_next"
         android:textSize="17sp"
         android:enabled="false"
@@ -38,7 +38,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:drawablePadding="5.5dp"
-        android:drawableRight="@drawable/selector_select_attention_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

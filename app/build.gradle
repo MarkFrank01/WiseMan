@@ -50,7 +50,7 @@ android {
         debug {
             minifyEnabled false
             signingConfig signingConfigs.release
-            applicationIdSuffix '.test'
+            //applicationIdSuffix '.test'
         }
         release {
             minifyEnabled false

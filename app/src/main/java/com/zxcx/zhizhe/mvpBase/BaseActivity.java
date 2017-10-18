@@ -124,7 +124,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         Toolbar toolbar = initToolBar();
         TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(title);
-        ActionBar actionBar = getSupportActionBar();
         return toolbar;
     }
 
