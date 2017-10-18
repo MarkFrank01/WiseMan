@@ -50,6 +50,7 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
         setContentView(R.layout.activity_user_safety);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        initToolBar("账户安全");
 
         isBindingWechat = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWX,false);
         isBindingQQ = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingQQ,false);

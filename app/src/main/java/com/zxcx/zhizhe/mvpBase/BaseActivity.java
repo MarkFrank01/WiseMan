@@ -136,9 +136,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     }
 
     public Toolbar initToolBar() {
-
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll_toolbar);
-        Toolbar toolbar = (Toolbar) linearLayout.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

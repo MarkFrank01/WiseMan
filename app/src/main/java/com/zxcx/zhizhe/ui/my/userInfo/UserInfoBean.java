@@ -5,37 +5,42 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class UserInfoBean extends RetrofitBaen {
     /**
-     * avatar : string
-     * birth : string
-     * createTime : 2017-07-24T06:46:20.757Z
-     * gender : 0
-     * id : 0
-     * name : string
+     * id : 8
+     * birth : 2017-03-25
+     * avatar : default
+     * name : zxst_82698
+     * gender : 1
+     * createTime : 1508142980000
+     * bandingQQ : true
+     * bandingWeixin : false
+     * bandingWeibo : false
      */
 
-    @JSONField(name = "avatar")
-    private String avatar;
-    @JSONField(name = "birth")
-    private String birth;
-    @JSONField(name = "gender")
-    private int gender;
     @JSONField(name = "id")
     private int id;
+    @JSONField(name = "birth")
+    private String birth;
+    @JSONField(name = "avatar")
+    private String avatar;
     @JSONField(name = "name")
     private String name;
+    @JSONField(name = "gender")
+    private int gender;
+    @JSONField(name = "createTime")
+    private long createTime;
     @JSONField(name = "bandingQQ")
     private boolean bandingQQ;
-    @JSONField(name = "bandingWeibo")
-    private boolean bandingWeibo;
     @JSONField(name = "bandingWeixin")
     private boolean bandingWeixin;
+    @JSONField(name = "bandingWeibo")
+    private boolean bandingWeibo;
 
-    public String getAvatar() {
-        return avatar;
+    public int getId() {
+        return id;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBirth() {
@@ -46,20 +51,12 @@ public class UserInfoBean extends RetrofitBaen {
         this.birth = birth;
     }
 
-    public int getGender() {
-        return gender;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getName() {
@@ -70,6 +67,22 @@ public class UserInfoBean extends RetrofitBaen {
         this.name = name;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(long createTime) {
+        this.createTime = createTime;
+    }
+
     public boolean isBandingQQ() {
         return bandingQQ;
     }
@@ -78,20 +91,20 @@ public class UserInfoBean extends RetrofitBaen {
         this.bandingQQ = bandingQQ;
     }
 
-    public boolean isBandingWeibo() {
-        return bandingWeibo;
-    }
-
-    public void setBandingWeibo(boolean bandingWeibo) {
-        this.bandingWeibo = bandingWeibo;
-    }
-
     public boolean isBandingWeixin() {
         return bandingWeixin;
     }
 
     public void setBandingWeixin(boolean bandingWeixin) {
         this.bandingWeixin = bandingWeixin;
+    }
+
+    public boolean isBandingWeibo() {
+        return bandingWeibo;
+    }
+
+    public void setBandingWeibo(boolean bandingWeibo) {
+        this.bandingWeibo = bandingWeibo;
     }
 }
 

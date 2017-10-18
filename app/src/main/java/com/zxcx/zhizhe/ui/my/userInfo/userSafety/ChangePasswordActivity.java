@@ -58,9 +58,13 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
         ButterKnife.bind(this);
         initToolBar("修改密码");
 
+        CheckNullTextWatcher checkNullTextWatcher = new CheckNullTextWatcher();
         mEtCurrentPassword.addTextChangedListener(new CurrentPasswordTextWatcher());
+        mEtCurrentPassword.addTextChangedListener(checkNullTextWatcher);
         mEtNewPassword.addTextChangedListener(new NewPasswordTextWatcher());
+        mEtNewPassword.addTextChangedListener(checkNullTextWatcher);
         mEtRepetitionPassword.addTextChangedListener(new RepetitionPasswordTextWatcher());
+        mEtRepetitionPassword.addTextChangedListener(checkNullTextWatcher);
     }
 
     @Override
@@ -87,24 +91,38 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
         startActivity(new Intent(mActivity, LoginActivity.class));
     }
 
+    @OnClick(R.id.iv_current_password_clear)
+    public void onMIvCurrentPasswordClearClicked() {
+        mEtCurrentPassword.setText("");
+    }
+
+    @OnClick(R.id.iv_new_password_clear)
+    public void onMIvNewPasswordClearClicked() {
+        mEtNewPassword.setText("");
+    }
+
+    @OnClick(R.id.iv_repetition_password_clear)
+    public void onMIvRepetitionPasswordClearClicked() {
+        mEtRepetitionPassword.setText("");
+    }
 
     @OnClick(R.id.btn_change_password_complete)
-    public void onViewClicked() {
+    public void onMBtnChangePasswordCompleteClicked() {
         String currentPassword = mEtCurrentPassword.getText().toString();
         String newPassword = mEtNewPassword.getText().toString();
         String repetitionPassword = mEtRepetitionPassword.getText().toString();
 
-        if (checkPassword()){
-            if (newPassword.equals(repetitionPassword)){
-                changePassword(MD5Utils.md5(currentPassword),MD5Utils.md5(newPassword));
-            }else {
+        if (checkPassword()) {
+            if (newPassword.equals(repetitionPassword)) {
+                changePassword(MD5Utils.md5(currentPassword), MD5Utils.md5(newPassword));
+            } else {
                 toastShow("两次输入密码不一致");
             }
         }
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-        mDisposable = AppClient.getAPIService().changePassword(oldPassword,newPassword)
+        mDisposable = AppClient.getAPIService().changePassword(oldPassword, newPassword)
                 .compose(BaseRxJava.handlePostResult())
                 .compose(BaseRxJava.<BaseBean>io_main_loading(this))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
@@ -122,6 +140,28 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
         } else {
             toastShow("新密码格式错误!");
             return false;
+        }
+    }
+
+    class CheckNullTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (mEtCurrentPassword.length() > 0 && mEtNewPassword.length() > 0 && mEtRepetitionPassword.length() > 0) {
+                mBtnChangePasswordComplete.setEnabled(true);
+            } else {
+                mBtnChangePasswordComplete.setEnabled(true);
+            }
         }
     }
 
@@ -143,11 +183,6 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
                 mIvCurrentPasswordClear.setVisibility(View.VISIBLE);
             } else {
                 mIvCurrentPasswordClear.setVisibility(View.GONE);
-            }
-            if (mEtCurrentPassword.length() > 0 && mEtNewPassword.length() > 0 && mEtRepetitionPassword.length() > 0) {
-                mBtnChangePasswordComplete.setEnabled(true);
-            } else {
-                mBtnChangePasswordComplete.setEnabled(true);
             }
         }
     }
@@ -171,11 +206,6 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
             } else {
                 mIvNewPasswordClear.setVisibility(View.GONE);
             }
-            if (mEtCurrentPassword.length() > 0 && mEtNewPassword.length() > 0 && mEtRepetitionPassword.length() > 0) {
-                mBtnChangePasswordComplete.setEnabled(true);
-            } else {
-                mBtnChangePasswordComplete.setEnabled(true);
-            }
         }
     }
 
@@ -197,11 +227,6 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
                 mIvRepetitionPasswordClear.setVisibility(View.VISIBLE);
             } else {
                 mIvRepetitionPasswordClear.setVisibility(View.GONE);
-            }
-            if (mEtCurrentPassword.length() > 0 && mEtNewPassword.length() > 0 && mEtRepetitionPassword.length() > 0) {
-                mBtnChangePasswordComplete.setEnabled(true);
-            } else {
-                mBtnChangePasswordComplete.setEnabled(true);
             }
         }
     }
