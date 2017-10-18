@@ -174,6 +174,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     @Override
     public void showLoading() {
+        if (mLoadingDialog != null && !mLoadingDialog.isAdded())
         mLoadingDialog.show(getFragmentManager(),"");
     }
 

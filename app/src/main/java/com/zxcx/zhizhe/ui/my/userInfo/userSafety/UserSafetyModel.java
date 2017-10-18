@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
-import com.zxcx.zhizhe.retrofit.PostSubscriber;
-import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
+import com.zxcx.zhizhe.retrofit.BaseBean;
+import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 
 public class UserSafetyModel extends BaseModel<UserSafetyContract.Presenter> {
     public UserSafetyModel(@NonNull UserSafetyContract.Presenter presenter) {
@@ -15,12 +15,12 @@ public class UserSafetyModel extends BaseModel<UserSafetyContract.Presenter> {
 
     public void channelBinding(int channelType, int type, String openId){
         mDisposable = AppClient.getAPIService().channelBinding(channelType,type,openId)
-                .compose(BaseRxJava.<UserInfoBean>handleResult())
-                .compose(BaseRxJava.<UserInfoBean>io_main_loading(mPresenter))
-                .subscribeWith(new PostSubscriber<UserInfoBean>(mPresenter) {
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
+                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
-                    public void onNext(UserInfoBean bean) {
-                        mPresenter.postSuccess(bean);
+                    public void onNext(BaseBean bean) {
+                        mPresenter.postSuccess();
                     }
                 });
     }

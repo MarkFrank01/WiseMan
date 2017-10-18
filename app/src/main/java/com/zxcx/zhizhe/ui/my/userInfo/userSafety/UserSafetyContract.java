@@ -1,17 +1,16 @@
 package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
 
-import com.zxcx.zhizhe.mvpBase.IPostPresenter;
-import com.zxcx.zhizhe.mvpBase.PostView;
-import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
+import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
+import com.zxcx.zhizhe.mvpBase.NullPostView;
 
 public interface UserSafetyContract {
 
-    interface View extends PostView<UserInfoBean> {
+    interface View extends NullPostView {
 
     }
 
-    interface Presenter extends IPostPresenter<UserInfoBean> {
+    interface Presenter extends INullPostPresenter {
 
     }
 }

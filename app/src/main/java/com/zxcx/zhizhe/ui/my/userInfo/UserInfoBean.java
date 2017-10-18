@@ -17,8 +17,6 @@ public class UserInfoBean extends RetrofitBaen {
     private String avatar;
     @JSONField(name = "birth")
     private String birth;
-    @JSONField(name = "createTime")
-    private String createTime;
     @JSONField(name = "gender")
     private int gender;
     @JSONField(name = "id")
@@ -46,14 +44,6 @@ public class UserInfoBean extends RetrofitBaen {
 
     public void setBirth(String birth) {
         this.birth = birth;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
     }
 
     public int getGender() {

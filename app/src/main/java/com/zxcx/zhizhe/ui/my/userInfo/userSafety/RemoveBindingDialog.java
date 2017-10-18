@@ -86,5 +86,6 @@ public class RemoveBindingDialog extends BaseDialog {
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
         EventBus.getDefault().post(new RemoveBindingEvent());
+        this.dismiss();
     }
 }

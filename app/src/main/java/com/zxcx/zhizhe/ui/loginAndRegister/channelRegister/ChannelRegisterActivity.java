@@ -14,11 +14,9 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.kingja.loadsir.core.LoadSir;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RegisterEvent;
-import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
@@ -80,18 +78,11 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
         mEtRegisterPhone.addTextChangedListener(textWatcher);
         mEtRegisterPhone.addTextChangedListener(new PhoneTextWatcher());
         mEtRegisterVerificationCode.addTextChangedListener(textWatcher);
+        mEtRegisterPassword.addTextChangedListener(textWatcher);
         TextPaint paint = mBtnRegister.getPaint();
         paint.setFakeBoldText(true);
 
         initData();
-        initLoadSir();
-    }
-
-    public void initLoadSir() {
-        LoadSir loadSir = new LoadSir.Builder()
-                .addCallback(new LoadingCallback())
-                .build();
-        loadService = loadSir.register(this, null);
     }
 
     private void initData() {

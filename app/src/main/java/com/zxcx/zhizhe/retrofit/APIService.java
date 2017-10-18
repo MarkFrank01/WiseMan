@@ -81,7 +81,7 @@ public interface APIService {
      * 第三方绑定解绑
      */
     @POST("/user/thirdPartyBindingUnbinding")
-    Flowable<BaseBean<UserInfoBean>> channelBinding(
+    Flowable<BaseBean> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
             @Query("openId") String openId);
 

@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 
 public class UserSafetyPresenter extends BasePresenter<UserSafetyContract.View> implements UserSafetyContract.Presenter {
 
@@ -34,8 +33,8 @@ public class UserSafetyPresenter extends BasePresenter<UserSafetyContract.View> 
     }
 
     @Override
-    public void postSuccess(UserInfoBean bean) {
-        mView.postSuccess(bean);
+    public void postSuccess() {
+        mView.postSuccess();
     }
 
     @Override

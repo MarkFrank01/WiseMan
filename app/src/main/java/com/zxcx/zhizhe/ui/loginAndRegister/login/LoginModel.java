@@ -37,7 +37,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        mPresenter.getDataSuccess(loginBean);
+                        mPresenter.channelLoginSuccess(loginBean);
                     }
 
                     @Override
@@ -49,7 +49,7 @@ public class LoginModel extends BaseModel<LoginContract.Presenter> {
                                 String message = t.getMessage().substring(3);
                                 t.printStackTrace();
                                 LogCat.d(t.getMessage());
-                                if (Constants.TOKEN_OUTTIME == code1) {
+                                if (Constants.NEED_LOGIN == code1) {
                                     mPresenter.channelLoginNeedRegister();
                                 } else {
                                     mPresenter.getDataFail(message);

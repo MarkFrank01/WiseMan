@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -7,11 +8,10 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RemoveBindingEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.LogoutDialog;
-import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -49,6 +49,7 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_safety);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         isBindingWechat = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWX,false);
         isBindingQQ = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingQQ,false);
@@ -58,16 +59,32 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected UserSafetyPresenter createPresenter() {
         return new UserSafetyPresenter(this);
     }
 
     @Override
-    public void postSuccess(UserInfoBean bean) {
-        ZhiZheUtils.saveUserInfo(bean);
-        isBindingWechat = bean.isBandingWeixin();
-        isBindingQQ = bean.isBandingQQ();
-        isBindingWeibo = bean.isBandingWeibo();
+    public void postSuccess() {
+        switch (channelType){
+            case 1:
+                isBindingQQ = !isBindingQQ;
+                break;
+            case 2:
+                isBindingWechat = !isBindingWechat;
+                break;
+            case 3:
+                isBindingWeibo = !isBindingWeibo;
+                break;
+        }
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, isBindingWechat);
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, isBindingQQ);
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, isBindingWeibo);
         updateView();
     }
 
@@ -124,6 +141,12 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
             RemoveBindingDialog dialog = new RemoveBindingDialog();
             dialog.show(getFragmentManager(),"");
         }
+    }
+
+    @OnClick(R.id.rl_user_safety_change_password)
+    public void onMRlUserSafetyChangePasswordClicked() {
+        Intent intent = new Intent(this,ChangePasswordActivity.class);
+        startActivity(intent);
     }
 
     private void updateView() {

@@ -39,6 +39,7 @@ public class BaseRxJava{
             @Override
             public Publisher<T> apply(@NonNull Flowable<T> upstream) {
                 return upstream
+                        .subscribeOn(Schedulers.io())
                         .doOnSubscribe(new Consumer<Subscription>() {
                             @Override
                             public void accept(@NonNull Subscription subscription) throws Exception {
@@ -51,7 +52,7 @@ public class BaseRxJava{
                                 presenter.hideLoading();
                             }
                         })
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(AndroidSchedulers.mainThread())
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
