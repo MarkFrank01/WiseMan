@@ -37,10 +37,10 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class ShareCardDialog extends BaseDialog {
 
-
     private Unbinder mUnbinder;
     private String url;
     private String title;
+    private String text;
     private String imageUrl;
 
     @Nullable
@@ -50,6 +50,7 @@ public class ShareCardDialog extends BaseDialog {
         mUnbinder = ButterKnife.bind(this, view);
         url = getArguments().getString("url");
         title = getArguments().getString("title");
+        text = getArguments().getString("text");
         imageUrl = getArguments().getString("imageUrl");
         return view;
     }
@@ -127,7 +128,7 @@ public class ShareCardDialog extends BaseDialog {
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
         oks.setTitleUrl(url);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(title);
+        oks.setText(text);
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
         oks.setImageUrl(imageUrl);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数

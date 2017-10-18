@@ -54,6 +54,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private WebView mWebView;
     private int cardId;
     private String name;
+    private String cardBagName;
     private int likeNum;
     private int collectNum;
     private Action mAction;
@@ -122,6 +123,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         likeNum = bean.getLikeNum();
         imageUrl = bean.getImageUrl();
         name = bean.getName();
+        cardBagName = bean.getCardBagName();
         mTvCardDetailsTitle.setText(name);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
@@ -174,6 +176,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         ShareCardDialog shareCardDialog = new ShareCardDialog();
         Bundle bundle = new Bundle();
         bundle.putString("title", name);
+        bundle.putString("text", cardBagName);
         bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         bundle.putString("imageUrl",imageUrl);
         shareCardDialog.setArguments(bundle);

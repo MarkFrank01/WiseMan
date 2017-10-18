@@ -61,6 +61,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     private int likeNum;
     private int collectNum;
     private Action mAction;
+    private String cardName;
 
     private enum Action {
         unCollect,
@@ -125,6 +126,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         collectNum = bean.getCollectNum();
         likeNum = bean.getLikeNum();
         imageUrl = bean.getImageUrl();
+        cardName = bean.getName();
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
@@ -169,7 +171,8 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     public void onShareClicked() {
         ShareCardDialog shareCardDialog = new ShareCardDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title",name);
+        bundle.putString("title",cardName);
+        bundle.putString("text",name);
         bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
         bundle.putString("imageUrl",imageUrl);
         shareCardDialog.setArguments(bundle);
