@@ -14,6 +14,8 @@ import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
+import com.alibaba.sdk.android.oss.model.DeleteObjectRequest;
+import com.alibaba.sdk.android.oss.model.DeleteObjectResult;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -76,6 +78,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     private String mBirth;
     private File imageFile;
     private int mUserId;
+    private OSSTokenBean mBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,8 +126,15 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     @Override
     public void getDataSuccess(OSSTokenBean bean) {
-
+        mBean = bean;
         uploadImageToOSS(bean);
+    }
+
+    @Override
+    public void changeImageSuccess(UserInfoBean bean) {
+        deleteImageFromOSS(mBean,mHeadImg);
+        ZhiZheUtils.saveUserInfo(bean);
+        initData();
     }
 
     @Override
@@ -273,11 +283,11 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
 
     }
 
-    private void uploadImageToOSS(OSSTokenBean bean) {
+    private void uploadImageToOSS(final OSSTokenBean bean) {
         final String fileName = "user/" + mUserId + FileUtil.getFileName();
         final String bucketName = getString(R.string.bucket_name);
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-// 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
+        // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 
         OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(bean.getAccessKeyId(), bean.getAccessKeySecret(), bean.getSecurityToken());
         OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
@@ -302,6 +312,44 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                     // 服务异常
                 }
             }
+        });
+        task.waitUntilFinished(); // 可以等待直到任务完成
+    }
+
+    private void deleteImageFromOSS(OSSTokenBean bean, String oldImageUrl) {
+        final String bucketName = getString(R.string.bucket_name);
+        final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
+        final String fileName;
+        try {
+            fileName = oldImageUrl.split("http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/")[1];
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(bean.getAccessKeyId(), bean.getAccessKeySecret(), bean.getSecurityToken());
+        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
+        // 构造删除请求
+        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest (bucketName, fileName);
+        OSSAsyncTask task = oss.asyncDeleteObject(deleteObjectRequest, new OSSCompletedCallback<DeleteObjectRequest, DeleteObjectResult>() {
+            @Override
+            public void onSuccess(DeleteObjectRequest request, DeleteObjectResult result) {
+
+            }
+
+            @Override
+            public void onFailure(DeleteObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                }
+            }
+
         });
         task.waitUntilFinished(); // 可以等待直到任务完成
     }

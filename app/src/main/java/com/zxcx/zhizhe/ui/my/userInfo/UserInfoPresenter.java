@@ -36,6 +36,11 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
     }
 
     @Override
+    public void changeImageSuccess(UserInfoBean bean) {
+        mView.changeImageSuccess(bean);
+    }
+
+    @Override
     public void showLoading() {
         mView.showLoading();
     }

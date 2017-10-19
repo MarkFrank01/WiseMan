@@ -33,7 +33,7 @@ public class UserInfoModel extends BaseModel<UserInfoContract.Presenter> {
                 .subscribeWith(new PostSubscriber<UserInfoBean>(mPresenter) {
                     @Override
                     public void onNext(UserInfoBean bean) {
-                        mPresenter.postSuccess(bean);
+                        mPresenter.changeImageSuccess(bean);
                     }
                 });
     }

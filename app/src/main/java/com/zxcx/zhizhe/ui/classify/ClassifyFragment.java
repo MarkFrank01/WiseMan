@@ -102,6 +102,12 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         unbinder.unbind();
     }
 
+    @Override
+    public void clearLeaks() {
+        loadService = null;
+        mClassifyAdapter = null;
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ClassifyClickRefreshEvent event) {
         mRvClassify.smoothScrollToPosition(0);

@@ -122,8 +122,17 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void clearLeaks() {
+        mCardAdapter = null;
+        mCardBagAdapter = null;
+        mRvAttentionCardBag = null;
+        mEmptyView = null;
+        loadService = null;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

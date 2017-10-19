@@ -108,10 +108,16 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void clearLeaks() {
         mCardAdapter = null;
         mCardBagAdapter = null;
+        mRvHotCardBag = null;
+        loadService = null;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

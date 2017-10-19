@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.mvpBase;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.zhizhe.widget.LoadingDialog;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -25,9 +25,8 @@ import io.reactivex.disposables.Disposable;
  * A simple {@link Fragment} subclass.
  */
 public class BaseFragment extends Fragment implements BaseView{
+    private LoadingDialog mLoadingDialog;
     public Activity mActivity;
-    public String TAG = "putong";
-    public ProgressDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +38,25 @@ public class BaseFragment extends Fragment implements BaseView{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivity = getActivity();
+        mLoadingDialog = new LoadingDialog();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        onUnsubscribe();
+        mActivity = null;
+        clearLeaks();
+        super.onDestroy();
     }
 
     public Toolbar initToolBar(View view, String title) {
@@ -55,12 +73,6 @@ public class BaseFragment extends Fragment implements BaseView{
         return toolbar;
     }
 
-
-    //    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        Log.d(TAG, mActivity + "=onDestroy");
-//    }
     public void toastShow(int resId) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
         TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
@@ -81,43 +93,9 @@ public class BaseFragment extends Fragment implements BaseView{
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
-//
-//    CustomLoading customLoading;
-//
-//    public CustomLoading showProgressDialog() {
-////        progressDialog = new ProgressDialog(mActivity);
-////        progressDialog.setMessage("加载中");
-////        progressDialog.show();
-////        return progressDialog;
-//        customLoading = new CustomLoading(mActivity, R.style.CustomDialog);
-//        customLoading.show();
-//        return customLoading;
-//    }
 
-    public void dismissProgressDialog() {
-//        if (customLoading != null && customLoading.isShowing()) {
-//            customLoading.dismiss();
-//        }
-//        if (progressDialog != null && progressDialog.isShowing()) {
-//            progressDialog.dismiss();// progressDialog.hide();会导致android.view.WindowLeaked
-//        }
-    }
+    public void clearLeaks() {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        onUnsubscribe();
-        mActivity = null;
     }
 
     private CompositeDisposable mCompositeSubscription;
@@ -137,12 +115,14 @@ public class BaseFragment extends Fragment implements BaseView{
 
     @Override
     public void showLoading() {
-//        showProgressDialog();
+        if (mLoadingDialog != null && !mLoadingDialog.isAdded())
+            mLoadingDialog.show(mActivity.getFragmentManager(),"");
     }
 
     @Override
     public void hideLoading() {
-        dismissProgressDialog();
+        if (mLoadingDialog != null && mLoadingDialog.isAdded())
+            mLoadingDialog.dismiss();
     }
 
     @Override
