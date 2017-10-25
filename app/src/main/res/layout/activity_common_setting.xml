@@ -6,16 +6,57 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.zxcx.shitang.ui.my.MyFragment">
+    tools:context="com.zxcx.zhizhe.ui.my.MyFragment">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_common_setting_re"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_re"
+            android:layout_marginLeft="15dp"
+            android:text="写作"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:src="@drawable/common_into"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="15dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_attention"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_attention"
@@ -47,7 +88,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_push"
@@ -59,27 +100,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_push"
+        <CheckBox
+            android:id="@+id/cb_common_setting_push"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_night_model"
         android:background="@color/white"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_night_model"
@@ -91,17 +138,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_night_model"
+        <CheckBox
+            android:id="@+id/cb_common_setting_night_model"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 
@@ -116,7 +159,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:id="@+id/tv_common_setting_only_wifi"
@@ -128,27 +171,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sc_common_setting_only_wifi"
+        <CheckBox
+            android:id="@+id/cb_common_setting_only_wifi"
+            android:button="@drawable/selector_check_box"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            app:switchMinWidth="42dp"
-            android:textOn=""
-            android:textOff=""
-            android:thumb="@drawable/switch_thumb"
-            app:track="@drawable/switch_track"/>
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_common_setting_clean_cache"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_marginLeft="14.5dp"
@@ -170,5 +219,10 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

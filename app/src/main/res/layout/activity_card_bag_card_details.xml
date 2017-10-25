@@ -1,17 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zxcx.shitang.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity">
+    android:background="@color/bg_details"
+    tools:context="com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/ll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_card_details_back"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/common_back"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_card_details_title"
+            tools:text="变色龙"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/dp_card_details_subhead"
+            android:maxLines="1"
+            android:maxEms="6"
+            android:ellipsize="end"
+            android:textColor="@color/text_color_40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_card_details_num"
+            tools:text="2/23"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:textSize="12sp"
+            android:maxLines="1"
+            android:maxEms="6"
+            android:ellipsize="end"
+            android:textColor="@color/text_color_66"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        layout="@layout/view_line"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_card_bag_card_details"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_card_details"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <CheckBox
+            android:id="@+id/cb_card_details_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_cb_card_details_collect"
+            android:layout_marginLeft="21dp"
+            android:layout_centerVertical="true"
+            tools:text="200"
+            android:textSize="12sp"
+            android:textColor="@color/text_color_99"
+            android:paddingLeft="7.5dp"/>
+
+        <CheckBox
+            android:id="@+id/cb_card_details_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_cb_card_details_like"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/cb_card_details_collect"
+            android:layout_marginLeft="28dp"
+            tools:text="200"
+            android:textSize="12sp"
+            android:textColor="@color/text_color_99"
+            android:paddingLeft="7.5dp"/>
+
+        <ImageView
+            android:id="@+id/tv_card_details_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25.5dp"
+            android:src="@drawable/selector_tv_card_details_share"/>
+
+    </RelativeLayout>
+</LinearLayout>

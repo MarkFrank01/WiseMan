@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="14dp"
     android:layout_marginBottom="14dp"
     android:layout_width="match_parent"
@@ -8,7 +9,8 @@
 
     <TextView
         android:id="@+id/tv_item_dialog_collect_folder_name"
-        android:text="电子产品"
+        tools:text="电子产品"
+        style="@style/tv_single"
         android:textSize="16sp"
         android:textColor="@color/text_color_40"
         android:layout_weight="1"
@@ -17,7 +19,7 @@
 
     <TextView
         android:id="@+id/tv_item_dialog_collect_folder_num"
-        android:text="20"
+        tools:text="20"
         android:textColor="@color/line"
         android:textSize="16sp"
         android:layout_width="wrap_content"

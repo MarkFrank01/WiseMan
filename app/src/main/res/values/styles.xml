@@ -12,6 +12,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="AppTheme.Translucent.FullScreen" parent="AppTheme.FullScreen">
+        <item name="android:windowBackground">@color/opacity_60</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="AppTheme.TranslucentStatus" parent="AppTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
@@ -31,6 +37,14 @@
 
     </style>
 
+    <style name="time_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
@@ -42,6 +56,17 @@
     <style name="text_16sp_66">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_color_66</item>
+    </style>
+
+    <style name="tv_card">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxEms">6</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="tv_single">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
 

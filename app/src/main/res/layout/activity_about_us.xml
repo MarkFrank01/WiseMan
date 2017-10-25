@@ -7,18 +7,42 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context="com.zxcx.shitang.ui.my.aboutUS.AboutUSActivity">
+    tools:context="com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <ImageView
+        android:layout_marginTop="35dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_about_us_logo"
+        tools:text="@string/tv_about_us_logo"
+        android:layout_marginTop="12dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color_99"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    <View
+        android:layout_marginTop="34dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <LinearLayout
-        android:layout_marginTop="154dp"
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
@@ -30,7 +54,7 @@
 
         <TextView
             android:id="@+id/tv_about_us_versions"
-            android:text="4.2.1"
+            tools:text="4.2.1"
             android:textColor="@color/text_color_99"
             android:textSize="14sp"
             android:layout_width="wrap_content"
@@ -40,6 +64,7 @@
 
     <View
         android:background="@color/line"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
 
@@ -50,13 +75,13 @@
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="新版本更新"
+            android:text="版本更新"
             android:textColor="@color/text_color_66"
             android:textSize="16sp"/>
 
@@ -70,21 +95,31 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_about_us_visit"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="参观识堂"
+            android:text="参观智者"
             android:textColor="@color/text_color_66"
             android:textSize="16sp"/>
 
@@ -97,6 +132,7 @@
 
     <View
         android:background="@color/line"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
 
@@ -105,11 +141,16 @@
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="分享识堂APP"
+        android:text="分享智者"
         android:textColor="@color/text_color_66"
         android:textSize="16sp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="50dp"/>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

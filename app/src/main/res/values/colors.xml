@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#55CCFF</color>
-    <color name="colorPrimaryDark">#55CCFF</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#88DDFF</color>
-    <color name="colorPrimaryFinal">#55CCFF</color>
+    <color name="button_blue">#0095B7</color>
     <color name="translate">#00000000</color>
     <color name="opacity_30">#4C000000</color>
     <color name="opacity_40">#66000000</color>
     <color name="opacity_50">#80000000</color>
     <color name="opacity_60">#99000000</color>
+    <color name="opacity_70">#B2000000</color>
     <color name="white">#FFFFFF</color>
     <color name="bg_details">#FFFFFF</color>
-    <color name="bg_top_search">#34A5DF</color>
+    <color name="bg_top_search">#EEEEEE</color>
     <color name="dialog_background">#FFFFFF</color>
     <color name="white_final">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -20,9 +21,10 @@
     <color name="line">#E0E0E0</color>
     <color name="fault">#EEEEEE</color>
     <color name="text_item_card_bag">#FFFFFF</color>
+    <color name="toolbar_title">#404040</color>
     <color name="text_color_ff">#FFFFFF</color>
     <color name="text_color_40">#404040</color>
     <color name="text_color_66">#666666</color>
     <color name="text_color_99">#999999</color>
-    <color name="text_color_top_search">#B2FFFFFF</color>
+    <color name="text_color_top_search">#999999</color>
 </resources>

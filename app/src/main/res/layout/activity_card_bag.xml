@@ -8,12 +8,12 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_card_bag"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/ll_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

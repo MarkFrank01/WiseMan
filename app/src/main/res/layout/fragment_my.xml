@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.zxcx.shitang.ui.my.MyFragment">
+    tools:context="com.zxcx.zhizhe.ui.my.MyFragment">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <RelativeLayout
         android:id="@+id/rl_my_head"
@@ -45,6 +53,8 @@
             android:layout_marginTop="28dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:maxLength="8"
             android:text="6666"
             android:textSize="16sp"
             android:textColor="@color/text_color_40"/>
@@ -58,7 +68,7 @@
             android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查看个人主页/编辑资料"
+            android:text="编辑个人资料"
             android:textSize="13sp"
             android:textColor="@color/text_color_99"/>
 
@@ -73,13 +83,23 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_my_collect"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_collect"
@@ -107,13 +127,23 @@
 
     </LinearLayout>
 
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:id="@+id/ll_my_common_setting"
-        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_common_setting"
@@ -152,7 +182,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_feedback"
@@ -191,7 +221,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
         <ImageView
             android:src="@drawable/tv_my_about_us"
@@ -218,5 +248,10 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
 </LinearLayout>

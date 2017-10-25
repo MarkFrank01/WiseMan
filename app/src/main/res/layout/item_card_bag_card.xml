@@ -7,12 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_item_home_card"
-    android:layout_marginBottom="15dp"
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_card_bag_card_icon"
-        android:src="@drawable/iv_item_home_card_icon"
+        tools:src="@drawable/iv_item_home_card_icon"
         android:layout_width="match_parent"
         android:layout_height="126dp"
         android:scaleType="centerCrop"
@@ -23,20 +22,21 @@
         android:id="@+id/tv_item_card_bag_card_title"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="14dp"
-        android:text="笔记本"
+        tools:text="笔记本"
+        style="@style/tv_card"
         android:textColor="@color/text_color_40"
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:id="@+id/tv_item_card_bag_card_collect_num"
+        android:id="@+id/tv_item_card_bag_card_num"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="23.5dp"
-        android:text="%1$d人收藏  %2$d人认同"
+        tools:text="%1$d人收藏  %2$d人认同"
         android:textColor="@color/text_color_99"
-        android:textSize="11dp"
+        android:textSize="11sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

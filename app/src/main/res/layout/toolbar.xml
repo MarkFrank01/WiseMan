@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
+    android:id="@+id/ll_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:minHeight="?actionBarSize"
-    android:fitsSystemWindows="true"
-    app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp">
-    <!--android:paddingTop="@dimen/status_bar_height"-->
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorPrimary"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+        <!--android:paddingTop="@dimen/status_bar_height"-->
 
-    <ImageView
-        android:id="@+id/iv_toolbar_back"
-        android:src="@drawable/common_back"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:visibility="visible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"/>
+        <ImageView
+            android:id="@+id/iv_toolbar_back"
+            android:src="@drawable/common_back"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/toolbar_title"
-        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-        android:textSize="17sp"
-        android:textColor="@color/text_color_ff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
-    <ImageView
-        android:id="@+id/iv_toolbar_right"
-        android:layout_gravity="right"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"/>
+        <ImageView
+            android:id="@+id/iv_toolbar_right"
+            android:layout_gravity="right"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
-    <TextView
-        android:id="@+id/tv_toolbar_right"
-        android:layout_gravity="right"
-        android:paddingRight="15dp"
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:textColor="@color/text_color_ff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_toolbar_right"
+            android:layout_gravity="right"
+            android:visibility="gone"
+            android:paddingRight="15dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/text_color_66"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
 
-</android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/view_line"/>
+</LinearLayout>

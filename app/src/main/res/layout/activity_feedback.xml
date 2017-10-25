@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <LinearLayout
         android:id="@+id/ll_feedback_commit"
@@ -62,10 +64,10 @@
 
     <LinearLayout
         android:id="@+id/ll_feedback_success"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_feedback_success"
@@ -78,7 +80,7 @@
         <TextView
             android:layout_marginTop="35dp"
             android:layout_gravity="center_horizontal"
-            android:text="反馈成功"
+            android:text="提交成功"
             android:textSize="20sp"
             android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
@@ -90,13 +92,14 @@
             android:layout_marginRight="25dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:text="感谢你对识堂的关注与支持，我们会认真处理你的反馈，尽快修复和完善相关功能。"
+            android:text="感谢您的反馈，我们将会根据您的反馈优化我们的产品和服务。"
             android:textSize="14sp"
             android:textColor="@color/text_color_99"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         
         <Button
+            android:id="@+id/btn_feedback_close"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

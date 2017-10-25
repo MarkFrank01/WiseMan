@@ -6,13 +6,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zxcx.shitang.ui.MainActivity">
+    tools:context="com.zxcx.zhizhe.ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/home_fragment_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -25,19 +30,19 @@
             android:id="@+id/home_tab_home"
             style="@style/BottomTab"
             android:text="@string/home_home"
-            android:drawableTop="@drawable/select_home_home"/>
+            android:drawableTop="@drawable/selector_home_home"/>
 
         <RadioButton
             android:id="@+id/home_tab_classify"
             style="@style/BottomTab"
             android:text="@string/home_classify"
-            android:drawableTop="@drawable/select_home_classify" />
+            android:drawableTop="@drawable/selector_home_classify" />
 
         <RadioButton
             android:id="@+id/home_tab_my"
             style="@style/BottomTab"
             android:text="@string/home_my"
-            android:drawableTop="@drawable/select_home_my" />
+            android:drawableTop="@drawable/selector_home_my" />
     </RadioGroup>
 </LinearLayout>
 

@@ -9,7 +9,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_select_attention_icon"
-        android:src="@drawable/iv_item_home_card_bag_icon"
+        tools:src="@drawable/iv_item_home_card_bag_icon"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,8 +33,9 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_select_attention_select"
-            android:text="生活常识"
+            android:id="@+id/tv_item_select_attention_name"
+            tools:text="生活常识"
+            style="@style/tv_card"
             android:textSize="14sp"
             android:layout_centerInParent="true"
             android:textColor="@color/white_final"

@@ -17,7 +17,7 @@
             android:gravity="center"
             android:text="默认分享"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimaryFinal"
+            android:textColor="@color/button_blue"
             android:layout_width="match_parent"
             android:layout_height="57dp"/>
 
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="自定义分享"
             android:textSize="16sp"
-            android:textColor="@color/colorPrimaryFinal"
+            android:textColor="@color/button_blue"
             android:layout_width="match_parent"
             android:layout_height="57dp"/>
 

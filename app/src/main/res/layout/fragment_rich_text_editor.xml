@@ -1,0 +1,84 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_rte"
+        android:visibility="gone"
+        android:layout_above="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_rte_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:cursorVisible="true"
+            android:drawableBottom="@drawable/bottom_dialog_add_collecr_folder"
+            android:drawablePadding="15dp"
+            android:hint=" 标题"
+            android:maxLength="16"
+            android:textColor="@color/text_color_40"
+            android:textColorHint="@color/line"
+            android:textCursorDrawable="@drawable/bg_edit_cursor"
+            android:textSize="16sp"/>
+
+        <com.zxcx.zhizhe.richeditor.RichEditor
+            android:id="@+id/editor"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_above="@+id/ll_rte_bottom"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:id="@+id/ll_rte_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_rte_keyboard"
+            android:scaleType="center"
+            android:src="@drawable/iv_rte_keyboard"
+            android:background="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_rte_album"
+            android:scaleType="center"
+            android:src="@drawable/iv_rte_album"
+            android:background="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_rte_camera"
+            android:scaleType="center"
+            android:src="@drawable/iv_rte_camera"
+            android:background="@null"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

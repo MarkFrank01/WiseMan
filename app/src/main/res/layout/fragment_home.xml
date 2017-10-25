@@ -6,12 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context="com.zxcx.shitang.ui.home.HomeFragment">
+    tools:context="com.zxcx.zhizhe.ui.home.HomeFragment">
     
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
+        android:layout_height="@dimen/toolbar_height"
         android:orientation="horizontal"
         android:background="@color/colorPrimary">
 
@@ -21,7 +20,7 @@
             android:drawableLeft="@drawable/tv_home_search"
             android:drawablePadding="7.5dp"
             android:paddingLeft="8dp"
-            android:text="@string/tv_home_search"
+            android:text="@string/search_hint"
             android:textSize="14sp"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
@@ -30,19 +29,31 @@
             android:textColor="@color/text_color_top_search"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="28dp"/>
+            android:layout_height="30dp"/>
 
     </RelativeLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tl_home"
-        app:tabIndicatorColor="@color/translate"
-        app:tabSelectedTextColor="@color/translate"
-        app:tabMode="fixed"
-        android:background="@color/white"
+    <View
+        android:background="@color/line"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-    </android.support.design.widget.TabLayout>
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:background="@color/background"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_home"
+            app:tabIndicatorColor="@color/translate"
+            app:tabSelectedTextColor="@color/translate"
+            app:tabMode="fixed"
+            android:layout_width="240dp"
+            android:layout_height="40dp">
+        </android.support.design.widget.TabLayout>
+
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_home"

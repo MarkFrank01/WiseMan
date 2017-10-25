@@ -3,6 +3,11 @@
     <words>
       <w>bugly</w>
       <w>ceshi</w>
+      <w>fastjson</w>
+      <w>okhttp</w>
+      <w>rxjava</w>
+      <w>wechat</w>
+      <w>weibo</w>
     </words>
   </dictionary>
 </component>

@@ -9,8 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
+        android:layout_height="@dimen/toolbar_height"
         android:orientation="horizontal"
         android:background="@color/colorPrimary">
 
@@ -20,7 +19,7 @@
             android:drawableLeft="@drawable/tv_home_search"
             android:drawablePadding="7.5dp"
             android:paddingLeft="8dp"
-            android:text="搜索你想要的内容"
+            android:text="@string/search_hint"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
             android:layout_marginLeft="12dp"
@@ -28,9 +27,14 @@
             android:textColor="@color/text_color_top_search"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="28dp"/>
+            android:layout_height="30dp"/>
 
     </RelativeLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/srl_classify"

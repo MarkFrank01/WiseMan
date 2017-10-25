@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/bg_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,7 +12,7 @@
         app:layout_behavior="com.zxcx.shitang.ui.card.card.cardDetails.CardDetailsBehavior">
 
         <RelativeLayout
-            android:id="@+id/ll_card_details"
+            android:id="@+id/ll_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12.5dp">
@@ -28,7 +29,7 @@
             <TextView
                 android:id="@+id/tv_card_details_title"
                 android:visibility="gone"
-                android:text="变色龙"
+                tools:text="变色龙"
                 android:layout_centerInParent="true"
                 android:textSize="@dimen/dp_card_details_subhead"
                 android:textColor="@color/text_color_40"
@@ -37,7 +38,7 @@
 
             <TextView
                 android:id="@+id/tv_card_details_number"
-                android:text=""
+                tools:text=""
                 android:textColor="@color/text_color_66"
                 android:textSize="12sp"
                 android:layout_centerVertical="true"
@@ -54,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="@dimen/toolbar_height">
 
             <CheckBox
                 android:id="@+id/cb_card_details_collect"
@@ -63,7 +64,7 @@
                 android:button="@drawable/selector_cb_card_details_collect"
                 android:layout_marginLeft="21dp"
                 android:layout_alignParentBottom="true"
-                android:text="200"
+                tools:text="200"
                 android:textSize="12sp"
                 android:textColor="@color/text_color_99"
                 android:paddingLeft="7.5dp"/>
@@ -76,7 +77,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@id/cb_card_details_collect"
                 android:layout_marginLeft="28dp"
-                android:text="200"
+                tools:text="200"
                 android:textSize="12sp"
                 android:textColor="@color/text_color_99"
                 android:paddingLeft="7.5dp"/>
@@ -95,7 +96,7 @@
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scv_card_details"
             android:layout_above="@id/rl_card_details"
-            android:layout_below="@id/ll_card_details"
+            android:layout_below="@+id/ll_toolbar"
             android:layout_marginTop="@dimen/dp_card_details_scv_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -109,7 +110,7 @@
                 <TextView
                     android:id="@+id/tv_card_details_name"
                     android:layout_marginLeft="12dp"
-                    android:text="变色龙"
+                    tools:text="变色龙"
                     android:textSize="@dimen/dp_card_details_name"
                     android:textColor="@color/text_color_40"
                     android:layout_width="wrap_content"
@@ -119,7 +120,7 @@
                 <TextView
                     android:id="@+id/tv_card_details_subhead"
                     android:layout_marginLeft="12dp"
-                    android:text="靠调节皮肤表面的纳米晶体变色"
+                    tools:text="靠调节皮肤表面的纳米晶体变色"
                     android:textSize="@dimen/dp_card_details_subhead"
                     android:textColor="@color/text_color_40"
                     android:layout_width="wrap_content"
@@ -141,7 +142,7 @@
                 <TextView
                     android:id="@+id/tv_card_details_content"
                     android:lineSpacingExtra="@dimen/dp_card_details_content_1"
-                    android:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。666"
+                    tools:text="变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。变色龙身怀绝技，变色、动眼和吐舌是它经常表演的3套绝活。变色龙长着两只藤壶型的眼睛，左右眼球会转动360°。当它左眼瞄准前方时，右眼却在注视身后,左顾右盼，环视八方，动眼自如。 变色龙的舌头极长，平时如钟表发条那样盘卷在嘴里。当它发现猎物时，便突然伸直长舌，从口中射出，以舌捕食，如探囊取物。666"
                     android:textSize="@dimen/dp_card_details_content"
                     android:textColor="@color/text_color_66"
                     android:layout_width="match_parent"

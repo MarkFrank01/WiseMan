@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
     <LinearLayout
@@ -34,7 +34,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_collect_folder"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/ll_toolbar"
         android:layout_above="@id/ll_collect_folder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -80,7 +80,7 @@
 
                 <ImageView
                     android:id="@+id/iv_dialog_collect_folder_confirm"
-                    android:src="@drawable/iv_dialog_collect_folder_confirm_white"
+                    android:src="@drawable/selector_iv_dialog_collect_folder_confirm"
                     android:layout_marginRight="10dp"
                     android:padding="5dp"
                     android:layout_width="wrap_content"
@@ -94,7 +94,8 @@
                 android:layout_marginTop="37dp"
                 android:layout_marginLeft="25.5dp"
                 android:layout_marginRight="25.5dp"
-                android:hint="收藏夹名称"
+                android:maxLines="1"
+                android:hint=" 收藏夹名称"
                 android:textSize="18sp"
                 android:textColor="@color/text_color_66"
                 android:textColorHint="@color/line"

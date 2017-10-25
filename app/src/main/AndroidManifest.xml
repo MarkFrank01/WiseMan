@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.zxcx.shitang"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.zxcx.zhizhe"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -22,9 +23,9 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -52,7 +53,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <data android:scheme="tencent100371282"/>
+                <data android:scheme="tencent101433894"/>
 
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -92,8 +93,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
             android:screenOrientation="portrait"/>
@@ -125,21 +125,20 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.card.cardDetails.CardDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:name=".ui.card.card.cardDetails.OldCardDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.share.DiyShareActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.aboutUS.AboutUSActivity"
             android:screenOrientation="portrait"/>
@@ -148,17 +147,39 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.selectAttention.SelectAttentionActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:launchMode="standard"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.feedback.help.HelpActivity">
-        </activity>
+        <activity
+            android:name=".ui.my.feedback.help.HelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.collect.AddCollectFolderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.collect.SelectCollectFolderActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.userSafety.UserSafetyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.RichTextEditorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"/>
     </application>
 
 </manifest>

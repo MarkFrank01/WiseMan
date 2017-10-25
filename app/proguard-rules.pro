@@ -23,15 +23,26 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keepattributes InnerClasses
+-keep public class * extends com.zxcx.zhizhe.retrofit.RetrofitBaen { *; }
+-keep class com.zxcx.zhizhe.retrofit.** {*;}
 #Okhttp+Retrofit
+-dontwarn okhttp3.**
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
 -dontwarn javax.annotation.**
-# FastJson
+    # Platform calls Class.forName on types which do not exist on Android to determine platform.
+-dontnote retrofit2.Platform
+    # Platform used when running on Java 8 VMs. Will not be used at runtime.
+-dontwarn retrofit2.Platform$Java8
+    # Retain generic type information for use by reflection by converters and adapters.
+-keepattributes Signature
+    # Retain declared checked exceptions for use by a Proxy instance.
+-keepattributes Exceptions
+    # FastJson
 -dontwarn com.alibaba.fastjson.**
         #-keep class com.alibaba.fastjson.** { *; }
--keepattributes Signature
 -keepattributes *Annotation*
 #EventBus
 -keepclassmembers class ** {
@@ -62,12 +73,12 @@
   **[] $VALUES;
   public *;
 }
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+-dontwarn com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool
+-dontwarn com.bumptech.glide.load.resource.bitmap.Downsampler
+-dontwarn com.bumptech.glide.load.resource.bitmap.HardwareConfigState
 #Bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
- -keep class android.support.**{*;}
 # SMSSDK
 -dontwarn com.mob.**
 -keep class com.mob.**{*;}
@@ -81,6 +92,10 @@
 -keep class **.R{*;}
 -dontwarn cn.sharesdk.**
 -dontwarn **.R$*
+#WeChat
+-keep class com.tencent.mm.opensdk.** {*;}
+-keep class com.tencent.wxop.** {*;}
+-keep class com.tencent.mm.sdk.** {*;}
 #OSS
 -keep class com.alibaba.sdk.android.oss.** { *; }
 -dontwarn okio.**
@@ -99,3 +114,6 @@
 -keep class cn.jiguang.** { *; }
 #JAnalytics
 -keep public class cn.jiguang.analytics.android.api.** { *; }
+#LoadSir
+-dontwarn com.kingja.loadsir.**
+-keep class com.kingja.loadsir.** {*;}
