@@ -19,6 +19,39 @@
         android:layout_height="0.5dp"/>
 
     <LinearLayout
+        android:id="@+id/ll_common_setting_re"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_common_setting_re"
+            android:layout_marginLeft="15dp"
+            android:text="写作"
+            style="@style/text_16sp_66"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:src="@drawable/common_into"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginLeft="15dp"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
         android:id="@+id/ll_common_setting_attention"
         android:background="@color/white"
         android:orientation="horizontal"

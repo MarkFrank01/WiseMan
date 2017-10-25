@@ -116,7 +116,7 @@ public class OldCardDetailsActivity extends MvpActivity<OldCardDetailsPresenter>
     @Override
     public void onDefaultShareClick() {
         Bitmap bitmap = ScreenUtils.getBitmapByView(mScvCardDetails);
-        String fileName = FileUtil.getFileName();
+        String fileName = FileUtil.getRandomImageName();
         String imagePath = FileUtil.PATH_BASE + fileName;
         FileUtil.saveBitmapToSDCard(bitmap,FileUtil.PATH_BASE,fileName);
 

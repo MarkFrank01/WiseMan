@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -31,7 +32,7 @@ import io.reactivex.disposables.Disposable;
 public class BaseActivity extends AppCompatActivity implements BaseView ,Callback.OnReloadListener{
     public Activity mActivity;
     private LoadingDialog mLoadingDialog;
-    private boolean isFirst = true;
+    public boolean isFirst = true;
     public LoadService loadService;
 
     @Override
@@ -74,7 +75,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
                         .statusBarColor(R.color.white_final)
                         .statusBarDarkFont(true, 0.2f)
                         .flymeOSStatusBarFontColor(R.color.black)
-                        .fitsSystemWindows(true)
                         .init();
             }
         }else {
@@ -120,10 +120,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     }
 
     public Toolbar initToolBar(String title) {
-
         Toolbar toolbar = initToolBar();
         TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(title);
+        if (!StringUtils.isEmpty(title)) {
+            toolbar_title.setText(title);
+        }
         return toolbar;
     }
 

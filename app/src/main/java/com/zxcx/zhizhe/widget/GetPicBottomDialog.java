@@ -61,6 +61,7 @@ public class GetPicBottomDialog extends BaseDialog {
     private int cutY = 1;
     private UriType mUriType;
     private String mImagePath;
+    private boolean mNoCrop = false;
 
     public enum UriType {
         file, media
@@ -72,6 +73,10 @@ public class GetPicBottomDialog extends BaseDialog {
 
     public void setListener(GetPicDialogListener listener) {
         mListener = listener;
+    }
+
+    public void setNoCrop(boolean noCrop) {
+        mNoCrop = noCrop;
     }
 
     @Override
@@ -149,7 +154,7 @@ public class GetPicBottomDialog extends BaseDialog {
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
         } else {
-
+            toastShow("存储空间无法使用");
         }
     }
 
@@ -235,25 +240,31 @@ public class GetPicBottomDialog extends BaseDialog {
      * @param uri
      */
     public void startPhotoZoom(Uri uri) {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.setDataAndType(uri, "image/*");
-        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-        intent.putExtra("crop", "true");
-        intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
-        // aspectX aspectY 是宽高的比例
-        intent.putExtra("aspectX", cutX);
-        intent.putExtra("aspectY", cutY);
-        // outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", cutX * 600);
-        intent.putExtra("outputY", cutY * 600);
-        List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        for (ResolveInfo resolveInfo : resInfoList) {
-            String packageName = resolveInfo.activityInfo.packageName;
-            getActivity().grantUriPermission(packageName, tempUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (!mNoCrop) {
+            Intent intent = new Intent("com.android.camera.action.CROP");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            intent.setDataAndType(uri, "image/*");
+            // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+            intent.putExtra("crop", "true");
+            intent.putExtra("return-data", false);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri);
+            // aspectX aspectY 是宽高的比例
+            intent.putExtra("aspectX", cutX);
+            intent.putExtra("aspectY", cutY);
+            // outputX outputY 是裁剪图片宽高
+            intent.putExtra("outputX", cutX * 600);
+            intent.putExtra("outputY", cutY * 600);
+            List<ResolveInfo> resInfoList = getActivity().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+            for (ResolveInfo resolveInfo : resInfoList) {
+                String packageName = resolveInfo.activityInfo.packageName;
+                getActivity().grantUriPermission(packageName, tempUri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+            startActivityForResult(intent, REQUEST_CODE_CUT_PHOTO);
+        }else {
+            mUriType = UriType.media;
+            mListener.onGetSuccess(mUriType, uri, mImagePath);
+            this.dismiss();
         }
-        startActivityForResult(intent, REQUEST_CODE_CUT_PHOTO);
     }
 }

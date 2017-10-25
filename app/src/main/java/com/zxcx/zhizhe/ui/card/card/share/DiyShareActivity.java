@@ -99,7 +99,7 @@ public class DiyShareActivity extends BaseActivity implements GetPicBottomDialog
     @OnClick(R.id.tv_card_details_share)
     public void onShareClicked() {
         Bitmap bitmap = ScreenUtils.getBitmapByView(mScvCardDetails);
-        String fileName = FileUtil.getFileName();
+        String fileName = FileUtil.getRandomImageName();
         String imagePath = FileUtil.PATH_BASE + fileName;
         FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
 

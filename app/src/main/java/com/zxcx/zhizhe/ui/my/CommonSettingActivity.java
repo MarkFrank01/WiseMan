@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeNightModeEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.zhizhe.ui.my.creation.RichTextEditorActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DataCleanManager;
@@ -54,6 +55,12 @@ public class CommonSettingActivity extends BaseActivity {
         boolean isOnlyWifi = SharedPreferencesUtil.getBoolean(SVTSConstants.isOnlyWifi, false);
         mScCommonSettingOnlyWifi.setChecked(isOnlyWifi);
         mScCommonSettingOnlyWifi.setOnCheckedChangeListener(new OnOnlyWifiCheckChange());
+    }
+
+    @OnClick(R.id.ll_common_setting_re)
+    public void onMLlCommonSettingReClicked() {
+        Intent intent = new Intent(this, RichTextEditorActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_common_setting_attention)

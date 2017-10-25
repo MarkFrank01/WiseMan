@@ -110,12 +110,12 @@ public class FileUtil {
     }
 
     /**
-     * 获取文件名
+     * 获取随机图片名
      *
      * @return
      */
-    public static String getFileName() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss",
+    public static String getRandomImageName() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS",
                 Locale.getDefault());
         Date cruDate = Calendar.getInstance().getTime();
         String strDate = sdf.format(cruDate);
@@ -146,7 +146,7 @@ public class FileUtil {
             Bitmap bitmap = extras.getParcelable("data");
             Log.e("putong", "saveFile bitmap=" + bitmap);
             if (bitmap != null) {
-                saveBitmapToSDCard(bitmap, filePath, getFileName());
+                saveBitmapToSDCard(bitmap, filePath, getRandomImageName());
                 if (!bitmap.isRecycled()) {
                     bitmap.recycle();
                 }
@@ -154,7 +154,7 @@ public class FileUtil {
 
             }
         }
-        return SDCard_PATH_BASE + filePath + getFileName();
+        return SDCard_PATH_BASE + filePath + getRandomImageName();
     }
 
     /**

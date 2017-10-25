@@ -284,7 +284,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     private void uploadImageToOSS(final OSSTokenBean bean) {
-        final String fileName = "user/" + mUserId + FileUtil.getFileName();
+        final String fileName = "user/" + mUserId + FileUtil.getRandomImageName();
         final String bucketName = getString(R.string.bucket_name);
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
         // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
