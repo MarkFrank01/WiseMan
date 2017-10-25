@@ -20,6 +20,7 @@ import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
 import com.zxcx.zhizhe.event.DeleteConfirmEvent;
+import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
@@ -206,6 +207,12 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
                 mAdapter.notifyItemChanged(list.indexOf(bean));
             }
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(UnCollectEvent event) {
+        page = 0;
+        getCollectFolder();
     }
 
     @OnClick(R.id.ll_collect_folder)

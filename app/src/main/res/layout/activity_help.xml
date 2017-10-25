@@ -30,13 +30,14 @@
                 android:layout_height="0.5dp"/>
 
             <LinearLayout
+                android:id="@+id/ll_help_1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
-                    tools:text="卡包的内容分类是什么原则"
+                    android:text="@string/help_1"
                     android:textSize="16sp"
                     android:textColor="@color/text_color_66"
                     android:layout_weight="1"
@@ -59,13 +60,14 @@
                 android:layout_height="0.5dp"/>
 
             <LinearLayout
+                android:id="@+id/ll_help_2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
-                    tools:text="卡包的内容分类是什么原则"
+                    android:text="@string/help_2"
                     android:textSize="16sp"
                     android:textColor="@color/text_color_66"
                     android:layout_weight="1"
@@ -88,13 +90,14 @@
                 android:layout_height="0.5dp"/>
 
             <LinearLayout
+                android:id="@+id/ll_help_3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
-                    tools:text="卡包的内容分类是什么原则"
+                    android:text="@string/help_3"
                     android:textSize="16sp"
                     android:textColor="@color/text_color_66"
                     android:layout_weight="1"
@@ -117,13 +120,72 @@
                 android:layout_height="0.5dp"/>
 
             <LinearLayout
+                android:id="@+id/ll_help_4"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
                     android:layout_marginLeft="15dp"
                     android:layout_gravity="center"
-                    tools:text="卡包的内容分类是什么原则"
+                    android:text="@string/help_4"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_66"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/common_into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_help_5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:text="@string/help_5"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_66"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/common_into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_help_6"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_gravity="center"
+                    android:text="@string/help_6"
                     android:textSize="16sp"
                     android:textColor="@color/text_color_66"
                     android:layout_weight="1"

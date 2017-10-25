@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity;
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,54 @@ public class HelpActivity extends BaseActivity {
     @OnClick(R.id.tv_toolbar_right)
     public void onMTvToolbarRightClicked() {
         Intent intent = new Intent(this, FeedbackActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_1)
+    public void onMLlHelp1Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_1));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help1.html");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_2)
+    public void onMLlHelp2Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_2));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help2.html");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_3)
+    public void onMLlHelp3Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_3));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help3.html");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_4)
+    public void onMLlHelp4Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_4));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help4.html");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_5)
+    public void onMLlHelp5Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_5));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help5.html");
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_help_6)
+    public void onMLlHelp6Clicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.help_6));
+        intent.putExtra("url",getString(R.string.base_url)+"/help/help6.html");
         startActivity(intent);
     }
 }

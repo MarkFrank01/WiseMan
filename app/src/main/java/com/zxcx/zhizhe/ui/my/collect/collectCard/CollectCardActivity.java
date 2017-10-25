@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
+import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
@@ -30,6 +31,8 @@ import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collect_card);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         initData();
         initRecyclerView();
@@ -121,6 +125,12 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected CollectCardPresenter createPresenter() {
         return new CollectCardPresenter(this);
     }
@@ -133,11 +143,12 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     @Override
     public void getDataSuccess(List<CollectCardBean> list) {
         if (page == 0){
-            mAdapter.notifyDataSetChanged();
+            mAdapter.setNewData(list);
             loadService.showSuccess();
+        }else {
+            mAdapter.addData(list);
         }
         page++;
-        mAdapter.addData(list);
         if (list.size() < Constants.PAGE_SIZE){
             mAdapter.loadMoreEnd(false);
         }else {
@@ -181,6 +192,12 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     private void getCollectCard() {
         mPresenter.getCollectCard(folderId, page, Constants.PAGE_SIZE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(UnCollectEvent event) {
+        page = 0;
+        getCollectCard();
     }
 
     @Override

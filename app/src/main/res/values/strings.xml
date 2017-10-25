@@ -68,4 +68,10 @@
     <string name="tv_user_safety_qq">绑定QQ</string>
     <string name="tv_user_safety_weibo">绑定微博</string>
     <string name="tv_user_safety_change_password">修改密码</string>
+    <string name="help_1">如何收藏卡片</string>
+    <string name="help_2">批量删除收藏夹文章的方法</string>
+    <string name="help_3">如何修改收藏夹名字</string>
+    <string name="help_4">如何添加/删减兴趣卡包</string>
+    <string name="help_5">如何修改个人信息</string>
+    <string name="help_6">如何修改消息推送</string>
 </resources>

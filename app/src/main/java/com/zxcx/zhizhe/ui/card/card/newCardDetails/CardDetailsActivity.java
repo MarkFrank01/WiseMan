@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
+import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
@@ -53,12 +54,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     private WebView mWebView;
     private int cardId;
+    private int cardBagId;
     private String name;
     private String cardBagName;
     private int likeNum;
     private int collectNum;
     private Action mAction;
     private String imageUrl;
+    private boolean isUnCollect = false;
 
     private enum Action {
         unCollect,
@@ -86,6 +89,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mPresenter.getCardDetails(cardId);
 
         initLoadSir();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isUnCollect){
+            EventBus.getDefault().post(new UnCollectEvent(cardId,cardBagId));
+        }
     }
 
     @Override
@@ -124,6 +135,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         imageUrl = bean.getImageUrl();
         name = bean.getName();
         cardBagName = bean.getCardBagName();
+        cardBagId = bean.getCardBagId();
         mTvCardDetailsTitle.setText(name);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
@@ -140,6 +152,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void postSuccess() {
         if (mAction == Action.unCollect) {
+            isUnCollect = true;
             collectNum--;
             mCbCardDetailsCollect.setText(collectNum + "");
         } else if (mAction == Action.like) {
@@ -166,6 +179,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CollectSuccessEvent event) {
         toastShow("收藏成功");
+        isUnCollect = false;
         mCbCardDetailsCollect.setChecked(true);
         collectNum++;
         mCbCardDetailsCollect.setText(collectNum + "");
@@ -223,7 +237,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @OnClick(R.id.iv_card_details_back)
     public void onBackClicked() {
-        finish();
+        onBackPressed();
     }
 
     /*@Override

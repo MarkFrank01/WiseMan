@@ -230,7 +230,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
 
     @OnClick(R.id.iv_card_details_back)
     public void onBackClicked() {
-        finish();
+        onBackPressed();
     }
 
 

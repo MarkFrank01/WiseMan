@@ -106,6 +106,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     @OnClick(R.id.btn_forget_password_next)
     public void onMBtnForgetPasswordNextClicked() {
         if (checkPhone()) {
+            showLoading();
             SMSSDK.submitVerificationCode("86",mEtForgetPasswordPhone.getText().toString(),
                     mEtForgetPasswordVerificationCode.getText().toString());
         }
@@ -250,6 +251,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    hideLoading();
                     if (result == SMSSDK.RESULT_COMPLETE) {
                         //回调完成
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {

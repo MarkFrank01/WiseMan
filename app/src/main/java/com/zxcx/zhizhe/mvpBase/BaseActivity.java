@@ -75,6 +75,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
                         .statusBarColor(R.color.white_final)
                         .statusBarDarkFont(true, 0.2f)
                         .flymeOSStatusBarFontColor(R.color.black)
+                        .fitsSystemWindows(true)
                         .init();
             }
         }else {

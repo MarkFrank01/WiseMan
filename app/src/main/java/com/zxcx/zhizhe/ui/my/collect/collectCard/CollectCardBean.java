@@ -63,5 +63,21 @@ public class CollectCardBean extends RetrofitBaen {
     public void setLikeNum(int likeNum) {
         this.likeNum = likeNum;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CollectCardBean bean = (CollectCardBean) o;
+
+        return id == bean.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
 
