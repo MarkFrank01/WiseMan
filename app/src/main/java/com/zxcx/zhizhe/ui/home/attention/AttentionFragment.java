@@ -162,8 +162,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     public void onRefresh() {
         page = 0;
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-        mCardAdapter.getData().clear();
-        mCardBagAdapter.getData().clear();
         getHotCardBag();
     }
 
@@ -177,10 +175,11 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
         if (page == 0){
-            mCardBagAdapter.notifyDataSetChanged();
+            mCardBagAdapter.setNewData(list);
+        }else {
+            mCardBagAdapter.addData(list);
         }
         loadService.showSuccess();
-        mCardBagAdapter.addData(list);
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
             mCardAdapter.setHeaderAndEmpty(false);
@@ -196,10 +195,12 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
             mSrlAttentionCard.setRefreshing(false);
         }
         if (page == 0){
-            mCardAdapter.notifyDataSetChanged();
+            mCardAdapter.setNewData(list);
+            mRvAttentionCard.smoothScrollToPosition(0);
+        }else {
+            mCardAdapter.addData(list);
         }
         page++;
-        mCardAdapter.addData(list);
         if (list.size() < Constants.PAGE_SIZE){
             mCardAdapter.loadMoreEnd(false);
         }else {
@@ -295,10 +296,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+            HotCardBagBean bean = (HotCardBagBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id",bean.getBagId());
-            intent.putExtra("name",bean.getBagName());
+            intent.putExtra("id",bean.getId());
+            intent.putExtra("name",bean.getName());
             mContext.startActivity(intent);
         }
     }

@@ -143,8 +143,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     @Override
     public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        mCardBagAdapter.setNewData(new ArrayList<HotCardBagBean>());
-        mCardBagAdapter.addData(list);
+        mCardBagAdapter.setNewData(list);
         loadService.showSuccess();
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
@@ -157,9 +156,11 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
             mSrlHotCard.setRefreshing(false);
         }
         if (page == 0){
-            mCardAdapter.setNewData(new ArrayList<HotCardBean>());
+            mCardAdapter.setNewData(list);
+            mRvHotCard.smoothScrollToPosition(0);
+        }else {
+            mCardAdapter.addData(list);
         }
-        mCardAdapter.addData(list);
         page++;
         if (list.size() < Constants.PAGE_SIZE){
             mCardAdapter.loadMoreEnd(false);

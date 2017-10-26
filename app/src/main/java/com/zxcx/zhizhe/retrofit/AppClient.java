@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.retrofit;
 
 
+import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.BuildConfig;
 import com.zxcx.zhizhe.utils.FileUtil;
@@ -38,31 +39,26 @@ public class AppClient {
             // Log信息拦截器
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            Retrofit retrofit;
+            OkHttpClient okHttpClient;
             if (BuildConfig.LOG) {
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                okHttpClient = new OkHttpClient.Builder()
                         .addInterceptor(loggingInterceptor)
                         .addInterceptor(interceptor)
+                        .addInterceptor(new ChuckInterceptor(App.getContext()))
                         .cache(cache)
                         .build();
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(APIService.API_SERVER_URL)
-                        .addConverterFactory(FastJsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .client(okHttpClient)
-                        .build();
             } else {
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                okHttpClient = new OkHttpClient.Builder()
                         .addInterceptor(interceptor)
                         .cache(cache)
                         .build();
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(APIService.API_SERVER_URL)
-                        .addConverterFactory(FastJsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .client(okHttpClient)
-                        .build();
             }
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(APIService.API_SERVER_URL)
+                    .addConverterFactory(FastJsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .client(okHttpClient)
+                    .build();
             sAPIService = retrofit.create(APIService.class);
         }
         return sAPIService;
