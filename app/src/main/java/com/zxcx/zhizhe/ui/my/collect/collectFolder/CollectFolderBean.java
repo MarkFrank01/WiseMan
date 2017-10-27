@@ -63,5 +63,20 @@ public class CollectFolderBean extends RetrofitBaen {
     public void setNum(int num) {
         this.num = num;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CollectFolderBean bean = (CollectFolderBean) o;
+
+        return id == bean.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
 

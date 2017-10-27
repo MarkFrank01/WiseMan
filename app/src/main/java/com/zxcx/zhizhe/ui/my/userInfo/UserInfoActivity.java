@@ -6,18 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.ServiceException;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
-import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
-import com.alibaba.sdk.android.oss.model.DeleteObjectRequest;
-import com.alibaba.sdk.android.oss.model.DeleteObjectResult;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -32,13 +20,13 @@ import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ImageLoader;
-import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.CustomDatePicker;
 import com.zxcx.zhizhe.widget.GetPicBottomDialog;
+import com.zxcx.zhizhe.widget.OSSDialog;
 import com.zxcx.zhizhe.widget.PermissionDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -59,7 +47,7 @@ import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
 public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements UserInfoContract.View,
-        GetPicBottomDialog.GetPicDialogListener {
+        GetPicBottomDialog.GetPicDialogListener , OSSDialog.OSSUploadListener, OSSDialog.OSSDealeteListener{
 
     @BindView(R.id.tv_user_info_head)
     TextView mTvUserInfoHead;
@@ -78,7 +66,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     private String mBirth;
     private File imageFile;
     private int mUserId;
-    private OSSTokenBean mBean;
+    private OSSDialog mOSSDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +77,8 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
         initToolBar(R.string.title_user_info);
 
         initData();
+        mOSSDialog = new OSSDialog();
+        mOSSDialog.setUploadListener(this);
     }
 
     private void initData() {
@@ -125,14 +115,8 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     }
 
     @Override
-    public void getDataSuccess(OSSTokenBean bean) {
-        mBean = bean;
-        uploadImageToOSS(bean);
-    }
-
-    @Override
     public void changeImageSuccess(UserInfoBean bean) {
-        deleteImageFromOSS(mBean,mHeadImg);
+        deleteImageFromOSS(mHeadImg);
         ZhiZheUtils.saveUserInfo(bean);
         initData();
     }
@@ -271,6 +255,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                     public void onSuccess(File file) {
                         //  压缩成功后调用，返回压缩后的图片文件
                         imageFile = file;
+                        uploadImageToOSS();
                     }
 
                     @Override
@@ -278,79 +263,33 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
                         //  当压缩过程出现问题时调用
                     }
                 }).launch();    //启动压缩
-        mPresenter.getOSS(MD5Utils.md5(String.valueOf(DateTimeUtils.getNowTimestamp())));
-// task.cancel(); // 可以取消任务
-
     }
 
-    private void uploadImageToOSS(final OSSTokenBean bean) {
-        final String fileName = "user/" + mUserId + FileUtil.getRandomImageName();
-        final String bucketName = getString(R.string.bucket_name);
-        final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-        // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
-
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(bean.getAccessKeyId(), bean.getAccessKeySecret(), bean.getSecurityToken());
-        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
-        // 构造上传请求
-        PutObjectRequest put = new PutObjectRequest(bucketName, fileName, imageFile.getPath());
-        OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-            @Override
-            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                String imageUrl = "http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/"+fileName;
-                SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,imageUrl);
-                mPresenter.changeImageUrl(imageUrl);
-                ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
-            }
-            @Override
-            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                }
-            }
-        });
-        task.waitUntilFinished(); // 可以等待直到任务完成
+    private void uploadImageToOSS() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("OSSAction", 1);
+        bundle.putString("filePath", imageFile.getPath());
+        mOSSDialog.setArguments(bundle);
+        mOSSDialog.show(getFragmentManager(), "");
     }
 
-    private void deleteImageFromOSS(OSSTokenBean bean, String oldImageUrl) {
-        final String bucketName = getString(R.string.bucket_name);
-        final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-        final String fileName;
-        try {
-            fileName = oldImageUrl.split("http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/")[1];
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
+    private void deleteImageFromOSS(String oldImageUrl) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("OSSAction", 2);
+        bundle.putString("url", oldImageUrl);
+        mOSSDialog.setArguments(bundle);
+        mOSSDialog.show(getFragmentManager(), "");
+    }
 
-        // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(bean.getAccessKeyId(), bean.getAccessKeySecret(), bean.getSecurityToken());
-        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider);
-        // 构造删除请求
-        DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest (bucketName, fileName);
-        OSSAsyncTask task = oss.asyncDeleteObject(deleteObjectRequest, new OSSCompletedCallback<DeleteObjectRequest, DeleteObjectResult>() {
-            @Override
-            public void onSuccess(DeleteObjectRequest request, DeleteObjectResult result) {
+    @Override
+    public void uploadSuccess(String url) {
+        SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,url);
+        mPresenter.changeImageUrl(url);
+        ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
+    }
 
-            }
+    @Override
+    public void deleteSuccess() {
 
-            @Override
-            public void onFailure(DeleteObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                }
-            }
-
-        });
-        task.waitUntilFinished(); // 可以等待直到任务完成
     }
 }

@@ -21,20 +21,6 @@ public class UserInfoPresenter extends BasePresenter<UserInfoContract.View> impl
         mModel.changeBirth(birth);
     }
 
-    public void getOSS(String uuid){
-        mModel.getOSS(uuid);
-    }
-
-    @Override
-    public void getDataSuccess(OSSTokenBean bean) {
-        mView.getDataSuccess(bean);
-    }
-
-    @Override
-    public void getDataFail(String msg) {
-        mView.toastFail(msg);
-    }
-
     @Override
     public void changeImageSuccess(UserInfoBean bean) {
         mView.changeImageSuccess(bean);

@@ -4,39 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_rte"
-        android:visibility="gone"
+    <ScrollView
+        android:id="@+id/scv_rte"
         android:layout_above="@+id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/et_rte_title"
+        <LinearLayout
+            android:id="@+id/ll_rte"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="15dp"
-            android:background="@null"
-            android:cursorVisible="true"
-            android:drawableBottom="@drawable/bottom_dialog_add_collecr_folder"
-            android:drawablePadding="15dp"
-            android:hint=" 标题"
-            android:maxLength="16"
-            android:textColor="@color/text_color_40"
-            android:textColorHint="@color/line"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:textSize="16sp"/>
+            android:orientation="vertical">
 
-        <com.zxcx.zhizhe.richeditor.RichEditor
-            android:id="@+id/editor"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/et_rte_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:drawableBottom="@drawable/bottom_dialog_add_collecr_folder"
+                android:drawablePadding="15dp"
+                android:hint=" 标题"
+                android:maxLength="16"
+                android:textColor="@color/text_color_40"
+                android:textColorHint="@color/line"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:textSize="16sp"/>
+
+            <com.zxcx.zhizhe.richeditor.RichEditor
+                android:id="@+id/editor"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
 
     <View
         android:id="@+id/view_line"

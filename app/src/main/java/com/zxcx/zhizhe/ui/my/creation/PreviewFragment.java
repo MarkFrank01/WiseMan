@@ -2,16 +2,13 @@ package com.zxcx.zhizhe.ui.my.creation;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
@@ -27,16 +24,6 @@ import butterknife.Unbinder;
 
 public class PreviewFragment extends BaseFragment {
 
-    @BindView(R.id.iv_toolbar_back)
-    ImageView mIvToolbarBack;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.tv_toolbar_right)
-    TextView mTvToolbarRight;
-    @BindView(R.id.iv_toolbar_right)
-    ImageView mIvToolbarRight;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
     WebView mWebView;
     @BindView(R.id.ll_web_view)
     LinearLayout mLlWebView;
@@ -47,7 +34,7 @@ public class PreviewFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_web_view, container,false);
+        View root = inflater.inflate(R.layout.fragment_preview, container,false);
         unbinder = ButterKnife.bind(this, root);
         return root;
     }

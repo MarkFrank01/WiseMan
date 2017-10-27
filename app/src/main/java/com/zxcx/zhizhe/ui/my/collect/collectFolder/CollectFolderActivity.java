@@ -19,8 +19,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
+import com.zxcx.zhizhe.event.DeleteCollectCardEvent;
 import com.zxcx.zhizhe.event.DeleteConfirmEvent;
-import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
@@ -210,9 +210,13 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(UnCollectEvent event) {
-        page = 0;
-        getCollectFolder();
+    public void onMessageEvent(DeleteCollectCardEvent event) {
+        CollectFolderBean bean = new CollectFolderBean();
+        bean.setId(event.getCollectFolderId());
+        int position = mAdapter.getData().indexOf(bean);
+        bean = mAdapter.getItem(position);
+        bean.setNum(bean.getNum() - event.getCount());
+        mAdapter.notifyItemChanged(position);
     }
 
     @OnClick(R.id.ll_collect_folder)

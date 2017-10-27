@@ -137,14 +137,14 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeClickRefreshEvent event) {
-        mRvAttentionCard.smoothScrollToPosition(0);
+        mRvAttentionCard.scrollToPosition(0);
         mSrlAttentionCard.setRefreshing(true);
         onRefresh();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(LoginEvent event) {
-        mRvAttentionCard.smoothScrollToPosition(0);
+        mRvAttentionCard.scrollToPosition(0);
         mSrlAttentionCard.setRefreshing(true);
         onRefresh();
         EventBus.getDefault().removeStickyEvent(event);
@@ -152,7 +152,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(SelectAttentionEvent event) {
-        mRvAttentionCard.smoothScrollToPosition(0);
+        mRvAttentionCard.scrollToPosition(0);
         mSrlAttentionCard.setRefreshing(true);
         onRefresh();
         EventBus.getDefault().removeStickyEvent(event);
@@ -196,7 +196,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         }
         if (page == 0){
             mCardAdapter.setNewData(list);
-            mRvAttentionCard.smoothScrollToPosition(0);
+            mRvAttentionCard.scrollToPosition(0);
         }else {
             mCardAdapter.addData(list);
         }

@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeCollectFolderNameEvent;
+import com.zxcx.zhizhe.event.DeleteCollectCardEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
@@ -177,6 +178,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         if (mAction == ACTION_DELETE){
             mAdapter.getData().removeAll(mCheckedList);
             mAdapter.notifyDataSetChanged();
+            EventBus.getDefault().post(new DeleteCollectCardEvent(folderId,mCheckedList.size()));
             mCheckedList.clear();
         }else if (mAction == ACTION_CHANGE){
             initToolBar(newName);
@@ -196,8 +198,10 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(UnCollectEvent event) {
-        page = 0;
-        getCollectCard();
+        CollectCardBean bean = new CollectCardBean();
+        bean.setId(event.getCardId());
+        mAdapter.remove(mAdapter.getData().indexOf(bean));
+        EventBus.getDefault().post(new DeleteCollectCardEvent(folderId,1));
     }
 
     @Override

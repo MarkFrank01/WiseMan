@@ -153,7 +153,8 @@ dependencies {
     //kotlin支持
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //Chuck 一个用来记录展示网络请求详情的调试工具库
-    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+//    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 }
 repositories {

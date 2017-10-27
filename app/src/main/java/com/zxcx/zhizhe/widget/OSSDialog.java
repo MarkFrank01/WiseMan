@@ -36,6 +36,7 @@ import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.StringUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
     ImageView mIvLoading;
     Unbinder unbinder;
     private int mOSSAction; //1-上传，2-删除
+    private String mFolderName;
     private String mFilePath;
     private String mUrl;
     private OSSTokenBean mOSSTokenBean;
@@ -99,6 +101,10 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 
         mOSSAction = getArguments().getInt("OSSAction");
         mFilePath = getArguments().getString("filePath");
+        mFolderName = getArguments().getString("folderName");
+        if (StringUtils.isEmpty(mFolderName)){
+            mFolderName = "user/";
+        }
         mUrl = getArguments().getString("url");
         getOSS(MD5Utils.md5(String.valueOf(DateTimeUtils.getNowTimestamp())));
     }
@@ -146,7 +152,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 
     private void uploadFileToOSS(String filePath) {
         int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-        final String fileName = "user/" + userId + FileUtil.getRandomImageName();
+        final String fileName = mFolderName + userId + FileUtil.getRandomImageName();
         final String bucketName = getString(R.string.bucket_name);
         final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
         // 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
@@ -180,7 +186,6 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
                 }
             }
         });
-        task.waitUntilFinished(); // 可以等待直到任务完成
     }
 
     private void deleteImageFromOSS(String url) {
@@ -225,6 +230,5 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
             }
 
         });
-        task.waitUntilFinished(); // 可以等待直到任务完成
     }
 }

@@ -20,7 +20,6 @@
 
     <LinearLayout
         android:id="@+id/ll_common_setting_re"
-        android:visibility="gone"
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"

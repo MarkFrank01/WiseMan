@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
@@ -16,12 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.richeditor.RichEditor;
 import com.zxcx.zhizhe.utils.AndroidBug5497Workaround;
 import com.zxcx.zhizhe.utils.FileUtil;
+import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.OSSDialog;
 
 import java.io.File;
@@ -47,6 +50,8 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
     EditText mEtRteTitle;
     @BindView(R.id.ll_rte)
     LinearLayout mLlRte;
+    @BindView(R.id.scv_rte)
+    ScrollView mScvRte;
     private String title;
     private String content;
     private File imageFile;
@@ -55,6 +60,7 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
     private Uri tempUri;
     private UriType mUriType;
     private String mImagePath;
+    private View root;
 
     public enum UriType {
         file, media
@@ -62,7 +68,7 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_rich_text_editor, container, false);
+        root = inflater.inflate(R.layout.fragment_rich_text_editor, container, false);
         unbinder = ButterKnife.bind(this, root);
         return root;
     }
@@ -87,7 +93,15 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
         view.post(new Runnable() {
             @Override
             public void run() {
-                mEditor.setEditorHeight(mLlRte.getHeight() - mEtRteTitle.getTop() - mEtRteTitle.getHeight());
+                mScvRte.getMeasuredHeight();
+                mEditor.setEditorHeight(mScvRte.getHeight() - mEtRteTitle.getTop() - mEtRteTitle.getHeight());
+                //延迟弹出软键盘
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Utils.showInputMethod(mEtRteTitle);
+                    }
+                },100);
             }
         });
     }
@@ -115,6 +129,12 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
                     public void onSuccess(File file) {
                         //  压缩成功后调用，返回压缩后的图片文件
                         imageFile = file;
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("OSSAction", 1);
+                        bundle.putString("filePath", imageFile.getPath());
+                        bundle.putString("folderName", "article/");
+                        mOSSDialog.setArguments(bundle);
+                        mOSSDialog.show(mActivity.getFragmentManager(), "");
                     }
 
                     @Override
@@ -122,12 +142,6 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
                         //  当压缩过程出现问题时调用
                     }
                 }).launch();    //启动压缩
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("OSSAction", 1);
-        bundle.putString("filePath", imageFile.getPath());
-        mOSSDialog.setArguments(bundle);
-        mOSSDialog.show(mActivity.getFragmentManager(), "");
     }
 
     @Override

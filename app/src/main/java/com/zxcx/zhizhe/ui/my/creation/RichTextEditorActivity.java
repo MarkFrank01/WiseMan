@@ -7,11 +7,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.utils.AndroidBug5497Workaround;
+import com.zxcx.zhizhe.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +32,8 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
     TextView mTvToolbarRight;
     @BindView(R.id.fl_content)
     FrameLayout mFlContent;
+    @BindView(R.id.rl_toolbar)
+    RelativeLayout mRlToolbar;
 
     private Fragment mCurrentFragment = new Fragment();
     private RichTextEditorFragment mEditorFragment = new RichTextEditorFragment();
@@ -41,6 +46,24 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
         ButterKnife.bind(this);
         AndroidBug5497Workaround.assistActivity(this);
         mRbRteEditor.performClick();
+
+
+        if (!Constants.IS_NIGHT) {
+            ImmersionBar.with(this)
+                    .statusBarColor(R.color.white_final)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.black)
+                    .fitsSystemWindows(true)
+                    .keyboardEnable(true)
+                    .init();
+        } else {
+
+        }
+    }
+
+    @Override
+    public void initStatusBar() {
+
     }
 
     @Override
@@ -61,6 +84,7 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
     @OnClick(R.id.rb_rte_editor)
     public void onMRbRteEditorClicked() {
         switchFragment(mEditorFragment);
+
     }
 
     @OnClick(R.id.rb_rte_preview)
@@ -68,6 +92,7 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
         switchFragment(mPreviewFragment);
         mPreviewFragment.setTitle(mEditorFragment.getTitle());
         mPreviewFragment.setContent(mEditorFragment.getContent());
+
     }
 
     @OnClick(R.id.tv_toolbar_right)

@@ -122,7 +122,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeClickRefreshEvent event) {
-        mRvHotCard.smoothScrollToPosition(0);
+        mRvHotCard.scrollToPosition(0);
         mSrlHotCard.setRefreshing(true);
         onRefresh();
     }
@@ -157,7 +157,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         }
         if (page == 0){
             mCardAdapter.setNewData(list);
-            mRvHotCard.smoothScrollToPosition(0);
+            mRvHotCard.scrollToPosition(0);
         }else {
             mCardAdapter.addData(list);
         }

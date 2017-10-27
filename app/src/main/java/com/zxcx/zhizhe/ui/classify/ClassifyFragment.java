@@ -110,7 +110,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ClassifyClickRefreshEvent event) {
-        mRvClassify.smoothScrollToPosition(0);
+        mRvClassify.scrollToPosition(0);
         mSrlClassify.setRefreshing(true);
         onRefresh();
     }

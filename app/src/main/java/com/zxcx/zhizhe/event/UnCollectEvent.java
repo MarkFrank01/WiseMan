@@ -7,11 +7,9 @@ package com.zxcx.zhizhe.event;
 public class UnCollectEvent {
 
     private int cardId;
-    private int cardBagId;
 
-    public UnCollectEvent(int cardId, int cardBagId) {
+    public UnCollectEvent(int cardId) {
         this.cardId = cardId;
-        cardBagId = cardBagId;
     }
 
     public int getCardId() {
@@ -20,13 +18,5 @@ public class UnCollectEvent {
 
     public void setCardId(int id) {
         this.cardId = id;
-    }
-
-    public int getCardBagId() {
-        return cardBagId;
-    }
-
-    public void setCardBagId(int cardBagId) {
-        this.cardBagId = cardBagId;
     }
 }

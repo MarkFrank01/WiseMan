@@ -54,7 +54,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     private WebView mWebView;
     private int cardId;
-    private int cardBagId;
     private String name;
     private String cardBagName;
     private int likeNum;
@@ -95,7 +94,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onBackPressed() {
         super.onBackPressed();
         if (isUnCollect){
-            EventBus.getDefault().post(new UnCollectEvent(cardId,cardBagId));
+            EventBus.getDefault().post(new UnCollectEvent(cardId));
         }
     }
 
@@ -135,7 +134,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         imageUrl = bean.getImageUrl();
         name = bean.getName();
         cardBagName = bean.getCardBagName();
-        cardBagId = bean.getCardBagId();
         mTvCardDetailsTitle.setText(name);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
