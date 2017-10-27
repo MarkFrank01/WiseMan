@@ -79,7 +79,6 @@
 #Bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
- -keep class android.support.**{*;}
 # SMSSDK
 -dontwarn com.mob.**
 -keep class com.mob.**{*;}

@@ -39,12 +39,12 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
 
     @Override
     public void postSuccess() {
-
+        mView.postSuccess();
     }
 
     @Override
     public void postFail(String msg) {
-
+        mView.postFail(msg);
     }
 }
 

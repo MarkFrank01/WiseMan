@@ -50,14 +50,15 @@ android {
         debug {
             buildConfigField 'boolean', 'LOG', 'true'
             minifyEnabled true
-            signingConfig signingConfigs.release
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
             //applicationIdSuffix '.test'
         }
         release {
             buildConfigField 'boolean', 'LOG', 'false'
-            minifyEnabled false
-            debuggable true
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
