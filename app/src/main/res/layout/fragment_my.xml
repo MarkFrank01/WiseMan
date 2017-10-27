@@ -69,7 +69,7 @@
             android:layout_marginTop="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="编辑个人资料"
+            android:text="查看个人主页"
             android:textSize="13sp"
             android:textColor="@color/text_color_99"/>
 
@@ -195,7 +195,7 @@
         <TextView
             android:id="@+id/tv_my_feedback"
             android:layout_marginLeft="14.5dp"
-            android:text="@string/tv_my_feedback"
+            android:text="@string/tv_my_help"
             style="@style/text_16sp_66"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"

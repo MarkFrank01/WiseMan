@@ -98,7 +98,7 @@ public class BindingPhoneActivity extends MvpActivity<BindingPhonePresenter> imp
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
                 mTvBindingPhoneSendVerification.setEnabled(true);
-                mTvBindingPhoneSendVerification.setText("重新发送验证码");
+                mTvBindingPhoneSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
 

@@ -3,8 +3,12 @@ package com.zxcx.zhizhe.mvpBase;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
@@ -24,11 +28,23 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
     private CompositeDisposable mCompositeSubscription = null;
 
     public void toastShow(int resId) {
-        Toast.makeText(getActivity(), resId, Toast.LENGTH_SHORT).show();
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(getActivity());
+        toast.setView(linearLayout);
+        tvToast.setText(resId);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
-    public void toastShow(String resId) {
-        Toast.makeText(getActivity(), resId, Toast.LENGTH_SHORT).show();
+    public void toastShow(String text) {
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toast, null);
+        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(getActivity());
+        toast.setView(linearLayout);
+        tvToast.setText(text);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
     @Override
@@ -65,7 +81,7 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
 
     @Override
     public void startLogin() {
-        toastShow("登陆超时，请重新登录");
+        toastShow(R.string.login_timeout);
         startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

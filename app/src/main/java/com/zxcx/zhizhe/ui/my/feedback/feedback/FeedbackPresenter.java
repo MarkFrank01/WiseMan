@@ -29,7 +29,7 @@ public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> impl
 
     @Override
     public void startLogin() {
-
+        mView.startLogin();
     }
 
     public void detachView() {
@@ -39,12 +39,12 @@ public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> impl
 
     @Override
     public void postSuccess() {
-
+        mView.postSuccess();
     }
 
     @Override
     public void postFail(String msg) {
-
+        mView.postFail(msg);
     }
 }
 

@@ -83,13 +83,12 @@ public class BaseFragment extends Fragment implements BaseView{
         toast.show();
     }
 
-    public void toastShow(String resId) {
-
+    public void toastShow(String text) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
         TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
         Toast toast = new Toast(mActivity);
         toast.setView(linearLayout);
-        tvToast.setText(resId);
+        tvToast.setText(text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
@@ -127,7 +126,7 @@ public class BaseFragment extends Fragment implements BaseView{
 
     @Override
     public void startLogin() {
-        toastShow("登陆超时，请重新登录");
+        toastShow(R.string.login_timeout);
         startActivity(new Intent(mActivity, LoginActivity.class));
     }
 

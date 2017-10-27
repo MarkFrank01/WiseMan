@@ -12,7 +12,7 @@
         android:paddingTop="21dp"
         android:paddingBottom="21dp"
         android:background="@null"
-        android:text="确定删除该收藏夹吗？"
+        android:text="收藏不易，确定删除该收藏夹？"
         android:textColor="@color/text_color_40"
         android:textSize="17sp"
         android:layout_width="wrap_content"

@@ -185,7 +185,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     @Override
     public void startLogin() {
-        toastShow("登陆超时，请重新登录");
+        toastShow(R.string.login_timeout);
         startActivity(new Intent(mActivity, LoginActivity.class));
     }
 

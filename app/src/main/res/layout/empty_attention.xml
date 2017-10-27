@@ -13,7 +13,8 @@
 
     <TextView
         android:layout_marginTop="20dp"
-        android:text="请选择您感兴趣的卡包"
+        android:text="暂时没有关注的内容\n去兴趣卡包看看"
+        android:gravity="center"
         android:textColor="@color/text_color_99"
         android:textSize="17sp"
         android:layout_width="wrap_content"

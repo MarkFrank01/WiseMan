@@ -156,7 +156,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
                 mTvForgetPasswordSendVerification.setEnabled(true);
-                mTvForgetPasswordSendVerification.setText("重新发送验证码");
+                mTvForgetPasswordSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
 

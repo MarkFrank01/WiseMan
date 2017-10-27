@@ -167,7 +167,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
                 mTvRegisterSendVerification.setEnabled(true);
-                mTvRegisterSendVerification.setText("重新发送验证码");
+                mTvRegisterSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
 

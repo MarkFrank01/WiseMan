@@ -21,7 +21,7 @@
         android:layout_marginBottom="19dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/iv_select_attention_close"
-        android:text="选择你感兴趣的"
+        android:text="选择你感兴趣的卡包"
         android:textColor="@color/text_color_66"
         android:textSize="24sp"
         android:layout_width="wrap_content"
