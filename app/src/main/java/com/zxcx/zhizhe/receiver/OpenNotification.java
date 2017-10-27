@@ -30,14 +30,14 @@ public class OpenNotification extends BroadcastReceiver {
         if (!StringUtils.isEmpty(extra)) {
             JSONObject json = JSON.parseObject(extra);
             String type = json.getString("type");
-            String id = json.getString("id");
+            int id = json.getIntValue("id");
             String name = json.getString("name");
             String url = json.getString("url");
             gotoActivity(context, type, id, name, url);
         }
     }
 
-    private void gotoActivity(Context context, String type, String id, String name, String url) {
+    private void gotoActivity(Context context, String type, int id, String name, String url) {
         //判断app进程是否存活
         if(SystemUtils.isProessRunning(context, context.getPackageName())){
             //如果存活的话，就直接启动DetailActivity，但要考虑一种情况，就是app的进程虽然仍然在
@@ -66,7 +66,7 @@ public class OpenNotification extends BroadcastReceiver {
                     return;
             }
             detailIntent.putExtra("id", id);
-            detailIntent.putExtra("id", name);
+            detailIntent.putExtra("name", name);
             detailIntent.putExtra("url", url);
             context.startActivity(detailIntent);
         }else {
@@ -78,7 +78,7 @@ public class OpenNotification extends BroadcastReceiver {
             launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
             Bundle args = new Bundle();
             args.putString("type", type);
-            args.putString("id", id);
+            args.putInt("id", id);
             args.putString("url", url);
             launchIntent.putExtra("push", args);
             context.startActivity(launchIntent);

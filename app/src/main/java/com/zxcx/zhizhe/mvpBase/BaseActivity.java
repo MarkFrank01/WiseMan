@@ -22,7 +22,6 @@ import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
@@ -64,20 +63,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     public void initStatusBar() {
         if (!Constants.IS_NIGHT){
-            if (ScreenUtils.isFullScreen(this)) {
-                ImmersionBar.with(this)
-                        .statusBarColor(R.color.white_final)
-                        .statusBarDarkFont(true, 0.2f)
-                        .flymeOSStatusBarFontColor(R.color.black)
-                        .init();
-            }else {
-                ImmersionBar.with(this)
-                        .statusBarColor(R.color.white_final)
-                        .statusBarDarkFont(true, 0.2f)
-                        .flymeOSStatusBarFontColor(R.color.black)
-                        .fitsSystemWindows(true)
-                        .init();
-            }
+            ImmersionBar.with(this)
+                    .statusBarColor(R.color.white_final)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.black)
+                    .fitsSystemWindows(true)
+                    .init();
         }else {
 
         }
