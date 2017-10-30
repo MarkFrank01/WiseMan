@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -29,6 +28,9 @@ import cn.smssdk.SMSSDK;
 
 public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
+
+    @BindView(R.id.iv_forget_password_close)
+    ImageView mIvForgetPasswordClose;
     @BindView(R.id.et_forget_password_phone)
     EditText mEtForgetPasswordPhone;
     @BindView(R.id.iv_forget_password_phone_clear)
@@ -37,19 +39,12 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     EditText mEtForgetPasswordVerificationCode;
     @BindView(R.id.tv_forget_password_send_verification)
     TextView mTvForgetPasswordSendVerification;
-    @BindView(R.id.btn_forget_password_next)
-    Button mBtnForgetPasswordNext;
-    @BindView(R.id.ll_forget_password_next)
-    LinearLayout mLlForgetPasswordNext;
+    @BindView(R.id.tv_forget_password_send_over)
+    TextView mTvForgetPasswordSendOver;
     @BindView(R.id.et_forget_password_password)
     EditText mEtForgetPasswordPassword;
     @BindView(R.id.btn_forget_password_complete)
     Button mBtnForgetPasswordComplete;
-    @BindView(R.id.ll_forget_password_complete)
-    LinearLayout mLlForgetPasswordComplete;
-    @BindView(R.id.tv_forget_password_send_over)
-    TextView mTvForgetPasswordSendOver;
-
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
@@ -65,14 +60,12 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
 
         SMSSDK.registerEventHandler(new EventHandle());
 
-        mEtForgetPasswordPhone.addTextChangedListener(new NextCheckNullTextWatcher());
+        mEtForgetPasswordPhone.addTextChangedListener(new CheckNullTextWatcher());
         mEtForgetPasswordPhone.addTextChangedListener(new PhoneTextWatcher());
-        mEtForgetPasswordVerificationCode.addTextChangedListener(new NextCheckNullTextWatcher());
-        mEtForgetPasswordPassword.addTextChangedListener(new CompleteCheckNullTextWatcher());
-        TextPaint paint = mBtnForgetPasswordNext.getPaint();
+        mEtForgetPasswordVerificationCode.addTextChangedListener(new CheckNullTextWatcher());
+        mEtForgetPasswordPassword.addTextChangedListener(new CheckNullTextWatcher());
+        TextPaint paint = mBtnForgetPasswordComplete.getPaint();
         paint.setFakeBoldText(true);
-        TextPaint paint1 = mBtnForgetPasswordComplete.getPaint();
-        paint1.setFakeBoldText(true);
     }
 
     @Override
@@ -99,16 +92,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     @OnClick(R.id.tv_forget_password_send_verification)
     public void onMTvForgetPasswordSendVerificationClicked() {
         if (checkPhone()) {
-            SMSSDK.getVerificationCode("86",mEtForgetPasswordPhone.getText().toString());
-        }
-    }
-
-    @OnClick(R.id.btn_forget_password_next)
-    public void onMBtnForgetPasswordNextClicked() {
-        if (checkPhone()) {
-            showLoading();
-            SMSSDK.submitVerificationCode("86",mEtForgetPasswordPhone.getText().toString(),
-                    mEtForgetPasswordVerificationCode.getText().toString());
+            SMSSDK.getVerificationCode("86", mEtForgetPasswordPhone.getText().toString());
         }
     }
 
@@ -119,14 +103,14 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             String password = MD5Utils.md5(mEtForgetPasswordPassword.getText().toString());
             String code = mEtForgetPasswordVerificationCode.getText().toString();
             int appType = Constants.APP_TYPE;
-            mPresenter.forgetPassword(phone,code,password,appType);
+            mPresenter.forgetPassword(phone, code, password, appType);
         }
     }
 
     @OnClick(R.id.tv_forget_password_send_over)
     public void onViewClicked() {
         SMSSendOverDialog dialog = new SMSSendOverDialog();
-        dialog.show(getFragmentManager(),"ForgerPasswordActivity");
+        dialog.show(getFragmentManager(), "ForgerPasswordActivity");
     }
 
     private boolean checkPhone() {
@@ -177,7 +161,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         toastShow(msg);
     }
 
-    class NextCheckNullTextWatcher implements TextWatcher {
+    class CheckNullTextWatcher implements TextWatcher {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -191,29 +175,8 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (mEtForgetPasswordPhone.length() > 0 && mEtForgetPasswordVerificationCode.length() > 0) {
-                mBtnForgetPasswordNext.setEnabled(true);
-            } else {
-                mBtnForgetPasswordNext.setEnabled(false);
-            }
-        }
-    }
-
-    class CompleteCheckNullTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtForgetPasswordPassword.length() > 0) {
+            if (mEtForgetPasswordPhone.length() > 0 && mEtForgetPasswordVerificationCode.length() > 0
+                    && mEtForgetPasswordPassword.length() > 0) {
                 mBtnForgetPasswordComplete.setEnabled(true);
             } else {
                 mBtnForgetPasswordComplete.setEnabled(false);
@@ -256,8 +219,6 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
                         //回调完成
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                             //提交验证码成功
-                            mLlForgetPasswordNext.setVisibility(View.GONE);
-                            mLlForgetPasswordComplete.setVisibility(View.VISIBLE);
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
                             mTvForgetPasswordSendVerification.setEnabled(false);

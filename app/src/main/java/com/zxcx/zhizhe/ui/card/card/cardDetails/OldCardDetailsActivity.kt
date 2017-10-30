@@ -22,6 +22,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+fun getSB(): String {
+    return "sb"
+}
+
 class OldCardDetailsActivity : MvpActivity<OldCardDetailsPresenter>(), OldCardDetailsContract.View, ShareWayDialog.DefaultShareDialogListener {
 
     @BindView(R.id.tv_card_details_name)
@@ -88,7 +92,7 @@ class OldCardDetailsActivity : MvpActivity<OldCardDetailsPresenter>(), OldCardDe
     }
 
     @OnClick(R.id.cb_card_details_collect)
-    fun onCollectClicked() {
+    public fun onCollectClicked() {
         if (mCbCardDetailsCollect!!.isChecked) {
             val intent = Intent(mActivity, SelectCollectFolderActivity::class.java)
             startActivity(intent)

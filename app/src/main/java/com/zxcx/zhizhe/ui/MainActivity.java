@@ -129,8 +129,6 @@ public class MainActivity extends BaseActivity {
         Bundle bundle = intent.getBundleExtra("push");
         if (bundle != null){
             String type = bundle.getString("type");
-            String id = bundle.getString("id");
-            String url = bundle.getString("url");
             Intent detailIntent = new Intent();
 
             switch (type){
@@ -144,8 +142,8 @@ public class MainActivity extends BaseActivity {
                     detailIntent.setClass(this, WebViewActivity.class);
                     break;
             }
-            detailIntent.putExtra("id", id);
-            detailIntent.putExtra("url", url);
+            detailIntent.putExtras(bundle);
+            startActivity(detailIntent);
         }
     }
 }
