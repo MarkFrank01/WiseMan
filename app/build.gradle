@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 //测试时关闭tinker
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 apply from: 'multiple-channel.gradle'
 
 android {
@@ -157,6 +157,8 @@ dependencies {
 //    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    //格式化Log输出
+    compile 'com.orhanobut:logger:2.1.1'
 }
 repositories {
     mavenCentral()

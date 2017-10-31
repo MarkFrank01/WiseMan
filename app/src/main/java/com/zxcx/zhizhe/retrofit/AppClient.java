@@ -5,6 +5,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.BuildConfig;
 import com.zxcx.zhizhe.utils.FileUtil;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.TimeStampMD5andKL;
@@ -37,7 +38,7 @@ public class AppClient {
             Cache cache = new Cache(httpCacheDirectory, 20 * 1024 * 1024);
 
             // Log信息拦截器
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient okHttpClient;
             if (BuildConfig.LOG) {
@@ -101,5 +102,32 @@ public class AppClient {
             return chain.proceed(newRequest);
         }
     };
+
+    private static class HttpLogger implements HttpLoggingInterceptor.Logger {
+        private StringBuilder mHeaderMessage = new StringBuilder();
+        private StringBuilder mBodyMessage = new StringBuilder();
+
+        @Override
+        public void log(String message) {
+            // 请求或者响应开始
+            if (message.startsWith("--> POST")) {
+                mHeaderMessage.setLength(0);
+                mHeaderMessage.append(message);
+            }
+            // 以{}或者[]形式的说明是响应结果的json数据，需要进行格式化
+            if ((message.startsWith("{") && message.endsWith("}"))
+                    || (message.startsWith("[") && message.endsWith("]"))) {
+                mBodyMessage.setLength(0);
+                mBodyMessage.append(message);
+            }else {
+                mHeaderMessage.append(message.concat("\n"));
+            }
+            // 请求或者响应结束，打印整条日志
+            if (message.startsWith("<-- END HTTP")) {
+                LogCat.d(mHeaderMessage.toString());
+                LogCat.json(mBodyMessage.toString());
+            }
+        }
+    }
 
 }

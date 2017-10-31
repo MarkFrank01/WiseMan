@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
@@ -27,6 +29,7 @@ import io.reactivex.disposables.Disposable;
 public class BaseFragment extends Fragment implements BaseView{
     private LoadingDialog mLoadingDialog;
     public Activity mActivity;
+    public LoadService loadService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,6 +131,9 @@ public class BaseFragment extends Fragment implements BaseView{
     public void startLogin() {
         toastShow(R.string.login_timeout);
         startActivity(new Intent(mActivity, LoginActivity.class));
+        if (loadService != null){
+            loadService.showCallback(LoginTimeoutCallback.class);
+        }
     }
 
     public void toastFail(String msg) {

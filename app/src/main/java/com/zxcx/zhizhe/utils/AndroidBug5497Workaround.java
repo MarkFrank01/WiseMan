@@ -7,7 +7,7 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 
 /**
- * Created by anm on 2017/10/23.
+ * 解决透明状态栏输入法问题
  */
 
 public class AndroidBug5497Workaround {

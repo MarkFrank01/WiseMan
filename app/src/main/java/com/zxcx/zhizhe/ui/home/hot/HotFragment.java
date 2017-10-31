@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.GotoClassifyEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
@@ -56,7 +56,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     private HotCardBagAdapter mCardBagAdapter;
     private HotCardAdapter mCardAdapter;
     private int page = 0;
-    private LoadService loadService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +64,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
+                .addCallback(new LoginTimeoutCallback())
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();

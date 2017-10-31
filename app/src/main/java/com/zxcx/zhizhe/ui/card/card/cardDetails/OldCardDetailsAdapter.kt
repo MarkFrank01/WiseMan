@@ -22,7 +22,7 @@ class OldCardDetailsAdapter(val mList: List<OldCardDetailsBean>) : RecyclerView.
     }
 
     override fun onBindViewHolder(p0: ViewHolder?, p1: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 

@@ -14,12 +14,12 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.ClassifyLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -50,7 +50,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     private ClassifyAdapter mClassifyAdapter;
     private GridLayoutManager manager;
-    private LoadService loadService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +58,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
+                .addCallback(new LoginTimeoutCallback())
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();

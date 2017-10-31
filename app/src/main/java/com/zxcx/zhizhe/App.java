@@ -14,9 +14,11 @@ import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zxcx.zhizhe.loadCallback.EmptyCallback;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.LogCat;
 
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
@@ -63,10 +65,14 @@ public class App extends MultiDexApplication {
         //LoadSir
         LoadSir.beginBuilder()
                 .addCallback(new NetworkErrorCallback())
+                .addCallback(new LoginTimeoutCallback())
                 .addCallback(new EmptyCallback())
                 .addCallback(new LoadingCallback())
                 .setDefaultCallback(LoadingCallback.class)
                 .commit();
+
+        //Logger初始化
+        LogCat.init();
     }
 
     public static Context getContext() {

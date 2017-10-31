@@ -1,103 +1,82 @@
 package com.zxcx.zhizhe.utils;
 
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
+import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.BuildConfig;
+
 public class LogCat {
     private static final boolean DEBUG = true;
     private static final String TAG = "66666";
 
+    /**
+     * 初始化log工具，在app入口处调用
+     */
+    public static void init() {
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+//                .showThreadInfo(true)  // (Optional) Whether to show thread info or not. Default true
+//                .methodCount(2)         // (Optional) How many method line to show. Default 2
+//                .methodOffset(7)        // (Optional) Hides internal method calls up to offset. Default 5
+//                .logStrategy(customLog) // (Optional) Changes the log strategy to print out. Default LogCat
+                .tag(App.getContext().getPackageName())   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.LOG;
+            }
+        });
+    }
+
     public static void v(String msg){
-        if (DEBUG) {
-            android.util.Log.v(TAG, msg);
-        }
+        Logger.v( msg);
     }
 
-    public static void v(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.v(tag, msg);
-        }
-    }
-
-    public static void v(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.v(tag, msg, tr);
-        }
+    public static void v(String msg, Throwable tr) {
+        Logger.v( msg, tr);
     }
 
     public static void d(String msg) {
-        if (DEBUG) {
-            android.util.Log.d(TAG, msg);
-        }
+        Logger.d( msg);
     }
 
-    public static void d(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.d(tag, msg);
-        }
-    }
-
-    public static void d(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.d(tag, msg, tr);
-        }
+    public static void d(String msg, Throwable tr) {
+        Logger.d( msg, tr);
     }
 
     public static void i(String msg) {
-        if (DEBUG) {
-            android.util.Log.i(TAG, msg);
-        }
+        Logger.i( msg);
     }
 
-    public static void i(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.i(tag, msg);
-        }
-    }
-
-    public static void i(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.i(tag, msg, tr);
-        }
+    public static void i(String msg, Throwable tr) {
+        Logger.i( msg, tr);
     }
 
     public static void w(String msg) {
-        if (DEBUG) {
-            android.util.Log.w(TAG, msg);
-        }
+        Logger.w( msg);
     }
 
-    public static void w(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.w(tag, msg);
-        }
-    }
-
-    public static void w(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.w(tag, msg, tr);
-        }
-    }
-
-    public static void w(String tag, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.w(tag, tr);
-        }
+    public static void w(String msg, Throwable tr) {
+        Logger.w( msg, tr);
     }
 
     public static void e(String msg) {
-        if (DEBUG) {
-            android.util.Log.e(TAG, msg);
-        }
+        Logger.e( msg);
     }
 
-    public static void e(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.e(tag, msg);
-        }
+    public static void e(String msg, Throwable tr) {
+        Logger.e( msg, tr);
     }
 
-    public static void e(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.e(tag, msg, tr);
-        }
+    public static void json(String msg) {
+        Logger.json( msg);
+    }
+
+    public static void xml(String msg) {
+        Logger.xml( msg);
     }
 }
