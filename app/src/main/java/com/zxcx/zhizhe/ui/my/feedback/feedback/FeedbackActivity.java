@@ -12,9 +12,15 @@ import android.widget.TextView;
 
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.CancelFeedbackConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.widget.CancelFeedbackConfirmDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,14 +48,42 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         initToolBar(R.string.tv_my_feedback);
         mEtFeedbackContent.addTextChangedListener(new CommitTextWatcher());
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mEtFeedbackContent.length() > 0){
+            CancelFeedbackConfirmDialog dialog = new CancelFeedbackConfirmDialog();
+            dialog.show(getFragmentManager(),"");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected FeedbackPresenter createPresenter() {
         return new FeedbackPresenter(this);
+    }
+
+    @Override
+    public void postSuccess() {
+        mEtFeedbackContent.setText("");
+        mLlFeedbackCommit.setVisibility(View.GONE);
+        mLlFeedbackSuccess.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
     }
 
     @OnClick(R.id.btn_feedback_commit)
@@ -62,20 +96,14 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         mPresenter.feedback(content, contact, appType, appChannel, appVersion);
     }
 
-    @Override
-    public void postSuccess() {
-        mLlFeedbackCommit.setVisibility(View.GONE);
-        mLlFeedbackSuccess.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void postFail(String msg) {
-        toastShow(msg);
-    }
-
     @OnClick(R.id.btn_feedback_close)
     public void onMBtnFeedbackCloseClicked() {
         onBackPressed();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CancelFeedbackConfirmEvent event) {
+        finish();
     }
 
     private class CommitTextWatcher implements TextWatcher {

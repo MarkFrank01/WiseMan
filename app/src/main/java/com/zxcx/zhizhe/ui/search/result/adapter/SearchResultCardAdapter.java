@@ -9,7 +9,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.search.result.SearchCardBean;
 import com.zxcx.zhizhe.utils.ImageLoader;
-import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.TextViewUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class SearchResultCardAdapter extends BaseQuickAdapter<SearchCardBean,Bas
     @Override
     protected void convert(BaseViewHolder helper, SearchCardBean item) {
         TextView title = helper.getView(R.id.tv_item_card_bag_list_title);
-        StringUtils.setTextviewColorAndBold(title,mKeyword,item.getName());
+        TextViewUtils.setTextViewColorAndBold(title,mKeyword,item.getName());
         RoundedImageView imageView = helper.getView(R.id.iv_item_card_bag_list_icon);
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);

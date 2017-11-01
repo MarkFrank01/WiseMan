@@ -165,7 +165,7 @@
 
         <TextView
             android:id="@+id/tv_register_agreement"
-            android:text="识堂协议"
+            android:text="@string/agreement"
             android:textSize="14sp"
             android:textColor="@color/button_blue"
             android:layout_width="wrap_content"

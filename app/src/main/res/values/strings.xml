@@ -78,4 +78,7 @@
     <string name="re_get_verification">重新发送验证码</string>
     <string name="login_timeout">登录超时，请重新登录</string>
     <string name="tv_my_help">使用帮助</string>
+    <string name="agreement">识堂协议</string>
+    <string name="agreement_url">/user-agreement.html</string>
+    <string name="tv_welcome_skip">跳过 %1$ds</string>
 </resources>

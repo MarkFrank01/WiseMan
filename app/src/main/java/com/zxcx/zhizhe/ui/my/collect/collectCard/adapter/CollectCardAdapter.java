@@ -42,6 +42,7 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
         helper.setText(R.id.tv_item_collect_card_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
 
         RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_card);
+        RelativeLayout rlTop = helper.getView(R.id.rl_item_collect_card_top);
         final CheckBox checkBox = helper.getView(R.id.cb_item_collect_card);
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +72,13 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
             checkBox.setChecked(false);
         }
 
-        RoundedImageView imageView = helper.getView(R.id.iv_item_collect_card_icon);
-        ViewGroup.LayoutParams para = imageView.getLayoutParams();
+        ViewGroup.LayoutParams para = rlTop.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
-        imageView.setLayoutParams(para);
-        relativeLayout.setLayoutParams(para);
+        para.height = (screenWidth - ScreenUtils.dip2px(13 * 2)) / 2 * 3/4;
+        rlTop.setLayoutParams(para);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        RoundedImageView imageView = helper.getView(R.id.iv_item_collect_card_icon);
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
     }
 

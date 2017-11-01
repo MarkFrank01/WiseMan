@@ -11,6 +11,8 @@ public class HotCardBagBean extends RetrofitBaen {
     private String imageUrl;
     @JSONField(name = "title")
     private String name;
+    @JSONField(name = "titleImageTranslucent")
+    private String classifyIcon;
 
     public int getId() {
         return id;
@@ -34,6 +36,14 @@ public class HotCardBagBean extends RetrofitBaen {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getClassifyIcon() {
+        return classifyIcon;
+    }
+
+    public void setClassifyIcon(String classifyIcon) {
+        this.classifyIcon = classifyIcon;
     }
 }
 

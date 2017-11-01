@@ -56,9 +56,10 @@ android {
             //applicationIdSuffix '.test'
         }
         release {
-            buildConfigField 'boolean', 'LOG', 'false'
+            buildConfigField 'boolean', 'LOG', 'true'
             minifyEnabled false
             shrinkResources false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

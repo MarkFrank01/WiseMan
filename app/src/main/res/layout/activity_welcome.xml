@@ -10,6 +10,7 @@
 
     <ImageView
         android:id="@+id/iv_welcome_ad"
+        android:src="@drawable/iv_welcome_ad"
         android:layout_above="@+id/iv_welcome_icon"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_alignParentRight="true"
-        android:text="跳过广告"
+        android:text="@string/tv_welcome_skip"
         android:textSize="14sp"
         android:textColor="@color/text_color_ff"
         android:gravity="center"

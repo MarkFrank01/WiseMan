@@ -2,8 +2,8 @@ package com.zxcx.zhizhe.ui.my.collect.collectCard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -25,8 +25,8 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.adapter.CollectCardAdapter;
-import com.zxcx.zhizhe.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
@@ -41,8 +41,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.zxcx.zhizhe.App.getContext;
 
 public class CollectCardActivity extends MvpActivity<CollectCardPresenter> implements CollectCardContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, CollectCardAdapter.CollectCardCheckListener, BaseQuickAdapter.OnItemClickListener {
@@ -312,9 +310,9 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
         mAdapter.setOnLoadMoreListener(this, mRvCollectCard);
         mAdapter.setOnItemClickListener(this);
-        mRvCollectCard.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mRvCollectCard.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRvCollectCard.setAdapter(mAdapter);
-        mRvCollectCard.addItemDecoration(new CollectFolderItemDecoration());
+        mRvCollectCard.addItemDecoration(new CardBagCardItemDecoration());
         mAdapter.notifyDataSetChanged();
     }
 

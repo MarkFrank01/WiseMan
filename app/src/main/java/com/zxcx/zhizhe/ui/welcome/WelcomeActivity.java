@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.TextViewUtils;
 
 import java.util.List;
 
@@ -33,15 +34,18 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     @BindView(R.id.tv_welcome_skip)
     TextView mTvWelcomeSkip;
     private Handler mHandler = new Handler();
-    private int mCount = 4;
+    private int mCount = 6;
 
     Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             mCount--;
-            if (mCount == 0) {
+            if (mCount <= 0) {
                 gotoMainActivity();
             } else {
+                String text = getString(R.string.tv_welcome_skip,mCount);
+                mTvWelcomeSkip.setText(text);
+                TextViewUtils.setTextViewColorAndBold(mTvWelcomeSkip, String.valueOf(mCount),text);
                 mHandler.postDelayed(mRunnable, 1000);
             }
         }

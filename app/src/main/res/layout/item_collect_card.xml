@@ -6,58 +6,72 @@
     android:layout_gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:padding="0.5dp"
     android:background="@drawable/bg_item_home_card"
     android:orientation="vertical">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_item_collect_card_icon"
-        tools:src="@drawable/iv_item_home_card_icon"
-        android:layout_width="match_parent"
-        android:layout_height="126dp"
-        android:scaleType="centerCrop"
-        app:riv_corner_radius_top_left="6dp"
-        app:riv_corner_radius_top_right="6dp"/>
-
     <RelativeLayout
-        android:id="@+id/rl_item_collect_card"
-        android:visibility="gone"
-        android:background="@drawable/bg_item_collect_folder_select"
+        android:id="@+id/rl_item_collect_card_top"
         android:layout_width="match_parent"
         android:layout_height="126dp">
 
-        <CheckBox
-            android:id="@+id/cb_item_collect_card"
-            android:button="@drawable/selector_cb_item_collect_folder"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_item_collect_card_icon"
+            tools:src="@drawable/iv_item_home_card_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius_top_left="6dp"
+            app:riv_corner_radius_top_right="6dp"/>
+
+        <TextView
+            android:id="@+id/tv_item_collect_card_num"
+            android:paddingLeft="14dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            tools:text="%1$d人收藏  %2$d人认同"
+            android:textColor="@color/text_color_ff"
+            android:textSize="11sp"
+            android:background="@drawable/bg_tv_card_collect_num"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_item_collect_card"
+            android:visibility="gone"
+            android:background="@drawable/bg_item_collect_folder_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/cb_item_collect_card"
+                android:button="@drawable/selector_cb_item_collect_folder"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_item_collect_card_title"
-        android:layout_below="@id/iv_item_collect_card_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_below="@id/rl_item_collect_card_top"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         tools:text="笔记本"
+        style="@style/tv_card"
+        android:lineSpacingExtra="6dp"
         android:textColor="@color/text_color_40"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/tv_card"/>
-
-    <TextView
-        android:id="@+id/tv_item_collect_card_num"
-        android:layout_below="@id/tv_item_collect_card_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="23.5dp"
-        tools:text="%1$d人收藏  %2$d人认同"
-        android:textColor="@color/text_color_99"
-        android:textSize="11dp"
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

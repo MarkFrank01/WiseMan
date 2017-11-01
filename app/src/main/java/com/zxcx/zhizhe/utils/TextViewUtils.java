@@ -7,9 +7,17 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
+import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.widget.TextView;
+
+import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.R;
+
+import static com.zxcx.zhizhe.utils.StringUtils.isEmpty;
 
 /**
  * Created by chenf on 2016/9/1.
@@ -98,6 +106,28 @@ public class TextViewUtils {
         }
 
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, trySize);
+    }
+
+    public static void setTextViewColorAndBold(TextView textView, String key, String value) {
+        if (isEmpty(value)) {
+            return;
+        }
+        if (!isEmpty(key)) {
+            SpannableStringBuilder style = new SpannableStringBuilder(value);
+            int index = value.indexOf(key);
+            if (index >= 0) {
+                while (index < value.length() && index >= 0) {
+                    style.setSpan(new ForegroundColorSpan(ContextCompat.getColor(App.getContext(), R.color.button_blue)), index, index + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    textView.setText(style);
+                    index = value.indexOf(key, index + key.length());
+                }
+            } else {
+                textView.setText(value);
+            }
+
+        } else {
+            textView.setText(value);
+        }
     }
 
 }

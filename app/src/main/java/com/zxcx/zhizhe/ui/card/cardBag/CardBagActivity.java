@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
@@ -50,7 +51,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     private CardBagListAdapter mCardBagListAdapter;
     private boolean isCard = true;
     private int showFistItem;
-    private GridLayoutManager mCardBagCardManager;
+    private StaggeredGridLayoutManager mCardBagCardManager;
     private LinearLayoutManager mCardBagListManager;
     private int mId;
     private int page = 0;
@@ -83,6 +84,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new CardBagLoadingCallback())
                 .addCallback(new NetworkErrorCallback())
+                .addCallback(new LoginTimeoutCallback())
                 .setDefaultCallback(CardBagLoadingCallback.class)
                 .build();
         loadService = loadSir.register(this, this);
@@ -160,7 +162,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             mRvCardBagCard.setVisibility(View.GONE);
             mRvCardBagList.setVisibility(View.VISIBLE);
             mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
-            showFistItem = mCardBagCardManager.findFirstVisibleItemPosition();
+            showFistItem = mCardBagCardManager.findFirstVisibleItemPositions(new int[2])[0];
             mCardBagListManager.scrollToPosition(showFistItem);
         } else {
             isCard = !isCard;
@@ -183,7 +185,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     }
 
     private void initRecyclerView() {
-        mCardBagCardManager = new GridLayoutManager(getContext(), 2);
+        mCardBagCardManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         mCardBagCardAdapter = new CardBagCardAdapter(mList);
         mCardBagCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagCardAdapter.setOnLoadMoreListener(this, mRvCardBagCard);

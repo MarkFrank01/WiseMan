@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.aboutUS;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -7,6 +8,8 @@ import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.ui.card.card.share.ShareCardDialog;
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Utils;
 
 import butterknife.BindView;
@@ -49,5 +52,21 @@ public class AboutUSActivity extends BaseActivity {
 
     @OnClick(R.id.tv_about_us_share)
     public void onMTvAboutUsShareClicked() {
+        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("title", getString(R.string.app_name));
+        bundle.putString("text", "只看实用知识");
+        bundle.putString("url", "https://www.pgyer.com/bm8b");
+        bundle.putString("imageUrl","http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon-512.png");
+        shareCardDialog.setArguments(bundle);
+        shareCardDialog.show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.tv_about_us_agreement)
+    public void onMTvAboutUsAgreementClicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.agreement));
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.agreement_url));
+        startActivity(intent);
     }
 }

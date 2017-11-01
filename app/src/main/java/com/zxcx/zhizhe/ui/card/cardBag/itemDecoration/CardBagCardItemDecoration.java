@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.card.cardBag.itemDecoration;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.zxcx.zhizhe.utils.ScreenUtils;
@@ -23,7 +24,9 @@ public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 
-        if (parent.getChildLayoutPosition(view) % 2 == 0) {
+        StaggeredGridLayoutManager.LayoutParams slp = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+        // slp.getSpanIndex(): 这个可以拿到它在同一行排序的真实顺序
+        if (slp.getSpanIndex() == 0) {
             outRect.left = defultSpace;
             outRect.right = space;
         } else {
@@ -33,16 +36,6 @@ public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
 
         if (parent.getChildAdapterPosition(view) < 2){
             outRect.top = ScreenUtils.dip2px(18f);
-        }
-
-        if (parent.getAdapter().getItemCount() %2 == 1) {
-            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-3)){
-                outRect.bottom = bottomSpace;
-            }
-        } else {
-            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-2)){
-                outRect.bottom = bottomSpace;
-            }
         }
     }
 }

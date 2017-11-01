@@ -59,9 +59,8 @@
     </style>
 
     <style name="tv_card">
-        <item name="android:maxLines">1</item>
-        <item name="android:maxEms">6</item>
-        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:maxEms">20</item>
     </style>
 
     <style name="tv_single">

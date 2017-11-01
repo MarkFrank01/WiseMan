@@ -21,6 +21,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -131,6 +132,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     @OnClick(R.id.tv_register_agreement)
     public void onMTvRegisterAgreementClicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.agreement));
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.agreement_url));
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_register_send_over)
