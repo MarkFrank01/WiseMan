@@ -7,7 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
@@ -23,7 +23,7 @@ import java.util.List;
  * Created by anm on 2017/6/26.
  */
 
-public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,BaseViewHolder> {
+public class CollectFolderAdapter extends BaseMultiItemQuickAdapter<CollectFolderBean,BaseViewHolder> {
 
     private boolean isDelete;
     private CollectFolderCheckListener mListener;
@@ -33,16 +33,33 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
     }
 
     public CollectFolderAdapter(@Nullable List<CollectFolderBean> data, CollectFolderCheckListener listener) {
-        super(R.layout.item_collect_folder, data);
+        super(data);
+        addItemType(0, R.layout.item_collect_folder_add);
+        addItemType(1,R.layout.item_collect_folder);
         mListener = listener;
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, final CollectFolderBean item) {
+    protected void convert(final BaseViewHolder helper, CollectFolderBean item) {
 
-        helper.setText(R.id.tv_item_collect_folder_title,item.getName());
-        helper.setText(R.id.tv_item_collect_folder_time, DateTimeUtils.getDate(item.getTime()));
-        helper.setText(R.id.tv_item_collect_folder_num,item.getNum()+"");
+        switch (item.getItemType()){
+            case 0:
+                RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_folder_add);
+                ViewGroup.LayoutParams para = relativeLayout.getLayoutParams();
+                int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
+                para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 205/170;
+                relativeLayout.setLayoutParams(para);
+                break;
+            case 1:
+                convertNormalData(helper, item);
+                break;
+        }
+    }
+
+    private void convertNormalData(final BaseViewHolder helper, final CollectFolderBean bean) {
+        helper.setText(R.id.tv_item_collect_folder_title,bean.getName());
+        helper.setText(R.id.tv_item_collect_folder_time, DateTimeUtils.getDate(bean.getTime()));
+        helper.setText(R.id.tv_item_collect_folder_num,bean.getNum()+"");
 
         RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_folder);
         final CheckBox checkBox = helper.getView(R.id.cb_item_collect_folder);
@@ -54,7 +71,7 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
         });
         if (isDelete){
             relativeLayout.setVisibility(View.VISIBLE);
-            if (item.isChecked()){
+            if (bean.isChecked()){
                 checkBox.setChecked(true);
             }else {
                 checkBox.setChecked(false);
@@ -63,13 +80,13 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    item.setChecked(isChecked);
-                    mListener.onCheckedChanged(item,helper.getAdapterPosition(),isChecked);
+                    bean.setChecked(isChecked);
+                    mListener.onCheckedChanged(bean,helper.getAdapterPosition(),isChecked);
                 }
             });
         }else {
             relativeLayout.setVisibility(View.GONE);
-            item.setChecked(false);
+            bean.setChecked(false);
             checkBox.setOnCheckedChangeListener(null);
             checkBox.setChecked(false);
         }
@@ -77,11 +94,11 @@ public class CollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,Bas
         RoundedImageView imageView = helper.getView(R.id.iv_item_collect_folder_icon);
         ViewGroup.LayoutParams para = imageView.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
+        para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 3/4;
         imageView.setLayoutParams(para);
         relativeLayout.setLayoutParams(para);
 
-        String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
+        String imageUrl = ZhiZheUtils.getHDImageUrl(bean.getImageUrl());
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
     }
 

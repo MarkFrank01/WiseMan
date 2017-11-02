@@ -41,11 +41,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:maxLines="1"
             android:maxEms="6"
             android:ellipsize="end"
-            android:textColor="@color/text_color_66"
+            android:textColor="@color/text_color_40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

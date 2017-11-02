@@ -164,7 +164,7 @@
         android:layout_marginBottom="60dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@color/button_blue"
-        android:text="《识堂服务条款》"
+        android:text="《智者用户协议》"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

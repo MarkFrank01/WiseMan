@@ -27,8 +27,8 @@
         android:textColor="@color/text_color_ff"
         android:gravity="center"
         android:background="@drawable/bg_welcome_skip"
-        android:layout_width="72dp"
-        android:layout_height="24dp"/>
+        android:layout_width="75dp"
+        android:layout_height="30dp"/>
 
     <ImageView
         android:id="@+id/iv_welcome_icon"

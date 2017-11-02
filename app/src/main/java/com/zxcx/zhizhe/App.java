@@ -1,7 +1,8 @@
 package com.zxcx.zhizhe;
 
+import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDexApplication;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.kingja.loadsir.core.LoadSir;
@@ -24,7 +25,7 @@ import cn.jiguang.analytics.android.api.JAnalyticsInterface;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class App extends MultiDexApplication {
+public class App extends Application {
     private static Context context;
     public static App app;
     private RefWatcher refWatcher;
@@ -82,6 +83,17 @@ public class App extends MultiDexApplication {
     public static RefWatcher getRefWatcher(Context context) {
         App application = (App) context.getApplicationContext();
         return application.refWatcher;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        // you must install multiDex whatever tinker is installed!
+        MultiDex.install(base);
+
+
+        // 安装tinker
+        Beta.installTinker();
     }
 
 }

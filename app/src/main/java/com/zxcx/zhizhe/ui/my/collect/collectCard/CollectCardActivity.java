@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -47,21 +43,15 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     private static final int ACTION_DELETE = 100;
     private static final int ACTION_CHANGE = 101;
-
-    @BindView(R.id.tv_toolbar_right)
-    TextView mTvToolbarRight;
+    @BindView(R.id.et_collect_folder)
+    EditText mEtCollectFolder;
     @BindView(R.id.rv_collect_card)
     RecyclerView mRvCollectCard;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.ll_collect_card_edit)
-    LinearLayout mLlCollectCardEdit;
-    @BindView(R.id.iv_dialog_collect_folder_confirm)
-    ImageView mIvDialogCollectFolderConfirm;
-    @BindView(R.id.et_edit_collect_folder)
-    EditText mEtEditCollectFolder;
-    @BindView(R.id.ll_collect_folder_edit)
-    LinearLayout mLlCollectFolderEdit;
+    @BindView(R.id.tv_toolbar_right)
+    TextView mTvToolbarRight;
+    @BindView(R.id.tv_item_collect_folder_title)
+    TextView mTvItemCollectFolderTitle;
+
 
     private CollectCardAdapter mAdapter;
     private List<CollectCardBean> mCheckedList = new ArrayList<>();
@@ -81,10 +71,8 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         initRecyclerView();
         getCollectCard();
 
-        mIvDialogCollectFolderConfirm.setEnabled(false);
-        mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("编辑");
-        mEtEditCollectFolder.addTextChangedListener(new AddCollectFolderTextWatcher());
+        mEtCollectFolder.setOnEditorActionListener(new DoneListener());
 
         initLoadSir();
     }
@@ -102,23 +90,23 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     private void initData() {
         String name = getIntent().getStringExtra("name");
-        folderId = getIntent().getIntExtra("id",0);
-        initToolBar(name);
-        mEtEditCollectFolder.setHint(name);
+        folderId = getIntent().getIntExtra("id", 0);
+        mTvItemCollectFolderTitle.setText(name);
+        mEtCollectFolder.setText(name);
+        mEtCollectFolder.setSelection(mEtCollectFolder.length());
     }
 
     @Override
     public void onBackPressed() {
-        if (mLlCollectFolderEdit.getVisibility() == View.VISIBLE){
-            onMIvCommonCloseClicked();
-        }else if (mLlCollectCardEdit.getVisibility() == View.VISIBLE){
+        if (!"编辑".equals(mTvToolbarRight.getText().toString())) {
+            mTvItemCollectFolderTitle.setVisibility(View.VISIBLE);
+            mEtCollectFolder.setVisibility(View.GONE);
             mCheckedList.clear();
-            mLlCollectCardEdit.setVisibility(View.GONE);
             mTvToolbarRight.setText("编辑");
             mAdapter.setDelete(false);
             mAdapter.setOnItemClickListener(this);
             mAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -141,19 +129,19 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     @Override
     public void getDataSuccess(List<CollectCardBean> list) {
-        if (page == 0){
+        if (page == 0) {
             mAdapter.setNewData(list);
             loadService.showSuccess();
-        }else {
+        } else {
             mAdapter.addData(list);
         }
         page++;
-        if (list.size() < Constants.PAGE_SIZE){
+        if (list.size() < Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false);
-        }else {
+        } else {
             mAdapter.loadMoreComplete();
         }
-        if (mAdapter.getData().size() == 0){
+        if (mAdapter.getData().size() == 0) {
             //占空图
             View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
@@ -166,22 +154,22 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void toastFail(String msg) {
         super.toastFail(msg);
         mAdapter.loadMoreFail();
-        if (page == 0){
+        if (page == 0) {
             loadService.showCallback(NetworkErrorCallback.class);
         }
     }
 
     @Override
     public void postSuccess() {
-        if (mAction == ACTION_DELETE){
+        if (mAction == ACTION_DELETE) {
             mAdapter.getData().removeAll(mCheckedList);
             mAdapter.notifyDataSetChanged();
-            EventBus.getDefault().post(new DeleteCollectCardEvent(folderId,mCheckedList.size()));
+            EventBus.getDefault().post(new DeleteCollectCardEvent(folderId, mCheckedList.size()));
             mCheckedList.clear();
-        }else if (mAction == ACTION_CHANGE){
-            initToolBar(newName);
-            mEtEditCollectFolder.setHint(newName);
+        } else if (mAction == ACTION_CHANGE) {
+            mTvItemCollectFolderTitle.setText(newName);
             EventBus.getDefault().post(new ChangeCollectFolderNameEvent(folderId, newName));
+            mTvToolbarRight.performClick();
         }
     }
 
@@ -199,7 +187,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         CollectCardBean bean = new CollectCardBean();
         bean.setId(event.getCardId());
         mAdapter.remove(mAdapter.getData().indexOf(bean));
-        EventBus.getDefault().post(new DeleteCollectCardEvent(folderId,1));
+        EventBus.getDefault().post(new DeleteCollectCardEvent(folderId, 1));
     }
 
     @Override
@@ -224,7 +212,11 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void onViewClicked() {
         switch (mTvToolbarRight.getText().toString()) {
             case "编辑":
-                mLlCollectCardEdit.setVisibility(View.VISIBLE);
+                mTvItemCollectFolderTitle.setVisibility(View.GONE);
+                mEtCollectFolder.setVisibility(View.VISIBLE);
+                mEtCollectFolder.requestFocus();
+                mEtCollectFolder.setCursorVisible(true);
+                mEtCollectFolder.setSelection(mEtCollectFolder.length());
                 mTvToolbarRight.setText("取消");
                 mAdapter.setDelete(true);
                 mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -236,73 +228,38 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
                 mAdapter.notifyDataSetChanged();
                 break;
             case "取消":
-                mLlCollectCardEdit.setVisibility(View.GONE);
+                Utils.closeInputMethod(mEtCollectFolder);
+                mTvItemCollectFolderTitle.setVisibility(View.VISIBLE);
+                mEtCollectFolder.setVisibility(View.GONE);
                 mTvToolbarRight.setText("编辑");
                 mAdapter.setDelete(false);
                 mAdapter.setOnItemClickListener(this);
                 mAdapter.notifyDataSetChanged();
                 break;
             case "删除":
+                Utils.closeInputMethod(mEtCollectFolder);
                 mAction = ACTION_DELETE;
                 List<Integer> idList = new ArrayList<>();
                 for (CollectCardBean bean : mCheckedList) {
                     idList.add(bean.getId());
                 }
-                mPresenter.deleteCollectCard(folderId,idList);
+                mPresenter.deleteCollectCard(folderId, idList);
                 break;
         }
+    }
+
+    @OnClick(R.id.iv_toolbar_back)
+    public void onMIvToolbarBackClicked() {
+        onBackPressed();
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         CollectCardBean bean = (CollectCardBean) adapter.getData().get(position);
         Intent intent = new Intent(this, CardDetailsActivity.class);
-        intent.putExtra("id",bean.getId());
-        intent.putExtra("name",bean.getName());
+        intent.putExtra("id", bean.getId());
+        intent.putExtra("name", bean.getName());
         startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_collect_card_edit)
-    public void onMLlCollectCardEditClicked() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_open);
-        mLlCollectFolderEdit.startAnimation(animation);
-        mLlCollectFolderEdit.setVisibility(View.VISIBLE);
-        mLlCollectCardEdit.setVisibility(View.GONE);
-        Utils.showInputMethod(mEtEditCollectFolder);
-    }
-
-    @OnClick(R.id.iv_common_close)
-    public void onMIvCommonCloseClicked() {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
-        mLlCollectFolderEdit.startAnimation(animation);
-        mLlCollectFolderEdit.setVisibility(View.GONE);
-        mEtEditCollectFolder.setText("");
-        mLlCollectCardEdit.setVisibility(View.VISIBLE);
-        Utils.closeInputMethod(mEtEditCollectFolder);
-    }
-
-    @OnClick(R.id.iv_dialog_collect_folder_confirm)
-    public void onMIvDialogCollectFolderConfirmClicked() {
-        newName = mEtEditCollectFolder.getText().toString();
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_add_collect_folder_close);
-        mLlCollectFolderEdit.startAnimation(animation);
-        mLlCollectFolderEdit.setVisibility(View.GONE);
-        mEtEditCollectFolder.setText("");
-        mLlCollectCardEdit.setVisibility(View.VISIBLE);
-        Utils.closeInputMethod(mEtEditCollectFolder);
-
-        mAction = ACTION_CHANGE;
-        mPresenter.changeCollectFolderName(folderId,newName);
-    }
-
-    @OnClick(R.id.rl_collect_folder_edit)
-    public void onMRlCollectFolderEditClicked() {
-        onMIvCommonCloseClicked();
-    }
-
-    @OnClick(R.id.ll_collect_folder_edit)
-    public void onMLlCollectFolderEditClicked() {
-        //保持为空，覆盖掉底下的点击事件监听
     }
 
     private void initRecyclerView() {
@@ -316,24 +273,20 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mAdapter.notifyDataSetChanged();
     }
 
-    class AddCollectFolderTextWatcher implements TextWatcher {
+    class DoneListener implements TextView.OnEditorActionListener {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
+            if (actionId == EditorInfo.IME_ACTION_DONE
+                    || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (s.length() > 0) {
-                mIvDialogCollectFolderConfirm.setEnabled(true);
-            } else {
-                mIvDialogCollectFolderConfirm.setEnabled(false);
+                newName = mEtCollectFolder.getText().toString();
+                Utils.closeInputMethod(mEtCollectFolder);
+                mAction = ACTION_CHANGE;
+                mPresenter.changeCollectFolderName(folderId, newName);
+                return true;
             }
+            return false;
         }
     }
 }

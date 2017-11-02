@@ -5,7 +5,7 @@ def bakPath = file("${buildDir}/bakApk/")
 /**
  * 此处填写每次构建生成的基准包目录
  */
-def baseApkDir = "app-0208-15-10-00"
+def baseApkDir = "app-1102-18-12-29"
 
 /**
  * 对于插件各参数的详细解析请参考
@@ -14,6 +14,9 @@ tinkerSupport {
 
     // 开启tinker-support插件，默认值true
     enable = true
+
+    // tinkerEnable功能开关
+    tinkerEnable = true
 
     // 指定归档目录，默认值当前module的子目录tinker
     autoBackupApkDir = "${bakPath}"
@@ -25,16 +28,16 @@ tinkerSupport {
     // 编译补丁包时，必需指定基线版本的apk，默认值为空
     // 如果为空，则表示不是进行补丁包的编译
     // @{link tinkerPatch.oldApk }
-    baseApk = "${bakPath}/${baseApkDir}/app-release.apk"
+    baseApk = "${bakPath}/${baseApkDir}/app-debug.apk"
 
     // 对应tinker插件applyMapping
-    baseApkProguardMapping = "${bakPath}/${baseApkDir}/app-release-mapping.txt"
+    baseApkProguardMapping = "${bakPath}/${baseApkDir}/app-debug-mapping.txt"
 
     // 对应tinker插件applyResourceMapping
-    baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
+    baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-debug-R.txt"
 
     // 构建基准包和补丁包都要指定不同的tinkerId，并且必须保证唯一性
-    tinkerId = "1.0.0-base"
+    tinkerId = "1.0.0_fix"
 
     // 构建多渠道补丁时使用
     // buildAllFlavorsDir = "${bakPath}/${baseApkDir}"

@@ -14,8 +14,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
 
     private int defultSpace = ScreenUtils.dip2px(12f);
-    private int bottomSpace = ScreenUtils.dip2px(15f);
-    private int space = (int) (ScreenUtils.dip2px(15f)/2);
+    private int space = (int) (ScreenUtils.dip2px(12f)/2);
 
     public CardBagCardItemDecoration() {
         super();

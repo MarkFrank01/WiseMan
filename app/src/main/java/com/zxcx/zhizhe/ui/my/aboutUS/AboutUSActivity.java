@@ -48,6 +48,10 @@ public class AboutUSActivity extends BaseActivity {
 
     @OnClick(R.id.ll_about_us_visit)
     public void onMLlAboutUsVisitClicked() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("title",getString(R.string.visit));
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.visit_url));
+        startActivity(intent);
     }
 
     @OnClick(R.id.tv_about_us_share)

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.AddCollectFolderDialogEvent;
+import com.zxcx.zhizhe.event.AddCollectFolderEvent;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
@@ -88,7 +88,7 @@ public class SelectCollectFolderActivity extends BaseActivity implements INullGe
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(AddCollectFolderDialogEvent event) {
+    public void onMessageEvent(AddCollectFolderEvent event) {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
         getCollectFolder(0, 10000);

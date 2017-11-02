@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.AddCollectFolderDialogEvent;
+import com.zxcx.zhizhe.event.AddCollectFolderEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
@@ -107,7 +107,7 @@ public class AddCollectFolderActivity extends BaseActivity implements INullPostP
 
     @Override
     public void postSuccess() {
-        EventBus.getDefault().post(new AddCollectFolderDialogEvent());
+        EventBus.getDefault().post(new AddCollectFolderEvent());
         finish();
     }
 
@@ -128,5 +128,10 @@ public class AddCollectFolderActivity extends BaseActivity implements INullPostP
             addCollectFolder(name);
             Utils.closeInputMethod(mEtAddCollectFolder);
         }
+    }
+
+    @OnClick(R.id.ll_add_collect_folder)
+    public void onLlAddCollectFolderClicked() {
+        Utils.showInputMethod(mEtAddCollectFolder);
     }
 }

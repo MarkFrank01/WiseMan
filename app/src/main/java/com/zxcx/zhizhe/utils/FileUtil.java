@@ -45,7 +45,7 @@ public class FileUtil {
     public static String SDCard_PATH_BASE = Environment.getExternalStorageDirectory().getPath() + "/";
 
     public static String PATH_BASE = Environment.getExternalStorageDirectory()
-            .getPath() +"/识堂/";
+            .getPath() +"/智者/";
     /**
      * 拍照路径
      */

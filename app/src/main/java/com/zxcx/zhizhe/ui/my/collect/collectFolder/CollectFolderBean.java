@@ -1,9 +1,11 @@
 package com.zxcx.zhizhe.ui.my.collect.collectFolder;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
-public class CollectFolderBean extends RetrofitBaen {
+public class CollectFolderBean extends RetrofitBaen implements MultiItemEntity{
+
     private boolean isChecked;
     @JSONField(name = "id")
     private int id;
@@ -15,6 +17,8 @@ public class CollectFolderBean extends RetrofitBaen {
     private Long time;
     @JSONField(name = "articleCount")
     private int num;
+    //1为正常数据项，0为添加收藏夹
+    private int itemType = 1;
 
     public boolean isChecked() {
         return isChecked;
@@ -64,6 +68,10 @@ public class CollectFolderBean extends RetrofitBaen {
         this.num = num;
     }
 
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +85,11 @@ public class CollectFolderBean extends RetrofitBaen {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }
 

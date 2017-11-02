@@ -56,10 +56,11 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (mEtFeedbackContent.length() > 0){
             CancelFeedbackConfirmDialog dialog = new CancelFeedbackConfirmDialog();
             dialog.show(getFragmentManager(),"");
+        }else {
+            super.onBackPressed();
         }
     }
 

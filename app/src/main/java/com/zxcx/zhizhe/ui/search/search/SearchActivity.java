@@ -112,6 +112,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         for (int i = 0; i < mList.size(); i++) {
             TextView textView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null);
             textView.setText(mList.get(i).getConent());
+            textView.setOnClickListener(SearchActivity.this);
             mFlSearchHot.addView(textView);
 
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
