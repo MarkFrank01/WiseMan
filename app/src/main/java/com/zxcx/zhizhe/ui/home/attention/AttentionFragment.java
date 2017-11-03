@@ -29,6 +29,7 @@ import com.zxcx.zhizhe.ui.home.attention.adapter.AttentionCardBagAdapter;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
@@ -269,6 +270,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvAttentionCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvAttentionCardBag.setAdapter(mCardBagAdapter);
+        mRvAttentionCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mCardAdapter.addHeaderView(view);
         mCardAdapter.setEmptyView(mEmptyView);
