@@ -20,7 +20,12 @@ public class HomeCardBagItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() -1){
+        if (parent.getChildLayoutPosition(view) == 0){
+            outRect.left = ScreenUtils.dip2px(12f);
+            outRect.right = defultSpace;
+        }else if (parent.getChildAdapterPosition(view) == parent.getAdapter().getItemCount() -1){
+            outRect.right = ScreenUtils.dip2px(12f);
+        }else {
             outRect.right = defultSpace;
         }
     }
