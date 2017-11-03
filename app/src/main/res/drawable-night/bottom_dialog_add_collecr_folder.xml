@@ -5,7 +5,7 @@
     <solid android:color="@color/line" />
 
     <size
-        android:height="1dp"
+        android:height="0.5dp"
         android:width="1000dp" />
 
 </shape>
