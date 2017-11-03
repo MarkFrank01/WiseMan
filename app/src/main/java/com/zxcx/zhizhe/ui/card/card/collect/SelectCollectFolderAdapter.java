@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SelectCollectFolderAdapter extends BaseQuickAdapter<CollectFolderBean,BaseViewHolder> {
     public SelectCollectFolderAdapter(@Nullable List<CollectFolderBean> data) {
-        super(R.layout.item_dialog_collect_folder, data);
+        super(R.layout.item_select_collect_folder, data);
     }
 
     @Override
