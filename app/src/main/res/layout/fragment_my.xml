@@ -13,7 +13,7 @@
         layout="@layout/toolbar"/>
 
     <View
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/fragment_interval"
         android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
@@ -90,7 +90,7 @@
         android:layout_height="0.5dp"/>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/fragment_interval"
         android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
@@ -134,7 +134,7 @@
         android:layout_height="0.5dp"/>
 
     <View
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/fragment_interval"
         android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
