@@ -47,7 +47,7 @@ public class CollectFolderAdapter extends BaseMultiItemQuickAdapter<CollectFolde
                 RelativeLayout relativeLayout = helper.getView(R.id.rl_item_collect_folder_add);
                 ViewGroup.LayoutParams para = relativeLayout.getLayoutParams();
                 int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-                para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 205/170;
+                para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 235 / 170;
                 relativeLayout.setLayoutParams(para);
                 break;
             case 1:

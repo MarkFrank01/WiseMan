@@ -51,7 +51,7 @@
         style="@style/tv_card"
         android:lineSpacingExtra="6dp"
         android:textColor="@color/text_color_40"
-        android:textSize="15sp"
+        android:textSize="@dimen/sp_tv_card_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

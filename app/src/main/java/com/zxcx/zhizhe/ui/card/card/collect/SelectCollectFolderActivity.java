@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.AddCollectFolderEvent;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
+import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter;
@@ -89,6 +90,15 @@ public class SelectCollectFolderActivity extends BaseActivity implements INullGe
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(AddCollectFolderEvent event) {
+        onRefresh();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        onRefresh();
+    }
+
+    private void onRefresh() {
         mAdapter.getData().clear();
         mAdapter.notifyDataSetChanged();
         getCollectFolder(0, 10000);

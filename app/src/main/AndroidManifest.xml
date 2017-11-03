@@ -125,13 +125,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.card.cardDetails.OldCardDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.card.card.share.DiyShareActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"

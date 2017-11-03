@@ -59,6 +59,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     private int folderId;
     private int mAction;
     private String newName;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,8 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     private void initData() {
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
+        newName = name;
         folderId = getIntent().getIntExtra("id", 0);
         mTvItemCollectFolderTitle.setText(name);
         mEtCollectFolder.setText(name);
@@ -166,6 +168,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
             mAdapter.notifyDataSetChanged();
             EventBus.getDefault().post(new DeleteCollectCardEvent(folderId, mCheckedList.size()));
             mCheckedList.clear();
+            mTvToolbarRight.setText("取消");
         } else if (mAction == ACTION_CHANGE) {
             mTvItemCollectFolderTitle.setText(newName);
             EventBus.getDefault().post(new ChangeCollectFolderNameEvent(folderId, newName));
@@ -230,6 +233,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
             case "取消":
                 Utils.closeInputMethod(mEtCollectFolder);
                 mTvItemCollectFolderTitle.setVisibility(View.VISIBLE);
+                mEtCollectFolder.setText(newName);
                 mEtCollectFolder.setVisibility(View.GONE);
                 mTvToolbarRight.setText("编辑");
                 mAdapter.setDelete(false);

@@ -32,6 +32,20 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, bean.isBandingWeibo());
     }
 
+    public static void logout() {
+        SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
+        SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
+        SharedPreferencesUtil.saveData(SVTSConstants.token, "");
+        SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
+        SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
+        SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
+        SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);
+        SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, "");
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, false);
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, false);
+        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, false);
+    }
+
     public static String getHDImageUrl(String imageUrl) {
         if (getIsHD()){
             return imageUrl;

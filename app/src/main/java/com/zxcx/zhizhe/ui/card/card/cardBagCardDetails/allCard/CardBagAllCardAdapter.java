@@ -29,6 +29,8 @@ public class CardBagAllCardAdapter extends BaseQuickAdapter<CardBagCardDetailsBe
         helper.setText(R.id.tv_card_bag_all_card_name,item.getTitle());
         if (cardId == item.getId()){
             helper.setTextColor(R.id.tv_card_bag_all_card_name, ContextCompat.getColor(mContext,R.color.button_blue));
+        }else {
+            helper.setTextColor(R.id.tv_card_bag_all_card_name, ContextCompat.getColor(mContext,R.color.text_color_66));
         }
 
         int position = helper.getAdapterPosition();

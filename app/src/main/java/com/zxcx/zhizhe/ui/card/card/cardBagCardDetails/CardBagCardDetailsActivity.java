@@ -150,13 +150,13 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        if (mAction == Action.unCollect) {
-            mCbCardDetailsCollect.setChecked(true);
-        } else if (mAction == Action.like) {
-            mCbCardDetailsLike.setChecked(false);
-        } else if (mAction == Action.unLike) {
-            mCbCardDetailsLike.setChecked(true);
-        }
+        resetCBState();
+    }
+
+    @Override
+    public void startLogin() {
+        resetCBState();
+        super.startLogin();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -208,6 +208,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
                 mPresenter.likeCard(cardId);
             } else {
                 toastShow("请先登录");
+                mCbCardDetailsLike.setChecked(false);
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
@@ -250,6 +251,16 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    private void resetCBState() {
+        if (mAction == Action.unCollect) {
+            mCbCardDetailsCollect.setChecked(true);
+        } else if (mAction == Action.like) {
+            mCbCardDetailsLike.setChecked(false);
+        } else if (mAction == Action.unLike) {
+            mCbCardDetailsLike.setChecked(true);
+        }
     }
     /*@Override
     public void onDefaultShareClick() {

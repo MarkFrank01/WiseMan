@@ -20,7 +20,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@drawable/iv_dialog_collect_folder_add"
+            android:src="@drawable/selector_iv_item_collect_folder_add"
             android:layout_width="35dp"
             android:layout_height="35dp"/>
 

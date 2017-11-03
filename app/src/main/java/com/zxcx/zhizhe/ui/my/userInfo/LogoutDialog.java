@@ -14,9 +14,8 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -86,18 +85,7 @@ public class LogoutDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-
-        SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.token, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);
-        SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, "");
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, false);
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, false);
-        SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, false);
+        ZhiZheUtils.logout();
         EventBus.getDefault().post(new LogoutEvent());
         this.dismiss();
         getActivity().finish();

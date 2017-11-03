@@ -154,7 +154,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         mAdapter.getData().removeAll(mCheckedList);
         mAdapter.notifyDataSetChanged();
         mCheckedList.clear();
-
+        mTvToolbarRight.setText("取消");
     }
 
     @Override

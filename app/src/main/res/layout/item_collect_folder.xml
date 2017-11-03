@@ -42,13 +42,13 @@
     <TextView
         android:id="@+id/tv_item_collect_folder_title"
         android:layout_below="@+id/iv_item_collect_folder_icon"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:layout_marginTop="15.5dp"
         style="@style/tv_card"
         tools:text="笔记本"
         android:textColor="@color/text_color_40"
-        android:textSize="15sp"
+        android:textSize="@dimen/sp_tv_card_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -56,7 +56,7 @@
         android:id="@+id/tv_item_collect_folder_time"
         android:layout_below="@+id/tv_item_collect_folder_title"
         android:layout_marginTop="18.5dp"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="14dp"
         android:layout_marginBottom="17.5dp"
         tools:text="2017-08-16"
         android:textColor="@color/text_color_99"

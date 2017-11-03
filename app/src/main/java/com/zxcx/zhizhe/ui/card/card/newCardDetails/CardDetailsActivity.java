@@ -165,13 +165,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        if (mAction == Action.unCollect) {
-            mCbCardDetailsCollect.setChecked(true);
-        } else if (mAction == Action.like) {
-            mCbCardDetailsLike.setChecked(false);
-        } else if (mAction == Action.unLike) {
-            mCbCardDetailsLike.setChecked(true);
-        }
+        resetCBState();
+    }
+
+    @Override
+    public void startLogin() {
+        resetCBState();
+        super.startLogin();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -224,6 +224,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
                 mPresenter.likeCard(cardId);
             } else {
                 toastShow("请先登录");
+                mCbCardDetailsLike.setChecked(false);
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
@@ -238,23 +239,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         onBackPressed();
     }
 
-    /*@Override
-    public void onDefaultShareClick() {
-        Bitmap bitmap = ScreenUtils.getBitmapByView(mWebView);
-        String fileName = FileUtil.getFileName();
-        String imagePath = FileUtil.PATH_BASE + fileName;
-        FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
-
-        ShareCardDialog shareCardDialog = new ShareCardDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString("imagePath", imagePath);
-        shareCardDialog.setArguments(bundle);
-        shareCardDialog.show(getFragmentManager(), "");
+    private void resetCBState() {
+        if (mAction == Action.unCollect) {
+            mCbCardDetailsCollect.setChecked(true);
+        } else if (mAction == Action.like) {
+            mCbCardDetailsLike.setChecked(false);
+        } else if (mAction == Action.unLike) {
+            mCbCardDetailsLike.setChecked(true);
+        }
     }
-
-    @Override
-    public void onDiyShareClick() {
-        Intent intent = new Intent(this, DiyShareActivity.class);
-        startActivity(intent);
-    }*/
 }

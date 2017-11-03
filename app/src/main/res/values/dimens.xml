@@ -1,15 +1,4 @@
 <resources>
-    <dimen name="iv_item_card_icon">121dp</dimen>
-    <dimen name="dp_168">161dp</dimen>
-    <dimen name="sp_14">14sp</dimen>
-    <dimen name="dp_110">110dp</dimen>
-    <dimen name="dp_5">8dp</dimen>
-    <dimen name="dp_card_details_content">16sp</dimen>
-    <dimen name="dp_card_details_subhead">16sp</dimen>
-    <dimen name="dp_card_details_name">30sp</dimen>
-    <dimen name="dp_card_details_content_1">5dp</dimen>
-    <dimen name="dp_card_details_scv_top">10dp</dimen>
-    <dimen name="dp_card_details_subhead_top">10dp</dimen>
-    <dimen name="dp_card_details_content_top">15dp</dimen>
     <dimen name="toolbar_height">48dp</dimen>
+    <dimen name="sp_tv_card_title">15sp</dimen>
 </resources>

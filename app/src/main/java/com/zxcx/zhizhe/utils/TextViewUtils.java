@@ -108,6 +108,44 @@ public class TextViewUtils {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, trySize);
     }
 
+    public static void adjustTvTextSize(TextView tv, int length) {
+        final String finalText = tv.getText().toString();
+        int avaiWidth = tv.getWidth() - tv.getPaddingLeft() - tv.getPaddingRight();
+
+        if (avaiWidth <= 0){
+            return;
+        }
+
+        while (tv.getText().length() < length) {
+            tv.setText(tv.getText().toString()+tv.getText().toString());
+        }
+
+        TextPaint textPaintClone = new TextPaint(tv.getPaint());
+        // note that Paint text size works in px not sp
+        float trySize = textPaintClone.getTextSize();
+
+        Rect rect = new Rect();
+        String s = tv.getText().toString();
+        textPaintClone.getTextBounds(s,0,length,rect);
+
+        if (tv.getMeasuredWidth() < avaiWidth) {
+            while (rect.width() < avaiWidth) {
+                trySize++;
+                textPaintClone.setTextSize(trySize);
+                textPaintClone.getTextBounds(s, 0, length, rect);
+            }
+            trySize--;
+        }else {
+            while (rect.width() > avaiWidth) {
+                trySize--;
+                textPaintClone.setTextSize(trySize);
+                textPaintClone.getTextBounds(s, 0, length, rect);
+            }
+        }
+        tv.setText(finalText);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, trySize);
+    }
+
     public static void setTextViewColorAndBold(TextView textView, String key, String value) {
         if (isEmpty(value)) {
             return;

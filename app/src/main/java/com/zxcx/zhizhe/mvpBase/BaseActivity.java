@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -177,6 +178,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     @Override
     public void startLogin() {
+        ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
         startActivity(new Intent(mActivity, LoginActivity.class));
         if (loadService != null){

@@ -46,15 +46,17 @@
 
         <TextView
             android:id="@+id/tv_item_collect_folder_title"
+            android:text="1614564656546546546546546546546546545"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:textSize="17sp"
             android:textColor="@color/toolbar_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:ellipsize="end"
-            android:layout_toLeftOf="@+id/tv_toolbar_right"
-            android:layout_toRightOf="@id/iv_toolbar_back"/>
+            android:paddingLeft="48dp"
+            android:paddingRight="48dp"/>
 
         <TextView
             android:id="@+id/tv_toolbar_right"

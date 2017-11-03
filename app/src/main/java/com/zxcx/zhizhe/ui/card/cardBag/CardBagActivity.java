@@ -186,7 +186,6 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     private void initRecyclerView() {
         mCardBagCardManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        mCardBagCardManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mCardBagCardAdapter = new CardBagCardAdapter(mList);
         mCardBagCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagCardAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
@@ -194,13 +193,6 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mRvCardBagCard.setLayoutManager(mCardBagCardManager);
         mRvCardBagCard.setAdapter(mCardBagCardAdapter);
         mRvCardBagCard.addItemDecoration(new CardBagCardItemDecoration());
-        mRvCardBagCard.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                mCardBagCardManager.invalidateSpanAssignments();
-            }
-        });
         mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
 
         mCardBagListManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
