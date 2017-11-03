@@ -2,8 +2,8 @@ package com.zxcx.zhizhe.ui.my.collect.collectFolder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -257,7 +257,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
         mAdapter.setOnLoadMoreListener(this, mRvCollectFolder);
         mAdapter.setOnItemClickListener(this);
-        mRvCollectFolder.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        mRvCollectFolder.setLayoutManager(new GridLayoutManager(this,2));
         mRvCollectFolder.setAdapter(mAdapter);
         mRvCollectFolder.addItemDecoration(new CardBagCardItemDecoration());
         mAdapter.notifyDataSetChanged();

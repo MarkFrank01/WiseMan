@@ -33,15 +33,13 @@
             android:background="@null"
             android:maxLines="1"
             android:singleLine="true"
-            android:maxLength="20"
+            android:maxLength="8"
             android:textSize="17sp"
             android:textColor="@color/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:imeOptions="actionDone"
-            android:layout_toLeftOf="@+id/tv_toolbar_right"
-            android:layout_toRightOf="@id/iv_toolbar_back"
             android:layout_centerInParent="true"/>
 
         <TextView
@@ -49,14 +47,12 @@
             android:text="1614564656546546546546546546546546545"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:maxLength="8"
             android:textSize="17sp"
             android:textColor="@color/toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"/>
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/tv_toolbar_right"
