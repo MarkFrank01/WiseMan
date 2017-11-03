@@ -27,7 +27,6 @@ import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardBagAdapter;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
@@ -213,7 +212,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvHotCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvHotCardBag.setAdapter(mCardBagAdapter);
-        mRvHotCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mCardAdapter.addHeaderView(view);
         mCardAdapter.setHeaderAndEmpty(true);

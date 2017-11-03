@@ -20,7 +20,6 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.zhizhe.ui.search.result.adapter.SearchResultCardAdapter;
 import com.zxcx.zhizhe.ui.search.result.adapter.SearchResultCardBagAdapter;
 import com.zxcx.zhizhe.utils.Constants;
@@ -172,7 +171,6 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
         mRvSearchResultCardBag.setLayoutManager(hotCardBagLayoutManager);
         mRvSearchResultCardBag.setAdapter(mCardBagAdapter);
-        mRvSearchResultCardBag.addItemDecoration(new HomeCardBagItemDecoration());
 
         mCardAdapter.addHeaderView(mHeaderView);
         View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
