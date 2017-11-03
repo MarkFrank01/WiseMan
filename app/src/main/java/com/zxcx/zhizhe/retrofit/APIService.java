@@ -135,7 +135,7 @@ public interface APIService {
     Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag();
 
     /**
-     * 获取热门搜索关键字
+     * 获取热门搜索关键词
      */
     @POST("/search/getSearchKeyword")
     Flowable<BaseArrayBean<SearchBean>> getSearchHot(
