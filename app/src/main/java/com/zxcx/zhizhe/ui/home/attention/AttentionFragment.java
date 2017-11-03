@@ -19,8 +19,8 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
+import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
-import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
@@ -36,6 +36,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -73,15 +74,21 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
-                .addCallback(new LoginTimeoutCallback())
+                .addCallback(new AttentionNeedLoginCallback())
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
         loadService = loadSir.register(root, new Callback.OnReloadListener() {
             @Override
             public void onReload(View v) {
-                loadService.showCallback(HomeLoadingCallback.class);
-                onRefresh();
+                mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
+                if (mUserId != 0) {
+                    loadService.showCallback(HomeLoadingCallback.class);
+                    onRefresh();
+                }else {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return loadService.getLoadLayout();
@@ -97,12 +104,9 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         if (isVisibleToUser){
             EventBus.getDefault().register(this);
             if (isFirst) {
-                if (mUserId == 0){
-                    toastShow(getString(R.string.need_login));
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    loadService.showSuccess();
-                }else {
+                if (mUserId == 0) {
+                    loadService.showCallback(AttentionNeedLoginCallback.class);
+                } else {
                     getHotCardBag();
                 }
                 isFirst = false;
@@ -161,7 +165,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @Override
     public void onRefresh() {
         page = 0;
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         getHotCardBag();
     }
 
@@ -208,10 +211,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
             mCardAdapter.setEnableLoadMore(false);
             mCardAdapter.setEnableLoadMore(true);
         }
-        if (mCardAdapter.getData().size() == 0){
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
-            mCardAdapter.setEmptyView(view);
-        }
     }
 
     @Override
@@ -231,7 +230,13 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         if (mSrlAttentionCard.isRefreshing()) {
             mSrlAttentionCard.setRefreshing(false);
         }
-        super.startLogin();
+
+        ZhiZheUtils.logout();
+        toastShow(R.string.login_timeout);
+        startActivity(new Intent(mActivity, LoginActivity.class));
+        if (loadService != null){
+            loadService.showCallback(AttentionNeedLoginCallback.class);
+        }
     }
 
     private void initView() {
@@ -243,15 +248,8 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-                if (mUserId == 0){
-                    toastShow(getString(R.string.need_login));
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }else {
-                    Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
+                startActivity(intent);
             }
         });
 
