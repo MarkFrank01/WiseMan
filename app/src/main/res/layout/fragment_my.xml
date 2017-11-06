@@ -105,7 +105,7 @@
         <ImageView
             android:src="@drawable/tv_my_collect"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="22.5dp"
+            android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -149,7 +149,7 @@
         <ImageView
             android:src="@drawable/tv_my_common_setting"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="22.5dp"
+            android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -188,7 +188,7 @@
         <ImageView
             android:src="@drawable/tv_my_feedback"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="22.5dp"
+            android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -227,7 +227,7 @@
         <ImageView
             android:src="@drawable/tv_my_about_us"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="22.5dp"
+            android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

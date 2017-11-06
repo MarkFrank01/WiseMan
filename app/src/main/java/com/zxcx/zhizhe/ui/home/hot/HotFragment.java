@@ -18,7 +18,7 @@ import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.GotoClassifyEvent;
-import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
+import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
@@ -121,7 +121,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(HomeClickRefreshEvent event) {
+    public void onMessageEvent(HomeTopClickRefreshEvent event) {
         mRvHotCard.scrollToPosition(0);
         mSrlHotCard.setRefreshing(true);
         onRefresh();

@@ -99,6 +99,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
+            android:theme="@style/AppTheme.FullScreen"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.search.search.SearchActivity"

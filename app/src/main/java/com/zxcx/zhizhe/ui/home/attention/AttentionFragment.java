@@ -16,7 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
+import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
@@ -140,7 +140,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(HomeClickRefreshEvent event) {
+    public void onMessageEvent(HomeTopClickRefreshEvent event) {
         mRvAttentionCard.scrollToPosition(0);
         mSrlAttentionCard.setRefreshing(true);
         onRefresh();

@@ -36,7 +36,7 @@
         
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_user_info_head"
-            tools:src="@drawable/iv_my_head_placeholder"
+            tools:src="@drawable/default_header"
             android:scaleType="centerCrop"
             android:layout_marginRight="15dp"
             android:layout_centerVertical="true"

@@ -61,7 +61,7 @@ public class AboutUSActivity extends BaseActivity {
         bundle.putString("title", getString(R.string.app_name));
         bundle.putString("text", "只看实用知识");
         bundle.putString("url", "https://www.pgyer.com/bm8b");
-        bundle.putString("imageUrl","http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon-512.png");
+        bundle.putString("imageUrl","http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon_1024.png");
         shareCardDialog.setArguments(bundle);
         shareCardDialog.show(getFragmentManager(), "");
     }

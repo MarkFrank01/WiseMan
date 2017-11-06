@@ -69,6 +69,11 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     }
 
     @Override
+    public void initStatusBar() {
+        //覆盖父类修改状态栏方法
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
     }

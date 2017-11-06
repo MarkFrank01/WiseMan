@@ -180,6 +180,6 @@ public class MyFragment extends BaseFragment {
         mTvMyInfo.setVisibility(View.VISIBLE);
         mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName,""));
         String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
-        ImageLoader.load(mActivity,headImg,R.drawable.iv_my_head_placeholder,mIvMyHead);
+        ImageLoader.load(mActivity,headImg,R.drawable.default_header,mIvMyHead);
     }
 }

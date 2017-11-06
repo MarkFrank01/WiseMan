@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 public class CollectFolderItemDecoration extends RecyclerView.ItemDecoration {
 
     private int defultSpace = ScreenUtils.dip2px(12f);
-    private int bottomSpace = ScreenUtils.dip2px(15f);
     int space = (int) (ScreenUtils.dip2px(15f)/2);
 
     public CollectFolderItemDecoration() {
@@ -33,16 +32,6 @@ public class CollectFolderItemDecoration extends RecyclerView.ItemDecoration {
 
         if (parent.getChildLayoutPosition(view) < 2){
             outRect.top = ScreenUtils.dip2px(18f);
-        }
-
-        if (parent.getAdapter().getItemCount() %2 == 1) {
-            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-3)){
-                outRect.bottom = bottomSpace;
-            }
-        } else {
-            if (parent.getChildAdapterPosition(view) < (parent.getAdapter().getItemCount()-2)){
-                outRect.bottom = bottomSpace;
-            }
         }
 
     }

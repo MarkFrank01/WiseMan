@@ -63,7 +63,7 @@
         <View
             android:layout_below="@+id/et_login_phone"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@drawable/bottom_dialog_add_collecr_folder"/>
 
     </RelativeLayout>
@@ -217,7 +217,7 @@
             android:background="@color/line"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"/>
+            android:layout_height="0.5dp"/>
 
         <TextView
             android:id="@+id/tv_login_sdk_login"
@@ -233,6 +233,6 @@
             android:background="@color/line"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="1dp"/>
+            android:layout_height="0.5dp"/>
     </LinearLayout>
 </RelativeLayout>

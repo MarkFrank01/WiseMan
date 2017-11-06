@@ -64,6 +64,8 @@ public class CardBagAllCardActivity extends BaseActivity implements BaseQuickAda
         mAdapter.setOnItemClickListener(this);
         mRvAllCard.setLayoutManager(layoutManager);
         mRvAllCard.setAdapter(mAdapter);
+        int position = mList.indexOf(new CardBagCardDetailsBean(currentCardId));
+        mRvAllCard.scrollToPosition(position);
     }
 
     private void initData() {

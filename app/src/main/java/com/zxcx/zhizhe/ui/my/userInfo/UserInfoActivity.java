@@ -84,7 +84,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     private void initData() {
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
         mHeadImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
-        ImageLoader.load(mActivity,mHeadImg,R.drawable.iv_my_head_placeholder,mIvUserInfoHead);
+        ImageLoader.load(mActivity,mHeadImg,R.drawable.default_header,mIvUserInfoHead);
         mNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
         mTvUserInfoNickName.setText(mNickName);
         mSex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
@@ -285,7 +285,7 @@ public class UserInfoActivity extends MvpActivity<UserInfoPresenter> implements 
     public void uploadSuccess(String url) {
         SharedPreferencesUtil.saveData(SVTSConstants.imgUrl,url);
         mPresenter.changeImageUrl(url);
-        ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.iv_my_head_icon,mIvUserInfoHead);
+        ImageLoader.loadWithClear(mActivity,imageFile, R.drawable.default_header,mIvUserInfoHead);
     }
 
     @Override

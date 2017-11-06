@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/bg_post_loading"
     android:gravity="center"
+    android:padding="25dp"
     android:layout_width="80dp"
     android:layout_height="80dp">
 

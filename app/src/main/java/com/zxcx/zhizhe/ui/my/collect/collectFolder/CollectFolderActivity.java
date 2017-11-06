@@ -18,9 +18,9 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.collect.AddCollectFolderActivity;
-import com.zxcx.zhizhe.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardActivity;
 import com.zxcx.zhizhe.ui.my.collect.collectFolder.adapter.CollectFolderAdapter;
+import com.zxcx.zhizhe.ui.my.collect.collectFolder.itemDecoration.CollectFolderItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 import com.zxcx.zhizhe.widget.DeleteConfirmDialog;
@@ -259,7 +259,7 @@ public class CollectFolderActivity extends MvpActivity<CollectFolderPresenter> i
         mAdapter.setOnItemClickListener(this);
         mRvCollectFolder.setLayoutManager(new GridLayoutManager(this,2));
         mRvCollectFolder.setAdapter(mAdapter);
-        mRvCollectFolder.addItemDecoration(new CardBagCardItemDecoration());
+        mRvCollectFolder.addItemDecoration(new CollectFolderItemDecoration());
         mAdapter.notifyDataSetChanged();
     }
 

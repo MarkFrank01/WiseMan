@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.Utils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -80,7 +82,13 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
     }
 
     @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+    }
+
+    @Override
     public void onDestroyView() {
+        Utils.closeInputMethod(mEtDialogChangeNickName);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -119,16 +127,6 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
     @Override
     public void postFail(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
     }
 
     @Override

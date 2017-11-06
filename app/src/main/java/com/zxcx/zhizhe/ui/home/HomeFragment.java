@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
+import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment;
 import com.zxcx.zhizhe.ui.home.hot.HotFragment;
@@ -22,6 +23,8 @@ import com.zxcx.zhizhe.ui.search.search.SearchActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +53,7 @@ public class HomeFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -98,7 +102,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                EventBus.getDefault().post(new HomeClickRefreshEvent());
+                EventBus.getDefault().post(new HomeTopClickRefreshEvent());
             }
         });
 
@@ -106,6 +110,12 @@ public class HomeFragment extends BaseFragment {
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.width = screenWidth * 2/3;
         mTlHome.setLayoutParams(para);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(HomeClickRefreshEvent event) {
+        mVpHome.setCurrentItem(0);
+        EventBus.getDefault().post(new HomeTopClickRefreshEvent());
     }
 
     @Override
@@ -116,6 +126,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
     }

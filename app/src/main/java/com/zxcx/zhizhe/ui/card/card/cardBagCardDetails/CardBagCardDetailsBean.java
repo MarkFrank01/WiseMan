@@ -36,6 +36,21 @@ public class CardBagCardDetailsBean extends RetrofitBaen implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CardBagCardDetailsBean that = (CardBagCardDetailsBean) o;
+
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
@@ -47,6 +62,10 @@ public class CardBagCardDetailsBean extends RetrofitBaen implements Parcelable {
     }
 
     public CardBagCardDetailsBean() {
+    }
+
+    public CardBagCardDetailsBean(int id) {
+        this.id = id;
     }
 
     protected CardBagCardDetailsBean(Parcel in) {

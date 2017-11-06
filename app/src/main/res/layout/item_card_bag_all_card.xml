@@ -17,8 +17,7 @@
 
     <TextView
         android:id="@+id/tv_card_bag_all_card_name"
-        android:layout_toRightOf="@id/tv_card_bag_all_card_num"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="50dp"
         android:layout_centerVertical="true"
         tools:text="联想垃圾"
         android:textSize="16sp"
