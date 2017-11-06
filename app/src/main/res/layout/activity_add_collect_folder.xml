@@ -23,6 +23,7 @@
 
         <EditText
             android:id="@+id/et_add_collect_folder"
+            android:singleLine="true"
             android:maxLines="1"
             android:hint=" 收藏夹名称"
             android:textSize="18sp"
