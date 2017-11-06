@@ -164,6 +164,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void onRefresh() {
+        isRefresh = true;
         page = 0;
         getHotCardBag();
     }
@@ -189,6 +190,9 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
         }else {
             mCardAdapter.setHeaderAndEmpty(true);
             getHotCard();
+        }
+        if (isRefresh){
+            toastShow("当前内容已是最新");
         }
     }
 

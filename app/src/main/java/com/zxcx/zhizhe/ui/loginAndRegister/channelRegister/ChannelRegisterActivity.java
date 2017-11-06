@@ -60,7 +60,7 @@ public class ChannelRegisterActivity extends MvpActivity<ChannelRegisterPresente
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
+    String passwordRules = "^.{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
     private int channelType; // 1-QQ 2-WeChat 3-Weibo

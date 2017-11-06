@@ -48,7 +48,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
+    String passwordRules = "^.{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
 
@@ -103,7 +103,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             String password = MD5Utils.md5(mEtForgetPasswordPassword.getText().toString());
             String code = mEtForgetPasswordVerificationCode.getText().toString();
             int appType = Constants.APP_TYPE;
-            mPresenter.forgetPassword(phone, code, password, appType);
+            mPresenter.forgetPassword(phone,code,password,appType);
         }
     }
 

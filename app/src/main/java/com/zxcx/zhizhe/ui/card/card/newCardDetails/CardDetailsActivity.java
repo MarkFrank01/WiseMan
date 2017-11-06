@@ -134,7 +134,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         imageUrl = bean.getImageUrl();
         name = bean.getName();
         cardBagName = bean.getCardBagName();
-        mTvCardDetailsTitle.setText(name);
+        mTvCardDetailsTitle.setText(cardBagName);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());

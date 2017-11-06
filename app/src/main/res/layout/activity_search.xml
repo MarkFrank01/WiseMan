@@ -24,7 +24,7 @@
         <EditText
             android:id="@+id/et_search"
             android:focusable="true"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:hint="@string/search_hint"
             android:textColorHint="@color/line"
             android:textColor="@color/text_color_66"

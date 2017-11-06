@@ -31,6 +31,7 @@ public class BaseFragment extends Fragment implements BaseView{
     private LoadingDialog mLoadingDialog;
     public Activity mActivity;
     public LoadService loadService;
+    public boolean isRefresh = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

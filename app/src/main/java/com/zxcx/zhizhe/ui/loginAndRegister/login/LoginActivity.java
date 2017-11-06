@@ -57,7 +57,7 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     ImageView mIvLoginPhoneClear;
 
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
+    String passwordRules = "^.{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
 
@@ -186,7 +186,8 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
 
     @OnClick(R.id.iv_login_close)
     public void onViewClicked() {
-        finish();
+        Utils.closeInputMethod(mActivity);
+        onBackPressed();
     }
 
     private void login() {

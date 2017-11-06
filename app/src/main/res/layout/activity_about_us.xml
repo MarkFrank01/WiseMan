@@ -108,6 +108,7 @@
 
     <LinearLayout
         android:id="@+id/ll_about_us_visit"
+        android:visibility="gone"
         android:background="@color/white"
         android:paddingLeft="15dp"
         android:paddingRight="12dp"
@@ -131,6 +132,7 @@
     </LinearLayout>
 
     <View
+        android:visibility="gone"
         android:background="@color/line"
         android:layout_marginLeft="15dp"
         android:layout_width="match_parent"

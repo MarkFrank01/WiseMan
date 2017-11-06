@@ -72,7 +72,8 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
             @Override
             public void onReload(View v) {
                 loadService.showCallback(HomeLoadingCallback.class);
-                onRefresh();
+                getHotCard();
+                getHotCardBag();
             }
         });
         return loadService.getLoadLayout();
@@ -130,6 +131,7 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     @Override
     public void onRefresh() {
         page = 0;
+        isRefresh = true;
         getHotCard();
         getHotCardBag();
     }
@@ -147,6 +149,9 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         loadService.showSuccess();
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
+        }
+        if (isRefresh){
+            toastShow("当前内容已是最新");
         }
     }
 

@@ -117,6 +117,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
 
     @Override
     public void onRefresh() {
+        isRefresh = true;
         mClassifyAdapter.getData().clear();
         getClassify();
     }
@@ -134,6 +135,9 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         }
         if (mClassifyAdapter.getData().size() == 0){
             //占空图
+        }
+        if (isRefresh){
+            toastShow("当前内容已是最新");
         }
     }
 

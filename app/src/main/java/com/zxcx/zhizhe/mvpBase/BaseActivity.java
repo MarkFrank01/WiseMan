@@ -36,6 +36,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     public Activity mActivity;
     private LoadingDialog mLoadingDialog;
     public boolean isFirst = true;
+    public boolean isRefresh = true;
     public LoadService loadService;
 
     @Override

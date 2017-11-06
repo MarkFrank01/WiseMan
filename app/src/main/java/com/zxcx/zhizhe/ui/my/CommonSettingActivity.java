@@ -94,7 +94,6 @@ public class CommonSettingActivity extends BaseActivity {
     public void onMLlCommonSettingCleanCacheClicked() {
         DataCleanManager.cleanApplicationData(this);
         updateCacheSize();
-        toastShow("清理成功");
     }
 
     private void updateCacheSize() {
