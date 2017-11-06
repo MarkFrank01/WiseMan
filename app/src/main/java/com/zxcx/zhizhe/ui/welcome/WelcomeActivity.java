@@ -92,6 +92,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
             intent.putExtra("url", adUrl);
             startActivity(intent);
             mHandler.removeCallbacks(mRunnable);
+            mWsvWelcomeSkip.stop();
             finish();
         }
     }
@@ -100,6 +101,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     public void onMTvWelcomeSkipClicked() {
         //提前结束动画
         mWsvWelcomeSkip.stop();
+        gotoMainActivity();
     }
 
     private void gotoMainActivity() {

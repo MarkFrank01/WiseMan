@@ -67,10 +67,7 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (mListener != null) {
-                    mListener.onFinish();
-                    mListener = null;
-                }
+                mListener.onFinish();
             }
         });
     }
@@ -84,10 +81,12 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        animator.removeAllListeners();
         animator.cancel();
     }
 
     public void stop() {
+        animator.removeAllListeners();
         animator.cancel();
     }
 
