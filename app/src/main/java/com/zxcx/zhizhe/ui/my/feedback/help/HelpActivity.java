@@ -39,7 +39,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp1Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_1));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help1.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_1_url));
         startActivity(intent);
     }
 
@@ -47,7 +47,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp2Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_2));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help2.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_2_url));
         startActivity(intent);
     }
 
@@ -55,7 +55,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp3Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_3));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help3.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_3_url));
         startActivity(intent);
     }
 
@@ -63,7 +63,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp4Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_4));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help4.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_4_url));
         startActivity(intent);
     }
 
@@ -71,7 +71,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp5Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_5));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help5.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_5_url));
         startActivity(intent);
     }
 
@@ -79,7 +79,7 @@ public class HelpActivity extends BaseActivity {
     public void onMLlHelp6Clicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.help_6));
-        intent.putExtra("url",getString(R.string.base_url)+"/help/help6.html");
+        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.help_6_url));
         startActivity(intent);
     }
 }

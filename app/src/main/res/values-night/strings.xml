@@ -1,0 +1,10 @@
+<resources>
+    <string name="agreement_url">/user-agreement-dark.html</string>
+    <string name="visit_url">/view-zhizhe.html</string>
+    <string name="help_1_url">/help/help1-dark.html</string>
+    <string name="help_2_url">/help/help2-dark.html</string>
+    <string name="help_3_url">/help/help3-dark.html</string>
+    <string name="help_4_url">/help/help4-dark.html</string>
+    <string name="help_5_url">/help/help5-dark.html</string>
+    <string name="help_6_url">/help/help6-dark.html</string>
+</resources>

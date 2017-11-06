@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.utils;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -8,6 +9,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+
+import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.R;
 
 /**
  * Created by anm on 2017/9/12.
@@ -34,6 +38,11 @@ public class WebViewUtils {
             }
         });
         webView.setWebChromeClient(new WebChromeClient());
+
+        boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        if (isNight) {
+            webView.setBackgroundColor(ContextCompat.getColor(App.getContext(), R.color.background));
+        }
 
         return webView;
     }

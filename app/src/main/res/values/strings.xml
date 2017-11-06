@@ -82,4 +82,10 @@
     <string name="visit_url">/view-zhizhe.html</string>
     <string name="tv_welcome_skip">跳过&#160;%1$ds</string>
     <string name="search_hint">&#160;请输入关键词</string>
+    <string name="help_1_url">/help/help1.html</string>
+    <string name="help_2_url">/help/help2.html</string>
+    <string name="help_3_url">/help/help3.html</string>
+    <string name="help_4_url">/help/help4.html</string>
+    <string name="help_5_url">/help/help5.html</string>
+    <string name="help_6_url">/help/help6.html</string>
 </resources>
