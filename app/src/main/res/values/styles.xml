@@ -60,6 +60,7 @@
 
     <style name="tv_card">
         <item name="android:maxLines">2</item>
+        <item name="android:maxLength">20</item>
     </style>
 
     <style name="tv_single">

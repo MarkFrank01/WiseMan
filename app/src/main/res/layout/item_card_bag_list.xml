@@ -24,6 +24,7 @@
         android:layout_toRightOf="@+id/iv_item_card_bag_list_icon"
         android:layout_marginTop="19dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         style="@style/tv_single"
         android:textSize="14sp"
         android:textColor="@color/text_color_40"
