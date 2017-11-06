@@ -5,12 +5,14 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
@@ -18,6 +20,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -37,6 +40,8 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class ShareCardDialog extends BaseDialog {
 
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
     private Unbinder mUnbinder;
     private String url;
     private String title;
@@ -53,6 +58,13 @@ public class ShareCardDialog extends BaseDialog {
         text = getArguments().getString("text");
         imageUrl = getArguments().getString("imageUrl");
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        TextPaint tp = mTvDialogCancel.getPaint();
+        tp.setFakeBoldText(true);
     }
 
     @Override
@@ -101,6 +113,7 @@ public class ShareCardDialog extends BaseDialog {
                 break;
             case R.id.ll_share_copy:
                 copy();
+                this.dismiss();
                 break;
             case R.id.tv_dialog_cancel:
                 this.dismiss();
@@ -110,8 +123,8 @@ public class ShareCardDialog extends BaseDialog {
 
     private void copy() {
         toastShow("复制成功");
-        ClipboardManager clipboardManager = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(title, title+"\n"+url);
+        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(title, title + "\n" + url);
         clipboardManager.setPrimaryClip(clip);
     }
 

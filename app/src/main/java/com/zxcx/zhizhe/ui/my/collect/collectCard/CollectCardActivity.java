@@ -101,6 +101,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     @Override
     public void onBackPressed() {
         if (!"编辑".equals(mTvToolbarRight.getText().toString())) {
+            Utils.closeInputMethod(mEtCollectFolder);
             mTvItemCollectFolderTitle.setVisibility(View.VISIBLE);
             mEtCollectFolder.setVisibility(View.GONE);
             mCheckedList.clear();

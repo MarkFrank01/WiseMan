@@ -1,8 +1,7 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.view.Gravity;
@@ -22,7 +21,6 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.Utils;
 
@@ -65,6 +63,7 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
         tp.setFakeBoldText(true);
         tp = mTvDialogConfirm.getPaint();
         tp.setFakeBoldText(true);
+        setCancelable(false);
     }
 
     @Override
@@ -79,16 +78,24 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
+
+        //延迟弹出软键盘
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utils.showInputMethod(mEtDialogChangeNickName);
+            }
+        },100);
     }
 
     @Override
-    public void onCancel(DialogInterface dialog) {
-        super.onCancel(dialog);
+    public void dismiss() {
+        Utils.closeInputMethod(mEtDialogChangeNickName);
+        super.dismiss();
     }
 
     @Override
     public void onDestroyView() {
-        Utils.closeInputMethod(mEtDialogChangeNickName);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -127,10 +134,5 @@ public class ChangeNickNameDialog extends BaseDialog implements IPostPresenter<U
     @Override
     public void postFail(String msg) {
         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void startLogin() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

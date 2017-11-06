@@ -14,7 +14,7 @@
     <ImageView
         android:id="@+id/iv_item_classify_classify"
         tools:src="@drawable/iv_item_classify_classify_icon_placeholder"
-        android:layout_marginLeft="12dp"
+        android:layout_marginLeft="2.5dp"
         android:layout_marginRight="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

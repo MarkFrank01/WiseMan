@@ -160,7 +160,7 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
             if (mEtCurrentPassword.length() > 0 && mEtNewPassword.length() > 0 && mEtRepetitionPassword.length() > 0) {
                 mBtnChangePasswordComplete.setEnabled(true);
             } else {
-                mBtnChangePasswordComplete.setEnabled(true);
+                mBtnChangePasswordComplete.setEnabled(false);
             }
         }
     }

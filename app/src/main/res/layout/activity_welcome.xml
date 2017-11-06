@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv_welcome_skip"
         android:visibility="gone"
         android:layout_marginRight="20dp"
@@ -28,7 +28,20 @@
         android:gravity="center"
         android:background="@drawable/bg_welcome_skip"
         android:layout_width="75dp"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"/>-->
+
+    <com.zxcx.zhizhe.widget.WelcomeSkipView
+        android:id="@+id/wsv_welcome_skip"
+        android:visibility="gone"
+        android:text="跳过"
+        android:textSize="12sp"
+        android:textColor="@color/text_color_ff"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="35dp"
+        android:layout_height="35dp"/>
 
     <ImageView
         android:id="@+id/iv_welcome_icon"

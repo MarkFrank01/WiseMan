@@ -45,11 +45,6 @@
 
     </LinearLayout>
 
-    <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
-
     <LinearLayout
         android:id="@+id/ll_common_setting_attention"
         android:background="@color/white"

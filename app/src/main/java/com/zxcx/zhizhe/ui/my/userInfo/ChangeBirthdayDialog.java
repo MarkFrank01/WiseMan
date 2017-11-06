@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,21 +81,7 @@ public class ChangeBirthdayDialog extends BaseDialog implements IPostPresenter<U
 
     @Override
     public void postFail(String msg) {
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void startLogin() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        toastShow(msg);
     }
 
 }

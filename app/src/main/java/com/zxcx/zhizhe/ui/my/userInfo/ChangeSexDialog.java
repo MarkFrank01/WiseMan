@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -22,7 +21,6 @@ import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -123,21 +121,6 @@ public class ChangeSexDialog extends BaseDialog implements IPostPresenter<UserIn
 
     @Override
     public void postFail(String msg) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void startLogin() {
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+        toastShow(msg);
     }
 }

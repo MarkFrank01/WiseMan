@@ -123,7 +123,6 @@ public class HomeFragment extends BaseFragment {
         super.onDetach();
     }
 
-
     @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);

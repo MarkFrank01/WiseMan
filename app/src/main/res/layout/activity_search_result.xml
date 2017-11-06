@@ -24,7 +24,7 @@
             android:paddingLeft="8dp"
             android:hint="@string/search_hint"
             android:textColorHint="@color/text_color_top_search"
-            android:cursorVisible="false"
+            android:textCursorDrawable="@drawable/bg_edit_cursor"
             tools:text="笔"
             android:textSize="14sp"
             android:layout_centerInParent="true"

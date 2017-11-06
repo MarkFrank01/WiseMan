@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -32,6 +33,13 @@ public class Utils {
     public static void closeInputMethod(EditText editText) {
         InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+    }
+
+    public static void closeInputMethod(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+        }
     }
 
     // 返回单位是米

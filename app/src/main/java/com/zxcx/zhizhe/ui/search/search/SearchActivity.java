@@ -67,6 +67,20 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            //延迟弹出软键盘
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Utils.showInputMethod(mEtSearch);
+                }
+            },100);
+        }
+    }
+
+    @Override
     protected SearchPresenter createPresenter() {
         return new SearchPresenter(this);
     }

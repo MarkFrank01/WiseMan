@@ -110,7 +110,7 @@
         android:id="@+id/ll_about_us_visit"
         android:background="@color/white"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:paddingRight="12dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="50dp">

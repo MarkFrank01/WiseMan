@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/et_feedback_content"
-            android:hint="@string/et_feedback_content"
+            android:hint=" 请留下你的意见或建议"
             android:gravity="start"
             android:background="@color/white"
             android:layout_marginTop="@dimen/fragment_interval"
@@ -32,7 +32,7 @@
 
         <EditText
             android:id="@+id/et_feedback_phone"
-            android:hint="@string/et_feedback_phone"
+            android:hint=" 请留下您的手机号码或邮箱地址（选填）"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:singleLine="true"
