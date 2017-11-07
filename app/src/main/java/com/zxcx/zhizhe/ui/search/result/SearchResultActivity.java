@@ -109,6 +109,7 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
     public void getDataSuccess(List<SearchCardBean> list) {
         if (mSrlSearchResult.isRefreshing()) {
             mSrlSearchResult.setRefreshing(false);
+            toastShow("当前内容已是最新");
         }
         if (page == 0){
             mCardAdapter.setNewData(new ArrayList<SearchCardBean>());

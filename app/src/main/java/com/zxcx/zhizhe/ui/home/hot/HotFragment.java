@@ -131,7 +131,6 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
     @Override
     public void onRefresh() {
         page = 0;
-        isRefresh = true;
         getHotCard();
         getHotCardBag();
     }
@@ -150,15 +149,13 @@ public class HotFragment extends MvpFragment<HotPresenter> implements HotContrac
         if (mCardBagAdapter.getData().size() == 0){
             //占空图
         }
-        if (isRefresh){
-            toastShow("当前内容已是最新");
-        }
     }
 
     @Override
     public void getDataSuccess(List<HotCardBean> list) {
         if (mSrlHotCard.isRefreshing()) {
             mSrlHotCard.setRefreshing(false);
+            toastShow("当前内容已是最新");
         }
         if (page == 0){
             mCardAdapter.setNewData(list);

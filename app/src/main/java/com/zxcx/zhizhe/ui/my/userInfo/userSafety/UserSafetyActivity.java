@@ -27,6 +27,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.utils.WechatClientNotExistException;
 
 
 public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> implements UserSafetyContract.View {
@@ -169,12 +170,16 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
         }
 
         @Override
-        public void onError(Platform platform, int i, Throwable throwable) {
+        public void onError(Platform platform, int i, final Throwable throwable) {
             throwable.printStackTrace();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    toastShow("授权失败");
+                    if (throwable instanceof WechatClientNotExistException){
+                        toastShow("请先安装微信客户端");
+                    }else {
+                        toastShow("授权失败");
+                    }
                 }
             });
         }

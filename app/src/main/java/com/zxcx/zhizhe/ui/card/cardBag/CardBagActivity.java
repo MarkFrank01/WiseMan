@@ -98,9 +98,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     @Override
     public void onRefresh() {
-        isRefresh = true;
         page = 0;
-        mList.clear();
         getCardBagCardList();
     }
 
@@ -115,6 +113,8 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     public void getDataSuccess(List<CardBagBean> list) {
         if (mSrlCardBag.isRefreshing()) {
             mSrlCardBag.setRefreshing(false);
+            mList.clear();
+            toastShow("当前内容已是最新");
         }
         if (page == 0){
             mCardBagCardAdapter.notifyDataSetChanged();
@@ -145,9 +145,6 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             //占空图
             View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
             mCardBagListAdapter.setEmptyView(view);
-        }
-        if (isRefresh){
-            toastShow("当前内容已是最新");
         }
     }
 
