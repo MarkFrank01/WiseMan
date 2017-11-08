@@ -64,46 +64,72 @@
 
     </FrameLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_card_details"
+    <LinearLayout
         android:background="@color/background"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
-        <CheckBox
-            android:id="@+id/cb_card_details_collect"
+        <LinearLayout
+            android:id="@+id/ll_card_details_collect"
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/selector_cb_card_details_collect"
-            android:layout_marginLeft="21dp"
-            android:layout_centerVertical="true"
-            tools:text="200"
-            android:textSize="12sp"
-            android:textColor="@color/text_color_99"
-            android:paddingLeft="7.5dp"/>
+            android:layout_height="match_parent">
+            <CheckBox
+                android:id="@+id/cb_card_details_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_cb_card_details_collect"
+                tools:text="200"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_99"
+                android:paddingLeft="7.5dp"/>
+        </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cb_card_details_like"
+        <LinearLayout
+            android:id="@+id/ll_card_details_like"
+            android:layout_weight="1"
+            android:gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/selector_cb_card_details_like"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/cb_card_details_collect"
-            android:layout_marginLeft="28dp"
-            tools:text="200"
-            android:textSize="12sp"
-            android:textColor="@color/text_color_99"
-            android:paddingLeft="7.5dp"/>
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/cb_card_details_like"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_cb_card_details_like"
+                tools:text="200"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_99"
+                android:paddingLeft="7.5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_card_details_un_like"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <CheckBox
+                android:id="@+id/cb_card_details_un_like"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:button="@drawable/selector_cb_card_details_un_like"
+                tools:text="200"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_99"
+                android:paddingLeft="7.5dp"/>
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/tv_card_details_share"
+            android:id="@+id/iv_card_details_share"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_height="match_parent"
+            android:scaleType="center"
             android:src="@drawable/selector_tv_card_details_share"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

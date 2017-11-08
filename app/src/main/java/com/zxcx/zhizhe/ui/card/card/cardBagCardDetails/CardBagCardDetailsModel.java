@@ -46,12 +46,25 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
 
     public void likeCard(int cardId){
         mDisposable = AppClient.getAPIService().likeCard(cardId)
-                .compose(BaseRxJava.<BaseBean>io_main())
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .subscribeWith(new NullPostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.likeSuccess();
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    public void removeLikeCard(int cardId){
+        mDisposable = AppClient.getAPIService().removeLikeCard(cardId)
+                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .subscribeWith(new NullPostSubscriber<CardDetailsBean>(mPresenter) {
+                    @Override
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -59,12 +72,25 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
 
     public void unLikeCard(int cardId){
         mDisposable = AppClient.getAPIService().unLikeCard(cardId)
-                .compose(BaseRxJava.<BaseBean>io_main())
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .subscribeWith(new NullPostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.unLikeSuccess();
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    public void removeUnLikeCard(int cardId){
+        mDisposable = AppClient.getAPIService().removeUnLikeCard(cardId)
+                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .subscribeWith(new NullPostSubscriber<CardDetailsBean>(mPresenter) {
+                    @Override
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);

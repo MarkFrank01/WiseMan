@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,7 +24,7 @@ public class SearchResultCardBagAdapter extends BaseQuickAdapter<SearchCardBagBe
     private String mKeyword;
 
     public SearchResultCardBagAdapter(@Nullable List<SearchCardBagBean> data, String keyword) {
-        super(R.layout.item_attention_card_bag, data);
+        super(R.layout.item_hot_card_bag, data);
         mKeyword = keyword;
     }
 
@@ -36,7 +37,9 @@ public class SearchResultCardBagAdapter extends BaseQuickAdapter<SearchCardBagBe
         TextView title = helper.getView(R.id.tv_item_home_card_bag_title);
         TextViewUtils.setTextViewColorAndBold(title,mKeyword,item.getName());
         RoundedImageView imageView = helper.getView(R.id.iv_item_home_card_bag_icon);
+        ImageView ivClassifyIcon = helper.getView(R.id.iv_item_home_card_bag_classify);
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
-        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
+        ImageLoader.load(mContext,imageUrl,R.drawable.default_hot_card_bag,imageView);
+        ImageLoader.load(mContext,item.getClassifyIcon(),R.drawable.default_hot_card_bag,ivClassifyIcon);
     }
 }

@@ -20,25 +20,26 @@
     <LinearLayout
         android:background="@drawable/bg_opacity_45_radius_6"
         android:orientation="vertical"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/iv_item_home_card_bag_classify"
-            android:layout_width="24dp"
-            android:layout_height="24dp"/>
 
         <TextView
             android:id="@+id/tv_item_home_card_bag_title"
             tools:text="生活常识"
             style="@style/tv_card"
+            android:layout_marginTop="34dp"
             android:gravity="center"
             android:textColor="@color/text_item_card_bag"
             android:textSize="14sp"
-            android:layout_marginTop="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_item_home_card_bag_classify"
+            android:layout_marginTop="4dp"
+            android:layout_width="24dp"
+            android:layout_height="10dp"/>
     </LinearLayout>
 
 </RelativeLayout>

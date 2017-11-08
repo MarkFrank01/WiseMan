@@ -28,8 +28,16 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
         mModel.likeCard(cardId);
     }
 
+    public void removeLikeCard(int cardId){
+        mModel.removeLikeCard(cardId);
+    }
+
     public void unLikeCard(int cardId){
         mModel.unLikeCard(cardId);
+    }
+
+    public void removeUnLikeCard(int cardId){
+        mModel.removeUnLikeCard(cardId);
     }
 
     public void removeCollectCard(int cardId){
@@ -79,16 +87,6 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
     @Override
     public void postFail(String msg) {
         mView.postFail(msg);
-    }
-
-    @Override
-    public void likeSuccess() {
-        mView.likeSuccess();
-    }
-
-    @Override
-    public void unLikeSuccess() {
-        mView.unLikeSuccess();
     }
 
     @Override

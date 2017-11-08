@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
@@ -32,7 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPresenter> implements CardBagCardDetailsContract.View,
-         ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener {
 
     @BindView(R.id.vp_card_bag_card_details)
     ViewPager mVpCardBagCardDetails;
@@ -44,12 +43,12 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     CheckBox mCbCardDetailsCollect;
     @BindView(R.id.cb_card_details_like)
     CheckBox mCbCardDetailsLike;
-    @BindView(R.id.tv_card_details_share)
+    @BindView(R.id.iv_card_details_share)
     ImageView mTvCardDetailsShare;
-    @BindView(R.id.rl_card_details)
-    RelativeLayout mRlCardDetails;
     @BindView(R.id.tv_card_details_num)
     TextView mTvCardDetailsNum;
+    @BindView(R.id.cb_card_details_un_like)
+    CheckBox mCbCardDetailsUnLike;
 
     private CardBagCardDetailsAdapter mAdapter;
     private List<Integer> mIdList = new ArrayList<>();
@@ -58,7 +57,6 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     private String imageUrl;
     private int id;
     private int cardId;
-    private int likeNum;
     private int collectNum;
     private String cardName;
 
@@ -117,32 +115,21 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
         collectNum = bean.getCollectNum();
-        likeNum = bean.getLikeNum();
+        int likeNum = bean.getLikeNum();
+        int unLikeNum = bean.getUnLikeNum();
         imageUrl = bean.getImageUrl();
         cardName = bean.getName();
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
+        mCbCardDetailsUnLike.setText(unLikeNum + "");
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
+        mCbCardDetailsUnLike.setChecked(bean.isUnLike());
     }
 
     @Override
     public void postSuccess() {
 
-    }
-
-    @Override
-    public void likeSuccess() {
-        mCbCardDetailsLike.setChecked(true);
-        likeNum++;
-        mCbCardDetailsLike.setText(likeNum + "");
-    }
-
-    @Override
-    public void unLikeSuccess() {
-        mCbCardDetailsLike.setChecked(false);
-        likeNum--;
-        mCbCardDetailsLike.setText(likeNum + "");
     }
 
     @Override
@@ -165,22 +152,20 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         mCbCardDetailsCollect.setText(collectNum + "");
     }
 
-    @OnClick(R.id.tv_card_details_share)
+    @OnClick(R.id.iv_card_details_share)
     public void onShareClicked() {
         ShareCardDialog shareCardDialog = new ShareCardDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("title",cardName);
-        bundle.putString("text",name);
+        bundle.putString("title", cardName);
+        bundle.putString("text", name);
         bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
-        bundle.putString("imageUrl",imageUrl);
+        bundle.putString("imageUrl", imageUrl);
         shareCardDialog.setArguments(bundle);
         shareCardDialog.show(getFragmentManager(), "");
     }
 
-    @OnClick(R.id.cb_card_details_collect)
+    @OnClick(R.id.ll_card_details_collect)
     public void onCollectClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
         if (!mCbCardDetailsCollect.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
@@ -195,10 +180,8 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         }
     }
 
-    @OnClick(R.id.cb_card_details_like)
-    public void onMCbCardDetailsLikeClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
+    @OnClick(R.id.ll_card_details_like)
+    public void onLikeClicked() {
         if (!mCbCardDetailsLike.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 mPresenter.likeCard(cardId);
@@ -207,19 +190,54 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
-            mPresenter.unLikeCard(cardId);
+            mPresenter.removeLikeCard(cardId);
         }
+    }
+
+    @OnClick(R.id.ll_card_details_un_like)
+    public void onUnLikeClicked() {
+        if (!mCbCardDetailsUnLike.isChecked()) {
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                mPresenter.unLikeCard(cardId);
+            } else {
+                toastShow("请先登录");
+                startActivity(new Intent(mActivity, LoginActivity.class));
+            }
+        } else {
+            mPresenter.removeUnLikeCard(cardId);
+        }
+    }
+
+    @OnClick(R.id.cb_card_details_collect)
+    public void onCbCollectClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
+        onCollectClicked();
+    }
+
+    @OnClick(R.id.cb_card_details_like)
+    public void onCbLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
+        onLikeClicked();
+    }
+
+    @OnClick(R.id.cb_card_details_un_like)
+    public void onCbUnLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsUnLike.setChecked(!mCbCardDetailsUnLike.isChecked());
+        onUnLikeClicked();
     }
 
     @OnClick(R.id.tv_card_details_num)
     public void onMTvCardDetailsNumClicked() {
         Intent intent = new Intent(this, CardBagAllCardActivity.class);
-        intent.putExtra("name",name);
-        intent.putExtra("id",id);
-        intent.putExtra("cardId",cardId);
+        intent.putExtra("name", name);
+        intent.putExtra("id", id);
+        intent.putExtra("cardId", cardId);
         intent.putParcelableArrayListExtra("allCard", mAllCardList);
         startActivity(intent);
-        overridePendingTransition(R.anim.anim_right_in,R.anim.anim_left_out);
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
 
     @OnClick(R.id.iv_card_details_back)

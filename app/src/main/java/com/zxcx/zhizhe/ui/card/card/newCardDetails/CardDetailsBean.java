@@ -7,10 +7,14 @@ public class CardDetailsBean extends RetrofitBaen {
 
     @JSONField(name = "like")
     private boolean isLike;
+    @JSONField(name = "disagree")
+    private boolean isUnLike;
     @JSONField(name = "collect")
     private boolean isCollect;
     @JSONField(name = "likedUsersCount")
     private int likeNum;
+    @JSONField(name = "disagreeUsersCount")
+    private int unLikeNum;
     @JSONField(name = "collectingCount")
     private int collectNum;
     @JSONField(name = "collectionId")
@@ -82,6 +86,22 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isUnLike() {
+        return isUnLike;
+    }
+
+    public void setUnLike(boolean unLike) {
+        isUnLike = unLike;
+    }
+
+    public int getUnLikeNum() {
+        return unLikeNum;
+    }
+
+    public void setUnLikeNum(int unLikeNum) {
+        this.unLikeNum = unLikeNum;
     }
 
     public void setName(String name) {

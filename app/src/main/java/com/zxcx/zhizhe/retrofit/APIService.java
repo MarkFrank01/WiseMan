@@ -242,13 +242,25 @@ public interface APIService {
      *点赞卡片
      */
     @POST("/article/setLikeForArticle")
-    Flowable<BaseBean> likeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<CardDetailsBean>> likeCard(@Query("articleId") int cardId);
 
     /**
      *取消点赞卡片
      */
     @POST("/article/unLikeForArticle")
-    Flowable<BaseBean> unLikeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<CardDetailsBean>> removeLikeCard(@Query("articleId") int cardId);
+
+    /**
+     *不赞同卡片
+     */
+    @POST("/article/setDisagreeForArticle")
+    Flowable<BaseBean<CardDetailsBean>> unLikeCard(@Query("articleId") int cardId);
+
+    /**
+     *取消不赞同卡片
+     */
+    @POST("/article/unDisagreeForArticle")
+    Flowable<BaseBean<CardDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
 
     /**
      *取消收藏卡片

@@ -10,15 +10,11 @@ public interface CardBagCardDetailsContract {
 
     interface View extends NullGetPostView<CardDetailsBean> {
         void getAllCardIdSuccess(List<CardBagCardDetailsBean> list);
-        void likeSuccess();
-        void unLikeSuccess();
         void UnCollectSuccess();
     }
 
     interface Presenter extends INullGetPostPresenter<CardDetailsBean> {
         void getAllCardIdSuccess(List<CardBagCardDetailsBean> list);
-        void likeSuccess();
-        void unLikeSuccess();
         void UnCollectSuccess();
     }
 }
