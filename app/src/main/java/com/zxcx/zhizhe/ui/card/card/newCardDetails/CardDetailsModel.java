@@ -34,7 +34,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
+                        mPresenter.postSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -47,7 +47,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
+                        mPresenter.postSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -60,7 +60,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
+                        mPresenter.postSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -73,7 +73,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
+                        mPresenter.postSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
