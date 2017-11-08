@@ -121,19 +121,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
         loadService.showSuccess();
-        collectNum = bean.getCollectNum();
-        int likeNum = bean.getLikeNum();
-        int unLikeNum = bean.getUnLikeNum();
-        imageUrl = bean.getImageUrl();
-        name = bean.getName();
-        cardBagName = bean.getCardBagName();
-        mTvCardDetailsTitle.setText(cardBagName);
-        mCbCardDetailsCollect.setText(collectNum + "");
-        mCbCardDetailsLike.setText(likeNum + "");
-        mCbCardDetailsUnLike.setText(unLikeNum + "");
-        mCbCardDetailsCollect.setChecked(bean.getIsCollect());
-        mCbCardDetailsLike.setChecked(bean.getIsLike());
-        mCbCardDetailsUnLike.setChecked(bean.isUnLike());
+        postSuccess(bean);
     }
 
     @Override
@@ -151,8 +139,20 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
-    public void postSuccess() {
-
+    public void postSuccess(CardDetailsBean bean) {
+        collectNum = bean.getCollectNum();
+        int likeNum = bean.getLikeNum();
+        int unLikeNum = bean.getUnLikeNum();
+        imageUrl = bean.getImageUrl();
+        name = bean.getName();
+        cardBagName = bean.getCardBagName();
+        mTvCardDetailsTitle.setText(cardBagName);
+        mCbCardDetailsCollect.setText(collectNum + "");
+        mCbCardDetailsLike.setText(likeNum + "");
+        mCbCardDetailsUnLike.setText(unLikeNum + "");
+        mCbCardDetailsCollect.setChecked(bean.getIsCollect());
+        mCbCardDetailsLike.setChecked(bean.getIsLike());
+        mCbCardDetailsUnLike.setChecked(bean.isUnLike());
     }
 
     @Override

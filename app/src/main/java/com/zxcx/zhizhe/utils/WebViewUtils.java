@@ -31,6 +31,8 @@ public class WebViewUtils {
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);//支持内容重新布局
         webSettings.setSupportMultipleWindows(false); //多窗口
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
+        webView.setHorizontalScrollBarEnabled(false);//水平不显示滚动条
+        webView.setVerticalScrollBarEnabled(false); //垂直不显示滚动条
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

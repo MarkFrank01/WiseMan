@@ -80,8 +80,8 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
     }
 
     @Override
-    public void postSuccess() {
-        mView.postSuccess();
+    public void postSuccess(CardDetailsBean bean) {
+        mView.postSuccess(bean);
     }
 
     @Override

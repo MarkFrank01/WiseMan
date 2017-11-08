@@ -128,8 +128,8 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     }
 
     @Override
-    public void postSuccess() {
-
+    public void postSuccess(CardDetailsBean bean) {
+        getDataSuccess(bean);
     }
 
     @Override
