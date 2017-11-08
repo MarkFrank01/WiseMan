@@ -164,8 +164,10 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         shareCardDialog.show(getFragmentManager(), "");
     }
 
-    @OnClick(R.id.ll_card_details_collect)
-    public void onCollectClicked() {
+    @OnClick(R.id.cb_card_details_collect)
+    public void onCbCollectClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
         if (!mCbCardDetailsCollect.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
@@ -180,8 +182,10 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         }
     }
 
-    @OnClick(R.id.ll_card_details_like)
-    public void onLikeClicked() {
+    @OnClick(R.id.cb_card_details_like)
+    public void onCbLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
         if (!mCbCardDetailsLike.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 mPresenter.likeCard(cardId);
@@ -194,8 +198,10 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         }
     }
 
-    @OnClick(R.id.ll_card_details_un_like)
-    public void onUnLikeClicked() {
+    @OnClick(R.id.cb_card_details_un_like)
+    public void onCbUnLikeClicked() {
+        //checkBox点击之后选中状态就已经更改了
+        mCbCardDetailsUnLike.setChecked(!mCbCardDetailsUnLike.isChecked());
         if (!mCbCardDetailsUnLike.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 mPresenter.unLikeCard(cardId);
@@ -206,27 +212,6 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
         } else {
             mPresenter.removeUnLikeCard(cardId);
         }
-    }
-
-    @OnClick(R.id.cb_card_details_collect)
-    public void onCbCollectClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
-        onCollectClicked();
-    }
-
-    @OnClick(R.id.cb_card_details_like)
-    public void onCbLikeClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
-        onLikeClicked();
-    }
-
-    @OnClick(R.id.cb_card_details_un_like)
-    public void onCbUnLikeClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsUnLike.setChecked(!mCbCardDetailsUnLike.isChecked());
-        onUnLikeClicked();
     }
 
     @OnClick(R.id.tv_card_details_num)
