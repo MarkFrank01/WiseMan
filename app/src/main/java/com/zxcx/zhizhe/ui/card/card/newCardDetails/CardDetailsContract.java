@@ -6,11 +6,15 @@ import com.zxcx.zhizhe.mvpBase.NullGetPostView;
 public interface CardDetailsContract {
 
     interface View extends NullGetPostView<CardDetailsBean> {
-
+        void likeSuccess();
+        void unLikeSuccess();
+        void UnCollectSuccess();
     }
 
     interface Presenter extends INullGetPostPresenter<CardDetailsBean> {
-
+        void likeSuccess();
+        void unLikeSuccess();
+        void UnCollectSuccess();
     }
 }
 

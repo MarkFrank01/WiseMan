@@ -80,5 +80,20 @@ public class CardBagCardDetailsPresenter extends BasePresenter<CardBagCardDetail
     public void postFail(String msg) {
         mView.postFail(msg);
     }
+
+    @Override
+    public void likeSuccess() {
+        mView.likeSuccess();
+    }
+
+    @Override
+    public void unLikeSuccess() {
+        mView.unLikeSuccess();
+    }
+
+    @Override
+    public void UnCollectSuccess() {
+        mView.UnCollectSuccess();
+    }
 }
 

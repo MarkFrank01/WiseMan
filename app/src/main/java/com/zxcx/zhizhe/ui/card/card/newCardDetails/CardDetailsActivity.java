@@ -58,15 +58,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private String cardBagName;
     private int likeNum;
     private int collectNum;
-    private Action mAction;
     private String imageUrl;
     private boolean isUnCollect = false;
-
-    private enum Action {
-        unCollect,
-        like,
-        unLike
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,30 +141,35 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
+    public void likeSuccess() {
+        mCbCardDetailsLike.setChecked(true);
+        likeNum++;
+        mCbCardDetailsLike.setText(likeNum + "");
+    }
+
+    @Override
+    public void unLikeSuccess() {
+        mCbCardDetailsLike.setChecked(false);
+        likeNum--;
+        mCbCardDetailsLike.setText(likeNum + "");
+    }
+
+    @Override
+    public void UnCollectSuccess() {
+        mCbCardDetailsCollect.setChecked(false);
+        isUnCollect = true;
+        collectNum--;
+        mCbCardDetailsCollect.setText(collectNum + "");
+    }
+
+    @Override
     public void postSuccess() {
-        if (mAction == Action.unCollect) {
-            isUnCollect = true;
-            collectNum--;
-            mCbCardDetailsCollect.setText(collectNum + "");
-        } else if (mAction == Action.like) {
-            likeNum++;
-            mCbCardDetailsLike.setText(likeNum + "");
-        } else if (mAction == Action.unLike) {
-            likeNum--;
-            mCbCardDetailsLike.setText(likeNum + "");
-        }
+
     }
 
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        resetCBState();
-    }
-
-    @Override
-    public void startLogin() {
-        resetCBState();
-        super.startLogin();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -198,8 +196,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
         //checkBox点击之后选中状态就已经更改了
-        if (mCbCardDetailsCollect.isChecked()) {
-            mCbCardDetailsCollect.setChecked(false);
+        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
+        if (!mCbCardDetailsCollect.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
                 intent.putExtra("cardId", cardId);
@@ -209,7 +207,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
-            mAction = Action.unCollect;
             mCbCardDetailsCollect.setChecked(false);
             mPresenter.removeCollectCard(cardId);
         }
@@ -218,18 +215,15 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.cb_card_details_like)
     public void onMCbCardDetailsLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
-        if (mCbCardDetailsLike.isChecked()) {
+        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
+        if (!mCbCardDetailsLike.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-                mAction = Action.like;
                 mPresenter.likeCard(cardId);
             } else {
                 toastShow("请先登录");
-                mCbCardDetailsLike.setChecked(false);
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
-            mAction = Action.unLike;
-            mCbCardDetailsLike.setChecked(false);
             mPresenter.unLikeCard(cardId);
         }
     }
@@ -237,15 +231,5 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.iv_card_details_back)
     public void onBackClicked() {
         onBackPressed();
-    }
-
-    private void resetCBState() {
-        if (mAction == Action.unCollect) {
-            mCbCardDetailsCollect.setChecked(true);
-        } else if (mAction == Action.like) {
-            mCbCardDetailsLike.setChecked(false);
-        } else if (mAction == Action.unLike) {
-            mCbCardDetailsLike.setChecked(true);
-        }
     }
 }

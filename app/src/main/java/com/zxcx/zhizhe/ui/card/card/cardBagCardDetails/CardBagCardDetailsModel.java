@@ -37,8 +37,8 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
                 .compose(BaseRxJava.<CardDetailsBean>handleResult())
                 .subscribeWith(new BaseSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
-                    public void onNext(CardDetailsBean bea) {
-                        mPresenter.getDataSuccess(bea);
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -50,8 +50,8 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bea) {
-                        mPresenter.postSuccess();
+                    public void onNext(BaseBean bean) {
+                        mPresenter.likeSuccess();
                     }
                 });
         addSubscription(mDisposable);
@@ -63,8 +63,8 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bea) {
-                        mPresenter.postSuccess();
+                    public void onNext(BaseBean bean) {
+                        mPresenter.unLikeSuccess();
                     }
                 });
         addSubscription(mDisposable);
@@ -76,8 +76,8 @@ public class CardBagCardDetailsModel extends BaseModel<CardBagCardDetailsContrac
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bea) {
-                        mPresenter.postSuccess();
+                    public void onNext(BaseBean bean) {
+                        mPresenter.UnCollectSuccess();
                     }
                 });
         addSubscription(mDisposable);

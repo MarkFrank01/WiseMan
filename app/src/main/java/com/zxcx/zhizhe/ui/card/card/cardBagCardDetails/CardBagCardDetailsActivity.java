@@ -60,14 +60,7 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     private int cardId;
     private int likeNum;
     private int collectNum;
-    private Action mAction;
     private String cardName;
-
-    private enum Action {
-        unCollect,
-        like,
-        unLike
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,28 +128,33 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
 
     @Override
     public void postSuccess() {
-        if (mAction == Action.unCollect) {
-            collectNum--;
-            mCbCardDetailsCollect.setText(collectNum + "");
-        } else if (mAction == Action.like) {
-            likeNum++;
-            mCbCardDetailsLike.setText(likeNum + "");
-        } else if (mAction == Action.unLike) {
-            likeNum--;
-            mCbCardDetailsLike.setText(likeNum + "");
-        }
+
+    }
+
+    @Override
+    public void likeSuccess() {
+        mCbCardDetailsLike.setChecked(true);
+        likeNum++;
+        mCbCardDetailsLike.setText(likeNum + "");
+    }
+
+    @Override
+    public void unLikeSuccess() {
+        mCbCardDetailsLike.setChecked(false);
+        likeNum--;
+        mCbCardDetailsLike.setText(likeNum + "");
+    }
+
+    @Override
+    public void UnCollectSuccess() {
+        mCbCardDetailsCollect.setChecked(false);
+        collectNum--;
+        mCbCardDetailsCollect.setText(collectNum + "");
     }
 
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-        resetCBState();
-    }
-
-    @Override
-    public void startLogin() {
-        resetCBState();
-        super.startLogin();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -182,8 +180,8 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     @OnClick(R.id.cb_card_details_collect)
     public void onCollectClicked() {
         //checkBox点击之后选中状态就已经更改了
-        if (mCbCardDetailsCollect.isChecked()) {
-            mCbCardDetailsCollect.setChecked(false);
+        mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
+        if (!mCbCardDetailsCollect.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
                 Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
                 intent.putExtra("cardId", cardId);
@@ -193,8 +191,6 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
-            mAction = Action.unCollect;
-            mCbCardDetailsCollect.setChecked(false);
             mPresenter.removeCollectCard(cardId);
         }
     }
@@ -202,18 +198,15 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     @OnClick(R.id.cb_card_details_like)
     public void onMCbCardDetailsLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
-        if (mCbCardDetailsLike.isChecked()) {
+        mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
+        if (!mCbCardDetailsLike.isChecked()) {
             if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-                mAction = Action.like;
                 mPresenter.likeCard(cardId);
             } else {
                 toastShow("请先登录");
-                mCbCardDetailsLike.setChecked(false);
                 startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
-            mAction = Action.unLike;
-            mCbCardDetailsLike.setChecked(false);
             mPresenter.unLikeCard(cardId);
         }
     }
@@ -252,33 +245,4 @@ public class CardBagCardDetailsActivity extends MvpActivity<CardBagCardDetailsPr
     public void onPageScrollStateChanged(int state) {
 
     }
-
-    private void resetCBState() {
-        if (mAction == Action.unCollect) {
-            mCbCardDetailsCollect.setChecked(true);
-        } else if (mAction == Action.like) {
-            mCbCardDetailsLike.setChecked(false);
-        } else if (mAction == Action.unLike) {
-            mCbCardDetailsLike.setChecked(true);
-        }
-    }
-    /*@Override
-    public void onDefaultShareClick() {
-        Bitmap bitmap = ScreenUtils.getBitmapByView(mVpCardBagCardDetails);
-        String fileName = FileUtil.getFileName();
-        String imagePath = FileUtil.PATH_BASE + fileName;
-        FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
-
-        ShareCardDialog shareCardDialog = new ShareCardDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString("imagePath", imagePath);
-        shareCardDialog.setArguments(bundle);
-        shareCardDialog.show(getFragmentManager(), "");
-    }
-
-    @Override
-    public void onDiyShareClick() {
-        Intent intent = new Intent(this, DiyShareActivity.class);
-        startActivity(intent);
-    }*/
 }

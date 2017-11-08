@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/iv_welcome_ad"
-        android:src="@drawable/iv_welcome_ad"
         android:layout_above="@+id/iv_welcome_icon"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
