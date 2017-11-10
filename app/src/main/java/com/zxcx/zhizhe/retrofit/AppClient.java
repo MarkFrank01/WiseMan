@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.retrofit;
 
 import com.readystatesoftware.chuck.ChuckInterceptor;
 import com.zxcx.zhizhe.App;
-import com.zxcx.zhizhe.BuildConfig;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -40,20 +39,14 @@ public class AppClient {
             // Log信息拦截器
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLogger());
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient okHttpClient;
-            if (BuildConfig.LOG) {
-                okHttpClient = new OkHttpClient.Builder()
-                        .addInterceptor(loggingInterceptor)
-                        .addInterceptor(interceptor)
-                        .addInterceptor(new ChuckInterceptor(App.getContext()))
-                        .cache(cache)
-                        .build();
-            } else {
-                okHttpClient = new OkHttpClient.Builder()
-                        .addInterceptor(interceptor)
-                        .cache(cache)
-                        .build();
-            }
+
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .addInterceptor(interceptor)
+                    .addInterceptor(new ChuckInterceptor(App.getContext()))
+                    .cache(cache)
+                    .build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(APIService.API_SERVER_URL)
                     .addConverterFactory(FastJsonConverterFactory.create())
