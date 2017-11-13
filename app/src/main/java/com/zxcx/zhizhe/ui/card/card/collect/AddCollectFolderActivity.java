@@ -95,7 +95,7 @@ public class AddCollectFolderActivity extends BaseActivity implements INullPostP
     public void addCollectFolder(String name) {
         mDisposable = AppClient.getAPIService().addCollectFolder(name)
                 .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
+                .compose(BaseRxJava.io_main_loading(this))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
                     @Override
                     public void onNext(BaseBean bean) {
