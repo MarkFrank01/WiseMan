@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -30,9 +31,13 @@ public class WebViewUtils {
         webSettings.setSupportZoom(false); //支持缩放
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);//支持内容重新布局
         webSettings.setSupportMultipleWindows(false); //多窗口
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);//内容加载混合模式，适用于https和http混合时使用
+        }
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
         webView.setHorizontalScrollBarEnabled(false);//水平不显示滚动条
         webView.setVerticalScrollBarEnabled(false); //垂直不显示滚动条
+        //WebView.setWebContentsDebuggingEnabled(true);//开启WebView内容调试
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

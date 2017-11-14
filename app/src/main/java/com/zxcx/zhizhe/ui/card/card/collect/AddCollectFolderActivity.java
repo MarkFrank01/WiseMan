@@ -78,12 +78,7 @@ public class AddCollectFolderActivity extends BaseActivity implements INullPostP
             }
         });
         //延迟弹出软键盘
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utils.showInputMethod(mEtAddCollectFolder);
-            }
-        }, 100);
+        new Handler().postDelayed(() -> Utils.showInputMethod(mEtAddCollectFolder), 100);
     }
 
     @Override
