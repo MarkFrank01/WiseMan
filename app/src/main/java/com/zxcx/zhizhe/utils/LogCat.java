@@ -9,8 +9,6 @@ import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.BuildConfig;
 
 public class LogCat {
-    private static final boolean DEBUG = true;
-    private static final String TAG = "66666";
 
     /**
      * 初始化log工具，在app入口处调用
