@@ -26,7 +26,6 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
     private String text = "跳过";
     private Paint backgroundPaint = new Paint();
     private Paint circlePaint = new Paint();
-    private Paint textPaint = new Paint();
     private Rect textRect = new Rect();
     public int countdown = 5;
     private RectF oval = new RectF();
@@ -57,10 +56,6 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
         circlePaint.setStyle(Paint.Style.STROKE);
         circlePaint.setStrokeWidth(ScreenUtils.dip2px(2));
         circlePaint.setAntiAlias(true);
-        textPaint.setColor(ContextCompat.getColor(getContext(), R.color.white_final));
-        textPaint.setTextSize(ScreenUtils.dip2px(12));
-        textPaint.getTextBounds(text,0,text.length(),textRect);
-        textPaint.setAntiAlias(true);
 
         animator.setDuration(countdown * 1000);
         animator.setInterpolator(new LinearInterpolator());
