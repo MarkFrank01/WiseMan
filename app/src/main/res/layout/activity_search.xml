@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <com.google.android.flexbox.FlexboxLayout
+    <com.zxcx.zhizhe.widget.TwoLineFlexboxLayout
         android:id="@+id/fl_search_hot"
         android:layout_below="@id/tv_search_hot"
         android:layout_marginTop="2.5dp"
@@ -106,6 +106,6 @@
         app:alignItems="center"
         app:alignContent="flex_start">
 
-    </com.google.android.flexbox.FlexboxLayout>
+    </com.zxcx.zhizhe.widget.TwoLineFlexboxLayout>
 
 </RelativeLayout>

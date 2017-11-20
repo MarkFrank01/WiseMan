@@ -14,14 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.flexbox.FlexLine;
-import com.google.android.flexbox.FlexboxLayout;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.search.result.SearchResultActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.widget.TwoLineFlexboxLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +35,13 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @BindView(R.id.et_search)
     EditText mEtSearch;
     @BindView(R.id.fl_search_hot)
-    FlexboxLayout mFlSearchHot;
+    TwoLineFlexboxLayout mFlSearchHot;
 
     List<SearchBean> mList = new ArrayList<>();
     @BindView(R.id.iv_search_hot_refresh)
     ImageView mIvSearchHotRefresh;
     private int page = 0;
     private int pageSize = 10;
-    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,6 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
         }
         mList.addAll(bean);
         addLabel();
-        handler.postDelayed(refreshLabel,100);
         mIvSearchHotRefresh.clearAnimation();
     }
 
@@ -122,7 +119,6 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     private void addLabel() {
         mFlSearchHot.removeAllViews();
-        mFlSearchHot.setVisibility(View.INVISIBLE);
         for (int i = 0; i < mList.size(); i++) {
             TextView textView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null);
             textView.setText(mList.get(i).getConent());
@@ -134,31 +130,6 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
             mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
         }
     }
-
-    Runnable refreshLabel = new Runnable(){
-
-        @Override
-        public void run() {
-            List<FlexLine> flexLines = mFlSearchHot.getFlexLines();
-            if (flexLines.size() > 2) {
-                int num = 0;
-                num += flexLines.get(0).getItemCount();
-                num += flexLines.get(1).getItemCount();
-                mFlSearchHot.removeAllViews();
-                for (int i = 0; i < num; i++) {
-                    TextView textView = (TextView) LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null);
-                    textView.setText(mList.get(i).getConent());
-                    textView.setOnClickListener(SearchActivity.this);
-                    mFlSearchHot.addView(textView);
-
-                    ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
-
-                    mlp.setMargins(0, ScreenUtils.dip2px(15), ScreenUtils.dip2px(10), 0);
-                }
-            }
-            mFlSearchHot.setVisibility(View.VISIBLE);
-        }
-    };
 
     class SearchListener implements TextView.OnEditorActionListener {
         @Override
