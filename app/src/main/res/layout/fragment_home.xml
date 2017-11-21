@@ -48,6 +48,7 @@
             android:id="@+id/tl_home"
             app:tabIndicatorColor="@color/translate"
             app:tabSelectedTextColor="@color/translate"
+            app:tabBackground="@color/translate"
             app:tabMode="fixed"
             android:layout_width="240dp"
             android:layout_height="40dp">
