@@ -35,6 +35,7 @@ public class OpenNotification extends BroadcastReceiver {
             String url = json.getString("url");
             gotoActivity(context, type, id, name, url);
         }
+        gotoActivity(context, null,0,null,null);
     }
 
     private void gotoActivity(Context context, String type, int id, String name, String url) {

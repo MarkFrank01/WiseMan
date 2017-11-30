@@ -37,7 +37,7 @@ public class WebViewUtils {
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
         webView.setHorizontalScrollBarEnabled(false);//水平不显示滚动条
         webView.setVerticalScrollBarEnabled(false); //垂直不显示滚动条
-        //WebView.setWebContentsDebuggingEnabled(true);//开启WebView内容调试
+        WebView.setWebContentsDebuggingEnabled(true);//开启WebView内容调试
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {

@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
@@ -42,6 +43,15 @@ public class Utils {
         }
     }
 
+    public static boolean isKeyboardShown(View rootView) {
+        final int softKeyboardHeight = 100;
+        Rect r = new Rect();
+        rootView.getWindowVisibleDisplayFrame(r);
+        DisplayMetrics dm = rootView.getResources().getDisplayMetrics();
+        int heightDiff = rootView.getBottom() - r.bottom;
+        return heightDiff > softKeyboardHeight * dm.density;
+    }
+
     // 返回单位是米
     public static double getDistance(double longitude1, double latitude1,
                                      double longitude2, double latitude2) {
@@ -64,7 +74,7 @@ public class Utils {
     public static void setImageHeight(View view) {
         DisplayMetrics dm ;
         dm = App.getContext().getResources().getDisplayMetrics();
-        int height = dm.widthPixels *3/4;
+        int height = dm.widthPixels * 9/16;
         ViewGroup.LayoutParams para = view.getLayoutParams();
         para.height = height;
         view.setLayoutParams(para);
