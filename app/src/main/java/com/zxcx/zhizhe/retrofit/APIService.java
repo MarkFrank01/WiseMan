@@ -138,8 +138,13 @@ public interface APIService {
      * 获取热门搜索关键词
      */
     @POST("/search/getSearchKeyword")
-    Flowable<BaseArrayBean<SearchBean>> getSearchHot(
-            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    Flowable<BaseArrayBean<SearchBean>> getSearchHot();
+
+    /**
+     * 获取搜索预选项
+     */
+    @POST("/search/getSearchAssociate")
+    Flowable<BaseArrayBean<String>> getSearchPre(@Query("keyword") String keyword);
 
     /**
      * 搜索卡片

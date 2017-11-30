@@ -18,9 +18,9 @@
     <color name="dialog_background">#FFFFFF</color>
     <color name="white_final">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="background">#F8F8F8</color>
+    <color name="background">#F1F3F3</color>
     <color name="wireframe">#E4E4E4</color>
-    <color name="line">#E0E0E0</color>
+    <color name="line">#CDD2D3</color>
     <color name="fault">#EEEEEE</color>
     <color name="text_item_card_bag">#FFFFFF</color>
     <color name="toolbar_title">#404040</color>
@@ -29,4 +29,7 @@
     <color name="text_color_66">#666666</color>
     <color name="text_color_99">#999999</color>
     <color name="text_color_top_search">#999999</color>
+    <color name="text_color_1">#030303</color>
+    <color name="text_color_2">#777B7C</color>
+    <color name="text_color_3">#CDD2D3</color>
 </resources>

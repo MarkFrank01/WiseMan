@@ -1,111 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="@color/background"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_left_close"
-        android:src="@drawable/common_close"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="24dp"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <RelativeLayout
-        android:id="@+id/rl_search"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="196dp">
-        <EditText
-            android:id="@+id/et_search"
-            android:focusable="true"
+        android:layout_height="71dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_search_edit"
+            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:maxLength="11"
+                android:drawableLeft="@drawable/tv_home_search"
+                android:paddingLeft="8dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:textSize="17sp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/line"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"/>
+
+            <ImageView
+                android:id="@+id/iv_search_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/iv_phone_clear"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_left_close"
+            android:text="@string/common_cancel"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
             android:gravity="center"
-            android:hint="@string/search_hint"
-            android:textColorHint="@color/line"
-            android:textColor="@color/text_color_66"
-            android:cursorVisible="true"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:textSize="18sp"
-            android:background="@null"
-            android:imeOptions="actionSearch"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="37dp"/>
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-        <View
-            android:layout_below="@+id/et_search"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@color/line"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/line"/>
 
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_search_hot"
-        android:layout_below="@id/rl_search"
-        android:layout_marginTop="23dp"
-        android:layout_marginLeft="12dp"
-        android:textColor="@color/text_color_99"
-        android:textSize="12sp"
-        android:text="@string/tv_search_hot"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search_pre"
+        android:visibility="gone"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:id="@+id/ll_search_hot_refresh"
+        android:id="@+id/ll_search_history"
         android:orientation="horizontal"
-        android:layout_below="@id/rl_search"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="7dp"
-        android:layout_alignParentRight="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="17dp"
         android:gravity="center_vertical"
-        android:padding="5dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/tv_search_history_type"
+            android:layout_marginLeft="20dp"
+            android:text="热门搜索"
+            android:textColor="@color/text_color_1"
+            android:textSize="22sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
         <ImageView
-            android:id="@+id/iv_search_hot_refresh"
-            android:src="@drawable/iv_search_refresh"
-            android:layout_marginRight="5.5dp"
+            android:id="@+id/iv_search_clear_history"
+            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_search_hot_refresh"
-            android:textColor="@color/button_blue"
-            android:textSize="12sp"
-            android:text="@string/tv_search_hot_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <com.zxcx.zhizhe.widget.TwoLineFlexboxLayout
-        android:id="@+id/fl_search_hot"
-        android:layout_below="@id/tv_search_hot"
-        android:layout_marginTop="2.5dp"
-        android:layout_marginLeft="12dp"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search_history"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:flexWrap="wrap"
-        app:flexDirection="row"
-        app:showDividerHorizontal="middle"
-        app:dividerDrawableHorizontal="@color/white"
-        app:showDividerVertical="middle"
-        app:dividerDrawableVertical="@color/white"
-        app:alignItems="center"
-        app:alignContent="flex_start">
+        android:layout_height="wrap_content"/>
 
-    </com.zxcx.zhizhe.widget.TwoLineFlexboxLayout>
-
-</RelativeLayout>
+</LinearLayout>

@@ -29,7 +29,8 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: 'com.zxcx.zhizhe.MyEventBusIndex']
+                arguments = [eventBusIndex: 'com.zxcx.zhizhe.MyEventBusIndex',
+                             "room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
 
@@ -162,10 +163,27 @@ dependencies {
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //格式化Log输出
     compile 'com.orhanobut:logger:2.1.1'
+    //下拉刷新库
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    //Room
+    compile "android.arch.persistence.room:runtime:1.0.0"
+    compile "android.arch.persistence.room:rxjava2:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
 }
 repositories {
     mavenCentral()
     flatDir {
         dirs 'libs' //就是你放aar的目录地址
+    }
+}
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.4.0'
+            }
+        }
     }
 }
