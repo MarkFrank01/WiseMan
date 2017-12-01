@@ -21,7 +21,6 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
-import com.zxcx.zhizhe.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.adapter.CollectCardAdapter;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.Utils;
@@ -274,7 +273,6 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mAdapter.setOnItemClickListener(this);
         mRvCollectCard.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRvCollectCard.setAdapter(mAdapter);
-        mRvCollectCard.addItemDecoration(new CardBagCardItemDecoration());
         mAdapter.notifyDataSetChanged();
     }
 

@@ -1,16 +1,13 @@
 package com.zxcx.zhizhe.ui.card.cardBag.adapter;
 
 import android.support.annotation.Nullable;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.utils.ImageLoader;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.List;
@@ -21,23 +18,16 @@ import java.util.List;
 
 public class CardBagListAdapter extends BaseQuickAdapter<CardBagBean,BaseViewHolder> {
     public CardBagListAdapter(@Nullable List<CardBagBean> data) {
-        super(R.layout.item_card_bag_list, data);
+        super(R.layout.item_search_result_card, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, CardBagBean item) {
-        helper.setText(R.id.tv_item_card_bag_list_title,item.getName());
-        RoundedImageView imageView = helper.getView(R.id.iv_item_card_bag_list_icon);
+        helper.setText(R.id.tv_item_search_result_card_name,item.getName());
+        ImageView imageView = helper.getView(R.id.iv_item_search_result_card);
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
-        helper.setText(R.id.tv_item_card_bag_list_collect_num,mContext.getString(R.string.tv_item_home_card_num,item.getCollectNum(),item.getLikeNum()));
-
-        int position = helper.getAdapterPosition();
-        if (position == mData.size() - 1){
-            RelativeLayout relativeLayout = helper.getView(R.id.rl_item_card_bag_list);
-            ViewGroup.MarginLayoutParams para = (ViewGroup.MarginLayoutParams) relativeLayout.getLayoutParams();
-            para.setMargins(0,0,0,ScreenUtils.dip2px(12));
-            relativeLayout.setLayoutParams(para);
-        }
+        helper.setText(R.id.tv_item_search_result_card_info, mContext.getString(R.string.tv_card_info, item.getDate(), item.getAuthor()));
+        helper.setVisible(R.id.view_line,helper.getAdapterPosition() == getItemCount()-1);
     }
 }

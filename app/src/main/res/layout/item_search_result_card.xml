@@ -46,6 +46,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/view_line"
         android:layout_toRightOf="@id/iv_item_search_result_card"
         android:layout_below="@id/iv_item_search_result_card"
         style="@style/line"/>

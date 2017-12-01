@@ -3,14 +3,14 @@ package com.zxcx.zhizhe.ui.card.cardBag;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
@@ -18,11 +18,10 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
-import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagListAdapter;
-import com.zxcx.zhizhe.ui.card.cardBag.itemDecoration.CardBagCardItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -32,47 +31,59 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
-import static com.zxcx.zhizhe.App.getContext;
+public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implements CardBagContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener {
 
-public class CardBagActivity extends MvpActivity<CardBagPresenter> implements CardBagContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
+    @BindView(R.id.iv_toolbar_back)
+    ImageView mIvToolbarBack;
+    @BindView(R.id.toolbar_title)
+    TextView mToolbarTitle;
+    @BindView(R.id.iv_toolbar_right)
+    ImageView mIvToolbarRight;
     @BindView(R.id.rv_card_bag_card)
     RecyclerView mRvCardBagCard;
     @BindView(R.id.rv_card_bag_list)
     RecyclerView mRvCardBagList;
-    @BindView(R.id.srl_card_bag)
-    SwipeRefreshLayout mSrlCardBag;
-    @BindView(R.id.iv_toolbar_right)
-    ImageView mIvToolbarRight;
-    private List<CardBagBean> mList = new ArrayList<>();
+    @BindView(R.id.tv_card_bag_name)
+    TextView mTvCardBagName;
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
     private CardBagCardAdapter mCardBagCardAdapter;
     private CardBagListAdapter mCardBagListAdapter;
     private boolean isCard = true;
     private int showFistItem;
-    private StaggeredGridLayoutManager mCardBagCardManager;
+    private LinearLayoutManager mCardBagCardManager;
     private LinearLayoutManager mCardBagListManager;
     private int mId;
     private int page = 0;
     private String mName;
+    private int mAppBarLayoutVerticalOffset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_bag);
+        super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
         initData();
         initRecyclerView();
-
-        mSrlCardBag.setOnRefreshListener(this);
-        mSrlCardBag.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
+        mToolbarTitle.setVisibility(View.GONE);
         mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
         onRefresh();
 
         initLoadSir();
+
+        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
+            mAppBarLayoutVerticalOffset = i;
+            if (i>mTvCardBagName.getTop()+mTvCardBagName.getHeight()){
+                mToolbarTitle.setVisibility(View.VISIBLE);
+            }else {
+                mToolbarTitle.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -97,6 +108,20 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
     }
 
     @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        if (isCard){
+            return mAppBarLayoutVerticalOffset == 0 && !ViewCompat.canScrollVertically(mRvCardBagCard, -1);
+        }else {
+            return mAppBarLayoutVerticalOffset == 0 && !ViewCompat.canScrollVertically(mRvCardBagList, -1);
+        }
+
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+        onRefresh();
+    }
+
     public void onRefresh() {
         page = 0;
         getCardBagCardList();
@@ -104,31 +129,27 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
 
     @Override
     public void onLoadMoreRequested() {
-        mSrlCardBag.setEnabled(false);
         getCardBagCardList();
-        mSrlCardBag.setEnabled(true);
     }
 
     @Override
     public void getDataSuccess(List<CardBagBean> list) {
-        if (mSrlCardBag.isRefreshing()) {
-            mSrlCardBag.setRefreshing(false);
-            mList.clear();
-            toastShow("当前内容已是最新");
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.refreshComplete();
         }
-        if (page == 0){
-            mCardBagCardAdapter.notifyDataSetChanged();
-            mCardBagListAdapter.notifyDataSetChanged();
+        if (page == 0) {
+            mCardBagCardAdapter.setNewData(list);
+            mCardBagListAdapter.setNewData(list);
             loadService.showSuccess();
+        } else {
+            mCardBagCardAdapter.addData(list);
+            mCardBagListAdapter.addData(list);
         }
         page++;
-        mList.addAll(list);
-        mCardBagCardAdapter.notifyDataSetChanged();
-        mCardBagListAdapter.notifyDataSetChanged();
-        if (list.size() < Constants.PAGE_SIZE){
+        if (list.size() < Constants.PAGE_SIZE) {
             mCardBagCardAdapter.loadMoreEnd(false);
             mCardBagListAdapter.loadMoreEnd(false);
-        }else {
+        } else {
             mCardBagCardAdapter.loadMoreComplete();
             mCardBagListAdapter.loadMoreComplete();
             mCardBagCardAdapter.setEnableLoadMore(false);
@@ -136,20 +157,11 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             mCardBagCardAdapter.setEnableLoadMore(true);
             mCardBagListAdapter.setEnableLoadMore(true);
         }
-        if (mCardBagCardAdapter.getData().size() == 0){
-            //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
-            mCardBagCardAdapter.setEmptyView(view);
-        }
-        if (mCardBagListAdapter.getData().size() == 0){
-            //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
-            mCardBagListAdapter.setEmptyView(view);
-        }
     }
 
     @Override
     public void toastFail(String msg) {
+        mRefreshLayout.refreshComplete();
         super.toastFail(msg);
         if (page == 0) {
             loadService.showCallback(NetworkErrorCallback.class);
@@ -163,7 +175,7 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
             mRvCardBagCard.setVisibility(View.GONE);
             mRvCardBagList.setVisibility(View.VISIBLE);
             mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
-            showFistItem = mCardBagCardManager.findFirstVisibleItemPositions(new int[2])[0];
+            showFistItem = mCardBagCardManager.findFirstVisibleItemPosition();
             mCardBagListManager.scrollToPosition(showFistItem);
         } else {
             isCard = !isCard;
@@ -183,26 +195,31 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         mId = getIntent().getIntExtra("id", 0);
         mName = getIntent().getStringExtra("name");
         initToolBar(mName);
+        mTvCardBagName.setText(mName);
     }
 
     private void initRecyclerView() {
-        mCardBagCardManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        mCardBagCardAdapter = new CardBagCardAdapter(mList);
+        mCardBagCardManager = new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false);
+        mCardBagCardAdapter = new CardBagCardAdapter(new ArrayList<>());
         mCardBagCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagCardAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
         mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
         mRvCardBagCard.setLayoutManager(mCardBagCardManager);
         mRvCardBagCard.setAdapter(mCardBagCardAdapter);
-        mRvCardBagCard.addItemDecoration(new CardBagCardItemDecoration());
         mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
 
         mCardBagListManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mCardBagListAdapter = new CardBagListAdapter(mList);
+        mCardBagListAdapter = new CardBagListAdapter(new ArrayList<>());
         mCardBagListAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardBagListAdapter.setOnLoadMoreListener(this, mRvCardBagList);
         mCardBagListAdapter.setOnItemClickListener(new CardItemClickListener(this));
         mRvCardBagList.setLayoutManager(mCardBagListManager);
         mRvCardBagList.setAdapter(mCardBagListAdapter);
+
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
+        mCardBagCardAdapter.setEmptyView(view);
+        View view1 = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
+        mCardBagListAdapter.setEmptyView(view1);
     }
 
     class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
@@ -217,9 +234,9 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             CardBagBean bean = (CardBagBean) adapter.getData().get(position);
             Intent intent = new Intent(mContext, CardBagCardDetailsActivity.class);
-            intent.putExtra("id",mId);
-            intent.putExtra("cardId",bean.getId());
-            intent.putExtra("name",mName);
+            intent.putExtra("id", mId);
+            intent.putExtra("cardId", bean.getId());
+            intent.putExtra("name", mName);
             mContext.startActivity(intent);
         }
     }

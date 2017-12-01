@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.mvpBase;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.zxcx.zhizhe.R;
@@ -31,6 +32,6 @@ public abstract class RefreshMvpActivity<P extends BasePresenter> extends MvpAct
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return false;
+        return !ViewCompat.canScrollVertically(frame.getContentView(), -1);
     }
 }
