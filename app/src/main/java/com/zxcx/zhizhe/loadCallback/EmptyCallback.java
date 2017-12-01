@@ -7,7 +7,7 @@ public class EmptyCallback extends Callback {
 
     @Override
     protected int onCreateView() {
-        return R.layout.view_no_data;
+        return R.layout.layout_no_data;
     }
 
 }

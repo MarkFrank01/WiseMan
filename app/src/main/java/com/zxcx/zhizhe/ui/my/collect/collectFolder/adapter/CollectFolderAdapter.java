@@ -94,7 +94,7 @@ public class CollectFolderAdapter extends BaseMultiItemQuickAdapter<CollectFolde
         RoundedImageView imageView = helper.getView(R.id.iv_item_collect_folder_icon);
         ViewGroup.LayoutParams para = imageView.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 3/4;
+        para.height = (screenWidth - ScreenUtils.dip2px(12 * 3)) / 2 * 9/16;
         imageView.setLayoutParams(para);
         relativeLayout.setLayoutParams(para);
 

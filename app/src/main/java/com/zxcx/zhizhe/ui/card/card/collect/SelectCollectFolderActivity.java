@@ -139,7 +139,7 @@ public class SelectCollectFolderActivity extends BaseActivity implements INullGe
     public void getDataSuccess(List<CollectFolderBean> list) {
         mAdapter.addData(list);
         if (list.size() == 0) {
-            View view = View.inflate(mActivity, R.layout.view_no_data, null);
+            View view = View.inflate(mActivity, R.layout.layout_no_data, null);
             TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
             textView.setText(R.string.no_collect_folder);
             mAdapter.setEmptyView(view);

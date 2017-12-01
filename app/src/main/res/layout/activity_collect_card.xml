@@ -71,9 +71,7 @@
     <View
         android:id="@+id/view_line"
         android:layout_below="@id/rl_toolbar"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_collect_card"

@@ -14,9 +14,7 @@
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <RelativeLayout
         android:id="@+id/rl_my_head"
@@ -85,15 +83,11 @@
     </RelativeLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_my_collect"
@@ -129,15 +123,11 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_my_common_setting"
@@ -174,9 +164,7 @@
 
     <View
         android:layout_marginLeft="15dp"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_my_feedback"
@@ -213,9 +201,7 @@
 
     <View
         android:layout_marginLeft="15dp"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_my_about_us"
@@ -251,8 +237,6 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
 </LinearLayout>

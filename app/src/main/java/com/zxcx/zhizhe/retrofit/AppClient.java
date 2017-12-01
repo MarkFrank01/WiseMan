@@ -119,6 +119,8 @@ public class AppClient {
             if (message.startsWith("<-- END HTTP")) {
                 LogCat.d(mHeaderMessage.toString());
                 LogCat.json(mBodyMessage.toString());
+                mHeaderMessage.setLength(0);
+                mBodyMessage.setLength(0);
             }
         }
     }

@@ -13,9 +13,7 @@
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/rl_user_safety_wechat"
@@ -52,10 +50,8 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
         android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/rl_user_safety_qq"
@@ -92,10 +88,8 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
         android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/rl_user_safety_weibo"
@@ -132,15 +126,11 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
-        android:background="@color/line"
         android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/rl_user_safety_change_password"
@@ -171,9 +161,7 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

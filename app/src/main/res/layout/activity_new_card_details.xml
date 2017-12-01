@@ -51,10 +51,8 @@
 
     </RelativeLayout>
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        layout="@layout/view_line"/>
+    <View
+        style="@style/line"/>
 
     <FrameLayout
         android:id="@+id/fl_card_details"

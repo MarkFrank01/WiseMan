@@ -65,7 +65,14 @@
 
     <style name="tv_single">
         <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="line">
+        <item name="android:background">@color/line</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
     </style>
 
 

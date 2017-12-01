@@ -14,9 +14,7 @@
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_re"
@@ -72,9 +70,7 @@
 
     <View
         android:layout_marginLeft="15dp"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_push"
@@ -104,15 +100,11 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_night_model"
@@ -143,9 +135,7 @@
 
     <View
         android:layout_marginLeft="15dp"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_only_wifi"
@@ -175,15 +165,11 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_common_setting_clean_cache"
@@ -214,8 +200,6 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
 </LinearLayout>

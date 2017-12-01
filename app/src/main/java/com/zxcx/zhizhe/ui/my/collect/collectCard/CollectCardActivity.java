@@ -146,7 +146,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         }
         if (mAdapter.getData().size() == 0) {
             //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
             TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
             textView.setText(R.string.no_collect_card);
             mAdapter.setEmptyView(view);

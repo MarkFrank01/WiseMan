@@ -74,7 +74,7 @@ public class CollectCardAdapter extends BaseQuickAdapter<CollectCardBean,BaseVie
 
         ViewGroup.LayoutParams para = rlTop.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth - ScreenUtils.dip2px(13 * 2)) / 2 * 3/4;
+        para.height = (screenWidth - ScreenUtils.dip2px(13 * 2)) / 2 * 9/16;
         rlTop.setLayoutParams(para);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());

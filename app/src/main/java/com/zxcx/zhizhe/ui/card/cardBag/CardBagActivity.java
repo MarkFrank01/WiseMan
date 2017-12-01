@@ -138,12 +138,12 @@ public class CardBagActivity extends MvpActivity<CardBagPresenter> implements Ca
         }
         if (mCardBagCardAdapter.getData().size() == 0){
             //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
             mCardBagCardAdapter.setEmptyView(view);
         }
         if (mCardBagListAdapter.getData().size() == 0){
             //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
+            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
             mCardBagListAdapter.setEmptyView(view);
         }
     }

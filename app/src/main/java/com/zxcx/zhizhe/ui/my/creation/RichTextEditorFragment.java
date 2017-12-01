@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
@@ -50,8 +49,6 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
     EditText mEtRteTitle;
     @BindView(R.id.ll_rte)
     LinearLayout mLlRte;
-    @BindView(R.id.scv_rte)
-    ScrollView mScvRte;
     private String title;
     private String content;
     private File imageFile;
@@ -88,13 +85,13 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
                 } else if (!text.contains("<p>")) {
                     content = "<p>" + text + "</p>";
                 }
+                mEditor.setEditorHeight(mEditor.getMeasuredHeight());
             }
         });
         view.post(new Runnable() {
             @Override
             public void run() {
-                mScvRte.getMeasuredHeight();
-                mEditor.setEditorHeight(mScvRte.getHeight() - mEtRteTitle.getTop() - mEtRteTitle.getHeight());
+                mEditor.setEditorHeight(mEditor.getMeasuredHeight());
                 //延迟弹出软键盘
                 new Handler().postDelayed(new Runnable() {
                     @Override

@@ -57,5 +57,6 @@
 
 
     </android.support.v7.widget.Toolbar>
-    <include layout="@layout/view_line"/>
+    <View
+        style="@style/line"/>
 </LinearLayout>

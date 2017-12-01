@@ -30,7 +30,7 @@ public class CardBagCardAdapter extends BaseQuickAdapter<CardBagBean,BaseViewHol
         RelativeLayout relativeLayout = helper.getView(R.id.rl_item_card_bag_card);
         ViewGroup.LayoutParams para = relativeLayout.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 3/4;
+        para.height = (screenWidth - ScreenUtils.dip2px(12 * 2) - ScreenUtils.dip2px(15)) / 2 * 9/16;
         relativeLayout.setLayoutParams(para);
 
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());

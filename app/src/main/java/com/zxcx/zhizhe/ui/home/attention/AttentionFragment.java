@@ -3,8 +3,7 @@ package com.zxcx.zhizhe.ui.home.attention;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -22,7 +21,7 @@ import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
-import com.zxcx.zhizhe.mvpBase.MvpFragment;
+import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.attention.adapter.AttentionCardBagAdapter;
@@ -49,16 +48,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
-public class AttentionFragment extends MvpFragment<AttentionPresenter> implements AttentionContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> implements AttentionContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener {
 
     RecyclerView mRvAttentionCardBag;
     @BindView(R.id.rv_attention_card)
     RecyclerView mRvAttentionCard;
     Unbinder unbinder;
-    @BindView(R.id.srl_attention_card)
-    SwipeRefreshLayout mSrlAttentionCard;
 
     private AttentionCardBagAdapter mCardBagAdapter;
     private HotCardAdapter mCardAdapter;
@@ -66,11 +64,15 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     private View mEmptyView;
     private int page = 0;
     private boolean isFirst = true;
+    private int mAppBarLayoutVerticalOffset;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_attention, container, false);
         unbinder = ButterKnife.bind(this, root);
+
+        mRefreshLayout = (PtrFrameLayout) root.findViewById(R.id.refresh_layout);
+        mRefreshLayout.disableWhenHorizontalMove(true);
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
@@ -142,37 +144,41 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeTopClickRefreshEvent event) {
         mRvAttentionCard.scrollToPosition(0);
-        mSrlAttentionCard.setRefreshing(true);
-        onRefresh();
+        mRefreshLayout.autoRefresh();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(LoginEvent event) {
         mRvAttentionCard.scrollToPosition(0);
-        mSrlAttentionCard.setRefreshing(true);
-        onRefresh();
+        mRefreshLayout.autoRefresh();
         EventBus.getDefault().removeStickyEvent(event);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(SelectAttentionEvent event) {
         mRvAttentionCard.scrollToPosition(0);
-        mSrlAttentionCard.setRefreshing(true);
-        onRefresh();
+        mRefreshLayout.autoRefresh();
         EventBus.getDefault().removeStickyEvent(event);
     }
 
     @Override
-    public void onRefresh() {
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        return mAppBarLayoutVerticalOffset == 0 && !ViewCompat.canScrollVertically(frame.getContentView(), -1);
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+        onRefresh();
+    }
+
+    private void onRefresh(){
         page = 0;
         getHotCardBag();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        mSrlAttentionCard.setEnabled(false);
         getHotCard();
-        mSrlAttentionCard.setEnabled(true);
     }
 
     @Override
@@ -194,10 +200,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void getDataSuccess(List<HotCardBean> list) {
-        if (mSrlAttentionCard.isRefreshing()) {
-            mSrlAttentionCard.setRefreshing(false);
-            toastShow("当前内容已是最新");
-        }
+        mRefreshLayout.refreshComplete();
         if (page == 0){
             mCardAdapter.setNewData(list);
             mRvAttentionCard.scrollToPosition(0);
@@ -216,9 +219,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void toastFail(String msg) {
-        if (mSrlAttentionCard.isRefreshing()) {
-            mSrlAttentionCard.setRefreshing(false);
-        }
+        mRefreshLayout.refreshComplete();
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
         if (page == 0){
@@ -228,9 +229,7 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     @Override
     public void startLogin() {
-        if (mSrlAttentionCard.isRefreshing()) {
-            mSrlAttentionCard.setRefreshing(false);
-        }
+        mRefreshLayout.autoRefresh();
 
         ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
@@ -241,10 +240,6 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
     }
 
     private void initView() {
-        mSrlAttentionCard.setOnRefreshListener(this);
-        int color = ContextCompat.getColor(getContext(), R.color.button_blue);
-        mSrlAttentionCard.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
-
         mEmptyView = LayoutInflater.from(mActivity).inflate(R.layout.empty_attention,null);
         mEmptyView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -283,6 +278,10 @@ public class AttentionFragment extends MvpFragment<AttentionPresenter> implement
 
     private void getHotCardBag() {
         mPresenter.getHotCardBag();
+    }
+
+    public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
+        this.mAppBarLayoutVerticalOffset = appBarLayoutVerticalOffset;
     }
 
     static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener{

@@ -46,10 +46,8 @@
     <View
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/iv_item_card_bag_list_icon"
-        android:background="@color/line"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
 </RelativeLayout>

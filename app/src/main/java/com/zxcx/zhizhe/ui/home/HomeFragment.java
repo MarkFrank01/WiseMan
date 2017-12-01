@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -38,6 +39,8 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.vp_home)
     ViewPager mVpHome;
     Unbinder unbinder;
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
     private HotFragment mHotFragment = new HotFragment();
     private AttentionFragment mAttentionFragment = new AttentionFragment();
 
@@ -108,8 +111,20 @@ public class HomeFragment extends BaseFragment {
 
         ViewGroup.LayoutParams para = mTlHome.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.width = screenWidth * 2/3;
+        para.width = screenWidth * 2 / 3;
         mTlHome.setLayoutParams(para);
+
+        initAppBarLayout();
+    }
+
+    private void initAppBarLayout() {
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+                mHotFragment.setAppBarLayoutVerticalOffset(i);
+                mAttentionFragment.setAppBarLayoutVerticalOffset(i);
+            }
+        });
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

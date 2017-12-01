@@ -32,9 +32,7 @@
     
     <View
         android:layout_marginTop="30dp"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:background="@color/white"
@@ -63,10 +61,8 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
         android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_about_us_check_update"
@@ -96,15 +92,11 @@
     </LinearLayout>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_about_us_visit"
@@ -133,10 +125,8 @@
 
     <View
         android:visibility="gone"
-        android:background="@color/line"
         android:layout_marginLeft="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <TextView
         android:id="@+id/tv_about_us_share"
@@ -151,9 +141,7 @@
         android:layout_height="50dp"/>
 
     <View
-        android:background="@color/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        style="@style/line"/>
 
     <View
         android:layout_weight="1"

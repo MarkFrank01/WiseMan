@@ -4,7 +4,7 @@
     <dimen name="fragment_interval">10dp</dimen>
     <dimen name="text_size_title_1">28sp</dimen>
     <dimen name="text_size_title_2">22sp</dimen>
-    <dimen name="text_size_text_1">22sp</dimen>
-    <dimen name="text_size_text_2">22sp</dimen>
-    <dimen name="text_size_text_3">22sp</dimen>
+    <dimen name="text_size_text_1">17sp</dimen>
+    <dimen name="text_size_text_2">14sp</dimen>
+    <dimen name="text_size_text_3">12sp</dimen>
 </resources>
