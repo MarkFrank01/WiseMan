@@ -1,0 +1,71 @@
+package com.zxcx.zhizhe.ui.search.result.user
+
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import kotlinx.android.synthetic.main.fragment_search_user.*
+
+class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContract.View, BaseQuickAdapter.RequestLoadMoreListener {
+
+    var mPage = 0
+    var mPageSize = Constants.PAGE_SIZE
+    lateinit var mSearchUserAdapter : SearchUserAdapter
+
+    var mKeyword = ""
+        set(value) {
+            field = value
+            mPage = 0
+            mPresenter?.searchUser(mKeyword,mPage,mPageSize)
+        }
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_search_user, container, false)
+    }
+
+    override fun createPresenter(): SearchUserPresenter {
+        return SearchUserPresenter(this)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        mPresenter?.searchUser(mKeyword,mPage,mPageSize)
+    }
+
+    private fun initRecyclerView() {
+        mSearchUserAdapter = SearchUserAdapter(ArrayList())
+        mSearchUserAdapter.setLoadMoreView(CustomLoadMoreView())
+        mSearchUserAdapter.setOnLoadMoreListener(this,rv_search_result_user)
+        rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
+        rv_search_result_user.adapter = mSearchUserAdapter
+        mSearchUserAdapter.setEmptyView(R.layout.layout_no_data)
+    }
+
+    override fun getDataSuccess(list: List<SearchUserBean>) {
+        mSearchUserAdapter.mKeyword = mKeyword
+        if (mPage == 0) {
+            mSearchUserAdapter.setNewData(list)
+        } else {
+            mSearchUserAdapter.addData(list)
+        }
+        mPage++
+        if (list.size < Constants.PAGE_SIZE) {
+            mSearchUserAdapter.loadMoreEnd(false)
+        } else {
+            mSearchUserAdapter.loadMoreComplete()
+            mSearchUserAdapter.setEnableLoadMore(false)
+            mSearchUserAdapter.setEnableLoadMore(true)
+        }
+    }
+
+    override fun onLoadMoreRequested() {
+        mPresenter.searchUser(mKeyword,mPage,mPageSize)
+    }
+}

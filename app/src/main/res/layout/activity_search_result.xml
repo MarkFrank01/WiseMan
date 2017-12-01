@@ -1,72 +1,91 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context="com.zxcx.zhizhe.ui.home.HomeFragment">
 
     <LinearLayout
-        android:id="@+id/ll_search_result_toolbar"
-        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal">
+        android:layout_height="71dp">
 
-        <EditText
-            android:id="@+id/et_search_result"
-            android:background="@drawable/bg_home_search"
-            android:drawableLeft="@drawable/tv_home_search"
-            android:drawablePadding="7.5dp"
-            android:paddingLeft="8dp"
-            android:hint="@string/search_hint"
-            android:textColorHint="@color/text_color_top_search"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            tools:text="笔"
-            android:textSize="14sp"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:textColor="@color/text_color_99"
-            android:layout_gravity="center"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:imeOptions="actionSearch"
+        <RelativeLayout
+            android:id="@+id/rl_search_result_edit"
+            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="30dp"/>
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_search_result"
+                android:drawableLeft="@drawable/tv_home_search"
+                android:paddingLeft="8dp"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical"
+                android:textSize="17sp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/line"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"/>
+
+            <ImageView
+                android:id="@+id/iv_search_result_clear"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/iv_phone_clear"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_search_result_cancel"
+            android:id="@+id/tv_left_close"
             android:text="@string/common_cancel"
-            android:textColor="@color/text_color_66"
-            android:textSize="13sp"
-            android:gravity="center_vertical"
-            android:paddingLeft="7dp"
-            android:paddingRight="16.5dp"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
     </LinearLayout>
-    <include
-        android:layout_below="@+id/ll_search_result_toolbar"
+
+    <LinearLayout
+        android:background="@color/background"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        layout="@layout/view_line"/>
+        android:layout_height="wrap_content">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_search_result"
-        android:layout_below="@+id/ll_search_result_toolbar"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_search_result"
+            app:tabIndicatorColor="@color/translate"
+            app:tabSelectedTextColor="@color/translate"
+            app:tabBackground="@color/translate"
+            app:tabMode="fixed"
+            android:layout_width="240dp"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_search_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_search_result_card"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</RelativeLayout>
+        android:layout_height="match_parent"/>
+</LinearLayout>

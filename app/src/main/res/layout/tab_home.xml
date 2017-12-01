@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
@@ -8,6 +9,7 @@
 
     <TextView
         android:id="@+id/tv_tab_home"
+        tools:text="推荐"
         android:textColor="@color/color_tab_text_home"
         android:textSize="14sp"
         android:gravity="center_horizontal|bottom"

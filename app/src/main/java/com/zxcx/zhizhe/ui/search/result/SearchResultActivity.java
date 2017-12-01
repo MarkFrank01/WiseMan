@@ -1,59 +1,46 @@
 package com.zxcx.zhizhe.ui.search.result;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.MvpActivity;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
-import com.zxcx.zhizhe.ui.search.result.adapter.SearchResultCardAdapter;
-import com.zxcx.zhizhe.ui.search.result.adapter.SearchResultCardBagAdapter;
-import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.ui.search.result.card.SearchCardFragment;
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserFragment;
+import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
-import com.zxcx.zhizhe.utils.Utils;
-import com.zxcx.zhizhe.widget.CustomLoadMoreView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SearchResultActivity extends MvpActivity<SearchResultPresenter> implements SearchResultContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+public class SearchResultActivity extends BaseActivity {
 
-    @BindView(R.id.rv_search_result_card)
-    RecyclerView mRvSearchResultCard;
-    @BindView(R.id.srl_search_result)
-    SwipeRefreshLayout mSrlSearchResult;
-    RecyclerView mRvSearchResultCardBag;
-    LinearLayout mLLHeadSearchResultCardBag;
     @BindView(R.id.et_search_result)
     EditText mEtSearchResult;
+    @BindView(R.id.tl_search_result)
+    TabLayout mTlSearchResult;
+    @BindView(R.id.vp_search_result)
+    ViewPager mVpSearchResult;
+    @BindView(R.id.iv_search_result_clear)
+    ImageView mIvSearchResultClear;
 
-    private SearchResultCardBagAdapter mCardBagAdapter;
-    private SearchResultCardAdapter mCardAdapter;
-    private String mKeyword;
-    private int page = 0;
-    private View mHeaderView;
-    private TextView mTvHeadCard;
-    private View mViewHeadInterval;
+    private String[] titles = new String[]{"卡片", "用户"};
+
+    private SearchCardFragment mSearchCardFragment = new SearchCardFragment();
+    private SearchUserFragment mSearchUserFragment = new SearchUserFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,141 +48,62 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
 
+        initView();
         initData();
-
-        initRecyclerView();
-        mEtSearchResult.setOnEditorActionListener(new SearchListener());
-        mSrlSearchResult.setOnRefreshListener(this);
-        mSrlSearchResult.setColorSchemeColors(ContextCompat.getColor(mActivity, R.color.button_blue));
-        onRefresh();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    @OnClick(R.id.iv_search_result_clear)
+    public void onMIvSearchResultClearClicked() {
+        mEtSearchResult.setText("");
+    }
+
+    @OnClick(R.id.tv_left_close)
+    public void onMTvLeftCloseClicked() {
+        onBackPressed();
     }
 
     private void initData() {
-        mKeyword = getIntent().getStringExtra("keyword");
-        mEtSearchResult.setText(mKeyword);
+        String keyword = getIntent().getStringExtra("mKeyword");
+        mEtSearchResult.setText(keyword);
+        mSearchCardFragment.setMKeyword(keyword);
+        mSearchUserFragment.setMKeyword(keyword);
     }
 
-    @Override
-    protected SearchResultPresenter createPresenter() {
-        return new SearchResultPresenter(this);
-    }
+    private void initView() {
+        mVpSearchResult.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                if (position == 0) {
+                    return mSearchCardFragment;
+                } else {
+                    return mSearchUserFragment;
+                }
+            }
 
-    @Override
-    public void onRefresh() {
-        page = 0;
-        searchCardBag();
-        searchCard();
-    }
-
-    @Override
-    public void onLoadMoreRequested() {
-        mSrlSearchResult.setEnabled(false);
-        searchCard();
-        mSrlSearchResult.setEnabled(true);
-    }
-
-    @Override
-    public void searchCardBagSuccess(List<SearchCardBagBean> list) {
-        mCardBagAdapter.setNewData(list);
-        checkNullShow();
-    }
-
-    @Override
-    public void getDataSuccess(List<SearchCardBean> list) {
-        if (mSrlSearchResult.isRefreshing()) {
-            mSrlSearchResult.setRefreshing(false);
-            toastShow("当前内容已是最新");
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        });
+        mTlSearchResult.setupWithViewPager(mVpSearchResult);
+        for (int i = 0; i < mTlSearchResult.getTabCount(); i++) {
+            TabLayout.Tab tab = mTlSearchResult.getTabAt(i);
+            tab.setCustomView(R.layout.tab_home);
+            TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_home);
+            textView.setText(titles[i]);
+//            tab.setText(titles[i]);
         }
-        if (page == 0){
-            mCardAdapter.setNewData(new ArrayList<SearchCardBean>());
-        }
-        page++;
-        mCardAdapter.addData(list);
-        if (list.size() < Constants.PAGE_SIZE){
-            mCardAdapter.loadMoreEnd(false);
-        }else {
-            mCardAdapter.loadMoreComplete();
-            mCardAdapter.setEnableLoadMore(false);
-            mCardAdapter.setEnableLoadMore(true);
-        }
-        checkNullShow();
+
+        ViewGroup.LayoutParams para = mTlSearchResult.getLayoutParams();
+        int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
+        para.width = screenWidth * 2 / 3;
+        mTlSearchResult.setLayoutParams(para);
+
+        mEtSearchResult.addTextChangedListener(new SearchResultTextWatch());
+        mEtSearchResult.setOnEditorActionListener(new SearchResultListener());
     }
 
-    private void checkNullShow() {
-        if (mCardBagAdapter.getData().size() == 0 && mCardAdapter.getData().size() == 0){
-            mCardAdapter.isUseEmpty(true);
-            mHeaderView.setVisibility(View.GONE);
-            View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
-            mCardAdapter.setEmptyView(emptyView);
-        }else if (mCardBagAdapter.getData().size() == 0){
-            mHeaderView.setVisibility(View.VISIBLE);
-            mLLHeadSearchResultCardBag.setVisibility(View.GONE);
-            mTvHeadCard.setVisibility(View.VISIBLE);
-            mCardAdapter.isUseEmpty(false);
-        }else if (mCardAdapter.getData().size() == 0){
-            mHeaderView.setVisibility(View.VISIBLE);
-            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
-            mTvHeadCard.setVisibility(View.GONE);
-            mViewHeadInterval.setVisibility(View.GONE);
-            mCardAdapter.isUseEmpty(false);
-        }else {
-            mHeaderView.setVisibility(View.VISIBLE);
-            mLLHeadSearchResultCardBag.setVisibility(View.VISIBLE);
-            mTvHeadCard.setVisibility(View.VISIBLE);
-            mViewHeadInterval.setVisibility(View.VISIBLE);
-            mCardAdapter.isUseEmpty(false);
-        }
-    }
-
-    private void initRecyclerView() {
-
-        LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false);
-        LinearLayoutManager hotCardLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
-        mCardAdapter = new SearchResultCardAdapter(new ArrayList<SearchCardBean>(), mKeyword);
-        mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mCardAdapter.setOnLoadMoreListener(this, mRvSearchResultCard);
-        mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        mRvSearchResultCard.setLayoutManager(hotCardLayoutManager);
-        mRvSearchResultCard.setAdapter(mCardAdapter);
-
-        mHeaderView = LayoutInflater.from(mActivity).inflate(R.layout.head_search_result, null);
-        mRvSearchResultCardBag = (RecyclerView) mHeaderView.findViewById(R.id.rv_search_result_card_bag);
-        mLLHeadSearchResultCardBag = (LinearLayout) mHeaderView.findViewById(R.id.ll_head_search_result_card_bag);
-        mTvHeadCard = (TextView) mHeaderView.findViewById(R.id.tv_head_search_card);
-        mViewHeadInterval = mHeaderView.findViewById(R.id.view_head_search_result);
-
-        mCardBagAdapter = new SearchResultCardBagAdapter(new ArrayList<SearchCardBagBean>(),mKeyword);
-        mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
-        mRvSearchResultCardBag.setLayoutManager(hotCardBagLayoutManager);
-        mRvSearchResultCardBag.setAdapter(mCardBagAdapter);
-        mRvSearchResultCardBag.addItemDecoration(new HomeCardBagItemDecoration());
-
-        mCardAdapter.addHeaderView(mHeaderView);
-        View emptyView = LayoutInflater.from(mActivity).inflate(R.layout.view_no_data, null);
-        mCardAdapter.setEmptyView(emptyView);
-        mCardAdapter.setHeaderAndEmpty(true);
-    }
-
-    @OnClick(R.id.tv_search_result_cancel)
-    public void onViewClicked() {
-        Utils.closeInputMethod(mEtSearchResult);
-        finish();
-    }
-
-    private void searchCard() {
-        mPresenter.searchCard(mKeyword,page, Constants.PAGE_SIZE);
-    }
-
-    private void searchCardBag() {
-        mPresenter.searchCardBag(mKeyword);
-    }
-
-    class SearchListener implements TextView.OnEditorActionListener {
+    class SearchResultListener implements TextView.OnEditorActionListener {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
@@ -203,15 +111,11 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
-                if (StringUtils.isEmpty(v.getText().toString())){
+                if (StringUtils.isEmpty(v.getText().toString())) {
                     toastShow("搜索内容不能为空！");
                     return true;
                 }
-                mKeyword = v.getText().toString();
-                mCardAdapter.setKeyword(mKeyword);
-                mCardBagAdapter.setKeyword(mKeyword);
-                onRefresh();
-                Utils.closeInputMethod(mEtSearchResult);
+
 
                 return true;
             }
@@ -219,39 +123,21 @@ public class SearchResultActivity extends MvpActivity<SearchResultPresenter> imp
         }
     }
 
-    private static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener {
+    class SearchResultTextWatch implements TextWatcher {
 
-        private Context mContext;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        public CardBagItemClickListener(Context context) {
-            mContext = context;
         }
 
         @Override
-        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            SearchCardBagBean bean = (SearchCardBagBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id",bean.getId());
-            intent.putExtra("name",bean.getName());
-            mContext.startActivity(intent);
-        }
-    }
-
-    private static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
-
-        private Context mContext;
-
-        public CardItemClickListener(Context context) {
-            mContext = context;
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            mIvSearchResultClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
         }
 
         @Override
-        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            SearchCardBean bean = (SearchCardBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardDetailsActivity.class);
-            intent.putExtra("id",bean.getId());
-            intent.putExtra("name",bean.getName());
-            mContext.startActivity(intent);
+        public void afterTextChanged(Editable s) {
+
         }
     }
 }

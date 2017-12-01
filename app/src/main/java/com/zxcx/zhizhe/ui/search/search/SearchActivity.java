@@ -51,6 +51,8 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     TextView mTvSearchHistoryType;
     @BindView(R.id.ll_search_history)
     LinearLayout mLlSearchHistory;
+    @BindView(R.id.iv_search_clear)
+    ImageView mIvSearchClear;
 
     private HotSearchAdapter mHotSearchAdapter;
     private SearchHistoryAdapter mSearchHistoryAdapter;
@@ -70,14 +72,14 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     @Override
     public void initStatusBar() {
-        if (!Constants.IS_NIGHT){
+        if (!Constants.IS_NIGHT) {
             ImmersionBar.with(this)
                     .statusBarColor(R.color.background)
                     .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.black)
                     .fitsSystemWindows(true)
                     .init();
-        }else {
+        } else {
 
         }
     }
@@ -119,6 +121,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @Override
     public void getSearchPreSuccess(List<String> list) {
         mRvSearchPre.setVisibility(View.VISIBLE);
+        mSearchPreAdapter.setKeyword(mEtSearch.getText().toString());
         mSearchPreAdapter.setNewData(list);
     }
 
@@ -178,13 +181,13 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                     @Override
                     public void onError(Throwable t) {
-                        LogCat.e("搜索记录插入失败",t);
+                        LogCat.e("搜索记录插入失败", t);
                     }
 
                     @Override
                     public void onComplete() {
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
-                        intent.putExtra("keyword", keyword);
+                        intent.putExtra("mKeyword", keyword);
                         startActivity(intent);
                         Utils.closeInputMethod(mEtSearch);
                         finish();
@@ -250,6 +253,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
             mRvSearchPre.setVisibility(View.GONE);
             mLlSearchHistory.setVisibility(s.length() > 0 ? View.GONE : View.VISIBLE);
             mRvSearchHistory.setVisibility(s.length() > 0 ? View.GONE : View.VISIBLE);
+            mIvSearchClear.setVisibility(s.length() > 0 ? View.VISIBLE : View.GONE);
             mPresenter.getSearchPre(s.toString());
         }
 

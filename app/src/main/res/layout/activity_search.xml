@@ -25,7 +25,6 @@
 
             <EditText
                 android:id="@+id/et_search"
-                android:maxLength="11"
                 android:drawableLeft="@drawable/tv_home_search"
                 android:paddingLeft="8dp"
                 android:drawablePadding="8dp"
@@ -38,10 +37,14 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text"/>
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"/>
 
             <ImageView
                 android:id="@+id/iv_search_clear"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -64,9 +67,7 @@
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/line"/>
+        style="@style/line"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search_pre"

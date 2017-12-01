@@ -14,8 +14,8 @@ import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.SearchCardBagBean;
-import com.zxcx.zhizhe.ui.search.result.SearchCardBean;
+import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
 import com.zxcx.zhizhe.ui.welcome.WelcomeBean;
 
@@ -155,10 +155,10 @@ public interface APIService {
             @Query("pageSize") int pageSize);
 
     /**
-     * 搜索卡包
+     * 搜索用户
      */
-    @POST("/search/searchCollection")
-    Flowable<BaseArrayBean<SearchCardBagBean>> searchCardBag(
+    @POST("/search/searchUsers")
+    Flowable<BaseArrayBean<SearchUserBean>> searchUser(
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
