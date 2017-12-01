@@ -1,13 +1,13 @@
 package com.zxcx.zhizhe.ui.classify;
 
+import android.text.TextPaint;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import java.util.List;
@@ -30,10 +30,10 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
         switch (helper.getItemViewType()) {
             case ClassifyBean.TYPE_CLASSIFY:
                 ClassifyBean bean = (ClassifyBean) item;
-                String title = bean.getTitle();
-                helper.setText(R.id.tv_item_classify_classify,title);
-                ImageView imageView = helper.getView(R.id.iv_item_classify_classify);
-                ImageLoader.load(mContext,bean.getImageUrl(),R.drawable.iv_item_classify_classify_icon_placeholder,imageView);
+                TextView title = helper.getView(R.id.tv_item_classify_classify);
+                title.setText(bean.getTitle());
+                TextPaint paint = title.getPaint();
+                paint.setFakeBoldText(true);
                 break;
             case ClassifyCardBagBean.TYPE_CARD_BAG:
 
@@ -41,7 +41,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
 
                 ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
                 int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-                para.width = (screenWidth - ScreenUtils.dip2px(5*3) - ScreenUtils.dip2px(12*2)) / 4;
+                para.width = (screenWidth - ScreenUtils.dip2px(15*2) - ScreenUtils.dip2px(20*2)) / 3;
                 helper.itemView.setLayoutParams(para);
 
                 ClassifyCardBagBean cardBagBean = (ClassifyCardBagBean) item;

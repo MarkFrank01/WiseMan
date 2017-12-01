@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -23,7 +22,6 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.search.search.SearchActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,7 +32,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements ClassifyContract.View,
@@ -43,8 +40,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @BindView(R.id.rv_classify)
     RecyclerView mRvClassify;
     Unbinder unbinder;
-    @BindView(R.id.tv_home_search)
-    TextView mTvHomeSearch;
     @BindView(R.id.srl_classify)
     SwipeRefreshLayout mSrlClassify;
 
@@ -144,12 +139,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         loadService.showCallback(ClassifyLoadingCallback.class);
     }
 
-    @OnClick(R.id.tv_home_search)
-    public void onViewClicked() {
-        Intent intent = new Intent(getContext(), SearchActivity.class);
-        startActivity(intent);
-    }
-
     private void getClassify() {
         mPresenter.getClassify();
     }
@@ -157,7 +146,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     private void initRecyclerView() {
         mClassifyAdapter = new ClassifyAdapter(new ArrayList<MultiItemEntity>());
         mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
-        manager = new GridLayoutManager(getContext(), 4);
+        manager = new GridLayoutManager(getContext(), 3);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -170,6 +159,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         });
         mRvClassify.setAdapter(mClassifyAdapter);
         mRvClassify.setLayoutManager(manager);
+        mRvClassify.addItemDecoration(new ClassifyItemDecoration());
     }
 
     class OnClassifyItemClickListener implements BaseQuickAdapter.OnItemChildClickListener{

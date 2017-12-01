@@ -19,8 +19,6 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
 
     @JSONField(name = "title")
     private String title;
-    @JSONField(name = "titleImage")
-    private String imageUrl;
     @JSONField(name = "collectionData")
     private List<ClassifyCardBagBean> dataList;
 
@@ -31,14 +29,6 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
 
     public String getTitle() {
         return title;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public void setTitle(String title) {
