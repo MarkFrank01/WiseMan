@@ -71,20 +71,6 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
-    public void initStatusBar() {
-        if (!Constants.IS_NIGHT) {
-            ImmersionBar.with(this)
-                    .statusBarColor(R.color.background)
-                    .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.black)
-                    .fitsSystemWindows(true)
-                    .init();
-        } else {
-
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         Utils.closeInputMethod(mEtSearch);
         super.onBackPressed();

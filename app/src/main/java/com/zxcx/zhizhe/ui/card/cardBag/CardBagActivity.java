@@ -78,7 +78,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
             mAppBarLayoutVerticalOffset = i;
-            if (i>mTvCardBagName.getTop()+mTvCardBagName.getHeight()){
+            if (-i>mTvCardBagName.getTop()+mTvCardBagName.getHeight()){
                 mToolbarTitle.setVisibility(View.VISIBLE);
             }else {
                 mToolbarTitle.setVisibility(View.GONE);
@@ -134,9 +134,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
     @Override
     public void getDataSuccess(List<CardBagBean> list) {
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-        }
+        mRefreshLayout.refreshComplete();
         if (page == 0) {
             mCardBagCardAdapter.setNewData(list);
             mCardBagListAdapter.setNewData(list);

@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_select_attention_close"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="7dp"
-        android:src="@drawable/common_close"
-        android:padding="15dp"
+    <TextView
+        android:id="@+id/tv_select_attention_close"
+        android:paddingLeft="16dp"
+        android:paddingTop="13dp"
+        android:text="@string/common_cancel"
+        android:textColor="@color/button_blue"
+        android:textSize="17sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_select_attention_next"
+        android:layout_alignParentRight="true"
+        android:text="下一步"
+        android:textColor="@color/color_tv_select_attention_next"
+        android:textSize="17sp"
+        android:enabled="false"
+        android:paddingTop="13dp"
+        android:paddingRight="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tv_select_attention_title"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="19dp"
+        android:layout_below="@id/tv_select_attention_close"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/iv_select_attention_close"
         android:text="选择你感兴趣的卡包"
         android:textColor="@color/text_color_66"
         android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tv_select_attention_next"
-        android:text="完成"
-        android:textColor="@color/color_tv_select_attention_next"
-        android:textSize="17sp"
-        android:enabled="false"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="29dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:drawablePadding="5.5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_select_attention"
-        android:paddingLeft="7dp"
-        android:paddingRight="7dp"
         android:layout_below="@+id/tv_select_attention_title"
-        android:layout_above="@+id/tv_select_attention_next"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_select_attention"/>
 
 </RelativeLayout>

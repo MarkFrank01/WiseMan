@@ -1,8 +1,8 @@
 package com.zxcx.zhizhe.ui.my.selectAttention;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
@@ -79,7 +79,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
         return new SelectAttentionPresenter(this);
     }
 
-    @OnClick(R.id.iv_select_attention_close)
+    @OnClick(R.id.tv_select_attention_close)
     public void onMIvSelectAttentionCloseClicked() {
         finish();
     }
@@ -112,11 +112,12 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     }
 
     private void initRecyclerView() {
-        mAdapter = new SelectAttentionAdapter(new ArrayList<SelectAttentionBean>());
+        mAdapter = new SelectAttentionAdapter(new ArrayList<>());
         mAdapter.setOnItemClickListener(this);
-        GridLayoutManager manager = new GridLayoutManager(mActivity, 3);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.HORIZONTAL);
         mRvSelectAttention.setAdapter(mAdapter);
         mRvSelectAttention.setLayoutManager(manager);
+        mRvSelectAttention.addItemDecoration(new SelectAttentionItemDecoration());
     }
 
     private void checkNext() {

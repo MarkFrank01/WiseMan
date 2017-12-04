@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <android.support.design.widget.CoordinatorLayout
         android:background="@color/background"
-        style="@style/Widget.Design.AppBarLayout.NoElevation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/ll_toolbar"
-            layout="@layout/toolbar"/>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:background="@color/background"
+            style="@style/Widget.Design.AppBarLayout.NoElevation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_card_bag_name"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="5dp"
-            tools:text="数码产品"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/text_size_title_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll">
+                <TextView
+                    android:id="@+id/tv_card_bag_name"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="5dp"
+                    tools:text="数码产品"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/text_size_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+        </android.support.design.widget.AppBarLayout>
 
         <in.srain.cube.views.ptr.PtrFrameLayout
             android:id="@+id/refresh_layout"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -53,17 +57,17 @@
                     android:id="@+id/rv_card_bag_card"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_behavior="com.zxcx.zhizhe.ui.card.cardBag.CardBagBehavior"/>
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_card_bag_list"
                     android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_behavior="com.zxcx.zhizhe.ui.card.cardBag.CardBagBehavior"/>
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             </FrameLayout>
         </in.srain.cube.views.ptr.PtrFrameLayout>
-    </FrameLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
