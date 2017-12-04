@@ -25,7 +25,7 @@ class SearchUserAdapter(data : List<SearchUserBean>) : BaseQuickAdapter<SearchUs
         helper.setText(R.id.tv_item_search_result_user_card, (item.cardNum?:0).toString())
         helper.setText(R.id.tv_item_search_result_user_fans, (item.fansNum?:0).toString())
         helper.setText(R.id.tv_item_search_result_user_read, (item.readNum?:0).toString())
-        helper.setVisible(R.id.view_line,helper.adapterPosition == itemCount-1)
+        helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
         //todo 排名未做
     }
 

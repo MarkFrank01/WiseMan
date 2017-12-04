@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsBean;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
+import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
@@ -109,17 +110,11 @@ public interface APIService {
             @Query("gender") Integer sex, @Query("birth") String birthday);
 
     /**
-     * 获取推荐卡片
+     * 获取推荐
      */
     @POST("/article/getRecommendArticle")
-    Flowable<BaseArrayBean<HotCardBean>> getHotCard(
-            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
-
-    /**
-     * 获取推荐卡包
-     */
-    @POST("/collection/getRecommendCollection")
-    Flowable<BaseArrayBean<HotCardBagBean>> getHotCardBag();
+    Flowable<BaseBean<HotBean>> getHot(
+            @Query("pageIndex") int page);
 
     /**
      * 获取关注卡片

@@ -35,9 +35,6 @@ public class CardBagAllCardAdapter extends BaseQuickAdapter<CardBagCardDetailsBe
             helper.setTextColor(R.id.tv_card_bag_all_card_name, ContextCompat.getColor(mContext,R.color.text_color_66));
         }
 
-        int position = helper.getAdapterPosition();
-        if (position == mData.size() - 1){
-            helper.setVisible(R.id.view_line,false);
-        }
+        helper.setVisible(R.id.view_line,helper.getAdapterPosition() != getItemCount()-1);
     }
 }

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,8 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.home.attention.adapter.AttentionCardBagAdapter;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
-import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
@@ -58,8 +54,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     RecyclerView mRvAttentionCard;
     Unbinder unbinder;
 
-    private AttentionCardBagAdapter mCardBagAdapter;
-    private HotCardAdapter mCardAdapter;
+    private AttentionCardAdapter mCardAdapter;
     private int mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     private View mEmptyView;
     private int page = 0;
@@ -109,7 +104,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
                 if (mUserId == 0) {
                     loadService.showCallback(AttentionNeedLoginCallback.class);
                 } else {
-                    getHotCardBag();
+                    getHotCard();
                 }
                 isFirst = false;
             }
@@ -135,7 +130,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Override
     public void clearLeaks() {
         mCardAdapter = null;
-        mCardBagAdapter = null;
         mRvAttentionCardBag = null;
         mEmptyView = null;
         loadService = null;
@@ -173,29 +167,12 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     private void onRefresh(){
         page = 0;
-        getHotCardBag();
+        getHotCard();
     }
 
     @Override
     public void onLoadMoreRequested() {
         getHotCard();
-    }
-
-    @Override
-    public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        if (page == 0){
-            mCardBagAdapter.setNewData(list);
-        }else {
-            mCardBagAdapter.addData(list);
-        }
-        loadService.showSuccess();
-        if (mCardBagAdapter.getData().size() == 0){
-            //占空图
-            mCardAdapter.setHeaderAndEmpty(false);
-        }else {
-            mCardAdapter.setHeaderAndEmpty(true);
-            getHotCard();
-        }
     }
 
     @Override
@@ -249,35 +226,18 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             }
         });
 
-        LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        StaggeredGridLayoutManager hotCardLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        mCardAdapter = new HotCardAdapter(new ArrayList<HotCardBean>());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mCardAdapter = new AttentionCardAdapter(new ArrayList<HotCardBean>());
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        mCardAdapter.setOnItemChildClickListener(new CardTypeClickListener(mActivity));
-        mRvAttentionCard.setLayoutManager(hotCardLayoutManager);
+        mRvAttentionCard.setLayoutManager(layoutManager);
         mRvAttentionCard.setAdapter(mCardAdapter);
         mRvAttentionCard.addItemDecoration(new HomeCardItemDecoration());
-
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.head_home_attention,null);
-        mRvAttentionCardBag = (RecyclerView) view.findViewById(R.id.rv_attention_card_bag);
-        mCardBagAdapter = new AttentionCardBagAdapter(new ArrayList<HotCardBagBean>());
-        mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
-        mRvAttentionCardBag.setLayoutManager(hotCardBagLayoutManager);
-        mRvAttentionCardBag.setAdapter(mCardBagAdapter);
-        mRvAttentionCardBag.addItemDecoration(new HomeCardBagItemDecoration());
-
-        mCardAdapter.addHeaderView(view);
-        mCardAdapter.setEmptyView(mEmptyView);
     }
 
     private void getHotCard() {
         mPresenter.getHotCard(page, Constants.PAGE_SIZE);
-    }
-
-    private void getHotCardBag() {
-        mPresenter.getHotCardBag();
     }
 
     public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
@@ -316,24 +276,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id",bean.getId());
             intent.putExtra("name",bean.getName());
-            mContext.startActivity(intent);
-        }
-    }
-
-    private static class CardTypeClickListener implements BaseQuickAdapter.OnItemChildClickListener{
-
-        private Context mContext;
-
-        public CardTypeClickListener(Context context) {
-            mContext  = context;
-        }
-
-        @Override
-        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id",bean.getBagId());
-            intent.putExtra("name",bean.getBagName());
             mContext.startActivity(intent);
         }
     }

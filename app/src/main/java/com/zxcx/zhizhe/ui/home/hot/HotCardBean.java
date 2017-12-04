@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.home.hot;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
+import java.util.Date;
+
 public class HotCardBean extends RetrofitBaen {
 
     @JSONField(name = "id")
@@ -11,16 +13,10 @@ public class HotCardBean extends RetrofitBaen {
     private String imageUrl;
     @JSONField(name = "title")
     private String name;
-    @JSONField(name = "collectingCount")
-    private int collectNum;
-    @JSONField(name = "likedUsersCount")
-    private int likeNum;
-    @JSONField(name = "collectionName")
-    private String bagName;
-    @JSONField(name = "collectionId")
-    private int bagId;
-    @JSONField(name = "classifyColor")
-    private String color;
+    @JSONField(name = "passTime")
+    private Date date;
+    @JSONField(name = "authorName")
+    private String author;
 
     public int getId() {
         return id;
@@ -46,44 +42,20 @@ public class HotCardBean extends RetrofitBaen {
         this.name = name;
     }
 
-    public int getCollectNum() {
-        return collectNum;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCollectNum(int collectNum) {
-        this.collectNum = collectNum;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public int getLikeNum() {
-        return likeNum;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setLikeNum(int likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    public String getBagName() {
-        return bagName;
-    }
-
-    public void setBagName(String bagName) {
-        this.bagName = bagName;
-    }
-
-    public int getBagId() {
-        return bagId;
-    }
-
-    public void setBagId(int bagId) {
-        this.bagId = bagId;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
 

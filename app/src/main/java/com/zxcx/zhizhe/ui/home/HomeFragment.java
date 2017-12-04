@@ -44,7 +44,7 @@ public class HomeFragment extends BaseFragment {
     private HotFragment mHotFragment = new HotFragment();
     private AttentionFragment mAttentionFragment = new AttentionFragment();
 
-    private String[] titles = new String[]{"热门推荐", "我关注的"};
+    private String[] titles = new String[]{"推荐", "关注"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

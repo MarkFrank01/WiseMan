@@ -7,12 +7,10 @@ import java.util.List;
 
 public interface HotContract {
 
-    interface View extends GetView<List<HotCardBean>> {
-        void getHotCardBagSuccess(List<HotCardBagBean> list);
+    interface View extends GetView<List<RecommendBean>> {
     }
 
-    interface Presenter extends IGetPresenter<List<HotCardBean>> {
-        void getHotCardBagSuccess(List<HotCardBagBean> list);
+    interface Presenter extends IGetPresenter<List<RecommendBean>> {
     }
 }
 

@@ -15,22 +15,13 @@ public class HotPresenter extends BasePresenter<HotContract.View> implements Hot
         mModel = new HotModel(this);
     }
 
-    public void getHotCard(int page, int pageSize){
-        mModel.getHotCard(page,pageSize);
-    }
-
-    public void getHotCardBag(){
-        mModel.getHotCardBag();
+    public void getHotCard(int page){
+        mModel.getHotCard(page);
     }
 
     @Override
-    public void getDataSuccess(List<HotCardBean> s) {
+    public void getDataSuccess(List<RecommendBean> s) {
         mView.getDataSuccess(s);
-    }
-
-    @Override
-    public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        mView.getHotCardBagSuccess(list);
     }
 
     @Override

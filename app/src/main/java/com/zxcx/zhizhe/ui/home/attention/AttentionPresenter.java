@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.home.attention;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 
 import java.util.List;
@@ -19,15 +18,6 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
 
     public void getHotCard(int page, int pageSize){
         mModel.getAttentionCard(page,pageSize);
-    }
-
-    public void getHotCardBag(){
-        mModel.getAttentionCardBag();
-    }
-
-    @Override
-    public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        mView.getHotCardBagSuccess(list);
     }
 
     @Override

@@ -5,30 +5,16 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.List;
 
-public class HotCardBagBean extends RetrofitBaen {
+/**
+ * Created by anm on 2017/12/4.
+ */
 
-    @JSONField(name = "id")
-    private int id;
-    @JSONField(name = "title")
-    private String name;
+public class HotBean extends RetrofitBaen {
+
     @JSONField(name = "articleList")
     private List<HotCardBean> cardList;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    @JSONField(name = "collectionList")
+    private List<HotCardBagBean> cardBagList;
 
     public List<HotCardBean> getCardList() {
         return cardList;
@@ -37,5 +23,12 @@ public class HotCardBagBean extends RetrofitBaen {
     public void setCardList(List<HotCardBean> cardList) {
         this.cardList = cardList;
     }
-}
 
+    public List<HotCardBagBean> getCardBagList() {
+        return cardBagList;
+    }
+
+    public void setCardBagList(List<HotCardBagBean> cardBagList) {
+        this.cardBagList = cardBagList;
+    }
+}

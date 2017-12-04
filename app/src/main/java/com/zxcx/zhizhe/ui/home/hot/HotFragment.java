@@ -6,17 +6,13 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.GotoClassifyEvent;
 import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
@@ -25,9 +21,6 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
-import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardBagAdapter;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardBagItemDecoration;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -51,7 +44,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     RecyclerView mRvHotCard;
     Unbinder unbinder;
 
-    private HotCardBagAdapter mCardBagAdapter;
     private HotCardAdapter mCardAdapter;
     private int mPage = 0;
     private int mAppBarLayoutVerticalOffset;
@@ -68,13 +60,9 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
-        loadService = loadSir.register(root, new Callback.OnReloadListener() {
-            @Override
-            public void onReload(View v) {
-                loadService.showCallback(HomeLoadingCallback.class);
-                getHotCard();
-                getHotCardBag();
-            }
+        loadService = loadSir.register(root, v -> {
+            loadService.showCallback(HomeLoadingCallback.class);
+            getHotCard();
         });
         return loadService.getLoadLayout();
     }
@@ -91,7 +79,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         initRecyclerView();
 
         getHotCard();
-        getHotCardBag();
     }
 
     @Override
@@ -113,7 +100,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     @Override
     public void clearLeaks() {
         mCardAdapter = null;
-        mCardBagAdapter = null;
         mRvHotCardBag = null;
         loadService = null;
     }
@@ -133,7 +119,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     public void onRefreshBegin(PtrFrameLayout frame) {
         mPage = 0;
         getHotCard();
-        getHotCardBag();
     }
 
     @Override
@@ -142,16 +127,8 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     }
 
     @Override
-    public void getHotCardBagSuccess(List<HotCardBagBean> list) {
-        mCardBagAdapter.setNewData(list);
+    public void getDataSuccess(List<RecommendBean> list) {
         loadService.showSuccess();
-        if (mCardBagAdapter.getData().size() == 0) {
-            //占空图
-        }
-    }
-
-    @Override
-    public void getDataSuccess(List<HotCardBean> list) {
         mRefreshLayout.refreshComplete();
         if (mPage == 0) {
             mCardAdapter.setNewData(list);
@@ -184,61 +161,21 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
     private void initRecyclerView() {
 
-        LinearLayoutManager hotCardBagLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        StaggeredGridLayoutManager hotCardLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mCardAdapter = new HotCardAdapter(new ArrayList<>());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        mCardAdapter = new HotCardAdapter(new ArrayList<>(),new CardBagCardClickListener(mActivity));
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvHotCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        mCardAdapter.setOnItemChildClickListener(new CardTypeClickListener(mActivity));
-        mRvHotCard.setLayoutManager(hotCardLayoutManager);
+        mRvHotCard.setLayoutManager(layoutManager);
         mRvHotCard.setAdapter(mCardAdapter);
-        mRvHotCard.addItemDecoration(new HomeCardItemDecoration());
-
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.head_home_hot, null);
-        //查看全部按钮
-        TextView textView = (TextView) view.findViewById(R.id.tv_hot_goto_classify);
-        textView.setOnClickListener(v ->
-                EventBus.getDefault().post(new GotoClassifyEvent()));
-        mRvHotCardBag = (RecyclerView) view.findViewById(R.id.rv_hot_card_bag);
-        mCardBagAdapter = new HotCardBagAdapter(new ArrayList<>());
-        mCardBagAdapter.setOnItemClickListener(new CardBagItemClickListener(mActivity));
-        mRvHotCardBag.setLayoutManager(hotCardBagLayoutManager);
-        mRvHotCardBag.setAdapter(mCardBagAdapter);
-        mRvHotCardBag.addItemDecoration(new HomeCardBagItemDecoration());
-
-        mCardAdapter.addHeaderView(view);
-        mCardAdapter.setHeaderAndEmpty(true);
     }
 
     private void getHotCard() {
-        mPresenter.getHotCard(mPage, Constants.PAGE_SIZE);
-    }
-
-    private void getHotCardBag() {
-        mPresenter.getHotCardBag();
+        mPresenter.getHotCard(mPage);
     }
 
     public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
         this.mAppBarLayoutVerticalOffset = appBarLayoutVerticalOffset;
-    }
-
-    private static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener {
-
-        private Context mContext;
-
-        public CardBagItemClickListener(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBagBean bean = (HotCardBagBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id", bean.getId());
-            intent.putExtra("name", bean.getName());
-            mContext.startActivity(intent);
-        }
     }
 
     private static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
@@ -259,20 +196,27 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         }
     }
 
-    private static class CardTypeClickListener implements BaseQuickAdapter.OnItemChildClickListener {
+    private static class CardBagCardClickListener implements HotCardAdapter.HotCardBagCardOnClickListener {
 
         private Context mContext;
 
-        public CardTypeClickListener(Context context) {
+        public CardBagCardClickListener(Context context) {
             mContext = context;
         }
 
         @Override
-        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+        public void hotCardBagCardOnClick(HotCardBean bean) {
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("name", bean.getName());
+            mContext.startActivity(intent);
+        }
+
+        @Override
+        public void hotCardBagOnClick(HotCardBagBean bean) {
             Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id", bean.getBagId());
-            intent.putExtra("name", bean.getBagName());
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("name", bean.getName());
             mContext.startActivity(intent);
         }
     }

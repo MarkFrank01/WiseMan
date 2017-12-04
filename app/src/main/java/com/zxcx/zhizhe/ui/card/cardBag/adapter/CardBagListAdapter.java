@@ -28,6 +28,6 @@ public class CardBagListAdapter extends BaseQuickAdapter<CardBagBean,BaseViewHol
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
         helper.setText(R.id.tv_item_search_result_card_info, mContext.getString(R.string.tv_card_info, item.getDate(), item.getAuthor()));
-        helper.setVisible(R.id.view_line,helper.getAdapterPosition() == getItemCount()-1);
+        helper.setVisible(R.id.view_line,helper.getAdapterPosition() != getItemCount()-1);
     }
 }

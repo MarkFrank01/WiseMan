@@ -6,7 +6,7 @@ apply from: 'multiple-channel.gradle'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.zxcx.zhizhe"
@@ -80,16 +80,16 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.android.support:support-v4:25.4.0'
-    compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     //百分比布局
-    compile 'com.android.support:percent:25.4.0'
+    compile 'com.android.support:percent:26.1.0'
     //自动换行布局
     compile 'com.google.android:flexbox:0.3.0'
-    //滑动联动布局
+    //拖动布局
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
     //MD设计库
-    compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support:design:26.1.0'
     //去除方法数限制
     compile 'com.android.support:multidex:1.0.2'
     androidTestCompile 'com.android.support:multidex:1.0.2'
@@ -184,7 +184,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.4.0'
+                details.useVersion '26.1.0'
             }
         }
     }
