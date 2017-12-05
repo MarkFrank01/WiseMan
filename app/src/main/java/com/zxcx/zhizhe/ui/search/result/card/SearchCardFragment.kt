@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,11 +9,13 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_search_card.*
 
-class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View, BaseQuickAdapter.RequestLoadMoreListener {
+class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     var mPage = 0
     var mPageSize = Constants.PAGE_SIZE
@@ -40,15 +43,6 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
         return SearchCardPresenter(this)
     }
 
-    private fun initRecyclerView() {
-        mSearchCardAdapter = SearchCardAdapter(ArrayList())
-        mSearchCardAdapter.setLoadMoreView(CustomLoadMoreView())
-        mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result_card)
-        rv_search_result_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
-        rv_search_result_card.adapter = mSearchCardAdapter
-        mSearchCardAdapter.setEmptyView(R.layout.layout_no_data)
-    }
-
     override fun getDataSuccess(list: List<SearchCardBean>) {
         mSearchCardAdapter.mKeyword = mKeyword
         if (mPage == 0) {
@@ -68,5 +62,23 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
 
     override fun onLoadMoreRequested() {
         mPresenter.searchCard(mKeyword,mPage,mPageSize)
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as SearchCardBean
+        val intent = Intent(mActivity,CardDetailsActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
+    }
+
+    private fun initRecyclerView() {
+        mSearchCardAdapter = SearchCardAdapter(ArrayList())
+        mSearchCardAdapter.onItemClickListener = this
+        mSearchCardAdapter.setLoadMoreView(CustomLoadMoreView())
+        mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result_card)
+        rv_search_result_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_search_result_card.adapter = mSearchCardAdapter
+        mSearchCardAdapter.setEmptyView(R.layout.layout_no_data)
     }
 }

@@ -11,7 +11,7 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
 
     /**
      * type : 分类
-     * content : [{"imgUrl":"123","title":"标题"}]
+     * content : [{"imageUrl":"123","title":"标题"}]
      */
 
 

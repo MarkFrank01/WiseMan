@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
+import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
@@ -105,7 +105,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(HomeTopClickRefreshEvent event) {
+    public void onMessageEvent(HomeClickRefreshEvent event) {
         mRvHotCard.scrollToPosition(0);
         mRefreshLayout.autoRefresh();
     }

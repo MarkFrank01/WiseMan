@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
+import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
@@ -62,8 +62,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         View root = inflater.inflate(R.layout.fragment_attention, container, false);
         unbinder = ButterKnife.bind(this, root);
 
-        mRefreshLayout = (PtrFrameLayout) root.findViewById(R.id.refresh_layout);
-        mRefreshLayout.disableWhenHorizontalMove(true);
+        mRefreshLayout = root.findViewById(R.id.refresh_layout);
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
@@ -131,7 +130,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(HomeTopClickRefreshEvent event) {
+    public void onMessageEvent(HomeClickRefreshEvent event) {
         mRvAttentionCard.scrollToPosition(0);
         mRefreshLayout.autoRefresh();
     }
@@ -202,8 +201,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Override
     public void startLogin() {
-        mRefreshLayout.autoRefresh();
-
         ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
         startActivity(new Intent(mActivity, LoginActivity.class));

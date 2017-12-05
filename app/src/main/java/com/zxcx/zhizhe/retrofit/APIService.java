@@ -7,8 +7,8 @@ import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
-import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
+import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderBean;
@@ -124,10 +124,22 @@ public interface APIService {
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 获取关注卡包
+     * 获取我的榜单信息
      */
-    @POST("/collection/getFollowCollection")
-    Flowable<BaseArrayBean<HotCardBagBean>> getAttentionCardBag();
+    @POST("/getMyRank")
+    Flowable<BaseBean<UserRankBean>> getMyRank();
+
+    /**
+     * 获取前十榜单用户
+     */
+    @POST("/getTopTenRank")
+    Flowable<BaseArrayBean<UserRankBean>> getTopTenRank();
+
+    /**
+     * 获取前百榜单用户
+     */
+    @POST("/getTopHundredRank")
+    Flowable<BaseArrayBean<HotCardBean>> getTopHundredRank();
 
     /**
      * 获取热门搜索关键词

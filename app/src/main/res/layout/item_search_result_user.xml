@@ -75,8 +75,19 @@
             android:layout_height="wrap_content"/>
         
         <ImageView
+            android:id="@+id/iv_item_search_result_user_rank"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_result_user_no_rank"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="暂未上榜"
+            android:textColor="@color/background"
+            android:textSize="@dimen/text_size_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

@@ -16,17 +16,12 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
-import com.zxcx.zhizhe.event.HomeTopClickRefreshEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment;
 import com.zxcx.zhizhe.ui.home.hot.HotFragment;
+import com.zxcx.zhizhe.ui.home.rank.RankFragment;
 import com.zxcx.zhizhe.ui.search.search.SearchActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,9 +39,10 @@ public class HomeFragment extends BaseFragment {
     FrameLayout mFlHome;
     private HotFragment mHotFragment = new HotFragment();
     private AttentionFragment mAttentionFragment = new AttentionFragment();
+    private RankFragment mRankFragment = new RankFragment();
     private Fragment mCurrentFragment = new Fragment();
 
-    private String[] titles = new String[]{"推荐", "关注"};
+    private String[] titles = new String[]{"推荐", "关注", "榜单"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +54,6 @@ public class HomeFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -89,6 +84,9 @@ public class HomeFragment extends BaseFragment {
                         break;
                     case 1:
                         switchFragment(mAttentionFragment);
+                        break;
+                    case 2:
+                        switchFragment(mRankFragment);
                         break;
                 }
             }
@@ -131,22 +129,12 @@ public class HomeFragment extends BaseFragment {
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
             mHotFragment.setAppBarLayoutVerticalOffset(i);
             mAttentionFragment.setAppBarLayoutVerticalOffset(i);
+            mRankFragment.setMAppBarLayoutVerticalOffset(i);
         });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(HomeClickRefreshEvent event) {
-        EventBus.getDefault().post(new HomeTopClickRefreshEvent());
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override
     public void onDestroyView() {
-        EventBus.getDefault().unregister(this);
         super.onDestroyView();
         unbinder.unbind();
     }

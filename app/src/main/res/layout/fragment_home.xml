@@ -60,7 +60,7 @@
                 app:tabBackground="@color/translate"
                 app:tabMode="fixed"
                 android:layout_width="240dp"
-                android:layout_height="40dp">
+                android:layout_height="64dp">
             </android.support.design.widget.TabLayout>
 
         </LinearLayout>
