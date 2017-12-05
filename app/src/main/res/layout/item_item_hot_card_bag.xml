@@ -5,16 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/bg_item_home_card"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_item_home_card_bag"
         android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         tools:text="健康饮食"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_title_1"

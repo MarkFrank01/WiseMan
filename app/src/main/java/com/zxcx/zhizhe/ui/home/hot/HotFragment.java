@@ -128,6 +128,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
     @Override
     public void getDataSuccess(List<RecommendBean> list) {
+        //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         loadService.showSuccess();
         mRefreshLayout.refreshComplete();
         if (mPage == 0) {
@@ -188,7 +189,8 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+            RecommendBean recommendBean = (RecommendBean) adapter.getData().get(position);
+            HotCardBean bean = recommendBean.getCardBean();
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());

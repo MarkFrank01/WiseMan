@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.hot.RecommendBean;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
@@ -68,7 +69,7 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
 
         helper.setText(R.id.tv_item_home_card_title,item.getName());
-        helper.setText(R.id.tv_item_home_card_info, mContext.getString(R.string.tv_card_info, item.getDate(), item.getAuthor()));
+        helper.setText(R.id.tv_item_home_card_info, mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(item.getDate()), item.getAuthor()));
 
         TextView title = helper.getView(R.id.tv_item_home_card_title);
         TextPaint paint = title.getPaint();
@@ -80,7 +81,7 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
         WrapContentHeightViewPager viewPager = helper.getView(R.id.vp_item_hot_card_bag);
         viewPager.setClipToPadding(false);
         viewPager.setPadding(ScreenUtils.dip2px(20), 0, ScreenUtils.dip2px(20), 0);
-        viewPager.setPageMargin(ScreenUtils.dip2px(20));
+        viewPager.setPageMargin(ScreenUtils.dip2px(10));
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {

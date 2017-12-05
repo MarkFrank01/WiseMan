@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.home.attention;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,8 +21,6 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
@@ -49,7 +46,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> implements AttentionContract.View,
         BaseQuickAdapter.RequestLoadMoreListener {
 
-    RecyclerView mRvAttentionCardBag;
     @BindView(R.id.rv_attention_card)
     RecyclerView mRvAttentionCard;
     Unbinder unbinder;
@@ -97,21 +93,21 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if (isVisibleToUser){
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden){
             EventBus.getDefault().register(this);
             if (isFirst) {
                 if (mUserId == 0) {
                     loadService.showCallback(AttentionNeedLoginCallback.class);
                 } else {
-                    getHotCard();
+                    onRefresh();
                 }
                 isFirst = false;
             }
         }else {
             EventBus.getDefault().unregister(this);
         }
-        super.setUserVisibleHint(isVisibleToUser);
+        super.onHiddenChanged(hidden);
     }
 
     @Override
@@ -130,7 +126,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Override
     public void clearLeaks() {
         mCardAdapter = null;
-        mRvAttentionCardBag = null;
         mEmptyView = null;
         loadService = null;
     }
@@ -157,7 +152,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return mAppBarLayoutVerticalOffset == 0 && !ViewCompat.canScrollVertically(frame.getContentView(), -1);
+        return mAppBarLayoutVerticalOffset == 0 && !frame.getContentView().canScrollVertically(-1);
     }
 
     @Override
@@ -177,6 +172,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Override
     public void getDataSuccess(List<HotCardBean> list) {
+        loadService.showSuccess();
         mRefreshLayout.refreshComplete();
         if (page == 0){
             mCardAdapter.setNewData(list);
@@ -231,9 +227,11 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
+        mCardAdapter.setEmptyView(mEmptyView);
         mRvAttentionCard.setLayoutManager(layoutManager);
         mRvAttentionCard.setAdapter(mCardAdapter);
         mRvAttentionCard.addItemDecoration(new HomeCardItemDecoration());
+        onRefresh();
     }
 
     private void getHotCard() {
@@ -242,24 +240,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
         this.mAppBarLayoutVerticalOffset = appBarLayoutVerticalOffset;
-    }
-
-    static class CardBagItemClickListener implements BaseQuickAdapter.OnItemClickListener{
-
-        private Context mContext;
-
-        public CardBagItemClickListener(Context context) {
-            mContext  = context;
-        }
-
-        @Override
-        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBagBean bean = (HotCardBagBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardBagActivity.class);
-            intent.putExtra("id",bean.getId());
-            intent.putExtra("name",bean.getName());
-            mContext.startActivity(intent);
-        }
     }
 
     static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{

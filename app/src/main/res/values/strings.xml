@@ -93,6 +93,6 @@
     <string name="common_refresh_complete">内容已刷新</string>
     <string name="search_search_history">历史搜索</string>
     <string name="search_hot_search">热门搜索</string>
-    <string name="tv_card_info">%1$s&#160;文/%2$s</string>
+    <string name="tv_card_info">%1$s&#160;&#160;文/%2$s</string>
     <!--common-end-->
 </resources>

@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.TextViewUtils
 import com.zxcx.zhizhe.utils.ZhiZheUtils
@@ -22,7 +23,7 @@ class SearchCardAdapter(data : List<SearchCardBean>) : BaseQuickAdapter<SearchCa
         val imageView = helper.getView<RoundedImageView>(R.id.iv_item_search_result_card)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
-        helper.setText(R.id.tv_item_search_result_card_info, mContext.getString(R.string.tv_card_info, item.date, item.author))
+        helper.setText(R.id.tv_item_search_result_card_info, mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(item.date), item.author))
         helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
     }
 

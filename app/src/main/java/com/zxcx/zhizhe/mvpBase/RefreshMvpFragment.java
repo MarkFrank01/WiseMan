@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.mvpBase;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.view.View;
 
 import com.zxcx.zhizhe.widget.RefreshHeader;
@@ -38,6 +37,6 @@ public abstract class RefreshMvpFragment<P extends BasePresenter> extends MvpFra
 
     @Override
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return !ViewCompat.canScrollVertically(frame.getContentView(), -1);
+        return !frame.getContentView().canScrollVertically(-1);
     }
 }
