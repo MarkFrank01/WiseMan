@@ -11,6 +11,7 @@
     android:layout_marginRight="20dp"
     android:padding="0.5dp"
     android:background="@drawable/bg_item_home_card"
+    android:stateListAnimator="@animator/anim_home_card_press"
     android:orientation="vertical">
 
     <ImageView
@@ -18,7 +19,8 @@
         tools:src="@drawable/iv_item_home_card_icon"
         android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:transitionName="cardImage"/>
 
     <TextView
         android:id="@+id/tv_item_home_card_title"
@@ -31,7 +33,8 @@
         android:textSize="28sp"
         style="@style/tv_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:transitionName="cardTitle"/>
 
     <TextView
         android:id="@+id/tv_item_home_card_info"
@@ -42,5 +45,6 @@
         android:textColor="@color/text_color_2"
         android:textSize="14sp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:transitionName="cardInfo"/>
 </LinearLayout>

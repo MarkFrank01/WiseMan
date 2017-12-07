@@ -24,9 +24,9 @@ public interface SearchHistoryDao {
     List<Long> insertAll(SearchHistory... users);
 
     @Delete
-    int delete(SearchHistory history);
+    void delete(SearchHistory... history);
 
     @Query("DELETE FROM SearchHistory")
-    int deleteAll();
+    void deleteAll();
 
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
@@ -18,6 +19,7 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
+import com.zxcx.zhizhe.ui.rank.RankActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -37,8 +39,8 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_rank, container, false)
-
         rvRank = root.findViewById(R.id.rv_rank)
+        root.findViewById<TextView>(R.id.tv_rank_more).setOnClickListener { gotoMore() }
         mRefreshLayout = root.findViewById(R.id.refresh_layout)
 
         val loadSir = LoadSir.Builder()
@@ -114,10 +116,9 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         mRankAdapter.setNewData(rankBean.userRankList)
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HomeClickRefreshEvent) {
-        rv_rank.scrollToPosition(0)
+        nsv_rank.fullScroll(-1)
         mRefreshLayout.autoRefresh()
     }
 
@@ -126,6 +127,11 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         rv_rank.scrollToPosition(0)
         mRefreshLayout.autoRefresh()
         EventBus.getDefault().removeStickyEvent(event)
+    }
+
+    fun gotoMore(){
+        val intent = Intent(mActivity, RankActivity::class.java)
+        startActivity(intent)
     }
 
     override fun startLogin() {

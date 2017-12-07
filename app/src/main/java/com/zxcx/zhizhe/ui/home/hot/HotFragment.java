@@ -1,8 +1,11 @@
 package com.zxcx.zhizhe.ui.home.hot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.barlibrary.ImmersionBar;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
@@ -22,6 +26,7 @@ import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,6 +52,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     private HotCardAdapter mCardAdapter;
     private int mPage = 0;
     private int mAppBarLayoutVerticalOffset;
+    protected ImmersionBar mImmersionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,16 +81,16 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        EventBus.getDefault().register(this);
         initRecyclerView();
 
         getHotCard();
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
+    public void onHiddenChanged(boolean hidden) {
+        super.setUserVisibleHint(hidden);
+        if (!hidden) {
             EventBus.getDefault().register(this);
         } else {
             EventBus.getDefault().unregister(this);
@@ -94,6 +100,8 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     @Override
     public void onDestroyView() {
         unbinder.unbind();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
         super.onDestroyView();
     }
 
@@ -169,6 +177,16 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
         mRvHotCard.setLayoutManager(layoutManager);
         mRvHotCard.setAdapter(mCardAdapter);
+        mRvHotCard.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy>0){
+
+                }else if (dy<0){
+
+                }
+            }
+        });
     }
 
     private void getHotCard() {
@@ -181,9 +199,9 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
     private static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
-        private Context mContext;
+        private Activity mContext;
 
-        public CardItemClickListener(Context context) {
+        public CardItemClickListener(Activity context) {
             mContext = context;
         }
 
@@ -191,10 +209,17 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             RecommendBean recommendBean = (RecommendBean) adapter.getData().get(position);
             HotCardBean bean = recommendBean.getCardBean();
+            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                    Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                    Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                    Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle();
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());
-            mContext.startActivity(intent);
+            intent.putExtra("imageUrl", bean.getImageUrl());
+            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+            intent.putExtra("author", bean.getAuthor());
+            mContext.startActivity(intent,bundle);
         }
     }
 
@@ -211,6 +236,9 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());
+            intent.putExtra("imageUrl", bean.getImageUrl());
+            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+            intent.putExtra("author", bean.getAuthor());
             mContext.startActivity(intent);
         }
 

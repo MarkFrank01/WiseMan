@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/anticipate_overshoot_interpolator">
+    <changeImageTransform/>
+    <changeBounds/>
+    <changeTransform/>
+    <changeClipBounds/>
+    <changeScroll/>
+</transitionSet>

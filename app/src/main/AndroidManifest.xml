@@ -99,8 +99,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
-            android:theme="@style/AppTheme.FullScreen"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.search.search.SearchActivity"
             android:screenOrientation="portrait"/>
@@ -126,7 +126,8 @@
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.loginAndRegister.register.RegisterActivity"
             android:screenOrientation="portrait"/>
@@ -172,6 +173,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.RichTextEditorActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.rank.RankActivity"
             android:screenOrientation="portrait"/>
     </application>
 

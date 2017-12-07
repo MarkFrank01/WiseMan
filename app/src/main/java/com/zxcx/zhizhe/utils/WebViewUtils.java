@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -44,7 +43,6 @@ public class WebViewUtils {
                 return true;
             }
         });
-        webView.setWebChromeClient(new WebChromeClient());
 
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         if (isNight) {

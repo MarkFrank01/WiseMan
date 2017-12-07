@@ -26,6 +26,7 @@ import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
@@ -112,7 +113,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -253,6 +254,9 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id",bean.getId());
             intent.putExtra("name",bean.getName());
+            intent.putExtra("imageUrl", bean.getImageUrl());
+            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+            intent.putExtra("author", bean.getAuthor());
             mContext.startActivity(intent);
         }
     }

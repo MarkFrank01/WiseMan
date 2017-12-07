@@ -117,3 +117,5 @@
 #LoadSir
 -dontwarn com.kingja.loadsir.**
 -keep class com.kingja.loadsir.** {*;}
+#Kotlin
+-dontwarn kotlin.reflect.jvm.internal.**

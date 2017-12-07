@@ -109,9 +109,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     }
 
     public void addSubscription(Disposable subscription) {
-//        if (mCompositeSubscription == null) {
-        mCompositeSubscription = new CompositeDisposable();
-//        }
+        if (mCompositeSubscription == null) {
+            mCompositeSubscription = new CompositeDisposable();
+        }
         mCompositeSubscription.add(subscription);
     }
 

@@ -139,7 +139,8 @@ public interface APIService {
      * 获取前百榜单用户
      */
     @POST("/getTopHundredRank")
-    Flowable<BaseArrayBean<HotCardBean>> getTopHundredRank();
+    Flowable<BaseArrayBean<UserRankBean>> getTopHundredRank(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
      * 获取热门搜索关键词

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,126 +8,255 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/ll_toolbar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/iv_card_details_back"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/common_back"
-            android:padding="10dp"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_card_details_title"
-            tools:text="变色龙"
-            android:layout_centerInParent="true"
-            android:textSize="17sp"
-            android:maxLines="1"
-            android:maxEms="6"
-            android:ellipsize="end"
-            android:textColor="@color/text_color_40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_card_details_num"
-            tools:text="2/23"
-            android:visibility="gone"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:maxEms="6"
-            android:ellipsize="end"
-            android:textColor="@color/text_color_66"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
-
-    <View
-        style="@style/line"/>
-
-    <FrameLayout
-        android:id="@+id/fl_card_details"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp">
-
-    </FrameLayout>
-
-    <LinearLayout
-        android:background="@color/background"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="48dp">
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/ll_card_details_collect"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <CheckBox
-                android:id="@+id/cb_card_details_collect"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@drawable/selector_cb_card_details_collect"
-                tools:text="200"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99"
-                android:paddingLeft="7.5dp"/>
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_card_details"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_card"
+                android:layout_width="match_parent"
+                android:layout_height="212dp"
+                android:transitionName="cardImage"/>
+
+            <RelativeLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_card_details_title"
+                    android:layout_marginTop="25dp"
+                    tools:text="动圈和铁圈耳机的区别"
+                    style="@style/tv_card"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/text_size_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="cardTitle"/>
+
+                <TextView
+                    android:id="@+id/tv_card_details_info"
+                    tools:text="@string/tv_card_info"
+                    android:textColor="@color/text_color_2"
+                    android:textSize="@dimen/text_size_text_2"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@id/tv_card_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="cardInfo"/>
+
+                <TextView
+                    android:id="@+id/tv_card_details_card_bag"
+                    tools:text="数码产品"
+                    android:textColor="@color/button_blue"
+                    android:textSize="@dimen/text_size_text_2"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_toRightOf="@id/tv_card_details_info"
+                    android:layout_below="@id/tv_card_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_card_details"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_card_details_bottom"
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="60dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_item_rank_user"
+                    android:scaleType="centerCrop"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    tools:src="@drawable/logo"
+                    app:riv_oval="true"/>
+
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/iv_item_rank_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_item_rank_user_name"
+                        android:layout_marginBottom="10dp"
+                        tools:text="打印纸的规格"
+                        style="@style/tv_single"
+                        android:textSize="@dimen/text_size_text_1"
+                        android:textColor="@color/text_color_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_item_rank_user_card"
+                        android:layout_below="@id/tv_item_rank_user_name"
+                        android:drawableLeft="@drawable/iv_phone_clear"
+                        android:drawablePadding="5dp"
+                        tools:text="1000"
+                        style="@style/tv_single"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:textColor="@color/text_color_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_item_rank_user_fans"
+                        android:layout_below="@id/tv_item_rank_user_name"
+                        android:layout_toRightOf="@id/tv_item_rank_user_card"
+                        android:drawableLeft="@drawable/iv_phone_clear"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="15dp"
+                        tools:text="1000"
+                        style="@style/tv_single"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:textColor="@color/text_color_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_item_rank_user_read"
+                        android:layout_below="@id/tv_item_rank_user_name"
+                        android:layout_toRightOf="@id/tv_item_rank_user_fans"
+                        android:drawableLeft="@drawable/iv_phone_clear"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="15dp"
+                        tools:text="1000"
+                        style="@style/tv_single"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:textColor="@color/text_color_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <CheckBox
+                        android:id="@+id/cb_card_details_follow"
+                        android:text="关注"
+                        android:textSize="14sp"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:textColor="@color/color_checkbox_text_select_attention"
+                        android:button="@null"
+                        android:background="@drawable/selector_checkbox_bg_select_attention"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_width="72dp"
+                        android:layout_height="28dp"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view_line"
+                android:visibility="gone"
+                style="@style/line"/>
+
+            <LinearLayout
+                android:id="@+id/ll_card_details_bottom"
+                android:visibility="gone"
+                android:background="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_card_details_collect"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <CheckBox
+                        android:id="@+id/cb_card_details_collect"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@drawable/selector_cb_card_details_collect"
+                        tools:text="200"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_color_99"
+                        android:paddingLeft="7.5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_card_details_like"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <CheckBox
+                        android:id="@+id/cb_card_details_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@drawable/selector_cb_card_details_like"
+                        tools:text="200"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_color_99"
+                        android:paddingLeft="7.5dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_card_details_un_like"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                    <CheckBox
+                        android:id="@+id/cb_card_details_un_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@drawable/selector_cb_card_details_un_like"
+                        tools:text="200"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_color_99"
+                        android:paddingLeft="7.5dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_card_details_share"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/selector_tv_card_details_share"/>
+
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/ll_card_details_like"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_card_details_back"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/common_close"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-            <CheckBox
-                android:id="@+id/cb_card_details_like"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@drawable/selector_cb_card_details_like"
-                tools:text="200"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99"
-                android:paddingLeft="7.5dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_card_details_un_like"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <CheckBox
-                android:id="@+id/cb_card_details_un_like"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:button="@drawable/selector_cb_card_details_un_like"
-                tools:text="200"
-                android:textSize="12sp"
-                android:textColor="@color/text_color_99"
-                android:paddingLeft="7.5dp"/>
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_card_details_share"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleType="center"
-            android:src="@drawable/selector_tv_card_details_share"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

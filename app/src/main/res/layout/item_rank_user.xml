@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_item_search_result_user"
+        android:id="@+id/iv_item_rank_user"
         android:scaleType="centerCrop"
         android:layout_marginRight="10dp"
         android:layout_marginTop="12dp"
@@ -20,12 +20,12 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/iv_item_search_result_user"
+        android:layout_toRightOf="@id/iv_item_rank_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_item_search_result_user_name"
+            android:id="@+id/tv_item_rank_user_name"
             android:layout_marginBottom="10dp"
             tools:text="打印纸的规格"
             style="@style/tv_single"
@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_search_result_user_card"
-            android:layout_below="@id/tv_item_search_result_user_name"
+            android:id="@+id/tv_item_rank_user_card"
+            android:layout_below="@id/tv_item_rank_user_name"
             android:drawableLeft="@drawable/iv_phone_clear"
             android:drawablePadding="5dp"
             tools:text="1000"
@@ -47,9 +47,9 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_search_result_user_fans"
-            android:layout_below="@id/tv_item_search_result_user_name"
-            android:layout_toRightOf="@id/tv_item_search_result_user_card"
+            android:id="@+id/tv_item_rank_user_fans"
+            android:layout_below="@id/tv_item_rank_user_name"
+            android:layout_toRightOf="@id/tv_item_rank_user_card"
             android:drawableLeft="@drawable/iv_phone_clear"
             android:drawablePadding="5dp"
             android:layout_marginLeft="20dp"
@@ -61,9 +61,9 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_search_result_user_read"
-            android:layout_below="@id/tv_item_search_result_user_name"
-            android:layout_toRightOf="@id/tv_item_search_result_user_fans"
+            android:id="@+id/tv_item_rank_user_read"
+            android:layout_below="@id/tv_item_rank_user_name"
+            android:layout_toRightOf="@id/tv_item_rank_user_fans"
             android:drawableLeft="@drawable/iv_phone_clear"
             android:drawablePadding="5dp"
             android:layout_marginLeft="20dp"
@@ -75,14 +75,14 @@
             android:layout_height="wrap_content"/>
         
         <ImageView
-            android:id="@+id/iv_item_search_result_user_rank"
+            android:id="@+id/iv_item_rank_user_rank"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tv_item_search_result_user_no_rank"
+            android:id="@+id/tv_item_rank_user_no_rank"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="暂未上榜"
@@ -95,8 +95,8 @@
 
     <View
         android:id="@+id/view_line"
-        android:layout_toRightOf="@id/iv_item_search_result_user"
-        android:layout_below="@id/iv_item_search_result_user"
+        android:layout_toRightOf="@id/iv_item_rank_user"
+        android:layout_below="@id/iv_item_rank_user"
         style="@style/line"/>
 
 </RelativeLayout>

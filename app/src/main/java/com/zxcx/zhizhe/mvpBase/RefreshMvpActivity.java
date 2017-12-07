@@ -34,4 +34,10 @@ public abstract class RefreshMvpActivity<P extends BasePresenter> extends MvpAct
     public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
         return !frame.getContentView().canScrollVertically(-1);
     }
+
+    @Override
+    public void toastFail(String msg) {
+        mRefreshLayout.refreshComplete();
+        super.toastFail(msg);
+    }
 }

@@ -15,13 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.room.AppDatabase;
 import com.zxcx.zhizhe.room.SearchHistory;
 import com.zxcx.zhizhe.ui.search.result.SearchResultActivity;
-import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -33,7 +31,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -54,6 +55,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @BindView(R.id.iv_search_clear)
     ImageView mIvSearchClear;
 
+    private List<SearchHistory> mSearchHistoryList;
     private HotSearchAdapter mHotSearchAdapter;
     private SearchHistoryAdapter mSearchHistoryAdapter;
     private SearchPreAdapter mSearchPreAdapter;
@@ -93,11 +95,11 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @Override
     public void getDataSuccess(List<SearchBean> list) {
         mHotSearchAdapter.setNewData(list);
-        mIvSearchClearHistory.setVisibility(View.GONE);
     }
 
     @Override
     public void getSearchHistorySuccess(List<SearchHistory> list) {
+        mSearchHistoryList = list;
         mSearchHistoryAdapter.setNewData(list);
         mTvSearchHistoryType.setText(R.string.search_search_history);
         mIvSearchClearHistory.setVisibility(View.VISIBLE);
@@ -123,33 +125,40 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     @OnClick(R.id.iv_search_clear_history)
     public void onMIvSearchClearHistoryClicked() {
-        mDisposable = Flowable.empty()
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
-                .map(o -> AppDatabase.getInstance().mSearchHistoryDao().deleteAll())
+        SearchHistory[] searchHistories = mSearchHistoryList.toArray(new SearchHistory[mSearchHistoryList.size()]);
+        Observable.create(e -> {
+            AppDatabase.getInstance().mSearchHistoryDao().deleteAll();
+            e.onNext(0);
+            e.onComplete();
+        })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSubscriber<Integer>() {
+                .subscribe(new Observer<Object>() {
 
                     @Override
-                    public void onNext(Integer aVoid) {
+                    public void onSubscribe(Disposable d) {
+                        addSubscription(d);
+                    }
+
+                    @Override
+                    public void onNext(Object aVoid) {
                         mSearchHistoryAdapter.getData().clear();
                         mSearchHistoryAdapter.notifyDataSetChanged();
-                        mTvSearchHistoryType.setText(R.string.search_search_history);
+                        mTvSearchHistoryType.setText(R.string.search_hot_search);
                         mIvSearchClearHistory.setVisibility(View.GONE);
                         mRvSearchHistory.setAdapter(mHotSearchAdapter);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-
+                        LogCat.e("删除失败", t);
                     }
 
                     @Override
                     public void onComplete() {
-
+                        LogCat.e("删除结束");
                     }
                 });
-        addSubscription(mDisposable);
     }
 
     public void gotoSearchResult(String keyword) {

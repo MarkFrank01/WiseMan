@@ -20,6 +20,9 @@ public class TimeStampMD5andKL {
     // 密钥
     private static final String secretKey = "ZXCX@LiuSan";
 
+
+    private static final Pattern pattern = Pattern.compile("[0-9]*");
+
     /**
      * MD5加密，32位
      *
@@ -204,7 +207,6 @@ public class TimeStampMD5andKL {
      */
     private static boolean IsNumeric(String str) {
         // 通过正则表达式判断字符串是不是纯数字组成
-        Pattern pattern = Pattern.compile("[0-9]*");
         return pattern.matcher(str).matches();
     }
 

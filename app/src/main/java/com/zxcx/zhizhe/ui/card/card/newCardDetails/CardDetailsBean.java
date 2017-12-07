@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.card.card.newCardDetails;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
+import java.util.Date;
+
 public class CardDetailsBean extends RetrofitBaen {
 
     @JSONField(name = "like")
@@ -27,6 +29,12 @@ public class CardDetailsBean extends RetrofitBaen {
     private String name;
     @JSONField(name = "collectionName")
     private String cardBagName;
+    @JSONField(name = "authorName")
+    private String authorName;
+    @JSONField(name = "authorId")
+    private String authorId;
+    @JSONField(name = "passTime")
+    private Date date;
 
     public boolean getIsLike() {
         return isLike;
@@ -130,6 +138,30 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setCardBagName(String cardBagName) {
         this.cardBagName = cardBagName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 
