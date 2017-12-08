@@ -20,7 +20,6 @@ public class TimeStampMD5andKL {
     // 密钥
     private static final String secretKey = "ZXCX@LiuSan";
 
-
     private static final Pattern pattern = Pattern.compile("[0-9]*");
 
     /**

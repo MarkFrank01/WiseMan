@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -23,12 +24,13 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
-import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.zhizhe.ui.card.card.share.ShareCardDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.GlideApp;
+import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -41,31 +43,54 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
-public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
+public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
 
-    @BindView(R.id.iv_card_details_back) ImageView mIvCardDetailsBack;
-    @BindView(R.id.tv_card_details_title) TextView mTvCardDetailsTitle;
-    @BindView(R.id.cb_card_details_collect) CheckBox mCbCardDetailsCollect;
-    @BindView(R.id.cb_card_details_like) CheckBox mCbCardDetailsLike;
-    @BindView(R.id.iv_card_details_share) ImageView mTvCardDetailsShare;
-    @BindView(R.id.fl_card_details) FrameLayout mFlCardDetails;
-    @BindView(R.id.cb_card_details_un_like) CheckBox mCbCardDetailsUnLike;
-    @BindView(R.id.iv_card_details) ImageView mIvCardDetails;
-    @BindView(R.id.tv_card_details_info) TextView mTvCardDetailsInfo;
-    @BindView(R.id.tv_card_details_card_bag) TextView mTvCardDetailsCardBag;
-    @BindView(R.id.iv_item_rank_user) RoundedImageView mIvItemRankUser;
-    @BindView(R.id.tv_item_rank_user_name) TextView mTvItemRankUserName;
-    @BindView(R.id.tv_item_rank_user_card) TextView mTvItemRankUserCard;
-    @BindView(R.id.tv_item_rank_user_fans) TextView mTvItemRankUserFans;
-    @BindView(R.id.tv_item_rank_user_read) TextView mTvItemRankUserRead;
-    @BindView(R.id.cb_card_details_follow) CheckBox mCbCardDetailsFollow;
-    @BindView(R.id.rl_card_details_bottom) RelativeLayout mRlCardDetailsBottom;
-    @BindView(R.id.view_line) View mViewLine;
-    @BindView(R.id.ll_card_details_bottom) LinearLayout mLlCardDetailsBottom;
+    @BindView(R.id.iv_card_details_back)
+    ImageView mIvCardDetailsBack;
+    @BindView(R.id.tv_card_details_title)
+    TextView mTvCardDetailsTitle;
+    @BindView(R.id.cb_card_details_collect)
+    CheckBox mCbCardDetailsCollect;
+    @BindView(R.id.cb_card_details_like)
+    CheckBox mCbCardDetailsLike;
+    @BindView(R.id.iv_card_details_share)
+    ImageView mTvCardDetailsShare;
+    @BindView(R.id.fl_card_details)
+    FrameLayout mFlCardDetails;
+    @BindView(R.id.cb_card_details_un_like)
+    CheckBox mCbCardDetailsUnLike;
+    @BindView(R.id.iv_card_details)
+    ImageView mIvCardDetails;
+    @BindView(R.id.tv_card_details_info)
+    TextView mTvCardDetailsInfo;
+    @BindView(R.id.tv_card_details_card_bag)
+    TextView mTvCardDetailsCardBag;
+    @BindView(R.id.iv_item_rank_user)
+    RoundedImageView mIvItemRankUser;
+    @BindView(R.id.tv_item_rank_user_name)
+    TextView mTvItemRankUserName;
+    @BindView(R.id.tv_item_rank_user_card)
+    TextView mTvItemRankUserCard;
+    @BindView(R.id.tv_item_rank_user_fans)
+    TextView mTvItemRankUserFans;
+    @BindView(R.id.tv_item_rank_user_read)
+    TextView mTvItemRankUserRead;
+    @BindView(R.id.cb_card_details_follow)
+    CheckBox mCbCardDetailsFollow;
+    @BindView(R.id.rl_card_details_bottom)
+    RelativeLayout mRlCardDetailsBottom;
+    @BindView(R.id.view_line)
+    View mViewLine;
+    @BindView(R.id.ll_card_details_bottom)
+    LinearLayout mLlCardDetailsBottom;
+    @BindView(R.id.sv_card_details)
+    ScrollView mSvCardDetails;
 
     private WebView mWebView;
     private int cardId;
+    private int mAuthorId;
     private String name;
     private String cardBagName;
     private int collectNum;
@@ -76,14 +101,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_card_details);
+        super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
         initData();
         initView();
-
 
         mPresenter.getCardDetails(cardId);
 
@@ -126,12 +150,24 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        return !mSvCardDetails.canScrollVertically(-1);
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+        mPresenter.getCardDetails(cardId);
+        mWebView.reload();
+    }
+
+    @Override
     public void onReload(View v) {
         mPresenter.getCardDetails(cardId);
     }
 
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
+        mRefreshLayout.refreshComplete();
         postSuccess(bean);
     }
 
@@ -161,6 +197,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
         mCbCardDetailsUnLike.setChecked(bean.isUnLike());
+        mAuthorId = bean.getAuthorId();
+        ImageLoader.load(mActivity, bean.getAuthorIcon(), R.drawable.default_header, mIvItemRankUser);
+        mTvItemRankUserName.setText(bean.getAuthorName());
+        mTvItemRankUserCard.setText(bean.getAuthorCardNum());
+        mTvItemRankUserFans.setText(bean.getAuthorFansNum());
+        mTvItemRankUserRead.setText(bean.getAuthorReadNum());
+        //todo 关注按钮显示
     }
 
     @Override
@@ -175,6 +218,16 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mCbCardDetailsCollect.setChecked(true);
         collectNum++;
         mCbCardDetailsCollect.setText(collectNum + "");
+    }
+
+    @OnClick(R.id.cb_card_details_follow)
+    public void onMCbCardDetailsFollowClicked() {
+        //todo 关注作者
+    }
+
+    @OnClick(R.id.rl_card_details_bottom)
+    public void onMRlCardDetailsBottomClicked() {
+        //todo 进入作者页
     }
 
     @OnClick(R.id.iv_card_details_share)
@@ -245,7 +298,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @OnClick(R.id.cb_card_details_follow)
-    public void onCbFollowClicked(){
+    public void onCbFollowClicked() {
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
     }

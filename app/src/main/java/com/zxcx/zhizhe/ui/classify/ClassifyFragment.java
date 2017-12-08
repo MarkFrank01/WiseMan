@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.classify;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,8 +39,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @BindView(R.id.rv_classify)
     RecyclerView mRvClassify;
     Unbinder unbinder;
-    @BindView(R.id.srl_classify)
-    SwipeRefreshLayout mSrlClassify;
 
     private ClassifyAdapter mClassifyAdapter;
     private GridLayoutManager manager;
@@ -86,9 +83,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
         super.onViewCreated(view, savedInstanceState);
         initRecyclerView();
         getClassify();
-
-        mSrlClassify.setOnRefreshListener(this);
-        mSrlClassify.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.button_blue));
     }
 
     @Override
@@ -106,7 +100,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ClassifyClickRefreshEvent event) {
         mRvClassify.scrollToPosition(0);
-        mSrlClassify.setRefreshing(true);
         onRefresh();
     }
 
@@ -118,11 +111,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Override
     public void getDataSuccess(List<ClassifyBean> list) {
         loadService.showSuccess();
-        if (mSrlClassify.isRefreshing()) {
-            mClassifyAdapter.getData().clear();
-            mSrlClassify.setRefreshing(false);
-            toastShow("当前内容已是最新");
-        }
         mClassifyAdapter.notifyDataSetChanged();
         for (ClassifyBean bean : list) {
             mClassifyAdapter.addData(bean);

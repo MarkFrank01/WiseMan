@@ -101,6 +101,7 @@ public class BaseFragment extends Fragment implements BaseView{
 
     }
 
+    protected Disposable mDisposable;
     private CompositeDisposable mCompositeSubscription;
 
     public void onUnsubscribe() {

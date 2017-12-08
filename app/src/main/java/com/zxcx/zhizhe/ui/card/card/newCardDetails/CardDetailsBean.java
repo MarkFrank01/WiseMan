@@ -32,9 +32,19 @@ public class CardDetailsBean extends RetrofitBaen {
     @JSONField(name = "authorName")
     private String authorName;
     @JSONField(name = "authorId")
-    private String authorId;
+    private int authorId;
     @JSONField(name = "passTime")
     private Date date;
+    @JSONField(name = "authorAvatar")
+    private String authorIcon;
+    @JSONField(name = "authorCreateArticleCount")
+    private String authorCardNum;
+    @JSONField(name = "authorFollowerCount")
+    private String authorFansNum;
+    @JSONField(name = "authorIntelligenceValue")
+    private String authorReadNum;
+    @JSONField(name = "userAurhorRelationshipType")
+    private int followType;
 
     public boolean getIsLike() {
         return isLike;
@@ -148,11 +158,11 @@ public class CardDetailsBean extends RetrofitBaen {
         this.authorName = authorName;
     }
 
-    public String getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 
@@ -162,6 +172,46 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getAuthorIcon() {
+        return authorIcon;
+    }
+
+    public void setAuthorIcon(String authorIcon) {
+        this.authorIcon = authorIcon;
+    }
+
+    public String getAuthorCardNum() {
+        return authorCardNum;
+    }
+
+    public void setAuthorCardNum(String authorCardNum) {
+        this.authorCardNum = authorCardNum;
+    }
+
+    public String getAuthorFansNum() {
+        return authorFansNum;
+    }
+
+    public void setAuthorFansNum(String authorFansNum) {
+        this.authorFansNum = authorFansNum;
+    }
+
+    public String getAuthorReadNum() {
+        return authorReadNum;
+    }
+
+    public void setAuthorReadNum(String authorReadNum) {
+        this.authorReadNum = authorReadNum;
+    }
+
+    public int getFollowType() {
+        return followType;
+    }
+
+    public void setFollowType(int followType) {
+        this.followType = followType;
     }
 }
 

@@ -17,18 +17,25 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
+import com.zxcx.zhizhe.mvpBase.IGetPresenter;
+import com.zxcx.zhizhe.retrofit.AppClient;
+import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment;
 import com.zxcx.zhizhe.ui.home.hot.HotFragment;
 import com.zxcx.zhizhe.ui.home.rank.RankFragment;
 import com.zxcx.zhizhe.ui.search.search.SearchActivity;
+import com.zxcx.zhizhe.ui.search.search.SearchBean;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBean> {
 
     @BindView(R.id.tl_home)
     TabLayout mTlHome;
@@ -37,6 +44,8 @@ public class HomeFragment extends BaseFragment {
     AppBarLayout mAppBarLayout;
     @BindView(R.id.fl_home)
     FrameLayout mFlHome;
+    @BindView(R.id.tv_home_search)
+    TextView mTvHomeSearch;
     private HotFragment mHotFragment = new HotFragment();
     private AttentionFragment mAttentionFragment = new AttentionFragment();
     private RankFragment mRankFragment = new RankFragment();
@@ -74,11 +83,12 @@ public class HomeFragment extends BaseFragment {
             paint.setFakeBoldText(true);
             mTlHome.addTab(tab);
 //            tab.setText(titles[i]);
+            getSearchHot();
         }
         mTlHome.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                switch (tab.getPosition()){
+                switch (tab.getPosition()) {
                     case 0:
                         switchFragment(mHotFragment);
                         break;
@@ -143,5 +153,30 @@ public class HomeFragment extends BaseFragment {
     public void onViewClicked() {
         Intent intent = new Intent(getContext(), SearchActivity.class);
         startActivity(intent);
+    }
+
+    public void getSearchHot() {
+        mDisposable = AppClient.getAPIService().getSearchHot()
+                .compose(BaseRxJava.handleArrayResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(new BaseSubscriber<List<SearchBean>>(this) {
+                    @Override
+                    public void onNext(List<SearchBean> list) {
+                        if (list != null && list.size() > 0) {
+                            getDataSuccess(list.get(0));
+                        }
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    @Override
+    public void getDataSuccess(SearchBean bean) {
+        mTvHomeSearch.setText(bean.getConent());
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+
     }
 }

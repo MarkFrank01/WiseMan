@@ -14,36 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_home_search"
+            android:background="@drawable/bg_home_search"
+            android:drawableLeft="@drawable/tv_home_search"
+            android:drawablePadding="7.5dp"
+            android:paddingLeft="8dp"
+            android:text="@string/home_search_hint"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:textColor="@color/text_color_top_search"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:orientation="horizontal"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-            <TextView
-                android:id="@+id/tv_home_search"
-                android:background="@drawable/bg_home_search"
-                android:drawableLeft="@drawable/tv_home_search"
-                android:drawablePadding="7.5dp"
-                android:paddingLeft="8dp"
-                android:text="@string/home_search_hint"
-                android:textSize="14sp"
-                android:layout_centerInParent="true"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:textColor="@color/text_color_top_search"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
-
-        </RelativeLayout>
-
-        <View
-            android:background="@color/line"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="36dp"
             app:layout_scrollFlags="scroll|enterAlways"/>
 
         <LinearLayout

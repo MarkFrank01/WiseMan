@@ -177,16 +177,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
         mRvHotCard.setLayoutManager(layoutManager);
         mRvHotCard.setAdapter(mCardAdapter);
-        mRvHotCard.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy>0){
-
-                }else if (dy<0){
-
-                }
-            }
-        });
     }
 
     private void getHotCard() {
