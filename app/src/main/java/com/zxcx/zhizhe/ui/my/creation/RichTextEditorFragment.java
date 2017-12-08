@@ -1,21 +1,25 @@
 package com.zxcx.zhizhe.ui.my.creation;
 
+import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import com.zxcx.zhizhe.R;
@@ -23,7 +27,7 @@ import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.richeditor.RichEditor;
 import com.zxcx.zhizhe.utils.AndroidBug5497Workaround;
 import com.zxcx.zhizhe.utils.FileUtil;
-import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.widget.OSSDialog;
 
 import java.io.File;
@@ -33,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.dreamtobe.kpswitch.util.StatusBarHeightUtil;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -45,8 +50,6 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
 
     @BindView(R.id.editor)
     RichEditor mEditor;
-    @BindView(R.id.et_rte_title)
-    EditText mEtRteTitle;
     @BindView(R.id.ll_rte)
     LinearLayout mLlRte;
     private String title;
@@ -74,7 +77,6 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         AndroidBug5497Workaround.assistActivity(getActivity());
-        mEtRteTitle.addTextChangedListener(new TitleWatcher());
         mOSSDialog = new OSSDialog();
         mOSSDialog.setUploadListener(this);
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
@@ -85,22 +87,10 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
                 } else if (!text.contains("<p>")) {
                     content = "<p>" + text + "</p>";
                 }
-                mEditor.setEditorHeight(mEditor.getMeasuredHeight());
             }
         });
-        view.post(new Runnable() {
-            @Override
-            public void run() {
-                mEditor.setEditorHeight(mEditor.getMeasuredHeight());
-                //延迟弹出软键盘
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Utils.showInputMethod(mEtRteTitle);
-                    }
-                },100);
-            }
-        });
+
+        //initKeyboard();
     }
 
     public void getImageSuccess() {
@@ -275,6 +265,134 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
 
         @Override
         public void afterTextChanged(Editable s) {
+
+        }
+    }
+
+    private void initKeyboard() {
+        ViewGroup contentView = (ViewGroup) mActivity.findViewById(android.R.id.content);
+        final Display display = mActivity.getWindowManager().getDefaultDisplay();
+        final int screenHeight;
+        final Point screenSize = new Point();
+        display.getSize(screenSize);
+        screenHeight = screenSize.y;
+        contentView.getViewTreeObserver().addOnGlobalLayoutListener(new KeyboardStatusListener(contentView,screenHeight));
+    }
+
+    private class KeyboardStatusListener implements ViewTreeObserver.OnGlobalLayoutListener {
+        private final static String TAG = "KeyboardStatusListener";
+
+        private int previousDisplayHeight = 0;
+        private final ViewGroup contentView;
+        private final int statusBarHeight;
+        private boolean lastKeyboardShowing;
+        private final int screenHeight;
+
+        private boolean isOverlayLayoutDisplayHContainStatusBar = false;
+
+        KeyboardStatusListener(ViewGroup contentView,int screenHeight) {
+            this.contentView = contentView;
+            this.statusBarHeight = StatusBarHeightUtil.getStatusBarHeight(contentView.getContext());
+            this.screenHeight = screenHeight;
+        }
+
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+        @Override
+        public void onGlobalLayout() {
+            final View userRootView = contentView.getChildAt(0);
+            final View actionBarOverlayLayout = (View) contentView.getParent();
+
+            // Step 1. calculate the current display frame's height.
+            Rect r = new Rect();
+
+            final int displayHeight;
+            userRootView.getWindowVisibleDisplayFrame(r);
+            displayHeight = (r.bottom - r.top);
+
+            int keyboardHeight = calculateKeyboardHeight(displayHeight);
+            calculateKeyboardShowing(displayHeight,keyboardHeight);
+
+            previousDisplayHeight = displayHeight;
+        }
+
+        private int calculateKeyboardHeight(final int displayHeight) {
+            // first result.
+            if (previousDisplayHeight == 0) {
+                previousDisplayHeight = displayHeight;
+
+                // init the panel height for target.
+
+                return 0;
+            }
+
+            int keyboardHeight;
+            keyboardHeight = Math.abs(displayHeight - previousDisplayHeight);
+            // no change.
+            if (keyboardHeight <= ScreenUtils.dip2px(80)) {
+                return 0;
+            }
+
+            Log.d(TAG, String.format("pre display height: %d display height: %d keyboard: %d ",
+                    previousDisplayHeight, displayHeight, keyboardHeight));
+
+            // influence from the layout of the Status-bar.
+            if (keyboardHeight == this.statusBarHeight) {
+                Log.w(TAG, String.format("On global layout change get keyboard height just equal" +
+                        " statusBar height %d", keyboardHeight));
+                return 0;
+            }
+
+            //键盘高度已确定
+            return keyboardHeight;
+        }
+
+        private int maxOverlayLayoutHeight;
+        private void calculateKeyboardShowing(final int displayHeight, int keyboardHeight) {
+
+            boolean isKeyboardShowing;
+
+            // the height of content parent = contentView.height + actionBar.height
+            final View actionBarOverlayLayout = (View) contentView.getParent();
+            // in the case of FragmentLayout, this is not real ActionBarOverlayLayout, it is
+            // LinearLayout, and is a child of DecorView, and in this case, its top-padding would be
+            // equal to the height of status bar, and its height would equal to DecorViewHeight -
+            // NavigationBarHeight.
+            final int actionBarOverlayLayoutHeight = actionBarOverlayLayout.getHeight() -
+                    actionBarOverlayLayout.getPaddingTop();
+
+            final int phoneDisplayHeight = contentView.getResources().getDisplayMetrics().heightPixels;
+            if (phoneDisplayHeight == actionBarOverlayLayoutHeight) {
+                // no space to settle down the status bar, switch to fullscreen,
+                // only in the case of paused and opened the fullscreen page.
+                Log.w(TAG, String.format("skip the keyboard status calculate, the current" +
+                                " activity is paused. and phone-display-height %d," +
+                                " root-height+actionbar-height %d", phoneDisplayHeight,
+                        actionBarOverlayLayoutHeight));
+                return;
+
+            }
+
+            if (maxOverlayLayoutHeight == 0) {
+                // non-used.
+                isKeyboardShowing = lastKeyboardShowing;
+            } else {
+                isKeyboardShowing = displayHeight < maxOverlayLayoutHeight - ScreenUtils.dip2px(80);
+            }
+
+            maxOverlayLayoutHeight = Math.max(maxOverlayLayoutHeight, actionBarOverlayLayoutHeight);
+
+            if (lastKeyboardShowing != isKeyboardShowing) {
+                //键盘显示逻辑
+                ViewGroup.LayoutParams layoutParams = mEditor.getLayoutParams();
+                if (isKeyboardShowing) {
+                    layoutParams.height = layoutParams.height-keyboardHeight;
+                } else {
+                    layoutParams.height = layoutParams.height+keyboardHeight;
+                }
+                mEditor.setLayoutParams(layoutParams);
+            }
+
+            lastKeyboardShowing = isKeyboardShowing;
 
         }
     }

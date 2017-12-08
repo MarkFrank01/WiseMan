@@ -53,8 +53,7 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
                     .statusBarColor(R.color.white_final)
                     .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.black)
-                    .fitsSystemWindows(true)
-                    .keyboardEnable(true)
+                    .statusBarView(R.id.status_bar)
                     .init();
         } else {
 
