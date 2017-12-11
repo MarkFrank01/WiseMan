@@ -22,7 +22,6 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
@@ -220,7 +219,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             }
         });
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mCardAdapter = new AttentionCardAdapter(new ArrayList<HotCardBean>());
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
@@ -228,7 +227,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mCardAdapter.setEmptyView(mEmptyView);
         mRvAttentionCard.setLayoutManager(layoutManager);
         mRvAttentionCard.setAdapter(mCardAdapter);
-        mRvAttentionCard.addItemDecoration(new HomeCardItemDecoration());
         onRefresh();
     }
 

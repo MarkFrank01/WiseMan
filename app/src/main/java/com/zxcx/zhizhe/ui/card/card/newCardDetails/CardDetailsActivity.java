@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextPaint;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
@@ -28,9 +32,9 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.zhizhe.ui.card.card.share.ShareCardDialog;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -98,6 +102,9 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     private boolean isUnCollect = false;
     private String date;
     private String author;
+    private ActionMode mActionMode;
+    private static final int MENU_ITEM_NOTE = 0;
+    private static final int MENU_ITEM_SHARE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +149,27 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         }
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Nullable
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        if (mActionMode == null) {
+            super.onActionModeStarted(mode);
+            mActionMode = mode;
+            Menu menu = mode.getMenu();
+            menu.clear();
+            menu.add(0, MENU_ITEM_NOTE, 0, "存为笔记").setOnMenuItemClickListener(new MenuItemClickListener());
+            menu.add(0, MENU_ITEM_SHARE, 0, "摘取分享").setOnMenuItemClickListener(new MenuItemClickListener());
+        }
+    }
+
+
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+        mActionMode = null;
+        mWebView.clearFocus();//移除高亮显示,如果不移除在三星s6手机上会崩溃
+        super.onActionModeFinished(mode);
     }
 
     @Override
@@ -247,13 +275,10 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
         if (!mCbCardDetailsCollect.isChecked()) {
-            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+            if (checkLogin()) {
                 Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
                 intent.putExtra("cardId", cardId);
                 startActivity(intent);
-            } else {
-                toastShow("请先登录");
-                startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
             mPresenter.removeCollectCard(cardId);
@@ -265,11 +290,8 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
         if (!mCbCardDetailsLike.isChecked()) {
-            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+            if (checkLogin()) {
                 mPresenter.likeCard(cardId);
-            } else {
-                toastShow("请先登录");
-                startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
             mPresenter.removeLikeCard(cardId);
@@ -281,11 +303,8 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsUnLike.setChecked(!mCbCardDetailsUnLike.isChecked());
         if (!mCbCardDetailsUnLike.isChecked()) {
-            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+            if (checkLogin()) {
                 mPresenter.unLikeCard(cardId);
-            } else {
-                toastShow("请先登录");
-                startActivity(new Intent(mActivity, LoginActivity.class));
             }
         } else {
             mPresenter.removeUnLikeCard(cardId);
@@ -359,6 +378,23 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleDark/" + cardId);
         } else {
             mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+        }
+    }
+
+    private class MenuItemClickListener implements MenuItem.OnMenuItemClickListener {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            mWebView.evaluateJavascript("getValue()", value -> {
+                LogCat.d(value);
+                switch (item.getItemId()){
+                    case MENU_ITEM_NOTE:
+                        break;
+                    case MENU_ITEM_SHARE:
+                        break;
+                }
+            });
+            return true;
         }
     }
 }

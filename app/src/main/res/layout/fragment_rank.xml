@@ -13,7 +13,8 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nsv_rank"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -131,6 +132,7 @@
 
             <LinearLayout
                 android:layout_marginTop="30dp"
+                android:layout_marginBottom="60dp"
                 android:background="@color/white"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -165,7 +167,9 @@
                     android:layout_marginTop="23dp"
                     android:layout_marginBottom="23dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             </LinearLayout>
 

@@ -25,6 +25,8 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.SVTSConstants;
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
@@ -185,6 +187,16 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         startActivity(new Intent(mActivity, LoginActivity.class));
         if (loadService != null){
             loadService.showCallback(LoginTimeoutCallback.class);
+        }
+    }
+
+    public boolean checkLogin(){
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+            return true;
+        } else {
+            toastShow("请先登录");
+            startActivity(new Intent(mActivity, LoginActivity.class));
+            return false;
         }
     }
 
