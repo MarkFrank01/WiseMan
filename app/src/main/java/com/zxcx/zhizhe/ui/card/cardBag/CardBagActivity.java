@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.card.cardBag;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,19 +43,16 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
     ImageView mIvToolbarRight;
     @BindView(R.id.rv_card_bag_card)
     RecyclerView mRvCardBagCard;
-    @BindView(R.id.tv_card_bag_name)
-    TextView mTvCardBagName;
-    @BindView(R.id.app_bar_layout)
-    AppBarLayout mAppBarLayout;
     private CardBagCardAdapter mCardBagCardAdapter;
     private CardBagListAdapter mCardBagListAdapter;
+    private CardBagCardItemDecoration mCardItemDecoration = new CardBagCardItemDecoration();
+    private CardBagListItemDecoration mListItemDecoration = new CardBagListItemDecoration();
     private boolean isCard = true;
     private int showFistItem;
     private LinearLayoutManager mCardBagCardManager;
     private int mId;
     private int page = 0;
     private String mName;
-    private int mAppBarLayoutVerticalOffset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +67,6 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         onRefresh();
 
         initLoadSir();
-
-        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
-            mAppBarLayoutVerticalOffset = i;
-            if (-i>mTvCardBagName.getTop()+mTvCardBagName.getHeight()){
-                mToolbarTitle.setVisibility(View.VISIBLE);
-            }else {
-                mToolbarTitle.setVisibility(View.GONE);
-            }
-        });
     }
 
     @Override
@@ -101,12 +88,6 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
     public void onReload(View v) {
         loadService.showCallback(CardBagLoadingCallback.class);
         onRefresh();
-    }
-
-    @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return mAppBarLayoutVerticalOffset == 0 && !mRvCardBagCard.canScrollVertically(-1);
-
     }
 
     @Override
@@ -164,12 +145,16 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
             isCard = !isCard;
             showFistItem = mCardBagCardManager.findFirstVisibleItemPosition();
             mRvCardBagCard.setAdapter(mCardBagListAdapter);
+            mRvCardBagCard.removeItemDecoration(mCardItemDecoration);
+            mRvCardBagCard.addItemDecoration(mListItemDecoration);
             mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
             mCardBagCardManager.scrollToPosition(showFistItem);
         } else {
             isCard = !isCard;
             showFistItem = mCardBagCardManager.findFirstVisibleItemPosition();
             mRvCardBagCard.setAdapter(mCardBagCardAdapter);
+            mRvCardBagCard.removeItemDecoration(mListItemDecoration);
+            mRvCardBagCard.addItemDecoration(mCardItemDecoration);
             mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
             mCardBagCardManager.scrollToPosition(showFistItem);
         }
@@ -183,7 +168,6 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         mId = getIntent().getIntExtra("id", 0);
         mName = getIntent().getStringExtra("name");
         initToolBar(mName);
-        mTvCardBagName.setText(mName);
     }
 
     private void initRecyclerView() {
@@ -194,6 +178,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
         mRvCardBagCard.setLayoutManager(mCardBagCardManager);
         mRvCardBagCard.setAdapter(mCardBagCardAdapter);
+        mRvCardBagCard.addItemDecoration(mCardItemDecoration);
         mCardBagCardAdapter.setOnItemClickListener(new CardItemClickListener(this));
 
         mCardBagListAdapter = new CardBagListAdapter(new ArrayList<>());

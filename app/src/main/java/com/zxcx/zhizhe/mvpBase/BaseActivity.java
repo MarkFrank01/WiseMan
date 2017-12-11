@@ -194,7 +194,6 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
             return true;
         } else {
-            toastShow("请先登录");
             startActivity(new Intent(mActivity, LoginActivity.class));
             return false;
         }

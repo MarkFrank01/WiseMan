@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
@@ -26,8 +25,6 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
-import com.zxcx.zhizhe.utils.SVTSConstants;
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -51,10 +48,8 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     Unbinder unbinder;
 
     private AttentionCardAdapter mCardAdapter;
-    private int mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     private View mEmptyView;
     private int page = 0;
-    private boolean isFirst = true;
     private int mAppBarLayoutVerticalOffset;
 
     @Override
@@ -66,22 +61,12 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
-                .addCallback(new AttentionNeedLoginCallback())
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
-        loadService = loadSir.register(root, new Callback.OnReloadListener() {
-            @Override
-            public void onReload(View v) {
-                mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
-                if (mUserId != 0) {
-                    loadService.showCallback(HomeLoadingCallback.class);
-                    onRefresh();
-                }else {
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-            }
+        loadService = loadSir.register(root, v -> {
+            loadService.showCallback(HomeLoadingCallback.class);
+            onRefresh();
         });
         return loadService.getLoadLayout();
     }
@@ -95,14 +80,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     public void onHiddenChanged(boolean hidden) {
         if (!hidden){
             EventBus.getDefault().register(this);
-            if (isFirst) {
-                if (mUserId == 0) {
-                    loadService.showCallback(AttentionNeedLoginCallback.class);
-                } else {
-                    onRefresh();
-                }
-                isFirst = false;
-            }
         }else {
             EventBus.getDefault().unregister(this);
         }
@@ -211,16 +188,13 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     private void initView() {
         mEmptyView = LayoutInflater.from(mActivity).inflate(R.layout.empty_attention,null);
-        mEmptyView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
-                startActivity(intent);
-            }
+        mEmptyView.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
+            startActivity(intent);
         });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mCardAdapter = new AttentionCardAdapter(new ArrayList<HotCardBean>());
+        mCardAdapter = new AttentionCardAdapter(new ArrayList<>());
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
