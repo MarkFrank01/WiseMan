@@ -61,7 +61,6 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         ButterKnife.bind(this);
         initData();
         initRecyclerView();
-        mToolbarTitle.setVisibility(View.GONE);
         mIvToolbarRight.setVisibility(View.VISIBLE);
         mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
         onRefresh();

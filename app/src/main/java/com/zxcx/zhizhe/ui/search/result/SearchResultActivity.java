@@ -3,8 +3,8 @@ package com.zxcx.zhizhe.ui.search.result;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -41,8 +41,6 @@ public class SearchResultActivity extends BaseActivity {
     EditText mEtSearchResult;
     @BindView(R.id.tl_search_result)
     TabLayout mTlSearchResult;
-    @BindView(R.id.vp_search_result)
-    ViewPager mVpSearchResult;
     @BindView(R.id.iv_search_result_clear)
     ImageView mIvSearchResultClear;
 
@@ -50,6 +48,7 @@ public class SearchResultActivity extends BaseActivity {
 
     private SearchCardFragment mSearchCardFragment = new SearchCardFragment();
     private SearchUserFragment mSearchUserFragment = new SearchUserFragment();
+    private Fragment mCurrentFragment = new Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,29 +78,38 @@ public class SearchResultActivity extends BaseActivity {
     }
 
     private void initView() {
-        mVpSearchResult.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+        for (int i = 0; i < titles.length; i++) {
+            TabLayout.Tab tab = mTlSearchResult.newTab();
+            tab.setCustomView(R.layout.tab_home);
+            TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_home);
+            textView.setText(titles[i]);
+            mTlSearchResult.addTab(tab);
+//            tab.setText(titles[i]);
+        }
+        mTlSearchResult.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public Fragment getItem(int position) {
-                if (position == 0) {
-                    return mSearchCardFragment;
-                } else {
-                    return mSearchUserFragment;
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        switchFragment(mSearchCardFragment);
+                        break;
+                    case 1:
+                        if (checkLogin()) {
+                            switchFragment(mSearchUserFragment);
+                        }
+                        break;
                 }
             }
 
             @Override
-            public int getCount() {
-                return 2;
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
-        mTlSearchResult.setupWithViewPager(mVpSearchResult);
-        for (int i = 0; i < mTlSearchResult.getTabCount(); i++) {
-            TabLayout.Tab tab = mTlSearchResult.getTabAt(i);
-            tab.setCustomView(R.layout.tab_home);
-            TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_home);
-            textView.setText(titles[i]);
-//            tab.setText(titles[i]);
-        }
 
         ViewGroup.LayoutParams para = mTlSearchResult.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
@@ -110,6 +118,22 @@ public class SearchResultActivity extends BaseActivity {
 
         mEtSearchResult.addTextChangedListener(new SearchResultTextWatch());
         mEtSearchResult.setOnEditorActionListener(new SearchResultListener());
+        mTlSearchResult.getTabAt(0).select();
+        switchFragment(mSearchCardFragment);
+    }
+
+    private void switchFragment(Fragment newFragment) {
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+
+        if (newFragment.isAdded()) {
+            //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
+            transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss();
+        } else {
+            transaction.hide(mCurrentFragment).add(R.id.fl_search_result, newFragment).commitAllowingStateLoss();
+        }
+        mCurrentFragment = newFragment;
     }
 
     class SearchResultListener implements TextView.OnEditorActionListener {

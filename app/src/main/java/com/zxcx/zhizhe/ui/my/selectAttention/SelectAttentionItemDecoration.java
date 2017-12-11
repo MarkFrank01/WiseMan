@@ -24,18 +24,18 @@ public class SelectAttentionItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         switch (parent.getChildAdapterPosition(view)){
             case 0:
-                outRect.left = ScreenUtils.dip2px(40f);
+                outRect.left = ScreenUtils.dip2px(100f);
                 break;
             case 1:
-                outRect.left = ScreenUtils.dip2px(20f);
+                outRect.left = ScreenUtils.dip2px(70f);
                 break;
             case 2:
                 break;
             case 3:
-                outRect.left = ScreenUtils.dip2px(20f);
+                outRect.left = ScreenUtils.dip2px(90f);
                 break;
             case 4:
-                outRect.left = ScreenUtils.dip2px(40f);
+                outRect.left = ScreenUtils.dip2px(120f);
                 break;
         }
     }

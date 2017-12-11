@@ -84,8 +84,10 @@
 
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_search_result"
+    <FrameLayout
+        android:id="@+id/fl_search_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 </LinearLayout>

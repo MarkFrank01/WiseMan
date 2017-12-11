@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.adapter.SelectAttentionAdapter;
+import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,6 +32,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
 
     private ArrayList<SelectAttentionBean> mCheckedList = new ArrayList<>();
     private SelectAttentionAdapter mAdapter;
+    private StaggeredGridLayoutManager mManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
         list.removeAll(mCheckedList);
         mAdapter.addData(list);
         mAdapter.addData(mCheckedList);
+        mManager.scrollToPositionWithOffset(0, -ScreenUtils.dip2px(60));
         checkNext();
         if (mAdapter.getData().size() == 0){
             //占空图
@@ -114,9 +117,9 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     private void initRecyclerView() {
         mAdapter = new SelectAttentionAdapter(new ArrayList<>());
         mAdapter.setOnItemClickListener(this);
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.HORIZONTAL);
+        mManager = new StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.HORIZONTAL);
         mRvSelectAttention.setAdapter(mAdapter);
-        mRvSelectAttention.setLayoutManager(manager);
+        mRvSelectAttention.setLayoutManager(mManager);
         mRvSelectAttention.addItemDecoration(new SelectAttentionItemDecoration());
     }
 
