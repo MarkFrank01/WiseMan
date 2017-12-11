@@ -169,16 +169,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:text="到底了"
-                android:textColor="@color/text_color_3"
-                android:textSize="@dimen/text_size_text_3"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </in.srain.cube.views.ptr.PtrFrameLayout>

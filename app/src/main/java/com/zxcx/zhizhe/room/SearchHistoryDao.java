@@ -17,16 +17,26 @@ import io.reactivex.Flowable;
 @Dao
 public interface SearchHistoryDao {
 
+    /**
+     * 返回Flowable，数据变化时会自动调用OnNext通知
+     * @return
+     */
     @Query("SELECT * FROM SearchHistory")
-    Flowable<List<SearchHistory>> getAll();
+    Flowable<List<SearchHistory>> getFlowableAll();
+
+    @Query("SELECT * FROM SearchHistory")
+    List<SearchHistory> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     List<Long> insertAll(SearchHistory... users);
 
     @Delete
-    void delete(SearchHistory... history);
+    int delete(SearchHistory... history);
+
+    @Delete
+    int delete(List<SearchHistory> historyList);
 
     @Query("DELETE FROM SearchHistory")
-    void deleteAll();
+    int deleteAll();
 
 }

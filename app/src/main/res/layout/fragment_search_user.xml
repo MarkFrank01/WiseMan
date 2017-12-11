@@ -11,6 +11,6 @@
         android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_search_result_card"/>
+        tools:listitem="@layout/item_rank_user"/>
 
 </LinearLayout>

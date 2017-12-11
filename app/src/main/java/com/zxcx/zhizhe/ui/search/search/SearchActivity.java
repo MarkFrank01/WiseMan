@@ -31,10 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
@@ -55,7 +52,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     @BindView(R.id.iv_search_clear)
     ImageView mIvSearchClear;
 
-    private List<SearchHistory> mSearchHistoryList;
+    private List<SearchHistory> mSearchHistoryList = new ArrayList<>();
     private HotSearchAdapter mHotSearchAdapter;
     private SearchHistoryAdapter mSearchHistoryAdapter;
     private SearchPreAdapter mSearchPreAdapter;
@@ -125,23 +122,14 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
     @OnClick(R.id.iv_search_clear_history)
     public void onMIvSearchClearHistoryClicked() {
-        SearchHistory[] searchHistories = mSearchHistoryList.toArray(new SearchHistory[mSearchHistoryList.size()]);
-        Observable.create(e -> {
-            AppDatabase.getInstance().mSearchHistoryDao().deleteAll();
-            e.onNext(0);
-            e.onComplete();
-        })
-                .subscribeOn(Schedulers.io())
+        mDisposable = Flowable.just(0)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .map(o -> AppDatabase.getInstance().mSearchHistoryDao().deleteAll())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Object>() {
-
+                .subscribeWith(new DisposableSubscriber<Integer>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-                        addSubscription(d);
-                    }
-
-                    @Override
-                    public void onNext(Object aVoid) {
+                    public void onNext(Integer aVoid) {
                         mSearchHistoryAdapter.getData().clear();
                         mSearchHistoryAdapter.notifyDataSetChanged();
                         mTvSearchHistoryType.setText(R.string.search_hot_search);
@@ -156,14 +144,16 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                     @Override
                     public void onComplete() {
-                        LogCat.e("删除结束");
                     }
                 });
+
+        addSubscription(mDisposable);
     }
 
     public void gotoSearchResult(String keyword) {
         mDisposable = Flowable.just(keyword)
                 .subscribeOn(AndroidSchedulers.mainThread())
+                .filter(s -> !mSearchHistoryList.contains(new SearchHistory(s)))
                 .observeOn(Schedulers.io())
                 .map(s -> AppDatabase.getInstance().mSearchHistoryDao().insertAll(new SearchHistory(s)))
                 .observeOn(AndroidSchedulers.mainThread())

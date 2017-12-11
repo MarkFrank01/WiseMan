@@ -28,4 +28,19 @@ public class SearchHistory extends RetrofitBaen{
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SearchHistory that = (SearchHistory) o;
+
+        return keyword.equals(that.keyword);
+    }
+
+    @Override
+    public int hashCode() {
+        return keyword.hashCode();
+    }
 }

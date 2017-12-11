@@ -17,14 +17,23 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.room.AppDatabase;
+import com.zxcx.zhizhe.room.SearchHistory;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardFragment;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserFragment;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 public class SearchResultActivity extends BaseActivity {
 
@@ -111,11 +120,40 @@ public class SearchResultActivity extends BaseActivity {
                     || actionId == EditorInfo.IME_ACTION_DONE
                     || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
 
-                if (StringUtils.isEmpty(v.getText().toString())) {
+                String keyword = v.getText().toString();
+                if (StringUtils.isEmpty(keyword)) {
                     toastShow("搜索内容不能为空！");
                     return true;
                 }
+                mSearchCardFragment.setMKeyword(keyword);
+                mSearchUserFragment.setMKeyword(keyword);
+                mDisposable = Flowable.just(keyword)
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(Schedulers.io())
+                        .filter(s -> {
+                            List<SearchHistory> historyList = AppDatabase.getInstance().mSearchHistoryDao().getAll();
+                            return !historyList.contains(new SearchHistory(s));
+                        })
+                        .map(s -> AppDatabase.getInstance().mSearchHistoryDao().insertAll(new SearchHistory(s)))
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSubscriber<List<Long>>() {
 
+                            @Override
+                            public void onNext(List<Long> aVoid) {
+                                LogCat.e("搜索记录插入成功");
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                LogCat.e("搜索记录插入失败", t);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+                addSubscription(mDisposable);
 
                 return true;
             }

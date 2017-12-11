@@ -8,12 +8,16 @@ import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.room.AppDatabase;
 import com.zxcx.zhizhe.room.SearchHistory;
+import com.zxcx.zhizhe.utils.LogCat;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 public class SearchModel extends BaseModel<SearchContract.Presenter> {
@@ -33,8 +37,20 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
                 });
         addSubscription(mDisposable);
 
-        Disposable disposable = AppDatabase.getInstance().mSearchHistoryDao().getAll()
-                .compose(BaseRxJava.io_main())
+        Disposable disposable = Flowable.just(0)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .map(o -> {
+                    List<SearchHistory> historyList = AppDatabase.getInstance().mSearchHistoryDao().getAll();
+                    Collections.reverse(historyList);
+                    if (historyList.size()>20){
+                        AppDatabase.getInstance().mSearchHistoryDao().delete(historyList.subList(20,historyList.size()));
+                        return historyList.subList(0,20);
+                    }else {
+                        return historyList;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<List<SearchHistory>>() {
                     @Override
                     public void onNext(List<SearchHistory> list) {
@@ -50,7 +66,7 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
 
                     @Override
                     public void onComplete() {
-
+                        LogCat.d("读取数据库完成");
                     }
                 });
         addSubscription(disposable);
