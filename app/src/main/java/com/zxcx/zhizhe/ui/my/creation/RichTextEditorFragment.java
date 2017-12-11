@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.richeditor.RichEditor;
-import com.zxcx.zhizhe.utils.AndroidBug5497Workaround;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.widget.OSSDialog;
@@ -76,7 +75,6 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AndroidBug5497Workaround.assistActivity(getActivity());
         mOSSDialog = new OSSDialog();
         mOSSDialog.setUploadListener(this);
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {

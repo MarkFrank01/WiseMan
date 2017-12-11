@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
-import com.zxcx.zhizhe.utils.AndroidBug5497Workaround;
 import com.zxcx.zhizhe.utils.Constants;
 
 import butterknife.BindView;
@@ -44,16 +43,16 @@ public class RichTextEditorActivity extends MvpActivity<RichTextEditorPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rich_text_editor);
         ButterKnife.bind(this);
-        AndroidBug5497Workaround.assistActivity(this);
         mRbRteEditor.performClick();
 
 
         if (!Constants.IS_NIGHT) {
             ImmersionBar.with(this)
-                    .statusBarColor(R.color.white_final)
+                    .statusBarColor(R.color.background)
                     .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.black)
-                    .statusBarView(R.id.status_bar)
+                    .fitsSystemWindows(true)
+                    .keyboardEnable(true)
                     .init();
         } else {
 
