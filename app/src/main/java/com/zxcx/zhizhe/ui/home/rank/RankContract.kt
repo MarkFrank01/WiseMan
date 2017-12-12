@@ -5,8 +5,12 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 
 interface RankContract {
 
-    interface View : GetView<RankBean>
+    interface View : GetView<List<UserRankBean>>{
+        fun getMyRankSuccess(bean: UserRankBean)
+    }
 
-    interface Presenter : IGetPresenter<RankBean>
+    interface Presenter : IGetPresenter<List<UserRankBean>>{
+        fun getMyRankSuccess(bean: UserRankBean)
+    }
 }
 

@@ -15,7 +15,15 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
         mModel.getMyRank()
     }
 
-    override fun getDataSuccess(beanMy: RankBean) {
+    fun getTopTenRank(){
+        mModel.getTopTenRank()
+    }
+
+    override fun getMyRankSuccess(bean: UserRankBean) {
+        mView.getMyRankSuccess(bean)
+    }
+
+    override fun getDataSuccess(beanMy: List<UserRankBean>) {
         mView.getDataSuccess(beanMy)
     }
 
