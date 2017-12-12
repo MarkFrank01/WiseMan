@@ -28,7 +28,7 @@ public class PreviewFragment extends BaseFragment {
     @BindView(R.id.ll_web_view)
     LinearLayout mLlWebView;
 
-    private static final String SETUP_HTML = "file:///android_asset/preview.html";
+    private static final String SETUP_HTML = "file:///android_asset/preview_light.html";
     Unbinder unbinder;
     private boolean isReady = false;
 

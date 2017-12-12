@@ -39,15 +39,15 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
                         List<HotCardBagBean> list1 = bean.getCardBagList().subList(5,bean.getCardBagList().size());
                         RecommendBean recommendBean = new RecommendBean(true,list);
                         RecommendBean recommendBean1 = new RecommendBean(true,list1);
-                        recommendBeanList.add(3,recommendBean);
-                        if (recommendBeanList.size()>=7)
-                            recommendBeanList.add(7,recommendBean1);
+                        recommendBeanList.add(2,recommendBean);
+                        if (recommendBeanList.size()>=5)
+                            recommendBeanList.add(5,recommendBean1);
                         else
                             recommendBeanList.add(recommendBean1);
                     }else {
                         List<HotCardBagBean> list = bean.getCardBagList().subList(0,bean.getCardBagList().size());
                         RecommendBean recommendBean = new RecommendBean(true,list);
-                        recommendBeanList.add(3,recommendBean);
+                        recommendBeanList.add(2,recommendBean);
                     }
                     return recommendBeanList;
                 })

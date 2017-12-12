@@ -1,12 +1,10 @@
 package com.zxcx.zhizhe.widget;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**
@@ -49,11 +47,5 @@ public class WrapContentHeightViewPager extends ViewPager{
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        LogCat.d("子View数"+getChildCount());
-        super.onDraw(canvas);
     }
 }

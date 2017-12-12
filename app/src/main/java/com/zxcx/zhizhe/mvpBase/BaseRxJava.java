@@ -27,7 +27,6 @@ public class BaseRxJava{
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe(subscription -> presenter.showLoading())
                 .doOnTerminate(() -> presenter.hideLoading())
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

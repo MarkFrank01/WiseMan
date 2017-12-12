@@ -17,10 +17,11 @@ import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
-import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
 import java.util.ArrayList;
@@ -200,10 +201,12 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             CardBagBean bean = (CardBagBean) adapter.getData().get(position);
-            Intent intent = new Intent(mContext, CardBagCardDetailsActivity.class);
-            intent.putExtra("id", mId);
-            intent.putExtra("cardId", bean.getId());
-            intent.putExtra("name", mName);
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("name", bean.getName());
+            intent.putExtra("imageUrl", bean.getImageUrl());
+            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+            intent.putExtra("author", bean.getAuthor());
             mContext.startActivity(intent);
         }
     }

@@ -25,6 +25,7 @@ public abstract class PostSubscriber<T> extends DisposableSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
+        LogCat.e(t.getMessage(),t);
         if (t.getMessage() != null) {
             String code = t.getMessage().substring(0,3);
             try {

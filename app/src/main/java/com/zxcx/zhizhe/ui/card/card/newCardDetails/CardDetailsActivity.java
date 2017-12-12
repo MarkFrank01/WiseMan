@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.card.card.newCardDetails;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -31,13 +34,14 @@ import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity;
-import com.zxcx.zhizhe.ui.card.card.share.ShareCardDialog;
+import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,6 +98,7 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
 
     private WebView mWebView;
     private int cardId;
+    private int cardBagId;
     private int mAuthorId;
     private String name;
     private String cardBagName;
@@ -105,10 +110,11 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     private ActionMode mActionMode;
     private static final int MENU_ITEM_NOTE = 0;
     private static final int MENU_ITEM_SHARE = 1;
+    private String mUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_new_card_details);
+        setContentView(R.layout.activity_card_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -218,6 +224,7 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         int likeNum = bean.getLikeNum();
         int unLikeNum = bean.getUnLikeNum();
         cardBagName = bean.getCardBagName();
+        cardBagId = bean.getCardBagId();
         mTvCardDetailsCardBag.setText(cardBagName);
         mCbCardDetailsCollect.setText(collectNum + "");
         mCbCardDetailsLike.setText(likeNum + "");
@@ -258,16 +265,17 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         //todo 进入作者页
     }
 
+    @OnClick(R.id.fl_card_details_card_bag)
+    public void onMFlCardDetailsCardBagClicked() {
+        Intent intent = new Intent(this, CardBagActivity.class);
+        intent.putExtra("name",cardBagName);
+        intent.putExtra("id",cardBagId);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.iv_card_details_share)
     public void onShareClicked() {
-        ShareCardDialog shareCardDialog = new ShareCardDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString("title", name);
-        bundle.putString("text", cardBagName);
-        bundle.putString("url", APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
-        bundle.putString("imageUrl", imageUrl);
-        shareCardDialog.setArguments(bundle);
-        shareCardDialog.show(getFragmentManager(), "");
+        gotoShare(mUrl,null);
     }
 
     @OnClick(R.id.cb_card_details_collect)
@@ -375,23 +383,60 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         mFlCardDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         if (isNight) {
-            mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleDark/" + cardId);
+            mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
         } else {
-            mWebView.loadUrl(APIService.API_SERVER_URL + "/view/articleLight/" + cardId);
+            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
+//            mUrl = "http://192.168.1.149/articleView/192";
+
         }
+        mWebView.loadUrl(mUrl);
+    }
+
+    private void gotoShare(String url, String content) {
+        ShareDialog shareDialog = new ShareDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString("name",name);
+        if (!StringUtils.isEmpty(content)) {
+            bundle.putString("content", content);
+        } else {
+            bundle.putString("url",url);
+        }
+        bundle.putString("imageUrl",imageUrl);
+        bundle.putString("date",date);
+        bundle.putString("author",author);
+        bundle.putString("cardBagName",cardBagName);
+        bundle.putInt("cardBagId",cardBagId);
+        shareDialog.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            transaction.addSharedElement(mIvCardDetails,"cardImage");
+            transaction.addSharedElement(mTvCardDetailsTitle,"cardTitle");
+            transaction.addSharedElement(mTvCardDetailsInfo,"cardInfo");
+            transaction.addSharedElement(mTvCardDetailsCardBag,"cardBag");
+
+        }
+        shareDialog.show(transaction,"");
     }
 
     private class MenuItemClickListener implements MenuItem.OnMenuItemClickListener {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            mWebView.evaluateJavascript("getValue()", value -> {
-                LogCat.d(value);
-                switch (item.getItemId()){
-                    case MENU_ITEM_NOTE:
-                        break;
-                    case MENU_ITEM_SHARE:
-                        break;
+            mWebView.evaluateJavascript("getValue()", new ValueCallback<String>() {
+                @Override
+                public void onReceiveValue(String value) {
+                    LogCat.d(value);
+                    switch (item.getItemId()) {
+                        case MENU_ITEM_NOTE:
+                            NoteTitleDialog noteTitleDialog = new NoteTitleDialog();
+                            noteTitleDialog.show(getFragmentManager(), "");
+                            break;
+                        case MENU_ITEM_SHARE:
+                            String text = value != null ? value.substring(1, value.length() - 1) : null;
+                            gotoShare(mUrl, text);
+                            break;
+                    }
                 }
             });
             return true;

@@ -1,7 +1,10 @@
 package com.zxcx.zhizhe.utils;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.util.DisplayMetrics;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.zxcx.zhizhe.App;
@@ -73,5 +76,25 @@ public class ScreenUtils {
         }else {
             return false;
         }
+    }
+
+    /**
+     * 截取scrollview的屏幕
+     * @param viewGroup
+     * @return
+     */
+    public static Bitmap getBitmapByView(ViewGroup viewGroup) {
+        float h = 0;
+        Bitmap bitmap = null;
+        // 获取scrollview实际高度
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+            h += viewGroup.getChildAt(i).getHeight();
+        }
+        // 创建对应大小的bitmap
+        bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
+                Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        viewGroup.draw(canvas);
+        return bitmap;
     }
 }
