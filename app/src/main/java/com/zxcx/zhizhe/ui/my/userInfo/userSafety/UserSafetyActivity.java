@@ -2,12 +2,12 @@ package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RemoveBindingEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
-import com.zxcx.zhizhe.ui.my.userInfo.LogoutDialog;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
@@ -32,13 +32,36 @@ import cn.sharesdk.wechat.utils.WechatClientNotExistException;
 
 public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> implements UserSafetyContract.View {
 
-    @BindView(R.id.tv_user_safety_wechat)
-    TextView mTvUserSafetyWechat;
-    @BindView(R.id.tv_user_safety_qq)
-    TextView mTvUserSafetyQq;
-    @BindView(R.id.tv_user_safety_weibo)
-    TextView mTvUserSafetyWeibo;
 
+    @BindView(R.id.ll_user_safety_phone_bind)
+    LinearLayout mLlUserSafetyPhoneBind;
+    @BindView(R.id.line_weibo_bind)
+    View mLineWeiboBind;
+    @BindView(R.id.ll_user_safety_wechat_bind)
+    LinearLayout mLlUserSafetyWechatBind;
+    @BindView(R.id.line_wechat_bind)
+    View mLineWechatBind;
+    @BindView(R.id.ll_user_safety_qq_bind)
+    LinearLayout mLlUserSafetyQqBind;
+    @BindView(R.id.line_qq_bind)
+    View mLineQqBind;
+    @BindView(R.id.ll_user_safety_weibo_bind)
+    LinearLayout mLlUserSafetyWeiboBind;
+    @BindView(R.id.ll_user_safety_phone_unbind)
+    LinearLayout mLlUserSafetyPhoneUnbind;
+    @BindView(R.id.line_phone_unbind)
+    View mLinePhoneUnbind;
+    @BindView(R.id.ll_user_safety_wechat_unbind)
+    LinearLayout mLlUserSafetyWechatUnbind;
+    @BindView(R.id.line_wechat_unbind)
+    View mLineWechatUnbind;
+    @BindView(R.id.ll_user_safety_qq_unbind)
+    LinearLayout mLlUserSafetyQqUnbind;
+    @BindView(R.id.line_qq_unbind)
+    View mLineQqUnbind;
+    @BindView(R.id.ll_user_safety_weibo_unbind)
+    LinearLayout mLlUserSafetyWeiboUnbind;
+    private boolean isBindingPhone;
     private boolean isBindingWechat;
     private boolean isBindingQQ;
     private boolean isBindingWeibo;
@@ -51,11 +74,12 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
         setContentView(R.layout.activity_user_safety);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        initToolBar("账户安全");
+        initToolBar("绑定");
 
-        isBindingWechat = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWX,false);
-        isBindingQQ = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingQQ,false);
-        isBindingWeibo = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWB,false);
+        isBindingPhone = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingPhone, false);
+        isBindingWechat = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWX, false);
+        isBindingQQ = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingQQ, false);
+        isBindingWeibo = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWB, false);
 
         updateView();
     }
@@ -73,7 +97,7 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
 
     @Override
     public void postSuccess() {
-        switch (channelType){
+        switch (channelType) {
             case 1:
                 isBindingQQ = !isBindingQQ;
                 break;
@@ -97,64 +121,83 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RemoveBindingEvent event) {
-        mPresenter.channelBinding(channelType,2,null);
+        mPresenter.channelBinding(channelType, 2, null);
     }
 
-    @OnClick(R.id.tv_user_info_logout)
-    public void onMTvUserInfoLogoutClicked() {
-        LogoutDialog dialog = new LogoutDialog();
-        dialog.show(getFragmentManager(), "");
-    }
-
-    @OnClick(R.id.rl_user_safety_qq)
-    public void onMRlUserSafetyQqClicked() {
-        channelType = 1;
-        if (!isBindingQQ) {
-            Platform qq = ShareSDK.getPlatform(QQ.NAME);
-            qq.setPlatformActionListener(mChannelLoginListener);
-            qq.showUser(null);
-        }else {
-            RemoveBindingDialog dialog = new RemoveBindingDialog();
-            dialog.show(getFragmentManager(),"");
-        }
-    }
-
-    @OnClick(R.id.rl_user_safety_wechat)
-    public void onMRlUserSafetyWechatClicked() {
-        channelType = 2;
-        if (!isBindingWechat) {
-            Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
-            wechat.setPlatformActionListener(mChannelLoginListener);
-            wechat.showUser(null);
-        }else {
-            RemoveBindingDialog dialog = new RemoveBindingDialog();
-            dialog.show(getFragmentManager(),"");
-        }
-    }
-
-    @OnClick(R.id.rl_user_safety_weibo)
-    public void onMRlUserSafetyWeiboClicked() {
-        channelType = 3;
-        if (!isBindingWeibo) {
-            Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
-            weibo.setPlatformActionListener(mChannelLoginListener);
-            weibo.showUser(null);
-        }else {
-            RemoveBindingDialog dialog = new RemoveBindingDialog();
-            dialog.show(getFragmentManager(),"");
-        }
-    }
-
-    @OnClick(R.id.rl_user_safety_change_password)
-    public void onMRlUserSafetyChangePasswordClicked() {
-        Intent intent = new Intent(this,ChangePasswordActivity.class);
+    @OnClick(R.id.ll_user_safety_phone_bind)
+    public void onMLlUserSafetyPhoneBindClicked() {
+        //更换手机界面
+        Intent intent = new Intent(this, ChangePhoneActivity.class);
         startActivity(intent);
     }
 
+    @OnClick(R.id.ll_user_safety_wechat_bind)
+    public void onMLlUserSafetyWechatBindClicked() {
+        //解绑微信
+        channelType = 2;
+        RemoveBindingDialog dialog = new RemoveBindingDialog();
+        dialog.show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.ll_user_safety_qq_bind)
+    public void onMLlUserSafetyQqBindClicked() {
+        //解绑QQ
+        channelType = 1;
+        RemoveBindingDialog dialog = new RemoveBindingDialog();
+        dialog.show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.ll_user_safety_weibo_bind)
+    public void onMLlUserSafetyWeiboBindClicked() {
+        //解绑微博
+        channelType = 3;
+        RemoveBindingDialog dialog = new RemoveBindingDialog();
+        dialog.show(getFragmentManager(), "");
+    }
+
+    @OnClick(R.id.ll_user_safety_phone_unbind)
+    public void onMLlUserSafetyPhoneUnbindClicked() {
+    }
+
+    @OnClick(R.id.ll_user_safety_wechat_unbind)
+    public void onMLlUserSafetyWechatUnbindClicked() {
+        //绑定微信
+        channelType = 2;
+        Platform wechat = ShareSDK.getPlatform(Wechat.NAME);
+        wechat.setPlatformActionListener(mChannelLoginListener);
+        wechat.showUser(null);
+    }
+
+    @OnClick(R.id.ll_user_safety_qq_unbind)
+    public void onMLlUserSafetyQqUnbindClicked() {
+        //绑定QQ
+        channelType = 1;
+        Platform qq = ShareSDK.getPlatform(QQ.NAME);
+        qq.setPlatformActionListener(mChannelLoginListener);
+        qq.showUser(null);
+    }
+
+    @OnClick(R.id.ll_user_safety_weibo_unbind)
+    public void onMLlUserSafetyWeiboUnbindClicked() {
+        //绑定微博
+        channelType = 3;
+        Platform weibo = ShareSDK.getPlatform(SinaWeibo.NAME);
+        weibo.setPlatformActionListener(mChannelLoginListener);
+        weibo.showUser(null);
+    }
+
     private void updateView() {
-        mTvUserSafetyWechat.setText(isBindingWechat ? R.string.is_binding : R.string.no_binding);
-        mTvUserSafetyQq.setText(isBindingQQ ? R.string.is_binding : R.string.no_binding);
-        mTvUserSafetyWeibo.setText(isBindingWeibo ? R.string.is_binding : R.string.no_binding);
+        mLlUserSafetyQqBind.setVisibility(isBindingQQ? View.VISIBLE:View.GONE);
+        mLineQqBind.setVisibility(isBindingQQ? View.VISIBLE:View.GONE);
+        mLlUserSafetyQqUnbind.setVisibility(!isBindingQQ? View.VISIBLE:View.GONE);
+        mLineQqUnbind.setVisibility(!isBindingQQ? View.VISIBLE:View.GONE);
+        mLlUserSafetyWechatBind.setVisibility(isBindingWechat? View.VISIBLE:View.GONE);
+        mLineWechatBind.setVisibility(isBindingWechat? View.VISIBLE:View.GONE);
+        mLlUserSafetyWechatUnbind.setVisibility(!isBindingWechat? View.VISIBLE:View.GONE);
+        mLineWechatUnbind.setVisibility(!isBindingWechat? View.VISIBLE:View.GONE);
+        mLlUserSafetyWeiboBind.setVisibility(isBindingWeibo? View.VISIBLE:View.GONE);
+        mLineWeiboBind.setVisibility(isBindingWeibo? View.VISIBLE:View.GONE);
+        mLlUserSafetyWeiboUnbind.setVisibility(!isBindingWeibo? View.VISIBLE:View.GONE);
     }
 
     class ChannelLoginListener implements PlatformActionListener {
@@ -165,7 +208,7 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
                 PlatformDb platDB = platform.getDb();//获取数平台数据DB
                 //通过DB获取各种数据
                 String userId = platDB.getUserId();
-                mPresenter.channelBinding(channelType,1,userId);
+                mPresenter.channelBinding(channelType, 1, userId);
             }
         }
 
@@ -175,9 +218,9 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (throwable instanceof WechatClientNotExistException){
+                    if (throwable instanceof WechatClientNotExistException) {
                         toastShow("请先安装微信客户端");
-                    }else {
+                    } else {
                         toastShow("授权失败");
                     }
                 }

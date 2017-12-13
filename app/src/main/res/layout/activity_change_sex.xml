@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg_dialog"
+    android:background="@color/fragment_my_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:gravity="center"
+            android:text="@string/common_cancel"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_complete"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/common_complete"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <View
+        style="@style/line"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/line"/>
+
     <RadioGroup
         android:id="@+id/rg_change_sex"
+        android:background="@color/background"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:gravity="center_horizontal"
@@ -28,6 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <View
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
         <RadioButton
             android:id="@+id/rb_change_sex_woman"
             android:paddingTop="14dp"
@@ -43,40 +85,6 @@
     </RadioGroup>
 
     <View
-        android:id="@+id/view_line"
-        android:layout_below="@+id/rg_change_sex"
         style="@style/line"/>
     
-    <LinearLayout
-        android:layout_below="@id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="43dp">
-
-        <TextView
-            android:id="@+id/tv_dialog_cancel"
-            android:text="@string/common_cancel"
-            android:gravity="center"
-            android:textColor="@color/button_blue"
-            android:textSize="17sp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <View
-            android:background="@color/line"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_dialog_confirm"
-            android:text="@string/common_confirm"
-            android:gravity="center"
-            android:textColor="@color/button_blue"
-            android:textSize="17sp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-    
-</RelativeLayout>
+</LinearLayout>

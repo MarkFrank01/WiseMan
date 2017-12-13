@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/fragment_my_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_image_load_mode_wifi"
+        android:layout_marginTop="10dp"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_image_load_mode_wifi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="仅在Wi-Fi下加载高清图"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        <CheckBox
+            android:id="@+id/cb_image_load_mode_wifi"
+            android:layout_width="42dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:button="@drawable/selector_check_box"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_image_load_mode_all"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_image_load_mode_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="所有网络均加载高清图"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        <CheckBox
+            android:id="@+id/cb_image_load_mode_all"
+            android:layout_width="42dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:button="@drawable/selector_check_box"/>
+
+    </LinearLayout>
+
+</LinearLayout>

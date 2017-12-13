@@ -4,12 +4,12 @@ package com.zxcx.zhizhe.ui.my;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -18,10 +18,8 @@ import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UpdataUserInfoEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
-import com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderActivity;
-import com.zxcx.zhizhe.ui.my.feedback.help.HelpActivity;
+import com.zxcx.zhizhe.ui.my.setting.CommonSettingActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -38,40 +36,20 @@ import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class MyFragment extends BaseFragment {
 
     Unbinder unbinder;
-    @BindView(R.id.tv_my_login)
-    TextView mTvMyLogin;
-    @BindView(R.id.tv_my_nick_name)
-    TextView mTvMyNickName;
-    @BindView(R.id.tv_my_collect)
-    TextView mTvMyCollect;
-    @BindView(R.id.iv_toolbar_back)
-    ImageView mIvToolbarBack;
+    @BindView(R.id.iv_my_red_point)
+    ImageView mIvMyRedPoint;
     @BindView(R.id.iv_my_head)
     RoundedImageView mIvMyHead;
-    @BindView(R.id.rl_my_head)
-    RelativeLayout mRlMyHead;
-    @BindView(R.id.ll_my_collect)
-    LinearLayout mLlMyCollect;
-    @BindView(R.id.tv_my_common_setting)
-    TextView mTvMyCommonSetting;
-    @BindView(R.id.ll_my_common_setting)
-    LinearLayout mLlMyCommonSetting;
-    @BindView(R.id.tv_my_feedback)
-    TextView mTvMyFeedback;
-    @BindView(R.id.ll_my_feedback)
-    LinearLayout mLlMyFeedback;
-    @BindView(R.id.tv_my_about_us)
-    TextView mTvMyAboutUs;
-    @BindView(R.id.ll_my_about_us)
-    LinearLayout mLlMyAboutUs;
+    @BindView(R.id.tv_my_nick_name)
+    TextView mTvMyNickName;
     @BindView(R.id.tv_my_info)
     TextView mTvMyInfo;
+    @BindView(R.id.fl_my_message)
+    FrameLayout mFlMyMessage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,13 +68,20 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initToolBar(view, R.string.title_my);
-        mIvToolbarBack.setVisibility(View.GONE);
-
-        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0){
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) == 0) {
             setViewLogout();
-        }else {
+        } else {
             setViewLogin();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+
+        } else {
+
         }
     }
 
@@ -128,58 +113,112 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick(R.id.rl_my_head)
+    public void onMRlMyHeadClicked() {
+        checkLogin();
+    }
+
+    @OnClick(R.id.fl_my_message)
+    public void onMFlMyMessageClicked() {
+        //消息界面
+        Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.iv_my_setting)
+    public void onMIvMySettingClicked() {
+        //消息界面
+        Intent intent = new Intent(getContext(), CommonSettingActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick({R.id.iv_my_head,R.id.tv_my_nick_name})
     public void onMIvMyHeadClicked() {
-        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0) {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            startActivity(intent);
-        }else {
+        //消息界面
+        Intent intent = new Intent(getContext(), UserInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.tv_my_info)
+    public void onMTvMyInfoClicked() {
+        if (checkLogin()) {
+            //智力值界面
             Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.ll_my_creation)
+    public void onMLlMyCreationClicked() {
+        if (checkLogin()) {
+            //创作界面
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.ll_my_read)
+    public void onMLlMyReadClicked() {
+        if (checkLogin()) {
+            //阅读页面
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.ll_my_note)
+    public void onMLlMyNoteClicked() {
+        if (checkLogin()) {
+            //笔记页面
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @OnClick(R.id.ll_my_follow)
+    public void onMLlMyFollowClicked() {
+        if (checkLogin()) {
+            //关注页面
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
             startActivity(intent);
         }
     }
 
     @OnClick(R.id.ll_my_collect)
     public void onMLlMyCollectClicked() {
-        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0) {
-            Intent intent = new Intent(getContext(), LoginActivity.class);
-            startActivity(intent);
-        }else {
+        if (checkLogin()) {
+            //收藏页面
             Intent intent = new Intent(getContext(), CollectFolderActivity.class);
             startActivity(intent);
         }
     }
 
-    @OnClick(R.id.ll_my_common_setting)
-    public void onMLlMyCommonSettingClicked() {
-        Intent intent = new Intent(getContext(), CommonSettingActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_my_feedback)
-    public void onMLlMyFeedbackClicked() {
-        Intent intent = new Intent(getContext(), HelpActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_my_about_us)
-    public void onMLlMyAboutUsClicked() {
-        Intent intent = new Intent(getContext(), AboutUSActivity.class);
-        startActivity(intent);
+    @OnClick(R.id.ll_my_like)
+    public void onMLlMyLikeClicked() {
+        if (checkLogin()) {
+            //点赞页面
+            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setViewLogout() {
-        mTvMyLogin.setVisibility(View.VISIBLE);
-        mTvMyNickName.setVisibility(View.GONE);
-        mTvMyInfo.setVisibility(View.GONE);
+        mFlMyMessage.setClickable(false);
+        mTvMyNickName.setText("注册/登录");
+        mTvMyNickName.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
+        mTvMyInfo.setText("登录看谁在关注你");
+        mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_3));
         mIvMyHead.setImageResource(R.drawable.iv_my_head_placeholder);
     }
 
     private void setViewLogin() {
-        mTvMyLogin.setVisibility(View.GONE);
-        mTvMyNickName.setVisibility(View.VISIBLE);
-        mTvMyInfo.setVisibility(View.VISIBLE);
-        mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName,""));
+
+        mFlMyMessage.setClickable(true);
+        mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName, ""));
+        mTvMyNickName.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1));
+        //todo 智力值
+        mTvMyInfo.setText("");
+        mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
         String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
-        ImageLoader.load(mActivity,headImg,R.drawable.default_header,mIvMyHead);
+        ImageLoader.load(mActivity, headImg, R.drawable.default_header, mIvMyHead);
     }
 }

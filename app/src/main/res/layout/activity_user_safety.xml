@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@color/fragment_my_background"
     xmlns:tools="http://schemas.android.com/tools">
 
     <include
@@ -12,176 +12,283 @@
         layout="@layout/toolbar"/>
 
     <View
-        android:layout_marginTop="@dimen/fragment_interval"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/rl_user_safety_wechat"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_safety_wechat"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_user_safety_wechat"
-            tools:text="@string/no_binding"
-            android:gravity="right"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/line"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="15dp"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/rl_user_safety_qq"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_safety_qq"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_user_safety_qq"
-            tools:text="@string/no_binding"
-            android:gravity="right"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/line"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="15dp"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/rl_user_safety_weibo"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_safety_weibo"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_user_safety_weibo"
-            tools:text="@string/no_binding"
-            android:gravity="right"
-            android:textSize="14sp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/line"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <View
-        style="@style/line"/>
-
-    <View
         android:layout_marginTop="10dp"
         style="@style/line"/>
 
     <LinearLayout
-        android:id="@+id/rl_user_safety_change_password"
-        android:background="@color/white"
-        android:gravity="center_vertical"
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_safety_change_password"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_phone_bind"
+            android:background="@color/background"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="手机号"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/is_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
 
         <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:id="@+id/line_wechat_bind"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
 
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/ll_user_safety_wechat_bind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_wechat"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/is_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_qq_bind"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_qq_bind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_qq"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/is_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_weibo_bind"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_weibo_bind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_weibo"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/is_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <View
         style="@style/line"/>
 
-    <RelativeLayout
+    <View
+        android:layout_marginTop="@dimen/fragment_interval"
+        style="@style/line"/>
+
+    <LinearLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_user_info_logout"
-            android:gravity="center"
-            android:text="退出登录"
-            android:textSize="17sp"
-            android:textColor="@color/text_color_66"
-            android:background="@drawable/bg_btn_logout"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+        <LinearLayout
+            android:id="@+id/ll_user_safety_phone_unbind"
+            android:visibility="gone"
+            android:background="@color/background"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_height="50dp">
+            <TextView
+                android:text="手机号"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+            <TextView
+                tools:text="@string/no_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_phone_unbind"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_wechat_unbind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_wechat"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/no_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_wechat_unbind"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_qq_unbind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_qq"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/no_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_qq_unbind"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_weibo_unbind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_safety_weibo"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                tools:text="@string/no_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line"/>
 
 </LinearLayout>

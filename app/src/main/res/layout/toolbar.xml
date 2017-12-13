@@ -38,7 +38,7 @@
         <ImageView
             android:id="@+id/iv_toolbar_right"
             android:layout_gravity="right"
-            android:paddingRight="15dp"
+            android:paddingRight="20dp"
             android:paddingLeft="15dp"
             android:visibility="gone"
             android:layout_width="wrap_content"

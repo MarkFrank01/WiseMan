@@ -21,9 +21,9 @@
             android:layout_height="match_parent"/>
 
         <ImageView
-            android:id="@+id/iv_dialog_share_qq"
+            android:id="@+id/iv_dialog_share_wechat"
             android:scaleType="centerCrop"
-            android:src="@drawable/qq"
+            android:src="@drawable/wechat"
             android:padding="10dp"
             android:layout_width="57dp"
             android:layout_height="57dp"/>
@@ -34,9 +34,22 @@
             android:layout_height="match_parent"/>
 
         <ImageView
-            android:id="@+id/iv_dialog_share_wechat"
+            android:id="@+id/iv_dialog_share_moments"
             android:scaleType="centerCrop"
-            android:src="@drawable/wechat"
+            android:src="@drawable/moments"
+            android:padding="10dp"
+            android:layout_width="57dp"
+            android:layout_height="57dp"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_dialog_share_qq"
+            android:scaleType="centerCrop"
+            android:src="@drawable/qq"
             android:padding="10dp"
             android:layout_width="57dp"
             android:layout_height="57dp"/>

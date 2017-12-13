@@ -1,13 +1,8 @@
 package com.zxcx.zhizhe.ui.my.feedback.feedback;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.content.ContextCompat;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meituan.android.walle.WalleChannelReader;
@@ -24,24 +19,20 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements FeedbackContract.View {
+
 
     @BindView(R.id.tv_toolbar_right)
     TextView mTvToolbarRight;
     @BindView(R.id.et_feedback_content)
     EditText mEtFeedbackContent;
+    @BindView(R.id.tv_feedback_residue)
+    TextView mTvFeedbackResidue;
     @BindView(R.id.et_feedback_phone)
     EditText mEtFeedbackPhone;
-    @BindView(R.id.btn_feedback_commit)
-    Button mBtnFeedbackCommit;
-    @BindView(R.id.ll_feedback_commit)
-    LinearLayout mLlFeedbackCommit;
-    @BindView(R.id.ll_feedback_success)
-    LinearLayout mLlFeedbackSuccess;
-    @BindView(R.id.iv_toolbar_back)
-    ImageView mIvToolbarBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +42,16 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         EventBus.getDefault().register(this);
 
         initToolBar(R.string.tv_my_feedback);
-        mEtFeedbackContent.addTextChangedListener(new CommitTextWatcher());
+        mTvToolbarRight.setText("提交");
+        mTvToolbarRight.setTextColor(ContextCompat.getColor(mActivity,R.color.color_text_enable_blue));
     }
 
     @Override
     public void onBackPressed() {
-        if (mEtFeedbackContent.length() > 0){
+        if (mEtFeedbackContent.length() > 0) {
             CancelFeedbackConfirmDialog dialog = new CancelFeedbackConfirmDialog();
-            dialog.show(getFragmentManager(),"");
-        }else {
+            dialog.show(getFragmentManager(), "");
+        } else {
             super.onBackPressed();
         }
     }
@@ -77,9 +69,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     @Override
     public void postSuccess() {
-        mEtFeedbackContent.setText("");
-        mLlFeedbackCommit.setVisibility(View.GONE);
-        mLlFeedbackSuccess.setVisibility(View.VISIBLE);
+        finish();
     }
 
     @Override
@@ -87,8 +77,13 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         toastShow(msg);
     }
 
-    @OnClick(R.id.btn_feedback_commit)
-    public void onMBtnFeedbackCommitClicked() {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CancelFeedbackConfirmEvent event) {
+        finish();
+    }
+
+    @OnClick(R.id.tv_toolbar_right)
+    public void onMTvToolbarRightClicked() {
         String content = mEtFeedbackContent.getText().toString();
         String contact = mEtFeedbackPhone.getText().toString();
         int appType = Constants.APP_TYPE;
@@ -97,35 +92,13 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         mPresenter.feedback(content, contact, appType, appChannel, appVersion);
     }
 
-    @OnClick(R.id.btn_feedback_close)
-    public void onMBtnFeedbackCloseClicked() {
-        onBackPressed();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CancelFeedbackConfirmEvent event) {
-        finish();
-    }
-
-    private class CommitTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+    @OnCheckedChanged(R.id.et_feedback_content)
+    public void onMEtFeedbackContentChanged() {
+        if (mEtFeedbackContent.length() > 0) {
+            mTvToolbarRight.setEnabled(true);
+        } else {
+            mTvToolbarRight.setEnabled(false);
         }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtFeedbackContent.length() > 0) {
-                mBtnFeedbackCommit.setEnabled(true);
-            } else {
-                mBtnFeedbackCommit.setEnabled(false);
-            }
-        }
+        mTvFeedbackResidue.setText(String.valueOf(199-mEtFeedbackContent.length()));
     }
 }

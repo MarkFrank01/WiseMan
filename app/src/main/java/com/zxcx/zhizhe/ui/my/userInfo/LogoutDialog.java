@@ -86,7 +86,6 @@ public class LogoutDialog extends BaseDialog {
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
         ZhiZheUtils.logout();
-        EventBus.getDefault().post(new LogoutEvent());
         this.dismiss();
         getActivity().finish();
     }

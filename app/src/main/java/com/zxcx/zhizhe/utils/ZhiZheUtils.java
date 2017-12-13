@@ -5,8 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
 
@@ -33,6 +36,7 @@ public class ZhiZheUtils {
     }
 
     public static void logout() {
+        EventBus.getDefault().post(new LogoutEvent());
         SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
         SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
         SharedPreferencesUtil.saveData(SVTSConstants.token, "");
@@ -55,12 +59,17 @@ public class ZhiZheUtils {
     }
 
     public static boolean getIsHD() {
-        boolean isOnlyWifi = SharedPreferencesUtil.getBoolean(SVTSConstants.isOnlyWifi,false);
+        int imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 0);
         boolean isWifi = isWifiConnected();
-        if (isOnlyWifi && !isWifi){
-            return false;
-        }else {
-            return true;
+        switch (imageLoadMode){
+            case 0:
+                return isWifi;
+            case 1:
+                return true;
+            case 2:
+                return false;
+            default:
+                return false;
         }
     }
 

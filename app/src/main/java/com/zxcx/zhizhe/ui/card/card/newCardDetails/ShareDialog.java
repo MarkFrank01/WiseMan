@@ -49,6 +49,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -209,15 +210,21 @@ public class ShareDialog extends BaseDialog {
         }
     }
 
-    @OnClick(R.id.iv_dialog_share_qq)
-    public void onMIvDialogShareQqClicked() {
-        plat = ShareSDK.getPlatform(QQ.NAME);
-        showShare(plat.getName());
-    }
-
     @OnClick(R.id.iv_dialog_share_wechat)
     public void onMIvDialogShareWechatClicked() {
         plat = ShareSDK.getPlatform(Wechat.NAME);
+        showShare(plat.getName());
+    }
+
+    @OnClick(R.id.iv_dialog_share_moments)
+    public void onMIvDialogShareMomentsClicked() {
+        plat = ShareSDK.getPlatform(WechatMoments.NAME);
+        showShare(plat.getName());
+    }
+
+    @OnClick(R.id.iv_dialog_share_qq)
+    public void onMIvDialogShareQqClicked() {
+        plat = ShareSDK.getPlatform(QQ.NAME);
         showShare(plat.getName());
     }
 

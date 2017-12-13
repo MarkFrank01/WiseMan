@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
+    android:background="@color/fragment_my_background"
     android:orientation="vertical">
 
     <include
@@ -16,141 +16,201 @@
         android:layout_marginTop="@dimen/fragment_interval"
         style="@style/line"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_info_head"
-        android:background="@color/white"
-        android:orientation="horizontal"
+    <LinearLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:id="@+id/tv_user_info_head"
-            android:text="@string/tv_user_info_head"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/iv_user_info_head"
-            tools:src="@drawable/default_header"
-            android:scaleType="centerCrop"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:riv_oval="true"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_head"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <TextView
+                android:id="@+id/tv_user_info_head"
+                android:text="@string/tv_user_info_head"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_user_info_head"
+                tools:src="@drawable/default_header"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:riv_oval="true"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
 
         <View
-            android:layout_alignParentBottom="true"
-            android:background="@color/line"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_nick_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
-        
-    </RelativeLayout>
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_info_nick_name"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_info_nick_name"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_info_nick_name"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_user_info_nick_name"
+                tools:text="一叶知秋"
+                android:textSize="@dimen/text_size_text_2"
+                android:maxLines="1"
+                android:maxLength="8"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_user_info_nick_name"
-            tools:text="一叶知秋"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:maxLength="8"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
 
         <View
-            android:layout_alignParentBottom="true"
-            android:background="@color/line"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_sex"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_info_sex"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_user_info_sex"
+                tools:text="男"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_info_sex"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_info_sex"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <include layout="@layout/iv_right_into"/>
 
-        <TextView
-            android:id="@+id/tv_user_info_sex"
-            tools:text="男"
-            android:textSize="14sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <View
-            android:layout_alignParentBottom="true"
-            android:background="@color/line"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_birthday"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"/>
+            android:layout_height="50dp">
+            <TextView
+                android:text="@string/tv_user_info_birthday"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tv_user_info_birthday"
+                tools:text="1999-12-10"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_info_birthday"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <TextView
-            android:text="@string/tv_user_info_birthday"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <include layout="@layout/iv_right_into"/>
 
-        <TextView
-            android:id="@+id/tv_user_info_birthday"
-            tools:text="1999-12-10"
-            android:textSize="14sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-    </RelativeLayout>
+        <View
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_signature"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="签名"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_user_info_signature"
+                tools:text="曾经我有一句空白签名，现在asdasda"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_2"
+                android:gravity="right"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:ellipsize="end"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_user_info_attention"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:text="兴趣选择"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
     <View
         style="@style/line"/>
@@ -159,22 +219,25 @@
         android:layout_marginTop="@dimen/fragment_interval"
         style="@style/line"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_user_info_safety"
-        android:background="@color/white"
+    <LinearLayout
+        android:id="@+id/ll_user_info_safety"
+        android:background="@color/background"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
-            android:text="@string/tv_user_info_safety"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:textColor="@color/text_color_66"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
+            android:text="绑定"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
+        <include layout="@layout/iv_right_into"/>
+
+    </LinearLayout>
 
     <View
         style="@style/line"/>

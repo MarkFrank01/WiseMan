@@ -63,7 +63,6 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         super.onViewCreated(view, savedInstanceState)
         loadService.showCallback(HomeLoadingCallback::class.java)
         initRecyclerView()
-        initView()
         onRefresh()
     }
 
@@ -86,11 +85,15 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     }
 
     private fun onRefresh() {
-        mPresenter.getMyRank()
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+        if (mUserId != 0) {
+            mPresenter.getMyRank()
+        }
         mPresenter.getTopTenRank()
     }
 
     override fun getMyRankSuccess(bean: UserRankBean) {
+        loadService.showSuccess()
         tv_rank_my_user_name.setTextColor(ContextCompat.getColor(mActivity,R.color.text_color_1))
         tv_rank_my_card.visibility = View.VISIBLE
         tv_rank_my_fans.visibility = View.VISIBLE
@@ -111,6 +114,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         loadService.showSuccess()
         mRefreshLayout.refreshComplete()
         mRankAdapter.setNewData(list)
+        initView()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

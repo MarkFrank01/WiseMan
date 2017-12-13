@@ -153,16 +153,16 @@ dependencies {
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     testCompile 'junit:junit:4.12'
     //leakcanary 内存泄漏检测
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    //debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //kotlin支持
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //kotlin反射，为了解决fastjson的问题
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     //Chuck 一个用来记录展示网络请求详情的调试工具库
-//    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    //debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //格式化Log输出
     compile 'com.orhanobut:logger:2.1.1'

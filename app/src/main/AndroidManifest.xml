@@ -108,7 +108,7 @@
             android:name=".ui.my.userInfo.UserInfoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.CommonSettingActivity"
+            android:name=".ui.my.setting.CommonSettingActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.collect.collectFolder.CollectFolderActivity"
@@ -177,6 +177,21 @@
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.rank.RankActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeNickNameActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeSexActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeBirthdayActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeSigntureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.userSafety.ChangePhoneActivity"
             android:screenOrientation="portrait"/>
     </application>
 

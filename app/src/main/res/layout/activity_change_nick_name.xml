@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:gravity="center"
+            android:text="@string/common_cancel"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_complete"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:text="@string/common_complete"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <View
+        style="@style/line"/>
+
+    <EditText
+        android:id="@+id/et_dialog_change_nick_name"
+        android:gravity="center"
+        android:background="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:maxLength="8"
+        tools:text="是是是是是是"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_text_1"
+        android:layout_marginTop="72dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        style="@style/line"/>
+    
+</LinearLayout>

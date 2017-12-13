@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/background"
+    android:background="@color/fragment_my_background"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,106 +10,55 @@
         android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
-    <LinearLayout
-        android:id="@+id/ll_feedback_commit"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_height="200dp">
+    
         <EditText
             android:id="@+id/et_feedback_content"
-            android:hint=" 请留下你的意见或建议"
+            android:hint=" 智者团队欢迎您的建议和吐槽"
             android:gravity="start"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_marginTop="@dimen/fragment_interval"
-            android:padding="12dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:maxLength="199"
             android:textSize="14sp"
             android:textColor="@color/text_color_40"
             android:textColorHint="@color/line"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:layout_width="match_parent"
-            android:layout_height="120dp"/>
+            android:layout_height="match_parent"/>
 
-        <EditText
-            android:id="@+id/et_feedback_phone"
-            android:hint=" 请留下您的手机号码或邮箱地址（选填）"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/fragment_interval"
-            android:padding="12dp"
-            android:inputType="phone|textEmailAddress"
-            android:textSize="14sp"
-            android:textColor="@color/text_color_40"
-            android:textColorHint="@color/line"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"/>
-
-        <Button
-            android:id="@+id/btn_feedback_commit"
-            android:enabled="false"
-            android:text="@string/btn_commit_feedback"
-            android:textSize="17sp"
-            android:textColor="@color/color_btn_login"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+        <TextView
+            android:id="@+id/tv_feedback_residue"
+            android:layout_gravity="bottom|right"
+            android:text="199"
+            android:textSize="@dimen/text_size_text_2"
+            android:textColor="@color/text_color_3"
             android:layout_marginRight="20dp"
-            android:background="@drawable/bg_btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"/>
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_feedback_success"
+    <EditText
+        android:id="@+id/et_feedback_phone"
+        android:hint=" 留下您的手机联系号码（选填）"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:background="@color/background"
+        android:layout_marginTop="@dimen/fragment_interval"
+        android:padding="12dp"
+        android:inputType="phone|textEmailAddress"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_40"
+        android:textColorHint="@color/line"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_feedback_success"
-            android:src="@drawable/iv_feedback_success"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="36.5dp"
-            android:layout_width="92dp"
-            android:layout_height="92dp"/>
-
-        <TextView
-            android:layout_marginTop="35dp"
-            android:layout_gravity="center_horizontal"
-            android:text="反馈成功"
-            android:textSize="20sp"
-            android:textColor="@color/text_color_40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:text="感谢您的支持和关注，我们将会根据您的反馈不断优化我们的产品和服务"
-            android:textSize="14sp"
-            android:textColor="@color/text_color_99"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        
-        <Button
-            android:id="@+id/btn_feedback_close"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/bg_btn_login"
-            android:text="@string/common_close"
-            android:textSize="17sp"
-            android:textColor="@color/text_color_ff"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"/>
-
-    </LinearLayout>
+        android:layout_height="44dp"/>
     
 </LinearLayout>

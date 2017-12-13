@@ -5,81 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@color/fragment_my_background"
     tools:context="com.zxcx.zhizhe.ui.my.MyFragment">
-
-    <include
-        android:id="@+id/ll_toolbar"
-        layout="@layout/toolbar"/>
-
-    <View
-        android:layout_marginTop="@dimen/fragment_interval"
-        style="@style/line"/>
 
     <RelativeLayout
         android:id="@+id/rl_my_head"
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_my_setting"
+            android:src="@drawable/common_close"
+            android:scaleType="centerCrop"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        
+        <FrameLayout
+            android:id="@+id/fl_my_message"
+            android:layout_toLeftOf="@id/iv_my_setting"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <ImageView
+                android:id="@+id/iv_my_message"
+                android:src="@drawable/common_close"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+            
+            <ImageView
+                android:id="@+id/iv_my_red_point"
+                android:src="@drawable/red_point"
+                android:layout_gravity="bottom|right"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+        </FrameLayout>
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_my_head"
             android:scaleType="centerCrop"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/iv_my_setting"
             android:src="@drawable/iv_my_head_placeholder"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             app:riv_oval="true"/>
 
         <TextView
-            android:id="@+id/tv_my_login"
+            android:id="@+id/tv_my_nick_name"
+            android:layout_below="@id/iv_my_setting"
             android:layout_toRightOf="@+id/iv_my_head"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="39dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击登录"
-            android:visibility="visible"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_40"/>
-
-        <TextView
-            android:id="@+id/tv_my_nick_name"
-            android:visibility="gone"
-            android:layout_toRightOf="@+id/tv_my_login"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:maxLength="8"
-            android:text="6666"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_40"/>
+            android:text="注册/登录"
+            android:textSize="@dimen/text_size_text_1"
+            android:textColor="@color/button_blue"/>
 
         <TextView
             android:id="@+id/tv_my_info"
-            android:visibility="gone"
-            android:layout_toRightOf="@+id/tv_my_login"
+            android:layout_toRightOf="@+id/iv_my_head"
             android:layout_below="@+id/tv_my_nick_name"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查看个人主页"
-            android:textSize="13sp"
-            android:textColor="@color/text_color_99"/>
-
-        <ImageView
-            android:id="@+id/iv_my_info"
-            android:visibility="gone"
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="登录看谁在关注你"
+            android:textSize="@dimen/text_size_text_3"
+            android:textColor="@color/text_color_3"/>
     </RelativeLayout>
 
     <View
@@ -90,152 +96,187 @@
         style="@style/line"/>
 
     <LinearLayout
-        android:id="@+id/ll_my_collect"
-        android:background="@color/white"
-        android:orientation="horizontal"
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:src="@drawable/tv_my_collect"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/ll_my_creation"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/tv_my_collect"
-            android:layout_marginLeft="14.5dp"
-            android:text="@string/tv_my_collect"
-            style="@style/text_16sp_66"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@drawable/tv_my_common_setting"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
 
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="创作"
+                style="@style/text_16sp_66"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
 
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="63dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_read"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/tv_my_common_setting"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="阅读"
+                style="@style/text_16sp_66"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="63dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_note"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/tv_my_common_setting"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="笔记"
+                style="@style/text_16sp_66"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="63dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_follow"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/tv_my_feedback"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="关注"
+                style="@style/text_16sp_66"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="63dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_collect"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/tv_my_collect"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:text="@string/tv_my_collect"
+                style="@style/text_16sp_66"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="63dp"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_like"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:src="@drawable/tv_my_about_us"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                style="@style/text_16sp_66"
+                android:text="点赞"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
     </LinearLayout>
-
-    <View
-        style="@style/line"/>
-
-    <View
-        android:layout_marginTop="@dimen/fragment_interval"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/ll_my_common_setting"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:src="@drawable/tv_my_common_setting"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_my_common_setting"
-            android:layout_marginLeft="14.5dp"
-            android:text="@string/tv_my_common_setting"
-            style="@style/text_16sp_66"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="15dp"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/ll_my_feedback"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:src="@drawable/tv_my_feedback"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_my_feedback"
-            android:layout_marginLeft="14.5dp"
-            android:text="@string/tv_my_help"
-            style="@style/text_16sp_66"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="15dp"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/ll_my_about_us"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:src="@drawable/tv_my_about_us"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="18dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_my_about_us"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="14.5dp"
-            android:layout_weight="1"
-            style="@style/text_16sp_66"
-            android:text="@string/tv_my_about_us"/>
-
-        <ImageView
-            android:src="@drawable/common_into"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
     <View
         style="@style/line"/>
 
