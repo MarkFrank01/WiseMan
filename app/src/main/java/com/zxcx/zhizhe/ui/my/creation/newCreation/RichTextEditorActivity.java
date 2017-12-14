@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation;
+package com.zxcx.zhizhe.ui.my.creation.newCreation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

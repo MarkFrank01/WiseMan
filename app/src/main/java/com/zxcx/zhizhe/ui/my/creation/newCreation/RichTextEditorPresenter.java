@@ -1,8 +1,8 @@
-package com.zxcx.zhizhe.ui.my.creation;
-
-import com.zxcx.zhizhe.mvpBase.BasePresenter;
+package com.zxcx.zhizhe.ui.my.creation.newCreation;
 
 import android.support.annotation.NonNull;
+
+import com.zxcx.zhizhe.mvpBase.BasePresenter;
 
 public class RichTextEditorPresenter extends BasePresenter<RichTextEditorContract.View> implements RichTextEditorContract.Presenter {
 
