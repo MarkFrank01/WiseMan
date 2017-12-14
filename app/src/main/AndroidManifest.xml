@@ -125,7 +125,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.card.newCardDetails.CardDetailsActivity"
+            android:name=".ui.card.card.cardDetails.CardDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity

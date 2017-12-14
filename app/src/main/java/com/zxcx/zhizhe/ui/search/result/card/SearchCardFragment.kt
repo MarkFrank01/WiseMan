@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_search_card.*

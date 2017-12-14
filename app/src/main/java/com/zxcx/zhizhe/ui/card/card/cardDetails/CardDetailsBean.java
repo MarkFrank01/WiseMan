@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;

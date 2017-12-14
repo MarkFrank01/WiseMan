@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -7,14 +7,17 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.UnLikeEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_like_cards.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
@@ -39,6 +42,12 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
 
     override fun createPresenter(): LikeCardsPresenter {
         return LikeCardsPresenter(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: UnLikeEvent) {
+        val bean = LikeCardsBean(event.cardId,null,null,null,null)
+        mAdapter.remove(mAdapter.data.indexOf(bean))
     }
 
     private fun getLikeCard() {

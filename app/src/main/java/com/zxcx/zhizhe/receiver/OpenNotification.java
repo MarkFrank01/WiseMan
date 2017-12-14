@@ -8,7 +8,7 @@ import android.os.Bundle;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.zhizhe.ui.MainActivity;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Constants;

@@ -19,7 +19,7 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;

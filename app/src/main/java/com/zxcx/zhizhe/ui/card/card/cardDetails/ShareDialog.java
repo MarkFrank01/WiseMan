@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;

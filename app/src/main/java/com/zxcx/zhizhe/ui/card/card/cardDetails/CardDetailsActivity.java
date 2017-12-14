@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -31,9 +31,9 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CollectSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
+import com.zxcx.zhizhe.event.UnLikeEvent;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
-import com.zxcx.zhizhe.ui.card.card.collect.SelectCollectFolderActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
@@ -104,7 +104,10 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     private String cardBagName;
     private int collectNum;
     private String imageUrl;
+    private boolean collectStatus = false;
     private boolean isUnCollect = false;
+    private boolean likeStatus = false;
+    private boolean isUnLike = false;
     private String date;
     private String author;
     private ActionMode mActionMode;
@@ -140,6 +143,9 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         super.onBackPressed();
         if (isUnCollect) {
             EventBus.getDefault().post(new UnCollectEvent(cardId));
+        }
+        if (isUnLike) {
+            EventBus.getDefault().post(new UnLikeEvent(cardId));
         }
     }
 
@@ -202,6 +208,8 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
         mRefreshLayout.refreshComplete();
+        collectStatus = bean.isCollect();
+        likeStatus = bean.isLike();
         postSuccess(bean);
     }
 
@@ -211,15 +219,10 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     }
 
     @Override
-    public void UnCollectSuccess() {
-        mCbCardDetailsCollect.setChecked(false);
-        isUnCollect = true;
-        collectNum--;
-        mCbCardDetailsCollect.setText(collectNum + "");
-    }
-
-    @Override
     public void postSuccess(CardDetailsBean bean) {
+        isUnCollect = collectStatus != bean.isCollect() && !bean.isCollect();
+        isUnLike = likeStatus != bean.isLike() && !bean.isLike();
+
         collectNum = bean.getCollectNum();
         int likeNum = bean.getLikeNum();
         int unLikeNum = bean.getUnLikeNum();
@@ -249,7 +252,7 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CollectSuccessEvent event) {
         toastShow("收藏成功");
-        isUnCollect = false;
+        collectStatus = false;
         mCbCardDetailsCollect.setChecked(true);
         collectNum++;
         mCbCardDetailsCollect.setText(collectNum + "");
@@ -283,11 +286,7 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
         if (!mCbCardDetailsCollect.isChecked()) {
-            if (checkLogin()) {
-                Intent intent = new Intent(mActivity, SelectCollectFolderActivity.class);
-                intent.putExtra("cardId", cardId);
-                startActivity(intent);
-            }
+            mPresenter.addCollectCard(cardId);
         } else {
             mPresenter.removeCollectCard(cardId);
         }

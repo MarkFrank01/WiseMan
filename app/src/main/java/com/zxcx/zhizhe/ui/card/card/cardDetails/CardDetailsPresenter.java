@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import android.support.annotation.NonNull;
 
@@ -31,6 +31,10 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
 
     public void removeUnLikeCard(int cardId){
         mModel.removeUnLikeCard(cardId);
+    }
+
+    public void addCollectCard(int cardId) {
+        mModel.addCollectCard(cardId);
     }
 
     public void removeCollectCard(int cardId){
@@ -75,11 +79,6 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     @Override
     public void postFail(String msg) {
         mView.postFail(msg);
-    }
-
-    @Override
-    public void UnCollectSuccess() {
-        mView.UnCollectSuccess();
     }
 }
 

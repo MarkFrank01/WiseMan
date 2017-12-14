@@ -17,7 +17,7 @@ import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagCardAdapter;
 import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.zhizhe.utils.Constants;

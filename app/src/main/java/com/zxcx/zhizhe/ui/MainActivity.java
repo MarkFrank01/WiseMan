@@ -15,7 +15,7 @@ import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
 import com.zxcx.zhizhe.event.GotoClassifyEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.classify.ClassifyFragment;
 import com.zxcx.zhizhe.ui.home.HomeFragment;

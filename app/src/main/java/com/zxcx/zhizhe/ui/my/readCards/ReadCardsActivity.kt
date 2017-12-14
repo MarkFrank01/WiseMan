@@ -9,7 +9,7 @@ import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView

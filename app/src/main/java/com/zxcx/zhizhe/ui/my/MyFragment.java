@@ -18,7 +18,11 @@ import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UpdataUserInfoEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
-import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderActivity;
+import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity;
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity;
+import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity;
+import com.zxcx.zhizhe.ui.my.note.NoteActivity;
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsActivity;
 import com.zxcx.zhizhe.ui.my.setting.CommonSettingActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
@@ -120,8 +124,8 @@ public class MyFragment extends BaseFragment {
     @OnClick(R.id.fl_my_message)
     public void onMFlMyMessageClicked() {
         //消息界面
-        Intent intent = new Intent(getContext(), CollectFolderActivity.class);
-        startActivity(intent);
+        /*Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+        startActivity(intent);*/
     }
 
     @OnClick(R.id.iv_my_setting)
@@ -133,7 +137,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick({R.id.iv_my_head,R.id.tv_my_nick_name})
     public void onMIvMyHeadClicked() {
-        //消息界面
+        //账户资料界面
         Intent intent = new Intent(getContext(), UserInfoActivity.class);
         startActivity(intent);
     }
@@ -151,7 +155,7 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyCreationClicked() {
         if (checkLogin()) {
             //创作界面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            Intent intent = new Intent(getContext(), CreationActivity.class);
             startActivity(intent);
         }
     }
@@ -160,7 +164,7 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyReadClicked() {
         if (checkLogin()) {
             //阅读页面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            Intent intent = new Intent(getContext(), ReadCardsActivity.class);
             startActivity(intent);
         }
     }
@@ -169,7 +173,7 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyNoteClicked() {
         if (checkLogin()) {
             //笔记页面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            Intent intent = new Intent(getContext(), NoteActivity.class);
             startActivity(intent);
         }
     }
@@ -178,8 +182,8 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyFollowClicked() {
         if (checkLogin()) {
             //关注页面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            startActivity(intent);*/
         }
     }
 
@@ -187,7 +191,7 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyCollectClicked() {
         if (checkLogin()) {
             //收藏页面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            Intent intent = new Intent(getContext(), CollectCardActivity.class);
             startActivity(intent);
         }
     }
@@ -196,7 +200,7 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyLikeClicked() {
         if (checkLogin()) {
             //点赞页面
-            Intent intent = new Intent(getContext(), CollectFolderActivity.class);
+            Intent intent = new Intent(getContext(), LikeCardsActivity.class);
             startActivity(intent);
         }
     }

@@ -22,7 +22,7 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
 import com.zxcx.zhizhe.utils.Constants;

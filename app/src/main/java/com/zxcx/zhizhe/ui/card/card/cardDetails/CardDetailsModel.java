@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.newCardDetails;
+package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import android.support.annotation.NonNull;
 
@@ -79,14 +79,27 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
         addSubscription(mDisposable);
     }
 
+    public void addCollectCard(int cardId) {
+        mDisposable = AppClient.getAPIService().addCollectCard(cardId)
+                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
+                    @Override
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.postSuccess(bean);
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
     public void removeCollectCard(int cardId){
         mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
-                .compose(BaseRxJava.<BaseBean>io_main())
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresenter) {
+                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.UnCollectSuccess();
+                    public void onNext(CardDetailsBean bean) {
+                        mPresenter.postSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);

@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 

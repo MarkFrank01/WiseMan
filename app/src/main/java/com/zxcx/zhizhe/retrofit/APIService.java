@@ -2,19 +2,22 @@ package com.zxcx.zhizhe.retrofit;
 
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.ui.card.card.cardBagCardDetails.CardBagCardDetailsBean;
-import com.zxcx.zhizhe.ui.card.card.newCardDetails.CardDetailsBean;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
-import com.zxcx.zhizhe.ui.my.collect.collectCard.CollectCardBean;
-import com.zxcx.zhizhe.ui.my.collect.collectFolder.CollectFolderBean;
+import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
+import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
+import com.zxcx.zhizhe.ui.search.result.card.CardNoteBean;
+import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
+import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
@@ -102,6 +105,13 @@ public interface APIService {
             @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     /**
+     * 修改密码
+     */
+    @POST("/user/modifyPhoneNum")
+    Flowable<BaseBean> changePhone(
+            @Query("phoneNumber") String phone, @Query("SMSCode") String code);
+
+    /**
      * 修改用户信息
      */
     @POST("/user/modifyProfile")
@@ -185,52 +195,52 @@ public interface APIService {
     Flowable<BaseArrayBean<ClassifyBean>> getClassify();
 
     /**
-     * 获取收藏夹列表
+     * 获取卡片笔记列表
      */
-    @POST("/favorite/getFavoriteList")
-    Flowable<BaseArrayBean<CollectFolderBean>> getCollectFolder(
+    @POST("/favorite/getFavoriteArticleList")
+    Flowable<BaseArrayBean<CreationBean>> getCreation(
+            @Query("passType") int passType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
-    /**
-     * 删除收藏夹
-     */
-    @POST("/favorite/deleteCollection")
-    Flowable<BaseBean> deleteCollectFolder(
-            @Query("collectionList") List<Integer> idList);
 
     /**
-     * 添加收藏夹
+     * 获取卡片笔记列表
      */
-    @POST("/favorite/addFavoriteController")
-    Flowable<BaseBean> addCollectFolder(@Query("collectionTitle") String name);
+    @POST("/favorite/getFavoriteArticleList")
+    Flowable<BaseArrayBean<CardNoteBean>> getCardNote(
+            @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 修改收藏夹名称
+     * 获取自由笔记列表
      */
-    @POST("/favorite/modifyCollectionName")
-    Flowable<BaseBean> changeCollectFolderName(
-            @Query("collectionId") int id, @Query("collectionTitle") String name);
+    @POST("/favorite/getFavoriteArticleList")
+    Flowable<BaseArrayBean<FreedomNoteBean>> getFreedomNote(
+            @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 获取收藏夹内卡片列表
+     * 获取收藏卡片列表
      */
     @POST("/favorite/getFavoriteArticleList")
     Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(
-            @Query("collectionId") int id, @Query("pageIndex") int page,
-            @Query("pageSize") int pageSize);
+            @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 添加收藏卡片
+     * 获取点赞卡片列表
      */
-    @POST("/favorite/collectArticle")
-    Flowable<BaseBean> addCollectCard(
-            @Query("collectionId") int folderId, @Query("articleId") int cardId);
+    @POST("/article/getLikeArticleList")
+    Flowable<BaseArrayBean<LikeCardsBean>> getLikeCard(
+            @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 删除收藏卡片
+     * 获取阅读卡片列表
      */
-    @POST("/favorite/uncollectArticle")
-    Flowable<BaseBean> deleteCollectCard(
-            @Query("collectionId") int id, @Query("articleIdList") List<Integer> idList);
+    @POST("/user/getViewArticleList")
+    Flowable<BaseArrayBean<ReadCardsBean>> getReadCard(
+            @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
      * 获取兴趣列表
@@ -250,6 +260,18 @@ public interface APIService {
      */
     @POST("/article/getArticleBasicInfo")
     Flowable<BaseBean<CardDetailsBean>> getCardDetails(@Query("articleId") int cardId);
+
+    /**
+     * 添加收藏卡片
+     */
+    @POST("/favorite/collectArticle")
+    Flowable<BaseBean<CardDetailsBean>> addCollectCard(@Query("articleId") int cardId);
+
+    /**
+     *取消收藏卡片
+     */
+    @POST("/favorite/uncollectSingleArticle")
+    Flowable<BaseBean<CardDetailsBean>> removeCollectCard(@Query("articleId") int cardId);
 
     /**
      *点赞卡片
@@ -276,12 +298,6 @@ public interface APIService {
     Flowable<BaseBean<CardDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
 
     /**
-     *取消收藏卡片
-     */
-    @POST("/favorite/uncollectSingleArticle")
-    Flowable<BaseBean> removeCollectCard(@Query("articleId") int cardId);
-
-    /**
      *提交反馈
      */
     @POST("/feedback/sumbitFeedbadk")
@@ -301,10 +317,4 @@ public interface APIService {
      */
     @POST("/ad/getAdByAdNum")
     Flowable<BaseArrayBean<WelcomeBean>> getAD(@Query("adNum") String adNum);
-
-    /**
-     *获取广告
-     */
-    @POST("/collection/getAllArticleIdByCollectionId")
-    Flowable<BaseArrayBean<CardBagCardDetailsBean>> getAllCardId(@Query("collectionId") int cardBagId);
 }
