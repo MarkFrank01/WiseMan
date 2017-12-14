@@ -73,6 +73,8 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 
     @Override
     protected void onDestroy() {
+        mRunnable = null;
+        mHandler = null;
         super.onDestroy();
     }
 
@@ -150,7 +152,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     }
 
     @Override
-    public void onFinish() {
+    public void onAnimationFinish() {
         gotoMainActivity();
     }
 }

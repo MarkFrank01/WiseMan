@@ -34,7 +34,7 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
     private onFinishListener mListener;
 
     public interface onFinishListener{
-        void onFinish();
+        void onAnimationFinish();
     }
 
     public WelcomeSkipView(Context context) {
@@ -62,7 +62,7 @@ public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                mListener.onFinish();
+                mListener.onAnimationFinish();
             }
         });
     }

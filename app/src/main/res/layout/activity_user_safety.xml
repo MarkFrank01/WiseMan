@@ -151,10 +151,12 @@
         style="@style/line"/>
 
     <View
+        android:id="@+id/line_user_safety_unbind"
         android:layout_marginTop="@dimen/fragment_interval"
         style="@style/line"/>
 
     <LinearLayout
+        android:id="@+id/ll_user_safety_unbind"
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -286,9 +288,9 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <View
+            style="@style/line"/>
 
-    <View
-        style="@style/line"/>
+    </LinearLayout>
 
 </LinearLayout>
