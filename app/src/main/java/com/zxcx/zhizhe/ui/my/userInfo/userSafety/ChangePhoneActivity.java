@@ -11,6 +11,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
+import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
+import com.zxcx.zhizhe.retrofit.AppClient;
+import com.zxcx.zhizhe.retrofit.BaseBean;
+import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -24,7 +29,7 @@ import butterknife.OnTextChanged;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class ChangePhoneActivity extends BaseActivity{
+public class ChangePhoneActivity extends BaseActivity implements INullPostPresenter{
 
     @BindView(R.id.tv_toolbar_right)
     TextView mTvToolbarRight;
@@ -71,37 +76,10 @@ public class ChangePhoneActivity extends BaseActivity{
         dialog.show(getFragmentManager(), "ForgerPasswordActivity");
     }
 
-    private boolean checkPhone() {
-        if (phonePattern.matcher(mEtChangePhonePhone.getText().toString()).matches()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    Runnable setDjs = new Runnable() {
-        @Override
-        public void run() {
-            mTvRegisterSendVerification.setText(count + " S");
-            count--;
-
-            if (count < 0) {
-                handler.removeCallbacks(setDjs);
-                mTvRegisterSendVerification.setEnabled(true);
-                mTvRegisterSendVerification.setText(R.string.re_get_verification);
-
-                count = 60;
-
-                return;
-            }
-
-            handler.postDelayed(setDjs, 1000);
-        }
-    };
-
     @OnClick(R.id.tv_toolbar_right)
     public void onMTvToolbarRightClicked() {
         //todo 修改手机号
+        changePhone(mEtChangePhonePhone.getText().toString(),mEtChangePhoneVerificationCode.getText().toString());
     }
 
     @OnClick(R.id.tv_register_send_verification)
@@ -134,6 +112,58 @@ public class ChangePhoneActivity extends BaseActivity{
             mTvToolbarRight.setEnabled(false);
         }
     }
+
+    public void changePhone(String phone, String code) {
+        mDisposable = AppClient.getAPIService().changePhone(phone, code)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
+                .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        postSuccess();
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    @Override
+    public void postSuccess() {
+        toastShow("修改成功");
+        finish();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastFail(msg);
+    }
+
+    private boolean checkPhone() {
+        if (phonePattern.matcher(mEtChangePhonePhone.getText().toString()).matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    Runnable setDjs = new Runnable() {
+        @Override
+        public void run() {
+            mTvRegisterSendVerification.setText(count + " S");
+            count--;
+
+            if (count < 0) {
+                handler.removeCallbacks(setDjs);
+                mTvRegisterSendVerification.setEnabled(true);
+                mTvRegisterSendVerification.setText(R.string.re_get_verification);
+
+                count = 60;
+
+                return;
+            }
+
+            handler.postDelayed(setDjs, 1000);
+        }
+    };
 
     class EventHandle extends EventHandler {
         @Override

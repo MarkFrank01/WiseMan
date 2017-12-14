@@ -61,6 +61,10 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
     View mLineQqUnbind;
     @BindView(R.id.ll_user_safety_weibo_unbind)
     LinearLayout mLlUserSafetyWeiboUnbind;
+    @BindView(R.id.line_user_safety_unbind)
+    View mLineUserSafetyUnbind;
+    @BindView(R.id.ll_user_safety_unbind)
+    LinearLayout mLlUserSafetyUnbind;
     private boolean isBindingPhone;
     private boolean isBindingWechat;
     private boolean isBindingQQ;
@@ -187,17 +191,19 @@ public class UserSafetyActivity extends MvpActivity<UserSafetyPresenter> impleme
     }
 
     private void updateView() {
-        mLlUserSafetyQqBind.setVisibility(isBindingQQ? View.VISIBLE:View.GONE);
-        mLineQqBind.setVisibility(isBindingQQ? View.VISIBLE:View.GONE);
-        mLlUserSafetyQqUnbind.setVisibility(!isBindingQQ? View.VISIBLE:View.GONE);
-        mLineQqUnbind.setVisibility(!isBindingQQ? View.VISIBLE:View.GONE);
-        mLlUserSafetyWechatBind.setVisibility(isBindingWechat? View.VISIBLE:View.GONE);
-        mLineWechatBind.setVisibility(isBindingWechat? View.VISIBLE:View.GONE);
-        mLlUserSafetyWechatUnbind.setVisibility(!isBindingWechat? View.VISIBLE:View.GONE);
-        mLineWechatUnbind.setVisibility(!isBindingWechat? View.VISIBLE:View.GONE);
-        mLlUserSafetyWeiboBind.setVisibility(isBindingWeibo? View.VISIBLE:View.GONE);
-        mLineWeiboBind.setVisibility(isBindingWeibo? View.VISIBLE:View.GONE);
-        mLlUserSafetyWeiboUnbind.setVisibility(!isBindingWeibo? View.VISIBLE:View.GONE);
+        mLlUserSafetyQqBind.setVisibility(isBindingQQ ? View.VISIBLE : View.GONE);
+        mLineQqBind.setVisibility(isBindingQQ ? View.VISIBLE : View.GONE);
+        mLlUserSafetyQqUnbind.setVisibility(!isBindingQQ ? View.VISIBLE : View.GONE);
+        mLineQqUnbind.setVisibility(!isBindingQQ ? View.VISIBLE : View.GONE);
+        mLlUserSafetyWechatBind.setVisibility(isBindingWechat ? View.VISIBLE : View.GONE);
+        mLineWechatBind.setVisibility(isBindingWechat ? View.VISIBLE : View.GONE);
+        mLlUserSafetyWechatUnbind.setVisibility(!isBindingWechat ? View.VISIBLE : View.GONE);
+        mLineWechatUnbind.setVisibility(!isBindingWechat ? View.VISIBLE : View.GONE);
+        mLlUserSafetyWeiboBind.setVisibility(isBindingWeibo ? View.VISIBLE : View.GONE);
+        mLineWeiboBind.setVisibility(isBindingWeibo ? View.VISIBLE : View.GONE);
+        mLlUserSafetyWeiboUnbind.setVisibility(!isBindingWeibo ? View.VISIBLE : View.GONE);
+        mLlUserSafetyUnbind.setVisibility(isBindingQQ && isBindingWechat && isBindingWeibo  ? View.GONE : View.VISIBLE);
+        mLineUserSafetyUnbind.setVisibility(isBindingQQ && isBindingWechat && isBindingWeibo  ? View.GONE : View.VISIBLE);
     }
 
     class ChannelLoginListener implements PlatformActionListener {
