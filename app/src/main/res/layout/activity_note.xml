@@ -1,0 +1,80 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/iv_toolbar_back"
+            android:src="@drawable/common_back"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:visibility="visible"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:text="笔记"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/iv_toolbar_sort"
+            android:src="@drawable/iv_card_bag_card"
+            android:layout_alignParentRight="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="5dp"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_toolbar_creation"
+            android:src="@drawable/common_close"
+            android:layout_toLeftOf="@id/iv_toolbar_sort"
+            android:paddingRight="5dp"
+            android:paddingLeft="20dp"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/line"/>
+
+    <LinearLayout
+        android:background="@color/background"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_note"
+            app:tabIndicatorColor="@color/translate"
+            app:tabSelectedTextColor="@color/translate"
+            app:tabBackground="@color/translate"
+            app:tabMode="fixed"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_note"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+</LinearLayout>
