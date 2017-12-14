@@ -1,83 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/rl_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="@color/colorPrimary">
-        <!--android:paddingTop="@dimen/status_bar_height"-->
-
-        <ImageView
-            android:id="@+id/iv_toolbar_back"
-            android:src="@drawable/common_back"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-        <EditText
-            android:id="@+id/et_collect_folder"
-            android:visibility="gone"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:cursorVisible="true"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:background="@null"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:maxLength="8"
-            android:textSize="17sp"
-            android:textColor="@color/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:imeOptions="actionDone"
-            android:layout_centerInParent="true"/>
-
-        <TextView
-            android:id="@+id/tv_item_collect_folder_title"
-            android:text="1614564656546546546546546546546546545"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:maxLength="8"
-            android:textSize="17sp"
-            android:textColor="@color/toolbar_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"/>
-
-        <TextView
-            android:id="@+id/tv_toolbar_right"
-            android:text="编辑"
-            android:layout_alignParentRight="true"
-            android:paddingRight="15dp"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_66"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_below="@id/rl_toolbar"
-        style="@style/line"/>
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_collect_card"
-        android:layout_below="@id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_search_result_card"/>
 
 
-</RelativeLayout>
+</LinearLayout>

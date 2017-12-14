@@ -121,7 +121,7 @@
             android:name=".ui.search.result.SearchResultActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.collect.collectCard.CollectCardActivity"
+            android:name=".ui.my.collect.CollectCardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
@@ -172,7 +172,7 @@
             android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.creation.RichTextEditorActivity"
+            android:name=".ui.my.creation.newCreation.RichTextEditorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
@@ -192,6 +192,18 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.userSafety.ChangePhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.readCards.ReadCardsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.likeCards.LikeCardsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.note.NoteActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.CreationActivity"
             android:screenOrientation="portrait"/>
     </application>
 

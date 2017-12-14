@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.collect.collectCard;
+package com.zxcx.zhizhe.ui.my.collect;
 
 import android.support.annotation.NonNull;
 
@@ -15,16 +15,8 @@ public class CollectCardPresenter extends BasePresenter<CollectCardContract.View
         mModel = new CollectCardModel(this);
     }
 
-    public void getCollectCard(int id, int page, int pageSize){
-        mModel.getCollectCard(id, page,pageSize);
-    }
-
-    public void deleteCollectCard(int id, List<Integer> idList){
-        mModel.deleteCollectCard(id, idList);
-    }
-
-    public void changeCollectFolderName(int id, String name){
-        mModel.changeCollectFolderName(id, name);
+    public void getCollectCard(int sortType, int page, int pageSize){
+        mModel.getCollectCard(sortType,page,pageSize);
     }
 
     @Override
@@ -35,16 +27,6 @@ public class CollectCardPresenter extends BasePresenter<CollectCardContract.View
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
-    }
-
-    @Override
-    public void postSuccess() {
-        mView.postSuccess();
-    }
-
-    @Override
-    public void postFail(String msg) {
-        mView.postFail(msg);
     }
 
     @Override
