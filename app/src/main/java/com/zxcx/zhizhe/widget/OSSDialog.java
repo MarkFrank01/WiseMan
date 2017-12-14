@@ -57,13 +57,13 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
     private String mUrl;
     private OSSTokenBean mOSSTokenBean;
     private OSSUploadListener mUploadListener;
-    private OSSDealeteListener mDeleteListener;
+    private OSSDeleteListener mDeleteListener;
 
     public void setUploadListener(OSSUploadListener uploadListener) {
         mUploadListener = uploadListener;
     }
 
-    public void setDeleteListener(OSSDealeteListener deleteListener) {
+    public void setDeleteListener(OSSDeleteListener deleteListener) {
         mDeleteListener = deleteListener;
     }
 
@@ -71,8 +71,9 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
         void uploadSuccess(String url);
     }
 
-    public interface OSSDealeteListener{
+    public interface OSSDeleteListener {
         void deleteSuccess();
+        void deleteFail();
     }
 
     @Nullable
@@ -208,12 +209,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
             @Override
             public void onSuccess(DeleteObjectRequest request, DeleteObjectResult result) {
                 if (mDeleteListener != null)
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mDeleteListener.deleteSuccess();
-                        }
-                    });
+                    getActivity().runOnUiThread(() -> mDeleteListener.deleteSuccess());
                 dismiss();
             }
 
@@ -227,6 +223,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
                 if (serviceException != null) {
                     // 服务异常
                 }
+                getActivity().runOnUiThread(() -> mDeleteListener.deleteFail());
             }
 
         });

@@ -93,7 +93,7 @@ public class RichTextEditorFragment extends BaseFragment implements OSSDialog.OS
 
     public void getImageSuccess() {
         if (tempUri.getScheme().equals("content")) {
-            String path = FileUtil.getImagePathFromUriOnKitKat(tempUri);
+            String path = FileUtil.getRealFilePathFromUri(mActivity,tempUri);
             getImageSuccess(path);
         } else {
             toastShow("获取图片出错");

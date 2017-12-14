@@ -63,7 +63,7 @@ public class ChangeBirthdayActivity extends BaseActivity implements IPostPresent
     }
 
     public void changeBirthday(String birth) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth)
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, birth, null)
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .compose(BaseRxJava.<UserInfoBean>io_main_loading(this))
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {

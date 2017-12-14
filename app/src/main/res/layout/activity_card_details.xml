@@ -199,11 +199,11 @@
                     android:background="@color/white"
                     android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp">
+                    android:layout_height="50dp">
 
                     <LinearLayout
                         android:id="@+id/ll_card_details_collect"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
@@ -220,7 +220,7 @@
 
                     <LinearLayout
                         android:id="@+id/ll_card_details_like"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="30dp"
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
@@ -239,6 +239,7 @@
                     <LinearLayout
                         android:id="@+id/ll_card_details_un_like"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
@@ -253,9 +254,14 @@
                             android:paddingLeft="7.5dp"/>
                     </LinearLayout>
 
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
                     <ImageView
                         android:id="@+id/iv_card_details_share"
-                        android:layout_weight="1"
+                        android:paddingRight="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:scaleType="center"

@@ -2,8 +2,8 @@ package com.zxcx.zhizhe.ui.my.collect;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -157,7 +157,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mAdapter.setLoadMoreView(new CustomLoadMoreView());
         mAdapter.setOnLoadMoreListener(this, mRvCollectCard);
         mAdapter.setOnItemClickListener(this);
-        mRvCollectCard.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRvCollectCard.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false));
         mRvCollectCard.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }

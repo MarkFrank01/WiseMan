@@ -96,5 +96,6 @@
     <string name="search_hot_search">热门搜索</string>
     <string name="tv_card_info">%1$s&#160;&#160;文/%2$s</string>
     <string name="tv_item_card_note_info">%1$s&#160;&#160;%2$s</string>
+    <string name="tv_note_info">记录于&#160;%1$s</string>
     <!--common-end-->
 </resources>

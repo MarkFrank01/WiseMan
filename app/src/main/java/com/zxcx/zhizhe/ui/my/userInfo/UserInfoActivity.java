@@ -115,6 +115,8 @@ public class UserInfoActivity extends BaseActivity {
     @OnClick(R.id.ll_user_info_head)
     public void onMLlUserInfoHeadClicked() {
         //头像修改页面
+        Intent intent = new Intent(mActivity,HeadImageActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_user_info_nick_name)

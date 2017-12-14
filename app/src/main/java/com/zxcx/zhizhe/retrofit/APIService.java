@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
+import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
@@ -117,7 +118,8 @@ public interface APIService {
     @POST("/user/modifyProfile")
     Flowable<BaseBean<UserInfoBean>> changeUserInfo(
             @Query("avatar") String userIcon, @Query("name") String name,
-            @Query("gender") Integer sex, @Query("birth") String birthday);
+            @Query("gender") Integer sex, @Query("birth") String birthday,
+            @Query("sign") String sign);
 
     /**
      * 获取推荐
@@ -195,12 +197,18 @@ public interface APIService {
     Flowable<BaseArrayBean<ClassifyBean>> getClassify();
 
     /**
-     * 获取卡片笔记列表
+     * 获取创作列表
      */
     @POST("/favorite/getFavoriteArticleList")
     Flowable<BaseArrayBean<CreationBean>> getCreation(
             @Query("passType") int passType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取笔记详情
+     */
+    @POST("/article/getArticleBasicInfo")
+    Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(@Query("noteId") int noteId);
 
     /**
      * 获取卡片笔记列表

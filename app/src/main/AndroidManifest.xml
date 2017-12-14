@@ -111,10 +111,6 @@
             android:name=".ui.my.setting.CommonSettingActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.collect.collectFolder.CollectFolderActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing|stateHidden"/>
-        <activity
             android:name=".ui.card.cardBag.CardBagActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -144,23 +140,10 @@
             android:name=".ui.my.selectAttention.SelectAttentionActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.card.cardBagCardDetails.CardBagCardDetailsActivity"
-            android:launchMode="standard"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.loginAndRegister.login.bindingPhone.BindingPhoneActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.feedback.help.HelpActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.card.card.collect.AddCollectFolderActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.card.card.collect.SelectCollectFolderActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.card.card.cardBagCardDetails.allCard.CardBagAllCardActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity"
@@ -205,6 +188,13 @@
         <activity
             android:name=".ui.my.creation.CreationActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.note.noteDetails.NoteDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.HeadImageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.my.userInfo.HeadImageCropActivity"/>
     </application>
 
 </manifest>

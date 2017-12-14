@@ -90,7 +90,7 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
     }
 
     public void changeNickName(String name) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null)
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .compose(BaseRxJava.<UserInfoBean>io_main_loading(this))
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {

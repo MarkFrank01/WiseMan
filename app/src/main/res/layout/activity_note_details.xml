@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<in.srain.cube.views.ptr.PtrFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh_layout"
+    android:background="@color/bg_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/sv_note_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_note_details"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="212dp"
+                    android:transitionName="cardImage"/>
+
+                <RelativeLayout
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_note_details_title"
+                        android:layout_marginTop="25dp"
+                        tools:text="动圈和铁圈耳机的区别"
+                        style="@style/tv_card"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="@dimen/text_size_title_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardTitle"/>
+
+                    <TextView
+                        android:id="@+id/tv_note_details_info"
+                        tools:text="@string/tv_card_info"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="@dimen/text_size_text_2"
+                        android:layout_marginTop="15dp"
+                        android:layout_below="@id/tv_note_details_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardInfo"/>
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_note_details"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                </FrameLayout>
+
+                <View
+                    android:id="@+id/view_line"
+                    android:visibility="gone"
+                    style="@style/line"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_note_details_bottom"
+                    android:visibility="gone"
+                    android:background="@color/white"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/iv_note_details_edit"
+                        android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:src="@drawable/common_close"
+                        android:gravity="center"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_note_details_source"
+                        android:layout_marginLeft="30dp"
+                        android:padding="10dp"
+                        android:src="@drawable/common_close"
+                        android:gravity="center"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"/>
+
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:id="@+id/iv_note_details_share"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:scaleType="center"
+                        android:src="@drawable/selector_tv_card_details_share"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/iv_note_details_back"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/common_close"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </RelativeLayout>
+
+</in.srain.cube.views.ptr.PtrFrameLayout>

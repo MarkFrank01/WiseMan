@@ -1,7 +1,8 @@
 package com.zxcx.zhizhe.utils;
 
 import android.annotation.SuppressLint;
-import android.content.ContentUris;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,7 +15,6 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -374,41 +374,31 @@ public class FileUtil {
         }
     }
 
-    public static String getImagePathFromUri(Uri uri, String selection) {
-        String path = null;
-        Cursor cursor = App.getContext().getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-
-            cursor.close();
+    /**
+     * 根据Uri返回文件绝对路径
+     * 兼容了file:///开头的 和 content://开头的情况
+     */
+    public static String getRealFilePathFromUri(final Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null) {
+            data = uri.getPath();
         }
-        return path;
-    }
-
-    public static String getImagePathFromUriOnKitKat(Uri uri) {
-        String imagePath = null;
-
-        if (DocumentsContract.isDocumentUri(App.getContext(), uri)) {
-            String docId = DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                //Log.d(TAG, uri.toString());
-                String id = docId.split(":")[1];
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePathFromUri(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                //Log.d(TAG, uri.toString());
-                Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"),
-                        Long.valueOf(docId));
-                imagePath = getImagePathFromUri(contentUri, null);
+        else if (ContentResolver.SCHEME_FILE.equalsIgnoreCase(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equalsIgnoreCase(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
             }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            //Log.d(TAG, "content: " + uri.toString());
-            imagePath = getImagePathFromUri(uri, null);
         }
-
-        return imagePath;
+        return data;
     }
 }

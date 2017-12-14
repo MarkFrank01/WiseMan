@@ -384,8 +384,8 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         if (isNight) {
             mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
         } else {
-            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
-//            mUrl = "http://192.168.1.149/articleView/192";
+//            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
+            mUrl = "http://192.168.1.149:8043/view/articleDark/192";
 
         }
         mWebView.loadUrl(mUrl);
