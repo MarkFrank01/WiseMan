@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,10 +13,10 @@
         layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_collect_folder"
-        android:layout_below="@+id/ll_toolbar"
+        android:id="@+id/rv_read_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_search_result_card"/>
 
 
-</RelativeLayout>
+</LinearLayout>
