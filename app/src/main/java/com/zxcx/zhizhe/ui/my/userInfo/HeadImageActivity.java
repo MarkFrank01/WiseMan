@@ -111,7 +111,7 @@ public class HeadImageActivity extends BaseActivity implements GetPicBottomDialo
         Intent intent = new Intent(mActivity,ClipImageActivity.class);
         intent.putExtra("path",path);
         intent.putExtra("aspectX",1);
-        intent.putExtra("aspectX",1);
+        intent.putExtra("aspectY",1);
         startActivity(intent);
     }
 

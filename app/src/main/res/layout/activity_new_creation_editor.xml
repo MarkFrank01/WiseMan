@@ -1,0 +1,114 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_rte"
+    android:layout_above="@id/view_line"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <ImageView
+            android:id="@+id/iv_toolbar_back"
+            android:src="@drawable/common_back"
+            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:visibility="visible"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_toolbar_commit"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_marginRight="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_toolbar_save_note"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="存为笔记"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"
+            android:layout_toLeftOf="@id/tv_toolbar_commit"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+    <View
+        style="@style/line"/>
+
+    <com.zxcx.zhizhe.richeditor.RichEditor
+        android:id="@+id/editor"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <View
+        android:id="@+id/view_line"
+        style="@style/line"/>
+
+    <LinearLayout
+        android:id="@+id/ll_rte_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <CheckBox
+            android:id="@+id/cb_editor_bold"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:button="@drawable/selector_check_box"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_editor_album"
+            android:scaleType="center"
+            android:src="@drawable/iv_rte_album"
+            android:background="@null"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <CheckBox
+            android:id="@+id/cb_editor_night"
+            android:padding="10dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:button="@drawable/selector_check_box"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+</LinearLayout>
+

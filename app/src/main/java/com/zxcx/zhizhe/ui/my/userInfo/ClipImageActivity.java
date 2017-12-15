@@ -51,7 +51,7 @@ public class ClipImageActivity extends BaseActivity {
 
         mInput = getIntent().getStringExtra("path");
         mMaxWidth = getIntent().getIntExtra("maxWidth", 1080);
-        mCvlHeadImageCrop.setAspect(getIntent().getIntExtra("aspectX", 1), getIntent().getIntExtra("aspectX", 1));
+        mCvlHeadImageCrop.setAspect(getIntent().getIntExtra("aspectX", 1), getIntent().getIntExtra("aspectY", 1));
         mCvlHeadImageCrop.setMaxOutputWidth(mMaxWidth);
 
         setImageAndClipParams(); //大图裁剪
@@ -63,47 +63,44 @@ public class ClipImageActivity extends BaseActivity {
     }
 
     private void setImageAndClipParams() {
-        mCvlHeadImageCrop.post(new Runnable() {
-            @Override
-            public void run() {
-                mCvlHeadImageCrop.setMaxOutputWidth(mMaxWidth);
+        mCvlHeadImageCrop.post(() -> {
+            mCvlHeadImageCrop.setMaxOutputWidth(mMaxWidth);
 
-                mDegree = readPictureDegree(mInput);
+            mDegree = readPictureDegree(mInput);
 
-                final boolean isRotate = (mDegree == 90 || mDegree == 270);
+            final boolean isRotate = (mDegree == 90 || mDegree == 270);
 
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(mInput, options);
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(mInput, options);
 
-                mSourceWidth = options.outWidth;
-                mSourceHeight = options.outHeight;
+            mSourceWidth = options.outWidth;
+            mSourceHeight = options.outHeight;
 
-                // 如果图片被旋转，则宽高度置换
-                int w = isRotate ? options.outHeight : options.outWidth;
+            // 如果图片被旋转，则宽高度置换
+            int w = isRotate ? options.outHeight : options.outWidth;
 
-                // 裁剪是宽高比例3:2，只考虑宽度情况，这里按border宽度的两倍来计算缩放。
-                mSampleSize = findBestSample(w, mCvlHeadImageCrop.getClipBorder().width());
+            // 裁剪是宽高比例3:2，只考虑宽度情况，这里按border宽度的两倍来计算缩放。
+            mSampleSize = findBestSample(w, mCvlHeadImageCrop.getClipBorder().width());
 
-                options.inJustDecodeBounds = false;
-                options.inSampleSize = mSampleSize;
-                options.inPreferredConfig = Bitmap.Config.RGB_565;
-                final Bitmap source = BitmapFactory.decodeFile(mInput, options);
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = mSampleSize;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            final Bitmap source = BitmapFactory.decodeFile(mInput, options);
 
-                // 解决图片被旋转的问题
-                Bitmap target;
-                if (mDegree == 0) {
-                    target = source;
-                } else {
-                    final Matrix matrix = new Matrix();
-                    matrix.postRotate(mDegree);
-                    target = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, false);
-                    if (target != source && !source.isRecycled()) {
-                        source.recycle();
-                    }
+            // 解决图片被旋转的问题
+            Bitmap target;
+            if (mDegree == 0) {
+                target = source;
+            } else {
+                final Matrix matrix = new Matrix();
+                matrix.postRotate(mDegree);
+                target = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, false);
+                if (target != source && !source.isRecycled()) {
+                    source.recycle();
                 }
-                mCvlHeadImageCrop.setImageBitmap(target);
             }
+            mCvlHeadImageCrop.setImageBitmap(target);
         });
     }
 

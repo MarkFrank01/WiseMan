@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
@@ -111,11 +110,11 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Override
     public void getDataSuccess(List<ClassifyBean> list) {
         loadService.showSuccess();
-        mClassifyAdapter.notifyDataSetChanged();
         for (ClassifyBean bean : list) {
-            mClassifyAdapter.addData(bean);
-            mClassifyAdapter.addData(bean.getDataList());
+            mClassifyAdapter.getData().add(bean);
+            mClassifyAdapter.getData().addAll(bean.getDataList());
         }
+        mClassifyAdapter.notifyDataSetChanged();
         if (mClassifyAdapter.getData().size() == 0){
             //占空图
         }
@@ -132,7 +131,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     }
 
     private void initRecyclerView() {
-        mClassifyAdapter = new ClassifyAdapter(new ArrayList<MultiItemEntity>());
+        mClassifyAdapter = new ClassifyAdapter(new ArrayList<>());
         mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
         manager = new GridLayoutManager(getContext(), 3);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

@@ -71,10 +71,16 @@ public class Utils {
         return d * Math.PI / 180.0;
     }
 
-    public static void setImageHeight(View view) {
+    /**
+     * View宽度确定时按照宽高比设置高
+     * @param view
+     * @param aspectX
+     * @param aspectY
+     */
+    public static void setViewAspect(View view,int aspectX,int aspectY) {
         DisplayMetrics dm ;
         dm = App.getContext().getResources().getDisplayMetrics();
-        int height = dm.widthPixels * 9/16;
+        int height = dm.widthPixels * aspectY/aspectX;
         ViewGroup.LayoutParams para = view.getLayoutParams();
         para.height = height;
         view.setLayoutParams(para);

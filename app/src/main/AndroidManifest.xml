@@ -155,10 +155,6 @@
             android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.creation.newCreation.RichTextEditorActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity
             android:name=".ui.rank.RankActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -198,6 +194,15 @@
             android:name=".ui.my.userInfo.ClipImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.NewCreationTitleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.SelectCardBagActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.NewCreationEditorActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

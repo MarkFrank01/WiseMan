@@ -223,7 +223,9 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
                 if (serviceException != null) {
                     // 服务异常
                 }
-                getActivity().runOnUiThread(() -> mDeleteListener.deleteFail());
+                if (mDeleteListener != null)
+                    getActivity().runOnUiThread(() -> mDeleteListener.deleteFail());
+                dismiss();
             }
 
         });

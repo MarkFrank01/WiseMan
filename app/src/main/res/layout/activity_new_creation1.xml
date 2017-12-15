@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity">
+
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/toolbar"/>
+
+    <EditText
+        android:id="@+id/et_new_creation_1_title"
+        android:gravity="center"
+        android:background="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:maxLength="20"
+        android:hint="请输入你的标题"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_4"
+        android:textSize="@dimen/text_size_title_2"
+        android:layout_marginTop="67dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        style="@style/line"/>
+
+    <FrameLayout
+        android:id="@+id/fl_new_creation_1_add_img"
+        android:clickable="false"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="190dp">
+
+        <ImageView
+            android:id="@+id/iv_new_creation_1_add_img"
+            android:scaleType="centerCrop"
+            tools:src="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/ll_new_creation_1_add_img"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/iv_dialog_collect_folder_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="15dp"
+                android:text="添加封面图"
+                android:textSize="@dimen/text_size_text_1"
+                android:textColor="@color/text_color_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_new_creation_1_next"
+        android:enabled="false"
+        android:layout_gravity="center_horizontal"
+        android:text="下一步"
+        android:textColor="@color/color_text_enable_blue"
+        android:textSize="@dimen/text_size_text_1"
+        android:layout_marginTop="40dp"
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -7,6 +8,7 @@ import android.widget.TextView
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
 import com.zxcx.zhizhe.ui.search.result.card.CreationInReviewFragment
 import com.zxcx.zhizhe.ui.search.result.card.CreationPassedFragment
@@ -37,7 +39,8 @@ class CreationActivity : BaseActivity() {
 
     private fun initListener() {
         iv_toolbar_creation.setOnClickListener {
-            //todo 创作
+            //进入新建卡片流程，修改标题题图页
+            startActivity(Intent(mActivity, NewCreationTitleActivity::class.java))
         }
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {

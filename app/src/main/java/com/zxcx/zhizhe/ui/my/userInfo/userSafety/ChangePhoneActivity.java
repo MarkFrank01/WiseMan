@@ -78,7 +78,6 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
 
     @OnClick(R.id.tv_toolbar_right)
     public void onMTvToolbarRightClicked() {
-        //todo 修改手机号
         changePhone(mEtChangePhonePhone.getText().toString(),mEtChangePhoneVerificationCode.getText().toString());
     }
 

@@ -22,11 +22,11 @@ public class SelectAttentionAdapter extends BaseQuickAdapter<SelectAttentionBean
     @Override
     protected void convert(final BaseViewHolder helper, final SelectAttentionBean item) {
         if (item.isChecked()){
-            helper.setChecked(R.id.tv_item_select_attention_name,true);
+            helper.setChecked(R.id.cb_item_select_attention_name,true);
         }else {
-            helper.setChecked(R.id.tv_item_select_attention_name,false);
+            helper.setChecked(R.id.cb_item_select_attention_name,false);
         }
 
-        helper.setText(R.id.tv_item_select_attention_name,item.getName());
+        helper.setText(R.id.cb_item_select_attention_name,item.getName());
     }
 }
