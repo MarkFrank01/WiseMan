@@ -6,14 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.zxcx.zhizhe.widget.ClipViewLayout
+    <com.zxcx.zhizhe.widget.ClipImageView
         android:id="@+id/cvl_head_image_crop"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:clipBorderWidth="2dp"
-        app:clipType="rectangle"
-        app:mHorizontalPadding="30dp"/>
+        app:civClipPadding="20dp"
+        app:civMaskColor="@color/opacity_45"/>
     
     <FrameLayout
         android:background="@color/black"

@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.event.LogoutEvent;
+import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 
@@ -33,6 +34,7 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, bean.isBandingWeixin());
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, bean.isBandingQQ());
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, bean.isBandingWeibo());
+        EventBus.getDefault().post(new UserInfoChangeSuccessEvent());
     }
 
     public static void logout() {

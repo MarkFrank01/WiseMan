@@ -194,7 +194,10 @@
         <activity
             android:name=".ui.my.userInfo.HeadImageActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.userInfo.HeadImageCropActivity"/>
+        <activity
+            android:name=".ui.my.userInfo.ClipImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
     </application>
 
 </manifest>

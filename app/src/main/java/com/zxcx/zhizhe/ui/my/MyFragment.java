@@ -16,7 +16,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
-import com.zxcx.zhizhe.event.UpdataUserInfoEvent;
+import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity;
@@ -107,7 +107,7 @@ public class MyFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(UpdataUserInfoEvent event) {
+    public void onMessageEvent(UserInfoChangeSuccessEvent event) {
         setViewLogin();
     }
 

@@ -6,18 +6,14 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ChangeBirthdayDialogEvent;
-import com.zxcx.zhizhe.event.ChangeNickNameDialogEvent;
-import com.zxcx.zhizhe.event.ChangeSexDialogEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
-import com.zxcx.zhizhe.event.UpdataUserInfoEvent;
+import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -80,35 +76,13 @@ public class UserInfoActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onBackPressed() {
-        EventBus.getDefault().post(new UpdataUserInfoEvent());
-        super.onBackPressed();
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         finish();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeNickNameDialogEvent event) {
-        UserInfoBean bean = event.getUserInfoBean();
-        ZhiZheUtils.saveUserInfo(bean);
-        initData();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeSexDialogEvent event) {
-        UserInfoBean bean = event.getUserInfoBean();
-        ZhiZheUtils.saveUserInfo(bean);
-        initData();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ChangeBirthdayDialogEvent event) {
-        UserInfoBean bean = event.getUserInfoBean();
-        ZhiZheUtils.saveUserInfo(bean);
+    public void onMessageEvent(UserInfoChangeSuccessEvent event) {
         initData();
     }
 

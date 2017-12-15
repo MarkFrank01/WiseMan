@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.my.userInfo;
 import android.os.Bundle;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ChangeBirthdayDialogEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
@@ -13,9 +12,8 @@ import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.DatePickerLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,7 +74,7 @@ public class ChangeBirthdayActivity extends BaseActivity implements IPostPresent
 
     @Override
     public void postSuccess(UserInfoBean bean) {
-        EventBus.getDefault().post(new ChangeBirthdayDialogEvent(bean));
+        ZhiZheUtils.saveUserInfo(bean);
         onBackPressed();
     }
 

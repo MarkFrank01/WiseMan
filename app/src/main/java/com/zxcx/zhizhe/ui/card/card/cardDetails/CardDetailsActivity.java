@@ -29,7 +29,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.CollectSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.event.UnLikeEvent;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
@@ -45,8 +44,6 @@ import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -247,15 +244,6 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     @Override
     public void postFail(String msg) {
         toastShow(msg);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CollectSuccessEvent event) {
-        toastShow("收藏成功");
-        collectStatus = false;
-        mCbCardDetailsCollect.setChecked(true);
-        collectNum++;
-        mCbCardDetailsCollect.setText(collectNum + "");
     }
 
     @OnClick(R.id.cb_card_details_follow)

@@ -7,7 +7,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ChangeSexDialogEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
@@ -16,8 +15,7 @@ import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-
-import org.greenrobot.eventbus.EventBus;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +72,7 @@ public class ChangeSexActivity extends BaseActivity implements IPostPresenter<Us
 
     @Override
     public void postSuccess(UserInfoBean bean) {
-        EventBus.getDefault().post(new ChangeSexDialogEvent(bean));
+        ZhiZheUtils.saveUserInfo(bean);
         onBackPressed();
     }
 

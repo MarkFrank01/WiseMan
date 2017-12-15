@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ChangeNickNameDialogEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
@@ -15,8 +14,7 @@ import com.zxcx.zhizhe.retrofit.PostSubscriber;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.Utils;
-
-import org.greenrobot.eventbus.EventBus;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +59,7 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
 
     @Override
     public void postSuccess(UserInfoBean bean) {
-        EventBus.getDefault().post(new ChangeNickNameDialogEvent(bean));
+        ZhiZheUtils.saveUserInfo(bean);
         onBackPressed();
     }
 
