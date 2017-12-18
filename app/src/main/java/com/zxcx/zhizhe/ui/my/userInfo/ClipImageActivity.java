@@ -164,6 +164,7 @@ public class ClipImageActivity extends BaseActivity {
                     public void onSuccess(File file) {
                         //  压缩成功后调用，返回压缩后的图片文件
                         finish();
+                        EventBus.getDefault().post(new ImageCropSuccessEvent(file.getPath()));
                         EventBus.getDefault().postSticky(new ImageCropSuccessEvent(file.getPath()));
                     }
 

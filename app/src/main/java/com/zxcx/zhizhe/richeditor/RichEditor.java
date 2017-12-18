@@ -75,7 +75,8 @@ public class RichEditor extends WebView {
         void onAfterInitialLoad(boolean isReady);
     }
 
-    private static final String SETUP_HTML = "file:///android_asset/editor.html";
+//    private static final String SETUP_HTML = "file:///android_asset/editor.html";
+    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
     private static final String CALLBACK_SCHEME = "re-callback://";
     private static final String STATE_SCHEME = "re-state://";
     private boolean isReady = false;
@@ -101,7 +102,7 @@ public class RichEditor extends WebView {
         getSettings().setJavaScriptEnabled(true);
         setWebChromeClient(new WebChromeClient());
         setWebViewClient(createWebviewClient());
-        loadUrl("http://192.168.1.149:8043/raw/editor.html");
+        loadUrl(SETUP_HTML);
         setFontSize(ScreenUtils.dip2px(16));
 
         this.getSettings().setLoadWithOverviewMode(true);
@@ -425,7 +426,7 @@ public class RichEditor extends WebView {
     protected class EditorWebViewClient extends WebViewClient {
         @Override
         public void onPageFinished(WebView view, String url) {
-            isReady = url.equalsIgnoreCase("http://192.168.1.149:8043/raw/editor.html");
+            isReady = url.equalsIgnoreCase(SETUP_HTML);
             if (mLoadListener != null) {
                 mLoadListener.onAfterInitialLoad(isReady);
             }

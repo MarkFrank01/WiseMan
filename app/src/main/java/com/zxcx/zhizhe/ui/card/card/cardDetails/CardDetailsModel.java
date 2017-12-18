@@ -104,6 +104,19 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 });
         addSubscription(mDisposable);
     }
+
+    public void setUserFollow(int authorId, int followType){
+        mDisposable = AppClient.getAPIService().setUserFollow(authorId,followType)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(new PostSubscriber<BaseBean>(mPresenter) {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        mPresenter.followSuccess();
+                    }
+                });
+        addSubscription(mDisposable);
+    }
 }
 
 

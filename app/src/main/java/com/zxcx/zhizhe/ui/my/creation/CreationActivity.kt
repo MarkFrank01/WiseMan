@@ -13,8 +13,7 @@ import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
 import com.zxcx.zhizhe.ui.search.result.card.CreationInReviewFragment
 import com.zxcx.zhizhe.ui.search.result.card.CreationPassedFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
-import kotlinx.android.synthetic.main.activity_note.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.activity_creation.*
 
 /**
  * Created by anm on 2017/12/14.
@@ -38,6 +37,9 @@ class CreationActivity : BaseActivity() {
     }
 
     private fun initListener() {
+        iv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
         iv_toolbar_creation.setOnClickListener {
             //进入新建卡片流程，修改标题题图页
             startActivity(Intent(mActivity, NewCreationTitleActivity::class.java))
@@ -45,10 +47,10 @@ class CreationActivity : BaseActivity() {
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_list)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_card)
             }
             passedFragment.mSortType = mSortType
             reviewFragment.mSortType = mSortType

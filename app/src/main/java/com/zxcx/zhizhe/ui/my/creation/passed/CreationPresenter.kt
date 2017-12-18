@@ -15,6 +15,10 @@ class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationCon
         mModel.getCreation(passType,sortType, page, pageSize)
     }
 
+    fun getOtherUserCreation(id: Int, sortType: Int, page: Int, pageSize: Int) {
+        mModel.getOtherUserCreation(id,sortType, page, pageSize)
+    }
+
     override fun getDataSuccess(bean: List<CreationBean>) {
         mView.getDataSuccess(bean)
     }

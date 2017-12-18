@@ -10,9 +10,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteAdapter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_freedom_note.*
 
 class FreedomNoteFragment : MvpFragment<FreedomNotePresenter>(), FreedomNoteContract.View,
@@ -79,6 +81,10 @@ class FreedomNoteFragment : MvpFragment<FreedomNotePresenter>(), FreedomNoteCont
         mAdapter.setOnLoadMoreListener(this,rv_freedom_note)
         rv_freedom_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_freedom_note.adapter = mAdapter
-        mAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无自由笔记","点击创作开始记录",R.color.button_blue,View.OnClickListener {
+            val intent = Intent(mActivity,NewCreationTitleActivity::class.java)
+            startActivity(intent)
+        })
+        mAdapter.emptyView = emptyView
     }
 }

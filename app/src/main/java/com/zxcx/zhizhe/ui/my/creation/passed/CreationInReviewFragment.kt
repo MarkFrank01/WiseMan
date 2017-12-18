@@ -10,8 +10,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
 
 class CreationInReviewFragment : MvpFragment<CreationPresenter>(), CreationContract.View,
@@ -78,6 +80,10 @@ class CreationInReviewFragment : MvpFragment<CreationPresenter>(), CreationContr
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
-        mAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核内容","和大家分享你的知识吧",R.color.button_blue,View.OnClickListener {
+            val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+            startActivity(intent)
+        })
+        mAdapter.emptyView = emptyView
     }
 }

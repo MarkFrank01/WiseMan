@@ -12,14 +12,15 @@ import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_card.*
 
 class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     var mPage = 0
-    var mPageSize = Constants.PAGE_SIZE
-    lateinit var mSearchCardAdapter : SearchCardAdapter
+    private var mPageSize = Constants.PAGE_SIZE
+    private lateinit var mSearchCardAdapter : SearchCardAdapter
 
     var mKeyword = ""
         set(value) {
@@ -79,6 +80,7 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
         mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result_card)
         rv_search_result_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_search_result_card.adapter = mSearchCardAdapter
-        mSearchCardAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索结果","换个关键词试试",null,null)
+        mSearchCardAdapter.emptyView = emptyView
     }
 }

@@ -44,7 +44,7 @@ public class CardDetailsBean extends RetrofitBaen {
     @JSONField(name = "authorIntelligenceValue")
     private String authorReadNum;
     @JSONField(name = "userAurhorRelationshipType")
-    private int followType;
+    private int followType;//0为未关注，1为已关注，2为已相互关注&
 
     public boolean getIsLike() {
         return isLike;

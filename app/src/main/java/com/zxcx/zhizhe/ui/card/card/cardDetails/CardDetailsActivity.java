@@ -34,6 +34,7 @@ import com.zxcx.zhizhe.event.UnLikeEvent;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity;
 import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.LogCat;
@@ -42,6 +43,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -99,7 +101,6 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     private int mAuthorId;
     private String name;
     private String cardBagName;
-    private int collectNum;
     private String imageUrl;
     private boolean collectStatus = false;
     private boolean isUnCollect = false;
@@ -117,7 +118,6 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         setContentView(R.layout.activity_card_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 
         initData();
         initView();
@@ -157,7 +157,6 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
             mWebView = null;
         }
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Nullable
@@ -220,15 +219,15 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         isUnCollect = collectStatus != bean.isCollect() && !bean.isCollect();
         isUnLike = likeStatus != bean.isLike() && !bean.isLike();
 
-        collectNum = bean.getCollectNum();
+        int collectNum = bean.getCollectNum();
         int likeNum = bean.getLikeNum();
         int unLikeNum = bean.getUnLikeNum();
         cardBagName = bean.getCardBagName();
         cardBagId = bean.getCardBagId();
         mTvCardDetailsCardBag.setText(cardBagName);
-        mCbCardDetailsCollect.setText(collectNum + "");
-        mCbCardDetailsLike.setText(likeNum + "");
-        mCbCardDetailsUnLike.setText(unLikeNum + "");
+        mCbCardDetailsCollect.setText(ZhiZheUtils.getFormatNumber(collectNum));
+        mCbCardDetailsLike.setText(ZhiZheUtils.getFormatNumber(likeNum));
+        mCbCardDetailsUnLike.setText(ZhiZheUtils.getFormatNumber(unLikeNum));
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
         mCbCardDetailsUnLike.setChecked(bean.isUnLike());
@@ -238,7 +237,13 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         mTvItemRankUserCard.setText(bean.getAuthorCardNum());
         mTvItemRankUserFans.setText(bean.getAuthorFansNum());
         mTvItemRankUserRead.setText(bean.getAuthorReadNum());
-        //todo 关注按钮显示
+        if (bean.getFollowType() == 0){
+            mCbCardDetailsFollow.setText("关注");
+            mCbCardDetailsFollow.setChecked(false);
+        }else {
+            mCbCardDetailsFollow.setText("已关注");
+            mCbCardDetailsFollow.setChecked(true);
+        }
     }
 
     @Override
@@ -246,14 +251,37 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         toastShow(msg);
     }
 
+    @Override
+    public void followSuccess() {
+        if (mCbCardDetailsFollow.isChecked()){
+            //取消成功
+            mCbCardDetailsFollow.setText("关注");
+            mCbCardDetailsFollow.setChecked(false);
+        }else {
+            //关注成功
+            mCbCardDetailsFollow.setText("已关注");
+            mCbCardDetailsFollow.setChecked(true);
+        }
+    }
+
     @OnClick(R.id.cb_card_details_follow)
     public void onMCbCardDetailsFollowClicked() {
-        //todo 关注作者
+        mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
+        if (!mCbCardDetailsFollow.isChecked()) {
+            //关注
+            mPresenter.setUserFollow(mAuthorId,0);
+        } else {
+            //取消关注
+            mPresenter.setUserFollow(mAuthorId,1);
+        }
     }
 
     @OnClick(R.id.rl_card_details_bottom)
     public void onMRlCardDetailsBottomClicked() {
-        //todo 进入作者页
+        Intent intent = new Intent(this, OtherUserActivity.class);
+        intent.putExtra("name",author);
+        intent.putExtra("id",mAuthorId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.fl_card_details_card_bag)
@@ -372,8 +400,8 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
         if (isNight) {
             mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
         } else {
-//            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
-            mUrl = "http://192.168.1.149:8043/view/articleDark/192";
+            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
+//            mUrl = "http://192.168.1.149:8043/view/articleDark/192";
 
         }
         mWebView.loadUrl(mUrl);

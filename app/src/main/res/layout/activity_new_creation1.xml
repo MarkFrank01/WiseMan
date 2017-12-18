@@ -40,6 +40,7 @@
 
     <FrameLayout
         android:id="@+id/fl_new_creation_1_add_img"
+        android:background="@color/line"
         android:clickable="false"
         android:layout_marginTop="60dp"
         android:layout_marginLeft="20dp"
@@ -50,7 +51,6 @@
         <ImageView
             android:id="@+id/iv_new_creation_1_add_img"
             android:scaleType="centerCrop"
-            tools:src="@color/line"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

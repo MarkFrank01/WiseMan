@@ -60,13 +60,16 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mRefreshLayout = root.findViewById(R.id.refresh_layout);
 
         LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new AttentionNeedLoginCallback())
                 .addCallback(new HomeLoadingCallback())
                 .addCallback(new NetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
         loadService = loadSir.register(root, v -> {
-            loadService.showCallback(HomeLoadingCallback.class);
-            onRefresh();
+            if (checkLogin()) {
+                loadService.showCallback(HomeLoadingCallback.class);
+                onRefresh();
+            }
         });
         return loadService.getLoadLayout();
     }
@@ -114,6 +117,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(LoginEvent event) {
+        loadService.showCallback(HomeLoadingCallback.class);
         mRvAttentionCard.scrollToPosition(0);
         mRefreshLayout.autoRefresh();
         EventBus.getDefault().removeStickyEvent(event);
@@ -121,6 +125,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onMessageEvent(SelectAttentionEvent event) {
+        loadService.showCallback(HomeLoadingCallback.class);
         mRvAttentionCard.scrollToPosition(0);
         mRefreshLayout.autoRefresh();
         EventBus.getDefault().removeStickyEvent(event);
@@ -201,7 +206,11 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mCardAdapter.setEmptyView(mEmptyView);
         mRvAttentionCard.setLayoutManager(layoutManager);
         mRvAttentionCard.setAdapter(mCardAdapter);
-        onRefresh();
+        if (checkLogin()){
+            onRefresh();
+        }else {
+            loadService.showCallback(AttentionNeedLoginCallback.class);
+        }
     }
 
     private void getHotCard() {

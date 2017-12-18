@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
@@ -19,6 +17,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
+import com.zxcx.zhizhe.widget.EmptyView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -103,10 +102,8 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         }
         if (mAdapter.getData().size() == 0) {
             //占空图
-            View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
-            TextView textView = (TextView) view.findViewById(R.id.tv_no_data);
-            textView.setText(R.string.no_collect_card);
-            mAdapter.setEmptyView(view);
+            View emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","去首页看看有没有你喜欢的卡片",null,null);
+            mAdapter.setEmptyView(emptyView);
         }
     }
 

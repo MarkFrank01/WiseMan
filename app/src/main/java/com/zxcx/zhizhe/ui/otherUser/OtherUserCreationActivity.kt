@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.readCards
+package com.zxcx.zhizhe.ui.otherUser
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,43 +10,43 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean
+import com.zxcx.zhizhe.ui.search.result.card.*
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
-import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.activity_read_cards.*
+import kotlinx.android.synthetic.main.activity_other_user_creation.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
     private var mSortType = 1//0倒序 1正序
-    private lateinit var mAdapter: ReadCardsAdapter
+    private lateinit var mAdapter: CreationAdapter
+    private var otherUserId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_cards)
         initView()
-        initToolBar("阅读")
+        initToolBar("Ta的创作")
         initLoadSir()
-        mPresenter.getReadCard(mSortType,mPage,mPageSize)
+        getOtherUserCreation()
     }
 
     private fun initLoadSir() {
         loadService = LoadSir.getDefault().register(this, this)
     }
 
-    override fun createPresenter(): ReadCardsPresenter {
-        return ReadCardsPresenter(this)
+    override fun createPresenter(): CreationPresenter {
+        return CreationPresenter(this)
     }
 
-    private fun getReadCard() {
-        mPresenter.getReadCard(mSortType, mPage, Constants.PAGE_SIZE)
+    private fun getOtherUserCreation() {
+        mPresenter.getOtherUserCreation(otherUserId,mSortType,mPage,mPageSize)
     }
 
-    override fun getDataSuccess(list: List<ReadCardsBean>) {
+    override fun getDataSuccess(list: List<CreationBean>) {
         if (mPage == 0) {
             loadService.showSuccess()
             mAdapter.setNewData(list)
@@ -72,7 +72,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getReadCard(mSortType,mPage,mPageSize)
+        getOtherUserCreation()
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -84,14 +84,12 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
     }
 
     private fun initView() {
-        mAdapter = ReadCardsAdapter(ArrayList())
+        mAdapter = CreationAdapter(ArrayList())
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this,rv_read_card)
-        rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_read_card.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity, "暂时没有更多信息", "去首页看看有没有你喜欢的卡片", null, null)
-        mAdapter.emptyView = emptyView
+        mAdapter.setOnLoadMoreListener(this,rv_other_user_creation)
+        rv_other_user_creation.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
+        rv_other_user_creation.adapter = mAdapter
 
         iv_toolbar_right.visibility = View.VISIBLE
         iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
@@ -104,6 +102,6 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
                 iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
             }
             mPage = 0
-            getReadCard() }
+            getOtherUserCreation() }
     }
 }

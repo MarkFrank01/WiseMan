@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -33,8 +32,6 @@ public class ChangeSexActivity extends BaseActivity implements IPostPresenter<Us
     RadioButton mRbChangeSexWoman;
     @BindView(R.id.rg_change_sex)
     RadioGroup mRgChangeSex;
-    @BindView(R.id.view_line)
-    View mViewLine;
     @BindView(R.id.tv_dialog_cancel)
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)

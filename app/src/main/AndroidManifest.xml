@@ -202,6 +202,13 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.newCreation.NewCreationEditorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible"/>
+        <activity
+            android:name=".ui.otherUser.OtherUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.otherUser.OtherUserCreationActivity"
             android:screenOrientation="portrait"/>
     </application>
 

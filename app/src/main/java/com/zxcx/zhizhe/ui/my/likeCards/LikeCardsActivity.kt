@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_like_cards.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.Subscribe
@@ -98,7 +99,8 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         mAdapter.setOnLoadMoreListener(this,rv_like_card)
         rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_like_card.adapter = mAdapter
-        mAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂时没有更多信息", "去首页给你喜欢的卡片点赞", null, null)
+        mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE
         iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)

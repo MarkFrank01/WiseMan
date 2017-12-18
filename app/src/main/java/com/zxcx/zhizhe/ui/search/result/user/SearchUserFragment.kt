@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_user.*
 
 class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContract.View, BaseQuickAdapter.RequestLoadMoreListener {
@@ -45,7 +46,8 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
         mSearchUserAdapter.setOnLoadMoreListener(this,rv_search_result_user)
         rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_search_result_user.adapter = mSearchUserAdapter
-        mSearchUserAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索结果","换个关键词试试",null,null)
+        mSearchUserAdapter.emptyView = emptyView
     }
 
     override fun getDataSuccess(list: List<SearchUserBean>) {

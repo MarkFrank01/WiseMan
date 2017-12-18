@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
+import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.card.CardNoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteBean;
@@ -325,4 +326,28 @@ public interface APIService {
      */
     @POST("/ad/getAdByAdNum")
     Flowable<BaseArrayBean<WelcomeBean>> getAD(@Query("adNum") String adNum);
+
+    /**
+     *获取其他用户信息
+     */
+    @POST("/user/getAuthorInfo")
+    Flowable<BaseBean<OtherUserInfoBean>> getAuthorInfo(@Query("authorId") int id);
+
+    /**
+     * 获取其他用户创作列表
+     */
+    @POST("/article/getCreationListByAuthorId")
+    Flowable<BaseArrayBean<CreationBean>> getOtherUserCreation(
+            @Query("authorId") int userId,@Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 关注取消关注其他用户
+     * @param userId
+     * @param followType  0关注 1取消关注
+     * @return
+     */
+    @POST("/user/setUserFollowUser")
+    Flowable<BaseBean> setUserFollow(
+            @Query("userId") int userId,@Query("followType") int followType);
 }

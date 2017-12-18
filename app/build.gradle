@@ -30,7 +30,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [eventBusIndex: 'com.zxcx.zhizhe.MyEventBusIndex',
+                arguments = [eventBusIndex        : 'com.zxcx.zhizhe.MyEventBusIndex',
                              "room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }

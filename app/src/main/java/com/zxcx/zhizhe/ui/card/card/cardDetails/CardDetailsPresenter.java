@@ -41,6 +41,10 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
         mModel.removeCollectCard(cardId);
     }
 
+    public void setUserFollow(int authorId, int followType){
+        mModel.setUserFollow(authorId,followType);
+    }
+
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
         mView.getDataSuccess(bean);
@@ -79,6 +83,11 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     @Override
     public void postFail(String msg) {
         mView.postFail(msg);
+    }
+
+    @Override
+    public void followSuccess() {
+        mView.followSuccess();
     }
 }
 

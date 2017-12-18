@@ -26,6 +26,7 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         setContentView(R.layout.activity_select_card_bag)
         initToolBar("选择卡包")
 
+        tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "开始创作"
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue))
         tv_toolbar_right.isEnabled = false

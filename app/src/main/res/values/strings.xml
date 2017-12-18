@@ -97,5 +97,6 @@
     <string name="tv_card_info">%1$s&#160;&#160;文/%2$s</string>
     <string name="tv_item_card_note_info">%1$s&#160;&#160;%2$s</string>
     <string name="tv_note_info">记录于&#160;%1$s</string>
+    <string name="tv_other_user_info">智力值&#160;%1$d</string>
     <!--common-end-->
 </resources>

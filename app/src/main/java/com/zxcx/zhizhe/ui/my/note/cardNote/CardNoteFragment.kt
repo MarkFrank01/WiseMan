@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_card_note.*
 
 class CardNoteFragment : MvpFragment<CardNotePresenter>(), CardNoteContract.View,
@@ -78,6 +79,7 @@ class CardNoteFragment : MvpFragment<CardNotePresenter>(), CardNoteContract.View
         mAdapter.setOnLoadMoreListener(this,rv_card_note)
         rv_card_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_card_note.adapter = mAdapter
-        mAdapter.setEmptyView(R.layout.layout_no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无卡片笔记","卡片笔记可以从卡片中记录",null,null)
+        mAdapter.emptyView = emptyView
     }
 }

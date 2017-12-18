@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.note
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -7,11 +8,11 @@ import android.widget.TextView
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.search.result.card.CardNoteFragment
 import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_note.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by anm on 2017/12/14.
@@ -34,16 +35,20 @@ class NoteActivity : BaseActivity() {
     }
 
     private fun initListener() {
+        iv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
         iv_toolbar_creation.setOnClickListener {
-            //todo 创作笔记
+            val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+            startActivity(intent)
         }
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_list)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_card)
             }
             cardNoteFragment.mSortType = mSortType
             freedomNoteFragment.mSortType = mSortType

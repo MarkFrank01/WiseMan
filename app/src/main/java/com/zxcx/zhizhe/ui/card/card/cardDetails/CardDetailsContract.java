@@ -6,11 +6,11 @@ import com.zxcx.zhizhe.mvpBase.IGetPostPresenter;
 public interface CardDetailsContract {
 
     interface View extends GetPostView<CardDetailsBean,CardDetailsBean> {
-
+        void followSuccess();
     }
 
     interface Presenter extends IGetPostPresenter<CardDetailsBean,CardDetailsBean> {
-
+        void followSuccess();
     }
 }
 

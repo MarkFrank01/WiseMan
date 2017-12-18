@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 public class ZhiZheUtils {
@@ -91,6 +92,25 @@ public class ZhiZheUtils {
                 return networkInfo.isAvailable();
         }
         return false;
+    }
+
+    /**
+     * 格式化数字,输出k，w结尾的小数
+     * @param number
+     * @return
+     */
+    public static String getFormatNumber(int number) {
+        if (number<1000){
+            return String.valueOf(number);
+        }else if (number<10000){
+            double dou = number / 1000;
+            DecimalFormat df = new DecimalFormat("#.##");
+            return df.format(dou)+"k";
+        }else {
+            double dou = number / 10000;
+            DecimalFormat df = new DecimalFormat("#.##");
+            return df.format(dou)+"w";
+        }
     }
 
 }

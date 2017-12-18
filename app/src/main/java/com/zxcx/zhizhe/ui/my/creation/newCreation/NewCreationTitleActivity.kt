@@ -7,15 +7,18 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ImageCropSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.FileUtil
+import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.StringUtils
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation1.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -23,8 +26,6 @@ import org.greenrobot.eventbus.ThreadMode
  * 创作-标题题图编辑页
  */
 class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
-
-    private val codeAlbum = 1
 
     private var imageUrl : String? = null
     private lateinit var mOSSDialog: OSSDialog
@@ -35,14 +36,24 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         initToolBar("创作")
         Utils.setViewAspect(fl_new_creation_1_add_img,16,9)
         initViewListener()
+        updateView()
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: ImageCropSuccessEvent) {
         uploadImageToOSS(event.path)
-        updateView()
     }
 
     private fun uploadImageToOSS(path: String) {
@@ -56,6 +67,8 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
     override fun uploadSuccess(url: String) {
         imageUrl?.let { deleteImageFromOSS(it)}
         imageUrl = url
+        ImageLoader.load(mActivity,imageUrl,iv_new_creation_1_add_img)
+        updateView()
     }
 
     private fun deleteImageFromOSS(oldImageUrl: String) {
@@ -69,6 +82,11 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
     private fun updateView() {
         tv_new_creation_1_next.isEnabled = et_new_creation_1_title.length() >0 && !StringUtils.isEmpty(imageUrl)
         fl_new_creation_1_add_img.isClickable = et_new_creation_1_title.length() >0
+        if (StringUtils.isEmpty(imageUrl)){
+            ll_new_creation_1_add_img.visibility = View.VISIBLE
+        }else{
+            ll_new_creation_1_add_img.visibility = View.GONE
+        }
     }
 
     private fun initViewListener() {
@@ -77,7 +95,7 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
-            startActivityForResult(intent, codeAlbum)
+            startActivityForResult(intent, 0)
         }
         et_new_creation_1_title.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

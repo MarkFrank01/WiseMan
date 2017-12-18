@@ -232,7 +232,7 @@ RE.restorerange = function(){
     range.setStart(RE.currentSelection.startContainer, RE.currentSelection.startOffset);
     range.setEnd(RE.currentSelection.endContainer, RE.currentSelection.endOffset);
     selection.addRange(range);
-}
+}/*
 
 RE.enabledEditingItems = function(e) {
     var items = [];
@@ -282,7 +282,7 @@ RE.enabledEditingItems = function(e) {
 
     window.location.href = "re-state://" + encodeURI(items.join(','));
 }
-
+*/
 RE.focus = function() {
     var range = document.createRange();
     range.selectNodeContents(RE.editor);
@@ -303,10 +303,10 @@ RE.removeFormat = function() {
 
 // Event Listeners
 RE.editor.addEventListener("input", RE.callback);
-RE.editor.addEventListener("keyup", function(e) {
+/*RE.editor.addEventListener("keyup", function(e) {
     var KEY_LEFT = 37, KEY_RIGHT = 39;
     if (e.which == KEY_LEFT || e.which == KEY_RIGHT) {
         RE.enabledEditingItems(e);
     }
-});
+});*/
 RE.editor.addEventListener("click", RE.enabledEditingItems);

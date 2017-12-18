@@ -5,9 +5,11 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
@@ -28,6 +30,22 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
         initViewListener()
+
+        if (!Constants.IS_NIGHT) {
+            ImmersionBar.with(this)
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.black)
+                    .fitsSystemWindows(true)
+                    .keyboardEnable(true)
+                    .init()
+        } else {
+
+        }
+    }
+
+    override fun initStatusBar() {
+
     }
 
     override fun createPresenter(): NewCreationEditorPresenter {
@@ -94,9 +112,17 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             } else if (!text.contains("<p>")) {
                 content = "<p>$text</p>"
             }
+            tv_toolbar_commit.isEnabled = text.isNotEmpty()
+            tv_toolbar_save_note.isEnabled = text.isNotEmpty()
         })
         cb_editor_bold.setOnClickListener {
             editor.setBold()
+        }
+        iv_editor_album.setOnClickListener {
+            // 激活系统图库，选择一张图片
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
         }
         cb_editor_night.setOnCheckedChangeListener { _, isChecked ->
             //todo 设置编辑器是否夜间模式
