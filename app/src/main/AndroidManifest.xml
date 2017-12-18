@@ -210,6 +210,9 @@
         <activity
             android:name=".ui.otherUser.OtherUserCreationActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.followUser.FollowUserActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

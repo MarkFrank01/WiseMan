@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.card.CardNoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
@@ -348,6 +349,19 @@ public interface APIService {
      * @return
      */
     @POST("/user/setUserFollowUser")
-    Flowable<BaseBean> setUserFollow(
+    Flowable<BaseBean<FollowUserBean>> setUserFollow(
             @Query("userId") int userId,@Query("followType") int followType);
+
+    /**
+     * 获取我关注的和关注我的
+     * @param followType 0该用户关注的人 1该用户的粉丝
+     * @param sortType
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @POST("/user/getFollowUserList")
+    Flowable<BaseArrayBean<FollowUserBean>> getFollowUser(
+            @Query("followType") int followType,@Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 }

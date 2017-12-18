@@ -91,7 +91,6 @@
 
                 <RelativeLayout
                     android:id="@+id/rl_card_details_bottom"
-                    android:visibility="gone"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="60dp"

@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.DeleteConfirmEvent;
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
@@ -85,7 +85,7 @@ public class NoteTitleDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new DeleteConfirmEvent());
+        EventBus.getDefault().post(new UnFollowConfirmEvent());
         this.dismiss();
     }
 }

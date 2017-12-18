@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.DeleteConfirmEvent;
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
@@ -27,7 +27,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class DeleteConfirmDialog extends BaseDialog {
+public class UnFollowConfirmDialog extends BaseDialog {
 
     Unbinder unbinder;
     @BindView(R.id.tv_dialog_delete_confirm)
@@ -52,7 +52,7 @@ public class DeleteConfirmDialog extends BaseDialog {
 
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(27.5f), 0, ScreenUtils.dip2px(27.5f), 0);
+        window.getDecorView().setPadding(ScreenUtils.dip2px(53f), 0, ScreenUtils.dip2px(53f), 0);
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = Gravity.CENTER;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -63,9 +63,7 @@ public class DeleteConfirmDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogCancel.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogConfirm.getPaint();
+        TextPaint tp = mTvDialogConfirm.getPaint();
         tp.setFakeBoldText(true);
     }
 
@@ -82,7 +80,7 @@ public class DeleteConfirmDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new DeleteConfirmEvent());
+        EventBus.getDefault().post(new UnFollowConfirmEvent(getArguments().getInt("userId")));
         this.dismiss();
     }
 }
