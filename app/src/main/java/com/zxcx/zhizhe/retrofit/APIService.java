@@ -364,4 +364,14 @@ public interface APIService {
     Flowable<BaseArrayBean<FollowUserBean>> getFollowUser(
             @Query("followType") int followType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 设置用户消息开关
+     * @param systemMessageSetting 系统消息开关 0开 1关
+     * @param dynamicMessageSetting 动态消息开关 0开 1关
+     * @return
+     */
+    @POST("/user/messageSetting")
+    Flowable<BaseBean> setMessageSetting(
+            @Query("systemMessageSetting") int systemMessageSetting,@Query("dynamicMessageSetting") int dynamicMessageSetting);
 }
