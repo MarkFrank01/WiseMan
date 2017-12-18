@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
+import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,7 +9,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -18,7 +19,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class FollowUserFragment : MvpFragment<FollowUserPresenter>(), FollowUserContract.View,
+class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener{
 
     private val mFollowType = 0
@@ -42,6 +43,7 @@ class FollowUserFragment : MvpFragment<FollowUserPresenter>(), FollowUserContrac
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
+        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         mDialog = UnFollowConfirmDialog()
@@ -95,6 +97,11 @@ class FollowUserFragment : MvpFragment<FollowUserPresenter>(), FollowUserContrac
         bundle.putInt("userId",bean.id?:0)
         mDialog.arguments = bundle
         mDialog.show(mActivity.fragmentManager,"")
+    }
+
+    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+        mPage = 0
+        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {

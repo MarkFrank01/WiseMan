@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
+import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteAdapter
@@ -17,7 +18,7 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_freedom_note.*
 
-class FreedomNoteFragment : MvpFragment<FreedomNotePresenter>(), FreedomNoteContract.View,
+class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomNoteContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
@@ -38,6 +39,7 @@ class FreedomNoteFragment : MvpFragment<FreedomNotePresenter>(), FreedomNoteCont
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFreedomNote(mSortType,mPage,mPageSize)
     }
@@ -60,6 +62,11 @@ class FreedomNoteFragment : MvpFragment<FreedomNotePresenter>(), FreedomNoteCont
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
         }
+    }
+
+    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+        mPage = 0
+        mPresenter.getFreedomNote(mSortType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {

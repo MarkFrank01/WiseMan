@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.passed
 
+import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
@@ -20,7 +21,7 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
 
-class CreationRejectFragment : MvpFragment<CreationPresenter>(), CreationContract.View,
+class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
@@ -41,6 +42,7 @@ class CreationRejectFragment : MvpFragment<CreationPresenter>(), CreationContrac
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
     }
@@ -63,6 +65,11 @@ class CreationRejectFragment : MvpFragment<CreationPresenter>(), CreationContrac
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
         }
+    }
+
+    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+        mPage = 0
+        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {
