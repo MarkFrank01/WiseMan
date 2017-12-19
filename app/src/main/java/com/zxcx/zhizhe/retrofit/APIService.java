@@ -19,10 +19,9 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.card.CardNoteBean;
+import com.zxcx.zhizhe.ui.search.result.card.NoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
-import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
@@ -219,10 +218,11 @@ public interface APIService {
 
     /**
      * 获取创作列表
+     * @param passType 文章状态 0审核中 1未通过 2通过
      */
     @POST("/favorite/getFavoriteArticleList")
     Flowable<BaseArrayBean<CreationBean>> getCreation(
-            @Query("passType") int passType,@Query("orderType") int sortType,
+            @Query("stateType") int passType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
@@ -232,19 +232,12 @@ public interface APIService {
     Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(@Query("noteId") int noteId);
 
     /**
-     * 获取卡片笔记列表
+     * 获取笔记列表
+     * @param noteType 0自由笔记 1卡片笔记
      */
-    @POST("/favorite/getFavoriteArticleList")
-    Flowable<BaseArrayBean<CardNoteBean>> getCardNote(
-            @Query("orderType") int sortType,
-            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
-
-    /**
-     * 获取自由笔记列表
-     */
-    @POST("/favorite/getFavoriteArticleList")
-    Flowable<BaseArrayBean<FreedomNoteBean>> getFreedomNote(
-            @Query("orderType") int sortType,
+    @POST("/article/getNoteArticleList")
+    Flowable<BaseArrayBean<NoteBean>> getNoteList(
+            @Query("noteType") int noteType, @Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**

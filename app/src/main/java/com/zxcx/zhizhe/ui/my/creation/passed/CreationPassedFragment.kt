@@ -21,7 +21,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
-    private val mPassType = 0
+    private val mPassType = 2
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: CreationAdapter
 

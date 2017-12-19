@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
@@ -12,36 +10,28 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
+import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
-import com.zxcx.zhizhe.ui.card.card.cardDetails.ShareDialog;
-import com.zxcx.zhizhe.utils.GlideApp;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
+import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import in.srain.cube.views.ptr.PtrFrameLayout;
+import butterknife.OnClick;
 
-public class NoteDetailsActivity extends RefreshMvpActivity<NoteDetailsPresenter> implements NoteDetailsContract.View {
+public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> implements NoteDetailsContract.View {
 
-    @BindView(R.id.iv_note_details_back)
-    ImageView mIvNoteDetailsBack;
     @BindView(R.id.tv_note_details_title)
     TextView mTvNoteDetailsTitle;
-    @BindView(R.id.iv_note_details_share)
-    ImageView mTvNoteDetailsShare;
     @BindView(R.id.fl_note_details)
     FrameLayout mFlNoteDetails;
     @BindView(R.id.iv_note_details)
@@ -52,8 +42,6 @@ public class NoteDetailsActivity extends RefreshMvpActivity<NoteDetailsPresenter
     View mViewLine;
     @BindView(R.id.ll_note_details_bottom)
     LinearLayout mLlNoteDetailsBottom;
-    @BindView(R.id.sv_note_details)
-    ScrollView mSvNoteDetails;
 
     private WebView mWebView;
     private int noteId;
@@ -105,24 +93,11 @@ public class NoteDetailsActivity extends RefreshMvpActivity<NoteDetailsPresenter
     }
 
     @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return !mSvNoteDetails.canScrollVertically(-1);
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
-        mPresenter.getNoteDetails(noteId);
-        mWebView.reload();
-    }
-
-    @Override
-    public void onReload(View v) {
-        mPresenter.getNoteDetails(noteId);
-    }
-
-    @Override
     public void getDataSuccess(NoteDetailsBean bean) {
-        mRefreshLayout.refreshComplete();
+        imageUrl = bean.getImageUrl();
+        date = DateTimeUtils.getDateString(bean.getDate());
+        mTvNoteDetailsInfo.setText(getString(R.string.tv_note_info, date));
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvNoteDetails);
     }
 
     @Override
@@ -130,36 +105,34 @@ public class NoteDetailsActivity extends RefreshMvpActivity<NoteDetailsPresenter
         super.toastFail(msg);
     }
 
+    @OnClick(R.id.iv_note_details_edit)
+    public void onMIvNoteDetailsEditClicked() {
+    }
+
+    @OnClick(R.id.iv_note_details_source)
+    public void onMIvNoteDetailsSourceClicked() {
+
+    }
+
+    @OnClick(R.id.iv_note_details_share)
+    public void onMIvNoteDetailsShareClicked() {
+        gotoShare(mUrl);
+    }
+
+    @OnClick(R.id.iv_note_details_back)
+    public void onMIvNoteDetailsBackClicked() {
+        onBackPressed();
+    }
+
     private void initData() {
         noteId = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");
-        imageUrl = getIntent().getStringExtra("imageUrl");
-        date = getIntent().getStringExtra("date");
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 延迟共享动画的执行
-            //postponeEnterTransition();
-        }
         TextPaint paint = mTvNoteDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
         mTvNoteDetailsTitle.setText(name);
-        mTvNoteDetailsInfo.setText(getString(R.string.tv_note_info, date));
-
-        GlideApp
-                .with(this)
-                .load(imageUrl)
-                .placeholder(R.drawable.default_card)
-                .error(R.drawable.default_card)
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        mIvNoteDetails.setImageDrawable(resource);
-                        //图片加载完成的回调中，启动过渡动画
-                        //supportStartPostponedEnterTransition();
-                    }
-                });
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);
@@ -190,18 +163,14 @@ public class NoteDetailsActivity extends RefreshMvpActivity<NoteDetailsPresenter
         mWebView.loadUrl(mUrl);
     }
 
-    private void gotoShare(String url, String content) {
-        ShareDialog shareDialog = new ShareDialog();
+    private void gotoShare(String url) {
+        ShareNoteDialog shareDialog = new ShareNoteDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("name",name);
-        if (!StringUtils.isEmpty(content)) {
-            bundle.putString("content", content);
-        } else {
-            bundle.putString("url",url);
-        }
-        bundle.putString("imageUrl",imageUrl);
-        bundle.putString("date",date);
+        bundle.putString("name", name);
+        bundle.putString("url", url);
+        bundle.putString("imageUrl", imageUrl);
+        bundle.putString("date", date);
         shareDialog.setArguments(bundle);
-        shareDialog.show(getFragmentManager(),"");
+        shareDialog.show(getFragmentManager(), "");
     }
 }

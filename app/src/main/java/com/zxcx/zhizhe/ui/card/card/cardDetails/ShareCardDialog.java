@@ -55,7 +55,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
-public class ShareDialog extends BaseDialog {
+public class ShareCardDialog extends BaseDialog {
 
 
     @BindView(R.id.iv_dialog_share)
@@ -89,7 +89,7 @@ public class ShareDialog extends BaseDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_share, container);
+        View view = inflater.inflate(R.layout.dialog_share_card, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }

@@ -15,7 +15,7 @@ class CardNotePresenter(view: CardNoteContract.View) : BasePresenter<CardNoteCon
         mModel.getCardNote(sortType, page, pageSize)
     }
 
-    override fun getDataSuccess(bean: List<CardNoteBean>) {
+    override fun getDataSuccess(bean: List<NoteBean>) {
         mView.getDataSuccess(bean)
     }
 

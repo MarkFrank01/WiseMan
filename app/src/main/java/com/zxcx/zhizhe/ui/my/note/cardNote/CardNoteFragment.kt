@@ -46,7 +46,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
         return CardNotePresenter(this)
     }
 
-    override fun getDataSuccess(list: List<CardNoteBean>) {
+    override fun getDataSuccess(list: List<NoteBean>) {
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -72,7 +72,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as CardNoteBean
+        val bean = adapter.data[position] as NoteBean
         val intent = Intent(mActivity,CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)

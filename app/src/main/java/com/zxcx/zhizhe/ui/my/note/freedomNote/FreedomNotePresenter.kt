@@ -1,6 +1,7 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.note.freedomNote
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.search.result.card.NoteBean
 
 class FreedomNotePresenter(view: FreedomNoteContract.View) : BasePresenter<FreedomNoteContract.View>(), FreedomNoteContract.Presenter {
 
@@ -15,7 +16,7 @@ class FreedomNotePresenter(view: FreedomNoteContract.View) : BasePresenter<Freed
         mModel.getFreedomNote(sortType, page, pageSize)
     }
 
-    override fun getDataSuccess(bean: List<FreedomNoteBean>) {
+    override fun getDataSuccess(bean: List<NoteBean>) {
         mView.getDataSuccess(bean)
     }
 

@@ -10,7 +10,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.search.result.card.CardNoteFragment
-import com.zxcx.zhizhe.ui.search.result.card.FreedomNoteFragment
+import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_note.*
 

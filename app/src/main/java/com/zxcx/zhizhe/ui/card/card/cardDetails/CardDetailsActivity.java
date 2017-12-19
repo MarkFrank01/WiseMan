@@ -31,7 +31,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.event.UnLikeEvent;
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
+import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity;
@@ -50,9 +50,8 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
-public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
+public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
 
     @BindView(R.id.iv_card_details_back)
     ImageView mIvCardDetailsBack;
@@ -186,24 +185,12 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     }
 
     @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return !mSvCardDetails.canScrollVertically(-1);
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
-        mPresenter.getCardDetails(cardId);
-        mWebView.reload();
-    }
-
-    @Override
     public void onReload(View v) {
         mPresenter.getCardDetails(cardId);
     }
 
     @Override
     public void getDataSuccess(CardDetailsBean bean) {
-        mRefreshLayout.refreshComplete();
         collectStatus = bean.isCollect();
         likeStatus = bean.isLike();
         postSuccess(bean);
@@ -408,7 +395,7 @@ public class CardDetailsActivity extends RefreshMvpActivity<CardDetailsPresenter
     }
 
     private void gotoShare(String url, String content) {
-        ShareDialog shareDialog = new ShareDialog();
+        ShareCardDialog shareDialog = new ShareCardDialog();
         Bundle bundle = new Bundle();
         bundle.putString("name",name);
         if (!StringUtils.isEmpty(content)) {

@@ -38,7 +38,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
  * Created by anm on 2017/5/27.
  */
 
-public class ShareCardDialog extends BaseDialog {
+public class ShareDialog extends BaseDialog {
 
     @BindView(R.id.tv_dialog_cancel)
     TextView mTvDialogCancel;

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.note.freedomNote
 
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteAdapter
+import com.zxcx.zhizhe.ui.search.result.card.NoteBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -48,7 +48,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         return FreedomNotePresenter(this)
     }
 
-    override fun getDataSuccess(list: List<FreedomNoteBean>) {
+    override fun getDataSuccess(list: List<NoteBean>) {
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -74,7 +74,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as FreedomNoteBean
+        val bean = adapter.data[position] as NoteBean
         val intent = Intent(mActivity,CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)

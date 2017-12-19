@@ -8,7 +8,7 @@ import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.UpgradeInfo;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.ui.card.card.share.ShareCardDialog;
+import com.zxcx.zhizhe.ui.card.card.share.ShareDialog;
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Utils;
 
@@ -56,7 +56,7 @@ public class AboutUSActivity extends BaseActivity {
 
     @OnClick(R.id.tv_about_us_share)
     public void onMTvAboutUsShareClicked() {
-        ShareCardDialog shareCardDialog = new ShareCardDialog();
+        ShareDialog shareCardDialog = new ShareDialog();
         Bundle bundle = new Bundle();
         bundle.putString("title", getString(R.string.app_name));
         bundle.putString("text", "只看实用知识");
