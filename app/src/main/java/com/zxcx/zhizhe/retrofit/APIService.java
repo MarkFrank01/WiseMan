@@ -9,6 +9,7 @@ import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
@@ -41,13 +42,29 @@ public interface APIService {
     String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
     /**
+     * 获取手机号注册状态
+     * 600:未注册
+     * 700:已注册
+     */
+    @POST("/user/isPhoneAlreadyBanding")
+    Flowable<BaseBean> checkPhoneRegistered(@Query("phoneNumber") String phone);
+
+    /**
+     * 验证短信验证码
+     */
+    @POST("/user/smsCodeVerification")
+    Flowable<BaseBean<SMSCodeVerificationBean>> smsCodeVerification(
+            @Query("phoneNumber") String phone,@Query("SMSCode") String code);
+
+    /**
      * 注册
      */
     @POST("/user/PhoneRegistered")
     Flowable<BaseBean<LoginBean>> phoneRegistered(
-            @Query("phoneNumber") String phone,@Query("SMSCode") String code,
-            @Query("password") String password, @Query("appType") int appType,
-            @Query("appChannel") String appChannel,@Query("appVersion") String appVersion);
+            @Query("phoneNumber") String phone,@Query("verifyKey") String verifyKey,
+            @Query("jpushRID") String jpushRID, @Query("password") String password,
+            @Query("appType") int appType, @Query("appChannel") String appChannel,
+            @Query("appVersion") String appVersion);
 
     /**
      * 登录
@@ -55,8 +72,8 @@ public interface APIService {
     @POST("/user/PhoneLogin")
     Flowable<BaseBean<LoginBean>> phoneLogin(
             @Query("phoneNumber") String phone, @Query("password") String password,
-            @Query("appType") int appType, @Query("appChannel") String appChannel,
-            @Query("appVersion") String appVersion);
+            @Query("jpushRID") String jpushRID, @Query("appType") int appType,
+            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
     /**
      * 第三方注册
@@ -76,8 +93,8 @@ public interface APIService {
     @POST("/user/thirdPartyLogin")
     Flowable<BaseBean<LoginBean>> channelLogin(
             @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
-            @Query("appType") int appType, @Query("appChannel") String appChannel,
-            @Query("appVersion") String appVersion);
+            @Query("jpushRID") String jpushRID, @Query("appType") int appType,
+            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
     /**
      * 获取绑定状态列表
@@ -97,8 +114,9 @@ public interface APIService {
      * 忘记密码
      */
     @POST("/user/ChangePassword")
-    Flowable<BaseBean> forgetPassword(
-            @Query("phoneNumber") String phone, @Query("SMSCode") String code, @Query("password") String password,
+    Flowable<BaseBean<LoginBean>> forgetPassword(
+            @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey,
+            @Query("jpushRID") String jpushRID, @Query("password") String password,
             @Query("appType") int appType);
 
     /**
@@ -381,5 +399,18 @@ public interface APIService {
      */
     @POST("/user/messageSetting")
     Flowable<BaseBean> setMessageSetting(
-            @Query("systemMessageSetting") int systemMessageSetting,@Query("dynamicMessageSetting") int dynamicMessageSetting);
+            @Query("systemMessageSetting") int systemMessageSetting,
+            @Query("dynamicMessageSetting") int dynamicMessageSetting);
+
+    /**
+     * 申请创作
+     * @param name 姓名
+     * @param phone 手机号
+     * @param idCard 身份证
+     * @return
+     */
+    @POST("/user/applyWriterQualification")
+    Flowable<BaseBean> applyCreation(
+            @Query("realName") String name,@Query("phoneNum") String phone
+            ,@Query("identityId") String idCard);
 }

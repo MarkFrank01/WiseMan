@@ -2,11 +2,10 @@ package com.zxcx.zhizhe.ui.loginAndRegister.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,11 +15,11 @@ import android.widget.TextView;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LoginEvent;
+import com.zxcx.zhizhe.event.PhoneRegisteredEvent;
 import com.zxcx.zhizhe.event.RegisterEvent;
-import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordActivity;
-import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -36,7 +35,11 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
+import butterknife.OnTextChanged;
+import butterknife.Unbinder;
 import cn.jiguang.analytics.android.api.JAnalyticsInterface;
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.PlatformDb;
@@ -46,7 +49,7 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.utils.WechatClientNotExistException;
 
-public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginContract.View {
+public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginContract.View {
 
     @BindView(R.id.et_login_phone)
     EditText mEtLoginPhone;
@@ -58,41 +61,41 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     ImageView mIvLoginPhoneClear;
 
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^.{6,16}$";
+    String passwordRules = "^.{8,20}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
 
     PlatformActionListener mChannelLoginListener = new ChannelLoginListener();
+    @BindView(R.id.iv_login_password_clear)
+    ImageView mIvLoginPasswordClear;
     private int channelType; // 1-QQ 2-WeChat 3-Weibo
     private int appType;
-    private String userName, userId, userIcon, userGender, appChannel, appVersion;
+    private String userName, userId, userIcon, userGender, appChannel, appVersion, jpushID;
+    private Unbinder unbinder;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
+        unbinder = ButterKnife.bind(this, root);
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         EventBus.getDefault().register(this);
-        initView();
 
         appType = Constants.APP_TYPE;
-        appChannel = WalleChannelReader.getChannel(this);
-        appVersion = Utils.getAppVersionName(this);
+        appChannel = WalleChannelReader.getChannel(mActivity);
+        appVersion = Utils.getAppVersionName(mActivity);
+        jpushID = JPushInterface.getRegistrationID(mActivity);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
+        unbinder.unbind();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-    }
-
-    private void initView() {
-        mEtLoginPhone.addTextChangedListener(new LoginTextWatcher());
-        mEtLoginPhone.addTextChangedListener(new PhoneTextWatcher());
-        mEtLoginPassword.addTextChangedListener(new LoginTextWatcher());
-        mEtLoginPassword.setOnEditorActionListener(new LoginListener());
-        TextPaint paint = mBtnLogin.getPaint();
-        paint.setFakeBoldText(true);
     }
 
     @Override
@@ -105,13 +108,12 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         ZhiZheUtils.saveLoginData(bean);
         //极光统计
         cn.jiguang.analytics.android.api.LoginEvent lEvent = new cn.jiguang.analytics.android.api.LoginEvent("defult", true);
-        lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(this)).addKeyValue("appVersion", Utils.getAppVersionName(this));
-        JAnalyticsInterface.onEvent(this, lEvent);
+        lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(mActivity)).addKeyValue("appVersion", Utils.getAppVersionName(mActivity));
+        JAnalyticsInterface.onEvent(mActivity, lEvent);
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
         Utils.closeInputMethod(mEtLoginPassword);
-        finish();
     }
 
     @Override
@@ -122,21 +124,27 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
     @Override
     public void channelLoginNeedRegister() {
         toastShow("请绑定手机号码");
-        Intent intent = new Intent(this, ChannelRegisterActivity.class);
-        intent.putExtra("userId",userId);
-        intent.putExtra("userName",userName);
-        intent.putExtra("userIcon",userIcon);
-        intent.putExtra("userGender",userGender);
-        intent.putExtra("channelType",channelType);
+        Intent intent = new Intent(mActivity, ChannelRegisterActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("userName", userName);
+        intent.putExtra("userIcon", userIcon);
+        intent.putExtra("userGender", userGender);
+        intent.putExtra("channelType", channelType);
         startActivity(intent);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(RegisterEvent event) {
+    private void onMessageEvent(PhoneRegisteredEvent event) {
+        //手机号已注册，跳转登录
+        mEtLoginPhone.setText(event.getPhone());
+        Utils.showInputMethod(mEtLoginPassword);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    private void onMessageEvent(RegisterEvent event) {
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
-        finish();
     }
 
     @OnClick(R.id.iv_login_phone_clear)
@@ -144,15 +152,14 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         mEtLoginPhone.setText("");
     }
 
-    @OnClick(R.id.tv_login_register)
-    public void onMTvLoginRegisterClicked() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
+    @OnClick(R.id.iv_login_password_clear)
+    public void onMIvLoginPasswordClearClicked() {
+        mEtLoginPassword.setText("");
     }
 
     @OnClick(R.id.tv_login_forget_password)
     public void onMTvLoginForgetPasswordClicked() {
-        Intent intent = new Intent(this, ForgetPasswordActivity.class);
+        Intent intent = new Intent(mActivity, ForgetPasswordActivity.class);
         startActivity(intent);
     }
 
@@ -185,17 +192,46 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
         weibo.showUser(null);
     }
 
-    @OnClick(R.id.iv_login_close)
-    public void onViewClicked() {
-        Utils.closeInputMethod(mActivity);
-        onBackPressed();
+    @OnTextChanged({R.id.et_login_phone,R.id.et_login_password})
+    public void onTextChange(){
+        if (mEtLoginPhone.length() > 0) {
+            mIvLoginPhoneClear.setVisibility(View.VISIBLE);
+        } else {
+            mIvLoginPhoneClear.setVisibility(View.GONE);
+        }
+        if (mEtLoginPassword.length() > 0) {
+            mIvLoginPasswordClear.setVisibility(View.VISIBLE);
+        } else {
+            mIvLoginPasswordClear.setVisibility(View.GONE);
+        }
+        if (checkPhone()){
+            mEtLoginPassword.setEnabled(true);
+        }else {
+            mEtLoginPassword.setEnabled(false);
+        }
+        if (checkPhone() && checkPassword()) {
+            mBtnLogin.setEnabled(true);
+        } else {
+            mBtnLogin.setEnabled(false);
+        }
+    }
+
+    @OnEditorAction({R.id.et_login_phone,R.id.et_login_password})
+    public boolean onEnterClick(TextView v, int actionId, KeyEvent event){
+        if (actionId == EditorInfo.IME_ACTION_SEARCH
+                || actionId == EditorInfo.IME_ACTION_DONE
+                || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+            mBtnLogin.performClick();
+            return true;
+        }
+        return false;
     }
 
     private void login() {
         if (checkPhone() && checkPassword()) {
             String phone = mEtLoginPhone.getText().toString();
             String password = MD5Utils.md5(mEtLoginPassword.getText().toString());
-            mPresenter.phoneLogin(phone, password, appType, appChannel, appVersion);
+            mPresenter.phoneLogin(phone, password, jpushID, appType, appChannel, appVersion);
         }
     }
 
@@ -228,92 +264,25 @@ public class LoginActivity extends MvpActivity<LoginPresenter> implements LoginC
                 userIcon = platDB.getUserIcon();
                 userId = platDB.getUserId();
                 userName = platDB.getUserName();
-                mPresenter.channelLogin(channelType,userId,appType,appChannel,appVersion);
+                mPresenter.channelLogin(channelType, userId, jpushID, appType, appChannel, appVersion);
             }
         }
 
         @Override
         public void onError(Platform platform, int i, final Throwable throwable) {
             throwable.printStackTrace();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (throwable instanceof WechatClientNotExistException){
-                        toastShow("请先安装微信客户端");
-                    }else {
-                        toastShow("登录失败");
-                    }
+            mActivity.runOnUiThread(() -> {
+                if (throwable instanceof WechatClientNotExistException) {
+                    toastShow("请先安装微信客户端");
+                } else {
+                    toastShow("登录失败");
                 }
             });
         }
 
         @Override
         public void onCancel(Platform platform, int i) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    toastShow("登录取消");
-                }
-            });
-        }
-    }
-
-    class LoginTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtLoginPhone.length() > 0 && mEtLoginPassword.length() > 0) {
-                mBtnLogin.setEnabled(true);
-            } else {
-                mBtnLogin.setEnabled(false);
-            }
-        }
-    }
-
-
-    class PhoneTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtLoginPhone.length() > 0) {
-                mIvLoginPhoneClear.setVisibility(View.VISIBLE);
-            } else {
-                mIvLoginPhoneClear.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    private class LoginListener implements TextView.OnEditorActionListener {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
-            if (actionId == EditorInfo.IME_ACTION_SEARCH
-                    || actionId == EditorInfo.IME_ACTION_DONE
-                    || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
-                login();
-                return true;
-            }
-            return false;
+            mActivity.runOnUiThread(() -> toastShow("登录取消"));
         }
     }
 }

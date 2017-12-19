@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.widget;
+package com.zxcx.zhizhe.ui.loginAndRegister.register;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,9 +12,10 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
+import com.zxcx.zhizhe.event.PhoneConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.utils.TextViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,21 +28,21 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class UnFollowConfirmDialog extends BaseDialog {
+public class PhoneConfirmDialog extends BaseDialog {
 
     Unbinder unbinder;
-    @BindView(R.id.tv_dialog_delete_confirm)
-    TextView mTvDialogDeleteConfirm;
     @BindView(R.id.tv_dialog_cancel)
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
+    @BindView(R.id.tv_dialog_phone_confirm)
+    TextView mTvDialogPhoneConfirm;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_delete_confirm, container);
+        View view = inflater.inflate(R.layout.dialog_phone_confirm, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -65,6 +66,9 @@ public class UnFollowConfirmDialog extends BaseDialog {
         super.onViewCreated(view, savedInstanceState);
         TextPaint tp = mTvDialogConfirm.getPaint();
         tp.setFakeBoldText(true);
+
+        String phone = getArguments().getString("phone");
+        TextViewUtils.setTextViewColorAndBold(mTvDialogPhoneConfirm,phone,getString(R.string.tv_dialog_phone_confirm,phone));
     }
 
     @Override
@@ -80,7 +84,7 @@ public class UnFollowConfirmDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new UnFollowConfirmEvent(getArguments().getInt("userId")));
+        EventBus.getDefault().post(new PhoneConfirmEvent());
         this.dismiss();
     }
 }

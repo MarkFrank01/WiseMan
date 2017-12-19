@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
 
@@ -88,7 +88,7 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
 
     @Override
     public void startLogin() {
-        startActivity(new Intent(mActivity, LoginActivity.class));
+        startActivity(new Intent(mActivity, LoginFragment.class));
     }
 
     @OnClick(R.id.iv_current_password_clear)

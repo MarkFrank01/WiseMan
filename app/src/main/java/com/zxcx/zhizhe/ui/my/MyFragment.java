@@ -44,8 +44,8 @@ import butterknife.Unbinder;
 public class MyFragment extends BaseFragment {
 
     Unbinder unbinder;
-    @BindView(R.id.iv_my_red_point)
-    ImageView mIvMyRedPoint;
+    @BindView(R.id.iv_message_red_point)
+    ImageView mIvMessageRedPoint;
     @BindView(R.id.iv_my_head)
     RoundedImageView mIvMyHead;
     @BindView(R.id.tv_my_nick_name)
@@ -54,6 +54,8 @@ public class MyFragment extends BaseFragment {
     TextView mTvMyInfo;
     @BindView(R.id.fl_my_message)
     FrameLayout mFlMyMessage;
+    @BindView(R.id.iv_creation_red_point)
+    ImageView mIvCreationRedPoint;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,7 +137,7 @@ public class MyFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    @OnClick({R.id.iv_my_head,R.id.tv_my_nick_name})
+    @OnClick({R.id.iv_my_head, R.id.tv_my_nick_name})
     public void onMIvMyHeadClicked() {
         //账户资料界面
         Intent intent = new Intent(getContext(), UserInfoActivity.class);

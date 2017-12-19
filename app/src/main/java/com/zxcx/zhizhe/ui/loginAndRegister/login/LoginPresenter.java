@@ -13,12 +13,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         mModel = new LoginModel(this);
     }
 
-    public void phoneLogin(String phone, String password, int appType, String appChannel, String appVersion){
-        mModel.phoneLogin(phone,password,appType,appChannel,appVersion);
+    public void phoneLogin(String phone, String password, String jpushRID, int appType, String appChannel, String appVersion){
+        mModel.phoneLogin(phone,password,jpushRID,appType,appChannel,appVersion);
     }
 
-    public void channelLogin(int channelType, String openId, int appType, String appChannel, String appVersion){
-        mModel.channelLogin(channelType,openId,appType,appChannel,appVersion);
+    public void channelLogin(int channelType, String openId, String jpushRID, int appType, String appChannel, String appVersion){
+        mModel.channelLogin(channelType,openId,jpushRID,appType,appChannel,appVersion);
     }
 
     @Override

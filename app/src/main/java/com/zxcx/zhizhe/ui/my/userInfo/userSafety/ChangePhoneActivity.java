@@ -70,12 +70,6 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
         SMSSDK.unregisterAllEventHandler();
     }
 
-    @OnClick(R.id.tv_forget_password_send_over)
-    public void onViewClicked() {
-        SMSSendOverDialog dialog = new SMSSendOverDialog();
-        dialog.show(getFragmentManager(), "ForgerPasswordActivity");
-    }
-
     @OnClick(R.id.tv_toolbar_right)
     public void onMTvToolbarRightClicked() {
         changePhone(mEtChangePhonePhone.getText().toString(),mEtChangePhoneVerificationCode.getText().toString());

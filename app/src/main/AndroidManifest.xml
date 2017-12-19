@@ -92,7 +92,7 @@
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:name=".ui.loginAndRegister.LoginActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
@@ -124,9 +124,6 @@
             android:name=".ui.card.card.cardDetails.CardDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
-        <activity
-            android:name=".ui.loginAndRegister.register.RegisterActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
             android:screenOrientation="portrait"/>
@@ -215,6 +212,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.setting.MessageModeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.ApplyForCreationActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zxcx.zhizhe.widget.RoundedFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/sv_dialog_creation_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:text="智者内容创作协议"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:id="@+id/fl_dialog_creation_agreement"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+            </FrameLayout>
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_marginTop="34dp"
+                style="@style/line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp">
+
+                <TextView
+                    android:id="@+id/tv_dialog_cancel"
+                    android:text="拒绝"
+                    android:gravity="center"
+                    android:textColor="@color/button_blue"
+                    android:textSize="17sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+                <View
+                    android:background="@color/line"
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/tv_dialog_confirm"
+                    android:text="接受"
+                    android:gravity="center"
+                    android:textColor="@color/button_blue"
+                    android:textSize="17sp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</com.zxcx.zhizhe.widget.RoundedFrameLayout>

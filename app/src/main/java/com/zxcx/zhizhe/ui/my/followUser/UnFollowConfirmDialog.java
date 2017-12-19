@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails;
+package com.zxcx.zhizhe.ui.my.followUser;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,23 +27,21 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class NoteTitleDialog extends BaseDialog {
+public class UnFollowConfirmDialog extends BaseDialog {
 
     Unbinder unbinder;
+    @BindView(R.id.tv_dialog_delete_confirm)
+    TextView mTvDialogDeleteConfirm;
     @BindView(R.id.tv_dialog_cancel)
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
-    @BindView(R.id.et_dialog_note_title)
-    EditText mEtDialogNoteTitle;
-    @BindView(R.id.tv_dialog_note_title)
-    TextView mTvDialogNoteTitle;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_note_title, container);
+        View view = inflater.inflate(R.layout.dialog_un_follow, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -52,7 +52,7 @@ public class NoteTitleDialog extends BaseDialog {
 
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(52), 0, ScreenUtils.dip2px(52), 0);
+        window.getDecorView().setPadding(ScreenUtils.dip2px(53f), 0, ScreenUtils.dip2px(53f), 0);
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = Gravity.CENTER;
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -64,8 +64,6 @@ public class NoteTitleDialog extends BaseDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextPaint tp = mTvDialogConfirm.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogNoteTitle.getPaint();
         tp.setFakeBoldText(true);
     }
 
@@ -82,6 +80,7 @@ public class NoteTitleDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        //todo 保存笔记
+        EventBus.getDefault().post(new UnFollowConfirmEvent(getArguments().getInt("userId")));
+        this.dismiss();
     }
 }

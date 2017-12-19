@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.loginAndRegister.forget;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 
 public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContract.View> implements ForgetPasswordContract.Presenter {
 
@@ -13,8 +15,36 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
         mModel = new ForgetPasswordModel(this);
     }
 
-    public void forgetPassword(String phone, String code, String password, int appType){
-        mModel.forgetPassword(phone,code,password,appType);
+    public void forgetPassword(String phone, String verifyKey, String jpushRID, String password, int appType){
+        mModel.forgetPassword(phone,verifyKey,jpushRID,password,appType);
+    }
+
+    public void checkPhoneRegistered(String phone){
+        mModel.checkPhoneRegistered(phone);
+    }
+
+    public void smsCodeVerification(String phone, String code){
+        mModel.smsCodeVerification(phone,code);
+    }
+
+    @Override
+    public void getDataSuccess(LoginBean bean) {
+        mView.getDataSuccess(bean);
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        mView.toastFail(msg);
+    }
+
+    @Override
+    public void getPhoneStatusSuccess(boolean isRegistered) {
+        mView.getPhoneStatusSuccess(isRegistered);
+    }
+
+    @Override
+    public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
+        mView.smsCodeVerificationSuccess(bean);
     }
 
     @Override
@@ -35,16 +65,6 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
     public void detachView() {
         super.detachView();
         mModel.onDestroy();
-    }
-
-    @Override
-    public void postSuccess() {
-        mView.postSuccess();
-    }
-
-    @Override
-    public void postFail(String msg) {
-        mView.postFail(msg);
     }
 }
 

@@ -3,41 +3,46 @@ package com.zxcx.zhizhe.ui.loginAndRegister.register;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextPaint;
-import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.PhoneConfirmEvent;
 import com.zxcx.zhizhe.event.RegisterEvent;
-import com.zxcx.zhizhe.mvpBase.MvpActivity;
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
+import com.zxcx.zhizhe.mvpBase.FragmentBackHandler;
+import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
-import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class RegisterActivity extends MvpActivity<RegisterPresenter> implements RegisterContract.View {
+public class RegisterFragment extends MvpFragment<RegisterPresenter> implements RegisterContract.View, FragmentBackHandler {
 
     @BindView(R.id.et_register_phone)
     EditText mEtRegisterPhone;
@@ -51,35 +56,62 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     EditText mEtRegisterPassword;
     @BindView(R.id.btn_register)
     Button mBtnRegister;
-    @BindView(R.id.tv_register_send_over)
-    TextView mTvRegisterSendOver;
+    @BindView(R.id.btn_next)
+    Button mBtnNext;
+    @BindView(R.id.ll_register_phone)
+    LinearLayout mLlRegisterPhone;
+    @BindView(R.id.ll_register_password)
+    LinearLayout mLlRegisterPassword;
 
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^.{6,16}$";
+    String passwordRules = "^.{8,20}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
+    private Unbinder unbinder;
+    private String jpushRID;
+    private String verifyKey;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
-
-        SMSSDK.registerEventHandler(new EventHandle());
-
-        CheckNullTextWatcher textWatcher = new CheckNullTextWatcher();
-        mEtRegisterPhone.addTextChangedListener(textWatcher);
-        mEtRegisterPhone.addTextChangedListener(new PhoneTextWatcher());
-        mEtRegisterPassword.addTextChangedListener(textWatcher);
-        mEtRegisterVerificationCode.addTextChangedListener(textWatcher);
-        TextPaint paint = mBtnRegister.getPaint();
-        paint.setFakeBoldText(true);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_register, container, false);
+        unbinder = ButterKnife.bind(this, root);
+        return root;
     }
 
     @Override
-    protected void onDestroy() {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        EventBus.getDefault().register(this);
+
+        jpushRID = JPushInterface.getRegistrationID(mActivity);
+        SMSSDK.registerEventHandler(new EventHandle());
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden){
+            EventBus.getDefault().unregister(this);
+        }else {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        if (mLlRegisterPassword.getVisibility() == View.VISIBLE){
+            mLlRegisterPassword.setVisibility(View.GONE);
+            mLlRegisterPhone.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        unbinder.unbind();
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
@@ -93,14 +125,41 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
     public void getDataSuccess(LoginBean bean) {
         ZhiZheUtils.saveLoginData(bean);
         EventBus.getDefault().post(new RegisterEvent());
-        Intent intent = new Intent(RegisterActivity.this, SelectAttentionActivity.class);
+        Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
         startActivity(intent);
-        finish();
     }
 
-    @OnClick(R.id.iv_register_close)
-    public void onMIvRegisterCloseClicked() {
-        onBackPressed();
+    @Override
+    public void getPhoneStatusSuccess(boolean isRegistered) {
+        if (isRegistered){
+            //手机号已注册提示框
+            PhoneRegisteredDialog registeredDialog = new PhoneRegisteredDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("phone",mEtRegisterPhone.getText().toString());
+            registeredDialog.setArguments(bundle);
+            registeredDialog.show(mActivity.getFragmentManager(),"");
+        }else {
+            //手机号确认提示框
+            PhoneConfirmDialog confirmDialog = new PhoneConfirmDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("phone",mEtRegisterPhone.getText().toString());
+            confirmDialog.setArguments(bundle);
+            confirmDialog.show(mActivity.getFragmentManager(),"");
+        }
+    }
+
+    @Override
+    public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
+        verifyKey = bean.getVerifyKey();
+        mLlRegisterPhone.setVisibility(View.GONE);
+        mLlRegisterPassword.setVisibility(View.VISIBLE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(PhoneConfirmEvent event) {
+        //手机号确认成功,发送验证码
+        showLoading();
+        SMSSDK.getVerificationCode("86", mEtRegisterPhone.getText().toString());
     }
 
     @OnClick(R.id.iv_register_phone_clear)
@@ -110,40 +169,45 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
 
     @OnClick(R.id.tv_register_send_verification)
     public void onMTvRegisterSendVerificationClicked() {
-        if (checkPhone()) {
-            showLoading();
-            SMSSDK.getVerificationCode("86",mEtRegisterPhone.getText().toString());
-        }
+        mPresenter.checkPhoneRegistered(mEtRegisterPhone.getText().toString());
+    }
+
+    @OnClick(R.id.btn_next)
+    public void onMBtnNextClicked() {
+        //验证验证码
+        mPresenter.smsCodeVerification(mEtRegisterPhone.getText().toString()
+                ,mEtRegisterVerificationCode.getText().toString());
     }
 
     @OnClick(R.id.btn_register)
     public void onMBtnRegisterClicked() {
-        if (checkPhone() && checkPassword()) {
-            String phone = mEtRegisterPhone.getText().toString();
-            String password = MD5Utils.md5(mEtRegisterPassword.getText().toString());
-            String code = mEtRegisterVerificationCode.getText().toString();
-            int appType = Constants.APP_TYPE;
-            String appChannel = WalleChannelReader.getChannel(this);
-            String appVersion = Utils.getAppVersionName(this);
-            mPresenter.phoneRegister(phone,code,password,appType,appChannel,appVersion);
-//            finish();
+        String phone = mEtRegisterPhone.getText().toString();
+        String password = MD5Utils.md5(mEtRegisterPassword.getText().toString());
+        int appType = Constants.APP_TYPE;
+        String appChannel = WalleChannelReader.getChannel(mActivity);
+        String appVersion = Utils.getAppVersionName(mActivity);
+        mPresenter.phoneRegister(phone, verifyKey, jpushRID, password, appType, appChannel, appVersion);
+    }
+
+    @OnTextChanged({R.id.et_register_phone,R.id.et_register_verification_code})
+    public void onRegisterNextTextChange(){
+        mBtnNext.setEnabled(checkPhone() && mEtRegisterVerificationCode.length() > 0);
+    }
+
+    @OnTextChanged(R.id.et_register_password)
+    public void onRegisterPasswordTextChange(){
+        mBtnRegister.setEnabled(checkPassword());
+    }
+
+    @OnTextChanged(R.id.et_register_phone)
+    public void onRegisterPhoneTextChange(){
+        mTvRegisterSendVerification.setEnabled(checkPhone());
+        if (mEtRegisterPhone.length() > 0) {
+            mIvRegisterPhoneClear.setVisibility(View.VISIBLE);
+        } else {
+            mIvRegisterPhoneClear.setVisibility(View.GONE);
         }
     }
-
-    @OnClick(R.id.tv_register_agreement)
-    public void onMTvRegisterAgreementClicked() {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("title",getString(R.string.agreement));
-        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.agreement_url));
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.tv_register_send_over)
-    public void onViewClicked() {
-        SMSSendOverDialog dialog = new SMSSendOverDialog();
-        dialog.show(getFragmentManager(),"");
-    }
-
 
     private boolean checkPhone() {
         if (phonePattern.matcher(mEtRegisterPhone.getText().toString()).matches()) {
@@ -183,57 +247,10 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
         }
     };
 
-    class CheckNullTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtRegisterPhone.length() > 0 && mEtRegisterVerificationCode.length() > 0
-                    && mEtRegisterPassword.length() > 0) {
-                mBtnRegister.setEnabled(true);
-            } else {
-                mBtnRegister.setEnabled(false);
-            }
-        }
-    }
-
-    class PhoneTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtRegisterPhone.length() > 0) {
-                mIvRegisterPhoneClear.setVisibility(View.VISIBLE);
-            } else {
-                mIvRegisterPhoneClear.setVisibility(View.GONE);
-            }
-            mTvRegisterSendVerification.setVisibility(View.VISIBLE);
-            mTvRegisterSendOver.setVisibility(View.GONE);
-        }
-    }
-
     class EventHandle extends EventHandler {
         @Override
         public void afterEvent(final int event, final int result, final Object data) {
-            runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     hideLoading();
@@ -266,8 +283,7 @@ public class RegisterActivity extends MvpActivity<RegisterPresenter> implements 
                                 case 465:
                                 case 477:
                                 case 478:
-                                    mTvRegisterSendVerification.setVisibility(View.GONE);
-                                    mTvRegisterSendOver.setVisibility(View.VISIBLE);
+                                    toastShow("获取验证码次数频繁，请稍后重试");
                                     break;
                                 default:
                                     toastShow(des);

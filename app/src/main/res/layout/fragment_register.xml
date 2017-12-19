@@ -1,59 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/iv_forget_close"
-            android:layout_gravity="right"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:padding="10dp"
-            android:src="@drawable/common_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-    </FrameLayout>
-
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="50dp"
-        android:src="@drawable/logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
-
-    <TextView
-        android:layout_marginBottom="30dp"
-        android:text="找回密码"
-        android:textColor="@color/button_blue"
-        android:textSize="@dimen/text_size_text_1"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_forget_phone"
-        android:visibility="gone"
+        android:id="@+id/ll_register_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:layout_marginTop="25dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/et_forget_phone"
+                android:id="@+id/et_register_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -68,7 +34,7 @@
                 android:textSize="@dimen/text_size_text_1"/>
 
             <ImageView
-                android:id="@+id/iv_forget_phone_clear"
+                android:id="@+id/iv_register_phone_clear"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,10 +44,10 @@
                 android:src="@drawable/iv_phone_clear"/>
 
             <View
-                android:layout_below="@+id/et_forget_phone"
+                android:layout_below="@+id/et_register_phone"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/line"/>
+                android:background="@drawable/bottom_dialog_add_collecr_folder"/>
 
         </RelativeLayout>
 
@@ -93,7 +59,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/et_forget_verification_code"
+                android:id="@+id/et_register_verification_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -107,7 +73,7 @@
                 android:textSize="@dimen/text_size_text_1"/>
 
             <TextView
-                android:id="@+id/tv_forget_send_verification"
+                android:id="@+id/tv_register_send_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -118,8 +84,10 @@
                 android:padding="10dp"/>
 
             <View
-                android:layout_below="@+id/et_forget_verification_code"
-                style="@style/line"/>
+                android:layout_below="@+id/et_register_verification_code"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@drawable/bottom_dialog_add_collecr_folder"/>
 
         </RelativeLayout>
 
@@ -138,23 +106,25 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_forget_password"
+        android:id="@+id/ll_register_password"
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:layout_marginTop="25dp"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/et_forget_password"
+                android:id="@+id/et_register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:hint=" 输入新密码（8-20）"
+                android:hint=" 设置6-16位密码"
                 android:background="@null"
                 android:inputType="textPassword"
                 android:paddingBottom="15dp"
@@ -165,14 +135,16 @@
                 android:textSize="@dimen/text_size_text_1"/>
 
             <View
-                android:layout_below="@+id/et_forget_password"
-                style="@style/line"/>
+                android:layout_below="@+id/et_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@drawable/bottom_dialog_add_collecr_folder"/>
 
         </RelativeLayout>
 
         <Button
-            android:id="@+id/btn_forget"
-            android:text="完成"
+            android:id="@+id/btn_register"
+            android:text="注册"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/color_btn_login"
             android:enabled="false"
@@ -183,5 +155,4 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"/>
     </LinearLayout>
-
 </LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_dialog_phone_confirm_title"
+        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        android:text="手机号确认"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_dialog_phone_confirm"
+        android:layout_below="@id/tv_dialog_phone_confirm_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="22dp"
+        android:background="@null"
+        android:text="@string/tv_dialog_phone_confirm"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_below="@+id/tv_dialog_phone_confirm"
+        style="@style/line"/>
+    
+    <LinearLayout
+        android:layout_below="@id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+
+        <TextView
+            android:id="@+id/tv_dialog_cancel"
+            android:text="@string/common_cancel"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:background="@color/line"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_dialog_confirm"
+            android:text="@string/common_confirm"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    
+</RelativeLayout>

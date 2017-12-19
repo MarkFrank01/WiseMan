@@ -1,56 +1,76 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.forget;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.PhoneConfirmEvent;
+import com.zxcx.zhizhe.event.RegisterEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog;
+import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
+import com.zxcx.zhizhe.utils.Utils;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import cn.jpush.android.api.JPushInterface;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
 public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
 
-    @BindView(R.id.iv_forget_password_close)
-    ImageView mIvForgetPasswordClose;
-    @BindView(R.id.et_forget_password_phone)
-    EditText mEtForgetPasswordPhone;
-    @BindView(R.id.iv_forget_password_phone_clear)
-    ImageView mIvForgetPasswordPhoneClear;
-    @BindView(R.id.et_forget_password_verification_code)
-    EditText mEtForgetPasswordVerificationCode;
-    @BindView(R.id.tv_forget_password_send_verification)
-    TextView mTvForgetPasswordSendVerification;
-    @BindView(R.id.tv_forget_password_send_over)
-    TextView mTvForgetPasswordSendOver;
-    @BindView(R.id.et_forget_password_password)
-    EditText mEtForgetPasswordPassword;
-    @BindView(R.id.btn_forget_password_complete)
-    Button mBtnForgetPasswordComplete;
+    @BindView(R.id.iv_forget_close)
+    ImageView mIvForgetClose;
+    @BindView(R.id.et_forget_phone)
+    EditText mEtForgetPhone;
+    @BindView(R.id.iv_forget_phone_clear)
+    ImageView mIvForgetPhoneClear;
+    @BindView(R.id.et_forget_verification_code)
+    EditText mEtForgetVerificationCode;
+    @BindView(R.id.tv_forget_send_verification)
+    TextView mTvForgetSendVerification;
+    @BindView(R.id.btn_next)
+    Button mBtnNext;
+    @BindView(R.id.ll_forget_phone)
+    LinearLayout mLlForgetPhone;
+    @BindView(R.id.et_forget_password)
+    EditText mEtForgetPassword;
+    @BindView(R.id.btn_forget)
+    Button mBtnForget;
+    @BindView(R.id.ll_forget_password)
+    LinearLayout mLlForgetPassword;
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
     String passwordRules = "^.{6,16}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
+    private String verifyKey;
+    private String jpushRID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +78,21 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
 
+        jpushRID = JPushInterface.getRegistrationID(mActivity);
         SMSSDK.registerEventHandler(new EventHandle());
-
-        mEtForgetPasswordPhone.addTextChangedListener(new CheckNullTextWatcher());
-        mEtForgetPasswordPhone.addTextChangedListener(new PhoneTextWatcher());
-        mEtForgetPasswordVerificationCode.addTextChangedListener(new CheckNullTextWatcher());
-        mEtForgetPasswordPassword.addTextChangedListener(new CheckNullTextWatcher());
-        TextPaint paint = mBtnForgetPasswordComplete.getPaint();
-        paint.setFakeBoldText(true);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onBackPressed() {
+        if (mLlForgetPassword.getVisibility() == View.VISIBLE) {
+            mLlForgetPassword.setVisibility(View.GONE);
+            mLlForgetPhone.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
@@ -79,42 +102,96 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         return new ForgetPasswordPresenter(this);
     }
 
-    @OnClick(R.id.iv_forget_password_close)
-    public void onMIvForgetPasswordCloseClicked() {
-        onBackPressed();
+    @Override
+    public void getDataSuccess(LoginBean bean) {
+        ZhiZheUtils.saveLoginData(bean);
+        EventBus.getDefault().post(new RegisterEvent());
+        Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
+        startActivity(intent);
     }
 
-    @OnClick(R.id.iv_forget_password_phone_clear)
-    public void onMIvForgetPasswordPhoneClearClicked() {
-        mEtForgetPasswordPhone.setText("");
-    }
-
-    @OnClick(R.id.tv_forget_password_send_verification)
-    public void onMTvForgetPasswordSendVerificationClicked() {
-        if (checkPhone()) {
-            SMSSDK.getVerificationCode("86", mEtForgetPasswordPhone.getText().toString());
+    @Override
+    public void getPhoneStatusSuccess(boolean isRegistered) {
+        if (isRegistered) {
+            //手机号确认提示框
+            PhoneConfirmDialog confirmDialog = new PhoneConfirmDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", mEtForgetPhone.getText().toString());
+            confirmDialog.setArguments(bundle);
+            confirmDialog.show(mActivity.getFragmentManager(), "");
+        } else {
+            //手机号未注册提示框
+            PhoneUnRegisteredDialog registeredDialog = new PhoneUnRegisteredDialog();
+            Bundle bundle = new Bundle();
+            bundle.putString("phone", mEtForgetPhone.getText().toString());
+            registeredDialog.setArguments(bundle);
+            registeredDialog.show(mActivity.getFragmentManager(), "");
         }
     }
 
-    @OnClick(R.id.btn_forget_password_complete)
-    public void onMBtnForgetPasswordCompleteClicked() {
-        if (checkPassword()) {
-            String phone = mEtForgetPasswordPhone.getText().toString();
-            String password = MD5Utils.md5(mEtForgetPasswordPassword.getText().toString());
-            String code = mEtForgetPasswordVerificationCode.getText().toString();
-            int appType = Constants.APP_TYPE;
-            mPresenter.forgetPassword(phone,code,password,appType);
-        }
+    @Override
+    public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
+        verifyKey = bean.getVerifyKey();
+        mLlForgetPhone.setVisibility(View.GONE);
+        mLlForgetPassword.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.tv_forget_password_send_over)
-    public void onViewClicked() {
-        SMSSendOverDialog dialog = new SMSSendOverDialog();
-        dialog.show(getFragmentManager(), "ForgerPasswordActivity");
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(PhoneConfirmEvent event) {
+        //手机号确认成功,发送验证码
+        showLoading();
+        SMSSDK.getVerificationCode("86", mEtForgetPhone.getText().toString());
+    }
+
+    @OnClick(R.id.iv_forget_phone_clear)
+    public void onMIvRegisterPhoneClearClicked() {
+        mEtForgetPhone.setText("");
+    }
+
+    @OnClick(R.id.tv_forget_send_verification)
+    public void onMTvRegisterSendVerificationClicked() {
+        mPresenter.checkPhoneRegistered(mEtForgetPhone.getText().toString());
+    }
+
+    @OnClick(R.id.btn_next)
+    public void onMBtnNextClicked() {
+        //验证验证码
+        mPresenter.smsCodeVerification(mEtForgetPhone.getText().toString()
+                , mEtForgetVerificationCode.getText().toString());
+    }
+
+    @OnClick(R.id.btn_register)
+    public void onMBtnRegisterClicked() {
+        String phone = mEtForgetPhone.getText().toString();
+        String password = MD5Utils.md5(mEtForgetPassword.getText().toString());
+        int appType = Constants.APP_TYPE;
+        String appChannel = WalleChannelReader.getChannel(mActivity);
+        String appVersion = Utils.getAppVersionName(mActivity);
+        mPresenter.forgetPassword(phone, verifyKey, jpushRID, password, appType);
+    }
+
+    @OnTextChanged({R.id.et_forget_phone, R.id.et_forget_verification_code})
+    public void onRegisterNextTextChange() {
+        mBtnNext.setEnabled(checkPhone() && mEtForgetVerificationCode.length() > 0);
+    }
+
+    @OnTextChanged(R.id.et_forget_password)
+    public void onRegisterPasswordTextChange() {
+        mBtnForget.setEnabled(checkPassword());
+    }
+
+    @OnTextChanged(R.id.et_forget_phone)
+    public void onRegisterPhoneTextChange() {
+        mTvForgetSendVerification.setEnabled(checkPhone());
+        if (mEtForgetPhone.length() > 0) {
+            mIvForgetPhoneClear.setVisibility(View.VISIBLE);
+        } else {
+            mIvForgetPhoneClear.setVisibility(View.GONE);
+        }
     }
 
     private boolean checkPhone() {
-        if (phonePattern.matcher(mEtForgetPasswordPhone.getText().toString()).matches()) {
+        if (phonePattern.matcher(mEtForgetPhone.getText().toString()).matches()) {
             return true;
         } else {
             toastShow("手机号格式错误!");
@@ -123,7 +200,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     }
 
     private boolean checkPassword() {
-        if (passwordPattern.matcher(mEtForgetPasswordPassword.getText().toString()).matches()) {
+        if (passwordPattern.matcher(mEtForgetPassword.getText().toString()).matches()) {
             return true;
         } else {
             toastShow("密码格式错误!");
@@ -134,13 +211,13 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     Runnable setDjs = new Runnable() {
         @Override
         public void run() {
-            mTvForgetPasswordSendVerification.setText(count + " S");
+            mTvForgetSendVerification.setText(count + " S");
             count--;
 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
-                mTvForgetPasswordSendVerification.setEnabled(true);
-                mTvForgetPasswordSendVerification.setText(R.string.re_get_verification);
+                mTvForgetSendVerification.setEnabled(true);
+                mTvForgetSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
 
@@ -151,67 +228,10 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         }
     };
 
-    @Override
-    public void postSuccess() {
-        onBackPressed();
-    }
-
-    @Override
-    public void postFail(String msg) {
-        toastShow(msg);
-    }
-
-    class CheckNullTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtForgetPasswordPhone.length() > 0 && mEtForgetPasswordVerificationCode.length() > 0
-                    && mEtForgetPasswordPassword.length() > 0) {
-                mBtnForgetPasswordComplete.setEnabled(true);
-            } else {
-                mBtnForgetPasswordComplete.setEnabled(false);
-            }
-        }
-    }
-
-    class PhoneTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            if (mEtForgetPasswordPhone.length() > 0) {
-                mIvForgetPasswordPhoneClear.setVisibility(View.VISIBLE);
-            } else {
-                mIvForgetPasswordPhoneClear.setVisibility(View.GONE);
-            }
-            mTvForgetPasswordSendVerification.setVisibility(View.VISIBLE);
-            mTvForgetPasswordSendOver.setVisibility(View.GONE);
-        }
-    }
-
     class EventHandle extends EventHandler {
         @Override
         public void afterEvent(final int event, final int result, final Object data) {
-            runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     hideLoading();
@@ -219,9 +239,10 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
                         //回调完成
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                             //提交验证码成功
+
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
-                            mTvForgetPasswordSendVerification.setEnabled(false);
+                            mTvForgetSendVerification.setEnabled(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                             //返回支持发送验证码的国家列表
@@ -243,8 +264,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
                                 case 465:
                                 case 477:
                                 case 478:
-                                    mTvForgetPasswordSendVerification.setVisibility(View.GONE);
-                                    mTvForgetPasswordSendOver.setVisibility(View.VISIBLE);
+                                    toastShow("获取验证码次数频繁，请稍后重试");
                                     break;
                                 default:
                                     toastShow(des);

@@ -19,7 +19,7 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment
 import com.zxcx.zhizhe.ui.rank.RankActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -138,7 +138,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     override fun startLogin() {
         ZhiZheUtils.logout()
         toastShow(R.string.login_timeout)
-        startActivity(Intent(mActivity, LoginActivity::class.java))
+        startActivity(Intent(mActivity, LoginFragment::class.java))
         if (loadService != null) {
             loadService.showCallback(AttentionNeedLoginCallback::class.java)
         }
@@ -169,7 +169,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
             tv_rank_my_read.visibility = View.GONE
             tv_rank_my_no_login.visibility = View.VISIBLE
             iv_rank_my_header.setImageResource(R.drawable.iv_my_head_placeholder)
-            rl_rank_my.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+            rl_rank_my.setOnClickListener { startActivity(Intent(mActivity, LoginFragment::class.java)) }
         }else{
             if (isFirst) {
                 mPresenter.getMyRank()

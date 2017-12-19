@@ -41,7 +41,7 @@ public class CancelFeedbackConfirmDialog extends BaseDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_delete_confirm, container);
+        View view = inflater.inflate(R.layout.dialog_un_follow, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
