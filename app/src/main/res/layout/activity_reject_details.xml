@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/sv_reject_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_reject_details"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_card"
+                android:layout_width="match_parent"
+                android:layout_height="212dp"
+                android:transitionName="cardImage"/>
+
+            <RelativeLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_reject_details_title"
+                    android:layout_marginTop="25dp"
+                    tools:text="动圈和铁圈耳机的区别"
+                    style="@style/tv_card"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/text_size_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="cardTitle"/>
+
+                <TextView
+                    android:id="@+id/tv_reject_details_info"
+                    tools:text="@string/tv_card_info"
+                    android:textColor="@color/text_color_2"
+                    android:textSize="@dimen/text_size_text_2"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@id/tv_reject_details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:transitionName="cardInfo"/>
+
+                <FrameLayout
+                    android:id="@+id/fl_reject_details_reject_bag"
+                    android:layout_toRightOf="@id/tv_reject_details_info"
+                    android:layout_below="@id/tv_reject_details_title"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_reject_details_reject_bag"
+                        tools:text="数码产品"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_card_details_card_bag"
+                        android:textColor="@color/button_blue"
+                        android:textSize="@dimen/text_size_text_2"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardBag"/>
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:background="@color/background"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:paddingTop="11dp"
+                android:paddingBottom="11dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="未通过原因"
+                    android:textColor="@color/text_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_reject_reason"
+                    android:layout_marginTop="8dp"
+                    tools:text="标题、内容不符合平台定位，内容不够详实、偏离主题。"
+                    android:textSize="@dimen/text_size_text_2"
+                    android:textColor="@color/text_color_1"
+                    android:lineSpacingExtra="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_reject_details"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_reject_reedit"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/background"
+                android:drawableLeft="@drawable/common_close"
+                android:drawablePadding="10dp"
+                android:layout_marginTop="54dp"
+                android:layout_marginBottom="85dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="重新编辑"
+                android:textColor="@color/button_blue"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_reject_details_back"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/common_close"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"/>
+</RelativeLayout>

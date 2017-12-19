@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
+import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
@@ -226,10 +227,18 @@ public interface APIService {
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 获取笔记详情
+     * 获取创作未通过详情
      */
     @POST("/article/getArticleBasicInfo")
-    Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(@Query("noteId") int noteId);
+    Flowable<BaseBean<RejectDetailsBean>> getRejectDetails(@Query("articleId") int cardId);
+
+    /**
+     * 获取笔记详情
+     * @param noteType 预览类型 0审核通过（默认）1审核中 2审核未通过 3自由笔记 4卡片笔记
+     */
+    @POST("/article/getArticleBasicInfo")
+    Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(
+            @Query("noteId") int noteId, @Query("viewType") int noteType);
 
     /**
      * 获取笔记列表

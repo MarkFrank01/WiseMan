@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.my.creation.passed
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.zxcx.zhizhe.ui.search.result.card.CreationBean
 import com.zxcx.zhizhe.ui.search.result.card.CreationContract
 import com.zxcx.zhizhe.ui.search.result.card.CreationPresenter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
@@ -78,10 +81,17 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CreationBean
-        val intent = Intent(mActivity,CardDetailsActivity::class.java)
+        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
+        val intent = Intent(mActivity, CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)
+        intent.putExtra("imageUrl", bean.imageUrl)
+        intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
+        intent.putExtra("author", bean.author)
+        mActivity.startActivity(intent, bundle)
     }
 
     private fun initRecyclerView() {

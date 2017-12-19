@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.NoteBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -75,9 +75,10 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as NoteBean
-        val intent = Intent(mActivity,CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, NoteDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
+        intent.putExtra("noteType", Constants.NOTE_TYPE_FREEDOM)
         startActivity(intent)
     }
 

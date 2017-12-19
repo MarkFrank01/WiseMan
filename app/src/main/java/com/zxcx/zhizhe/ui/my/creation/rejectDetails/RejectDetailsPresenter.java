@@ -1,24 +1,24 @@
-package com.zxcx.zhizhe.ui.my.note.noteDetails;
+package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
 
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
 
-public class NoteDetailsPresenter extends BasePresenter<NoteDetailsContract.View> implements NoteDetailsContract.Presenter {
+public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.View> implements RejectDetailsContract.Presenter {
 
-    private final NoteDetailsModel mModel;
+    private final RejectDetailsModel mModel;
 
-    public NoteDetailsPresenter(@NonNull NoteDetailsContract.View view) {
+    public RejectDetailsPresenter(@NonNull RejectDetailsContract.View view) {
         attachView(view);
-        mModel = new NoteDetailsModel(this);
+        mModel = new RejectDetailsModel(this);
     }
 
-    public void getNoteDetails(int noteId,int noteType){
-        mModel.getNoteDetails(noteId,noteType);
+    public void getRejectDetails(int RejectId){
+        mModel.getRejectDetails(RejectId);
     }
 
     @Override
-    public void getDataSuccess(NoteDetailsBean bean) {
+    public void getDataSuccess(RejectDetailsBean bean) {
         mView.getDataSuccess(bean);
     }
 

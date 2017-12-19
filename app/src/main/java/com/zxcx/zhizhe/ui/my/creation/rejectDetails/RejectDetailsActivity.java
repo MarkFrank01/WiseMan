@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.note.noteDetails;
+package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
 
 import android.os.Bundle;
 import android.text.TextPaint;
@@ -28,32 +28,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> implements NoteDetailsContract.View {
+public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> implements RejectDetailsContract.View {
 
-    @BindView(R.id.tv_note_details_title)
-    TextView mTvNoteDetailsTitle;
-    @BindView(R.id.fl_note_details)
-    FrameLayout mFlNoteDetails;
-    @BindView(R.id.iv_note_details)
-    ImageView mIvNoteDetails;
-    @BindView(R.id.tv_note_details_info)
-    TextView mTvNoteDetailsInfo;
-    @BindView(R.id.view_line)
-    View mViewLine;
-    @BindView(R.id.ll_note_details_bottom)
-    LinearLayout mLlNoteDetailsBottom;
+    @BindView(R.id.tv_reject_details_title)
+    TextView mTvRejectDetailsTitle;
+    @BindView(R.id.fl_reject_details)
+    FrameLayout mFlRejectDetails;
+    @BindView(R.id.iv_reject_details)
+    ImageView mIvRejectDetails;
+    @BindView(R.id.tv_reject_details_info)
+    TextView mTvRejectDetailsInfo;
+    @BindView(R.id.tv_reject_reason)
+    TextView mTvRejectReason;
+    @BindView(R.id.tv_reject_reedit)
+    TextView mTvRejectReedit;
 
     private WebView mWebView;
-    private int noteId;
+    private int cardId;
     private String name;
+    private String author;
     private String imageUrl;
     private String date;
-    private String mUrl;
-    private int noteType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_note_details);
+        setContentView(R.layout.activity_reject_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
@@ -61,12 +60,12 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         initData();
         initView();
 
-        mPresenter.getNoteDetails(noteId,noteType);
+        mPresenter.getRejectDetails(cardId);
 
-        ViewGroup.LayoutParams para = mIvNoteDetails.getLayoutParams();
+        ViewGroup.LayoutParams para = mIvRejectDetails.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.height = (screenWidth * 9 / 16);
-        mIvNoteDetails.setLayoutParams(para);
+        mIvRejectDetails.setLayoutParams(para);
     }
 
     @Override
@@ -89,16 +88,17 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     }
 
     @Override
-    protected NoteDetailsPresenter createPresenter() {
-        return new NoteDetailsPresenter(this);
+    protected RejectDetailsPresenter createPresenter() {
+        return new RejectDetailsPresenter(this);
     }
 
     @Override
-    public void getDataSuccess(NoteDetailsBean bean) {
+    public void getDataSuccess(RejectDetailsBean bean) {
         imageUrl = bean.getImageUrl();
         date = DateTimeUtils.getDateString(bean.getDate());
-        mTvNoteDetailsInfo.setText(getString(R.string.tv_note_info, date));
-        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvNoteDetails);
+        author = bean.getAuthorName();
+        String rejectReason = bean.getRejectReason();
+        mTvRejectReason.setText(rejectReason);
     }
 
     @Override
@@ -106,35 +106,30 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         super.toastFail(msg);
     }
 
-    @OnClick(R.id.iv_note_details_edit)
-    public void onMIvNoteDetailsEditClicked() {
-    }
-
-    @OnClick(R.id.iv_note_details_source)
-    public void onMIvNoteDetailsSourceClicked() {
-
-    }
-
-    @OnClick(R.id.iv_note_details_share)
-    public void onMIvNoteDetailsShareClicked() {
-        gotoShare(mUrl);
-    }
-
-    @OnClick(R.id.iv_note_details_back)
-    public void onMIvNoteDetailsBackClicked() {
+    @OnClick(R.id.iv_reject_details_back)
+    public void onMIvRejectDetailsBackClicked() {
         onBackPressed();
     }
 
+    @OnClick(R.id.tv_reject_reedit)
+    public void onMTvRejectReeditClicked() {
+        //todo 重编辑
+    }
+
     private void initData() {
-        noteId = getIntent().getIntExtra("id", 0);
-        noteType = getIntent().getIntExtra("noteType", 0);
+        cardId = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");
+        imageUrl = getIntent().getStringExtra("imageUrl");
+        date = getIntent().getStringExtra("date");
+        author = getIntent().getStringExtra("author");
     }
 
     private void initView() {
-        TextPaint paint = mTvNoteDetailsTitle.getPaint();
+        TextPaint paint = mTvRejectDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
-        mTvNoteDetailsTitle.setText(name);
+        mTvRejectDetailsTitle.setText(name);
+        mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);
@@ -149,30 +144,19 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                mLlNoteDetailsBottom.setVisibility(View.VISIBLE);
-                mViewLine.setVisibility(View.VISIBLE);
+                mTvRejectReedit.setVisibility(View.VISIBLE);
             }
         });
-        mFlNoteDetails.addView(mWebView);
+        mFlRejectDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        String url;
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + noteId;
+            url = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
         } else {
-            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + noteId;
+            url = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
 //            mUrl = "http://192.168.1.149/articleView/192";
 
         }
-        mWebView.loadUrl(mUrl);
-    }
-
-    private void gotoShare(String url) {
-        ShareNoteDialog shareDialog = new ShareNoteDialog();
-        Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        bundle.putString("url", url);
-        bundle.putString("imageUrl", imageUrl);
-        bundle.putString("date", date);
-        shareDialog.setArguments(bundle);
-        shareDialog.show(getFragmentManager(), "");
+        mWebView.loadUrl(url);
     }
 }
