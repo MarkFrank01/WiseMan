@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
+import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
@@ -364,6 +365,13 @@ public interface APIService {
     Flowable<BaseArrayBean<FollowUserBean>> getFollowUser(
             @Query("followType") int followType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取用户消息开关
+     * @return
+     */
+    @POST("/user/getMessageSetting")
+    Flowable<BaseBean<MessageModeBean>> getMessageSetting();
 
     /**
      * 设置用户消息开关
