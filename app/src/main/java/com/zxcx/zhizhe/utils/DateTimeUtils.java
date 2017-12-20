@@ -45,6 +45,15 @@ public class DateTimeUtils {
         }
     }
 
+    public static String getTimeString(Date date) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+            return format.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public static int getYear(String time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = GregorianCalendar.getInstance();

@@ -101,5 +101,10 @@
     <string name="tv_dialog_phone_confirm">确定以手机号&#160;%1$s&#160;接收短信验证码？</string>
     <string name="tv_dialog_phone_registered">手机号&#160;%1$s&#160;已注册，你可直接登录或找回密码</string>
     <string name="tv_dialog_phone_un_registered">手机号&#160;%1$s&#160;未注册，请核对后重试</string>
+    <string name="tv_item_message_value">智力值&#160;+%1$d</string>
+    <string name="tv_dynamic_message_no_data">暂无更多信息…</string>
+    <string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你，点击查看更多…</string>
+    <string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了，点击查看更多…</string>
+    <string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作，点击查看更多…</string>
     <!--common-end-->
 </resources>

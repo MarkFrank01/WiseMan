@@ -90,7 +90,7 @@
 
                 <TextView
                     android:text="未通过原因"
-                    android:textColor="@color/text_red"
+                    android:textColor="@color/red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

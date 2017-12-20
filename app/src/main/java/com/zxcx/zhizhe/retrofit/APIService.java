@@ -13,6 +13,9 @@ import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
+import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
+import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
+import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
@@ -416,4 +419,25 @@ public interface APIService {
     Flowable<BaseBean> applyCreation(
             @Query("realName") String name,@Query("phoneNum") String phone
             ,@Query("identityId") String idCard);
+
+    /**
+     * 获取系统消息
+     */
+    @POST("/message/getSystemMessageList")
+    Flowable<BaseArrayBean<SystemMessageBean>> getSystemMessage(
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取动态消息预览
+     */
+    @POST("/message/getDynamicMessageFaceInfo")
+    Flowable<BaseBean<DynamicMessageBean>> getDynamicMessage();
+
+    /**
+     * 获取动态消息预览
+     */
+    @POST("/message/getDynamicMessageList")
+    Flowable<BaseArrayBean<DynamicMessageListBean>> getDynamicMessageList(
+            @Query("messageType") int messageType,@Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 }

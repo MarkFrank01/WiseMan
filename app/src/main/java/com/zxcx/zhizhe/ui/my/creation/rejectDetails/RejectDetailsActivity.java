@@ -20,6 +20,7 @@ import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -94,11 +95,16 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
     @Override
     public void getDataSuccess(RejectDetailsBean bean) {
+        //进入时只有id的时候，在这里初始化界面
+        name = bean.getName();
         imageUrl = bean.getImageUrl();
         date = DateTimeUtils.getDateString(bean.getDate());
         author = bean.getAuthorName();
         String rejectReason = bean.getRejectReason();
         mTvRejectReason.setText(rejectReason);
+        mTvRejectDetailsTitle.setText(name);
+        mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
     }
 
     @Override
@@ -127,9 +133,12 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     private void initView() {
         TextPaint paint = mTvRejectDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
-        mTvRejectDetailsTitle.setText(name);
-        mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
-        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
+        if (!StringUtils.isEmpty(name))
+            mTvRejectDetailsTitle.setText(name);
+        if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
+            mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        if (!StringUtils.isEmpty(imageUrl))
+            ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);

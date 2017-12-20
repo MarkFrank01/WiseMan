@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.card.card.cardDetails;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,8 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.UnCollectEvent;
@@ -35,7 +32,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity;
-import com.zxcx.zhizhe.utils.GlideApp;
+import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -194,6 +191,14 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         collectStatus = bean.isCollect();
         likeStatus = bean.isLike();
         postSuccess(bean);
+        //进入时只有id的时候，在这里初始化界面
+        name = bean.getName();
+        imageUrl = bean.getImageUrl();
+        date = DateTimeUtils.getDateString(bean.getDate());
+        author = bean.getAuthorName();
+        mTvCardDetailsTitle.setText(name);
+        mTvCardDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvCardDetails);
     }
 
     @Override
@@ -347,10 +352,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         }
         TextPaint paint = mTvCardDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
-        mTvCardDetailsTitle.setText(name);
-        mTvCardDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
-
-        GlideApp
+        if (!StringUtils.isEmpty(name))
+            mTvCardDetailsTitle.setText(name);
+        if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
+            mTvCardDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        if (!StringUtils.isEmpty(imageUrl))
+            ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvCardDetails);
+        /*GlideApp
                 .with(this)
                 .load(imageUrl)
                 .placeholder(R.drawable.default_card)
@@ -362,7 +370,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
                         //图片加载完成的回调中，启动过渡动画
                         //supportStartPostponedEnterTransition();
                     }
-                });
+                });*/
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);

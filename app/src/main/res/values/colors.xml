@@ -13,8 +13,7 @@
     <color name="opacity_60">#99000000</color>
     <color name="opacity_70">#B2000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="red">#F60000</color>
-    <color name="text_red">#FB0007</color>
+    <color name="red">#FF0000</color>
     <color name="bg_details">#FFFFFF</color>
     <color name="bg_top_search">#EEEEEE</color>
     <color name="dialog_background">#F2FFFFFF</color>
