@@ -173,8 +173,8 @@ dependencies {
     compile "android.arch.persistence.room:rxjava2:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
-    //键盘冲突解决
-    compile 'cn.dreamtobe.kpswitch:library:1.6.0'
+    //Android工具类
+    compile 'com.blankj:utilcode:1.9.12'
 }
 repositories {
     mavenCentral()

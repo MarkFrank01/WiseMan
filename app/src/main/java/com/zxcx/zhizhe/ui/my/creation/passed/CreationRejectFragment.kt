@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean
 import com.zxcx.zhizhe.ui.search.result.card.CreationContract
@@ -85,7 +85,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
                 Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
                 Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, RejectDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment;
 import com.zxcx.zhizhe.utils.SVTSConstants;
+import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
@@ -81,21 +83,29 @@ public class BaseFragment extends Fragment implements BaseView{
 
     public void toastShow(int resId) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
-        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
+        ViewGroup.LayoutParams params = tvToast.getLayoutParams();
+        params.width = ScreenUtils.getScreenWidth();
+        tvToast.setLayoutParams(params);
         Toast toast = new Toast(mActivity);
         toast.setView(linearLayout);
         tvToast.setText(resId);
         toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
     }
 
     public void toastShow(String text) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
-        TextView tvToast = (TextView) linearLayout.findViewById(R.id.tv_toast);
+        TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
+        ViewGroup.LayoutParams params = tvToast.getLayoutParams();
+        params.width = ScreenUtils.getScreenWidth();
+        tvToast.setLayoutParams(params);
         Toast toast = new Toast(mActivity);
         toast.setView(linearLayout);
         tvToast.setText(text);
         toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
     }
 
