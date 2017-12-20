@@ -84,8 +84,9 @@ public interface APIService {
             @Query("password") String password, @Query("avatar") String userIcon,
             @Query("name") String name, @Query("gender") Integer sex,
             @Query("birth") String birthday, @Query("phoneNumber") String phone,
-            @Query("SMSCode") String code, @Query("appType") int appType,
-            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
+            @Query("verifyKey") String verifyKey, @Query("jpushRID") String jpushRID,
+            @Query("appType") int appType, @Query("appChannel") String appChannel,
+            @Query("appVersion") String appVersion);
 
     /**
      * 第三方登录

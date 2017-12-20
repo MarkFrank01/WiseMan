@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.register;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.zxcx.zhizhe.event.RegisterEvent;
 import com.zxcx.zhizhe.mvpBase.FragmentBackHandler;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -125,8 +123,6 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
     public void getDataSuccess(LoginBean bean) {
         ZhiZheUtils.saveLoginData(bean);
         EventBus.getDefault().post(new RegisterEvent());
-        Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
-        startActivity(intent);
     }
 
     @Override

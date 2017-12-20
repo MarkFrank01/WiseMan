@@ -19,6 +19,11 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
         mModel.forgetPassword(phone,verifyKey,jpushRID,password,appType);
     }
 
+    public void channelRegister(int channelType, String openId, String password, String userIcon, String name, Integer sex,
+                                String birthday, String phone, String verifyKey, String jpushRID, int appType, String appChannel, String appVersion){
+        mModel.channelRegister(channelType,openId,password,userIcon,name, sex,birthday,phone,verifyKey,jpushRID,appType,appChannel,appVersion);
+    }
+
     public void checkPhoneRegistered(String phone){
         mModel.checkPhoneRegistered(phone);
     }

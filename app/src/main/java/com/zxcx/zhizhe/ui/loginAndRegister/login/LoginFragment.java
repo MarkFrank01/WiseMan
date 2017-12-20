@@ -114,6 +114,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
         Utils.closeInputMethod(mEtLoginPassword);
+        mActivity.finish();
     }
 
     @Override
@@ -123,7 +124,6 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
 
     @Override
     public void channelLoginNeedRegister() {
-        toastShow("请绑定手机号码");
         Intent intent = new Intent(mActivity, ChannelRegisterActivity.class);
         intent.putExtra("userId", userId);
         intent.putExtra("userName", userName);
@@ -145,6 +145,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
+        mActivity.finish();
     }
 
     @OnClick(R.id.iv_login_phone_clear)

@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.forget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -42,7 +40,6 @@ import cn.smssdk.SMSSDK;
 
 public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
-
     @BindView(R.id.iv_forget_close)
     ImageView mIvForgetClose;
     @BindView(R.id.et_forget_phone)
@@ -63,6 +60,8 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     Button mBtnForget;
     @BindView(R.id.ll_forget_password)
     LinearLayout mLlForgetPassword;
+    @BindView(R.id.tv_forget_title)
+    TextView mTvForgetTitle;
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
@@ -87,6 +86,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         if (mLlForgetPassword.getVisibility() == View.VISIBLE) {
             mLlForgetPassword.setVisibility(View.GONE);
             mLlForgetPhone.setVisibility(View.VISIBLE);
+            mTvForgetTitle.setText("找回密码");
         }
     }
 
@@ -106,8 +106,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     public void getDataSuccess(LoginBean bean) {
         ZhiZheUtils.saveLoginData(bean);
         EventBus.getDefault().post(new RegisterEvent());
-        Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -134,6 +133,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         verifyKey = bean.getVerifyKey();
         mLlForgetPhone.setVisibility(View.GONE);
         mLlForgetPassword.setVisibility(View.VISIBLE);
+        mTvForgetTitle.setText("重置密码");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -160,7 +160,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
                 , mEtForgetVerificationCode.getText().toString());
     }
 
-    @OnClick(R.id.btn_register)
+    @OnClick(R.id.btn_forget)
     public void onMBtnRegisterClicked() {
         String phone = mEtForgetPhone.getText().toString();
         String password = MD5Utils.md5(mEtForgetPassword.getText().toString());
