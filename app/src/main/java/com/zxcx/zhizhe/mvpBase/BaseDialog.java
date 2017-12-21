@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment;
+import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
@@ -95,6 +95,6 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
     public void startLogin() {
         ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
-        startActivity(new Intent(getActivity(), LoginFragment.class));
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 }

@@ -9,6 +9,8 @@ public class RejectDetailsBean extends RetrofitBaen {
 
     @JSONField(name = "id")
     private int id;
+    @JSONField(name = "collectionId")
+    private int cardBagId;
     @JSONField(name = "titleImage")
     private String imageUrl;
     @JSONField(name = "title")
@@ -26,6 +28,14 @@ public class RejectDetailsBean extends RetrofitBaen {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCardBagId() {
+        return cardBagId;
+    }
+
+    public void setCardBagId(int cardBagId) {
+        this.cardBagId = cardBagId;
     }
 
     public String getImageUrl() {

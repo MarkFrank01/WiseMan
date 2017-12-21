@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.message.dynamic
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,10 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListActivity
+import com.zxcx.zhizhe.ui.my.message.system.message_collect
+import com.zxcx.zhizhe.ui.my.message.system.message_follow
+import com.zxcx.zhizhe.ui.my.message.system.message_like
 import kotlinx.android.synthetic.main.fragment_dynamic_message.*
 
 class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean> {
@@ -22,19 +27,22 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
         super.onViewCreated(view, savedInstanceState)
         getDynamicMessage()
         ll_dynamic_message_follow.setOnClickListener {
-            if (tv_dynamic_message_follow.text != getString(R.string.tv_dynamic_message_no_data)){
-                //进入关注消息列表
-            }
+            //进入关注消息列表
+            val intent = Intent(mActivity,DynamicMessageListActivity::class.java)
+            intent.putExtra("messageType", message_follow)
+            startActivity(intent)
         }
         ll_dynamic_message_like.setOnClickListener {
-            if (tv_dynamic_message_like.text != getString(R.string.tv_dynamic_message_no_data)){
-                //进入关注消息列表
-            }
+            //进入点赞消息列表
+            val intent = Intent(mActivity,DynamicMessageListActivity::class.java)
+            intent.putExtra("messageType", message_like)
+            startActivity(intent)
         }
         ll_dynamic_message_collect.setOnClickListener {
-            if (tv_dynamic_message_collect.text != getString(R.string.tv_dynamic_message_no_data)){
-                //进入关注消息列表
-            }
+            //进入收藏消息列表
+            val intent = Intent(mActivity,DynamicMessageListActivity::class.java)
+            intent.putExtra("messageType", message_collect)
+            startActivity(intent)
         }
     }
 

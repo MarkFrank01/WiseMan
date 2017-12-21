@@ -315,6 +315,14 @@ public class RichEditor extends WebView {
         exec("javascript:RE.setUnderline();");
     }
 
+    public void setIsEyeshield(boolean isEyeshield) {
+        exec("javascript:RE.setIsEyeshield("+isEyeshield+");");
+    }
+
+    public void setCardId(int cardId) {
+        exec("javascript:RE.setArticleId('" + cardId + "');");
+    }
+
     public void setTextColor(int color) {
         exec("javascript:RE.prepareInsert();");
 

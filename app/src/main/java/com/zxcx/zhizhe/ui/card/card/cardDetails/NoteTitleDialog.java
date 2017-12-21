@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
+import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
+import com.zxcx.zhizhe.retrofit.AppClient;
+import com.zxcx.zhizhe.retrofit.BaseBean;
+import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import butterknife.BindView;
@@ -25,7 +30,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class NoteTitleDialog extends BaseDialog {
+public class NoteTitleDialog extends BaseDialog implements INullPostPresenter{
 
     Unbinder unbinder;
     @BindView(R.id.tv_dialog_cancel)
@@ -36,6 +41,10 @@ public class NoteTitleDialog extends BaseDialog {
     EditText mEtDialogNoteTitle;
     @BindView(R.id.tv_dialog_note_title)
     TextView mTvDialogNoteTitle;
+    int withCardId;
+    String title;
+    String imageUrl;
+    String content;
 
     @Nullable
     @Override
@@ -67,6 +76,15 @@ public class NoteTitleDialog extends BaseDialog {
         tp.setFakeBoldText(true);
         tp = mTvDialogNoteTitle.getPaint();
         tp.setFakeBoldText(true);
+        initData();
+    }
+
+    private void initData() {
+        Bundle bundle = getArguments();
+        withCardId = bundle.getInt("withCardId",0);
+        title = bundle.getString("title");
+        imageUrl = bundle.getString("imageUrl");
+        content = bundle.getString("content");
     }
 
     @Override
@@ -82,6 +100,34 @@ public class NoteTitleDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        //todo 保存笔记
+        // 保存笔记
+        if (mEtDialogNoteTitle.length()==0){
+            saveCardNode(title,imageUrl,withCardId,content);
+        }else {
+            saveCardNode(mEtDialogNoteTitle.getText().toString(),imageUrl,withCardId,content);
+        }
+    }
+
+    public void saveCardNode(String title,String imageUrl, int withCardId,String content) {
+        mDisposable = AppClient.getAPIService().saveCardNode(null,title,imageUrl,withCardId,content)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
+                .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        postSuccess();
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    @Override
+    public void postSuccess() {
+
+    }
+
+    @Override
+    public void postFail(String msg) {
+
     }
 }

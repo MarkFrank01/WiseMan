@@ -23,7 +23,7 @@ import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment;
+import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
@@ -191,7 +191,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     public void startLogin() {
         ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
-        startActivity(new Intent(mActivity, LoginFragment.class));
+        startActivity(new Intent(mActivity, LoginActivity.class));
         if (loadService != null){
             loadService.showCallback(LoginTimeoutCallback.class);
         }
@@ -201,7 +201,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
             return true;
         } else {
-            startActivity(new Intent(mActivity, LoginFragment.class));
+            startActivity(new Intent(mActivity, LoginActivity.class));
             return false;
         }
     }

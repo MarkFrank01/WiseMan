@@ -134,14 +134,14 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private void onMessageEvent(PhoneRegisteredEvent event) {
+    public void onMessageEvent(PhoneRegisteredEvent event) {
         //手机号已注册，跳转登录
         mEtLoginPhone.setText(event.getPhone());
         Utils.showInputMethod(mEtLoginPassword);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    private void onMessageEvent(RegisterEvent event) {
+    public void onMessageEvent(RegisterEvent event) {
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         EventBus.getDefault().postSticky(new LoginEvent());
@@ -240,7 +240,6 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         if (phonePattern.matcher(mEtLoginPhone.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("手机号格式错误!");
             return false;
         }
     }
@@ -249,7 +248,6 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         if (passwordPattern.matcher(mEtLoginPassword.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("密码格式错误!");
             return false;
         }
     }

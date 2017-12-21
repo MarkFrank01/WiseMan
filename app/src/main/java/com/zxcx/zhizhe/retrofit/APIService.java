@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
+import com.zxcx.zhizhe.ui.my.RedPointBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
@@ -23,9 +24,9 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.card.NoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
+import com.zxcx.zhizhe.ui.search.result.card.NoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
@@ -440,4 +441,29 @@ public interface APIService {
     Flowable<BaseArrayBean<DynamicMessageListBean>> getDynamicMessageList(
             @Query("messageType") int messageType,@Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
+
+    /**
+     * 获取红点状态
+     */
+    @POST("/mytabinfo/getMyTabInfo")
+    Flowable<BaseBean<RedPointBean>> getRedPointStatus();
+
+    /**
+     * 提交自由笔记或审核
+     * @param submitType 提交类型 0保存笔记 1提交审核
+     */
+    @POST("/note/submitFreeNode")
+    Flowable<BaseBean> saveFreeNode(
+            @Query("articleId") Integer cardId, @Query("title") String title,
+            @Query("titleImage") String imageUrl, @Query("collectionId") Integer classifyId,
+            @Query("content") String content, @Query("submitType") Integer submitType);
+
+    /**
+     * 提交卡片笔记
+     */
+    @POST("/note/submitCardNode")
+    Flowable<BaseBean> saveCardNode(
+            @Query("articleId") Integer cardId, @Query("title") String title,
+            @Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
+            @Query("content") String content);
 }

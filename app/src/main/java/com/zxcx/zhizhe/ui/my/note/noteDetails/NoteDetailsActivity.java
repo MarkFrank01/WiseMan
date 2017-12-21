@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
+import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity;
+import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -45,6 +49,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
     private WebView mWebView;
     private int noteId;
+    private int cardBagId;
+    private int withCardId;
     private String name;
     private String imageUrl;
     private String date;
@@ -98,6 +104,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         imageUrl = bean.getImageUrl();
         date = DateTimeUtils.getDateString(bean.getDate());
         mTvNoteDetailsInfo.setText(getString(R.string.tv_note_info, date));
+        cardBagId = bean.getCardBagId();
+        withCardId = bean.getWithCardId();
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvNoteDetails);
     }
 
@@ -108,11 +116,24 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
     @OnClick(R.id.iv_note_details_edit)
     public void onMIvNoteDetailsEditClicked() {
+        Intent intent = new Intent(mActivity, NewCreationTitleActivity.class);
+        intent.putExtra("cardId", noteId);
+        intent.putExtra("title", name);
+        intent.putExtra("imageUrl", imageUrl);
+        if (noteType == Constants.NOTE_TYPE_FREEDOM){
+            intent.putExtra("cardBagId", cardBagId);
+        }else if (noteType == Constants.NOTE_TYPE_FREEDOM){
+            //todo 卡片笔记再编辑
+        }
+        startActivity(intent);
     }
 
     @OnClick(R.id.iv_note_details_source)
     public void onMIvNoteDetailsSourceClicked() {
 
+        Intent intent = new Intent(mActivity, CardDetailsActivity.class);
+        intent.putExtra("id", withCardId);
+        startActivity(intent);
     }
 
     @OnClick(R.id.iv_note_details_share)

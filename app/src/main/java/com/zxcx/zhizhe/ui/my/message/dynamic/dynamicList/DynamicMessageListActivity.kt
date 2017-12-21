@@ -10,11 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsActivity
-import com.zxcx.zhizhe.ui.my.message.system.*
-import com.zxcx.zhizhe.ui.rank.RankActivity
+import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -28,18 +24,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FollowMessageActivity : MvpActivity<DynamicMessageListPresenter>(), DynamicMessageListContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemChildClickListener {
+class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), DynamicMessageListContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener {
 
     private var mMessageType = 0
     private var mPage = 0
     private val mPageSize = Constants.PAGE_SIZE
-    private lateinit var mAdapter: SystemMessageAdapter
+    private lateinit var mAdapter: DynamicMessageAdapter
     private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>> = ArrayMap()
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_follow_message)
+        mMessageType = intent.getIntExtra("messageType",0)
         initRecyclerView()
         mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
     }
@@ -62,61 +59,31 @@ class FollowMessageActivity : MvpActivity<DynamicMessageListPresenter>(), Dynami
                     }
 
                     override fun onNext(t: List<DynamicBean>?) {
-//                        mAdapter.setNewData(t)
+                        mAdapter.setNewData(t)
                     }
 
                 })
-        /*if (mPage == 0) {
-            mAdapter.setNewData(list)
-        } else {
-            mAdapter.addData(list)
-        }
-        mPage++
-        if (list.size < Constants.PAGE_SIZE) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }*/
+        mPage ++
     }
 
     override fun onLoadMoreRequested() {
         mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        val bean = mAdapter.data[position]
-        val intent = Intent()
-        when(bean.messageType){
-            message_card_pass -> {
-                intent.setClass(mActivity, CardDetailsActivity::class.java)
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        if (mAdapter.data[position].itemType == dynamic_content) {
+            val bean = mAdapter.data[position] as DynamicMessageListBean
+            if (bean.messageType != message_follow){
+                val intent = Intent(mActivity,CardDetailsActivity::class.java)
                 intent.putExtra("id",bean.relatedCardId)
-            }
-            message_card_reject -> {
-                intent.setClass(mActivity, RejectDetailsActivity::class.java)
-                intent.putExtra("id",bean.relatedCardId)
-            }
-            message_apply_pass -> {
-                intent.setClass(mActivity, NewCreationTitleActivity::class.java)
-            }
-            message_apply_reject -> {
-                intent.setClass(mActivity, ApplyForCreationActivity::class.java)
-            }
-            message_rank -> {
-                intent.setClass(mActivity, RankActivity::class.java)
-            }
-            message_recommend -> {
-                intent.setClass(mActivity, CardDetailsActivity::class.java)
-                intent.putExtra("id",bean.relatedCardId)
+                startActivity(intent)
             }
         }
-        startActivity(intent)
     }
 
     private fun initRecyclerView() {
-        mAdapter = SystemMessageAdapter(ArrayList())
-        mAdapter.onItemChildClickListener = this
+        mAdapter = DynamicMessageAdapter(ArrayList())
+        mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_system_message)
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
@@ -143,8 +110,12 @@ class FollowMessageActivity : MvpActivity<DynamicMessageListPresenter>(), Dynami
             }
             val dynamicBeanList = ArrayList<DynamicBean>()
             for (mutableEntry in map) {
+                Collections.reverse(mutableEntry.value)
                 val dynamicBean = DynamicBean(mutableEntry.key,mutableEntry.value)
                 dynamicBeanList.add(dynamicBean)
+            }
+            Collections.sort(dynamicBeanList) { o1, o2 ->
+                o1?.list?.get(0)?.date?.compareTo(o2?.list?.get(0)?.date)!!
             }
             return dynamicBeanList
         }

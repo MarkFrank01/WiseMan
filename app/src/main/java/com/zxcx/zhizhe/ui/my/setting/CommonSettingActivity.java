@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeNightModeEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.zhizhe.utils.Constants;
@@ -74,18 +75,24 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_message)
     public void onMLlCommonSettingMessageClicked() {
+        if (checkLogin()) {
+            startActivity(new Intent(mActivity, MessageModeActivity.class));
+        }
     }
 
     @OnClick(R.id.ll_common_setting_font)
     public void onMLlCommonSettingFontClicked() {
+        startActivity(new Intent(mActivity, MessageModeActivity.class));
     }
 
     @OnClick(R.id.ll_common_setting_image)
     public void onMLlCommonSettingImageClicked() {
+        startActivity(new Intent(mActivity, ImageLoadModeActivity.class));
     }
 
     @OnClick(R.id.ll_common_setting_versions)
     public void onMLlCommonSettingVersionsClicked() {
+        startActivity(new Intent(mActivity, AboutUSActivity.class));
     }
 
     @OnClick(R.id.ll_common_setting_feedback)

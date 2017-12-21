@@ -9,6 +9,10 @@ public class NoteDetailsBean extends RetrofitBaen {
 
     @JSONField(name = "id")
     private int id;
+    @JSONField(name = "relatedArticleId")
+    private int withCardId;
+    @JSONField(name = "collectionId")
+    private int cardBagId;
     @JSONField(name = "titleImage")
     private String imageUrl;
     @JSONField(name = "title")
@@ -22,6 +26,22 @@ public class NoteDetailsBean extends RetrofitBaen {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getWithCardId() {
+        return withCardId;
+    }
+
+    public void setWithCardId(int withCardId) {
+        this.withCardId = withCardId;
+    }
+
+    public int getCardBagId() {
+        return cardBagId;
+    }
+
+    public void setCardBagId(int cardBagId) {
+        this.cardBagId = cardBagId;
     }
 
     public String getImageUrl() {

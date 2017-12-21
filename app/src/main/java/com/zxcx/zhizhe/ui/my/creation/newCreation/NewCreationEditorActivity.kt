@@ -21,16 +21,41 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         OSSDialog.OSSUploadListener{
 
     private lateinit var mOSSDialog: OSSDialog
+    private var cardId: Int? = null
+    private var cardBagId: Int? = null
+    private var title: String? = null
+    private var imageUrl: String? = null
     private var content: String? = null
+
+    enum class action{
+        ACTION_SAVE,
+        ACTION_SUBMIT
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_creation_editor)
-
+        initData()
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
         initViewListener()
+    }
 
+    private fun initData() {
+        cardId = intent.getIntExtra("cardId",0)
+        cardBagId = intent.getIntExtra("cardBagId",0)
+        title = intent.getStringExtra("title")
+        imageUrl = intent.getStringExtra("imageUrl")
+
+        if (cardId == 0){
+            cardId = null
+        }
+        if (cardBagId == 0){
+            cardBagId = null
+        }
+    }
+
+    override fun initStatusBar() {
         if (!Constants.IS_NIGHT) {
             ImmersionBar.with(this)
                     .statusBarColor(R.color.background)
@@ -44,15 +69,15 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         }
     }
 
-    override fun initStatusBar() {
-
-    }
-
     override fun createPresenter(): NewCreationEditorPresenter {
         return NewCreationEditorPresenter(this)
     }
 
-    override fun getDataSuccess(bean: NewCreationEditorBean) {
+    override fun postSuccess() {
+
+    }
+
+    override fun postFail(msg: String?) {
 
     }
 
@@ -60,7 +85,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == BaseActivity.RESULT_OK) {
             var photoUri = data.data
-            var imagePath :String = ""
+            var imagePath = ""
             if (photoUri != null) {
                 imagePath = FileUtil.getRealFilePathFromUri(mActivity,photoUri)
             } else {
@@ -107,11 +132,12 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
 
     private fun initViewListener() {
         editor.setOnTextChangeListener({ text ->
-            if (text.contains("<p>") && text.indexOf("<p>") != 0) {
+            /*if (text.contains("<p>") && text.indexOf("<p>") != 0) {
                 content = "<p>" + text.substring(0, text.indexOf("<p>")) + "</p>" + text.substring(text.indexOf("<p>"))
             } else if (!text.contains("<p>")) {
                 content = "<p>$text</p>"
-            }
+            }*/
+            content = text
             tv_toolbar_commit.isEnabled = text.isNotEmpty()
             tv_toolbar_save_note.isEnabled = text.isNotEmpty()
         })
@@ -125,13 +151,16 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             startActivityForResult(intent, 0)
         }
         cb_editor_night.setOnCheckedChangeListener { _, isChecked ->
-            //todo 设置编辑器是否夜间模式
+            // 设置编辑器是否夜间模式
+            editor.setIsEyeshield(isChecked)
         }
         tv_toolbar_commit.setOnClickListener {
-            //todo 提交卡片
+            // 提交卡片
+            mPresenter.submitReview(cardId,title,imageUrl,cardBagId,content)
         }
         tv_toolbar_save_note.setOnClickListener {
-            //todo 保存为笔记
+            // 保存为笔记
+            mPresenter.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
         }
     }
 }

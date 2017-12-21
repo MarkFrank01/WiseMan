@@ -436,10 +436,16 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.evaluateJavascript("getValue()", new ValueCallback<String>() {
                 @Override
                 public void onReceiveValue(String value) {
+                    value = value.replaceAll("\\u003c","<");
                     LogCat.d(value);
                     switch (item.getItemId()) {
                         case MENU_ITEM_NOTE:
                             NoteTitleDialog noteTitleDialog = new NoteTitleDialog();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("withCardId",cardId);
+                            bundle.putString("title",name);
+                            bundle.putString("imageUrl",imageUrl);
+                            bundle.putString("content",value);
                             noteTitleDialog.show(getFragmentManager(), "");
                             break;
                         case MENU_ITEM_SHARE:

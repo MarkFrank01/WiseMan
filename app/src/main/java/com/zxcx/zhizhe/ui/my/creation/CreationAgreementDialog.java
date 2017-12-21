@@ -90,7 +90,7 @@ public class CreationAgreementDialog extends BaseDialog {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
         mFlDialogCreationAgreement.addView(mWebView);
-        //todo 加载协议地址
+        mWebView.loadUrl(getString(R.string.base_url)+getString(R.string.agreement_url));
     }
 
     @OnClick(R.id.tv_dialog_cancel)

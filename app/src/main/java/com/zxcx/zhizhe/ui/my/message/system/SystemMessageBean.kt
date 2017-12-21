@@ -11,6 +11,10 @@ const val message_apply_reject = 104
 const val message_rank = 105
 const val message_recommend = 106
 
+const val message_follow = 201
+const val message_like = 202
+const val message_collect = 203
+
 data class SystemMessageBean(
 		@JSONField(name = "content") var content: String?, //string
 		@JSONField(name = "intelligenceValue") var intelligenceValue: Int?, //0

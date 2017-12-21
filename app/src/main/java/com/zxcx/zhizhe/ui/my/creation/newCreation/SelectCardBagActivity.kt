@@ -20,12 +20,15 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
 
     lateinit var selectCardBagAdapter: SelectCardBagAdapter
     private var cardBagId: Int? = null
+    private var cardId: Int? = null
+    private var title: String? = null
+    private var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_card_bag)
         initToolBar("选择卡包")
-
+        initData()
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "开始创作"
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue))
@@ -33,14 +36,26 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         tv_toolbar_right.setOnClickListener {
             //进入编辑器页面
             val intent = Intent(mActivity, NewCreationEditorActivity::class.java)
-            intent.putExtra("title", getIntent().getStringExtra("title"))
-            intent.putExtra("imageUrl", getIntent().getStringExtra("imageUrl"))
+            intent.putExtra("cardId", cardId)
             intent.putExtra("cardBagId", cardBagId)
+            intent.putExtra("title", title)
+            intent.putExtra("imageUrl", imageUrl)
             startActivity(intent)
         }
 
         initRecyclerView()
         mPresenter.getClassify()
+    }
+
+    private fun initData() {
+        cardId = intent.getIntExtra("cardId",0)
+        cardBagId = intent.getIntExtra("cardBagId",0)
+        title = intent.getStringExtra("title")
+        imageUrl = intent.getStringExtra("imageUrl")
+
+        if (cardBagId != 0){
+            tv_toolbar_right.isEnabled = true
+        }
     }
 
     override fun createPresenter(): ClassifyPresenter {

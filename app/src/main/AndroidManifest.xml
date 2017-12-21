@@ -222,7 +222,7 @@
         <activity android:name=".ui.my.message.MessageActivity">
         </activity>
         <activity
-            android:name=".ui.my.message.dynamic.dynamicList.FollowMessageActivity"
+            android:name=".ui.my.message.dynamic.dynamicList.DynamicMessageListActivity"
             android:screenOrientation="portrait"/>
     </application>
 

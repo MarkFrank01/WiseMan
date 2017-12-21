@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment;
+import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
@@ -185,7 +185,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     public void startLogin() {
         ZhiZheUtils.logout();
         toastShow(R.string.login_timeout);
-        startActivity(new Intent(mActivity, LoginFragment.class));
+        startActivity(new Intent(mActivity, LoginActivity.class));
         if (loadService != null){
             loadService.showCallback(AttentionNeedLoginCallback.class);
         }

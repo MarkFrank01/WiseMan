@@ -1,13 +1,12 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
-import com.zxcx.zhizhe.mvpBase.GetView
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationEditorBean
+import com.zxcx.zhizhe.mvpBase.INullPostPresenter
+import com.zxcx.zhizhe.mvpBase.NullPostView
 
 interface NewCreationEditorContract {
 
-    interface View : GetView<NewCreationEditorBean>
+    interface View : NullPostView
 
-    interface Presenter : IGetPresenter<NewCreationEditorBean>
+    interface Presenter : INullPostPresenter
 }
 

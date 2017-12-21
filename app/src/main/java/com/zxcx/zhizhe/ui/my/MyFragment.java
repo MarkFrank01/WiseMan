@@ -18,9 +18,15 @@ import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
+import com.zxcx.zhizhe.mvpBase.BaseRxJava;
+import com.zxcx.zhizhe.mvpBase.IGetPresenter;
+import com.zxcx.zhizhe.retrofit.AppClient;
+import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity;
+import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity;
+import com.zxcx.zhizhe.ui.my.message.MessageActivity;
 import com.zxcx.zhizhe.ui.my.note.NoteActivity;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsActivity;
 import com.zxcx.zhizhe.ui.my.setting.CommonSettingActivity;
@@ -38,10 +44,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_writer;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyFragment extends BaseFragment {
+public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBean>{
 
     Unbinder unbinder;
     @BindView(R.id.iv_message_red_point)
@@ -56,6 +64,8 @@ public class MyFragment extends BaseFragment {
     FrameLayout mFlMyMessage;
     @BindView(R.id.iv_creation_red_point)
     ImageView mIvCreationRedPoint;
+
+    private int writerStatus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +88,7 @@ public class MyFragment extends BaseFragment {
             setViewLogout();
         } else {
             setViewLogin();
+            getRedPointStatus();
         }
     }
 
@@ -85,9 +96,7 @@ public class MyFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-
-        } else {
-
+            getRedPointStatus();
         }
     }
 
@@ -106,6 +115,7 @@ public class MyFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         setViewLogin();
+        getRedPointStatus();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -126,13 +136,13 @@ public class MyFragment extends BaseFragment {
     @OnClick(R.id.fl_my_message)
     public void onMFlMyMessageClicked() {
         //消息界面
-        /*Intent intent = new Intent(getContext(), CollectFolderActivity.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(getContext(), MessageActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.iv_my_setting)
     public void onMIvMySettingClicked() {
-        //消息界面
+        //设置界面
         Intent intent = new Intent(getContext(), CommonSettingActivity.class);
         startActivity(intent);
     }
@@ -140,8 +150,10 @@ public class MyFragment extends BaseFragment {
     @OnClick({R.id.iv_my_head, R.id.tv_my_nick_name})
     public void onMIvMyHeadClicked() {
         //账户资料界面
-        Intent intent = new Intent(getContext(), UserInfoActivity.class);
-        startActivity(intent);
+        if (checkLogin()) {
+            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.tv_my_info)
@@ -155,7 +167,7 @@ public class MyFragment extends BaseFragment {
 
     @OnClick(R.id.ll_my_creation)
     public void onMLlMyCreationClicked() {
-        if (checkLogin()) {
+        if (checkLogin() && writerStatus == writer_status_writer) {
             //创作界面
             Intent intent = new Intent(getContext(), CreationActivity.class);
             startActivity(intent);
@@ -184,8 +196,8 @@ public class MyFragment extends BaseFragment {
     public void onMLlMyFollowClicked() {
         if (checkLogin()) {
             //关注页面
-            /*Intent intent = new Intent(getContext(), CollectFolderActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(getContext(), FollowUserActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -209,6 +221,7 @@ public class MyFragment extends BaseFragment {
 
     private void setViewLogout() {
         mFlMyMessage.setClickable(false);
+        mIvMessageRedPoint.setVisibility(View.GONE);
         mTvMyNickName.setText("注册/登录");
         mTvMyNickName.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
         mTvMyInfo.setText("登录看谁在关注你");
@@ -217,14 +230,45 @@ public class MyFragment extends BaseFragment {
     }
 
     private void setViewLogin() {
-
         mFlMyMessage.setClickable(true);
         mTvMyNickName.setText(SharedPreferencesUtil.getString(SVTSConstants.nickName, ""));
         mTvMyNickName.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1));
-        //todo 智力值
-        mTvMyInfo.setText("");
-        mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
         String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
         ImageLoader.load(mActivity, headImg, R.drawable.default_header, mIvMyHead);
+    }
+
+    private void getRedPointStatus() {
+        mDisposable = AppClient.getAPIService().getRedPointStatus()
+                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(new BaseSubscriber<RedPointBean>(this) {
+                    @Override
+                    public void onNext(RedPointBean bean) {
+                        getDataSuccess(bean);
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    @Override
+    public void getDataSuccess(RedPointBean bean) {
+        writerStatus = bean.getWriterStatus();
+        if (bean.getHasSystemMessage() || bean.getHasDynamicMessage()){
+            mIvMessageRedPoint.setVisibility(View.VISIBLE);
+        }else {
+            mIvMessageRedPoint.setVisibility(View.GONE);
+        }
+        if (writerStatus == writer_status_writer){
+            mIvCreationRedPoint.setVisibility(View.GONE);
+        }else {
+            mIvCreationRedPoint.setVisibility(View.VISIBLE);
+        }
+        mTvMyInfo.setText("");
+        mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
+    }
+
+    @Override
+    public void getDataFail(String msg) {
+        toastShow(msg);
     }
 }

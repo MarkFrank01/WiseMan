@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -46,6 +48,7 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
     private WebView mWebView;
     private int cardId;
+    private int cardBagId;
     private String name;
     private String author;
     private String imageUrl;
@@ -100,6 +103,7 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
         imageUrl = bean.getImageUrl();
         date = DateTimeUtils.getDateString(bean.getDate());
         author = bean.getAuthorName();
+        cardBagId = bean.getCardBagId();
         String rejectReason = bean.getRejectReason();
         mTvRejectReason.setText(rejectReason);
         mTvRejectDetailsTitle.setText(name);
@@ -119,7 +123,12 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
     @OnClick(R.id.tv_reject_reedit)
     public void onMTvRejectReeditClicked() {
-        //todo 重编辑
+        Intent intent = new Intent(mActivity, NewCreationTitleActivity.class);
+        intent.putExtra("cardId", cardId);
+        intent.putExtra("cardBagId", cardBagId);
+        intent.putExtra("title", name);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
     }
 
     private void initData() {

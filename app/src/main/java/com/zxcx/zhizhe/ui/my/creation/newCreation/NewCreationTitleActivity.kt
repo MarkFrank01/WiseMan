@@ -27,18 +27,33 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
 
-    private var imageUrl : String? = null
     private lateinit var mOSSDialog: OSSDialog
+    private var cardBagId: Int? = null
+    private var cardId: Int? = null
+    private var title: String? = null
+    private var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_creation1)
         initToolBar("创作")
+        initData()
         Utils.setViewAspect(fl_new_creation_1_add_img,16,9)
         initViewListener()
         updateView()
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
+    }
+
+    private fun initData() {
+        cardId = intent.getIntExtra("cardId",0)
+        cardBagId = intent.getIntExtra("cardBagId",0)
+        title = intent.getStringExtra("title")
+        imageUrl = intent.getStringExtra("imageUrl")
+
+        et_new_creation_1_title.setText(title)
+        ImageLoader.load(mActivity,imageUrl,iv_new_creation_1_add_img)
+        updateView()
     }
 
     override fun onResume() {
@@ -114,6 +129,8 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         tv_new_creation_1_next.setOnClickListener {
             //进入卡包选择页
             val intent = Intent(mActivity, SelectCardBagActivity::class.java)
+            intent.putExtra("cardId", cardId)
+            intent.putExtra("cardBagId", cardBagId)
             intent.putExtra("title", et_new_creation_1_title.text.toString())
             intent.putExtra("imageUrl", imageUrl)
             startActivity(intent)

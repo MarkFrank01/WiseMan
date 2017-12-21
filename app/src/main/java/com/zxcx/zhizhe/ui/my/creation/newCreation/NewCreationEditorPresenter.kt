@@ -1,10 +1,9 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationEditorContract
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationEditorModel
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 
 class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePresenter<NewCreationEditorContract.View>(), NewCreationEditorContract.Presenter {
+
 
     private val mModel: NewCreationEditorModel
 
@@ -13,12 +12,20 @@ class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePre
         mModel = NewCreationEditorModel(this)
     }
 
-    override fun getDataSuccess(bean: NewCreationEditorBean) {
-        mView.getDataSuccess(bean)
+    fun saveFreeNode(cardId: Int?, title: String?, imageUrl: String?, cardBagId: Int?, content: String?) {
+        mModel.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
     }
 
-    override fun getDataFail(msg: String) {
-        mView.toastFail(msg)
+    fun submitReview(cardId: Int?, title: String?,imageUrl: String?,cardBagId: Int?,content: String?) {
+        mModel.submitReview(cardId,title,imageUrl,cardBagId,content)
+    }
+
+    override fun postSuccess() {
+        mView.postSuccess()
+    }
+
+    override fun postFail(msg: String?) {
+        mView.postFail(msg)
     }
 
     override fun showLoading() {
