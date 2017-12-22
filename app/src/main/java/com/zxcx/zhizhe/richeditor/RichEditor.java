@@ -76,7 +76,8 @@ public class RichEditor extends WebView {
     }
 
 //    private static final String SETUP_HTML = "file:///android_asset/editor.html";
-    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+//    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+    private static final String SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
     private static final String CALLBACK_SCHEME = "re-callback://";
     private static final String STATE_SCHEME = "re-state://";
     private boolean isReady = false;

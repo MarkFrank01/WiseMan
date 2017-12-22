@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.search.result.card
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 
 /**
  * Created by anm on 2017/12/1.

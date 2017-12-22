@@ -50,7 +50,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:src="@drawable/iv_phone_clear"/>
+                android:src="@drawable/iv_search_clear"/>
 
         </RelativeLayout>
 

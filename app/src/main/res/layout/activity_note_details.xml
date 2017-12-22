@@ -67,7 +67,6 @@
 
             <LinearLayout
                 android:id="@+id/ll_note_details_bottom"
-                android:visibility="gone"
                 android:background="@color/white"
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
@@ -77,7 +76,7 @@
                     android:id="@+id/iv_note_details_edit"
                     android:layout_marginLeft="30dp"
                     android:padding="10dp"
-                    android:src="@drawable/common_close"
+                    android:src="@drawable/iv_note_details_edit"
                     android:gravity="center"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"/>
@@ -86,7 +85,7 @@
                     android:id="@+id/iv_note_details_source"
                     android:layout_marginLeft="30dp"
                     android:padding="10dp"
-                    android:src="@drawable/common_close"
+                    android:src="@drawable/iv_note_details_source"
                     android:gravity="center"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"/>

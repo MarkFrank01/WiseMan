@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter
 
 class DynamicMessageListPresenter(view: DynamicMessageListContract.View) : BasePresenter<DynamicMessageListContract.View>(), DynamicMessageListContract.Presenter {
 
+
     private val mModel: DynamicMessageListModel
 
     init {
@@ -15,12 +16,24 @@ class DynamicMessageListPresenter(view: DynamicMessageListContract.View) : BaseP
         mModel.getDynamicMessageList(messageType, page, pageSize)
     }
 
+    fun deleteDynamicMessageList(messageType: Int) {
+        mModel.deleteDynamicMessageList(messageType)
+    }
+
     override fun getDataSuccess(bean: List<DynamicMessageListBean>) {
         mView.getDataSuccess(bean)
     }
 
     override fun getDataFail(msg: String) {
         mView.toastFail(msg)
+    }
+
+    override fun postSuccess() {
+        mView.postSuccess()
+    }
+
+    override fun postFail(msg: String?) {
+        mView.postFail(msg)
     }
 
     override fun showLoading() {

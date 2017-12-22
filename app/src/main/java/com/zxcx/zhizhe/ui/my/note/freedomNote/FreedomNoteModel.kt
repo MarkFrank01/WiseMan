@@ -4,7 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.search.result.card.NoteBean
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 
 class FreedomNoteModel(presenter: FreedomNoteContract.Presenter) : BaseModel<FreedomNoteContract.Presenter>() {
     init {

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView

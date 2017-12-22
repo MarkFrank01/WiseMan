@@ -66,7 +66,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:src="@drawable/tv_my_common_setting"
+            android:src="@drawable/iv_other_user_creation"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_width="28dp"

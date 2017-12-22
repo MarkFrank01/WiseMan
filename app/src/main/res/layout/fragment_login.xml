@@ -128,7 +128,10 @@
 
         <LinearLayout
             android:id="@+id/ll_login_qq"
-            android:padding="19dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="48dp"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -137,8 +140,8 @@
             <ImageView
                 android:id="@+id/iv_login_qq"
                 android:src="@drawable/qq"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="37dp"
+                android:layout_height="37dp"/>
 
             <TextView
                 android:layout_marginTop="11dp"
@@ -151,7 +154,10 @@
 
         <LinearLayout
             android:id="@+id/ll_login_wechat"
-            android:padding="19dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="48dp"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -160,8 +166,8 @@
             <ImageView
                 android:id="@+id/iv_login_wechat"
                 android:src="@drawable/wechat"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="37dp"
+                android:layout_height="37dp"/>
 
             <TextView
                 android:layout_marginTop="11dp"
@@ -174,7 +180,10 @@
 
         <LinearLayout
             android:id="@+id/ll_login_weibo"
-            android:padding="19dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="48dp"
+            android:paddingLeft="28dp"
+            android:paddingRight="28dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -183,8 +192,8 @@
             <ImageView
                 android:id="@+id/iv_login_weibo"
                 android:src="@drawable/weibo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_width="37dp"
+                android:layout_height="37dp"/>
 
             <TextView
                 android:layout_marginTop="11dp"

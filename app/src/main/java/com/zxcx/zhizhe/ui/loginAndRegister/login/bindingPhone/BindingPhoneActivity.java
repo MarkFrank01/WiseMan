@@ -84,7 +84,6 @@ public class BindingPhoneActivity extends MvpActivity<BindingPhonePresenter> imp
         if (phonePattern.matcher(mEtBindingPhonePhone.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("手机号格式错误!");
             return false;
         }
     }

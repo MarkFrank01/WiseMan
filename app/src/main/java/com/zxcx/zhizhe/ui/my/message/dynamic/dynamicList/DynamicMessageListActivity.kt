@@ -10,7 +10,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
+import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -20,6 +22,7 @@ import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_system_message.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -37,6 +40,9 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         super.onCreate(savedInstanceState, persistentState)
         setContentView(R.layout.activity_follow_message)
         mMessageType = intent.getIntExtra("messageType",0)
+
+        initView()
+
         initRecyclerView()
         mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
     }
@@ -66,6 +72,16 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         mPage ++
     }
 
+    override fun postSuccess() {
+        mAdapter.data.clear()
+        mAdapter.notifyDataSetChanged()
+        iv_toolbar_right.visibility = View.GONE
+    }
+
+    override fun postFail(msg: String?) {
+        toastShow(msg)
+    }
+
     override fun onLoadMoreRequested() {
         mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
     }
@@ -78,6 +94,26 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
                 intent.putExtra("id",bean.relatedCardId)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun initView() {
+        when (mMessageType) {
+            message_follow -> {
+                initToolBar("关注")
+            }
+            message_like -> {
+                initToolBar("点赞")
+            }
+            message_collect -> {
+                initToolBar("收藏")
+            }
+        }
+
+        iv_toolbar_right.visibility = View.VISIBLE
+        iv_toolbar_right.setImageResource(R.drawable.common_delete)
+        iv_toolbar_right.setOnClickListener {
+            mPresenter.deleteDynamicMessageList(mMessageType)
         }
     }
 

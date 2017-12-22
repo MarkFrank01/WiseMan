@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.utils.Utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -41,6 +42,9 @@ public class AppClient {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .readTimeout(5, TimeUnit.SECONDS)
+                    .connectTimeout(5, TimeUnit.SECONDS)
+                    .writeTimeout(5, TimeUnit.SECONDS)
                     .addInterceptor(loggingInterceptor)
                     .addInterceptor(interceptor)
                     .addInterceptor(new ChuckInterceptor(App.getContext()))

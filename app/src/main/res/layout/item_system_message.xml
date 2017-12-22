@@ -75,8 +75,7 @@
             android:textSize="@dimen/text_size_text_3"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -87,8 +86,9 @@
             android:textSize="@dimen/text_size_text_3"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
+            android:gravity="center_vertical|right"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"/>
 
     </LinearLayout>

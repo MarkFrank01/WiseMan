@@ -26,7 +26,34 @@ class SearchUserAdapter(data : List<SearchUserBean>) : BaseQuickAdapter<SearchUs
         helper.setText(R.id.tv_item_rank_user_fans, (item.fansNum?:0).toString())
         helper.setText(R.id.tv_item_rank_user_read, (item.readNum?:0).toString())
         helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
-        //todo 排名未做
+        showRank(helper,item)
+    }
+
+    private fun showRank(helper: BaseViewHolder, bean: SearchUserBean) {
+        when (bean.rankIndex) {
+            1 -> {
+            }
+            2 -> {
+                helper.setVisible(R.id.tv_rank_my_header_rank, false)
+                helper.setVisible(R.id.tv_rank_my_no_rank, false)
+                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_2)
+            }
+            3 -> {
+                helper.setVisible(R.id.tv_rank_my_header_rank, false)
+                helper.setVisible(R.id.tv_rank_my_no_rank, false)
+                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_3)
+            }
+            in 4..99 -> {
+                helper.setVisible(R.id.tv_rank_my_no_rank, false)
+                helper.setVisible(R.id.tv_rank_my_header_rank, true)
+                helper.setText(R.id.tv_rank_my_header_rank,bean.rankIndex.toString())
+                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_4)
+            }
+            else -> {
+                helper.setVisible(R.id.tv_rank_my_no_rank, true)
+                helper.setVisible(R.id.fl_rank_my_header_rank, false)
+            }
+        }
     }
 
 }

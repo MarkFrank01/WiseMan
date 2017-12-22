@@ -9,14 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitNoteReviewEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
-import com.zxcx.zhizhe.ui.search.result.card.NoteBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_freedom_note.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomNoteContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
@@ -34,18 +38,29 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_freedom_note, container, false)
-
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFreedomNote(mSortType,mPage,mPageSize)
     }
 
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     override fun createPresenter(): FreedomNotePresenter {
         return FreedomNotePresenter(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: CommitNoteReviewEvent) {
+        val bean = NoteBean(event.noteId,null,null)
+        mAdapter.remove(mAdapter.data.indexOf(bean))
     }
 
     override fun getDataSuccess(list: List<NoteBean>) {

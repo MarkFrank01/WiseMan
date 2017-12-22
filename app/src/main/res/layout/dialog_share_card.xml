@@ -161,7 +161,7 @@
     <ImageView
         android:id="@+id/iv_dialog_share_back"
         android:layout_alignParentRight="true"
-        android:src="@drawable/common_close"
+        android:src="@drawable/iv_card_details_back"
         android:padding="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"

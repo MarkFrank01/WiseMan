@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.my.feedback.feedback;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,8 +20,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements FeedbackContract.View {
 
@@ -42,6 +43,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         EventBus.getDefault().register(this);
 
         initToolBar(R.string.tv_my_feedback);
+        mTvToolbarRight.setVisibility(View.VISIBLE);
         mTvToolbarRight.setText("提交");
         mTvToolbarRight.setTextColor(ContextCompat.getColor(mActivity,R.color.color_text_enable_blue));
     }
@@ -92,7 +94,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
         mPresenter.feedback(content, contact, appType, appChannel, appVersion);
     }
 
-    @OnCheckedChanged(R.id.et_feedback_content)
+    @OnTextChanged(R.id.et_feedback_content)
     public void onMEtFeedbackContentChanged() {
         if (mEtFeedbackContent.length() > 0) {
             mTvToolbarRight.setEnabled(true);

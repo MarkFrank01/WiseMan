@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.CommitNoteReviewEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
@@ -46,6 +47,10 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     View mViewLine;
     @BindView(R.id.ll_note_details_bottom)
     LinearLayout mLlNoteDetailsBottom;
+    @BindView(R.id.iv_note_details_edit)
+    ImageView mIvNoteDetailsEdit;
+    @BindView(R.id.iv_note_details_source)
+    ImageView mIvNoteDetailsSource;
 
     private WebView mWebView;
     private int noteId;
@@ -67,7 +72,7 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         initData();
         initView();
 
-        mPresenter.getNoteDetails(noteId,noteType);
+        mPresenter.getNoteDetails(noteId, noteType);
 
         ViewGroup.LayoutParams para = mIvNoteDetails.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
@@ -110,8 +115,15 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     }
 
     @Override
-    public void toastFail(String msg) {
-        super.toastFail(msg);
+    public void postSuccess() {
+        EventBus.getDefault().post(new CommitNoteReviewEvent(noteId));
+        onBackPressed();
+        toastShow("提交成功");
+    }
+
+    @Override
+    public void postFail(String msg) {
+        toastShow(msg);
     }
 
     @OnClick(R.id.iv_note_details_edit)
@@ -120,20 +132,20 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         intent.putExtra("cardId", noteId);
         intent.putExtra("title", name);
         intent.putExtra("imageUrl", imageUrl);
-        if (noteType == Constants.NOTE_TYPE_FREEDOM){
-            intent.putExtra("cardBagId", cardBagId);
-        }else if (noteType == Constants.NOTE_TYPE_FREEDOM){
-            //todo 卡片笔记再编辑
-        }
+        intent.putExtra("cardBagId", cardBagId);
         startActivity(intent);
     }
 
     @OnClick(R.id.iv_note_details_source)
     public void onMIvNoteDetailsSourceClicked() {
+        if (noteType == Constants.NOTE_TYPE_CARD) {
+            Intent intent = new Intent(mActivity, CardDetailsActivity.class);
+            intent.putExtra("id", withCardId);
+            startActivity(intent);
+        } else if (noteType == Constants.NOTE_TYPE_FREEDOM) {
+            mPresenter.submitReview(noteId);
+        }
 
-        Intent intent = new Intent(mActivity, CardDetailsActivity.class);
-        intent.putExtra("id", withCardId);
-        startActivity(intent);
     }
 
     @OnClick(R.id.iv_note_details_share)
@@ -156,6 +168,13 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         TextPaint paint = mTvNoteDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
         mTvNoteDetailsTitle.setText(name);
+        if (noteType == Constants.NOTE_TYPE_CARD) {
+            mIvNoteDetailsEdit.setVisibility(View.GONE);
+            mIvNoteDetailsSource.setImageResource(R.drawable.iv_note_details_source);
+        } else if (noteType == Constants.NOTE_TYPE_FREEDOM) {
+            mIvNoteDetailsEdit.setVisibility(View.VISIBLE);
+            mIvNoteDetailsSource.setImageResource(R.drawable.iv_note_details_commit);
+        }
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);

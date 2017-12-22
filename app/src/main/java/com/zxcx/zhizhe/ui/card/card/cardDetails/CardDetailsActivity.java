@@ -331,12 +331,6 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         onBackPressed();
     }
 
-    @OnClick(R.id.cb_card_details_follow)
-    public void onCbFollowClicked() {
-        //checkBox点击之后选中状态就已经更改了
-        mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
-    }
-
     private void initData() {
         cardId = getIntent().getIntExtra("id", 0);
         name = getIntent().getStringExtra("name");

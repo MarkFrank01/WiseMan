@@ -52,7 +52,7 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         imageUrl = intent.getStringExtra("imageUrl")
 
         et_new_creation_1_title.setText(title)
-        ImageLoader.load(mActivity,imageUrl,iv_new_creation_1_add_img)
+        ImageLoader.load(mActivity,imageUrl,R.color.line,iv_new_creation_1_add_img)
         updateView()
     }
 
@@ -69,6 +69,7 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: ImageCropSuccessEvent) {
         uploadImageToOSS(event.path)
+        EventBus.getDefault().removeStickyEvent(event)
     }
 
     private fun uploadImageToOSS(path: String) {

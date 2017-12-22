@@ -26,7 +26,7 @@ import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
-import com.zxcx.zhizhe.ui.search.result.card.NoteBean;
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
@@ -226,7 +226,7 @@ public interface APIService {
      * 获取创作列表
      * @param passType 文章状态 0审核中 1未通过 2通过
      */
-    @POST("/favorite/getFavoriteArticleList")
+    @POST("/article/getCreationList")
     Flowable<BaseArrayBean<CreationBean>> getCreation(
             @Query("stateType") int passType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
@@ -435,12 +435,19 @@ public interface APIService {
     Flowable<BaseBean<DynamicMessageBean>> getDynamicMessage();
 
     /**
-     * 获取动态消息预览
+     * 获取动态消息列表
      */
     @POST("/message/getDynamicMessageList")
     Flowable<BaseArrayBean<DynamicMessageListBean>> getDynamicMessageList(
             @Query("messageType") int messageType,@Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
+
+    /**
+     * 清空动态消息列表
+     */
+    @POST("/message/deleteDynamicMessage")
+    Flowable<BaseBean> deleteDynamicMessageList(
+            @Query("messageType") int messageType);
 
     /**
      * 获取红点状态

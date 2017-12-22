@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/iv_my_setting"
-            android:src="@drawable/common_close"
+            android:src="@drawable/iv_my_setting"
             android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
             android:layout_marginTop="2dp"
@@ -34,7 +34,7 @@
 
             <ImageView
                 android:id="@+id/iv_my_message"
-                android:src="@drawable/common_close"
+                android:src="@drawable/iv_my_message"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="5dp"
@@ -43,6 +43,7 @@
             
             <ImageView
                 android:id="@+id/iv_message_red_point"
+                android:visibility="gone"
                 android:src="@drawable/red_point"
                 android:layout_gravity="bottom|right"
                 android:layout_width="9dp"
@@ -108,7 +109,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_common_setting"
+                android:src="@drawable/iv_my_creation"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"
@@ -129,6 +130,7 @@
 
                 <ImageView
                     android:id="@+id/iv_creation_red_point"
+                    android:visibility="gone"
                     android:src="@drawable/red_point"
                     android:layout_gravity="top|right"
                     android:layout_width="9dp"
@@ -136,9 +138,9 @@
             </FrameLayout>
 
             <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:layout_width="233dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
             <include layout="@layout/iv_right_into"/>
 
@@ -155,7 +157,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_common_setting"
+                android:src="@drawable/iv_my_read"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"
@@ -185,7 +187,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_common_setting"
+                android:src="@drawable/iv_my_note"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"
@@ -215,7 +217,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_feedback"
+                android:src="@drawable/iv_my_follow"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"
@@ -245,7 +247,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_collect"
+                android:src="@drawable/iv_my_collect"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"
@@ -275,7 +277,7 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:src="@drawable/tv_my_about_us"
+                android:src="@drawable/iv_my_like"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_width="28dp"

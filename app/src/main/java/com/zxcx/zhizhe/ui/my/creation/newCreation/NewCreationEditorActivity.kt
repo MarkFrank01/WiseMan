@@ -81,9 +81,9 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
 
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == BaseActivity.RESULT_OK) {
+        if (resultCode == BaseActivity.RESULT_OK && data != null) {
             var photoUri = data.data
             var imagePath = ""
             if (photoUri != null) {

@@ -107,7 +107,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         tv_rank_my_read.text = (bean.readNum?:0).toString()
         val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_rank_my_header)
-        //todo 排名显示逻辑未完成
+        showRank(bean)
     }
 
     override fun getDataSuccess(list: List<UserRankBean>) {
@@ -174,6 +174,36 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
             if (isFirst) {
                 mPresenter.getMyRank()
                 isFirst = false;
+            }
+        }
+    }
+
+    private fun showRank(bean: UserRankBean) {
+        when (bean.rankIndex) {
+            1 -> {
+                tv_rank_my_header_rank.visibility = View.GONE
+                tv_rank_my_no_rank.visibility = View.GONE
+                iv_rank_my_header_rank.setImageResource(R.drawable.rank_1)
+            }
+            2 -> {
+                tv_rank_my_header_rank.visibility = View.GONE
+                tv_rank_my_no_rank.visibility = View.GONE
+                iv_rank_my_header_rank.setImageResource(R.drawable.rank_2)
+            }
+            3 -> {
+                tv_rank_my_header_rank.visibility = View.GONE
+                tv_rank_my_no_rank.visibility = View.GONE
+                iv_rank_my_header_rank.setImageResource(R.drawable.rank_3)
+            }
+            in 4..99 -> {
+                tv_rank_my_no_rank.visibility = View.GONE
+                tv_rank_my_header_rank.visibility = View.VISIBLE
+                tv_rank_my_header_rank.text = bean.rankIndex.toString()
+                iv_rank_my_header_rank.setImageResource(R.drawable.rank_4)
+            }
+            else -> {
+                fl_rank_my_header_rank.visibility = View.GONE
+                tv_rank_my_no_rank.visibility = View.VISIBLE
             }
         }
     }

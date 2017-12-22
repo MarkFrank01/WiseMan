@@ -37,6 +37,7 @@ class ApplyForCreationActivity : BaseActivity() , INullPostPresenter{
 
     private fun initView() {
         tv_toolbar_right.visibility = View.VISIBLE
+        tv_toolbar_right.text = "提交"
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue))
         tv_toolbar_right.isEnabled = false
 

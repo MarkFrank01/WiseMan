@@ -23,7 +23,9 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity;
+import com.zxcx.zhizhe.ui.my.creation.ApplyReviewActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity;
+import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog;
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity;
 import com.zxcx.zhizhe.ui.my.message.MessageActivity;
@@ -44,6 +46,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_review;
 import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_writer;
 
 /**
@@ -98,6 +101,12 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
         if (!hidden) {
             getRedPointStatus();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getRedPointStatus();
     }
 
     @Override
@@ -167,11 +176,26 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
 
     @OnClick(R.id.ll_my_creation)
     public void onMLlMyCreationClicked() {
-        if (checkLogin() && writerStatus == writer_status_writer) {
-            //创作界面
-            Intent intent = new Intent(getContext(), CreationActivity.class);
-            startActivity(intent);
+        if (checkLogin()){
+            switch (writerStatus){
+                case writer_status_writer:
+                    //创作界面
+                    Intent intent = new Intent(getContext(), CreationActivity.class);
+                    startActivity(intent);
+                    break;
+                case writer_status_review:
+                    //资格审核中
+                    Intent intent1 = new Intent(getContext(), ApplyReviewActivity.class);
+                    startActivity(intent1);
+                    break;
+                default:
+                    CreationAgreementDialog dialog = new CreationAgreementDialog();
+                    dialog.show(mActivity.getFragmentManager(),"");
+                    break;
+
+            }
         }
+
     }
 
     @OnClick(R.id.ll_my_read)
@@ -238,6 +262,9 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     }
 
     private void getRedPointStatus() {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0){
+            return;
+        }
         mDisposable = AppClient.getAPIService().getRedPointStatus()
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main())

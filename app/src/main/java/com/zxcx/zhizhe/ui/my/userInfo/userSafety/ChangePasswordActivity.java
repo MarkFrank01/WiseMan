@@ -48,7 +48,7 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
     @BindView(R.id.btn_change_password_complete)
     Button mBtnChangePasswordComplete;
 
-    String passwordRules = "^[a-zA-Z0-9]{6,16}$";
+    String passwordRules = "^[a-zA-Z0-9]{8,20}$";
     Pattern passwordPattern = Pattern.compile(passwordRules);
 
     @Override

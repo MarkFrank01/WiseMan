@@ -209,7 +209,6 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
         if (phonePattern.matcher(mEtRegisterPhone.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("手机号格式错误!");
             return false;
         }
     }
@@ -218,7 +217,6 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
         if (passwordPattern.matcher(mEtRegisterPassword.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("密码格式错误!");
             return false;
         }
     }

@@ -67,9 +67,11 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
     private fun setCardContent(helper: BaseViewHolder, item: SystemMessageBean) {
         val tv = helper.getView<TextView>(R.id.tv_item_system_message_content)
         val m = r.matcher(item.content)
-        val cardName = m.group(1)
-        if (!StringUtils.isEmpty(cardName)){
-            TextViewUtils.setTextViewColorAndBold(tv, cardName, item.content)
+        if (m.matches()) {
+            val cardName = m.group(1)
+            if (!StringUtils.isEmpty(cardName)) {
+                TextViewUtils.setTextViewColorAndBold(tv, cardName, item.content)
+            }
         }else {
             helper.setText(R.id.tv_item_system_message_content, item.content)
         }

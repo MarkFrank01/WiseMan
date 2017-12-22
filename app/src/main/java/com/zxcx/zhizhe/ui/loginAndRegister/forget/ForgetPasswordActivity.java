@@ -40,8 +40,6 @@ import cn.smssdk.SMSSDK;
 
 public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
-    @BindView(R.id.iv_forget_close)
-    ImageView mIvForgetClose;
     @BindView(R.id.et_forget_phone)
     EditText mEtForgetPhone;
     @BindView(R.id.iv_forget_phone_clear)
@@ -65,7 +63,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^.{6,16}$";
+    String passwordRules = "^.{8,20}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
     private String verifyKey;
@@ -76,6 +74,7 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         jpushRID = JPushInterface.getRegistrationID(mActivity);
         SMSSDK.registerEventHandler(new EventHandle());
@@ -87,6 +86,8 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
             mLlForgetPassword.setVisibility(View.GONE);
             mLlForgetPhone.setVisibility(View.VISIBLE);
             mTvForgetTitle.setText("找回密码");
+        }else {
+            super.onBackPressed();
         }
     }
 
@@ -143,6 +144,11 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         SMSSDK.getVerificationCode("86", mEtForgetPhone.getText().toString());
     }
 
+    @OnClick(R.id.iv_forget_close)
+    public void onMIvForgetCloseClicked() {
+        finish();
+    }
+
     @OnClick(R.id.iv_forget_phone_clear)
     public void onMIvRegisterPhoneClearClicked() {
         mEtForgetPhone.setText("");
@@ -194,7 +200,6 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         if (phonePattern.matcher(mEtForgetPhone.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("手机号格式错误!");
             return false;
         }
     }
@@ -203,7 +208,6 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
         if (passwordPattern.matcher(mEtForgetPassword.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("密码格式错误!");
             return false;
         }
     }

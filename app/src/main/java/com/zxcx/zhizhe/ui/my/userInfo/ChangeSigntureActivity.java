@@ -41,7 +41,7 @@ public class ChangeSigntureActivity extends BaseActivity implements IPostPresent
         setContentView(R.layout.activity_change_signture);
         ButterKnife.bind(this);
 
-        String signture = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
+        String signture = SharedPreferencesUtil.getString(SVTSConstants.signture, "");
         mEtDialogChangeSignture.setText(signture);
         mEtDialogChangeSignture.setSelection(mEtDialogChangeSignture.length());
 
@@ -78,7 +78,7 @@ public class ChangeSigntureActivity extends BaseActivity implements IPostPresent
 
     @OnClick(R.id.tv_complete)
     public void onMTvCompleteClicked() {
-        changeNickName(mEtDialogChangeSignture.getText().toString());
+        changeSignture(mEtDialogChangeSignture.getText().toString());
     }
 
     @OnTextChanged(R.id.et_dialog_change_signture)
@@ -91,8 +91,8 @@ public class ChangeSigntureActivity extends BaseActivity implements IPostPresent
         mTvChangeSigntureResidue.setText(String.valueOf(20-mEtDialogChangeSignture.length()));
     }
 
-    public void changeNickName(String name) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
+    public void changeSignture(String signture) {
+        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, null, null, signture)
                 .compose(BaseRxJava.<UserInfoBean>handleResult())
                 .compose(BaseRxJava.<UserInfoBean>io_main_loading(this))
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {

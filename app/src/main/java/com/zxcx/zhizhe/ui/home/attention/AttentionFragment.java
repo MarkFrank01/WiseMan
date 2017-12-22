@@ -1,8 +1,10 @@
 package com.zxcx.zhizhe.ui.home.attention;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -223,22 +225,26 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{
 
-        private Context mContext;
+        private Activity mContext;
 
-        public CardItemClickListener(Context context) {
+        public CardItemClickListener(Activity context) {
             mContext  = context;
         }
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                    Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                    Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                    Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle();
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id",bean.getId());
             intent.putExtra("name",bean.getName());
             intent.putExtra("imageUrl", bean.getImageUrl());
             intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
             intent.putExtra("author", bean.getAuthor());
-            mContext.startActivity(intent);
+            mContext.startActivity(intent,bundle);
         }
     }
 }

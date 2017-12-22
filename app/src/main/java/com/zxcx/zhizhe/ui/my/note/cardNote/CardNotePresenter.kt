@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 
 class CardNotePresenter(view: CardNoteContract.View) : BasePresenter<CardNoteContract.View>(), CardNoteContract.Presenter {
 

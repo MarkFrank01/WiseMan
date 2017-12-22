@@ -15,6 +15,8 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListActiv
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
+import com.zxcx.zhizhe.utils.StringUtils
+import com.zxcx.zhizhe.utils.TextViewUtils
 import kotlinx.android.synthetic.main.fragment_dynamic_message.*
 
 class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean> {
@@ -59,9 +61,24 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
     }
 
     override fun getDataSuccess(bean: DynamicMessageBean) {
-        bean.followerUserStr?.let { tv_dynamic_message_follow.text = getString(R.string.tv_dynamic_message_follow,it) }
-        bean.likeUserStr?.let { tv_dynamic_message_follow.text = getString(R.string.tv_dynamic_message_like,it) }
-        bean.collectedUserStr?.let { tv_dynamic_message_follow.text = getString(R.string.tv_dynamic_message_collect,it) }
+        bean.followerUserStr?.let {
+            if (!StringUtils.isEmpty(bean.followerUserStr)) {
+                val str = getString(R.string.tv_dynamic_message_follow, it)
+                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_follow,bean.followerUserStr,str)
+            }
+        }
+        bean.likeUserStr?.let {
+            if (!StringUtils.isEmpty(bean.likeUserStr)) {
+                val str = getString(R.string.tv_dynamic_message_like, it)
+                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_like,bean.likeUserStr,str)
+            }
+        }
+        bean.collectedUserStr?.let {
+            if (!StringUtils.isEmpty(bean.collectedUserStr)) {
+                val str = getString(R.string.tv_dynamic_message_collect, it)
+                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_collect,bean.collectedUserStr,str)
+            }
+        }
     }
 
     override fun getDataFail(msg: String?) {

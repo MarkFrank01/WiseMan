@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.note.freedomNote
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.search.result.card.NoteBean
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 
 class FreedomNotePresenter(view: FreedomNoteContract.View) : BasePresenter<FreedomNoteContract.View>(), FreedomNoteContract.Presenter {
 

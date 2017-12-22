@@ -69,7 +69,7 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
-    String passwordRules = "^.{6,16}$";
+    String passwordRules = "^.{8,20}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
     private String verifyKey,jpushRID,appChannel,appVersion,userId,userName,userIcon,userGender;
@@ -80,6 +80,7 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         jpushRID = JPushInterface.getRegistrationID(mActivity);
         SMSSDK.registerEventHandler(new EventHandle());
 
@@ -218,7 +219,6 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         if (phonePattern.matcher(mEtForgetPhone.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("手机号格式错误!");
             return false;
         }
     }
@@ -227,7 +227,6 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         if (passwordPattern.matcher(mEtForgetPassword.getText().toString()).matches()) {
             return true;
         } else {
-            toastShow("密码格式错误!");
             return false;
         }
     }

@@ -82,7 +82,7 @@
                         <TextView
                             android:id="@+id/tv_rank_my_card"
                             android:layout_below="@id/tv_rank_my_user_name"
-                            android:drawableLeft="@drawable/iv_phone_clear"
+                            android:drawableLeft="@drawable/tv_item_rank_user_card"
                             android:drawablePadding="5dp"
                             tools:text="1000"
                             style="@style/tv_single"
@@ -95,7 +95,7 @@
                             android:id="@+id/tv_rank_my_fans"
                             android:layout_below="@id/tv_rank_my_user_name"
                             android:layout_toRightOf="@id/tv_rank_my_card"
-                            android:drawableLeft="@drawable/iv_phone_clear"
+                            android:drawableLeft="@drawable/tv_item_rank_user_fans"
                             android:drawablePadding="5dp"
                             android:layout_marginLeft="20dp"
                             tools:text="1000"
@@ -109,7 +109,7 @@
                             android:id="@+id/tv_rank_my_read"
                             android:layout_below="@id/tv_rank_my_user_name"
                             android:layout_toRightOf="@id/tv_rank_my_fans"
-                            android:drawableLeft="@drawable/iv_phone_clear"
+                            android:drawableLeft="@drawable/tv_item_rank_user_read"
                             android:drawablePadding="5dp"
                             android:layout_marginLeft="20dp"
                             tools:text="1000"
@@ -119,15 +119,32 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                        <ImageView
-                            android:id="@+id/iv_rank_my_header_rank"
+                        <FrameLayout
+                            android:id="@+id/fl_rank_my_header_rank"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="40dp"
+                            android:layout_height="40dp">
+
+                            <ImageView
+                                android:id="@+id/iv_rank_my_header_rank"
+                                android:src="@drawable/rank_4"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/tv_rank_my_header_rank"
+                                tools:text="4"
+                                android:textColor="@color/text_color_2"
+                                android:textSize="@dimen/text_size_text_2"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </FrameLayout>
 
                         <TextView
                             android:id="@+id/tv_rank_my_no_rank"
+                            android:visibility="gone"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:text="暂未上榜"

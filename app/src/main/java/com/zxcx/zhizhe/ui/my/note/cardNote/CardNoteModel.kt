@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 
 class CardNoteModel(presenter: CardNoteContract.Presenter) : BaseModel<CardNoteContract.Presenter>() {
     init {

@@ -93,9 +93,7 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
                         switchFragment(mHotFragment);
                         break;
                     case 1:
-                        if (checkLogin()) {
-                            switchFragment(mAttentionFragment);
-                        }
+                        switchFragment(mAttentionFragment);
                         break;
                     case 2:
                         switchFragment(mRankFragment);

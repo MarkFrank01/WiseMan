@@ -65,7 +65,7 @@ public class PhoneUnRegisteredDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTvDialogConfirm.setText("登录");
+        mTvDialogConfirm.setText("确定");
         TextPaint tp = mTvDialogConfirm.getPaint();
         tp.setFakeBoldText(true);
 

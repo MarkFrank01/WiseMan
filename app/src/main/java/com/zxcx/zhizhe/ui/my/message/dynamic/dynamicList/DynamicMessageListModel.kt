@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
+import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 
 class DynamicMessageListModel(presenter: DynamicMessageListContract.Presenter) : BaseModel<DynamicMessageListContract.Presenter>() {
@@ -20,6 +21,18 @@ class DynamicMessageListModel(presenter: DynamicMessageListContract.Presenter) :
                 .subscribeWith(object : BaseSubscriber<List<DynamicMessageListBean>>(mPresenter) {
                     override fun onNext(list: List<DynamicMessageListBean>) {
                         mPresenter.getDataSuccess(list)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun deleteDynamicMessageList(messageType: Int) {
+        mDisposable = AppClient.getAPIService().deleteDynamicMessageList(messageType)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(object : BaseSubscriber<BaseBean<*>>(mPresenter) {
+                    override fun onNext(list: BaseBean<*>) {
+                        mPresenter.postSuccess()
                     }
                 })
         addSubscription(mDisposable)
