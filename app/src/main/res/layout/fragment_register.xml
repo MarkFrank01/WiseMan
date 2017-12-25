@@ -74,6 +74,7 @@
 
             <TextView
                 android:id="@+id/tv_register_send_verification"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

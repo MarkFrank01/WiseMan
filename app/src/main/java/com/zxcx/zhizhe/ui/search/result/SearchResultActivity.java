@@ -94,9 +94,7 @@ public class SearchResultActivity extends BaseActivity {
                         switchFragment(mSearchCardFragment);
                         break;
                     case 1:
-                        if (checkLogin()) {
-                            switchFragment(mSearchUserFragment);
-                        }
+                        switchFragment(mSearchUserFragment);
                         break;
                 }
             }

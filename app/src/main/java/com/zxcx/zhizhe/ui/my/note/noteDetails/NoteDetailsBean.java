@@ -17,7 +17,7 @@ public class NoteDetailsBean extends RetrofitBaen {
     private String imageUrl;
     @JSONField(name = "title")
     private String name;
-    @JSONField(name = "createTime")
+    @JSONField(name = "modifyTime")
     private Date date;
 
     public int getId() {

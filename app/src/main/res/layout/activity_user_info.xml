@@ -240,6 +240,30 @@
     </LinearLayout>
 
     <View
+        android:layout_marginLeft="20dp"
+        style="@style/line"/>
+
+    <LinearLayout
+        android:id="@+id/ll_user_info_logout"
+        android:background="@color/background"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="退出"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <include layout="@layout/iv_right_into"/>
+
+    </LinearLayout>
+
+    <View
         style="@style/line"/>
 
 </LinearLayout>

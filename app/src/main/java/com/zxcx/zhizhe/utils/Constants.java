@@ -20,4 +20,6 @@ public class Constants {
 
     public static final int NOTE_TYPE_CARD = 4;
     public static final int NOTE_TYPE_FREEDOM = 3;
+
+    public static final int CLIP_IMAGE = 100;
 }

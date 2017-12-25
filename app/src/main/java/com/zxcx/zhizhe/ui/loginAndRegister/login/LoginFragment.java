@@ -137,6 +137,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     public void onMessageEvent(PhoneRegisteredEvent event) {
         //手机号已注册，跳转登录
         mEtLoginPhone.setText(event.getPhone());
+        mEtLoginPassword.setText("");
         Utils.showInputMethod(mEtLoginPassword);
     }
 

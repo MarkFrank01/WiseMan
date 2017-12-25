@@ -47,10 +47,10 @@ class CreationActivity : BaseActivity() {
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_order_sequence)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_order_inverted)
             }
             passedFragment.mSortType = mSortType
             reviewFragment.mSortType = mSortType

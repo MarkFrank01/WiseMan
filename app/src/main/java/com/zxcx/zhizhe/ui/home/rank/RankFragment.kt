@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment
 import com.zxcx.zhizhe.ui.rank.RankActivity
 import com.zxcx.zhizhe.utils.ImageLoader
@@ -119,7 +120,6 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HomeClickRefreshEvent) {
-        nsv_rank.fullScroll(-1)
         mRefreshLayout.autoRefresh()
     }
 
@@ -130,7 +130,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         EventBus.getDefault().removeStickyEvent(event)
     }
 
-    fun gotoMoreRank(){
+    private fun gotoMoreRank(){
         val intent = Intent(mActivity, RankActivity::class.java)
         startActivity(intent)
     }
@@ -167,9 +167,11 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
             tv_rank_my_card.visibility = View.GONE
             tv_rank_my_fans.visibility = View.GONE
             tv_rank_my_read.visibility = View.GONE
+            fl_rank_my_header_rank.visibility = View.GONE
+            tv_rank_my_no_rank.visibility = View.GONE
             tv_rank_my_no_login.visibility = View.VISIBLE
             iv_rank_my_header.setImageResource(R.drawable.iv_my_head_placeholder)
-            rl_rank_my.setOnClickListener { startActivity(Intent(mActivity, LoginFragment::class.java)) }
+            rl_rank_my.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
         }else{
             if (isFirst) {
                 mPresenter.getMyRank()

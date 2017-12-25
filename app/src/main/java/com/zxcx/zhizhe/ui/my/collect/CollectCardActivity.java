@@ -54,7 +54,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         getCollectCard();
 
         mIvToolbarRight.setVisibility(View.VISIBLE);
-        mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
+        mIvToolbarRight.setImageResource(R.drawable.iv_order_inverted);
 
         initLoadSir();
     }
@@ -131,10 +131,10 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     public void onViewClicked() {
         if (mSortType == 1){
             mSortType = 0;
-            mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
+            mIvToolbarRight.setImageResource(R.drawable.iv_order_sequence);
         }else if (mSortType == 0){
             mSortType = 1;
-            mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_card);
+            mIvToolbarRight.setImageResource(R.drawable.iv_order_inverted);
         }
         page = 0;
         getCollectCard();

@@ -13,7 +13,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.BuildConfig;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -76,8 +76,8 @@ public class RichEditor extends WebView {
     }
 
 //    private static final String SETUP_HTML = "file:///android_asset/editor.html";
-//    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
-    private static final String SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
+    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+//    private static final String SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
     private static final String CALLBACK_SCHEME = "re-callback://";
     private static final String STATE_SCHEME = "re-state://";
     private boolean isReady = false;
@@ -104,7 +104,10 @@ public class RichEditor extends WebView {
         setWebChromeClient(new WebChromeClient());
         setWebViewClient(createWebviewClient());
         loadUrl(SETUP_HTML);
-        setFontSize(ScreenUtils.dip2px(16));
+
+        if (BuildConfig.DEBUG) {
+            WebView.setWebContentsDebuggingEnabled(true);//开启WebView内容调试
+        }
 
         this.getSettings().setLoadWithOverviewMode(true);
         this.getSettings().setUseWideViewPort(true);
@@ -131,7 +134,7 @@ public class RichEditor extends WebView {
 
     private void callback(String text) {
         mContents = text.replaceFirst(CALLBACK_SCHEME, "");
-        mContents = mContents.replaceAll("div", "p");
+//        mContents = mContents.replaceAll("div", "p");
         if (mTextChangeListener != null) {
             mTextChangeListener.onTextChange(mContents);
         }
@@ -320,7 +323,7 @@ public class RichEditor extends WebView {
         exec("javascript:RE.setIsEyeshield("+isEyeshield+");");
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(Integer cardId) {
         exec("javascript:RE.setArticleId('" + cardId + "');");
     }
 

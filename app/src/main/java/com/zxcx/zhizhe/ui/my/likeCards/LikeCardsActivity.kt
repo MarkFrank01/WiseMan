@@ -103,14 +103,14 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
             }
             mPage = 0
             getLikeCard() }

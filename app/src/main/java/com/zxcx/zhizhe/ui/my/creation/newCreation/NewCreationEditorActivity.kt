@@ -7,12 +7,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity
+import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
+import org.greenrobot.eventbus.EventBus
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
@@ -26,11 +30,6 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
     private var title: String? = null
     private var imageUrl: String? = null
     private var content: String? = null
-
-    enum class action{
-        ACTION_SAVE,
-        ACTION_SUBMIT
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +46,8 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         title = intent.getStringExtra("title")
         imageUrl = intent.getStringExtra("imageUrl")
 
-        if (cardId == 0){
-            cardId = null
-        }
-        if (cardBagId == 0){
-            cardBagId = null
+        if (cardId != 0){
+            editor.setCardId(cardId)
         }
     }
 
@@ -74,11 +70,22 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
     }
 
     override fun postSuccess() {
+        EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
+        val intent = Intent(mActivity,CreationActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
 
+    override fun saveFreedomNoteSuccess() {
+        EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
+        val intent = Intent(mActivity,NoteActivity::class.java)
+        intent.putExtra("isFreedomNote",true)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun postFail(msg: String?) {
-
+        toastShow(msg)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -150,7 +157,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
-        cb_editor_night.setOnCheckedChangeListener { _, isChecked ->
+        cb_editor_eyeshield.setOnCheckedChangeListener { _, isChecked ->
             // 设置编辑器是否夜间模式
             editor.setIsEyeshield(isChecked)
         }

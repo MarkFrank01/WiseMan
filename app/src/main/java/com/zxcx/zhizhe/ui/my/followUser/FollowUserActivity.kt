@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.followUser
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.view.View
 import android.widget.TextView
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
@@ -40,10 +41,10 @@ class FollowUserActivity : BaseActivity() {
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
             }
             followFragment.mSortType = mSortType
             fansFragment.mSortType = mSortType
@@ -51,6 +52,8 @@ class FollowUserActivity : BaseActivity() {
     }
 
     private fun initView() {
+        iv_toolbar_right.visibility = View.VISIBLE
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
         for (i in titles.indices) {
             val tab = tl_follow_user.newTab()
             tab.setCustomView(R.layout.tab_note)

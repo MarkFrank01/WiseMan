@@ -4,7 +4,6 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter
 
 class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePresenter<NewCreationEditorContract.View>(), NewCreationEditorContract.Presenter {
 
-
     private val mModel: NewCreationEditorModel
 
     init {
@@ -22,6 +21,10 @@ class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePre
 
     override fun postSuccess() {
         mView.postSuccess()
+    }
+
+    override fun saveFreedomNoteSuccess() {
+        mView.saveFreedomNoteSuccess()
     }
 
     override fun postFail(msg: String?) {

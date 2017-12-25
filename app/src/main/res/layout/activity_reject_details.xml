@@ -117,7 +117,7 @@
                 android:id="@+id/tv_reject_reedit"
                 android:layout_gravity="center_horizontal"
                 android:background="@color/background"
-                android:drawableLeft="@drawable/common_close"
+                android:drawableLeft="@drawable/tv_reject_reedit"
                 android:drawablePadding="10dp"
                 android:layout_marginTop="54dp"
                 android:layout_marginBottom="85dp"
@@ -136,7 +136,7 @@
     <ImageView
         android:id="@+id/iv_reject_details_back"
         android:layout_alignParentRight="true"
-        android:src="@drawable/common_close"
+        android:src="@drawable/iv_card_details_back"
         android:padding="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"

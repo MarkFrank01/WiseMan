@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.SaveCardNoteSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
@@ -20,6 +21,8 @@ import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,11 +126,13 @@ public class NoteTitleDialog extends BaseDialog implements INullPostPresenter{
 
     @Override
     public void postSuccess() {
-
+        EventBus.getDefault().post(new SaveCardNoteSuccessEvent());
+        dismiss();
     }
 
     @Override
     public void postFail(String msg) {
-
+        toastShow(msg);
+        dismiss();
     }
 }

@@ -273,4 +273,17 @@
         android:layout_marginTop="10dp"
         android:layout_width="40dp"
         android:layout_height="40dp"/>
+
+    <TextView
+        android:id="@+id/tv_toast"
+        android:visibility="gone"
+        android:background="@color/opacity_70"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:gravity="center"
+        tools:text="6666"
+        android:textSize="@dimen/text_size_text_3"
+        android:textColor="@color/white_final"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

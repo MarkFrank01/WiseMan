@@ -15,11 +15,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.PhoneConfirmEvent;
+import com.zxcx.zhizhe.event.PhoneRegisteredEvent;
 import com.zxcx.zhizhe.event.RegisterEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordContract;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordPresenter;
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.PhoneUnRegisteredDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
@@ -119,6 +119,9 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
 
     @Override
     public void onDestroy() {
+        handler.removeCallbacks(setDjs);
+        setDjs = null;
+        handler = null;
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
@@ -147,11 +150,11 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
             confirmDialog.show(mActivity.getFragmentManager(), "");
         } else {
             //手机号未注册提示框
-            PhoneUnRegisteredDialog registeredDialog = new PhoneUnRegisteredDialog();
+            PhoneConfirmDialog confirmDialog = new PhoneConfirmDialog();
             Bundle bundle = new Bundle();
-            bundle.putString("phone", mEtForgetPhone.getText().toString());
-            registeredDialog.setArguments(bundle);
-            registeredDialog.show(mActivity.getFragmentManager(), "");
+            bundle.putString("phone",mEtForgetPhone.getText().toString());
+            confirmDialog.setArguments(bundle);
+            confirmDialog.show(mActivity.getFragmentManager(),"");
         }
     }
 
@@ -168,6 +171,17 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         //手机号确认成功,发送验证码
         showLoading();
         SMSSDK.getVerificationCode("86", mEtForgetPhone.getText().toString());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(PhoneRegisteredEvent event) {
+        //手机号已注册，跳登录
+        onBackPressed();
+    }
+
+    @OnClick(R.id.iv_forget_close)
+    public void onMIvForgetCloseClicked() {
+        finish();
     }
 
     @OnClick(R.id.iv_forget_phone_clear)

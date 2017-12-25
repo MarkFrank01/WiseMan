@@ -32,7 +32,7 @@
 
         <ImageView
             android:id="@+id/iv_toolbar_sort"
-            android:src="@drawable/iv_card_bag_card"
+            android:src="@drawable/iv_order_inverted"
             android:layout_alignParentRight="true"
             android:paddingRight="20dp"
             android:paddingLeft="5dp"
@@ -41,7 +41,7 @@
 
         <ImageView
             android:id="@+id/iv_toolbar_creation"
-            android:src="@drawable/common_close"
+            android:src="@drawable/common_my_add"
             android:layout_toLeftOf="@id/iv_toolbar_sort"
             android:paddingRight="5dp"
             android:paddingLeft="20dp"

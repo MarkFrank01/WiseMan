@@ -26,15 +26,17 @@ import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.SaveCardNoteSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
 import com.zxcx.zhizhe.event.UnLikeEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
+import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
-import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -43,10 +45,16 @@ import com.zxcx.zhizhe.utils.WebViewUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Flowable;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
 
@@ -90,6 +98,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     LinearLayout mLlCardDetailsBottom;
     @BindView(R.id.sv_card_details)
     ScrollView mSvCardDetails;
+    @BindView(R.id.tv_toast)
+    TextView mTvToast;
 
     private WebView mWebView;
     private int cardId;
@@ -114,6 +124,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         setContentView(R.layout.activity_card_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         initData();
         initView();
@@ -152,6 +163,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.destroy();
             mWebView = null;
         }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -163,8 +175,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mActionMode = mode;
             Menu menu = mode.getMenu();
             menu.clear();
-            menu.add(0, MENU_ITEM_NOTE, 0, "存为笔记").setOnMenuItemClickListener(new MenuItemClickListener());
-            menu.add(0, MENU_ITEM_SHARE, 0, "摘取分享").setOnMenuItemClickListener(new MenuItemClickListener());
+            MenuItemClickListener menuItemClickListener = new MenuItemClickListener();
+            menu.add(0, MENU_ITEM_NOTE, 0, "存为笔记").setOnMenuItemClickListener(menuItemClickListener);
+            menu.add(0, MENU_ITEM_SHARE, 0, "摘取分享").setOnMenuItemClickListener(menuItemClickListener);
         }
     }
 
@@ -229,10 +242,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mTvItemRankUserCard.setText(bean.getAuthorCardNum());
         mTvItemRankUserFans.setText(bean.getAuthorFansNum());
         mTvItemRankUserRead.setText(bean.getAuthorReadNum());
-        if (bean.getFollowType() == 0){
+        if (bean.getFollowType() == 0) {
             mCbCardDetailsFollow.setText("关注");
             mCbCardDetailsFollow.setChecked(false);
-        }else {
+        } else {
             mCbCardDetailsFollow.setText("已关注");
             mCbCardDetailsFollow.setChecked(true);
         }
@@ -245,15 +258,27 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     public void followSuccess() {
-        if (mCbCardDetailsFollow.isChecked()){
+        if (mCbCardDetailsFollow.isChecked()) {
             //取消成功
             mCbCardDetailsFollow.setText("关注");
             mCbCardDetailsFollow.setChecked(false);
-        }else {
+        } else {
             //关注成功
             mCbCardDetailsFollow.setText("已关注");
             mCbCardDetailsFollow.setChecked(true);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(UnFollowConfirmEvent event) {
+        //取消关注
+        mPresenter.setUserFollow(mAuthorId, 1);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SaveCardNoteSuccessEvent event) {
+        //卡片笔记保存成功
+        toastShow("保存成功");
     }
 
     @OnClick(R.id.cb_card_details_follow)
@@ -261,32 +286,36 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
         if (!mCbCardDetailsFollow.isChecked()) {
             //关注
-            mPresenter.setUserFollow(mAuthorId,0);
+            mPresenter.setUserFollow(mAuthorId, 0);
         } else {
-            //取消关注
-            mPresenter.setUserFollow(mAuthorId,1);
+            //取消关注弹窗
+            UnFollowConfirmDialog dialog = new UnFollowConfirmDialog();
+            Bundle bundle = new Bundle();
+            bundle.putInt("userId", mAuthorId);
+            dialog.setArguments(bundle);
+            dialog.show(getFragmentManager(), "");
         }
     }
 
     @OnClick(R.id.rl_card_details_bottom)
     public void onMRlCardDetailsBottomClicked() {
         Intent intent = new Intent(this, OtherUserActivity.class);
-        intent.putExtra("name",author);
-        intent.putExtra("id",mAuthorId);
+        intent.putExtra("name", author);
+        intent.putExtra("id", mAuthorId);
         startActivity(intent);
     }
 
     @OnClick(R.id.fl_card_details_card_bag)
     public void onMFlCardDetailsCardBagClicked() {
         Intent intent = new Intent(this, CardBagActivity.class);
-        intent.putExtra("name",cardBagName);
-        intent.putExtra("id",cardBagId);
+        intent.putExtra("name", cardBagName);
+        intent.putExtra("id", cardBagId);
         startActivity(intent);
     }
 
     @OnClick(R.id.iv_card_details_share)
     public void onShareClicked() {
-        gotoShare(mUrl,null);
+        gotoShare(mUrl, null);
     }
 
     @OnClick(R.id.cb_card_details_collect)
@@ -396,31 +425,55 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         mWebView.loadUrl(mUrl);
     }
 
+    @Override
+    public void toastShow(String text) {
+        mTvToast.setVisibility(View.VISIBLE);
+        mTvToast.setText(text);
+        mDisposable = Flowable.timer(7, TimeUnit.SECONDS)
+                .subscribeWith(new DisposableSubscriber<Long>() {
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        mTvToast.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        mTvToast.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
     private void gotoShare(String url, String content) {
         ShareCardDialog shareDialog = new ShareCardDialog();
         Bundle bundle = new Bundle();
-        bundle.putString("name",name);
+        bundle.putString("name", name);
         if (!StringUtils.isEmpty(content)) {
             bundle.putString("content", content);
         } else {
-            bundle.putString("url",url);
+            bundle.putString("url", url);
         }
-        bundle.putString("imageUrl",imageUrl);
-        bundle.putString("date",date);
-        bundle.putString("author",author);
-        bundle.putString("cardBagName",cardBagName);
-        bundle.putInt("cardBagId",cardBagId);
+        bundle.putString("imageUrl", imageUrl);
+        bundle.putString("date", date);
+        bundle.putString("author", author);
+        bundle.putString("cardBagName", cardBagName);
+        bundle.putInt("cardBagId", cardBagId);
         shareDialog.setArguments(bundle);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            transaction.addSharedElement(mIvCardDetails,"cardImage");
-            transaction.addSharedElement(mTvCardDetailsTitle,"cardTitle");
-            transaction.addSharedElement(mTvCardDetailsInfo,"cardInfo");
-            transaction.addSharedElement(mTvCardDetailsCardBag,"cardBag");
+            transaction.addSharedElement(mIvCardDetails, "cardImage");
+            transaction.addSharedElement(mTvCardDetailsTitle, "cardTitle");
+            transaction.addSharedElement(mTvCardDetailsInfo, "cardInfo");
+            transaction.addSharedElement(mTvCardDetailsCardBag, "cardBag");
 
         }
-        shareDialog.show(transaction,"");
+        shareDialog.show(transaction, "");
     }
 
     private class MenuItemClickListener implements MenuItem.OnMenuItemClickListener {
@@ -430,21 +483,21 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.evaluateJavascript("getValue()", new ValueCallback<String>() {
                 @Override
                 public void onReceiveValue(String value) {
-                    value = value.replaceAll("\\u003c","<");
-                    LogCat.d(value);
+                    String content = value.replaceAll("\\\\u003C", "<");
+                    content = content != null ? content.substring(1, content.length() - 1) : null;
                     switch (item.getItemId()) {
                         case MENU_ITEM_NOTE:
                             NoteTitleDialog noteTitleDialog = new NoteTitleDialog();
                             Bundle bundle = new Bundle();
-                            bundle.putInt("withCardId",cardId);
-                            bundle.putString("title",name);
-                            bundle.putString("imageUrl",imageUrl);
-                            bundle.putString("content",value);
+                            bundle.putInt("withCardId", cardId);
+                            bundle.putString("title", name);
+                            bundle.putString("imageUrl", imageUrl);
+                            bundle.putString("content", content);
+                            noteTitleDialog.setArguments(bundle);
                             noteTitleDialog.show(getFragmentManager(), "");
                             break;
                         case MENU_ITEM_SHARE:
-                            String text = value != null ? value.substring(1, value.length() - 1) : null;
-                            gotoShare(mUrl, text);
+                            gotoShare(mUrl, content);
                             break;
                     }
                 }

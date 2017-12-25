@@ -67,7 +67,6 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         setContentView(R.layout.activity_note_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 
         initData();
         initView();
@@ -96,7 +95,6 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
             mWebView = null;
         }
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

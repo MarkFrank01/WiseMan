@@ -9,8 +9,8 @@ import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.search.result.card.CardNoteFragment
 import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteFragment
+import com.zxcx.zhizhe.ui.search.result.card.CardNoteFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_note.*
 
@@ -45,10 +45,10 @@ class NoteActivity : BaseActivity() {
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_order_sequence)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_sort.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_sort.setImageResource(R.drawable.iv_order_inverted)
             }
             cardNoteFragment.mSortType = mSortType
             freedomNoteFragment.mSortType = mSortType
@@ -83,8 +83,14 @@ class NoteActivity : BaseActivity() {
         val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
         para.width = screenWidth * 2 / 3
         tl_note.layoutParams = para
-        tl_note.getTabAt(0)?.select()
-        switchFragment(cardNoteFragment)
+        val isFreedomNote = intent.getBooleanExtra("isFreedomNote",false)
+        if (isFreedomNote){
+            tl_note.getTabAt(1)?.select()
+            switchFragment(freedomNoteFragment)
+        }else {
+            tl_note.getTabAt(0)?.select()
+            switchFragment(cardNoteFragment)
+        }
     }
 
     private fun switchFragment(newFragment: Fragment) {

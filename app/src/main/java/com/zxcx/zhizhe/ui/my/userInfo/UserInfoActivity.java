@@ -134,4 +134,11 @@ public class UserInfoActivity extends BaseActivity {
         Intent intent = new Intent(this, UserSafetyActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.ll_user_info_logout)
+    public void onMLlUserInfoLogoutClicked() {
+        //退出登录弹窗
+        LogoutDialog dialog = new LogoutDialog();
+        dialog.show(getFragmentManager(),"");
+    }
 }

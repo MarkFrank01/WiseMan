@@ -5,8 +5,12 @@ import com.zxcx.zhizhe.mvpBase.NullPostView
 
 interface NewCreationEditorContract {
 
-    interface View : NullPostView
+    interface View : NullPostView{
+        fun saveFreedomNoteSuccess()
+    }
 
-    interface Presenter : INullPostPresenter
+    interface Presenter : INullPostPresenter{
+        fun saveFreedomNoteSuccess()
+    }
 }
 

@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
@@ -163,6 +164,9 @@ public class ClipImageActivity extends BaseActivity {
                     @Override
                     public void onSuccess(File file) {
                         //  压缩成功后调用，返回压缩后的图片文件
+                        Intent intent = new Intent();
+                        intent.putExtra("path",file.getPath());
+                        setResult(RESULT_OK,intent);
                         finish();
                         EventBus.getDefault().post(new ImageCropSuccessEvent(file.getPath()));
                         EventBus.getDefault().postSticky(new ImageCropSuccessEvent(file.getPath()));

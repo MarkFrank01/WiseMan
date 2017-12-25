@@ -108,6 +108,9 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
 
     @Override
     public void onDestroy() {
+        handler.removeCallbacks(setDjs);
+        setDjs = null;
+        handler = null;
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
         super.onDestroy();

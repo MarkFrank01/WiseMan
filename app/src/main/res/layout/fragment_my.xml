@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:maxLength="8"
-            android:text="注册/登录"
+            tools:text="注册/登录"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/button_blue"/>
 
@@ -84,7 +84,7 @@
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="登录看谁在关注你"
+            tools:text="登录看谁在关注你"
             android:textSize="@dimen/text_size_text_3"
             android:textColor="@color/text_color_3"/>
     </RelativeLayout>

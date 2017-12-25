@@ -32,26 +32,29 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
     private fun showRank(helper: BaseViewHolder, bean: UserRankBean) {
         when (bean.rankIndex) {
             1 -> {
+                helper.setVisible(R.id.tv_item_rank_user_rank, false)
+                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_1)
             }
             2 -> {
-                helper.setVisible(R.id.tv_rank_my_header_rank, false)
-                helper.setVisible(R.id.tv_rank_my_no_rank, false)
-                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_2)
+                helper.setVisible(R.id.tv_item_rank_user_rank, false)
+                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_2)
             }
             3 -> {
-                helper.setVisible(R.id.tv_rank_my_header_rank, false)
-                helper.setVisible(R.id.tv_rank_my_no_rank, false)
-                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_3)
+                helper.setVisible(R.id.tv_item_rank_user_rank, false)
+                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_3)
             }
             in 4..99 -> {
-                helper.setVisible(R.id.tv_rank_my_no_rank, false)
-                helper.setVisible(R.id.tv_rank_my_header_rank, true)
-                helper.setText(R.id.tv_rank_my_header_rank,bean.rankIndex.toString())
-                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_4)
+                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setVisible(R.id.tv_item_rank_user_rank, true)
+                helper.setText(R.id.tv_item_rank_user_rank,bean.rankIndex.toString())
+                helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_4)
             }
             else -> {
-                helper.setVisible(R.id.tv_rank_my_no_rank, true)
-                helper.setVisible(R.id.fl_rank_my_header_rank, false)
+                helper.setVisible(R.id.tv_item_rank_user_no_rank, true)
+                helper.setVisible(R.id.fl_item_rank_user_rank, false)
             }
         }
     }

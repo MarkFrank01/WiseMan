@@ -33,7 +33,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     @BindView(R.id.wsv_welcome_skip)
     WelcomeSkipView mWsvWelcomeSkip;
     private Handler mHandler = new Handler();
-    private int mCount = 6;
+    private int mCount = 2;
 
     Runnable mRunnable = new Runnable() {
         @Override
@@ -61,7 +61,6 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
             ImageLoader.load(this, adImageUrl, mIvWelcomeAd);
             mWsvWelcomeSkip.setVisibility(View.VISIBLE);
         } else {
-            mCount = 2;
             mHandler.post(mRunnable);
         }
     }

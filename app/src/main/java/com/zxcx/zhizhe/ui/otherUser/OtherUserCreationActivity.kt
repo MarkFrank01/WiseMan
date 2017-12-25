@@ -27,7 +27,8 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_read_cards)
+        setContentView(R.layout.activity_other_user_creation)
+        otherUserId = intent.getIntExtra("otherUserId",0)
         initView()
         initToolBar("Ta的创作")
         initLoadSir()
@@ -90,16 +91,17 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
         mAdapter.setOnLoadMoreListener(this,rv_other_user_creation)
         rv_other_user_creation.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_other_user_creation.adapter = mAdapter
+        rv_other_user_creation.addItemDecoration(OtherUserCreationItemDecoration())
 
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_list)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
             } else if (mSortType == 0) {
                 mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_card_bag_card)
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
             }
             mPage = 0
             getOtherUserCreation() }

@@ -29,6 +29,7 @@ import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
+import com.zxcx.zhizhe.widget.EmptyView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,7 +51,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     Unbinder unbinder;
 
     private AttentionCardAdapter mCardAdapter;
-    private View mEmptyView;
     private int page = 0;
     private int mAppBarLayoutVerticalOffset;
 
@@ -107,7 +107,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Override
     public void clearLeaks() {
         mCardAdapter = null;
-        mEmptyView = null;
         loadService = null;
     }
 
@@ -194,18 +193,17 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     private void initView() {
-        mEmptyView = LayoutInflater.from(mActivity).inflate(R.layout.empty_attention,null);
-        mEmptyView.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
-            startActivity(intent);
-        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mCardAdapter = new AttentionCardAdapter(new ArrayList<>());
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        mCardAdapter.setEmptyView(mEmptyView);
+        View emptyView = EmptyView.getEmptyView(mActivity,"暂无关注内容","去看看你喜欢什么",R.color.button_blue,v -> {
+            Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
+            startActivity(intent);
+        });
+        mCardAdapter.setEmptyView(emptyView);
         mRvAttentionCard.setLayoutManager(layoutManager);
         mRvAttentionCard.setAdapter(mCardAdapter);
         if (checkLogin()){

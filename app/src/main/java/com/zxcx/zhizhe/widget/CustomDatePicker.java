@@ -93,7 +93,7 @@ public class CustomDatePicker {
             window.setGravity(Gravity.CENTER);
 
             window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(27.5f), 0, ScreenUtils.dip2px(27.5f), 0);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(53), 0, ScreenUtils.dip2px(53), 0);
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.gravity = Gravity.CENTER;
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;

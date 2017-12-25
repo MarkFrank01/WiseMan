@@ -93,6 +93,9 @@ public class ForgetPasswordActivity extends MvpActivity<ForgetPasswordPresenter>
 
     @Override
     public void onDestroy() {
+        handler.removeCallbacks(setDjs);
+        setDjs = null;
+        handler = null;
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();

@@ -9,13 +9,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.ImageCropSuccessEvent
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
-import com.zxcx.zhizhe.utils.FileUtil
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.StringUtils
-import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation1.*
 import org.greenrobot.eventbus.EventBus
@@ -36,6 +33,7 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_creation1)
+        EventBus.getDefault().register(this)
         initToolBar("创作")
         initData()
         Utils.setViewAspect(fl_new_creation_1_add_img,16,9)
@@ -56,20 +54,14 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         updateView()
     }
 
-    override fun onResume() {
-        super.onResume()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
         EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: ImageCropSuccessEvent) {
-        uploadImageToOSS(event.path)
-        EventBus.getDefault().removeStickyEvent(event)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        finish()
     }
 
     private fun uploadImageToOSS(path: String) {
@@ -142,36 +134,32 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
 
-            // 这个方法是根据Uri获取Bitmap图片的静态方法
+            if (requestCode == Constants.CLIP_IMAGE){
+                //图片裁剪完成
+                uploadImageToOSS(data.getStringExtra("path"))
+            }else {
+                //图片选择完成
+                var photoUri = data.data
+                var imagePath: String = ""
+                if (photoUri != null) {
+                    imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+                } else {
+                    val extras = data.extras
+                    if (extras != null) {
+                        val imageBitmap = extras.get("data") as Bitmap
+                        photoUri = Uri
+                                .parse(MediaStore.Images.Media.insertImage(
+                                        mActivity.contentResolver, imageBitmap, null, null))
 
-            // 取得返回的Uri,基本上选择照片的时候返回的是以Uri形式，但是在拍照中有得机子呢Uri是空的，所以要特别注意
-            var photoUri = data.data
-            var imagePath :String = ""
-            // 返回的Uri不为空时，那么图片信息数据都会在Uri中获得。如果为空，那么我们就进行下面的方式获取
-            if (photoUri != null) {
-                imagePath = FileUtil.getRealFilePathFromUri(mActivity,photoUri)
-            } else {
-                // android拍照获得图片URI为空的处理方法http://www.xuebuyuan.com/1929552.html
-                // 这样做取得是缩略图,以下链接是取得原始图片
-                // http://blog.csdn.net/beyond0525/article/details/8940840
-                val extras = data.extras
-                if (extras != null) {
-                    // 这里是有些拍照后的图片是直接存放到Bundle中的所以我们可以从这里面获取Bitmap图片
-                    // Bitmap imageBitmap =
-                    // extras.getParcelable("data");
-                    val imageBitmap = extras.get("data") as Bitmap
-                    photoUri = Uri
-                            .parse(MediaStore.Images.Media.insertImage(
-                                    mActivity.contentResolver, imageBitmap, null, null))
-
-                    imagePath = FileUtil.getRealFilePathFromUri(mActivity,photoUri)
+                        imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+                    }
                 }
+                val intent = Intent(mActivity, ClipImageActivity::class.java)
+                intent.putExtra("path", imagePath)
+                intent.putExtra("aspectX", 16)
+                intent.putExtra("aspectY", 9)
+                startActivityForResult(intent,Constants.CLIP_IMAGE)
             }
-            val intent = Intent(mActivity, ClipImageActivity::class.java)
-            intent.putExtra("path", imagePath)
-            intent.putExtra("aspectX", 16)
-            intent.putExtra("aspectY", 9)
-            startActivity(intent)
         }
     }
 }

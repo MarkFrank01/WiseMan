@@ -243,7 +243,7 @@ public interface APIService {
      */
     @POST("/article/getArticleBasicInfo")
     Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(
-            @Query("noteId") int noteId, @Query("viewType") int noteType);
+            @Query("articleId") int noteId, @Query("viewType") int noteType);
 
     /**
      * 获取笔记列表

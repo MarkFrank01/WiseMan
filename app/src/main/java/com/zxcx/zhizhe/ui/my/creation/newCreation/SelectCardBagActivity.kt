@@ -7,10 +7,14 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.classify.*
 import kotlinx.android.synthetic.main.activity_select_card_bag.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -27,6 +31,7 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_card_bag)
+        EventBus.getDefault().register(this)
         initToolBar("选择卡包")
         initData()
         tv_toolbar_right.visibility = View.VISIBLE
@@ -58,8 +63,18 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         }
     }
 
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     override fun createPresenter(): ClassifyPresenter {
         return ClassifyPresenter(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        finish()
     }
 
     override fun getDataSuccess(list: List<ClassifyBean>) {
