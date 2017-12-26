@@ -1,6 +1,7 @@
-package com.zxcx.zhizhe.ui.rank
+package com.zxcx.zhizhe.ui.home.rank.moreRank
 
 import `in`.srain.cube.views.ptr.PtrFrameLayout
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -11,6 +12,7 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.home.rank.RankAdapter
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_rank.*
@@ -84,11 +86,11 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, Bas
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        /*val bean = adapter.data[position] as SearchCardBean
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val bean = adapter.data[position] as UserRankBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)*/
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {

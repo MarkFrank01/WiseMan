@@ -37,7 +37,7 @@ import butterknife.OnClick;
  * Created by anm on 2017/12/13.
  */
 
-public class HeadImageActivity extends BaseActivity implements GetPicBottomDialog.GetPicDialogListener,
+public class ChangeHeadImageActivity extends BaseActivity implements GetPicBottomDialog.GetPicDialogListener,
         IPostPresenter<UserInfoBean>,OSSDialog.OSSUploadListener, OSSDialog.OSSDeleteListener {
 
     @BindView(R.id.iv_toolbar_right)
@@ -90,7 +90,7 @@ public class HeadImageActivity extends BaseActivity implements GetPicBottomDialo
                     if (permission.granted) {
                         // `permission.name` is granted !
                         GetPicBottomDialog getPicBottomDialog = new GetPicBottomDialog();
-                        getPicBottomDialog.setListener(HeadImageActivity.this);
+                        getPicBottomDialog.setListener(ChangeHeadImageActivity.this);
                         getPicBottomDialog.setNoCrop(true);
                         getPicBottomDialog.show(getFragmentManager(),"UserInfo");
                     } else if (permission.shouldShowRequestPermissionRationale){

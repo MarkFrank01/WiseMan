@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
+import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.RedPointBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsBean;
@@ -132,11 +133,11 @@ public interface APIService {
             @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     /**
-     * 修改密码
+     * 修改手机号
      */
     @POST("/user/modifyPhoneNum")
     Flowable<BaseBean> changePhone(
-            @Query("phoneNumber") String phone, @Query("SMSCode") String code);
+            @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey);
 
     /**
      * 修改用户信息
@@ -473,4 +474,10 @@ public interface APIService {
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
             @Query("content") String content);
+
+    /**
+     * 获取智力值详情
+     */
+    @POST("/user/getIntelligenceValueData")
+    Flowable<BaseBean<IntelligenceValueBean>> getIntelligenceValue();
 }

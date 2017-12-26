@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.StringUtils
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import kotlinx.android.synthetic.main.activity_other_user.*
 
 class OtherUserActivity : BaseActivity() , IGetPresenter<OtherUserInfoBean>{
@@ -51,7 +52,7 @@ class OtherUserActivity : BaseActivity() , IGetPresenter<OtherUserInfoBean>{
         if(!StringUtils.isEmpty(bean?.signture)) {
             tv_other_user_signture.text = bean?.signture
         }
-        tv_other_user_info.text = getString(R.string.tv_other_user_info,bean?.readNum)
+        tv_other_user_info.text = getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(bean?.readNum?:0))
         ImageLoader.load(mActivity,bean?.imageUrl, R.drawable.default_header,iv_other_user_head)
     }
 

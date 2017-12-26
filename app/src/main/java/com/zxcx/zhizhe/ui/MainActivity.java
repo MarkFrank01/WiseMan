@@ -98,11 +98,12 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
-        if (mCurrentFragment == mMyFragment){
+        //todo 引导页之后登录需刷新
+        /*if (mCurrentFragment == mMyFragment){
             mHomeTabHome.performClick();
             EventBus.getDefault().post(new HomeClickRefreshEvent());
             toastShow("欢迎回来，已为你更新内容");
-        }
+        }*/
     }
 
     private void switchFragment(Fragment newFragment) {

@@ -37,12 +37,12 @@ import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
-import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,6 +54,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
@@ -230,9 +231,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         cardBagName = bean.getCardBagName();
         cardBagId = bean.getCardBagId();
         mTvCardDetailsCardBag.setText(cardBagName);
-        mCbCardDetailsCollect.setText(ZhiZheUtils.getFormatNumber(collectNum));
-        mCbCardDetailsLike.setText(ZhiZheUtils.getFormatNumber(likeNum));
-        mCbCardDetailsUnLike.setText(ZhiZheUtils.getFormatNumber(unLikeNum));
+        mCbCardDetailsCollect.setText(collectNum);
+        mCbCardDetailsLike.setText(likeNum);
+        mCbCardDetailsUnLike.setText(unLikeNum);
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
         mCbCardDetailsUnLike.setChecked(bean.isUnLike());
@@ -429,7 +430,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void toastShow(String text) {
         mTvToast.setVisibility(View.VISIBLE);
         mTvToast.setText(text);
-        mDisposable = Flowable.timer(7, TimeUnit.SECONDS)
+        mDisposable = Flowable.timer(2, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<Long>() {
 
                     @Override
@@ -483,18 +484,21 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.evaluateJavascript("getValue()", new ValueCallback<String>() {
                 @Override
                 public void onReceiveValue(String value) {
-                    String content = value.replaceAll("\\\\u003C", "<");
+                    String content = value.replaceAll("\\\\u003C", "<").replaceAll("\\\\\"","");
                     content = content != null ? content.substring(1, content.length() - 1) : null;
+                    LogCat.d(content);
                     switch (item.getItemId()) {
                         case MENU_ITEM_NOTE:
-                            NoteTitleDialog noteTitleDialog = new NoteTitleDialog();
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("withCardId", cardId);
-                            bundle.putString("title", name);
-                            bundle.putString("imageUrl", imageUrl);
-                            bundle.putString("content", content);
-                            noteTitleDialog.setArguments(bundle);
-                            noteTitleDialog.show(getFragmentManager(), "");
+                            if (checkLogin()) {
+                                NoteTitleDialog noteTitleDialog = new NoteTitleDialog();
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("withCardId", cardId);
+                                bundle.putString("title", name);
+                                bundle.putString("imageUrl", imageUrl);
+                                bundle.putString("content", content);
+                                noteTitleDialog.setArguments(bundle);
+                                noteTitleDialog.show(getFragmentManager(), "");
+                            }
                             break;
                         case MENU_ITEM_SHARE:
                             gotoShare(mUrl, content);
@@ -502,6 +506,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
                     }
                 }
             });
+            mActionMode.finish();
             return true;
         }
     }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ll_item_intelligence_value_left"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item_intelligence_value_title"
+            android:layout_marginTop="20dp"
+            tools:text="注册智者"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_item_intelligence_value_content"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            tools:text="单张卡片阅读≥30s"
+            android:textColor="@color/text_color_3"
+            android:textSize="@dimen/text_size_text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_item_intelligence_value_value"
+            android:background="@drawable/bg_item_tv_intelligence_value"
+            android:drawableStart="@drawable/tv_item_intelligence_value_value"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            tools:text="奖励20智力值"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item_intelligence_value_progress"
+            tools:text="@string/tv_item_intelligence_value_progress"
+            android:textColor="@color/text_color_3"
+            android:textSize="@dimen/text_size_text_2"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:id="@+id/pb_item_intelligence_value"
+            android:layout_marginTop="10dp"
+            android:max="100"
+            android:progress="90"
+            style="@style/progress_intelligence_value"
+            android:layout_width="50dp"
+            android:layout_height="12dp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/ll_item_intelligence_value_left"
+        style="@style/line"/>
+
+</RelativeLayout>

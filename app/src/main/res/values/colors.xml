@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#F1F3F3</color>
     <color name="colorAccent">#88DDFF</color>
     <color name="button_blue">#0095B7</color>
+    <color name="opacity_30_blue">#4C0095B7</color>
     <color name="translate">#00000000</color>
     <color name="opacity_20">#33000000</color>
     <color name="opacity_30">#4C000000</color>

@@ -10,7 +10,7 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:padding="0.5dp"
-    android:background="@drawable/bg_item_home_card"
+    android:background="@color/white"
     android:stateListAnimator="@animator/anim_home_card_press"
     android:orientation="vertical">
 

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_intelligence_value_top"
+            android:background="@drawable/ll_intelligence_value_top"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:fitsSystemWindows="true"
+                android:layout_marginTop="5dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="20dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_intelligence_value_back"
+                    android:src="@drawable/iv_intelligence_value_back"
+                    android:padding="10dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+                <TextView
+                    android:id="@+id/tv_intelligence_value_help"
+                    android:text="帮助"
+                    android:textColor="@color/white_final"
+                    android:textSize="@dimen/text_size_text_1"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_intelligence_value_total"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white_final"
+                android:textSize="44sp"
+                tools:text="16565"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="总智力值"
+                android:textColor="@color/white_final"
+                android:textSize="@dimen/text_size_text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+            <FrameLayout
+                android:id="@+id/fl_intelligence_value_today"
+                android:background="@drawable/fl_intelligence_value_today"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+                
+                <RelativeLayout
+                    android:layout_gravity="center"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp">
+
+                    <com.zxcx.zhizhe.widget.RoundProgressBar
+                        android:id="@+id/rpb_intelligence_value_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_intelligence_value_today"
+                            tools:text="50"
+                            android:textColor="@color/button_blue"
+                            android:textSize="44sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:text="今日智力值"
+                            android:textColor="@color/button_blue"
+                            android:textSize="@dimen/text_size_text_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:text="每日奖励"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_2"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.zxcx.zhizhe.widget.RoundedFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_intelligence_value"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.zxcx.zhizhe.widget.RoundedFrameLayout>
+    </LinearLayout>
+
+</ScrollView>

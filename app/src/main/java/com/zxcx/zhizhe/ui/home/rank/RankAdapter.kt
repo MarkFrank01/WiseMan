@@ -22,9 +22,9 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
         val imageView = helper.getView<RoundedImageView>(R.id.iv_item_rank_user)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
-        helper.setText(R.id.tv_item_rank_user_card, (item.cardNum?:0).toString())
-        helper.setText(R.id.tv_item_rank_user_fans, (item.fansNum?:0).toString())
-        helper.setText(R.id.tv_item_rank_user_read, (item.readNum?:0).toString())
+        helper.setText(R.id.tv_item_rank_user_card, ZhiZheUtils.getFormatNumber(item.cardNum?:0))
+        helper.setText(R.id.tv_item_rank_user_fans, ZhiZheUtils.getFormatNumber(item.fansNum?:0))
+        helper.setText(R.id.tv_item_rank_user_read, ZhiZheUtils.getFormatNumber(item.readNum?:0))
         helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
         showRank(helper,item)
     }

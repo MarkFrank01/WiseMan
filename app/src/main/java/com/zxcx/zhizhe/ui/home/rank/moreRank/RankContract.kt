@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.rank
+package com.zxcx.zhizhe.ui.home.rank.moreRank
 
 import com.zxcx.zhizhe.mvpBase.GetView
 import com.zxcx.zhizhe.mvpBase.IGetPresenter

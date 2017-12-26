@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
@@ -43,6 +44,8 @@ public class SearchResultActivity extends BaseActivity {
     TabLayout mTlSearchResult;
     @BindView(R.id.iv_search_result_clear)
     ImageView mIvSearchResultClear;
+    @BindView(R.id.rl_search_result_edit)
+    RelativeLayout mRlSearchResultEdit;
 
     private String[] titles = new String[]{"卡片", "用户"};
 
@@ -56,8 +59,8 @@ public class SearchResultActivity extends BaseActivity {
         setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
 
-        initView();
         initData();
+        initView();
     }
 
     @OnClick(R.id.iv_search_result_clear)

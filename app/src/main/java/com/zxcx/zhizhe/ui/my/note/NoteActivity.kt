@@ -86,7 +86,6 @@ class NoteActivity : BaseActivity() {
         val isFreedomNote = intent.getBooleanExtra("isFreedomNote",false)
         if (isFreedomNote){
             tl_note.getTabAt(1)?.select()
-            switchFragment(freedomNoteFragment)
         }else {
             tl_note.getTabAt(0)?.select()
             switchFragment(cardNoteFragment)

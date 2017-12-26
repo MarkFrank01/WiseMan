@@ -27,6 +27,7 @@ import com.zxcx.zhizhe.ui.my.creation.ApplyReviewActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog;
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity;
+import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity;
 import com.zxcx.zhizhe.ui.my.message.MessageActivity;
 import com.zxcx.zhizhe.ui.my.note.NoteActivity;
@@ -36,6 +37,7 @@ import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -169,7 +171,7 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     public void onMTvMyInfoClicked() {
         if (checkLogin()) {
             //智力值界面
-            Intent intent = new Intent(getContext(), UserInfoActivity.class);
+            Intent intent = new Intent(getContext(), IntelligenceValueActivity.class);
             startActivity(intent);
         }
     }
@@ -280,6 +282,7 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     @Override
     public void getDataSuccess(RedPointBean bean) {
         writerStatus = bean.getWriterStatus();
+        SharedPreferencesUtil.saveData(SVTSConstants.writerStatus,writerStatus);
         if (bean.getHasSystemMessage() || bean.getHasDynamicMessage()){
             mIvMessageRedPoint.setVisibility(View.VISIBLE);
         }else {
@@ -290,7 +293,7 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
         }else {
             mIvCreationRedPoint.setVisibility(View.VISIBLE);
         }
-        mTvMyInfo.setText("");
+        mTvMyInfo.setText(getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(bean.getTotalIntelligenceValue())));
         mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
     }
 

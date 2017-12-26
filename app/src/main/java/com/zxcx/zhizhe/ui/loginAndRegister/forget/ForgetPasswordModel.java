@@ -47,6 +47,19 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
         addSubscription(mDisposable);
     }
 
+    public void changePhone(String phone, String verifyKey) {
+        mDisposable = AppClient.getAPIService().changePhone(phone, verifyKey)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        mPresenter.getDataSuccess(new LoginBean());
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
     public void checkPhoneRegistered(String phone){
         mDisposable = AppClient.getAPIService().checkPhoneRegistered(phone)
                 .compose(BaseRxJava.handlePostResult())

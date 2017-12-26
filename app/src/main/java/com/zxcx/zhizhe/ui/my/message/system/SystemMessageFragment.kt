@@ -13,8 +13,12 @@ import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsActivity
-import com.zxcx.zhizhe.ui.rank.RankActivity
+import com.zxcx.zhizhe.ui.my.writer_status_reject
+import com.zxcx.zhizhe.ui.my.writer_status_user
+import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
@@ -76,7 +80,14 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 intent.setClass(mActivity,NewCreationTitleActivity::class.java)
             }
             message_apply_reject -> {
-                intent.setClass(mActivity,ApplyForCreationActivity::class.java)
+                if (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0) == writer_status_user
+                        || SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0) == writer_status_reject) {
+                    //没有创作资格
+                    intent.setClass(mActivity, ApplyForCreationActivity::class.java)
+                }
+                else {
+                    return
+                }
             }
             message_rank -> {
                 intent.setClass(mActivity,RankActivity::class.java)

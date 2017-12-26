@@ -87,7 +87,7 @@ dependencies {
     //自动换行布局
     compile 'com.google.android:flexbox:0.3.0'
     //拖动布局
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
     //MD设计库
     compile 'com.android.support:design:26.1.0'
     //去除方法数限制
@@ -173,8 +173,8 @@ dependencies {
     compile "android.arch.persistence.room:rxjava2:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
-    //Android工具类
-    compile 'com.blankj:utilcode:1.9.12'
+    /*//Android工具类
+    compile 'com.blankj:utilcode:1.9.12'*/
 }
 repositories {
     mavenCentral()

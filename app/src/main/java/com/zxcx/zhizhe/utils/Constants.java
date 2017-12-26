@@ -22,4 +22,23 @@ public class Constants {
     public static final int NOTE_TYPE_FREEDOM = 3;
 
     public static final int CLIP_IMAGE = 100;
+
+    /*任务类型*/
+    //注册智者
+    public static final int MISSION_REGISTER = 1;
+    //卡片阅读
+    public static final int MISSION_READ = 2;
+    //卡片创作
+    public static final int MISSION_CREATION = 3;
+    //卡片被点赞
+    public static final int MISSION_HAS_LIKE = 4;
+    //卡片被收藏
+    public static final int MISSION_HAS_COLLECT = 5;
+    //新增关注
+    public static final int MISSION_HAS_FOLLOW = 6;
+    //首页推荐
+    public static final int MISSION_HAS_HOT = 7;
+    //上榜排名
+    public static final int MISSION_HAS_RANK = 8;
+
 }

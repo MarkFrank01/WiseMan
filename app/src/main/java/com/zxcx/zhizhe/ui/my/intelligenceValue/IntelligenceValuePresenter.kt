@@ -1,22 +1,21 @@
-package com.zxcx.zhizhe.ui.rank
+package com.zxcx.zhizhe.ui.my.intelligenceValue
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean
 
-class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(), RankContract.Presenter {
+class IntelligenceValuePresenter(view: IntelligenceValueContract.View) : BasePresenter<IntelligenceValueContract.View>(), IntelligenceValueContract.Presenter {
 
-    private val mModel: RankModel
+    private val mModel: IntelligenceValueModel
 
     init {
         attachView(view)
-        mModel = RankModel(this)
+        mModel = IntelligenceValueModel(this)
     }
 
-    fun getTopHundredRank(page : Int, pageSize : Int) {
-        mModel.getTopHundredRank(page,pageSize)
+    fun getIntelligenceValue() {
+        mModel.getIntelligenceValue()
     }
 
-    override fun getDataSuccess(bean: List<UserRankBean>) {
+    override fun getDataSuccess(bean: IntelligenceValueBean) {
         mView.getDataSuccess(bean)
     }
 

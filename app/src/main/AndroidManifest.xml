@@ -149,7 +149,7 @@
             android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.rank.RankActivity"
+            android:name="com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.ChangeNickNameActivity"
@@ -182,7 +182,7 @@
             android:name=".ui.my.note.noteDetails.NoteDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.userInfo.HeadImageActivity"
+            android:name=".ui.my.userInfo.ChangeHeadImageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.ClipImageActivity"
@@ -216,10 +216,14 @@
         <activity
             android:name=".ui.my.creation.ApplyReviewActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.my.message.MessageActivity">
-        </activity>
+        <activity
+            android:name=".ui.my.message.MessageActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.message.dynamic.dynamicList.DynamicMessageListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.intelligenceValue.IntelligenceValueActivity"
             android:screenOrientation="portrait"/>
     </application>
 

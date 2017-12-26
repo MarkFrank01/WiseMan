@@ -2,21 +2,20 @@ package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.mvpBase.BaseRxJava;
-import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
-import com.zxcx.zhizhe.retrofit.AppClient;
-import com.zxcx.zhizhe.retrofit.BaseBean;
-import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.SMSSendOverDialog;
+import com.zxcx.zhizhe.mvpBase.MvpActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordContract;
+import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordPresenter;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
@@ -29,109 +28,123 @@ import butterknife.OnTextChanged;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-public class ChangePhoneActivity extends BaseActivity implements INullPostPresenter{
+public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> implements ForgetPasswordContract.View {
 
-    @BindView(R.id.tv_toolbar_right)
-    TextView mTvToolbarRight;
-    @BindView(R.id.tv_change_phone_phone)
-    TextView mTvChangePhonePhone;
-    @BindView(R.id.et_change_phone_phone)
-    EditText mEtChangePhonePhone;
+
+    @BindView(R.id.tv_change_phone_old_phone)
+    TextView mTvChangePhoneOldPhone;
     @BindView(R.id.et_change_phone_verification_code)
     EditText mEtChangePhoneVerificationCode;
-    @BindView(R.id.tv_register_send_verification)
-    TextView mTvRegisterSendVerification;
-    @BindView(R.id.tv_register_send_over)
-    TextView mTvRegisterSendOver;
+    @BindView(R.id.tv_change_phone_send_verification)
+    TextView mTvChangePhoneSendVerification;
+    @BindView(R.id.btn_next)
+    Button mBtnNext;
+    @BindView(R.id.ll_change_phone_old_phone)
+    LinearLayout mLlChangePhoneOldPhone;
+    @BindView(R.id.et_change_phone_new_phone)
+    EditText mEtChangePhoneNewPhone;
+    @BindView(R.id.btn_change_phone)
+    Button mBtnChangePhone;
+    @BindView(R.id.ll_change_phone_new_phone)
+    LinearLayout mLlChangePhoneNewPhone;
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
+    private String phone;
+    private String verifyKey;
+    private String newPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_phone);
         ButterKnife.bind(this);
-
-        mTvToolbarRight.setVisibility(View.VISIBLE);
-        mTvToolbarRight.setText(R.string.common_complete);
-        mTvToolbarRight.setTextColor(ContextCompat.getColor(this,R.color.button_blue));
-
-        String phone = SharedPreferencesUtil.getString(SVTSConstants.phone,"");
-        mTvChangePhonePhone.setText(phone);
-
         SMSSDK.registerEventHandler(new EventHandle());
+
+        phone = SharedPreferencesUtil.getString(SVTSConstants.phone,"");
+        mTvChangePhoneOldPhone.setText(phone);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onBackPressed() {
+        if (mLlChangePhoneNewPhone.getVisibility() == View.VISIBLE) {
+            mLlChangePhoneNewPhone.setVisibility(View.GONE);
+            mLlChangePhoneOldPhone.setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        handler.removeCallbacks(setDjs);
+        setDjs = null;
+        handler = null;
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
 
-    @OnClick(R.id.tv_toolbar_right)
-    public void onMTvToolbarRightClicked() {
-        changePhone(mEtChangePhonePhone.getText().toString(),mEtChangePhoneVerificationCode.getText().toString());
-    }
-
-    @OnClick(R.id.tv_register_send_verification)
-    public void onMTvRegisterSendVerificationClicked() {
-        SMSSDK.getVerificationCode("86", mEtChangePhonePhone.getText().toString());
-    }
-
-    @OnClick(R.id.tv_register_send_over)
-    public void onMTvRegisterSendOverClicked() {
-        SMSSendOverDialog dialog = new SMSSendOverDialog();
-        dialog.show(getFragmentManager(), "ChangePhoneActivity");
-    }
-
-    @OnTextChanged(R.id.et_change_phone_phone)
-    public void onPhoneChanged() {
-        mTvRegisterSendVerification.setVisibility(View.VISIBLE);
-        mTvRegisterSendOver.setVisibility(View.GONE);
-        if (checkPhone()){
-            mTvRegisterSendVerification.setEnabled(true);
-        }else {
-            mTvRegisterSendVerification.setEnabled(false);
-        }
-    }
-
-    @OnTextChanged({R.id.et_change_phone_phone,R.id.et_change_phone_verification_code})
-    public void onChangePhoneEditTextChanged() {
-        if (checkPhone() && mEtChangePhoneVerificationCode.length() > 0) {
-            mTvToolbarRight.setEnabled(true);
-        } else {
-            mTvToolbarRight.setEnabled(false);
-        }
-    }
-
-    public void changePhone(String phone, String code) {
-        mDisposable = AppClient.getAPIService().changePhone(phone, code)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
-                .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        postSuccess();
-                    }
-                });
-        addSubscription(mDisposable);
+    @Override
+    protected ForgetPasswordPresenter createPresenter() {
+        return new ForgetPasswordPresenter(this);
     }
 
     @Override
-    public void postSuccess() {
-        toastShow("修改成功");
+    public void getDataSuccess(LoginBean bean) {
+        SharedPreferencesUtil.saveData(SVTSConstants.phone,newPhone);
         finish();
     }
 
     @Override
-    public void postFail(String msg) {
-        toastFail(msg);
+    public void getPhoneStatusSuccess(boolean isRegistered) {
+        //不需要获取手机号状态
+    }
+
+    @Override
+    public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
+        //验证码验证成功
+        verifyKey = bean.getVerifyKey();
+        mLlChangePhoneOldPhone.setVisibility(View.GONE);
+        mLlChangePhoneNewPhone.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.iv_change_phone_close)
+    public void onMIvForgetCloseClicked() {
+        finish();
+    }
+
+    @OnClick(R.id.tv_change_phone_send_verification)
+    public void onMTvRegisterSendVerificationClicked() {
+        //发送验证码
+        showLoading();
+        SMSSDK.getVerificationCode("86", phone);
+    }
+
+    @OnClick(R.id.btn_next)
+    public void onMBtnNextClicked() {
+        //验证验证码
+        mPresenter.smsCodeVerification(phone, mEtChangePhoneVerificationCode.getText().toString());
+    }
+
+    @OnClick(R.id.btn_change_phone)
+    public void onMBtnRegisterClicked() {
+        newPhone = mEtChangePhoneNewPhone.getText().toString();
+        mPresenter.changePhone(newPhone, verifyKey);
+    }
+
+    @OnTextChanged(R.id.et_change_phone_verification_code)
+    public void onRegisterNextTextChange() {
+        mBtnNext.setEnabled(mEtChangePhoneVerificationCode.length() > 0);
+    }
+
+    @OnTextChanged(R.id.et_change_phone_new_phone)
+    public void onRegisterPasswordTextChange() {
+        mBtnChangePhone.setEnabled(checkPhone());
     }
 
     private boolean checkPhone() {
-        if (phonePattern.matcher(mEtChangePhonePhone.getText().toString()).matches()) {
+        if (phonePattern.matcher(mEtChangePhoneNewPhone.getText().toString()).matches()) {
             return true;
         } else {
             return false;
@@ -141,13 +154,13 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
     Runnable setDjs = new Runnable() {
         @Override
         public void run() {
-            mTvRegisterSendVerification.setText(count + " S");
+            mTvChangePhoneSendVerification.setText(count + " S");
             count--;
 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
-                mTvRegisterSendVerification.setEnabled(true);
-                mTvRegisterSendVerification.setText(R.string.re_get_verification);
+                mTvChangePhoneSendVerification.setEnabled(true);
+                mTvChangePhoneSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
 
@@ -161,7 +174,7 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
     class EventHandle extends EventHandler {
         @Override
         public void afterEvent(final int event, final int result, final Object data) {
-            runOnUiThread(new Runnable() {
+            mActivity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     hideLoading();
@@ -169,9 +182,10 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
                         //回调完成
                         if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                             //提交验证码成功
+
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
-                            mTvRegisterSendVerification.setEnabled(false);
+                            mTvChangePhoneSendVerification.setEnabled(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                             //返回支持发送验证码的国家列表
@@ -193,8 +207,7 @@ public class ChangePhoneActivity extends BaseActivity implements INullPostPresen
                                 case 465:
                                 case 477:
                                 case 478:
-                                    mTvRegisterSendVerification.setVisibility(View.GONE);
-                                    mTvRegisterSendOver.setVisibility(View.VISIBLE);
+                                    toastShow("获取验证码次数频繁，请稍后重试");
                                     break;
                                 default:
                                     toastShow(des);

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -8,12 +9,14 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.OSSDialog
+import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_new_creation1.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -99,11 +102,29 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
 
     private fun initViewListener() {
         fl_new_creation_1_add_img.setOnClickListener {
-            // 激活系统图库，选择一张图片
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
-            startActivityForResult(intent, 0)
+            val rxPermissions = RxPermissions(this)
+            rxPermissions
+                    .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .subscribe { permission ->
+                        when {
+                            permission.granted -> {
+                                // `permission.name` is granted !
+                                // 激活系统图库，选择一张图片
+                                val intent = Intent(Intent.ACTION_PICK)
+                                intent.type = "image/*"
+                                // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+                                startActivityForResult(intent, 0)
+                            }
+                            permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+                                toastShow("权限已被拒绝！无法进行操作")
+                            else -> {
+                                // Denied permission with ask never again
+                                // Need to go to the settings
+                                val permissionDialog = PermissionDialog()
+                                permissionDialog.show(fragmentManager, "")
+                            }
+                        }
+                    }
         }
         et_new_creation_1_title.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

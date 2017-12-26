@@ -36,14 +36,12 @@ import com.zxcx.zhizhe.utils.WebViewUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -70,6 +68,8 @@ public class ShareCardDialog extends BaseDialog {
     FrameLayout mFlDialogShare;
     @BindView(R.id.sv_dialog_share)
     ScrollView mSvDialogShare;
+    @BindView(R.id.iv_dialog_share_qr)
+    ImageView mIvDialogShareQR;
     private WebView mWebView;
     private String name;
     private String cardBagName;
@@ -144,12 +144,12 @@ public class ShareCardDialog extends BaseDialog {
         date = bundle.getString("date");
         author = bundle.getString("author");
         cardBagName = bundle.getString("cardBagName");
-        cardBagId = bundle.getInt("cardBagId",0);
+        cardBagId = bundle.getInt("cardBagId", 0);
 
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
-        if (isNight){
+        if (isNight) {
             SETUP_HTML = "file:///android_asset/preview_dark.html";
-        }else {
+        } else {
             SETUP_HTML = "file:///android_asset/preview_light.html";
         }
     }
@@ -193,10 +193,11 @@ public class ShareCardDialog extends BaseDialog {
             @Override
             public void onPageFinished(WebView view, String url) {
                 isReady = url.equalsIgnoreCase(SETUP_HTML);
+                mIvDialogShareQR.setVisibility(View.VISIBLE);
             }
         });
         mFlDialogShare.addView(mWebView);
-        if (!StringUtils.isEmpty(content)){
+        if (!StringUtils.isEmpty(content)) {
             mWebView.loadUrl(SETUP_HTML);
             if (!StringUtils.isEmpty(content)) {
                 try {
@@ -205,7 +206,7 @@ public class ShareCardDialog extends BaseDialog {
                     // No handling
                 }
             }
-        }else {
+        } else {
             mWebView.loadUrl(url);
         }
     }
@@ -263,33 +264,17 @@ public class ShareCardDialog extends BaseDialog {
         }
 
         //回调
-        oks.setCallback(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                toastShow("分享成功");
-            }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                toastShow(throwable.getMessage());
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-                toastShow("分享取消");
-            }
-        });
 
         mDisposable = Flowable.just(bitmap)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscription -> showLoading())
                 .observeOn(Schedulers.io())
-                .map(bm ->{
+                .map(bm -> {
                     FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
                     return FileUtil.PATH_BASE + fileName;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSubscriber<String>(){
+                .subscribeWith(new DisposableSubscriber<String>() {
 
                     @Override
                     public void onNext(String s) {
@@ -298,6 +283,7 @@ public class ShareCardDialog extends BaseDialog {
                         //启动分享
                         hideLoading();
                         oks.show(getActivity());
+                        dismiss();
                     }
 
                     @Override

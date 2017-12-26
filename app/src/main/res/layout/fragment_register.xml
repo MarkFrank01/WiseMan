@@ -29,8 +29,8 @@
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:maxLength="11"
-                android:textColor="@color/text_color_40"
-                android:textColorHint="@color/line"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_1"/>
 
             <ImageView
@@ -68,8 +68,8 @@
                 android:inputType="number"
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
-                android:textColor="@color/text_color_40"
-                android:textColorHint="@color/line"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_1"/>
 
             <TextView
@@ -131,8 +131,8 @@
                 android:paddingBottom="15dp"
                 android:paddingTop="15dp"
                 android:maxLength="20"
-                android:textColor="@color/text_color_40"
-                android:textColorHint="@color/line"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_1"/>
 
             <View

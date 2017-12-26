@@ -75,5 +75,11 @@
         <item name="android:layout_height">0.5dp</item>
     </style>
 
+    <style name="progress_intelligence_value">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_intelligence_value</item><!-- progress_horizontal -->
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+    </style>
+
 
 </resources>

@@ -21,7 +21,8 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment
-import com.zxcx.zhizhe.ui.rank.RankActivity
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -145,11 +146,11 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        /*val bean = adapter.data[position] as SearchCardBean
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val bean = adapter.data[position] as UserRankBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)*/
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {

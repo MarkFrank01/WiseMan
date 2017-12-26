@@ -18,6 +18,7 @@ public class SVTSConstants {
     public static final String nickName = "nick_name";
     public static final String signture = "signture";
     public static final String imgUrl = "img_url";
+    public static final String writerStatus = "writer_status";
 
     public static final String openId = "open_id";
     public static final String isBindingQQ = "is_binding_qq";

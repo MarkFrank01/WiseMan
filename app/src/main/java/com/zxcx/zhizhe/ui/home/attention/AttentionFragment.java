@@ -16,6 +16,7 @@ import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
+import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
@@ -121,6 +122,14 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         loadService.showCallback(HomeLoadingCallback.class);
         mRvAttentionCard.scrollToPosition(0);
         mRefreshLayout.autoRefresh();
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMessageEvent(LogoutEvent event) {
+        loadService.showCallback(AttentionNeedLoginCallback.class);
+        mCardAdapter.getData().clear();
+        mCardAdapter.notifyDataSetChanged();
         EventBus.getDefault().removeStickyEvent(event);
     }
 

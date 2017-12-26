@@ -151,6 +151,7 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     public void gotoSearchResult(String keyword) {
+        mEtSearch.setText(keyword);
         mDisposable = Flowable.just(keyword)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .filter(s -> !mSearchHistoryList.contains(new SearchHistory(s)))
@@ -171,11 +172,10 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
 
                     @Override
                     public void onComplete() {
+                        Utils.closeInputMethod(mEtSearch);
                         Intent intent = new Intent(SearchActivity.this, SearchResultActivity.class);
                         intent.putExtra("mKeyword", keyword);
                         startActivity(intent);
-                        Utils.closeInputMethod(mEtSearch);
-                        finish();
                     }
                 });
         addSubscription(mDisposable);
