@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_creation.*
  */
 class CreationActivity : BaseActivity() {
     private val titles = arrayOf("已通过", "审核中", "未通过")
-    private var mSortType = 1
+    private var mSortType = 0
 
     private val passedFragment = CreationPassedFragment()
     private val reviewFragment = CreationInReviewFragment()

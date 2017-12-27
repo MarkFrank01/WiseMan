@@ -44,8 +44,9 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
         initToolBar(R.string.tv_my_feedback);
         mTvToolbarRight.setVisibility(View.VISIBLE);
+        mTvToolbarRight.setEnabled(false);
         mTvToolbarRight.setText("提交");
-        mTvToolbarRight.setTextColor(ContextCompat.getColor(mActivity,R.color.color_text_enable_blue));
+        mTvToolbarRight.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue));
     }
 
     @Override
@@ -71,6 +72,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     @Override
     public void postSuccess() {
+        toastShow("提交成功");
         finish();
     }
 

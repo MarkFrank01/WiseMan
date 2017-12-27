@@ -29,6 +29,7 @@ public class ZhiZheUtils {
     public static void saveUserInfo(UserInfoBean bean) {
         SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getId());
         SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getName());
+        SharedPreferencesUtil.saveData(SVTSConstants.phone, bean.getPhone());
         SharedPreferencesUtil.saveData(SVTSConstants.signture, bean.getSignture());
         SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
@@ -46,6 +47,7 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.token, "");
         SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
         SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
+        SharedPreferencesUtil.saveData(SVTSConstants.phone, "");
         SharedPreferencesUtil.saveData(SVTSConstants.signture, "");
         SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
         SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);

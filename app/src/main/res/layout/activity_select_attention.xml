@@ -35,7 +35,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginBottom="60dp"
         android:layout_centerHorizontal="true"
-        android:text="选择你感兴趣的卡包"
+        android:text="找点你喜欢的乐子"
         android:textColor="@color/text_color_66"
         android:textSize="24sp"
         android:layout_width="wrap_content"

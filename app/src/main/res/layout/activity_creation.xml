@@ -32,7 +32,7 @@
 
         <ImageView
             android:id="@+id/iv_toolbar_sort"
-            android:src="@drawable/iv_order_inverted"
+            android:src="@drawable/iv_order_sequence"
             android:layout_alignParentRight="true"
             android:paddingRight="20dp"
             android:paddingLeft="5dp"

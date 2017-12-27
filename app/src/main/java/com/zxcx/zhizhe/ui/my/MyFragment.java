@@ -112,12 +112,6 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getRedPointStatus();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -132,7 +126,6 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         setViewLogin();
-        getRedPointStatus();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

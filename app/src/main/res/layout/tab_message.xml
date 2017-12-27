@@ -19,6 +19,7 @@
     
     <ImageView
         android:id="@+id/iv_tab_red_point"
+        android:visibility="gone"
         android:layout_marginBottom="-5dp"
         android:layout_marginLeft="-5dp"
         android:src="@drawable/red_point"

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.followUser
 
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
@@ -7,12 +7,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserAdapter
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserContract
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserPresenter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -22,7 +27,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener{
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener{
 
     private val mFollowType = 1
     private var mPage = 0
@@ -30,7 +35,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     private lateinit var mAdapter: FollowUserAdapter
     private lateinit var mDialog: UnFollowConfirmDialog
 
-    var mSortType = 1//0倒序 1正序
+    var mSortType = 0//0倒序 1正序
         set(value) {
             field = value
             mPage = 0
@@ -82,7 +87,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun postSuccess(bean: FollowUserBean) {
-        val position = mAdapter.getParentPosition(bean)
+        val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
         mAdapter.notifyItemChanged(position)
     }
@@ -92,17 +97,31 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun unFollowUserSuccess(bean: FollowUserBean) {
-        val position = mAdapter.getParentPosition(bean)
+        val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
         mAdapter.notifyItemChanged(position)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
         val bean = adapter.data[position] as FollowUserBean
-        val bundle = Bundle()
-        bundle.putInt("userId",bean.id?:0)
-        mDialog.arguments = bundle
-        mDialog.show(mActivity.fragmentManager,"")
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        val cb = view as CheckBox
+        cb.isChecked = !cb.isChecked
+        val bean = adapter.data[position] as FollowUserBean
+        if (cb.isChecked) {
+            val bundle = Bundle()
+            bundle.putInt("userId", bean.id ?: 0)
+            mDialog.arguments = bundle
+            mDialog.show(mActivity.fragmentManager, "")
+        }else{
+            mPresenter.followUser(bean.id ?: 0)
+        }
     }
 
     override fun onRefreshBegin(frame: PtrFrameLayout?) {
@@ -117,6 +136,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     private fun initRecyclerView() {
         mAdapter = FollowUserAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
+        mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_follow_user)
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)

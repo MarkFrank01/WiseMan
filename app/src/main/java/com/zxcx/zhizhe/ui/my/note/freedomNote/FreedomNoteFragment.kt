@@ -29,7 +29,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
     private var mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: FreedomNoteAdapter
 
-    var mSortType = 1//0倒序 1正序
+    var mSortType = 0//0倒序 1正序
         set(value) {
             field = value
             mPage = 0

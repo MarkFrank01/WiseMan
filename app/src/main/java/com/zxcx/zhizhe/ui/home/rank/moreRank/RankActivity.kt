@@ -79,11 +79,13 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, Bas
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as UserRankBean
-        val intent = Intent(mActivity, OtherUserActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        startActivity(intent)
+        if (checkLogin()) {
+            val bean = adapter.data[position] as UserRankBean
+            val intent = Intent(mActivity, OtherUserActivity::class.java)
+            intent.putExtra("id", bean.id)
+            intent.putExtra("name", bean.name)
+            startActivity(intent)
+        }
     }
 
     private fun initRecyclerView() {

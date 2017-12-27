@@ -168,11 +168,13 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
 
     @Override
     public void deleteSuccess() {
-
+        toastShow(R.string.user_info_change);
+        onBackPressed();
     }
 
     @Override
     public void deleteFail() {
-
+        toastShow(R.string.user_info_change);
+        onBackPressed();
     }
 }

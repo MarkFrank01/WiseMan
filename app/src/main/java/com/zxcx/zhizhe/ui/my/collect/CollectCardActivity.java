@@ -54,7 +54,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         getCollectCard();
 
         mIvToolbarRight.setVisibility(View.VISIBLE);
-        mIvToolbarRight.setImageResource(R.drawable.iv_order_inverted);
+        mIvToolbarRight.setImageResource(R.drawable.iv_order_sequence);
 
         initLoadSir();
     }

@@ -69,6 +69,7 @@ public class SelectAttentionActivity extends MvpActivity<SelectAttentionPresente
     @Override
     public void postSuccess() {
         EventBus.getDefault().postSticky(new SelectAttentionEvent());
+        toastShow(R.string.user_info_change);
         finish();
     }
 

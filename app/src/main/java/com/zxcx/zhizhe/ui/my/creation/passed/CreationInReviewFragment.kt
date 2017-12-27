@@ -27,7 +27,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: CreationAdapter
 
-    var mSortType = 1//0倒序 1正序
+    var mSortType = 0//0倒序 1正序
         set(value) {
             field = value
             mPage = 0

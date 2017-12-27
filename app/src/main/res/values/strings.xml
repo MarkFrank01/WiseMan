@@ -107,5 +107,6 @@
     <string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了，点击查看更多…</string>
     <string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作，点击查看更多…</string>
     <string name="tv_item_intelligence_value_progress">%1$d/%2$d</string>
+    <string name="user_info_change">修改成功</string>
     <!--common-end-->
 </resources>

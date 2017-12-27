@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
-import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
@@ -31,10 +30,6 @@ class FollowUserAdapter(data : List<FollowUserBean>) : BaseQuickAdapter<FollowUs
         }
 
         helper.addOnClickListener(R.id.cb_item_follow_user)
-        val cb = helper.getView<CheckBox>(R.id.cb_item_follow_user)
-        cb.setOnClickListener {
-            cb.isChecked = !cb.isChecked
-        }
     }
 
 }

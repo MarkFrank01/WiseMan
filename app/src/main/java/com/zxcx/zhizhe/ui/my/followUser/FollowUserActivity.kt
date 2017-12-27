@@ -8,8 +8,6 @@ import android.widget.TextView
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.search.result.card.FansFragment
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_follow_user.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 class FollowUserActivity : BaseActivity() {
     private val titles = arrayOf("我关注的", "关注我的")
-    private var mSortType = 1
+    private var mSortType = 0
 
     private val followFragment = FollowUserFragment()
     private val fansFragment = FansFragment()
@@ -53,7 +51,7 @@ class FollowUserActivity : BaseActivity() {
 
     private fun initView() {
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
         for (i in titles.indices) {
             val tab = tl_follow_user.newTab()
             tab.setCustomView(R.layout.tab_note)

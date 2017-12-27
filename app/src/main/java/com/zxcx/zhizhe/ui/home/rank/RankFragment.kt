@@ -15,14 +15,14 @@ import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.event.LoginEvent
+import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginFragment
-import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -131,6 +131,12 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         EventBus.getDefault().removeStickyEvent(event)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMessageEvent(event: LogoutEvent) {
+        initView()
+        EventBus.getDefault().removeStickyEvent(event)
+    }
+
     private fun gotoMoreRank(){
         val intent = Intent(mActivity, RankActivity::class.java)
         startActivity(intent)
@@ -139,18 +145,17 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     override fun startLogin() {
         ZhiZheUtils.logout()
         toastShow(R.string.login_timeout)
-        startActivity(Intent(mActivity, LoginFragment::class.java))
-        if (loadService != null) {
-            loadService.showCallback(AttentionNeedLoginCallback::class.java)
-        }
+        startActivity(Intent(mActivity, LoginActivity::class.java))
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as UserRankBean
-        val intent = Intent(mActivity, OtherUserActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        startActivity(intent)
+        if (checkLogin()) {
+            val bean = adapter.data[position] as UserRankBean
+            val intent = Intent(mActivity, OtherUserActivity::class.java)
+            intent.putExtra("id", bean.id)
+            intent.putExtra("name", bean.name)
+            startActivity(intent)
+        }
     }
 
     private fun initRecyclerView() {
@@ -176,7 +181,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         }else{
             if (isFirst) {
                 mPresenter.getMyRank()
-                isFirst = false;
+                isFirst = false
             }
         }
     }

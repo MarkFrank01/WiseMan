@@ -75,6 +75,7 @@ public class ChangeBirthdayActivity extends BaseActivity implements IPostPresent
     @Override
     public void postSuccess(UserInfoBean bean) {
         ZhiZheUtils.saveUserInfo(bean);
+        toastShow(R.string.user_info_change);
         onBackPressed();
     }
 

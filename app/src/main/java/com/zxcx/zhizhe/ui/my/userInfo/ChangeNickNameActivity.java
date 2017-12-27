@@ -16,6 +16,8 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,7 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
     EditText mEtDialogChangeNickName;
     @BindView(R.id.tv_complete)
     TextView mTvComplete;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
         setContentView(R.layout.activity_change_nick_name);
         ButterKnife.bind(this);
 
-        String name = SharedPreferencesUtil.getString(SVTSConstants.nickName,"");
+        name = SharedPreferencesUtil.getString(SVTSConstants.nickName,"");
         mEtDialogChangeNickName.setText(name);
         mEtDialogChangeNickName.setSelection(mEtDialogChangeNickName.length());
 
@@ -60,6 +63,7 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
     @Override
     public void postSuccess(UserInfoBean bean) {
         ZhiZheUtils.saveUserInfo(bean);
+        toastShow(R.string.user_info_change);
         onBackPressed();
     }
 
@@ -75,7 +79,12 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
 
     @OnClick(R.id.tv_complete)
     public void onMTvCompleteClicked() {
-        changeNickName(mEtDialogChangeNickName.getText().toString());
+        if (!Objects.equals(mEtDialogChangeNickName.getText().toString(), name)) {
+            changeNickName(mEtDialogChangeNickName.getText().toString());
+        }else {
+            toastShow(R.string.user_info_change);
+            onBackPressed();
+        }
     }
 
     @OnTextChanged(R.id.et_dialog_change_nick_name)

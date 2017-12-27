@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_note.*
  */
 class NoteActivity : BaseActivity() {
     private val titles = arrayOf("卡片笔记", "自由笔记")
-    private var mSortType = 1
+    private var mSortType = 0
 
     private val cardNoteFragment = CardNoteFragment()
     private val freedomNoteFragment = FreedomNoteFragment()

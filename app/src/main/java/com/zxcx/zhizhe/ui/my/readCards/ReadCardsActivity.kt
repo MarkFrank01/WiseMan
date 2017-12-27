@@ -21,7 +21,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
-    private var mSortType = 1//0倒序 1正序
+    private var mSortType = 0//0倒序 1正序
     private lateinit var mAdapter: ReadCardsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +93,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0

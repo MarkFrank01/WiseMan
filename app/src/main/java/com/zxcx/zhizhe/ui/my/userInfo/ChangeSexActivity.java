@@ -71,6 +71,7 @@ public class ChangeSexActivity extends BaseActivity implements IPostPresenter<Us
     @Override
     public void postSuccess(UserInfoBean bean) {
         ZhiZheUtils.saveUserInfo(bean);
+        toastShow(R.string.user_info_change);
         onBackPressed();
     }
 

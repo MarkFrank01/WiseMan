@@ -2,6 +2,8 @@ package com.zxcx.zhizhe.ui.otherUser
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -10,7 +12,10 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.search.result.card.*
+import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
+import com.zxcx.zhizhe.ui.search.result.card.CreationBean
+import com.zxcx.zhizhe.ui.search.result.card.CreationContract
+import com.zxcx.zhizhe.ui.search.result.card.CreationPresenter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_other_user_creation.*
@@ -21,7 +26,7 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
 
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
-    private var mSortType = 1//0倒序 1正序
+    private var mSortType = 0//0倒序 1正序
     private lateinit var mAdapter: CreationAdapter
     private var otherUserId = 0
 
@@ -77,11 +82,15 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as SearchCardBean
+        val bean = adapter.data[position] as CreationBean
+        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)
+        startActivity(intent,bundle)
     }
 
     private fun initView() {
@@ -94,7 +103,7 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
         rv_other_user_creation.addItemDecoration(OtherUserCreationItemDecoration())
 
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0

@@ -26,6 +26,8 @@ public class UserInfoBean extends RetrofitBaen {
     private String name;
     @JSONField(name = "sign")
     private String signture;
+    @JSONField(name = "phone")
+    private String phone;
     @JSONField(name = "gender")
     private int gender;
     @JSONField(name = "createTime")
@@ -75,6 +77,14 @@ public class UserInfoBean extends RetrofitBaen {
 
     public void setSignture(String signture) {
         this.signture = signture;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getGender() {
