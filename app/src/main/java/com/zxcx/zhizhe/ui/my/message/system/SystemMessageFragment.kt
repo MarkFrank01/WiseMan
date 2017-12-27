@@ -10,12 +10,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
 import com.zxcx.zhizhe.ui.my.writer_status_user
-import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -40,6 +40,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage,true)
         initRecyclerView()
         mPresenter.getSystemMessage(mPage,mPageSize)
     }

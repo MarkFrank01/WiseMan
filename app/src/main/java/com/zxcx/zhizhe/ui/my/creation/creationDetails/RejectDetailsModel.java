@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
+package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import android.support.annotation.NonNull;
 
@@ -13,7 +13,20 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
     }
 
     public void getRejectDetails(int RejectId){
-        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId)
+        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,2)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+                    @Override
+                    public void onNext(RejectDetailsBean bean) {
+                        mPresenter.getDataSuccess(bean);
+                    }
+                });
+        addSubscription(mDisposable);
+    }
+
+    public void getReviewDetails(int RejectId){
+        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,1)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {

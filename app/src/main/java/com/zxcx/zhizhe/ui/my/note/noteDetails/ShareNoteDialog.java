@@ -56,8 +56,6 @@ public class ShareNoteDialog extends BaseDialog {
     TextView mTvDialogShareTitle;
     @BindView(R.id.tv_dialog_share_info)
     TextView mTvDialogShareInfo;
-    @BindView(R.id.tv_dialog_share_card_bag)
-    TextView mTvDialogShareCardBag;
     @BindView(R.id.fl_dialog_share)
     FrameLayout mFlDialogShare;
     @BindView(R.id.sv_dialog_share)

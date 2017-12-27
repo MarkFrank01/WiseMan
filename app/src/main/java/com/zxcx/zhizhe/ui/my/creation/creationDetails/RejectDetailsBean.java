@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
+package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
@@ -11,6 +11,8 @@ public class RejectDetailsBean extends RetrofitBaen {
     private int id;
     @JSONField(name = "collectionId")
     private int cardBagId;
+    @JSONField(name = "collectionName")
+    private String cardBagName;
     @JSONField(name = "titleImage")
     private String imageUrl;
     @JSONField(name = "title")
@@ -36,6 +38,14 @@ public class RejectDetailsBean extends RetrofitBaen {
 
     public void setCardBagId(int cardBagId) {
         this.cardBagId = cardBagId;
+    }
+
+    public String getCardBagName() {
+        return cardBagName;
+    }
+
+    public void setCardBagName(String cardBagName) {
+        this.cardBagName = cardBagName;
     }
 
     public String getImageUrl() {

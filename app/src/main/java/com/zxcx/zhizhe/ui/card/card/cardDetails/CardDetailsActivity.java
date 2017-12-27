@@ -59,8 +59,6 @@ import io.reactivex.subscribers.DisposableSubscriber;
 
 public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> implements CardDetailsContract.View {
 
-    @BindView(R.id.iv_card_details_back)
-    ImageView mIvCardDetailsBack;
     @BindView(R.id.tv_card_details_title)
     TextView mTvCardDetailsTitle;
     @BindView(R.id.cb_card_details_collect)
@@ -105,6 +103,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private WebView mWebView;
     private int cardId;
     private int cardBagId;
+    private int mUserId;
     private int mAuthorId;
     private String name;
     private String cardBagName;
@@ -231,9 +230,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         cardBagName = bean.getCardBagName();
         cardBagId = bean.getCardBagId();
         mTvCardDetailsCardBag.setText(cardBagName);
-        mCbCardDetailsCollect.setText(collectNum);
-        mCbCardDetailsLike.setText(likeNum);
-        mCbCardDetailsUnLike.setText(unLikeNum);
+        mCbCardDetailsCollect.setText(String.valueOf(collectNum));
+        mCbCardDetailsLike.setText(String.valueOf(likeNum));
+        mCbCardDetailsUnLike.setText(String.valueOf(unLikeNum));
         mCbCardDetailsCollect.setChecked(bean.getIsCollect());
         mCbCardDetailsLike.setChecked(bean.getIsLike());
         mCbCardDetailsUnLike.setChecked(bean.isUnLike());
@@ -285,6 +284,13 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.cb_card_details_follow)
     public void onMCbCardDetailsFollowClicked() {
         mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
+        if (!checkLogin()){
+            return;
+        }
+        if (mUserId == mAuthorId){
+            toastShow("无法关注自己");
+            return;
+        }
         if (!mCbCardDetailsFollow.isChecked()) {
             //关注
             mPresenter.setUserFollow(mAuthorId, 0);
@@ -367,6 +373,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         imageUrl = getIntent().getStringExtra("imageUrl");
         date = getIntent().getStringExtra("date");
         author = getIntent().getStringExtra("author");
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
     }
 
     private void initView() {

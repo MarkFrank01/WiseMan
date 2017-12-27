@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean
 import com.zxcx.zhizhe.ui.search.result.card.CreationContract
@@ -36,7 +36,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         set(value) {
             field = value
             mPage = 0
-            mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

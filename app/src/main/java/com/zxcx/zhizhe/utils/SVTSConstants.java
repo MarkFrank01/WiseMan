@@ -19,6 +19,9 @@ public class SVTSConstants {
     public static final String signture = "signture";
     public static final String imgUrl = "img_url";
     public static final String writerStatus = "writer_status";
+    public static final String hasDynamicMessage = "has_dynamic_message";
+    public static final String hasSystemMessage = "has_system_message";
+    public static final String totalIntelligenceValue = "total_intelligence_value";
 
     public static final String openId = "open_id";
     public static final String isBindingQQ = "is_binding_qq";

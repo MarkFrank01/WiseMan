@@ -44,7 +44,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        tools:text="未通过原因"
+        android:text="未通过原因"
         android:textColor="@color/red"
         android:textSize="@dimen/text_size_text_2"
         android:layout_width="wrap_content"
@@ -52,9 +52,11 @@
 
     <TextView
         android:id="@+id/tv_item_system_message_reason"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         tools:text="未通过原因 标题、内容不符合平台定位，内容不够详实、偏离主题。"
+        android:lineSpacingExtra="6dp"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_2"
         android:layout_width="wrap_content"

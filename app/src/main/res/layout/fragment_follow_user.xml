@@ -13,8 +13,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_follow_user"
             android:layout_marginTop="15dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_card_note"/>
+            tools:listitem="@layout/item_follow_user"/>
     </in.srain.cube.views.ptr.PtrFrameLayout>
 </LinearLayout>

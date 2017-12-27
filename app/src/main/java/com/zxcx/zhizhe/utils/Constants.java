@@ -15,7 +15,7 @@ public class Constants {
     public static final String PUSH_TYPE_CARD_BAG = "cardBag";
     public static final String PUSH_TYPE_AD = "ad";
 
-    public static final int PAGE_SIZE = 16;
+    public static final int PAGE_SIZE = 10;
     public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight,false);
 
     public static final int NOTE_TYPE_CARD = 4;

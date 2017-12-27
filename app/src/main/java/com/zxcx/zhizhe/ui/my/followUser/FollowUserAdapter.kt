@@ -14,7 +14,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 class FollowUserAdapter(data : List<FollowUserBean>) : BaseQuickAdapter<FollowUserBean, BaseViewHolder>(R.layout.item_follow_user,data){
 
     override fun convert(helper: BaseViewHolder, item: FollowUserBean) {
-        val imageView = helper.getView<RoundedImageView>(R.id.iv_item_rank_user)
+        val imageView = helper.getView<RoundedImageView>(R.id.iv_item_follow_user)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
         helper.setText(R.id.tv_item_follow_user_name, item.name)

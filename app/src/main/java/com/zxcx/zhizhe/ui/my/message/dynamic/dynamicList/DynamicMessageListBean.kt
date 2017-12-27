@@ -13,9 +13,10 @@ data class DynamicMessageListBean(
 		@JSONField(name = "relatedUserAvatar") var relatedUserAvatar: String?, //string
 		@JSONField(name = "relatedUserId") var relatedUserId: Int?, //0
 		@JSONField(name = "relatedUserName") var relatedUserName: String?, //string
-		@JSONField(name = "time") var date: Date?, //2017-12-20T09:17:26.516Z
-        var time: String?
+		@JSONField(name = "time") var date: Date? //2017-12-20T09:17:26.516Z
+
 ): RetrofitBaen(), MultiItemEntity {
+    var time: String? = ""
     override fun getItemType(): Int {
         return dynamic_content
     }

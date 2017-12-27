@@ -37,7 +37,7 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "开始创作"
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue))
-        tv_toolbar_right.isEnabled = false
+        tv_toolbar_right.isEnabled = cardBagId != 0
         tv_toolbar_right.setOnClickListener {
             //进入编辑器页面
             val intent = Intent(mActivity, NewCreationEditorActivity::class.java)
@@ -57,10 +57,6 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         cardBagId = intent.getIntExtra("cardBagId",0)
         title = intent.getStringExtra("title")
         imageUrl = intent.getStringExtra("imageUrl")
-
-        if (cardBagId != 0){
-            tv_toolbar_right.isEnabled = true
-        }
     }
 
     override fun onDestroy() {
@@ -81,6 +77,9 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         for (bean in list) {
             selectCardBagAdapter.data.add(bean)
             selectCardBagAdapter.data.addAll(bean.dataList)
+        }
+        if (cardBagId != 0){
+            selectCardBagAdapter.selectCardBagId = cardBagId
         }
         selectCardBagAdapter.notifyDataSetChanged()
     }

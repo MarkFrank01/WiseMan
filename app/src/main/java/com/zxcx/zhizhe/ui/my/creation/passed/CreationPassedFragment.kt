@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.search.result.card
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +31,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         set(value) {
             field = value
             mPage = 0
-            mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,10 +76,14 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CreationBean
+        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
         val intent = Intent(mActivity,CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)
+        startActivity(intent,bundle)
     }
 
     private fun initRecyclerView() {

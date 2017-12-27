@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.UpgradeInfo;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.card.card.share.ShareDialog;
@@ -18,10 +16,6 @@ import butterknife.OnClick;
 
 public class AboutUSActivity extends BaseActivity {
 
-    @BindView(R.id.tv_about_us_versions)
-    TextView mTvAboutUsVersions;
-    @BindView(R.id.tv_about_us_new_versions)
-    TextView mTvAboutUsNewVersions;
     @BindView(R.id.tv_about_us_logo)
     TextView mTvAboutUsLogo;
 
@@ -31,30 +25,10 @@ public class AboutUSActivity extends BaseActivity {
         setContentView(R.layout.activity_about_us);
         ButterKnife.bind(this);
 
-        initToolBar("关于我们");
-        mTvAboutUsVersions.setText(Utils.getAppVersionName(this));
         mTvAboutUsLogo.setText(getString(R.string.tv_about_us_logo,Utils.getAppVersionName(this)));
-
-        UpgradeInfo upgradeInfo = Beta.getUpgradeInfo();
-        if (upgradeInfo != null) {
-            mTvAboutUsNewVersions.setText(upgradeInfo.versionName);
-        }
     }
 
-    @OnClick(R.id.ll_about_us_check_update)
-    public void onMLlAboutUsCheckUpdateClicked() {
-        Beta.checkUpgrade(true, false);
-    }
-
-    @OnClick(R.id.ll_about_us_visit)
-    public void onMLlAboutUsVisitClicked() {
-        Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("title",getString(R.string.visit));
-        intent.putExtra("url",getString(R.string.base_url)+getString(R.string.visit_url));
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.tv_about_us_share)
+    @OnClick(R.id.ll_about_us_share)
     public void onMTvAboutUsShareClicked() {
         ShareDialog shareCardDialog = new ShareDialog();
         Bundle bundle = new Bundle();
@@ -66,7 +40,7 @@ public class AboutUSActivity extends BaseActivity {
         shareCardDialog.show(getFragmentManager(), "");
     }
 
-    @OnClick(R.id.tv_about_us_agreement)
+    @OnClick(R.id.ll_about_us_agreement)
     public void onMTvAboutUsAgreementClicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title",getString(R.string.agreement));

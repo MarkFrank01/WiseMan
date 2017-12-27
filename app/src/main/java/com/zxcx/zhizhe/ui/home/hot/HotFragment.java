@@ -25,7 +25,6 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
-import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -146,7 +145,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
             mCardAdapter.addData(list);
         }
         mPage++;
-        if (list.size() < Constants.PAGE_SIZE) {
+        if (list.size() == 0) {
             mCardAdapter.loadMoreEnd(false);
         } else {
             mCardAdapter.loadMoreComplete();

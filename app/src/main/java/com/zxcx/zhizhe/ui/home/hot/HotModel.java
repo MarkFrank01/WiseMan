@@ -31,7 +31,7 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
                         RecommendBean recommendBean = new RecommendBean(false,cardBean);
                         recommendBeanList.add(recommendBean);
                     }
-                    if (bean.getCardBagList() == null && bean.getCardBagList().size() == 0){
+                    if (bean.getCardBagList() == null || bean.getCardBagList().size() == 0){
                         return recommendBeanList;
                     }else if (bean.getCardBagList().size() > 5){
                         //把卡包列表分两段插入到卡片列表中

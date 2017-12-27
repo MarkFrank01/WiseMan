@@ -28,7 +28,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
         set(value) {
             field = value
             mPage = 0
-            mPresenter.getCardNote(mSortType,mPage,mPageSize)
+            mPresenter?.getCardNote(mSortType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

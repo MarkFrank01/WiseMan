@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.ClearMessageEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
@@ -15,9 +16,14 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListActiv
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.StringUtils
 import com.zxcx.zhizhe.utils.TextViewUtils
 import kotlinx.android.synthetic.main.fragment_dynamic_message.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean> {
 
@@ -27,6 +33,7 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         getDynamicMessage()
         ll_dynamic_message_follow.setOnClickListener {
             //进入关注消息列表
@@ -45,6 +52,26 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
             val intent = Intent(mActivity,DynamicMessageListActivity::class.java)
             intent.putExtra("messageType", message_collect)
             startActivity(intent)
+        }
+    }
+
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroyView()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ClearMessageEvent) {
+        when(event.messageType){
+            message_follow -> {
+                tv_dynamic_message_follow.setText(R.string.tv_dynamic_message_no_data)
+            }
+            message_like -> {
+                tv_dynamic_message_like.setText(R.string.tv_dynamic_message_no_data)
+            }
+            message_collect -> {
+                tv_dynamic_message_collect.setText(R.string.tv_dynamic_message_no_data)
+            }
         }
     }
 

@@ -71,6 +71,9 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     ImageView mIvCreationRedPoint;
 
     private int writerStatus;
+    private boolean hasSystemMessage;
+    private boolean hasDynamicMessage;
+    private int totalIntelligenceValue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,9 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
+            hasDynamicMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasDynamicMessage,false);
+            hasSystemMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasSystemMessage,false);
+            refreshRedPoint();
             getRedPointStatus();
         }
     }
@@ -261,6 +267,11 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
         mTvMyNickName.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1));
         String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
         ImageLoader.load(mActivity, headImg, R.drawable.default_header, mIvMyHead);
+        writerStatus = SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0);
+        hasDynamicMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasDynamicMessage,false);
+        hasSystemMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasSystemMessage,false);
+        totalIntelligenceValue = SharedPreferencesUtil.getInt(SVTSConstants.totalIntelligenceValue,0);
+        refreshRedPoint();
     }
 
     private void getRedPointStatus() {
@@ -282,8 +293,18 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     @Override
     public void getDataSuccess(RedPointBean bean) {
         writerStatus = bean.getWriterStatus();
+        hasDynamicMessage = bean.getHasDynamicMessage();
+        hasSystemMessage = bean.getHasSystemMessage();
+        totalIntelligenceValue = bean.getTotalIntelligenceValue();
         SharedPreferencesUtil.saveData(SVTSConstants.writerStatus,writerStatus);
-        if (bean.getHasSystemMessage() || bean.getHasDynamicMessage()){
+        SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage,hasDynamicMessage);
+        SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage,hasSystemMessage);
+        SharedPreferencesUtil.saveData(SVTSConstants.totalIntelligenceValue,totalIntelligenceValue);
+        refreshRedPoint();
+    }
+
+    private void refreshRedPoint() {
+        if (hasSystemMessage || hasDynamicMessage){
             mIvMessageRedPoint.setVisibility(View.VISIBLE);
         }else {
             mIvMessageRedPoint.setVisibility(View.GONE);
@@ -293,7 +314,7 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
         }else {
             mIvCreationRedPoint.setVisibility(View.VISIBLE);
         }
-        mTvMyInfo.setText(getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(bean.getTotalIntelligenceValue())));
+        mTvMyInfo.setText(getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(totalIntelligenceValue)));
         mTvMyInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue));
     }
 

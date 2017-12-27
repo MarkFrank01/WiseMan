@@ -3,6 +3,8 @@ package com.zxcx.zhizhe.ui.search.result.card
 import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -29,7 +31,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         set(value) {
             field = value
             mPage = 0
-            mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,10 +76,14 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CreationBean
-        val intent = Intent(mActivity,CardDetailsActivity::class.java)
+        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
+        val intent = Intent(mActivity,ReviewDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent)
+        startActivity(intent,bundle)
     }
 
     private fun initRecyclerView() {

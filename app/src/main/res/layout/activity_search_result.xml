@@ -30,6 +30,7 @@
                 android:drawableLeft="@drawable/tv_home_search"
                 android:paddingLeft="8dp"
                 android:drawablePadding="8dp"
+                android:layout_toLeftOf="@+id/iv_search_result_clear"
                 android:gravity="center_vertical"
                 android:textSize="17sp"
                 android:textColor="@color/text_color_1"
@@ -46,7 +47,6 @@
 
             <ImageView
                 android:id="@+id/iv_search_result_clear"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

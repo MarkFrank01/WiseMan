@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.intelligenceValue
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.search.result.card.IntelligenceValueAdapter
@@ -18,6 +19,13 @@ class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), Int
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intelligence_value)
         initView()
+        mPresenter.getIntelligenceValue()
+    }
+
+    override fun initStatusBar() {
+        ImmersionBar.with(this)
+                .transparentBar()
+                .init()
     }
 
     override fun createPresenter(): IntelligenceValuePresenter {

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.search.result.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,12 +9,15 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.home.rank.UserRankBean
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_user.*
 
-class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContract.View, BaseQuickAdapter.RequestLoadMoreListener {
+class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
     var mPage = 0
     var mPageSize = Constants.PAGE_SIZE
@@ -38,6 +42,14 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter?.searchUser(mKeyword,mPage,mPageSize)
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as UserRankBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {

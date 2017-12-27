@@ -5,17 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
+import com.zxcx.zhizhe.ui.my.message.MessageActivity;
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Constants;
-import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.SystemUtils;
-
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * Created by anm on 2017/8/8.
@@ -25,7 +21,7 @@ public class OpenNotification extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Bundle bundle = intent.getExtras();
+        /*Bundle bundle = intent.getExtras();
         String extra = bundle.getString(JPushInterface.EXTRA_EXTRA);
         if (!StringUtils.isEmpty(extra)) {
             JSONObject json = JSON.parseObject(extra);
@@ -35,7 +31,9 @@ public class OpenNotification extends BroadcastReceiver {
             String url = json.getString("url");
             gotoActivity(context, type, id, name, url);
         }
-        gotoActivity(context, null,0,null,null);
+        gotoActivity(context, null,0,null,null);*/
+        Intent messageIntent = new Intent(context, MessageActivity.class);
+        context.startActivity(messageIntent);
     }
 
     private void gotoActivity(Context context, String type, int id, String name, String url) {

@@ -12,10 +12,10 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import kotlinx.android.synthetic.main.fragment_follow_user.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -34,7 +34,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         set(value) {
             field = value
             mPage = 0
-            mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+            mPresenter?.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -1,13 +1,9 @@
-package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
+package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
-import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,7 +12,6 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -25,13 +20,11 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> implements RejectDetailsContract.View {
+public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> implements RejectDetailsContract.View {
 
     @BindView(R.id.tv_reject_details_title)
     TextView mTvRejectDetailsTitle;
@@ -41,10 +34,8 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     ImageView mIvRejectDetails;
     @BindView(R.id.tv_reject_details_info)
     TextView mTvRejectDetailsInfo;
-    @BindView(R.id.tv_reject_reason)
-    TextView mTvRejectReason;
-    @BindView(R.id.tv_reject_reedit)
-    TextView mTvRejectReedit;
+    @BindView(R.id.tv_reject_details_reject_bag)
+    TextView mTvRejectDetailsRejectBag;
 
     private WebView mWebView;
     private int cardId;
@@ -56,15 +47,14 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_reject_details);
+        setContentView(R.layout.activity_review_card_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 
         initData();
         initView();
 
-        mPresenter.getRejectDetails(cardId);
+        mPresenter.getReviewDetails(cardId);
 
         ViewGroup.LayoutParams para = mIvRejectDetails.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
@@ -88,7 +78,6 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
             mWebView = null;
         }
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -104,10 +93,9 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
         date = DateTimeUtils.getDateString(bean.getDate());
         author = bean.getAuthorName();
         cardBagId = bean.getCardBagId();
-        String rejectReason = bean.getRejectReason();
-        mTvRejectReason.setText(rejectReason);
         mTvRejectDetailsTitle.setText(name);
         mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
+        mTvRejectDetailsRejectBag.setText(bean.getCardBagName());
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
     }
 
@@ -119,16 +107,6 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     @OnClick(R.id.iv_reject_details_back)
     public void onMIvRejectDetailsBackClicked() {
         onBackPressed();
-    }
-
-    @OnClick(R.id.tv_reject_reedit)
-    public void onMTvRejectReeditClicked() {
-        Intent intent = new Intent(mActivity, NewCreationTitleActivity.class);
-        intent.putExtra("cardId", cardId);
-        intent.putExtra("cardBagId", cardBagId);
-        intent.putExtra("title", name);
-        intent.putExtra("imageUrl", imageUrl);
-        startActivity(intent);
     }
 
     private void initData() {
@@ -153,18 +131,6 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
         mWebView = WebViewUtils.getWebView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
-
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                mTvRejectReedit.setVisibility(View.VISIBLE);
-            }
-        });
         mFlRejectDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         String url;

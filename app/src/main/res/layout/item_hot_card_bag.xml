@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/vp_item_hot_card_bag"
     android:clipChildren="false"
+    android:layout_marginBottom="30dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

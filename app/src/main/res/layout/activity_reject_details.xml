@@ -79,10 +79,11 @@
             <LinearLayout
                 android:background="@color/background"
                 android:orientation="vertical"
+                android:layout_marginTop="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:paddingTop="11dp"
-                android:paddingBottom="11dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_width="match_parent"
@@ -96,11 +97,11 @@
 
                 <TextView
                     android:id="@+id/tv_reject_reason"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="6dp"
                     tools:text="标题、内容不符合平台定位，内容不够详实、偏离主题。"
                     android:textSize="@dimen/text_size_text_2"
                     android:textColor="@color/text_color_1"
-                    android:lineSpacingExtra="8dp"
+                    android:lineSpacingExtra="6dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -116,7 +117,7 @@
             <TextView
                 android:id="@+id/tv_reject_reedit"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/background"
+                android:background="@drawable/bg_background_6dp"
                 android:drawableLeft="@drawable/tv_reject_reedit"
                 android:drawablePadding="10dp"
                 android:layout_marginTop="54dp"
@@ -140,6 +141,6 @@
         android:padding="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp"/>
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
 </RelativeLayout>

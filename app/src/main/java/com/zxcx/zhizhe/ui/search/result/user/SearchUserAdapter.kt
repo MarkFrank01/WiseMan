@@ -32,6 +32,9 @@ class SearchUserAdapter(data : List<SearchUserBean>) : BaseQuickAdapter<SearchUs
     private fun showRank(helper: BaseViewHolder, bean: SearchUserBean) {
         when (bean.rankIndex) {
             1 -> {
+                helper.setVisible(R.id.tv_rank_my_header_rank, false)
+                helper.setVisible(R.id.tv_rank_my_no_rank, false)
+                helper.setImageResource(R.id.iv_rank_my_header_rank,R.drawable.rank_1)
             }
             2 -> {
                 helper.setVisible(R.id.tv_rank_my_header_rank, false)

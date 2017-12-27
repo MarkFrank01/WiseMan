@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.activity_rank.*
 class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.RequestLoadMoreListener{
 
-
     private lateinit var mRankAdapter : RankAdapter
-    private var mAppBarLayoutVerticalOffset: Int = 0
     private var page: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,17 +28,12 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, Bas
         super.onCreate(savedInstanceState)
         initToolBar("所有榜单")
         initRecyclerView()
-        app_bar_layout.addOnOffsetChangedListener { _, verticalOffset -> mAppBarLayoutVerticalOffset = verticalOffset }
         loadService = LoadSir.getDefault().register(this, this)
         onRefresh()
     }
 
     override fun createPresenter(): RankPresenter {
         return RankPresenter(this)
-    }
-
-    override fun checkCanDoRefresh(frame: PtrFrameLayout?, content: View?, header: View?): Boolean {
-        return mAppBarLayoutVerticalOffset == 0 && !rv_rank_user.canScrollVertically(-1)
     }
 
     override fun onRefreshBegin(frame: PtrFrameLayout?) {

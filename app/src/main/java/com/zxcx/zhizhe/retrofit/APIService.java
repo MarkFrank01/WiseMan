@@ -13,7 +13,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.RedPointBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
-import com.zxcx.zhizhe.ui.my.creation.rejectDetails.RejectDetailsBean;
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
@@ -233,10 +233,11 @@ public interface APIService {
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 获取创作未通过详情
+     * 获取创作详情
      */
     @POST("/article/getArticleBasicInfo")
-    Flowable<BaseBean<RejectDetailsBean>> getRejectDetails(@Query("articleId") int cardId);
+    Flowable<BaseBean<RejectDetailsBean>> getRejectDetails(
+            @Query("articleId") int cardId, @Query("viewType") int passType);
 
     /**
      * 获取笔记详情

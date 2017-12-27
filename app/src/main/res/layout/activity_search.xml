@@ -28,6 +28,7 @@
                 android:drawableLeft="@drawable/tv_home_search"
                 android:paddingLeft="8dp"
                 android:drawablePadding="8dp"
+                android:layout_toLeftOf="@+id/iv_search_clear"
                 android:gravity="center_vertical"
                 android:textSize="17sp"
                 android:textColor="@color/text_color_1"

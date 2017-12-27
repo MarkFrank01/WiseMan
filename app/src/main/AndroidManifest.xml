@@ -180,7 +180,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.note.noteDetails.NoteDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.userInfo.ChangeHeadImageActivity"
             android:screenOrientation="portrait"/>
@@ -224,6 +225,17 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.intelligenceValue.IntelligenceValueActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.ReviewDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.RejectDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.setting.ImageLoadModeActivity"
             android:screenOrientation="portrait"/>
     </application>
 

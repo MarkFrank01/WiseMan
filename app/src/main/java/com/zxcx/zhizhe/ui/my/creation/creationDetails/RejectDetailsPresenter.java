@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.rejectDetails;
+package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import android.support.annotation.NonNull;
 
@@ -15,6 +15,10 @@ public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.
 
     public void getRejectDetails(int RejectId){
         mModel.getRejectDetails(RejectId);
+    }
+
+    public void getReviewDetails(int RejectId){
+        mModel.getReviewDetails(RejectId);
     }
 
     @Override

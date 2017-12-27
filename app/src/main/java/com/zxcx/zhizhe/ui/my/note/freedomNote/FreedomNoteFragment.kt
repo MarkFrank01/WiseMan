@@ -33,9 +33,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         set(value) {
             field = value
             mPage = 0
-            if (mPresenter != null) {
-                mPresenter.getFreedomNote(mSortType, mPage, mPageSize)
-            }
+            mPresenter?.getFreedomNote(mSortType, mPage, mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -74,6 +74,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         val intent = Intent(mActivity,CreationActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        finish()
     }
 
     override fun saveFreedomNoteSuccess() {
@@ -82,6 +83,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         intent.putExtra("isFreedomNote",true)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        finish()
     }
 
     override fun postFail(msg: String?) {
