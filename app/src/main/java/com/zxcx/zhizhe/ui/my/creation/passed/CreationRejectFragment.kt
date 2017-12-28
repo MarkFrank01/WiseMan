@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
@@ -23,6 +24,9 @@ import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
@@ -44,17 +48,30 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         mRefreshLayout = refresh_layout
+        super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         initRecyclerView()
         mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
     override fun createPresenter(): CreationPresenter {
         return CreationPresenter(this)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        mPage = 0
+        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+    }
+
     override fun getDataSuccess(list: List<CreationBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {

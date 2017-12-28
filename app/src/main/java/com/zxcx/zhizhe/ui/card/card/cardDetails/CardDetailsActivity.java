@@ -423,11 +423,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         });
         mFlCardDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId+"?fontSize="+fontSize;
         } else {
-            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
-//            mUrl = "http://192.168.1.149:8043/view/articleDark/192";
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId+"?fontSize="+fontSize;
 
         }
         mWebView.loadUrl(mUrl);

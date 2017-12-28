@@ -74,6 +74,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         val intent = Intent(mActivity,CreationActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        toastShow("提交成功")
         finish()
     }
 
@@ -83,6 +84,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         intent.putExtra("isFreedomNote",true)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        toastShow("保存成功")
         finish()
     }
 
@@ -137,6 +139,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
 
     override fun uploadSuccess(url: String) {
         editor.insertImage(url)
+        cb_editor_bold.isChecked = false
     }
 
     private fun initViewListener() {
@@ -162,6 +165,9 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         cb_editor_eyeshield.setOnCheckedChangeListener { _, isChecked ->
             // 设置编辑器是否夜间模式
             editor.setIsEyeshield(isChecked)
+        }
+        iv_toolbar_back.setOnClickListener {
+            onBackPressed()
         }
         tv_toolbar_commit.setOnClickListener {
             // 提交卡片

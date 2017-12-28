@@ -115,6 +115,7 @@ class MessageActivity : BaseActivity() , IGetPresenter<RedPointBean> {
     override fun getDataSuccess(bean: RedPointBean) {
         hasDynamicMessage = bean.hasDynamicMessage
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
+        SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, bean.hasSystemMessage)
         refreshRedPoint()
     }
 

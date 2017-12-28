@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserContract
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserPresenter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_follow_user.*
@@ -48,9 +49,9 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
-        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         mDialog = UnFollowConfirmDialog()
@@ -71,6 +72,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun getDataSuccess(list: List<FollowUserBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -97,6 +99,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun unFollowUserSuccess(bean: FollowUserBean) {
+        bean.id = bean.targetUserId
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
         mAdapter.notifyItemChanged(position)
@@ -142,8 +145,10 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","点击创作来吸引你的粉丝",R.color.button_blue,View.OnClickListener {
-            val intent = Intent(mActivity,NewCreationTitleActivity::class.java)
-            startActivity(intent)
+            if (ZhiZheUtils.isWriter(mActivity)) {
+                val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+                startActivity(intent)
+            }
         })
         mAdapter.emptyView = emptyView
     }

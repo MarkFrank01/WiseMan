@@ -1,6 +1,8 @@
 package com.zxcx.zhizhe.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -8,12 +10,17 @@ import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
+import com.zxcx.zhizhe.ui.my.creation.ApplyReviewActivity;
+import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+
+import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_review;
+import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_writer;
 
 public class ZhiZheUtils {
     private static final double EARTH_RADIUS = 6378137.0;
@@ -92,6 +99,28 @@ public class ZhiZheUtils {
             //判断NetworkInfo对象是否为空 并且类型是否为WIFI
             if (networkInfo != null && networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
                 return networkInfo.isAvailable();
+        }
+        return false;
+    }
+
+    /**
+     * 判断是否有写手权限
+     * */
+    public static boolean isWriter(Activity activity) {
+        int writerStatus = SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0);
+        switch (writerStatus){
+            case writer_status_writer:
+                return true;
+            case writer_status_review:
+                //资格审核中
+                Intent intent1 = new Intent(activity, ApplyReviewActivity.class);
+                activity.startActivity(intent1);
+                break;
+            default:
+                CreationAgreementDialog dialog = new CreationAgreementDialog();
+                dialog.show(activity.getFragmentManager(),"");
+                break;
+
         }
         return false;
     }

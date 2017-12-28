@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity;
@@ -24,6 +25,10 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,12 +58,14 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     private String author;
     private String imageUrl;
     private String date;
+    private String mUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_reject_details);
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         initData();
         initView();
@@ -86,6 +93,7 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
             mWebView.destroy();
             mWebView = null;
         }
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -113,6 +121,11 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     @Override
     public void toastFail(String msg) {
         super.toastFail(msg);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SaveFreedomNoteSuccessEvent event) {
+        finish();
     }
 
     @OnClick(R.id.iv_reject_details_back)
@@ -166,14 +179,13 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
         });
         mFlRejectDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
-        String url;
+        int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            url = APIService.API_SERVER_URL + "/view/articleDark/" + cardId;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId+"?fontSize="+fontSize;
         } else {
-            url = APIService.API_SERVER_URL + "/view/articleLight/" + cardId;
-//            mUrl = "http://192.168.1.149/articleView/192";
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId+"?fontSize="+fontSize;
 
         }
-        mWebView.loadUrl(url);
+        mWebView.loadUrl(mUrl);
     }
 }

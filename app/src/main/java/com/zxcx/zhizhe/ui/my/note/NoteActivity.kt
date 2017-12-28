@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.note.freedomNote.FreedomNoteFragment
 import com.zxcx.zhizhe.ui.search.result.card.CardNoteFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import kotlinx.android.synthetic.main.activity_note.*
 
 /**
@@ -39,8 +40,10 @@ class NoteActivity : BaseActivity() {
             onBackPressed()
         }
         iv_toolbar_creation.setOnClickListener {
-            val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
-            startActivity(intent)
+            if (ZhiZheUtils.isWriter(mActivity)) {
+                val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+                startActivity(intent)
+            }
         }
         iv_toolbar_sort.setOnClickListener {
             if (mSortType == 1) {

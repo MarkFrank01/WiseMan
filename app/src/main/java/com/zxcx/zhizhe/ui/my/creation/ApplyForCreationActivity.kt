@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.mvpBase.INullPostPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
+import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_apply_for_creation.*
 import kotlinx.android.synthetic.main.toolbar.*
 import java.util.regex.Pattern
@@ -23,7 +24,7 @@ class ApplyForCreationActivity : BaseActivity() , INullPostPresenter{
 
     private var phoneRules = "^1\\d{10}$"
     private var nameRules = "^[\\u4e00-\\u9fa5]*\$"
-    private var idCardRules = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)\$"
+    private var idCardRules = "^\\d{17}([0-9]|X)\$"
     private var phonePattern = Pattern.compile(phoneRules)
     private var namePattern = Pattern.compile(nameRules)
     private var idCardPattern = Pattern.compile(idCardRules)
@@ -97,6 +98,7 @@ class ApplyForCreationActivity : BaseActivity() , INullPostPresenter{
 
     override fun postSuccess() {
         toastShow("申请成功")
+        Utils.closeInputMethod(mActivity)
         finish()
     }
 

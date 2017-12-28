@@ -105,7 +105,7 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     @Override
     public void getDataSuccess(NoteDetailsBean bean) {
         imageUrl = bean.getImageUrl();
-        date = DateTimeUtils.getDateString(bean.getDate());
+        date = DateTimeUtils.getDateTimeString(bean.getDate());
         mTvNoteDetailsInfo.setText(getString(R.string.tv_note_info, date));
         cardBagId = bean.getCardBagId();
         withCardId = bean.getWithCardId();
@@ -193,11 +193,11 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         });
         mFlNoteDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
+        int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + "/view/articleDark/" + noteId;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + noteId+"?fontSize="+fontSize;
         } else {
-            mUrl = APIService.API_SERVER_URL + "/view/articleLight/" + noteId;
-//            mUrl = "http://192.168.1.149/articleView/192";
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + noteId+"?fontSize="+fontSize;
 
         }
         mWebView.loadUrl(mUrl);

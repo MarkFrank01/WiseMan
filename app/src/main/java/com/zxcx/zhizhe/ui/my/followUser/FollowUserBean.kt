@@ -8,6 +8,7 @@ class FollowUserBean(
 		@JSONField(name = "createArticleCount") var cardNum: Int?, //0
 		@JSONField(name = "followerCount") var fansNum: Int?, //0
 		@JSONField(name = "id") var id: Int?, //0
+		@JSONField(name = "targetUserId") var targetUserId: Int?, //0
 		@JSONField(name = "intelligenceValue") var readNum: Int?, //0
 		@JSONField(name = "name") var name: String?, //string
 		@JSONField(name = "userAurhorRelationshipType") var followType: Int? //0为未关注，1为已关注，2为已相互关注

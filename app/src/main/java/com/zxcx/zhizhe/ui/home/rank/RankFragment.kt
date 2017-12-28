@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode
 class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , BaseQuickAdapter.OnItemClickListener{
 
     private var isFirst: Boolean = true
+    private var mHidden: Boolean = false
     private var mUserId : Int = 0
     private lateinit var mRankAdapter : RankAdapter
     private lateinit var rvRank : RecyclerView
@@ -63,18 +64,20 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         loadService.showCallback(HomeLoadingCallback::class.java)
         initRecyclerView()
         onRefresh()
+        mHidden = true
+    }
+
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
-        if (!hidden) {
-            EventBus.getDefault().register(this)
-            initView()
-        } else {
-            EventBus.getDefault().unregister(this)
-        }
+        mHidden = hidden
         super.onHiddenChanged(hidden)
     }
 
@@ -121,20 +124,19 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HomeClickRefreshEvent) {
-        mRefreshLayout.autoRefresh()
+        if (!mHidden) {
+            mRefreshLayout.autoRefresh()
+        }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LoginEvent) {
-        rv_rank.scrollToPosition(0)
-        mRefreshLayout.autoRefresh()
-        EventBus.getDefault().removeStickyEvent(event)
+        onRefresh()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LogoutEvent) {
         initView()
-        EventBus.getDefault().removeStickyEvent(event)
     }
 
     private fun gotoMoreRank(){

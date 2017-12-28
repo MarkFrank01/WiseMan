@@ -54,6 +54,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     private AttentionCardAdapter mCardAdapter;
     private int page = 0;
     private int mAppBarLayoutVerticalOffset;
+    private boolean mHidden = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,11 +85,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (!hidden){
-            EventBus.getDefault().register(this);
-        }else {
-            EventBus.getDefault().unregister(this);
-        }
+        mHidden = hidden;
         super.onHiddenChanged(hidden);
     }
 
@@ -97,10 +94,12 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         super.onViewCreated(view, savedInstanceState);
         EventBus.getDefault().register(this);
         initView();
+        mHidden = false;
     }
 
     @Override
     public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
         super.onDestroyView();
     }
@@ -113,27 +112,26 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeClickRefreshEvent event) {
-        mRvAttentionCard.scrollToPosition(0);
-        mRefreshLayout.autoRefresh();
+        if (!mHidden) {
+            mRvAttentionCard.scrollToPosition(0);
+            mRefreshLayout.autoRefresh();
+        }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         loadService.showCallback(HomeLoadingCallback.class);
-        mRvAttentionCard.scrollToPosition(0);
-        mRefreshLayout.autoRefresh();
-        EventBus.getDefault().removeStickyEvent(event);
+        onRefresh();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         loadService.showCallback(AttentionNeedLoginCallback.class);
         mCardAdapter.getData().clear();
         mCardAdapter.notifyDataSetChanged();
-        EventBus.getDefault().removeStickyEvent(event);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SelectAttentionEvent event) {
         loadService.showCallback(HomeLoadingCallback.class);
         mRvAttentionCard.scrollToPosition(0);
@@ -183,7 +181,6 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     @Override
     public void toastFail(String msg) {
-        mRefreshLayout.refreshComplete();
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
         if (page == 0){

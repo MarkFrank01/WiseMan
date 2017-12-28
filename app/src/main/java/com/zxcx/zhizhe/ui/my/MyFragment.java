@@ -112,6 +112,15 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     }
 
     @Override
+    public void onResume() {
+        hasDynamicMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasDynamicMessage,false);
+        hasSystemMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasSystemMessage,false);
+        refreshRedPoint();
+        getRedPointStatus();
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
@@ -297,12 +306,15 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     }
 
     private void refreshRedPoint() {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId,0) == 0){
+            return;
+        }
         if (hasSystemMessage || hasDynamicMessage){
             mIvMessageRedPoint.setVisibility(View.VISIBLE);
         }else {
             mIvMessageRedPoint.setVisibility(View.GONE);
         }
-        if (writerStatus == writer_status_writer){
+        if (writerStatus == writer_status_writer || writerStatus == writer_status_review){
             mIvCreationRedPoint.setVisibility(View.GONE);
         }else {
             mIvCreationRedPoint.setVisibility(View.VISIBLE);

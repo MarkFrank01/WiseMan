@@ -113,7 +113,7 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
                                 val intent = Intent(Intent.ACTION_PICK)
                                 intent.type = "image/*"
                                 // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
-                                startActivityForResult(intent, 0)
+                                startActivityForResult(intent, 1)
                             }
                             permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
                                 toastShow("权限已被拒绝！无法进行操作")
@@ -151,9 +151,9 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data != null) {
 
             if (requestCode == Constants.CLIP_IMAGE){
                 //图片裁剪完成

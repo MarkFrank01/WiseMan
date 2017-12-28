@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_freedom_note.*
@@ -41,9 +42,9 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
-        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFreedomNote(mSortType,mPage,mPageSize)
     }
@@ -64,6 +65,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
     }
 
     override fun getDataSuccess(list: List<NoteBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -105,8 +107,10 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         rv_freedom_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_freedom_note.adapter = mAdapter
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无自由笔记","点击创作开始记录",R.color.button_blue,View.OnClickListener {
-            val intent = Intent(mActivity,NewCreationTitleActivity::class.java)
-            startActivity(intent)
+            if (ZhiZheUtils.isWriter(mActivity)) {
+                val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+                startActivity(intent)
+            }
         })
         mAdapter.emptyView = emptyView
     }

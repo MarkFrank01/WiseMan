@@ -28,14 +28,11 @@ import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -198,24 +195,6 @@ public class ShareNoteDialog extends BaseDialog {
             oks.setPlatform(platform);
         }
 
-        //回调
-        oks.setCallback(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                toastShow("分享成功");
-            }
-
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                toastShow(throwable.getMessage());
-            }
-
-            @Override
-            public void onCancel(Platform platform, int i) {
-                toastShow("分享取消");
-            }
-        });
-
         mDisposable = Flowable.just(bitmap)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscription -> showLoading())
@@ -234,6 +213,7 @@ public class ShareNoteDialog extends BaseDialog {
                         //启动分享
                         hideLoading();
                         oks.show(getActivity());
+                        dismiss();
                     }
 
                     @Override

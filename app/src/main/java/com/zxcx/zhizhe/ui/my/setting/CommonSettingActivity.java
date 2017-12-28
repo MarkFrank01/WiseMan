@@ -82,7 +82,7 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_font)
     public void onMLlCommonSettingFontClicked() {
-        startActivity(new Intent(mActivity, MessageModeActivity.class));
+        startActivity(new Intent(mActivity, TextSizeChangeActivity.class));
     }
 
     @OnClick(R.id.ll_common_setting_image)

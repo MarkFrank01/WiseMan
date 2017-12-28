@@ -39,8 +39,8 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         mRefreshLayout = refresh_layout
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
     }
@@ -50,6 +50,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     override fun getDataSuccess(list: List<CreationBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {

@@ -112,7 +112,6 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         JAnalyticsInterface.onEvent(mActivity, lEvent);
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
-        EventBus.getDefault().postSticky(new LoginEvent());
         Utils.closeInputMethod(mEtLoginPassword);
         mActivity.finish();
     }
@@ -145,7 +144,6 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     public void onMessageEvent(RegisterEvent event) {
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
-        EventBus.getDefault().postSticky(new LoginEvent());
         mActivity.finish();
     }
 

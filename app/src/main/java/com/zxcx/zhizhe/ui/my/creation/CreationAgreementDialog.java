@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +34,10 @@ public class CreationAgreementDialog extends BaseDialog {
     FrameLayout mFlDialogCreationAgreement;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
+    @BindView(R.id.view_line)
+    View mViewLine;
+    @BindView(R.id.ll_creation_agreement)
+    LinearLayout mLlCreationAgreement;
     private WebView mWebView;
     private Unbinder unbinder;
 
@@ -40,6 +46,7 @@ public class CreationAgreementDialog extends BaseDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().setCanceledOnTouchOutside(true);
         View view = inflater.inflate(R.layout.dialog_creation_agreement, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -51,12 +58,12 @@ public class CreationAgreementDialog extends BaseDialog {
 
         Window window = getDialog().getWindow();
         window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(84),
-                ScreenUtils.dip2px(10), ScreenUtils.dip2px(84));
+        /*window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(84),
+                ScreenUtils.dip2px(10), ScreenUtils.dip2px(84));*/
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.gravity = Gravity.CENTER;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.width = ScreenUtils.getScreenWidth() - ScreenUtils.dip2px(20);
+        lp.height = ScreenUtils.getScreenHeight() - ScreenUtils.dip2px(168);
         window.setAttributes(lp);
     }
 
@@ -89,8 +96,20 @@ public class CreationAgreementDialog extends BaseDialog {
         mWebView = WebViewUtils.getWebView(getActivity());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                mLlCreationAgreement.setVisibility(View.VISIBLE);
+                mViewLine.setVisibility(View.VISIBLE);
+            }
+        });
         mFlDialogCreationAgreement.addView(mWebView);
-        mWebView.loadUrl(getString(R.string.base_url)+getString(R.string.agreement_url));
+        mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.agreement_url));
     }
 
     @OnClick(R.id.tv_dialog_cancel)
@@ -100,7 +119,7 @@ public class CreationAgreementDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        startActivity(new Intent(getActivity(),ApplyForCreationActivity.class));
+        startActivity(new Intent(getActivity(), ApplyForCreationActivity.class));
         dismiss();
     }
 }

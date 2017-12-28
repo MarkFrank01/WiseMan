@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gyf.barlibrary.ImmersionBar;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
@@ -51,7 +50,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     private HotCardAdapter mCardAdapter;
     private int mPage = 0;
     private int mAppBarLayoutVerticalOffset;
-    protected ImmersionBar mImmersionBar;
+    private boolean mHidden = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,23 +83,19 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         initRecyclerView();
 
         getHotCard();
+        mHidden = true;
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.setUserVisibleHint(hidden);
-        if (!hidden) {
-            EventBus.getDefault().register(this);
-        } else {
-            EventBus.getDefault().unregister(this);
-        }
+        mHidden = hidden;
     }
 
     @Override
     public void onDestroyView() {
         unbinder.unbind();
-        if (mImmersionBar != null)
-            mImmersionBar.destroy();
+        EventBus.getDefault().unregister(this);
         super.onDestroyView();
     }
 
@@ -113,8 +108,10 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeClickRefreshEvent event) {
-        mRvHotCard.scrollToPosition(0);
-        mRefreshLayout.autoRefresh();
+        if (!mHidden) {
+            mRvHotCard.scrollToPosition(0);
+            mRefreshLayout.autoRefresh();
+        }
     }
 
     @Override
@@ -161,7 +158,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     public void toastFail(String msg) {
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
-        mRefreshLayout.refreshComplete();
         if (mPage == 0) {
             loadService.showCallback(NetworkErrorCallback.class);
         }

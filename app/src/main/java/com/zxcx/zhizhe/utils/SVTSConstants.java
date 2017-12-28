@@ -5,6 +5,7 @@ public class SVTSConstants {
     public static final String isFirstLaunchApp = "is_first_launch_app";
     public static final String isNight = "is_night";
     public static final String imageLoadMode = "image_load_mode";
+    public static final String textSizeValue = "text_size_value";//1,2,3分别为默认，中号，大号
 
     public static final String userName = "user_name";
     public static final String userPsd = "user_psd";

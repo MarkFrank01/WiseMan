@@ -45,9 +45,18 @@ public class DateTimeUtils {
         }
     }
 
+    public static String getDateTimeString(Date date) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+            return format.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
     public static String getTimeString(Date date) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
             return format.format(date);
         } catch (Exception e) {
             return "";

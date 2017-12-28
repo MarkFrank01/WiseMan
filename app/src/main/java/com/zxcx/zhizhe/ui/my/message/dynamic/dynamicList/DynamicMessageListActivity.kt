@@ -54,7 +54,6 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 
     override fun getDataSuccess(list: List<DynamicMessageListBean>) {
         mDisposable = Flowable.just(list)
-                .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map(PackData(map))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -72,19 +71,19 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
                             mAdapter.data.addAll(dynamicBean.list)
                         }
                         mAdapter.notifyDataSetChanged()
+
+                        iv_toolbar_right.visibility = if (mAdapter.data.isEmpty()) View.GONE else View.VISIBLE
+                        mPage ++
+                        if (list.size < mPageSize) {
+                            mAdapter.loadMoreEnd(false)
+                        } else {
+                            mAdapter.loadMoreComplete()
+                            mAdapter.setEnableLoadMore(false)
+                            mAdapter.setEnableLoadMore(true)
+                        }
                     }
 
                 })
-        mPage ++
-        if (list.size < mPageSize) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
-
-        iv_toolbar_right.visibility = if (mAdapter.data.isEmpty()) View.GONE else View.VISIBLE
     }
 
     override fun postSuccess() {

@@ -118,6 +118,7 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
     public void onMessageEvent(ImageCropSuccessEvent event) {
         uploadImageToOSS(event.getPath());
+        EventBus.getDefault().removeStickyEvent(event);
     }
 
     private void uploadImageToOSS(String path) {

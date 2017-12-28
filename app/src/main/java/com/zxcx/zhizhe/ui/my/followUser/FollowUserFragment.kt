@@ -47,9 +47,9 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
-        mRefreshLayout = refresh_layout
         initRecyclerView()
         mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         mDialog = UnFollowConfirmDialog()
@@ -70,6 +70,7 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
     }
 
     override fun getDataSuccess(list: List<FollowUserBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -94,6 +95,7 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
     }
 
     override fun unFollowUserSuccess(bean: FollowUserBean) {
+        bean.id = bean.targetUserId
         mAdapter.remove(mAdapter.data.indexOf(bean))
     }
 

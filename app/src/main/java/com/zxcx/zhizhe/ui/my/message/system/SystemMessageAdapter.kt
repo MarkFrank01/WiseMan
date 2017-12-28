@@ -15,8 +15,8 @@ import java.util.regex.Pattern
  * Created by anm on 2017/12/20.
  */
 class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<SystemMessageBean, BaseViewHolder>(R.layout.item_system_message,data){
-    val format = SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.CHINA)
-    var pattern = "^(《.*》)$"
+    val format = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHINA)
+    var pattern = "(《.*?》)"
     var r = Pattern.compile(pattern)
 
     override fun convert(helper: BaseViewHolder, item: SystemMessageBean) {
@@ -67,7 +67,7 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
     private fun setCardContent(helper: BaseViewHolder, item: SystemMessageBean) {
         val tv = helper.getView<TextView>(R.id.tv_item_system_message_content)
         val m = r.matcher(item.content)
-        if (m.matches()) {
+        if (m.find()) {
             val cardName = m.group(1)
             if (!StringUtils.isEmpty(cardName)) {
                 TextViewUtils.setTextViewColorAndBold(tv, cardName, item.content)

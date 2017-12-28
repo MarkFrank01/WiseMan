@@ -37,8 +37,8 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         mRefreshLayout = refresh_layout
+        super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter.getCardNote(mSortType,mPage,mPageSize)
     }
@@ -48,6 +48,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
     }
 
     override fun getDataSuccess(list: List<NoteBean>) {
+        mRefreshLayout.refreshComplete()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {

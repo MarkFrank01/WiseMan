@@ -90,7 +90,8 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.loginAndRegister.LoginActivity"
             android:screenOrientation="portrait"/>
@@ -149,7 +150,7 @@
             android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity"
+            android:name=".ui.home.rank.moreRank.RankActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.ChangeNickNameActivity"
@@ -236,6 +237,9 @@
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.setting.ImageLoadModeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.setting.TextSizeChangeActivity"
             android:screenOrientation="portrait"/>
     </application>
 
