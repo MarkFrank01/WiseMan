@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.search.result.card.IntelligenceValueAdapter
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import kotlinx.android.synthetic.main.activity_intelligence_value.*
 import java.util.*

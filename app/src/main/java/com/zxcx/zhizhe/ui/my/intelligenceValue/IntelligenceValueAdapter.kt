@@ -1,11 +1,10 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.intelligenceValue
 
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.my.intelligenceValue.MissionVO
 import com.zxcx.zhizhe.utils.Constants
 
 /**
@@ -15,8 +14,7 @@ class IntelligenceValueAdapter(data : List<MissionVO>) : BaseQuickAdapter<Missio
 
     override fun convert(helper: BaseViewHolder, item: MissionVO) {
         val tv = helper.getView<TextView>(R.id.tv_item_intelligence_value_title)
-        var textPaint = tv.paint
-        textPaint.isFakeBoldText = true
+        tv.paint.isFakeBoldText = true
         helper.setText(R.id.tv_item_intelligence_value_progress, mContext.getString(
                 R.string.tv_item_intelligence_value_progress,item.reachedCount,item.limitCount))
         val progress = helper.getView<ProgressBar>(R.id.pb_item_intelligence_value)
@@ -26,7 +24,7 @@ class IntelligenceValueAdapter(data : List<MissionVO>) : BaseQuickAdapter<Missio
         }else{
             progress.progress = value
         }
-        helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
+        helper.setVisible(R.id.view_line,helper.adapterPosition != data.size-1)
         when(item.missionType){
             Constants.MISSION_REGISTER -> {
                 helper.setText(R.id.tv_item_intelligence_value_title,"注册智者")

@@ -207,7 +207,7 @@
                         android:button="@drawable/selector_cb_card_details_collect"
                         tools:text="200"
                         android:textSize="12sp"
-                        android:textColor="@color/text_color_99"
+                        android:textColor="@color/color_checkbox_card_details"
                         android:paddingLeft="7.5dp"/>
                 </LinearLayout>
 
@@ -225,7 +225,7 @@
                         android:button="@drawable/selector_cb_card_details_like"
                         tools:text="200"
                         android:textSize="12sp"
-                        android:textColor="@color/text_color_99"
+                        android:textColor="@color/color_checkbox_card_details"
                         android:paddingLeft="7.5dp"/>
                 </LinearLayout>
 
@@ -243,7 +243,7 @@
                         android:button="@drawable/selector_cb_card_details_un_like"
                         tools:text="200"
                         android:textSize="12sp"
-                        android:textColor="@color/text_color_99"
+                        android:textColor="@color/color_checkbox_card_details"
                         android:paddingLeft="7.5dp"/>
                 </LinearLayout>
 

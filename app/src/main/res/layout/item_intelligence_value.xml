@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/tv_item_intelligence_value_title"
             android:layout_marginTop="20dp"
-            tools:text="注册智者"
+            android:text="注册智者"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_text_2"
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:id="@+id/tv_item_intelligence_value_content"
             android:visibility="gone"
             android:layout_marginTop="10dp"
-            tools:text="单张卡片阅读≥30s"
+            android:text="单张卡片阅读≥30s"
             android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_3"
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:paddingRight="8dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
-            tools:text="奖励20智力值"
+            android:text="奖励20智力值"
             android:textColor="@color/button_blue"
             android:textSize="@dimen/text_size_text_2"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
 
         <TextView
             android:id="@+id/tv_item_intelligence_value_progress"
-            tools:text="1/1"
+            android:text="1/1"
             android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_2"
             android:layout_width="wrap_content"

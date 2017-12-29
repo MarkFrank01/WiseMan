@@ -94,7 +94,8 @@
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
             android:name=".ui.loginAndRegister.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
             android:screenOrientation="portrait"/>

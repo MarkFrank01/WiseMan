@@ -20,7 +20,7 @@ class FollowUserAdapter(data : List<FollowUserBean>) : BaseQuickAdapter<FollowUs
         helper.setText(R.id.tv_item_follow_user_card, (item.cardNum?:0).toString())
         helper.setText(R.id.tv_item_follow_user_fans, (item.fansNum?:0).toString())
         helper.setText(R.id.tv_item_follow_user_read, (item.readNum?:0).toString())
-        helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
+        helper.setVisible(R.id.view_line,helper.adapterPosition != data.size-1)
 
         helper.setChecked(R.id.cb_item_follow_user,item.followType != 0)
         when(item.followType){

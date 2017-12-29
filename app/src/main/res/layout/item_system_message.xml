@@ -36,6 +36,7 @@
         tools:text="你创作的卡片《hifi数码常识》已审核通过，感谢你对智者内容的分享和支持。"
         android:textColor="@color/text_color_2"
         android:textSize="@dimen/text_size_text_2"
+        android:lineSpacingExtra="6dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

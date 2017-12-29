@@ -329,6 +329,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onCbCollectClicked() {
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
+        if (mUserId == mAuthorId){
+            toastShow("无法收藏自己");
+            return;
+        }
         if (!mCbCardDetailsCollect.isChecked()) {
             mPresenter.addCollectCard(cardId);
         } else {
@@ -340,6 +344,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onCbLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
+        if (mUserId == mAuthorId){
+            toastShow("无法点赞自己");
+            return;
+        }
         if (!mCbCardDetailsLike.isChecked()) {
             if (checkLogin()) {
                 mPresenter.likeCard(cardId);

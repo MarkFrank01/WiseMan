@@ -178,7 +178,6 @@
                 android:textColor="@color/text_color_2"
                 android:gravity="right"
                 android:maxLines="1"
-                android:maxLength="10"
                 android:ellipsize="end"
                 android:layout_weight="1"
                 android:layout_width="0dp"

@@ -3,5 +3,4 @@
 
     <item android:color="@color/button_blue" android:state_checked="true"/>
     <item android:color="@color/text_color_2"/>
-
 </selector>

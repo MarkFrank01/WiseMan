@@ -190,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:text="@string/qq"
-                android:textColor="@color/text_color_99"
+                android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_3"/>
         </LinearLayout>
 
@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:text="@string/wechat"
-                android:textColor="@color/text_color_99"
+                android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_3"/>
         </LinearLayout>
 
@@ -242,7 +242,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="11dp"
                 android:text="@string/weibo"
-                android:textColor="@color/text_color_99"
+                android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_3"/>
         </LinearLayout>
     </LinearLayout>

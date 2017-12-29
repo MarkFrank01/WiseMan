@@ -16,7 +16,7 @@
     <string name="ssdk_laiwang_client_inavailable">Laiwangs client not exists or the version is too low</string>
     <string name="ssdk_alipay_client_inavailable">Alipay client not exists or the version is too low</string>
     <string name="ssdk_facebookmessenger_client_inavailable">Facebookmessenger client not exists or the version is too low</string>
-    
+
 	<string name="ssdk_sinaweibo">Sina Weibo</string>
 	<string name="ssdk_tencentweibo">Tencent Weibo</string>
 	<string name="ssdk_qzone">QZone</string>

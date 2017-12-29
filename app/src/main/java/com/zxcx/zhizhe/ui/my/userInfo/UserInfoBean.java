@@ -26,8 +26,8 @@ public class UserInfoBean extends RetrofitBaen {
     private String name;
     @JSONField(name = "sign")
     private String signture;
-    @JSONField(name = "phone")
-    private String phone;
+    @JSONField(name = "phoneNum")
+    private String phoneNum;
     @JSONField(name = "gender")
     private int gender;
     @JSONField(name = "createTime")
@@ -79,12 +79,12 @@ public class UserInfoBean extends RetrofitBaen {
         this.signture = signture;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhoneNum() {
+        return phoneNum;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public int getGender() {

@@ -167,13 +167,13 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 final String imageUrl = "http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/"+fileName;
                 if (mUploadListener != null)
+                    dismiss();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mUploadListener.uploadSuccess(imageUrl);
                         }
                     });
-                dismiss();
             }
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {

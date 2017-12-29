@@ -75,7 +75,8 @@
         <TextView
             android:layout_marginLeft="15dp"
             android:text="他的创作"
-            style="@style/text_16sp_66"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"

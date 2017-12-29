@@ -37,8 +37,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/wechat"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -60,8 +60,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/moments"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -83,8 +83,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/qq"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -106,8 +106,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/qzone"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -154,8 +154,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/weibo"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -177,8 +177,8 @@
                 <TextView
                     android:layout_marginTop="9dp"
                     android:text="@string/copy"
-                    android:textSize="12sp"
-                    android:textColor="@color/text_color_99"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:textColor="@color/text_color_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -210,7 +210,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="取消"
-        android:textSize="16sp"
+        android:textSize="@dimen/text_size_text_1"
         android:textColor="@color/button_blue"
         android:layout_width="match_parent"
         android:layout_height="57dp"/>

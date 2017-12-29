@@ -25,7 +25,7 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
         helper.setText(R.id.tv_item_rank_user_card, ZhiZheUtils.getFormatNumber(item.cardNum?:0))
         helper.setText(R.id.tv_item_rank_user_fans, ZhiZheUtils.getFormatNumber(item.fansNum?:0))
         helper.setText(R.id.tv_item_rank_user_read, ZhiZheUtils.getFormatNumber(item.readNum?:0))
-        helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
+        helper.setVisible(R.id.view_line,helper.adapterPosition != data.size-1)
         showRank(helper,item)
     }
 

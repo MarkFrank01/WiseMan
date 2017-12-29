@@ -25,8 +25,5 @@
     <color name="text_item_card_bag">#DBDBDB</color>
     <color name="toolbar_title">#DBDBDB</color>
     <color name="text_color_ff">#C1C1C1</color>
-    <color name="text_color_40">#C1C1C1</color>
-    <color name="text_color_66">#999999</color>
-    <color name="text_color_99">#666666</color>
     <color name="text_color_top_search">#666666</color>
 </resources>

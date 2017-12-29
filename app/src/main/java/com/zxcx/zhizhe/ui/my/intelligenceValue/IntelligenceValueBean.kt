@@ -2,10 +2,11 @@ package com.zxcx.zhizhe.ui.my.intelligenceValue
 
 import com.alibaba.fastjson.annotation.JSONField
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import java.util.ArrayList
 
 
 data class IntelligenceValueBean(
-        @JSONField(name = "missionVOList") var missionVOList: List<MissionVO?>?,
+        @JSONField(name = "missionVOList") var missionVOList: ArrayList<MissionVO?>?,
         @JSONField(name = "todayAchieveMissionCount") var todayAchieveMissionCount: Int?, //0
         @JSONField(name = "todayAllMissionCount") var todayAllMissionCount: Int?, //0
         @JSONField(name = "todayValue") var todayValue: Int?, //0

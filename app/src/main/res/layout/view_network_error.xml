@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tv_no_data"
         android:text="网络连接错误，请点击重试"
-        android:textColor="@color/text_color_99"
+        android:textColor="@color/text_color_1"
         android:textSize="17sp"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

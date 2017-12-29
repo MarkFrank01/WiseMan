@@ -24,7 +24,7 @@ class ReadCardsAdapter(data : List<ReadCardsBean>) : BaseQuickAdapter<ReadCardsB
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
         helper.setText(R.id.tv_item_search_result_card_info, mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(item.date), item.author))
-        helper.setVisible(R.id.view_line,helper.adapterPosition != itemCount-1)
+        helper.setVisible(R.id.view_line,helper.adapterPosition != data.size-1)
     }
 
 }

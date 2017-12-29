@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -45,7 +44,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as UserRankBean
+        val bean = adapter.data[position] as SearchUserBean
         val intent = Intent(mActivity, OtherUserActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
@@ -54,6 +53,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 
     private fun initRecyclerView() {
         mSearchUserAdapter = SearchUserAdapter(ArrayList())
+        mSearchUserAdapter.onItemClickListener = this
         mSearchUserAdapter.setLoadMoreView(CustomLoadMoreView())
         mSearchUserAdapter.setOnLoadMoreListener(this,rv_search_result_user)
         rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)

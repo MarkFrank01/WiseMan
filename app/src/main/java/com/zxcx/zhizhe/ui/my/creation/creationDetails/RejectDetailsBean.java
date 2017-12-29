@@ -21,7 +21,7 @@ public class RejectDetailsBean extends RetrofitBaen {
     private String authorName;
     @JSONField(name = "unpassReason")
     private String rejectReason;
-    @JSONField(name = "createTime")
+    @JSONField(name = "modifyTime")
     private Date date;
 
     public int getId() {

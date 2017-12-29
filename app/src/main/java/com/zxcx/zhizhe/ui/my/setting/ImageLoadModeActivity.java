@@ -29,6 +29,7 @@ public class ImageLoadModeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_load_mode);
         ButterKnife.bind(this);
+        initToolBar("图片加载");
 
         imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode,0);
         switch (imageLoadMode){

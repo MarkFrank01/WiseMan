@@ -50,8 +50,8 @@
             android:visibility="gone"
             android:paddingRight="20dp"
             android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/text_color_66"
+            android:textSize="@dimen/text_size_text_1"
+            android:textColor="@color/text_color_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
