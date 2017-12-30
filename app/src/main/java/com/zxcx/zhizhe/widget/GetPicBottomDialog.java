@@ -68,7 +68,7 @@ public class GetPicBottomDialog extends BaseDialog {
     }
 
     public interface GetPicDialogListener {
-        void onGetSuccess(UriType UriType, Uri uri, String imagePath);
+        void onGetSuccess(UriType uriType, Uri uri, String imagePath);
     }
 
     public void setListener(GetPicDialogListener listener) {

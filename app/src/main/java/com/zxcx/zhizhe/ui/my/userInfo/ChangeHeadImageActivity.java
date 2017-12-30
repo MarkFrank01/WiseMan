@@ -106,8 +106,11 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     }
 
     @Override
-    public void onGetSuccess(GetPicBottomDialog.UriType UriType, Uri uri, String imagePath) {
+    public void onGetSuccess(GetPicBottomDialog.UriType uriType, Uri uri, String imagePath) {
         String path = FileUtil.getRealFilePathFromUri(mActivity,uri);
+        if (path == null){
+            path = imagePath;
+        }
         Intent intent = new Intent(mActivity,ClipImageActivity.class);
         intent.putExtra("path",path);
         intent.putExtra("aspectX",1);
