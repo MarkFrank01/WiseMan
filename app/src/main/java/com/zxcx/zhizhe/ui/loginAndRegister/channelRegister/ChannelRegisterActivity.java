@@ -66,14 +66,16 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
     LinearLayout mLlForgetPassword;
     @BindView(R.id.tv_forget_title)
     TextView mTvForgetTitle;
+    @BindView(R.id.iv_forget_password_clear)
+    ImageView mIvForgetPasswordClear;
     private int count = 60;
     Handler handler = new Handler();
     String phoneRules = "^1\\d{10}$";
     String passwordRules = "^.{8,20}$";
     Pattern phonePattern = Pattern.compile(phoneRules);
     Pattern passwordPattern = Pattern.compile(passwordRules);
-    private String verifyKey,jpushRID,appChannel,appVersion,userId,userName,userIcon,userGender;
-    private int channelType,appType,sex;
+    private String verifyKey, jpushRID, appChannel, appVersion, userId, userName, userIcon, userGender;
+    private int channelType, appType, sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,9 +154,9 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
             //手机号未注册提示框
             PhoneConfirmDialog confirmDialog = new PhoneConfirmDialog();
             Bundle bundle = new Bundle();
-            bundle.putString("phone",mEtForgetPhone.getText().toString());
+            bundle.putString("phone", mEtForgetPhone.getText().toString());
             confirmDialog.setArguments(bundle);
-            confirmDialog.show(mActivity.getFragmentManager(),"");
+            confirmDialog.show(mActivity.getFragmentManager(), "");
         }
     }
 
@@ -189,6 +191,11 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         mEtForgetPhone.setText("");
     }
 
+    @OnClick(R.id.iv_forget_password_clear)
+    public void onMIvRegisterPasswordClearClicked() {
+        mEtForgetPassword.setText("");
+    }
+
     @OnClick(R.id.tv_forget_send_verification)
     public void onMTvRegisterSendVerificationClicked() {
         mPresenter.checkPhoneRegistered(mEtForgetPhone.getText().toString());
@@ -217,6 +224,11 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
     @OnTextChanged(R.id.et_forget_password)
     public void onRegisterPasswordTextChange() {
         mBtnForget.setEnabled(checkPassword());
+        if (mEtForgetPassword.length() > 0) {
+            mIvForgetPasswordClear.setVisibility(View.VISIBLE);
+        } else {
+            mIvForgetPasswordClear.setVisibility(View.GONE);
+        }
     }
 
     @OnTextChanged(R.id.et_forget_phone)

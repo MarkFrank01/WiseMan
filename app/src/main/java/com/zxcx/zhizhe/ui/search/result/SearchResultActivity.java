@@ -25,6 +25,7 @@ import com.zxcx.zhizhe.ui.search.result.user.SearchUserFragment;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.Utils;
 
 import java.util.List;
 
@@ -179,6 +180,8 @@ public class SearchResultActivity extends BaseActivity {
                             }
                         });
                 addSubscription(mDisposable);
+
+                Utils.closeInputMethod(mEtSearchResult);
 
                 return true;
             }

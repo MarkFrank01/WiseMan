@@ -57,6 +57,15 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         mDialog = UnFollowConfirmDialog()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if(hidden){
+            EventBus.getDefault().unregister(this)
+        }else{
+            EventBus.getDefault().register(this)
+        }
+    }
+
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()

@@ -99,6 +99,8 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
                 View cardBagView = View.inflate(mContext,R.layout.item_item_hot_card_bag,null);
                 TextView textView = (TextView) cardBagView.findViewById(R.id.tv_item_home_card_bag);
                 textView.setText(bagBean.getName());
+                TextPaint textPaint = textView.getPaint();
+                textPaint.setFakeBoldText(true);
                 RecyclerView recyclerView = (RecyclerView) cardBagView.findViewById(R.id.rv_item_home_card_bag);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
                 HotCardBagAdapter adapter = new HotCardBagAdapter(bagBean.getCardList());

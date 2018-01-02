@@ -1,8 +1,10 @@
 package com.zxcx.zhizhe.ui.card.cardBag;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -192,9 +194,9 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
     class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
-        private Context mContext;
+        private Activity mContext;
 
-        public CardItemClickListener(Context context) {
+        public CardItemClickListener(Activity context) {
             mContext = context;
         }
 
@@ -207,7 +209,15 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
             intent.putExtra("imageUrl", bean.getImageUrl());
             intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
             intent.putExtra("author", bean.getAuthor());
-            mContext.startActivity(intent);
+            if (isCard){
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                        Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
+                        Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
+                        Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle();
+                mContext.startActivity(intent,bundle);
+            }else {
+                mContext.startActivity(intent);
+            }
         }
     }
 

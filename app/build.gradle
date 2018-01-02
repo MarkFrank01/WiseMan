@@ -163,8 +163,8 @@ dependencies {
     //Chuck 一个用来记录展示网络请求详情的调试工具库
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
     //debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-    releaseCompile 'com.readystatesoftware.chuck:library:1.1.0'
-//    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+//    releaseCompile 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //格式化Log输出
     compile 'com.orhanobut:logger:2.1.1'
     //下拉刷新库

@@ -46,6 +46,7 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     ImageView mIvHeadImage;
 
     private OSSDialog mOSSDialog;
+    private boolean isChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         mIvHeadImage.setLayoutParams(layoutParams);
 
         mIvToolbarRight.setVisibility(View.VISIBLE);
-        mIvToolbarRight.setImageResource(R.drawable.iv_card_bag_list);
+        mIvToolbarRight.setImageResource(R.drawable.iv_change_head_image);
 
         String imageUrl = SharedPreferencesUtil.getString(SVTSConstants.imgUrl,"");
         ImageLoader.load(this,imageUrl,R.drawable.iv_my_head_placeholder,mIvHeadImage);
@@ -79,6 +80,14 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     public void onPause() {
         EventBus.getDefault().unregister(this);
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isChanged){
+            toastShow(R.string.user_info_change);
+        }
+        super.onBackPressed();
     }
 
     @OnClick(R.id.iv_toolbar_right)
@@ -172,13 +181,11 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
 
     @Override
     public void deleteSuccess() {
-        toastShow(R.string.user_info_change);
-        onBackPressed();
+        isChanged = true;
     }
 
     @Override
     public void deleteFail() {
-        toastShow(R.string.user_info_change);
-        onBackPressed();
+        isChanged = true;
     }
 }

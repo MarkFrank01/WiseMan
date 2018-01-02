@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.zxcx.zhizhe.BuildConfig;
+import com.zxcx.zhizhe.utils.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -76,7 +77,7 @@ public class RichEditor extends WebView {
     }
 
 //    private static final String SETUP_HTML = "file:///android_asset/editor.html";
-    private static final String SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+    private static String SETUP_HTML;
 //    private static final String SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
     private static final String CALLBACK_SCHEME = "re-callback://";
     private static final String STATE_SCHEME = "re-state://";
@@ -97,6 +98,12 @@ public class RichEditor extends WebView {
     @SuppressLint("SetJavaScriptEnabled")
     public RichEditor(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        if (Constants.IS_NIGHT){
+            SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+        }else {
+            SETUP_HTML = "http://120.77.180.183:8043/view/zzeditor";
+        }
 
         setVerticalScrollBarEnabled(false);
         setHorizontalScrollBarEnabled(false);

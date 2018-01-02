@@ -29,6 +29,7 @@
         android:text="@string/tv_dialog_phone_confirm"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_2"
+        android:lineSpacingExtra="7dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

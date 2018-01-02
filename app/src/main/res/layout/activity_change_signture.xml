@@ -54,6 +54,7 @@
             tools:text="是是是是是是"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_3"
             android:textSize="@dimen/text_size_text_1"
             android:paddingTop="15dp"
             android:paddingLeft="20dp"

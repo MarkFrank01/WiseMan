@@ -48,7 +48,6 @@ public class ZhiZheUtils {
     }
 
     public static void logout() {
-        EventBus.getDefault().post(new LogoutEvent());
         SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
         SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
         SharedPreferencesUtil.saveData(SVTSConstants.token, "");
@@ -62,6 +61,7 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, false);
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, false);
         SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, false);
+        EventBus.getDefault().post(new LogoutEvent());
     }
 
     public static String getHDImageUrl(String imageUrl) {

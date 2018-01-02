@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/et_new_creation_1_title"
     android:layout_width="match_parent"
     android:layout_height="45dp">
 
@@ -15,7 +16,7 @@
         android:id="@+id/tv_refresh_header"
         android:text="内容已刷新"
         android:textSize="12sp"
-        android:textColor="@color/text_color_3"
+        android:textColor="@color/button_blue"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

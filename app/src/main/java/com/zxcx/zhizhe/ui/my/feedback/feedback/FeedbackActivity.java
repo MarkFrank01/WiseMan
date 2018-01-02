@@ -61,6 +61,7 @@ public class FeedbackActivity extends MvpActivity<FeedbackPresenter> implements 
 
     @Override
     protected void onDestroy() {
+        Utils.closeInputMethod(this);
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }

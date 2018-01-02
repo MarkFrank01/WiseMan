@@ -49,6 +49,6 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:layout_alignParentBottom="true"
-        app:layout_heightPercent="15%"/>
+        app:layout_heightPercent="18%"/>
 
 </android.support.percent.PercentRelativeLayout>

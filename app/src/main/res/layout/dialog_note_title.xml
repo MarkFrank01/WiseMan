@@ -23,6 +23,8 @@
         android:layout_below="@id/tv_dialog_note_title"
         android:background="@drawable/bg_dialog_edittext"
         android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_3"
+        android:hint="请输入笔记标题"
         android:textSize="@dimen/text_size_text_2"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"

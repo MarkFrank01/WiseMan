@@ -49,6 +49,7 @@
         tools:text="是是是是是是"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_3"
         android:textSize="@dimen/text_size_text_1"
         android:layout_marginTop="72dp"
         android:layout_marginLeft="20dp"

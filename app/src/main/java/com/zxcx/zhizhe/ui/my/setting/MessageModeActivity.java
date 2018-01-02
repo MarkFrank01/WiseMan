@@ -10,6 +10,8 @@ import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
+import com.zxcx.zhizhe.utils.SVTSConstants;
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,8 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
         setContentView(R.layout.activity_message_mode);
         ButterKnife.bind(this);
         initToolBar("消息提示");
+        mCbMessageModeSystem.setChecked(SharedPreferencesUtil.getBoolean(SVTSConstants.systemMessageIsOpen,true));
+        mCbMessageModeDynamic.setChecked(SharedPreferencesUtil.getBoolean(SVTSConstants.dynamicMessageIsOpen,true));
         getMessageSetting();
     }
 
@@ -90,7 +94,8 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
 
     @Override
     public void postSuccess() {
-
+        SharedPreferencesUtil.saveData(SVTSConstants.systemMessageIsOpen,mCbMessageModeSystem.isChecked());
+        SharedPreferencesUtil.saveData(SVTSConstants.dynamicMessageIsOpen,mCbMessageModeDynamic.isChecked());
     }
 
     @Override

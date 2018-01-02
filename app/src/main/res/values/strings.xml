@@ -83,6 +83,7 @@
     <string name="visit_url">/view-zhizhe.html</string>
     <string name="tv_welcome_skip">跳过&#160;%1$ds</string>
     <string name="search_hint">&#160;请输入关键词</string>
+    <string name="intelligence_value_help_url">/help.html</string>
     <string name="help_1_url">/help/help1.html</string>
     <string name="help_2_url">/help/help2.html</string>
     <string name="help_3_url">/help/help3.html</string>

@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.my.creation.newCreation
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -52,17 +53,20 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
     }
 
     override fun initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this)
+                .fitsSystemWindows(true)
+                .keyboardEnable(true)
         if (!Constants.IS_NIGHT) {
-            ImmersionBar.with(this)
+            mImmersionBar
                     .statusBarColor(R.color.background)
                     .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.black)
-                    .fitsSystemWindows(true)
-                    .keyboardEnable(true)
-                    .init()
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
         } else {
-
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
         }
+        mImmersionBar.init()
     }
 
     override fun createPresenter(): NewCreationEditorPresenter {
@@ -165,6 +169,19 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         cb_editor_eyeshield.setOnCheckedChangeListener { _, isChecked ->
             // 设置编辑器是否夜间模式
             editor.setIsEyeshield(isChecked)
+            if (isChecked){
+                ll_rte.setBackgroundColor(Color.parseColor("#F0EFE4"))
+                ll_rte_bottom.setBackgroundColor(Color.parseColor("#FDFAEF"))
+                mImmersionBar
+                        .statusBarColor(R.color.background)
+                        .statusBarDarkFont(true, 0.2f)
+                        .flymeOSStatusBarFontColor(R.color.text_color_1)
+                        .init()
+            }else{
+                ll_rte.setBackgroundResource(R.color.background)
+                ll_rte_bottom.setBackgroundResource(R.color.white)
+                initStatusBar()
+            }
         }
         iv_toolbar_back.setOnClickListener {
             onBackPressed()

@@ -23,7 +23,7 @@
         android:hint="请输入你的标题"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"
-        android:textColorHint="@color/text_color_4"
+        android:textColorHint="@color/et_new_creation_1_title"
         android:textSize="@dimen/text_size_title_2"
         android:layout_marginTop="67dp"
         android:layout_marginLeft="20dp"
@@ -63,15 +63,16 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@drawable/iv_dialog_collect_folder_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:src="@drawable/iv_new_creation_1_add_img"
+                android:scaleType="center"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
 
             <TextView
                 android:layout_marginTop="15dp"
                 android:text="添加封面图"
                 android:textSize="@dimen/text_size_text_1"
-                android:textColor="@color/text_color_4"
+                android:textColor="@color/iv_new_creation_1_add_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

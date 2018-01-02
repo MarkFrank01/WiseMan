@@ -2,7 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_rte"
     android:background="@color/background"
-    android:layout_above="@id/view_line"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -63,6 +62,7 @@
 
     <LinearLayout
         android:id="@+id/ll_rte_bottom"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal">

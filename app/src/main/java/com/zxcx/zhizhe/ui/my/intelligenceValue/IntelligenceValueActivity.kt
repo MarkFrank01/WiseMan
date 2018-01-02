@@ -1,12 +1,15 @@
 package com.zxcx.zhizhe.ui.my.intelligenceValue
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.Constants
 import kotlinx.android.synthetic.main.activity_intelligence_value.*
 import java.util.*
 
@@ -25,6 +28,10 @@ class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), Int
         ImmersionBar.with(this)
                 .transparentBar()
                 .init()
+        if (Constants.IS_NIGHT){
+            val drawable = ColorDrawable(ContextCompat.getColor(mActivity, R.color.opacity_30))
+            fl_intelligence_value.foreground = drawable
+        }
     }
 
     override fun createPresenter(): IntelligenceValuePresenter {
@@ -46,7 +53,7 @@ class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), Int
 
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("title", "帮助")
-            intent.putExtra("url", getString(R.string.base_url) + getString(R.string.help_2_url))
+            intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_url))
             startActivity(intent)
         }
         mAdapter = IntelligenceValueAdapter(ArrayList())

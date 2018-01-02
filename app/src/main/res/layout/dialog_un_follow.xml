@@ -22,6 +22,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="22dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@null"
         android:text="取消关注后将不再看到对方的创作内容"
         android:textColor="@color/text_color_1"

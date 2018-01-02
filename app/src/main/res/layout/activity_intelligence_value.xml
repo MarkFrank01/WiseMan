@@ -1,142 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:id="@+id/fl_intelligence_value"
+    android:background="#F1F3F3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_layout"
-        style="@style/Widget.Design.AppBarLayout.NoElevation"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_intelligence_value_top"
-            android:background="@drawable/ll_intelligence_value_top"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            style="@style/Widget.Design.AppBarLayout.NoElevation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:fitsSystemWindows="true"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical"
+                android:id="@+id/ll_intelligence_value_top"
+                android:background="@drawable/ll_intelligence_value_top"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll">
 
-                <ImageView
-                    android:id="@+id/iv_intelligence_value_back"
-                    android:src="@drawable/iv_intelligence_value_back"
-                    android:layout_marginLeft="10dp"
-                    android:padding="10dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                <LinearLayout
+                    android:fitsSystemWindows="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_intelligence_value_back"
+                        android:src="@drawable/iv_intelligence_value_back"
+                        android:layout_marginLeft="10dp"
+                        android:padding="10dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_intelligence_value_help"
+                        android:layout_marginRight="20dp"
+                        android:text="帮助"
+                        android:textColor="@color/white_final"
+                        android:textSize="@dimen/text_size_text_1"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_intelligence_value_help"
-                    android:layout_marginRight="20dp"
-                    android:text="帮助"
+                    android:id="@+id/tv_intelligence_value_total"
+                    android:layout_marginTop="30dp"
                     android:textColor="@color/white_final"
-                    android:textSize="@dimen/text_size_text_1"
-                    android:gravity="end"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
+                    android:textSize="44sp"
+                    tools:text="16565"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="总智力值"
+                    android:textColor="@color/white_final"
+                    android:textSize="@dimen/text_size_text_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <FrameLayout
+                    android:id="@+id/fl_intelligence_value_today"
+                    android:background="@drawable/fl_intelligence_value_today"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+
+                    <RelativeLayout
+                        android:layout_gravity="center"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp">
+
+                        <com.zxcx.zhizhe.widget.RoundProgressBar
+                            android:id="@+id/rpb_intelligence_value_progress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_intelligence_value_today"
+                                tools:text="50"
+                                android:textColor="@color/button_blue"
+                                android:textSize="44sp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:text="今日智力值"
+                                android:textColor="@color/button_blue"
+                                android:textSize="@dimen/text_size_text_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    android:text="每日奖励"
+                    android:textColor="@color/button_blue"
+                    android:textSize="@dimen/text_size_text_2"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_intelligence_value_total"
-                android:layout_marginTop="30dp"
-                android:textColor="@color/white_final"
-                android:textSize="44sp"
-                tools:text="16565"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        </android.support.design.widget.AppBarLayout>
 
-            <TextView
-                android:text="总智力值"
-                android:textColor="@color/white_final"
-                android:textSize="@dimen/text_size_text_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <FrameLayout
-                android:id="@+id/fl_intelligence_value_today"
-                android:background="@drawable/fl_intelligence_value_today"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="180dp">
-
-                <RelativeLayout
-                    android:layout_gravity="center"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp">
-
-                    <com.zxcx.zhizhe.widget.RoundProgressBar
-                        android:id="@+id/rpb_intelligence_value_progress"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                    <LinearLayout
-                        android:layout_centerInParent="true"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/tv_intelligence_value_today"
-                            tools:text="50"
-                            android:textColor="@color/button_blue"
-                            android:textSize="44sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                        <TextView
-                            android:text="今日智力值"
-                            android:textColor="@color/button_blue"
-                            android:textSize="@dimen/text_size_text_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-            <TextView
-                android:text="每日奖励"
-                android:textColor="@color/button_blue"
-                android:textSize="@dimen/text_size_text_2"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <com.zxcx.zhizhe.widget.RoundedFrameLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
-        android:background="@drawable/bg_dialog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_intelligence_value"
+        <com.zxcx.zhizhe.widget.RoundedFrameLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/bg_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    </com.zxcx.zhizhe.widget.RoundedFrameLayout>
-</android.support.design.widget.CoordinatorLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_intelligence_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/item_intelligence_value"/>
+        </com.zxcx.zhizhe.widget.RoundedFrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

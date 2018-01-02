@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 tools:text="智力值 1234k"
                 android:textSize="@dimen/text_size_text_3"
-                android:textColor="@color/text_color_3"/>
+                android:textColor="@color/text_color_2"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -74,7 +74,7 @@
 
         <TextView
             android:layout_marginLeft="15dp"
-            android:text="他的创作"
+            android:text="Ta的创作"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_text_1"
             android:layout_gravity="center_vertical"

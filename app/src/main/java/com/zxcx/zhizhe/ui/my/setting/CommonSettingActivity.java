@@ -115,8 +115,8 @@ public class CommonSettingActivity extends BaseActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
-            EventBus.getDefault().post(new ChangeNightModeEvent());
             recreate();
+            EventBus.getDefault().post(new ChangeNightModeEvent());
         }
     }
 }

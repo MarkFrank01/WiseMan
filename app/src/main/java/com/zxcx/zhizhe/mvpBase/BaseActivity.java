@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.mvpBase;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,45 +39,32 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     private LoadingDialog mLoadingDialog;
     public boolean isFirst = true;
     public LoadService loadService;
-
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
-        mActivity = this;
-    }
-
-
-    @Override
-    public void setContentView(View view) {
-        super.setContentView(view);
-        mActivity = this;
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        mActivity = this;
-    }
+    public ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initStatusBar();
+        mActivity = this;
         super.onCreate(savedInstanceState);
+        initStatusBar();
         mLoadingDialog = new LoadingDialog();
 
     }
 
     public void initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this);
         if (!Constants.IS_NIGHT){
-            ImmersionBar.with(this)
+            mImmersionBar
                     .statusBarColor(R.color.background)
                     .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.black)
-                    .fitsSystemWindows(true)
-                    .init();
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
         }else {
-
+             mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
         }
+        mImmersionBar.init();
     }
 
     public void onResume() {
@@ -96,7 +82,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+        if (mImmersionBar != null) {
+            mImmersionBar.destroy();
+        }
         if (mCompositeSubscription != null) {
             mCompositeSubscription.dispose();//取消注册，以避免内存泄露
         }
