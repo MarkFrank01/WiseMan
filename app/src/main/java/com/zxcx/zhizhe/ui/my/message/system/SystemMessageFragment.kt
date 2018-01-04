@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
@@ -22,6 +22,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
+import org.greenrobot.eventbus.EventBus
 
 class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessageContract.View ,
         BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemChildClickListener{
@@ -91,7 +92,10 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 }
             }
             message_rank -> {
-                intent.setClass(mActivity,RankActivity::class.java)
+//                intent.setClass(mActivity,RankActivity::class.java)
+                EventBus.getDefault().post(GotoHomeRankEvent())
+                activity.finish()
+                return
             }
             message_recommend -> {
                 intent.setClass(mActivity,CardDetailsActivity::class.java)

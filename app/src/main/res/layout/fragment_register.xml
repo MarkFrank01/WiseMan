@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_register_phone"
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/prl_register_phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginTop="25dp"
+            android:id="@+id/rl_register_phone"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
@@ -52,11 +53,13 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginTop="15dp"
+            android:id="@+id/rl_register_code"
+            android:layout_below="@+id/rl_register_phone"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_marginTopPercent="3.8%">
 
             <EditText
                 android:id="@+id/et_register_verification_code"
@@ -94,27 +97,28 @@
 
         <Button
             android:id="@+id/btn_next"
+            android:layout_below="@+id/rl_register_code"
             android:text="下一步"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/color_btn_login"
             android:enabled="false"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
-    </LinearLayout>
+            android:layout_height="40dp"
+            app:layout_marginTopPercent="10%"/>
+    </android.support.percent.PercentRelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_register_password"
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/prl_register_password"
         android:visibility="gone"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_marginTop="25dp"
+            android:id="@+id/rl_register_password"
             android:layout_marginRight="40dp"
             android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
@@ -145,15 +149,16 @@
 
         <Button
             android:id="@+id/btn_register"
+            android:layout_below="@+id/rl_register_password"
             android:text="注册"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/color_btn_login"
             android:enabled="false"
-            android:layout_marginTop="40dp"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
-            android:layout_height="45dp"/>
-    </LinearLayout>
-</LinearLayout>
+            app:layout_heightPercent="10%"
+            app:layout_marginTopPercent="10%"/>
+    </android.support.percent.PercentRelativeLayout>
+</FrameLayout>

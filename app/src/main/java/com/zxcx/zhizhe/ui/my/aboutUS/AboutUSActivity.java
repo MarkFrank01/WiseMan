@@ -29,8 +29,8 @@ public class AboutUSActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
+        super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
         mTvAboutUsLogo.setText(getString(R.string.tv_about_us_logo, Utils.getAppVersionName(this)));
@@ -73,7 +73,11 @@ public class AboutUSActivity extends BaseActivity {
     public void onMTvAboutUsAgreementClicked() {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("title", getString(R.string.agreement));
-        intent.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_url));
+        if (Constants.IS_NIGHT){
+            intent.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_dark_url));
+        }else {
+            intent.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_url));
+        }
         startActivity(intent);
     }
 

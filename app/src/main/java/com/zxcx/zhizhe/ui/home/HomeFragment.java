@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.GotoHomeRankEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IGetPresenter;
@@ -27,6 +28,10 @@ import com.zxcx.zhizhe.ui.home.rank.RankFragment;
 import com.zxcx.zhizhe.ui.search.search.SearchActivity;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -74,6 +79,7 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EventBus.getDefault().register(this);
         for (int i = 0; i < titles.length; i++) {
             TabLayout.Tab tab = mTlHome.newTab();
             tab.setCustomView(R.layout.tab_home);
@@ -146,7 +152,13 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         unbinder.unbind();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GotoHomeRankEvent event) {
+        mTlHome.getTabAt(2).select();
     }
 
     @OnClick(R.id.tv_home_search)

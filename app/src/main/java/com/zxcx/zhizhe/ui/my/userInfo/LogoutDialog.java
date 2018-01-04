@@ -12,12 +12,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +35,8 @@ public class LogoutDialog extends BaseDialog {
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
+    @BindView(R.id.tv_dialog_logout_title)
+    TextView mTvDialogLogoutTitle;
     private Unbinder unbinder;
 
     @Nullable
@@ -52,7 +51,7 @@ public class LogoutDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogCancel.getPaint();
+        TextPaint tp = mTvDialogLogoutTitle.getPaint();
         tp.setFakeBoldText(true);
         tp = mTvDialogConfirm.getPaint();
         tp.setFakeBoldText(true);

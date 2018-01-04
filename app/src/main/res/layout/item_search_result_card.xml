@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/tv_item_search_result_card_name"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="4dp"
             tools:text="打印纸的规格"
             style="@style/tv_single"
             android:textSize="@dimen/text_size_text_1"

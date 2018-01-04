@@ -20,6 +20,7 @@
     <color name="white_final">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="background">#F1F3F3</color>
+    <color name="background_opacity_85">#33F1F3F3</color>
     <color name="fragment_my_background">#E3E6E6</color>
     <color name="wireframe">#E4E4E4</color>
     <color name="line">#CDD2D3</color>

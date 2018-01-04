@@ -9,7 +9,6 @@
     android:layout_marginBottom="30dp"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    android:padding="0.5dp"
     android:background="@color/white"
     android:stateListAnimator="@animator/anim_home_card_press"
     android:orientation="vertical">
@@ -38,7 +37,7 @@
 
     <TextView
         android:id="@+id/tv_item_home_card_info"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="25dp"
         android:text="2017.11.12   文／佐罗之梦"

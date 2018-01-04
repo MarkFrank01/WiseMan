@@ -25,36 +25,36 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
         helper.setText(R.id.tv_item_rank_user_card, ZhiZheUtils.getFormatNumber(item.cardNum?:0))
         helper.setText(R.id.tv_item_rank_user_fans, ZhiZheUtils.getFormatNumber(item.fansNum?:0))
         helper.setText(R.id.tv_item_rank_user_read, ZhiZheUtils.getFormatNumber(item.readNum?:0))
-        helper.setVisible(R.id.view_line,helper.adapterPosition != data.size-1)
+        helper.setGone(R.id.view_line,helper.adapterPosition != data.size-1)
         showRank(helper,item)
     }
 
     private fun showRank(helper: BaseViewHolder, bean: UserRankBean) {
         when (bean.rankIndex) {
             1 -> {
-                helper.setVisible(R.id.tv_item_rank_user_rank, false)
-                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_no_rank, false)
                 helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_1)
             }
             2 -> {
-                helper.setVisible(R.id.tv_item_rank_user_rank, false)
-                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_no_rank, false)
                 helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_2)
             }
             3 -> {
-                helper.setVisible(R.id.tv_item_rank_user_rank, false)
-                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_no_rank, false)
                 helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_3)
             }
             in 4..99 -> {
-                helper.setVisible(R.id.tv_item_rank_user_no_rank, false)
-                helper.setVisible(R.id.tv_item_rank_user_rank, true)
+                helper.setGone(R.id.tv_item_rank_user_no_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_rank, true)
                 helper.setText(R.id.tv_item_rank_user_rank,bean.rankIndex.toString())
                 helper.setImageResource(R.id.iv_item_rank_user_rank,R.drawable.rank_4)
             }
             else -> {
-                helper.setVisible(R.id.tv_item_rank_user_no_rank, true)
-                helper.setVisible(R.id.fl_item_rank_user_rank, false)
+                helper.setGone(R.id.tv_item_rank_user_no_rank, true)
+                helper.setGone(R.id.fl_item_rank_user_rank, false)
             }
         }
     }

@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -172,6 +173,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
         mRvHotCard.setLayoutManager(layoutManager);
         mRvHotCard.setAdapter(mCardAdapter);
+        mRvHotCard.addItemDecoration(new HomeCardItemDecoration());
     }
 
     private void getHotCard() {

@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordContract;
 import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordPresenter;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
+import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
@@ -64,6 +66,24 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
 
         phone = SharedPreferencesUtil.getString(SVTSConstants.phone,"");
         mTvChangePhoneOldPhone.setText(phone);
+    }
+
+    @Override
+    public void initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this).keyboardEnable(true);
+        if (!Constants.IS_NIGHT){
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }
+        mImmersionBar.init();
     }
 
     @Override

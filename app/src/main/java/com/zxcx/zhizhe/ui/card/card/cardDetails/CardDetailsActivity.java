@@ -121,8 +121,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_card_details);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_card_details);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 

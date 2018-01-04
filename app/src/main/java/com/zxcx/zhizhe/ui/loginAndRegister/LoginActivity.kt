@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.widget.TextView
 import butterknife.ButterKnife
+import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PhoneRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.BackHandlerHelper
@@ -34,6 +35,11 @@ class LoginActivity : BaseActivity() {
         iv_login_close.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    override fun initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this).fitsSystemWindows(true)
+        mImmersionBar.init()
     }
 
     override fun onBackPressed() {

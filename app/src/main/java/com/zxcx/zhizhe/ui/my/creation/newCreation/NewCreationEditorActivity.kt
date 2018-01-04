@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
-import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
@@ -50,22 +49,19 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         if (cardId != 0){
             editor.setCardId(cardId)
         }
+        refreshStatusBar()
     }
 
     override fun initStatusBar() {
+    }
+
+    private fun refreshStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
-                .fitsSystemWindows(true)
                 .keyboardEnable(true)
-        if (!Constants.IS_NIGHT) {
-            mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-        } else {
-            mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-        }
+                .fitsSystemWindows(true)
+                .statusBarColor(R.color.background)
+                .statusBarDarkFont(true, 0.2f)
+                .flymeOSStatusBarFontColor(R.color.text_color_1)
         mImmersionBar.init()
     }
 
@@ -173,14 +169,12 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
                 ll_rte.setBackgroundColor(Color.parseColor("#F0EFE4"))
                 ll_rte_bottom.setBackgroundColor(Color.parseColor("#FDFAEF"))
                 mImmersionBar
-                        .statusBarColor(R.color.background)
-                        .statusBarDarkFont(true, 0.2f)
-                        .flymeOSStatusBarFontColor(R.color.text_color_1)
+                        .statusBarColor("#F0EFE4")
                         .init()
             }else{
                 ll_rte.setBackgroundResource(R.color.background)
                 ll_rte_bottom.setBackgroundResource(R.color.white)
-                initStatusBar()
+                refreshStatusBar()
             }
         }
         iv_toolbar_back.setOnClickListener {

@@ -25,40 +25,40 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
         helper.setTextColor(R.id.tv_item_system_message_title,Color.parseColor(item.titleColor))
         helper.setText(R.id.tv_item_system_message_time,format.format(item.time))
         setCardContent(helper, item)
-        helper.setVisible(R.id.tv_item_system_message_reason,item.messageType == message_card_reject)
-        helper.setVisible(R.id.tv_item_system_message_reason_hint,item.messageType == message_card_reject)
+        helper.setGone(R.id.tv_item_system_message_reason,item.messageType == message_card_reject)
+        helper.setGone(R.id.tv_item_system_message_reason_hint,item.messageType == message_card_reject)
 
         when(item.messageType){
             message_card_pass -> {
                 helper.setText(R.id.tv_item_system_message_value,
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
-                helper.setVisible(R.id.tv_item_system_message_value,true)
+                helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
             }
             message_card_reject -> {
                 helper.setText(R.id.tv_item_system_message_reason,item.remaskContent)
-                helper.setVisible(R.id.tv_item_system_message_value,false)
+                helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
             }
             message_apply_pass -> {
-                helper.setVisible(R.id.tv_item_system_message_value,false)
+                helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"马上创作")
             }
             message_apply_reject -> {
-                helper.setVisible(R.id.tv_item_system_message_value,false)
+                helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"申请创作")
             }
             message_rank -> {
                 helper.setText(R.id.tv_item_system_message_value,
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
-                helper.setVisible(R.id.tv_item_system_message_value,true)
+                helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看榜单")
                 setRankContent(helper, item)
             }
             message_recommend -> {
                 helper.setText(R.id.tv_item_system_message_value,
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
-                helper.setVisible(R.id.tv_item_system_message_value,true)
+                helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
             }
         }

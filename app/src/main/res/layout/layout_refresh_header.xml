@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/et_new_creation_1_title"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="45dp">
 

@@ -2,17 +2,18 @@ package com.zxcx.zhizhe.ui.loginAndRegister.register;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.percent.PercentRelativeLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gyf.barlibrary.ImmersionBar;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.PhoneConfirmEvent;
@@ -56,10 +57,10 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
     Button mBtnRegister;
     @BindView(R.id.btn_next)
     Button mBtnNext;
-    @BindView(R.id.ll_register_phone)
-    LinearLayout mLlRegisterPhone;
-    @BindView(R.id.ll_register_password)
-    LinearLayout mLlRegisterPassword;
+    @BindView(R.id.prl_register_phone)
+    PercentRelativeLayout mPrlRegisterPhone;
+    @BindView(R.id.prl_register_password)
+    PercentRelativeLayout mPrlRegisterPassword;
 
     private int count = 60;
     Handler handler = new Handler();
@@ -70,6 +71,7 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
     private Unbinder unbinder;
     private String jpushRID;
     private String verifyKey;
+    private ImmersionBar mImmersionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,25 +84,42 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         EventBus.getDefault().register(this);
+        initStatusBar();
 
         jpushRID = JPushInterface.getRegistrationID(mActivity);
         SMSSDK.registerEventHandler(new EventHandle());
     }
 
+    public void initStatusBar(){
+        mImmersionBar = ImmersionBar.with(this)
+                .keyboardEnable(true);
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1);
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1);
+        }
+        mImmersionBar.init();
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (hidden){
+        if (hidden) {
             EventBus.getDefault().unregister(this);
-        }else {
+        } else {
             EventBus.getDefault().register(this);
         }
     }
 
     @Override
     public boolean onBackPressed() {
-        if (mLlRegisterPassword.getVisibility() == View.VISIBLE){
-            mLlRegisterPassword.setVisibility(View.GONE);
-            mLlRegisterPhone.setVisibility(View.VISIBLE);
+        if (mPrlRegisterPassword.getVisibility() == View.VISIBLE) {
+            mPrlRegisterPassword.setVisibility(View.GONE);
+            mPrlRegisterPhone.setVisibility(View.VISIBLE);
             return true;
         }
         return false;
@@ -112,6 +131,8 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
         setDjs = null;
         handler = null;
         unbinder.unbind();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
         EventBus.getDefault().unregister(this);
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
@@ -130,28 +151,28 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
 
     @Override
     public void getPhoneStatusSuccess(boolean isRegistered) {
-        if (isRegistered){
+        if (isRegistered) {
             //手机号已注册提示框
             PhoneRegisteredDialog registeredDialog = new PhoneRegisteredDialog();
             Bundle bundle = new Bundle();
-            bundle.putString("phone",mEtRegisterPhone.getText().toString());
+            bundle.putString("phone", mEtRegisterPhone.getText().toString());
             registeredDialog.setArguments(bundle);
-            registeredDialog.show(mActivity.getFragmentManager(),"");
-        }else {
+            registeredDialog.show(mActivity.getFragmentManager(), "");
+        } else {
             //手机号确认提示框
             PhoneConfirmDialog confirmDialog = new PhoneConfirmDialog();
             Bundle bundle = new Bundle();
-            bundle.putString("phone",mEtRegisterPhone.getText().toString());
+            bundle.putString("phone", mEtRegisterPhone.getText().toString());
             confirmDialog.setArguments(bundle);
-            confirmDialog.show(mActivity.getFragmentManager(),"");
+            confirmDialog.show(mActivity.getFragmentManager(), "");
         }
     }
 
     @Override
     public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
         verifyKey = bean.getVerifyKey();
-        mLlRegisterPhone.setVisibility(View.GONE);
-        mLlRegisterPassword.setVisibility(View.VISIBLE);
+        mPrlRegisterPhone.setVisibility(View.GONE);
+        mPrlRegisterPassword.setVisibility(View.VISIBLE);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -175,7 +196,7 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
     public void onMBtnNextClicked() {
         //验证验证码
         mPresenter.smsCodeVerification(mEtRegisterPhone.getText().toString()
-                ,mEtRegisterVerificationCode.getText().toString());
+                , mEtRegisterVerificationCode.getText().toString());
     }
 
     @OnClick(R.id.btn_register)
@@ -188,18 +209,18 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
         mPresenter.phoneRegister(phone, verifyKey, jpushRID, password, appType, appChannel, appVersion);
     }
 
-    @OnTextChanged({R.id.et_register_phone,R.id.et_register_verification_code})
-    public void onRegisterNextTextChange(){
+    @OnTextChanged({R.id.et_register_phone, R.id.et_register_verification_code})
+    public void onRegisterNextTextChange() {
         mBtnNext.setEnabled(checkPhone() && mEtRegisterVerificationCode.length() > 0);
     }
 
     @OnTextChanged(R.id.et_register_password)
-    public void onRegisterPasswordTextChange(){
+    public void onRegisterPasswordTextChange() {
         mBtnRegister.setEnabled(checkPassword());
     }
 
     @OnTextChanged(R.id.et_register_phone)
-    public void onRegisterPhoneTextChange(){
+    public void onRegisterPhoneTextChange() {
         mTvRegisterSendVerification.setEnabled(checkPhone());
         if (mEtRegisterPhone.length() > 0) {
             mIvRegisterPhoneClear.setVisibility(View.VISIBLE);

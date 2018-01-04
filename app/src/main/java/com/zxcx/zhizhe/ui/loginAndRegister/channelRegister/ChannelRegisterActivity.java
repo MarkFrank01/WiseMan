@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.gyf.barlibrary.ImmersionBar;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.PhoneConfirmEvent;
@@ -90,6 +91,24 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
         mTvForgetTitle.setText("绑定手机号");
         mBtnForget.setText("绑定");
         initData();
+    }
+
+    @Override
+    public void initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this).keyboardEnable(true);
+        if (!Constants.IS_NIGHT){
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }
+        mImmersionBar.init();
     }
 
     private void initData() {

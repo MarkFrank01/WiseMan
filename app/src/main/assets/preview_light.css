@@ -1,5 +1,5 @@
 html{
-    margin: 10px;
+    margin: 20px 10px 10px 10px;
 }
 
 #title {
@@ -17,9 +17,8 @@ p{
     font-size: 16px;
     color: #666666;
     letter-spacing: 0;
-    line-height: 30px;
     text-align: left;
-    margin: 16px 0;
+    margin: 25px 0;
 }
 
 #desc {
@@ -33,7 +32,7 @@ p{
 
 
 img {
-    margin-top: 6px;
+    margin-top: 9px;
     width: 100%!important;
 }
 
@@ -44,7 +43,6 @@ img {
 }
 
 .author-right{
-
     width: 100%;
     font-size: 12px;
     color: #999999;
@@ -88,4 +86,32 @@ img {
 .author-info-end{
     float: left;
     margin-left: 8px;
+}
+
+.mainbodys{
+    margin:24.5px 0 17px 0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.image-package{
+    text-align:center;
+    font-size:0;
+    width:100%;
+    margin:0 auto;
+}
+
+#imagetitle{
+    font-size: 14px;
+    text-align: center;
+    line-height: 0;
+    color: #999999;
+}
+
+.image-package .image-caption{
+    width:100%;
+    min-height:22px;
+    display:inline-block;
+    background-color: #f1f3f3;
+    line-height: 5px;
 }

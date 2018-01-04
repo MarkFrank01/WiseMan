@@ -62,8 +62,11 @@ public class UserInfoActivity extends BaseActivity {
         mNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
         mSignture = SharedPreferencesUtil.getString(SVTSConstants.signture, "");
         mTvUserInfoNickName.setText(mNickName);
-        if (mSignture.length() > 10)
-        mTvUserInfoSignature.setText(mSignture.substring(0,10)+"...");
+        if (mSignture.length() > 10) {
+            mTvUserInfoSignature.setText(mSignture.substring(0, 10) + "...");
+        }else {
+            mTvUserInfoSignature.setText(mSignture);
+        }
         mSex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
         if (mSex == 1) {
             mTvUserInfoSex.setText("男");

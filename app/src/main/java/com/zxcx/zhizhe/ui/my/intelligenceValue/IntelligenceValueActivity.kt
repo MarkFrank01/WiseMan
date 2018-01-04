@@ -22,16 +22,16 @@ class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), Int
         setContentView(R.layout.activity_intelligence_value)
         initView()
         mPresenter.getIntelligenceValue()
+        if (Constants.IS_NIGHT){
+            val drawable = ColorDrawable(ContextCompat.getColor(mActivity, R.color.opacity_30))
+            fl_intelligence_value.foreground = drawable
+        }
     }
 
     override fun initStatusBar() {
         ImmersionBar.with(this)
                 .transparentBar()
                 .init()
-        if (Constants.IS_NIGHT){
-            val drawable = ColorDrawable(ContextCompat.getColor(mActivity, R.color.opacity_30))
-            fl_intelligence_value.foreground = drawable
-        }
     }
 
     override fun createPresenter(): IntelligenceValuePresenter {

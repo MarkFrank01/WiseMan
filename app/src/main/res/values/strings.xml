@@ -78,7 +78,10 @@
     <string name="login_timeout">登录超时，请重新登录</string>
     <string name="tv_my_help">使用帮助</string>
     <string name="agreement">智者用户协议</string>
-    <string name="agreement_url">/user-agreement.html</string>
+    <string name="agreement_url">/user-protocol.html</string>
+    <string name="agreement_dark_url">/user-protocol-dark.html</string>
+    <string name="creation_agreement_url">/create-protocol.html</string>
+    <string name="creation_agreement_dark_url">/create-protocol-dark.html</string>
     <string name="visit">参观智者</string>
     <string name="visit_url">/view-zhizhe.html</string>
     <string name="tv_welcome_skip">跳过&#160;%1$ds</string>
@@ -111,5 +114,7 @@
     <string name="user_info_change">修改成功</string>
     <string name="card_details_dark_url">/view/articleDark/</string>
     <string name="card_details_light_url">/view/articleLight/</string>
+    <string name="editor_dark_url">/view/zzeditor-dark</string>
+    <string name="editor_url">/view/zzeditor</string>
     <!--common-end-->
 </resources>

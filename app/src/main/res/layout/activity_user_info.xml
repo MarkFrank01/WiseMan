@@ -12,11 +12,8 @@
         android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
-    <View
-        android:layout_marginTop="@dimen/fragment_interval"
-        style="@style/line"/>
-
     <LinearLayout
+        android:layout_marginTop="@dimen/fragment_interval"
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -211,15 +208,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        style="@style/line"/>
-
-    <View
-        android:layout_marginTop="@dimen/fragment_interval"
-        style="@style/line"/>
-
     <LinearLayout
         android:id="@+id/ll_user_info_safety"
+        android:layout_marginTop="@dimen/fragment_interval"
         android:background="@color/background"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -261,8 +252,5 @@
         <include layout="@layout/iv_right_into"/>
 
     </LinearLayout>
-
-    <View
-        style="@style/line"/>
 
 </LinearLayout>

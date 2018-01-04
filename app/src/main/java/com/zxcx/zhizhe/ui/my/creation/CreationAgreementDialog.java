@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
@@ -109,7 +110,11 @@ public class CreationAgreementDialog extends BaseDialog {
             }
         });
         mFlDialogCreationAgreement.addView(mWebView);
-        mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.agreement_url));
+        if (Constants.IS_NIGHT){
+            mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url));
+        }else {
+            mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.creation_agreement_url));
+        }
     }
 
     @OnClick(R.id.tv_dialog_cancel)

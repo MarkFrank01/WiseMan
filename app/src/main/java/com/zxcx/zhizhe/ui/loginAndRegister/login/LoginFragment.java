@@ -10,8 +10,10 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LoginEvent;
@@ -68,10 +70,13 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     PlatformActionListener mChannelLoginListener = new ChannelLoginListener();
     @BindView(R.id.iv_login_password_clear)
     ImageView mIvLoginPasswordClear;
+    @BindView(R.id.ll_login_sdk_login)
+    LinearLayout mLlLoginSdkLogin;
     private int channelType; // 1-QQ 2-WeChat 3-Weibo
     private int appType;
     private String userName, userId, userIcon, userGender, appChannel, appVersion, jpushID;
     private Unbinder unbinder;
+    private ImmersionBar mImmersionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +89,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         EventBus.getDefault().register(this);
+        initStatusBar();
 
         appType = Constants.APP_TYPE;
         appChannel = WalleChannelReader.getChannel(mActivity);
@@ -91,9 +97,30 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         jpushID = JPushInterface.getRegistrationID(mActivity);
     }
 
+    public void initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this)
+                .keyboardEnable(true)
+                .setOnKeyboardListener((isPopup, keyboardHeight) -> {
+                    mLlLoginSdkLogin.setVisibility(isPopup? View.GONE: View.VISIBLE);
+                });
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1);
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1);
+        }
+        mImmersionBar.init();
+    }
+
     @Override
     public void onDestroy() {
         unbinder.unbind();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
@@ -192,8 +219,8 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         weibo.showUser(null);
     }
 
-    @OnTextChanged({R.id.et_login_phone,R.id.et_login_password})
-    public void onTextChange(){
+    @OnTextChanged({R.id.et_login_phone, R.id.et_login_password})
+    public void onTextChange() {
         if (mEtLoginPhone.length() > 0) {
             mIvLoginPhoneClear.setVisibility(View.VISIBLE);
         } else {
@@ -204,9 +231,9 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         } else {
             mIvLoginPasswordClear.setVisibility(View.GONE);
         }
-        if (checkPhone()){
+        if (checkPhone()) {
             mEtLoginPassword.setEnabled(true);
-        }else {
+        } else {
             mEtLoginPassword.setEnabled(false);
         }
         if (checkPhone() && checkPassword()) {
@@ -216,8 +243,8 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         }
     }
 
-    @OnEditorAction({R.id.et_login_phone,R.id.et_login_password})
-    public boolean onEnterClick(TextView v, int actionId, KeyEvent event){
+    @OnEditorAction({R.id.et_login_phone, R.id.et_login_password})
+    public boolean onEnterClick(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH
                 || actionId == EditorInfo.IME_ACTION_DONE
                 || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {

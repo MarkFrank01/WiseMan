@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeNightModeEvent;
 import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
+import com.zxcx.zhizhe.event.GotoHomeRankEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
@@ -91,6 +92,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GotoHomeRankEvent event) {
+        mHomeTabHome.performClick();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
         mHomeTabHome.performClick();
@@ -98,12 +104,11 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
-        //todo 引导页之后登录需刷新
-        /*if (mCurrentFragment == mMyFragment){
+        if (mCurrentFragment == mMyFragment){
             mHomeTabHome.performClick();
             EventBus.getDefault().post(new HomeClickRefreshEvent());
             toastShow("欢迎回来，已为你更新内容");
-        }*/
+        }
     }
 
     private void switchFragment(Fragment newFragment) {

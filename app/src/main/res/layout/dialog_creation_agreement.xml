@@ -15,16 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="智者内容创作协议"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
             <FrameLayout
                 android:id="@+id/fl_dialog_creation_agreement"
                 android:layout_width="match_parent"
@@ -35,7 +25,6 @@
             <View
                 android:id="@+id/view_line"
                 android:visibility="gone"
-                android:layout_marginTop="34dp"
                 style="@style/line"/>
 
             <LinearLayout

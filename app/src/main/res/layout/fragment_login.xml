@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.055"/>
-
     <RelativeLayout
         android:id="@+id/rl_login_phone"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_marginStart="40dp">
 
         <EditText
             android:id="@+id/et_login_phone"
@@ -59,25 +47,14 @@
 
     </RelativeLayout>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2"/>
-
     <RelativeLayout
         android:id="@+id/rl_login_password"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_login_phone"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_marginTopPercent="3.8%">
 
         <EditText
             android:id="@+id/et_login_password"
@@ -114,17 +91,10 @@
 
     </RelativeLayout>
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.39"/>
-
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_below="@id/rl_login_password"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
@@ -134,11 +104,7 @@
         android:text="@string/login"
         android:textColor="@color/color_btn_login"
         android:textSize="@dimen/text_size_text_1"
-        app:layout_constraintBottom_toBottomOf="@+id/ll_login_sdk_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_marginTopPercent="10%"/>
 
     <TextView
         android:id="@+id/tv_login_forget_password"
@@ -150,11 +116,7 @@
         android:text="@string/forget_password"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_marginTopPercent="2.5%"/>
 
     <LinearLayout
         android:id="@+id/ll_login_sdk_login"
@@ -162,11 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_marginBottomPercent="10%">
 
         <LinearLayout
             android:id="@+id/ll_login_qq"
@@ -174,7 +132,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="48dp"
             android:paddingLeft="28dp"
             android:paddingRight="28dp"
             android:paddingTop="10dp">
@@ -200,7 +157,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="48dp"
             android:paddingLeft="28dp"
             android:paddingRight="28dp"
             android:paddingTop="10dp">
@@ -226,7 +182,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="48dp"
             android:paddingLeft="28dp"
             android:paddingRight="28dp"
             android:paddingTop="10dp">
@@ -247,4 +202,4 @@
         </LinearLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.percent.PercentRelativeLayout>

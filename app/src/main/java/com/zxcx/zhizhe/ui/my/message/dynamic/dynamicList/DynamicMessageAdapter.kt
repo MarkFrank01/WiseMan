@@ -38,9 +38,9 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
                 helper.setText(R.id.tv_item_dynamic_message_time,bean.time)
 
                 if (helper.adapterPosition+1 >= data.size || getItem(helper.adapterPosition+1) is DynamicBean){
-                    helper.setVisible(R.id.view_line,false)
+                    helper.setGone(R.id.view_line,false)
                 }else{
-                    helper.setVisible(R.id.view_line,true)
+                    helper.setGone(R.id.view_line,true)
                 }
 
                 val tvContent = helper.getView<TextView>(R.id.tv_item_dynamic_message_content)
