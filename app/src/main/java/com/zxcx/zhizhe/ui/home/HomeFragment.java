@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +84,6 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
             tab.setCustomView(R.layout.tab_home);
             TextView textView = tab.getCustomView().findViewById(R.id.tv_tab_home);
             textView.setText(titles[i]);
-            TextPaint paint = textView.getPaint();
-            paint.setFakeBoldText(true);
             mTlHome.addTab(tab);
 //            tab.setText(titles[i]);
             getSearchHot();

@@ -445,6 +445,7 @@ public class ClipImageView extends ImageView implements
         if (mMaxOutputWidth > 0 && cropWidth > mMaxOutputWidth) {
             final float outputScale = mMaxOutputWidth / cropWidth;
             outputMatrix = new Matrix();
+
             outputMatrix.setScale(outputScale, outputScale);
         }
 
