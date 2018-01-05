@@ -10,12 +10,12 @@ import android.widget.ImageView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ImageCropSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
+import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -24,10 +24,6 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.GetPicBottomDialog;
 import com.zxcx.zhizhe.widget.OSSDialog;
 import com.zxcx.zhizhe.widget.PermissionDialog;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,18 +64,6 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         mOSSDialog = new OSSDialog();
         mOSSDialog.setUploadListener(this);
         mOSSDialog.setDeleteListener(this);
-    }
-
-    @Override
-    public void onResume() {
-        EventBus.getDefault().register(this);
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        EventBus.getDefault().unregister(this);
-        super.onPause();
     }
 
     @Override
@@ -124,13 +108,18 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         intent.putExtra("path",path);
         intent.putExtra("aspectX",1);
         intent.putExtra("aspectY",1);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.CLIP_IMAGE);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    public void onMessageEvent(ImageCropSuccessEvent event) {
-        uploadImageToOSS(event.getPath());
-        EventBus.getDefault().removeStickyEvent(event);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == Constants.CLIP_IMAGE) {
+                //图片裁剪完成
+                uploadImageToOSS(data.getStringExtra("path"));
+            }
+        }
     }
 
     private void uploadImageToOSS(String path) {

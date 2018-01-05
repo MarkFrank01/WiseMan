@@ -81,7 +81,7 @@
             android:layout_toRightOf="@+id/iv_my_head"
             android:layout_below="@+id/tv_my_nick_name"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="登录看谁在关注你"
@@ -116,6 +116,9 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginRight="2dp"
                     android:text="创作"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/text_size_text_1"
@@ -125,11 +128,10 @@
 
                 <ImageView
                     android:id="@+id/iv_creation_red_point"
-                    android:visibility="gone"
                     android:src="@drawable/red_point"
                     android:layout_gravity="top|right"
-                    android:layout_width="9dp"
-                    android:layout_height="9dp"/>
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"/>
             </FrameLayout>
 
             <View

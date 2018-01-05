@@ -19,8 +19,8 @@
         android:background="@drawable/selector_checkbox_bg_select_attention"
         android:paddingLeft="35dp"
         android:paddingRight="35dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

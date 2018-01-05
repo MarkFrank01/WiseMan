@@ -11,17 +11,17 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="71dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rl_search_edit"
-            android:background="@color/white"
+            android:background="@drawable/bg_home_search"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="36dp">
 
             <EditText
                 android:id="@+id/et_search"
@@ -63,8 +63,10 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="36dp"/>
     </LinearLayout>
 
     <View
@@ -82,8 +84,8 @@
     <LinearLayout
         android:id="@+id/ll_search_history"
         android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="13dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -93,6 +95,7 @@
             android:layout_marginLeft="20dp"
             android:text="热门搜索"
             android:textColor="@color/text_color_1"
+            android:textStyle="bold"
             android:textSize="22sp"
             android:layout_weight="1"
             android:layout_width="0dp"

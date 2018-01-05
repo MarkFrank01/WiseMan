@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitNoteReviewEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
@@ -106,6 +107,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         mAdapter.setOnLoadMoreListener(this,rv_freedom_note)
         rv_freedom_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_freedom_note.adapter = mAdapter
+        rv_freedom_note.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无自由笔记","点击创作开始记录",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, NewCreationTitleActivity::class.java)

@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -89,6 +90,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         mAdapter.setOnLoadMoreListener(this,rv_read_card)
         rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_read_card.adapter = mAdapter
+        rv_read_card.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity, "暂时没有更多信息", "去首页看看有没有你喜欢的卡片", null, null)
         mAdapter.emptyView = emptyView
 

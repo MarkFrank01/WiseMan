@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 import com.zxcx.zhizhe.widget.EmptyView;
@@ -40,7 +41,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
 
     private CollectCardAdapter mAdapter;
     private int page = 0;
-    private int mSortType = 1;//0倒序 1正序
+    private int mSortType = 0;//0倒序 1正序
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +157,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         mAdapter.setOnItemClickListener(this);
         mRvCollectCard.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false));
         mRvCollectCard.setAdapter(mAdapter);
+        mRvCollectCard.addItemDecoration(new HomeCardItemDecoration());
         mAdapter.notifyDataSetChanged();
     }
 }

@@ -11,19 +11,19 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="71dp">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rl_search_result_edit"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:background="@color/white"
+            android:background="@drawable/bg_home_search"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="15dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_height="36dp">
 
             <EditText
                 android:id="@+id/et_search_result"
@@ -64,27 +64,23 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="36dp"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:background="@color/background"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tl_search_result"
-            app:tabIndicatorColor="@color/translate"
-            app:tabSelectedTextColor="@color/translate"
-            app:tabBackground="@color/translate"
-            app:tabMode="fixed"
-            android:layout_width="240dp"
-            android:layout_height="40dp"/>
-
-    </LinearLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_search_result"
+        android:layout_marginTop="6dp"
+        android:layout_gravity="center_horizontal"
+        app:tabIndicatorColor="@color/translate"
+        app:tabSelectedTextColor="@color/translate"
+        app:tabBackground="@color/translate"
+        app:tabMode="fixed"
+        android:layout_width="248dp"
+        android:layout_height="40dp"/>
 
     <FrameLayout
         android:id="@+id/fl_search_result"

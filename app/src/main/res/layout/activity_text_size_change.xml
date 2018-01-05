@@ -21,7 +21,7 @@
         android:id="@+id/tv_text_size_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="智者，只看实用知识"
+        android:text="调节仅在卡片页生效"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_1"
         app:layout_constraintBottom_toBottomOf="parent"

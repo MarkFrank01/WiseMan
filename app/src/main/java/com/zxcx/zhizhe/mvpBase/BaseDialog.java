@@ -2,7 +2,9 @@ package com.zxcx.zhizhe.mvpBase;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -62,7 +64,20 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initFontScale();
         mLoadingDialog = new LoadingDialog();
+    }
+
+    private void initFontScale() {
+        Configuration configuration = getResources().getConfiguration();
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = (float) 1;
+        }
+        //0.85 小, 1 标准大小, 1.15 大，1.3 超大 ，1.45 特大
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        metrics.scaledDensity = configuration.fontScale * metrics.density;
+        getActivity().getBaseContext().getResources().updateConfiguration(configuration, metrics);
     }
 
     public void onDestroy() {

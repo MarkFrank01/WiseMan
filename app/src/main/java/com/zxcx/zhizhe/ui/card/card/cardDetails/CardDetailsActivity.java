@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,12 +25,15 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.SaveCardNoteSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
 import com.zxcx.zhizhe.event.UnLikeEvent;
+import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -99,6 +103,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     ScrollView mSvCardDetails;
     @BindView(R.id.tv_toast)
     TextView mTvToast;
+    @BindView(R.id.ll_card_details_top)
+    LinearLayout mLlCardDetailsTop;
 
     private WebView mWebView;
     private int cardId;
@@ -126,15 +132,15 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
-        initData();
-        initView();
-
-        mPresenter.getCardDetails(cardId);
-
         ViewGroup.LayoutParams para = mIvCardDetails.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.height = (screenWidth * 9 / 16);
         mIvCardDetails.setLayoutParams(para);
+
+        initData();
+        initView();
+
+        mPresenter.getCardDetails(cardId);
     }
 
     @Override
@@ -197,6 +203,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @Override
     public void onReload(View v) {
         mPresenter.getCardDetails(cardId);
+        mWebView.reload();
     }
 
     @Override
@@ -284,10 +291,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     @OnClick(R.id.cb_card_details_follow)
     public void onMCbCardDetailsFollowClicked() {
         mCbCardDetailsFollow.setChecked(!mCbCardDetailsFollow.isChecked());
-        if (!checkLogin()){
+        if (!checkLogin()) {
             return;
         }
-        if (mUserId == mAuthorId){
+        if (mUserId == mAuthorId) {
             toastShow("无法关注自己");
             return;
         }
@@ -329,8 +336,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onCbCollectClicked() {
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsCollect.setChecked(!mCbCardDetailsCollect.isChecked());
-        if (mUserId == mAuthorId){
-            toastShow("无法收藏自己");
+        if (mUserId == mAuthorId) {
+            toastShow("不能收藏自己哦");
             return;
         }
         if (!mCbCardDetailsCollect.isChecked()) {
@@ -344,8 +351,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     public void onCbLikeClicked() {
         //checkBox点击之后选中状态就已经更改了
         mCbCardDetailsLike.setChecked(!mCbCardDetailsLike.isChecked());
-        if (mUserId == mAuthorId){
-            toastShow("无法点赞自己");
+        if (mUserId == mAuthorId) {
+            toastShow("不能点赞自己哦");
             return;
         }
         if (!mCbCardDetailsLike.isChecked()) {
@@ -381,14 +388,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         imageUrl = getIntent().getStringExtra("imageUrl");
         date = getIntent().getStringExtra("date");
         author = getIntent().getStringExtra("author");
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 延迟共享动画的执行
-            //postponeEnterTransition();
-        }
         TextPaint paint = mTvCardDetailsTitle.getPaint();
         paint.setFakeBoldText(true);
         if (!StringUtils.isEmpty(name))
@@ -397,26 +400,22 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mTvCardDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
         if (!StringUtils.isEmpty(imageUrl))
             ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvCardDetails);
-        /*GlideApp
-                .with(this)
-                .load(imageUrl)
-                .placeholder(R.drawable.default_card)
-                .error(R.drawable.default_card)
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        mIvCardDetails.setImageDrawable(resource);
-                        //图片加载完成的回调中，启动过渡动画
-                        //supportStartPostponedEnterTransition();
-                    }
-                });*/
+        initWebview();
 
+
+        initLoadSir();
+    }
+
+    private void initWebview() {
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
 
         mWebView.setWebViewClient(new WebViewClient() {
+
+            boolean isError = false;
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return true;
@@ -424,21 +423,41 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                if (isError) return;
+                loadService.showSuccess();
+                loadService = null;
                 mLlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mRlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);
             }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                isError = true;
+                loadService.showCallback(CardDetailsNetworkErrorCallback.class);
+            }
         });
+        mWebView.setFocusable(false);
         mFlCardDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize;
         } else {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize;
 
         }
         mWebView.loadUrl(mUrl);
+    }
+
+    private void initLoadSir() {
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new CardDetailsLoadingCallback())
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .setDefaultCallback(CardDetailsLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(mWebView, this);
     }
 
     @Override
@@ -499,7 +518,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mWebView.evaluateJavascript("getValue()", new ValueCallback<String>() {
                 @Override
                 public void onReceiveValue(String value) {
-                    String content = value.replaceAll("\\\\u003C", "<").replaceAll("\\\\\"","");
+                    String content = value.replaceAll("\\\\u003C", "<").replaceAll("\\\\\"", "");
                     content = content != null ? content.substring(1, content.length() - 1) : null;
                     LogCat.d(content);
                     switch (item.getItemId()) {

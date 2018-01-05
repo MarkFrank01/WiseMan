@@ -117,9 +117,7 @@ public class GetPicBottomDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogAlbum.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogCamera.getPaint();
+        TextPaint tp = mTvDialogCancel.getPaint();
         tp.setFakeBoldText(true);
     }
 

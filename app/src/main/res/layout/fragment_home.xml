@@ -46,7 +46,7 @@
                 app:tabSelectedTextColor="@color/translate"
                 app:tabBackground="@color/translate"
                 app:tabMode="fixed"
-                android:layout_width="240dp"
+                android:layout_width="248dp"
                 android:layout_height="40dp">
             </android.support.design.widget.TabLayout>
 

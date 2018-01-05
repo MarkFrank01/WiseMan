@@ -24,7 +24,7 @@
     <color name="fragment_my_background">#E3E6E6</color>
     <color name="wireframe">#E4E4E4</color>
     <color name="line">#CDD2D3</color>
-    <color name="toolbar_line">#B2B2B2</color>
+    <color name="toolbar_line">#CDD2D3</color>
     <color name="fault">#EEEEEE</color>
     <color name="text_item_card_bag">#FFFFFF</color>
     <color name="toolbar_title">#030303</color>

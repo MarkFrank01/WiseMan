@@ -129,7 +129,7 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.zxcx.zhizhe.widget.RoundedFrameLayout
+        <com.zxcx.zhizhe.widget.Rounded6FrameLayout
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="60dp"
@@ -144,6 +144,6 @@
                 android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/item_intelligence_value"/>
-        </com.zxcx.zhizhe.widget.RoundedFrameLayout>
+        </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </FrameLayout>

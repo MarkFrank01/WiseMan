@@ -61,8 +61,8 @@ class CreationActivity : BaseActivity() {
     private fun initView() {
         for (i in titles.indices) {
             val tab = tl_creation.newTab()
-            tab.setCustomView(R.layout.tab_note)
-            val textView = tab.customView?.findViewById(R.id.tv_tab_note) as TextView
+            tab.setCustomView(R.layout.tab_creation)
+            val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
             textView.text = titles[i]
             tl_creation.addTab(tab)
             //            tab.setText(titles[i]);

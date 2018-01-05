@@ -42,7 +42,9 @@ class MessageActivity : BaseActivity() , IGetPresenter<RedPointBean> {
 
     override fun onResume() {
         super.onResume()
-        getRedPointStatus()
+        if(SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0) {
+            getRedPointStatus()
+        }
     }
 
     private fun initListener() {
@@ -64,7 +66,12 @@ class MessageActivity : BaseActivity() , IGetPresenter<RedPointBean> {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> switchFragment(systemMessageFragment)
-                    1 -> switchFragment(dynamicMessageFragment)
+                    1 -> {
+                        switchFragment(dynamicMessageFragment)
+                        SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, false)
+                        hasDynamicMessage = false
+                        refreshRedPoint()
+                    }
                 }
             }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -58,6 +59,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
         mSearchUserAdapter.setOnLoadMoreListener(this,rv_search_result_user)
         rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_search_result_user.adapter = mSearchUserAdapter
+        rv_search_result_user.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索结果","换个关键词试试",null,null)
         mSearchUserAdapter.emptyView = emptyView
     }

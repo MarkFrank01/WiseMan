@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -13,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CommitNoteReviewEvent;
+import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
@@ -180,6 +184,9 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
         mWebView.setLayoutParams(params);
 
         mWebView.setWebViewClient(new WebViewClient() {
+
+            boolean isError = false;
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 return true;
@@ -187,8 +194,18 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
             @Override
             public void onPageFinished(WebView view, String url) {
+                if (isError) return;
+                loadService.showSuccess();
+                loadService = null;
                 mLlNoteDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                isError = true;
+                loadService.showCallback(CardDetailsNetworkErrorCallback.class);
             }
         });
         mFlNoteDetails.addView(mWebView);
@@ -201,6 +218,17 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
         }
         mWebView.loadUrl(mUrl);
+
+        initLoadSir();
+    }
+
+    private void initLoadSir() {
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new CardDetailsLoadingCallback())
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .setDefaultCallback(CardDetailsLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(mWebView, this);
     }
 
     private void gotoShare(String url) {

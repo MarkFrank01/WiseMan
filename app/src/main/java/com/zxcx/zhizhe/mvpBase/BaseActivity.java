@@ -2,10 +2,12 @@ package com.zxcx.zhizhe.mvpBase;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,7 +25,6 @@ import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
-import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -45,26 +46,51 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     protected void onCreate(Bundle savedInstanceState) {
         mActivity = this;
         super.onCreate(savedInstanceState);
-        initStatusBar();
+        initFontScale();
         mLoadingDialog = new LoadingDialog();
+    }
 
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        initStatusBar();
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        initStatusBar();
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+        initStatusBar();
     }
 
     public void initStatusBar() {
         mImmersionBar = ImmersionBar.with(this);
-        if (!Constants.IS_NIGHT){
-            mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-                    .fitsSystemWindows(true);
-        }else {
-             mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-                    .fitsSystemWindows(true);
-        }
+        mImmersionBar
+                .statusBarColor(R.color.background)
+                .statusBarDarkFont(true, 0.2f)
+                .flymeOSStatusBarFontColor(R.color.text_color_1)
+                .fitsSystemWindows(true);
         mImmersionBar.init();
+    }
+
+    /**
+     * 解决超大字体UI变形的问题，取消系统字体设置，重置为标准大小
+     */
+    private void initFontScale() {
+        Configuration configuration = getResources().getConfiguration();
+        if (configuration.fontScale != 1) {
+            configuration.fontScale = (float) 1;
+        }
+        //0.85 小, 1 标准大小, 1.15 大，1.3 超大 ，1.45 特大
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        metrics.scaledDensity = configuration.fontScale * metrics.density;
+        getBaseContext().getResources().updateConfiguration(configuration, metrics);
     }
 
     public void onResume() {

@@ -15,7 +15,6 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -43,22 +42,14 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
     @OnClick(R.id.ll_message_mode_system)
     public void onMLlImageLoadModeWifiClicked() {
         mCbMessageModeSystem.setChecked(!mCbMessageModeSystem.isChecked());
-    }
-
-    @OnClick(R.id.ll_message_mode_dynamic)
-    public void onMLlImageLoadModeAllClicked() {
-        mCbMessageModeDynamic.setChecked(!mCbMessageModeDynamic.isChecked());
-    }
-
-    @OnCheckedChanged(R.id.cb_message_mode_system)
-    public void onCbSystemChanged() {
         int systemMessageSetting = mCbMessageModeSystem.isChecked()?0:1;
         int dynamicMessageSetting = mCbMessageModeDynamic.isChecked()?0:1;
         setMessageSetting(systemMessageSetting,dynamicMessageSetting);
     }
 
-    @OnCheckedChanged(R.id.cb_message_mode_dynamic)
-    public void onCbDynamicChanged() {
+    @OnClick(R.id.ll_message_mode_dynamic)
+    public void onMLlImageLoadModeAllClicked() {
+        mCbMessageModeDynamic.setChecked(!mCbMessageModeDynamic.isChecked());
         int systemMessageSetting = mCbMessageModeSystem.isChecked()?0:1;
         int dynamicMessageSetting = mCbMessageModeDynamic.isChecked()?0:1;
         setMessageSetting(systemMessageSetting,dynamicMessageSetting);
@@ -105,6 +96,8 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
 
     @Override
     public void getDataSuccess(MessageModeBean bean) {
+        SharedPreferencesUtil.saveData(SVTSConstants.systemMessageIsOpen,bean.isSystemMessageSetting());
+        SharedPreferencesUtil.saveData(SVTSConstants.dynamicMessageIsOpen,bean.isDynamicMessageSetting());
         mCbMessageModeSystem.setChecked(bean.isSystemMessageSetting());
         mCbMessageModeDynamic.setChecked(bean.isDynamicMessageSetting());
     }

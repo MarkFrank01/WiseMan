@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -89,6 +90,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
         mAdapter.setOnLoadMoreListener(this,rv_card_note)
         rv_card_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_card_note.adapter = mAdapter
+        rv_card_note.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无卡片笔记","卡片笔记可以从卡片中记录",null,null)
         mAdapter.emptyView = emptyView
     }

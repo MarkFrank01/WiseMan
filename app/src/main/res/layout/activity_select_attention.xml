@@ -10,10 +10,10 @@
     <TextView
         android:id="@+id/tv_select_attention_close"
         android:paddingLeft="16dp"
-        android:paddingTop="13dp"
+        android:paddingTop="11dp"
         android:text="@string/common_cancel"
         android:textColor="@color/button_blue"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_size_text_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -22,9 +22,9 @@
         android:layout_alignParentRight="true"
         android:text="下一步"
         android:textColor="@color/color_tv_select_attention_next"
-        android:textSize="17sp"
+        android:textSize="@dimen/text_size_text_1"
         android:enabled="false"
-        android:paddingTop="13dp"
+        android:paddingTop="11dp"
         android:paddingRight="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -32,8 +32,8 @@
     <TextView
         android:id="@+id/tv_select_attention_title"
         android:layout_below="@id/tv_select_attention_close"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="55dp"
         android:layout_centerHorizontal="true"
         android:text="找点你喜欢的乐子"
         android:textColor="@color/text_color_1"

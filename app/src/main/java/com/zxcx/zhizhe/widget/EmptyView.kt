@@ -5,8 +5,10 @@ import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.utils.ScreenUtils
 
 /**
  * Created by anm on 2017/12/15.
@@ -20,6 +22,10 @@ object EmptyView {
         emptyView.findViewById<TextView>(R.id.tv_no_data_2).text = str2
         str2Color?.let { emptyView.findViewById<TextView>(R.id.tv_no_data_2).setTextColor(ContextCompat.getColor(context, it)) }
         emptyView.setOnClickListener(listener)
+        val width = ScreenUtils.getScreenWidth()
+        val height = ScreenUtils.dip2px(400f)
+        val lp = ViewGroup.LayoutParams(width,height)
+        emptyView.layoutParams = lp
         return emptyView
     }
 }

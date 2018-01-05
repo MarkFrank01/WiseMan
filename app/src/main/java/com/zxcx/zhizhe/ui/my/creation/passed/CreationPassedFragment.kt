@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -94,6 +95,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
+        rv_creation.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无发布内容","和大家分享你的知识吧",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)

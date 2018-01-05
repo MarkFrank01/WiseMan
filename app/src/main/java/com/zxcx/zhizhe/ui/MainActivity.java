@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.event.ChangeNightModeEvent;
 import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
 import com.zxcx.zhizhe.event.GotoHomeRankEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
-import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -99,16 +98,7 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
-        mHomeTabHome.performClick();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LoginEvent event) {
-        if (mCurrentFragment == mMyFragment){
-            mHomeTabHome.performClick();
-            EventBus.getDefault().post(new HomeClickRefreshEvent());
-            toastShow("欢迎回来，已为你更新内容");
-        }
+        mHomeTabHome.setChecked(true);
     }
 
     private void switchFragment(Fragment newFragment) {

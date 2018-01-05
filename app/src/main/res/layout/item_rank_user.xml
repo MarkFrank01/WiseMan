@@ -12,8 +12,8 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         tools:src="@drawable/logo"
         app:riv_oval="true"/>
 
@@ -26,8 +26,9 @@
 
         <TextView
             android:id="@+id/tv_item_rank_user_name"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="6dp"
             tools:text="打印纸的规格"
+            android:textStyle="bold"
             style="@style/tv_single"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/text_color_1"
@@ -103,7 +104,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="暂未上榜"
-            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

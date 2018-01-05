@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.event.UnLikeEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -98,7 +99,8 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         mAdapter.setOnLoadMoreListener(this,rv_like_card)
         rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_like_card.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity, "暂时没有更多信息", "去首页给你喜欢的卡片点赞", null, null)
+        rv_like_card.addItemDecoration(HomeCardItemDecoration())
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息", "去首页给你喜欢的卡片点赞", null, null)
         mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE

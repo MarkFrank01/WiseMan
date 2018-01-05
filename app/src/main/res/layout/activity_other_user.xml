@@ -42,13 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/tv_single"
+                android:layout_marginRight="20dp"
                 android:text="曾经有一句空白签名，现在木有了"
                 android:textSize="@dimen/text_size_text_1"
                 android:textColor="@color/text_color_1"/>
 
             <TextView
                 android:id="@+id/tv_other_user_info"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="智力值 1234k"

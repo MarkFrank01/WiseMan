@@ -253,7 +253,7 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
-                mTvRegisterSendVerification.setEnabled(true);
+                mTvRegisterSendVerification.setClickable(true);
                 mTvRegisterSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
@@ -279,7 +279,7 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
 
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
-                            mTvRegisterSendVerification.setEnabled(false);
+                            mTvRegisterSendVerification.setClickable(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                             //返回支持发送验证码的国家列表

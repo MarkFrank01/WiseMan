@@ -153,6 +153,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         mAdapter.setOnLoadMoreListener(this,rv_follow_user)
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
+        rv_follow_user.addItemDecoration(FansItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","点击创作来吸引你的粉丝",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, NewCreationTitleActivity::class.java)

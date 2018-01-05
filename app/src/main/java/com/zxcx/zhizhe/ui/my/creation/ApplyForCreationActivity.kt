@@ -24,7 +24,7 @@ class ApplyForCreationActivity : BaseActivity() , INullPostPresenter{
 
     private var phoneRules = "^1\\d{10}$"
     private var nameRules = "^[\\u4e00-\\u9fa5]*\$"
-    private var idCardRules = "^\\d{17}([0-9]|X)\$"
+    private var idCardRules = "(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]\$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}\$)"
     private var phonePattern = Pattern.compile(phoneRules)
     private var namePattern = Pattern.compile(nameRules)
     private var idCardPattern = Pattern.compile(idCardRules)

@@ -233,7 +233,7 @@ public interface APIService {
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 获取创作详情
+     * 获取被拒卡片详情
      */
     @POST("/article/getArticleBasicInfo")
     Flowable<BaseBean<RejectDetailsBean>> getRejectDetails(

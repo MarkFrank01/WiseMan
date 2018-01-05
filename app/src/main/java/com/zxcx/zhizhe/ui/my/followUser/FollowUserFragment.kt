@@ -143,6 +143,7 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
         mAdapter.setOnLoadMoreListener(this,rv_follow_user)
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
+        rv_follow_user.addItemDecoration(FansItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","去首页看看有没有你喜欢的作者",null,null)
         mAdapter.emptyView = emptyView
     }

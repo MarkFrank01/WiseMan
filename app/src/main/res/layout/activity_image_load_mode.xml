@@ -39,6 +39,10 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_marginLeft="20dp"
+        style="@style/line"/>
+
     <LinearLayout
         android:id="@+id/ll_image_load_mode_all"
         android:background="@color/background"

@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
-import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.BuildConfig;
 import com.zxcx.zhizhe.R;
 
@@ -49,7 +48,7 @@ public class WebViewUtils {
 
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         if (isNight) {
-            webView.setBackgroundColor(ContextCompat.getColor(App.getContext(), R.color.background));
+            webView.setBackgroundColor(ContextCompat.getColor(context, R.color.background));
         }
 
         return webView;

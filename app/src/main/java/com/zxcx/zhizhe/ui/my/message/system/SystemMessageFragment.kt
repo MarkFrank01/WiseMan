@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
@@ -61,6 +62,15 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
             mAdapter.setEnableLoadMore(true)
         }
     }
+    override fun getCardSuccess(cardId: Int) {
+        val intent = Intent(mActivity,RejectDetailsActivity::class.java)
+        intent.putExtra("id",cardId)
+        startActivity(intent)
+    }
+
+    override fun getCardNoFound() {
+        toastShow("卡片已被重新编辑")
+    }
 
     override fun onLoadMoreRequested() {
         mPresenter.getSystemMessage(mPage,mPageSize)
@@ -75,8 +85,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 intent.putExtra("id",bean.relatedCardId)
             }
             message_card_reject -> {
-                intent.setClass(mActivity,RejectDetailsActivity::class.java)
-                intent.putExtra("id",bean.relatedCardId)
+                bean.relatedCardId?.let { mPresenter.getRejectDetails(it) }
             }
             message_apply_pass -> {
                 intent.setClass(mActivity,NewCreationTitleActivity::class.java)
@@ -112,6 +121,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         mAdapter.setOnLoadMoreListener(this,rv_system_message)
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
+        rv_system_message.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多消息","前往我的页面-系统设置开启推送",null,null)
         mAdapter.emptyView = emptyView
     }

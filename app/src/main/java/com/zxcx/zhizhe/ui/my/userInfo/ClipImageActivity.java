@@ -12,12 +12,9 @@ import android.media.ExifInterface;
 import android.os.Bundle;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ImageCropSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.widget.ClipImageView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -168,8 +165,6 @@ public class ClipImageActivity extends BaseActivity {
                         intent.putExtra("path",file.getPath());
                         setResult(RESULT_OK,intent);
                         finish();
-                        EventBus.getDefault().post(new ImageCropSuccessEvent(file.getPath()));
-                        EventBus.getDefault().postSticky(new ImageCropSuccessEvent(file.getPath()));
                     }
 
                     @Override

@@ -27,8 +27,8 @@
                 android:hint="  请输入手机号"
                 android:background="@null"
                 android:inputType="phone"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 android:maxLength="11"
                 android:textColor="@color/text_color_1"
                 android:textColorHint="@color/text_color_3"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:padding="15dp"
+                android:padding="12dp"
                 android:src="@drawable/iv_phone_clear"/>
 
             <View
@@ -69,8 +69,8 @@
                 android:hint="  验证码"
                 android:background="@null"
                 android:inputType="number"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 android:textColor="@color/text_color_1"
                 android:textColorHint="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_1"/>
@@ -132,8 +132,8 @@
                 android:hint=" 设置6-16位密码"
                 android:background="@null"
                 android:inputType="textPassword"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
                 android:maxLength="20"
                 android:textColor="@color/text_color_1"
                 android:textColorHint="@color/text_color_3"

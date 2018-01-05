@@ -284,7 +284,7 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
-                mTvForgetSendVerification.setEnabled(true);
+                mTvForgetSendVerification.setClickable(true);
                 mTvForgetSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
@@ -310,7 +310,7 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
 
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
-                            mTvForgetSendVerification.setEnabled(false);
+                            mTvForgetSendVerification.setClickable(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                             //返回支持发送验证码的国家列表

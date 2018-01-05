@@ -31,6 +31,7 @@
 
         <CheckBox
             android:id="@+id/cb_message_mode_system"
+            android:clickable="false"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"
@@ -38,6 +39,10 @@
             android:button="@drawable/selector_check_box"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_marginLeft="20dp"
+        style="@style/line"/>
 
     <LinearLayout
         android:id="@+id/ll_message_mode_dynamic"
@@ -59,6 +64,7 @@
 
         <CheckBox
             android:id="@+id/cb_message_mode_dynamic"
+            android:clickable="false"
             android:layout_width="42dp"
             android:layout_height="22dp"
             android:layout_gravity="center_vertical"

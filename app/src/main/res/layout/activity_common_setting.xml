@@ -12,12 +12,9 @@
         android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
-    <View
-        style="@style/line"
-        android:layout_marginTop="@dimen/fragment_interval"/>
-
     <LinearLayout
         android:id="@+id/ll_common_setting_user_info"
+        android:layout_marginTop="@dimen/fragment_interval"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/background"
@@ -37,14 +34,8 @@
 
     </LinearLayout>
 
-    <View
-        style="@style/line"/>
-
-    <View
-        style="@style/line"
-        android:layout_marginTop="@dimen/fragment_interval"/>
-
     <LinearLayout
+        android:layout_marginTop="@dimen/fragment_interval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
@@ -182,14 +173,8 @@
         </LinearLayout>
     </LinearLayout>
 
-    <View
-        style="@style/line"/>
-
-    <View
-        style="@style/line"
-        android:layout_marginTop="@dimen/fragment_interval"/>
-
     <LinearLayout
+        android:layout_marginTop="@dimen/fragment_interval"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
@@ -263,9 +248,5 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        style="@style/line"
-        android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

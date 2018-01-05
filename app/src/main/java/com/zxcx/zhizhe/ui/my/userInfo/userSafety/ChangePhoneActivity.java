@@ -179,7 +179,7 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
 
             if (count < 0) {
                 handler.removeCallbacks(setDjs);
-                mTvChangePhoneSendVerification.setEnabled(true);
+                mTvChangePhoneSendVerification.setClickable(true);
                 mTvChangePhoneSendVerification.setText(R.string.re_get_verification);
 
                 count = 60;
@@ -205,7 +205,7 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
 
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
-                            mTvChangePhoneSendVerification.setEnabled(false);
+                            mTvChangePhoneSendVerification.setClickable(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                             //返回支持发送验证码的国家列表

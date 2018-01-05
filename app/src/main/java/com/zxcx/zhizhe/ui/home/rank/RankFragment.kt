@@ -161,6 +161,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     }
 
     private fun initRecyclerView() {
+        rvRank.isFocusable = false
         mRankAdapter = RankAdapter(ArrayList())
         mRankAdapter.onItemClickListener = this
         rvRank.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)

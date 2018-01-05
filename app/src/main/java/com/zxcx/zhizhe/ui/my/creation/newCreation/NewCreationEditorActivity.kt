@@ -49,13 +49,9 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         if (cardId != 0){
             editor.setCardId(cardId)
         }
-        refreshStatusBar()
     }
 
     override fun initStatusBar() {
-    }
-
-    private fun refreshStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
                 .keyboardEnable(true)
                 .fitsSystemWindows(true)
@@ -174,7 +170,7 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             }else{
                 ll_rte.setBackgroundResource(R.color.background)
                 ll_rte_bottom.setBackgroundResource(R.color.white)
-                refreshStatusBar()
+                initStatusBar()
             }
         }
         iv_toolbar_back.setOnClickListener {

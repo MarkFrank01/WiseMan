@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:background="@color/white"
                 android:paddingLeft="20dp"
@@ -28,16 +29,17 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:text="本周我的榜单"
                     android:textColor="@color/text_color_1"
+                    android:textStyle="bold"
                     android:textSize="@dimen/text_size_title_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <RelativeLayout
                     android:id="@+id/rl_rank_my"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -46,8 +48,8 @@
                         android:id="@+id/iv_rank_my_header"
                         android:scaleType="centerCrop"
                         android:layout_marginRight="10dp"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         tools:src="@drawable/logo"
                         app:riv_oval="true"/>
 
@@ -60,8 +62,9 @@
 
                         <TextView
                             android:id="@+id/tv_rank_my_user_name"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="6dp"
                             tools:text="打印纸的规格"
+                            android:textStyle="bold"
                             style="@style/tv_single"
                             android:textSize="@dimen/text_size_text_1"
                             android:textColor="@color/text_color_1"
@@ -148,7 +151,8 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:text="暂未上榜"
-                            android:textColor="@color/background"
+                            android:textColor="@color/text_color_3"
+                            android:textStyle="bold"
                             android:textSize="@dimen/text_size_text_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -177,6 +181,7 @@
                         android:text="本周智者榜单"
                         android:textColor="@color/text_color_1"
                         android:textSize="@dimen/text_size_title_1"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -193,11 +198,12 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_rank"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginBottom="23dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_rank_user"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             </LinearLayout>

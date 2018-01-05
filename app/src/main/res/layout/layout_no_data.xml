@@ -12,6 +12,7 @@
         android:layout_marginTop="20dp"
         android:text="没有相关内容"
         android:textColor="@color/text_color_1"
+        android:textStyle="bold"
         android:textSize="@dimen/text_size_title_2"
         android:lineSpacingExtra="8dp"
         android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
 
     <TextView
         android:id="@+id/tv_no_data_2"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="没有相关内容"
         android:textColor="@color/text_color_2"
         android:textSize="@dimen/text_size_text_1"

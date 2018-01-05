@@ -38,7 +38,8 @@ class LoginActivity : BaseActivity() {
     }
 
     override fun initStatusBar() {
-        mImmersionBar = ImmersionBar.with(this).fitsSystemWindows(true)
+        mImmersionBar = ImmersionBar.with(this)
+                .fitsSystemWindows(true)
         mImmersionBar.init()
     }
 

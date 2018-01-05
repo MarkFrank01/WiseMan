@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -80,6 +81,7 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
         mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result_card)
         rv_search_result_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_search_result_card.adapter = mSearchCardAdapter
+        rv_search_result_card.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索结果","换个关键词试试",null,null)
         mSearchCardAdapter.emptyView = emptyView
     }

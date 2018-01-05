@@ -5,8 +5,14 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 
 interface SystemMessageContract {
 
-    interface View : GetView<List<SystemMessageBean>>
+    interface View : GetView<List<SystemMessageBean>>{
+        fun getCardSuccess(cardId: Int)
+        fun getCardNoFound()
+    }
 
-    interface Presenter : IGetPresenter<List<SystemMessageBean>>
+    interface Presenter : IGetPresenter<List<SystemMessageBean>>{
+        fun getCardSuccess(cardId: Int)
+        fun getCardNoFound()
+    }
 }
 

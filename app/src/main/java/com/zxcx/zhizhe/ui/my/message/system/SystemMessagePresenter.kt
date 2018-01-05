@@ -15,12 +15,23 @@ class SystemMessagePresenter(view: SystemMessageContract.View) : BasePresenter<S
         mModel.getSystemMessage(page, pageSize)
     }
 
+    fun getRejectDetails(cardId: Int) {
+        mModel.getRejectDetails(cardId)
+    }
+
     override fun getDataSuccess(list: List<SystemMessageBean>) {
         mView.getDataSuccess(list)
     }
 
     override fun getDataFail(msg: String) {
         mView.toastFail(msg)
+    }
+    override fun getCardSuccess(cardId: Int) {
+        mView.getCardSuccess(cardId)
+    }
+
+    override fun getCardNoFound() {
+        mView.getCardNoFound()
     }
 
     override fun showLoading() {

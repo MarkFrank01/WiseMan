@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prl_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -16,9 +17,9 @@
         android:layout_marginEnd="15dp"
         android:scaleType="center"
         android:src="@drawable/login_close"
-        app:layout_widthPercent="11.1%"
-        app:layout_heightPercent="6.3%"
-        app:layout_marginTopPercent="1.6%"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_marginTopPercent="5.3%"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -28,7 +29,7 @@
         android:src="@drawable/logo"
         app:layout_widthPercent="13.9%"
         app:layout_heightPercent="7.8%"
-        app:layout_marginTopPercent="2.3%"/>
+        app:layout_marginTopPercent="3%"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tl_login"
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         app:layout_widthPercent="68.8%"
-        app:layout_marginTopPercent="7.5%"
+        app:layout_marginTopPercent="5.2%"
         app:tabPadding="0dp"
         app:tabBackground="@color/translate"
         app:tabIndicatorColor="@color/translate"
