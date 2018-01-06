@@ -27,6 +27,17 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
         addSubscription(mDisposable);
     }
 
+    public void readArticle(int cardId){
+        AppClient.getAPIService().readArticle(cardId)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                    }
+                });
+    }
+
     public void likeCard(int cardId){
         mDisposable = AppClient.getAPIService().likeCard(cardId)
                 .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
@@ -34,7 +45,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
+                        mPresenter.likeSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);
@@ -86,7 +97,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
+                        mPresenter.collectSuccess(bean);
                     }
                 });
         addSubscription(mDisposable);

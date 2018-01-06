@@ -17,6 +17,10 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
         mModel.getCardDetails(cardId);
     }
 
+    public void readArticle(int cardId){
+        mModel.readArticle(cardId);
+    }
+
     public void likeCard(int cardId){
         mModel.likeCard(cardId);
     }
@@ -88,6 +92,16 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     @Override
     public void followSuccess() {
         mView.followSuccess();
+    }
+
+    @Override
+    public void likeSuccess(CardDetailsBean bean) {
+        mView.likeSuccess(bean);
+    }
+
+    @Override
+    public void collectSuccess(CardDetailsBean bean) {
+        mView.collectSuccess(bean);
     }
 }
 

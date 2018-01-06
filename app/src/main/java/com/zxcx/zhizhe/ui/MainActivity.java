@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeNightModeEvent;
@@ -41,6 +42,8 @@ public class MainActivity extends BaseActivity {
     RadioButton mHomeTabAll;
     @BindView(R.id.home_tab_my)
     RadioButton mHomeTabMy;
+    @BindView(R.id.rg_main)
+    RadioGroup mRgMain;
 
     private Fragment mCurrentFragment = new Fragment();
     private HomeFragment mHomeFragment = new HomeFragment();
@@ -60,6 +63,11 @@ public class MainActivity extends BaseActivity {
         //判断是否点击了广告或通知
         gotoADActivity(intent);
         gotoNotificationActivity(intent);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        //避免恢复视图状态
     }
 
     @Override
@@ -98,7 +106,6 @@ public class MainActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
-        mHomeTabHome.setChecked(true);
     }
 
     private void switchFragment(Fragment newFragment) {
@@ -106,13 +113,13 @@ public class MainActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
 
-        if(mCurrentFragment == newFragment){
-            if (newFragment == mHomeFragment){
+        if (mCurrentFragment == newFragment) {
+            if (newFragment == mHomeFragment) {
                 EventBus.getDefault().post(new HomeClickRefreshEvent());
-            }else if (newFragment == mClassifyFragment){
+            } else if (newFragment == mClassifyFragment) {
                 EventBus.getDefault().post(new ClassifyClickRefreshEvent());
             }
-        }else {
+        } else {
             if (newFragment.isAdded()) {
                 //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
                 transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss();
@@ -124,21 +131,21 @@ public class MainActivity extends BaseActivity {
     }
 
     private void gotoADActivity(Intent intent) {
-        if (intent.getBooleanExtra("hasAd",false)){
+        if (intent.getBooleanExtra("hasAd", false)) {
             Intent intent1 = new Intent(this, WebViewActivity.class);
-            intent1.putExtra("title",intent.getStringExtra("title"));
-            intent1.putExtra("url",intent.getStringExtra("url"));
+            intent1.putExtra("title", intent.getStringExtra("title"));
+            intent1.putExtra("url", intent.getStringExtra("url"));
             startActivity(intent1);
         }
     }
 
     private void gotoNotificationActivity(Intent intent) {
         Bundle bundle = intent.getBundleExtra("push");
-        if (bundle != null){
+        if (bundle != null) {
             String type = bundle.getString("type");
             Intent detailIntent = new Intent();
 
-            switch (type){
+            switch (type) {
                 case Constants.PUSH_TYPE_CARD_BAG:
                     detailIntent.setClass(this, CardBagActivity.class);
                     break;

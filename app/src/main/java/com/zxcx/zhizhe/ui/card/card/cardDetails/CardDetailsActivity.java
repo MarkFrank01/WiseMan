@@ -53,6 +53,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -125,6 +126,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private static final int MENU_ITEM_NOTE = 0;
     private static final int MENU_ITEM_SHARE = 1;
     private String mUrl;
+    private Date startDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +144,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
         initView();
 
         mPresenter.getCardDetails(cardId);
+        startDate = new Date();
     }
 
     @Override
@@ -161,7 +164,17 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
+    public void onResume() {
+        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
+        super.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
+        Date endDate = new Date();
+        if (endDate.getTime() - startDate.getTime() > 30000 && mUserId != 0){
+            mPresenter.readArticle(cardId);
+        }
         if (mWebView != null) {
             mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             mWebView.clearHistory();
@@ -228,6 +241,18 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     }
 
     @Override
+    public void likeSuccess(CardDetailsBean bean) {
+        toastShow("点赞成功");
+        postSuccess(bean);
+    }
+
+    @Override
+    public void collectSuccess(CardDetailsBean bean) {
+        toastShow("收藏成功");
+        postSuccess(bean);
+    }
+
+    @Override
     public void postSuccess(CardDetailsBean bean) {
         isUnCollect = collectStatus != bean.isCollect() && !bean.isCollect();
         isUnLike = likeStatus != bean.isLike() && !bean.isLike();
@@ -272,6 +297,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mCbCardDetailsFollow.setChecked(false);
         } else {
             //关注成功
+            toastShow("关注成功");
             mCbCardDetailsFollow.setText("已关注");
             mCbCardDetailsFollow.setChecked(true);
         }

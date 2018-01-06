@@ -118,7 +118,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无退回作品","点击创作，分享您的实用知识a",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无退回作品","点击创作 分享您的实用知识",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)
         })

@@ -94,7 +94,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核作品","点击创作，随心所欲分享生活",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核作品","点击创作 随心所欲分享生活",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)
         })

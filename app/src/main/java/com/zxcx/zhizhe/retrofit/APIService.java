@@ -300,6 +300,12 @@ public interface APIService {
     Flowable<BaseBean<CardDetailsBean>> getCardDetails(@Query("articleId") int cardId);
 
     /**
+     * 卡片阅读30秒
+     */
+    @POST("/article/readArticle")
+    Flowable<BaseBean> readArticle(@Query("articleId") int cardId);
+
+    /**
      * 添加收藏卡片
      */
     @POST("/favorite/collectArticle")

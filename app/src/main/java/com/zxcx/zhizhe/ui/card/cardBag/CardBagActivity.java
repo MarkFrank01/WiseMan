@@ -7,7 +7,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +24,7 @@ import com.zxcx.zhizhe.ui.card.cardBag.adapter.CardBagListAdapter;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
+import com.zxcx.zhizhe.widget.EmptyView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,7 +188,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         mCardBagListAdapter.setOnLoadMoreListener(this, mRvCardBagCard);
         mCardBagListAdapter.setOnItemClickListener(new CardItemClickListener(this));
 
-        View view = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data, null);
+        View view = EmptyView.getEmptyView(mActivity,"暂无相关内容","期待你在此分享创作",null,null);
         mCardBagCardAdapter.setEmptyView(view);
     }
 
