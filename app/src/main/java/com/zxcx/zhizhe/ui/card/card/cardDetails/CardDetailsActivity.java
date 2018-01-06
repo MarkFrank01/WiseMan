@@ -196,8 +196,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             Menu menu = mode.getMenu();
             menu.clear();
             MenuItemClickListener menuItemClickListener = new MenuItemClickListener();
-            menu.add(0, MENU_ITEM_NOTE, 0, "笔记").setOnMenuItemClickListener(menuItemClickListener);
-            menu.add(0, MENU_ITEM_SHARE, 0, "分享").setOnMenuItemClickListener(menuItemClickListener);
+            menu.add(0, MENU_ITEM_NOTE, 0, "保存笔记").setOnMenuItemClickListener(menuItemClickListener);
+            menu.add(0, MENU_ITEM_SHARE, 0, "图文分享").setOnMenuItemClickListener(menuItemClickListener);
         }
     }
 

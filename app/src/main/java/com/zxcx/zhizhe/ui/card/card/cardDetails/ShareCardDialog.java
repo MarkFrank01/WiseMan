@@ -149,10 +149,8 @@ public class ShareCardDialog extends BaseDialog {
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         if (isNight) {
             SETUP_HTML = "file:///android_asset/preview_dark.html";
-            mIvDialogShareQR.setImageResource(R.drawable.iv_dialog_share_qr_dark);
         } else {
             SETUP_HTML = "file:///android_asset/preview_light.html";
-            mIvDialogShareQR.setImageResource(R.drawable.iv_dialog_share_qr);
         }
     }
 

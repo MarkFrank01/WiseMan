@@ -229,9 +229,16 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_marginLeft="20dp"
-        style="@style/line"/>
+    <FrameLayout
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp">
+
+        <View
+            android:layout_marginLeft="20dp"
+            style="@style/line"/>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/ll_user_info_logout"

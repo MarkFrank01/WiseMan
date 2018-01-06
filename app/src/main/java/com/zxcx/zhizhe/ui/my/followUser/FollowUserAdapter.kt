@@ -24,7 +24,7 @@ class FollowUserAdapter(data : List<FollowUserBean>) : BaseQuickAdapter<FollowUs
 
         helper.setChecked(R.id.cb_item_follow_user,item.followType != 0)
         when(item.followType){
-            0 -> helper.setText(R.id.cb_item_follow_user,"未关注")
+            0 -> helper.setText(R.id.cb_item_follow_user,"关注")
             1 -> helper.setText(R.id.cb_item_follow_user,"已关注")
             2 -> helper.setText(R.id.cb_item_follow_user,"互相关注")
         }

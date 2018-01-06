@@ -37,6 +37,8 @@ public class RemoveBindingDialog extends BaseDialog {
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
+    @BindView(R.id.tv_dialog_logout_title)
+    TextView mTvDialogLogoutTitle;
     private Unbinder unbinder;
 
     @Nullable
@@ -51,7 +53,8 @@ public class RemoveBindingDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTvDialogLogout.setText("是否解除绑定?");
+        mTvDialogLogoutTitle.setText("账号解绑");
+        mTvDialogLogout.setText("确定解除绑定吗");
         TextPaint tp = mTvDialogCancel.getPaint();
         tp.setFakeBoldText(true);
         tp = mTvDialogConfirm.getPaint();

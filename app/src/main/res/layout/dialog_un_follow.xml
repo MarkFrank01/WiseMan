@@ -20,6 +20,7 @@
         android:id="@+id/tv_dialog_delete_confirm"
         android:layout_below="@id/tv_dialog_delete_confirm_title"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="15dp"

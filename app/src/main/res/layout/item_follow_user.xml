@@ -77,7 +77,7 @@
 
         <CheckBox
             android:id="@+id/cb_item_follow_user"
-            android:text="未关注"
+            android:text="关注"
             android:textSize="14sp"
             android:checked="false"
             android:textColor="@color/color_checkbox_text_follow"

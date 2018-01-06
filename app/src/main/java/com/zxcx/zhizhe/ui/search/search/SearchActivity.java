@@ -85,6 +85,12 @@ public class SearchActivity extends MvpActivity<SearchPresenter> implements Sear
     }
 
     @Override
+    public void onResume() {
+        mEtSearch.setSelection(mEtSearch.length());
+        super.onResume();
+    }
+
+    @Override
     protected SearchPresenter createPresenter() {
         return new SearchPresenter(this);
     }

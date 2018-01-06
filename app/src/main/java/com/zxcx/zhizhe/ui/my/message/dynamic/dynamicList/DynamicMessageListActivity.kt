@@ -162,13 +162,13 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
             val dynamicBeanList = ArrayList<DynamicBean>()
             for (mutableEntry in map) {
                 Collections.sort(mutableEntry.value) { o1, o2 ->
-                    o1?.date?.compareTo(o2?.date)!!
+                    o2?.date?.compareTo(o1?.date)!!
                 }
                 val dynamicBean = DynamicBean(mutableEntry.key,mutableEntry.value)
                 dynamicBeanList.add(dynamicBean)
             }
             Collections.sort(dynamicBeanList) { o1, o2 ->
-                o1?.list?.get(0)?.date?.compareTo(o2?.list?.get(0)?.date)!!
+                o2?.list?.get(0)?.date?.compareTo(o1?.list?.get(0)?.date)!!
             }
             return dynamicBeanList
         }
