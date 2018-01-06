@@ -303,8 +303,8 @@ public class RichEditor extends WebView {
         exec("javascript:RE.redo();");
     }
 
-    public void setBold() {
-        exec("javascript:RE.setBold();");
+    public void setBold(boolean isBold) {
+        exec("javascript:RE.setBold("+isBold+");");
     }
 
     public void setItalic() {

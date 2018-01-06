@@ -149,8 +149,8 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             tv_toolbar_commit.isEnabled = text.isNotEmpty()
             tv_toolbar_save_note.isEnabled = text.isNotEmpty()
         })
-        cb_editor_bold.setOnClickListener {
-            editor.setBold()
+        cb_editor_bold.setOnCheckedChangeListener { _, isChecked ->
+            editor.setBold(isChecked)
         }
         iv_editor_album.setOnClickListener {
             // 激活系统图库，选择一张图片
