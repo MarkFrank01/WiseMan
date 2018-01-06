@@ -86,6 +86,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
             }
             message_card_reject -> {
                 bean.relatedCardId?.let { mPresenter.getRejectDetails(it) }
+                return
             }
             message_apply_pass -> {
                 intent.setClass(mActivity,NewCreationTitleActivity::class.java)
@@ -122,7 +123,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
         rv_system_message.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多消息","前往我的页面-系统设置开启推送",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息","可前往系统设置开启",null,null)
         mAdapter.emptyView = emptyView
     }
 }

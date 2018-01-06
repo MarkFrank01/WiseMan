@@ -91,7 +91,7 @@ class CardNoteFragment : RefreshMvpFragment<CardNotePresenter>(), CardNoteContra
         rv_card_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_card_note.adapter = mAdapter
         rv_card_note.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无卡片笔记","卡片笔记可以从卡片中记录",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无卡片笔记","Tip：长按卡片详情可存为笔记",null,null)
         mAdapter.emptyView = emptyView
     }
 }

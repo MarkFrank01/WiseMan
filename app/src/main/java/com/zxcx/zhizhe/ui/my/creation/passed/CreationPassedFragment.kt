@@ -96,7 +96,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
         rv_creation.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无发布内容","和大家分享你的知识吧",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无发布作品","点击创作， 随时随地分享智慧",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)
         })

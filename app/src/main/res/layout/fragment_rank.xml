@@ -75,7 +75,7 @@
                             android:id="@+id/tv_rank_my_no_login"
                             android:visibility="gone"
                             android:layout_below="@id/tv_rank_my_user_name"
-                            android:text="登录查看你的榜单实时排名"
+                            android:text="登录智者，查看你的排名"
                             style="@style/tv_single"
                             android:textSize="@dimen/text_size_text_3"
                             android:textColor="@color/text_color_3"

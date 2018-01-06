@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -106,6 +107,7 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
     override fun unFollowUserSuccess(bean: FollowUserBean) {
         bean.id = bean.targetUserId
         mAdapter.remove(mAdapter.data.indexOf(bean))
+        EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
@@ -144,7 +146,7 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","去首页看看有没有你喜欢的作者",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有喜欢的作者","快去卡片详情页看看呗",null,null)
         mAdapter.emptyView = emptyView
     }
 }

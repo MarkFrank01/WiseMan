@@ -332,7 +332,7 @@ public class ChannelRegisterActivity extends MvpActivity<ForgetPasswordPresenter
                                 case 465:
                                 case 477:
                                 case 478:
-                                    toastShow("获取验证码次数频繁，请稍后重试");
+                                    toastShow("验证码获取频繁，请稍后再试");
                                     break;
                                 default:
                                     toastShow(des);

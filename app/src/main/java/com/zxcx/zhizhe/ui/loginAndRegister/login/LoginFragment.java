@@ -140,7 +140,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
         Utils.closeInputMethod(mEtLoginPassword);
-        toastShow("欢迎回来，已为你更新内容");
+        toastShow("欢迎来到智者");
         mActivity.finish();
     }
 
@@ -172,7 +172,7 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
     public void onMessageEvent(RegisterEvent event) {
         //登录成功通知
         EventBus.getDefault().post(new LoginEvent());
-        toastShow("欢迎回来，已为你更新内容");
+        toastShow("欢迎来到智者");
         mActivity.finish();
     }
 

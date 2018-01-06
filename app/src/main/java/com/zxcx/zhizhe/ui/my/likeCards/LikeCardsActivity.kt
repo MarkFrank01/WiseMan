@@ -100,7 +100,7 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_like_card.adapter = mAdapter
         rv_like_card.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息", "去首页给你喜欢的卡片点赞", null, null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", "快去给你喜欢的卡片点赞吧~", null, null)
         mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE

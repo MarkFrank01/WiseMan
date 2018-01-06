@@ -20,7 +20,7 @@
     <TextView
         android:id="@+id/tv_select_attention_next"
         android:layout_alignParentRight="true"
-        android:text="下一步"
+        android:text="完成"
         android:textColor="@color/color_tv_select_attention_next"
         android:textSize="@dimen/text_size_text_1"
         android:enabled="false"

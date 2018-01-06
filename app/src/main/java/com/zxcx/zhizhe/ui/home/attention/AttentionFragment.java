@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.event.LoginEvent;
 import com.zxcx.zhizhe.event.LogoutEvent;
@@ -135,9 +136,13 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SelectAttentionEvent event) {
         loadService.showCallback(HomeLoadingCallback.class);
-        mRvAttentionCard.scrollToPosition(0);
-        mRefreshLayout.autoRefresh();
-        EventBus.getDefault().removeStickyEvent(event);
+        onRefresh();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(FollowUserRefreshEvent event) {
+        loadService.showCallback(HomeLoadingCallback.class);
+        onRefresh();
     }
 
     @Override
@@ -206,7 +211,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        View emptyView = EmptyView.getEmptyView(mActivity,"暂无关注内容","去看看你喜欢什么",R.color.button_blue,v -> {
+        View emptyView = EmptyView.getEmptyView(mActivity,"暂无关注","看看你喜欢什么",R.color.button_blue,v -> {
             Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
             startActivity(intent);
         });

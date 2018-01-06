@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/tv_no_data_1"
-            android:text="我们正在加急审核中"
+            android:text="拼命审核中"
             android:textColor="@color/text_color_1"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_title_2"
@@ -31,7 +31,7 @@
         <TextView
             android:id="@+id/tv_no_data_2"
             android:layout_marginTop="15dp"
-            android:text="审核通过会以系统消息通知您"
+            android:text="结果会以系统消息通知你"
             android:textColor="@color/text_color_2"
             android:textSize="@dimen/text_size_text_1"
             android:layout_width="wrap_content"

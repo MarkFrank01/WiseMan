@@ -108,7 +108,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         rv_freedom_note.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_freedom_note.adapter = mAdapter
         rv_freedom_note.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无自由笔记","点击创作开始记录",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyView(mActivity,"好记性不如烂笔头","点击创作开始记录",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
                 startActivity(intent)

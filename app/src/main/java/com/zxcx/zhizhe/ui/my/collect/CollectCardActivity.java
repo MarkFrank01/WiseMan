@@ -103,7 +103,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
         }
         if (mAdapter.getData().size() == 0) {
             //占空图
-            View emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","去首页看看有没有你喜欢的卡片",null,null);
+            View emptyView = EmptyView.getEmptyView(mActivity,"点点收藏 回味无穷","快去首页收藏你喜欢的卡片吧～",null,null);
             mAdapter.setEmptyView(emptyView);
         }
     }

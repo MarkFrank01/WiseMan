@@ -139,7 +139,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         mAdapter.setOnLoadMoreListener(this,rv_follow_message)
         rv_follow_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_follow_message.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多消息","前往我的页面-系统设置开启推送",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息","可前往系统设置开启",null,null)
         mAdapter.emptyView = emptyView
     }
 

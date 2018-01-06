@@ -91,7 +91,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_read_card.adapter = mAdapter
         rv_read_card.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity, "暂时没有更多信息", "去首页看看有没有你喜欢的卡片", null, null)
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂无阅读历史", "快去看看你喜欢什么", null, null)
         mAdapter.emptyView = emptyView
 
         iv_toolbar_right.visibility = View.VISIBLE

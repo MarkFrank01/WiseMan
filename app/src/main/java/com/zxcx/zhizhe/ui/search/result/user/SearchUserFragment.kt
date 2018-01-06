@@ -60,7 +60,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
         rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_search_result_user.adapter = mSearchUserAdapter
         rv_search_result_user.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索结果","换个关键词试试",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索用户","换个关键词试试",null,null)
         mSearchUserAdapter.emptyView = emptyView
     }
 

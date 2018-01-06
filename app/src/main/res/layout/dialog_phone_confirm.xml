@@ -10,7 +10,7 @@
         android:id="@+id/tv_dialog_phone_confirm_title"
         android:layout_marginTop="24dp"
         android:layout_centerHorizontal="true"
-        android:text="手机号确认"
+        android:text="确认手机号"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_1"
         android:layout_width="wrap_content"

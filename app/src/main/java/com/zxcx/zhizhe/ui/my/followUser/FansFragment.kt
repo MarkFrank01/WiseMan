@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
@@ -101,6 +102,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
         mAdapter.notifyItemChanged(position)
+        EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
     override fun postFail(msg: String?) {
@@ -112,6 +114,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
         mAdapter.notifyItemChanged(position)
+        EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
@@ -154,7 +157,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂时没有更多信息","点击创作来吸引你的粉丝",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
                 startActivity(intent)

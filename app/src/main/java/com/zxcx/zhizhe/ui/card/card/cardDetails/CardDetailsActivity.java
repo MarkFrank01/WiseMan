@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.kingja.loadsir.core.LoadSir;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent;
 import com.zxcx.zhizhe.event.SaveCardNoteSuccessEvent;
 import com.zxcx.zhizhe.event.UnCollectEvent;
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent;
@@ -182,8 +183,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             Menu menu = mode.getMenu();
             menu.clear();
             MenuItemClickListener menuItemClickListener = new MenuItemClickListener();
-            menu.add(0, MENU_ITEM_NOTE, 0, "存为笔记").setOnMenuItemClickListener(menuItemClickListener);
-            menu.add(0, MENU_ITEM_SHARE, 0, "摘取分享").setOnMenuItemClickListener(menuItemClickListener);
+            menu.add(0, MENU_ITEM_NOTE, 0, "笔记").setOnMenuItemClickListener(menuItemClickListener);
+            menu.add(0, MENU_ITEM_SHARE, 0, "分享").setOnMenuItemClickListener(menuItemClickListener);
         }
     }
 
@@ -274,6 +275,7 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             mCbCardDetailsFollow.setText("已关注");
             mCbCardDetailsFollow.setChecked(true);
         }
+        EventBus.getDefault().post(new FollowUserRefreshEvent());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
