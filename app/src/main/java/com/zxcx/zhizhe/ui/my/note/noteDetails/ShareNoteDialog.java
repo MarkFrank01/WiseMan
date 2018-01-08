@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -21,20 +22,24 @@ import android.widget.TextView;
 
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
+import com.zxcx.zhizhe.widget.PermissionDialog;
 
 import java.io.File;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -162,30 +167,50 @@ public class ShareNoteDialog extends BaseDialog {
     @OnClick(R.id.iv_dialog_share_wechat)
     public void onMIvDialogShareWechatClicked() {
         plat = ShareSDK.getPlatform(Wechat.NAME);
-        showShare(plat.getName());
+        checkPermission(plat.getName());
     }
 
     @OnClick(R.id.iv_dialog_share_moments)
     public void onMIvDialogShareMomentsClicked() {
         plat = ShareSDK.getPlatform(WechatMoments.NAME);
-        showShare(plat.getName());
+        checkPermission(plat.getName());
     }
 
     @OnClick(R.id.iv_dialog_share_qq)
     public void onMIvDialogShareQqClicked() {
         plat = ShareSDK.getPlatform(QQ.NAME);
-        showShare(plat.getName());
+        checkPermission(plat.getName());
     }
 
     @OnClick(R.id.iv_dialog_share_weibo)
     public void onMIvDialogShareWeiboClicked() {
         plat = ShareSDK.getPlatform(SinaWeibo.NAME);
-        showShare(plat.getName());
+        checkPermission(plat.getName());
     }
 
     @OnClick(R.id.iv_dialog_share_back)
     public void onMIvDialogShareBackClicked() {
         dismiss();
+    }
+
+    private void checkPermission(String platform){
+        RxPermissions rxPermissions = new RxPermissions(getActivity());
+        rxPermissions
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        // `permission.name` is granted !
+                        showShare(platform);
+                    } else if (permission.shouldShowRequestPermissionRationale){
+                        // Denied permission without ask never again
+                        toastShow("权限已被拒绝！无法进行操作");
+                    } else {
+                        // Denied permission with ask never again
+                        // Need to go to the settings
+                        PermissionDialog permissionDialog = new PermissionDialog();
+                        permissionDialog.show(getFragmentManager(),"");
+                    }
+                });
     }
 
     private void showShare(String platform) {
@@ -195,6 +220,23 @@ public class ShareNoteDialog extends BaseDialog {
         if (platform != null) {
             oks.setPlatform(platform);
         }
+
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                //保持为空，覆盖掉提示
+            }
+
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCancel(Platform platform, int i) {
+
+            }
+        });
 
         mDisposable = Flowable.just(mSvDialogShare)
                 .subscribeOn(AndroidSchedulers.mainThread())

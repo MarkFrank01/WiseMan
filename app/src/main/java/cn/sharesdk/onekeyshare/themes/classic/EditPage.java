@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mob.MobSDK;
 import com.mob.tools.gui.AsyncImageView;
@@ -106,10 +105,6 @@ public class EditPage extends OnekeySharePage implements OnClickListener, TextWa
 
 	/** 执行分享时的方法 */
 	private void shareAndFinish() {
-		int resId = ResHelper.getStringRes(activity, "ssdk_oks_sharing");
-		if (resId > 0) {
-			Toast.makeText(activity, resId, Toast.LENGTH_SHORT).show();
-		}
 
 		if (isDisableSSO()) {
 			platform.SSOSetting(true);

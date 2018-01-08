@@ -159,21 +159,19 @@ public class ShareDialog extends BaseDialog {
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                toastShow("分享成功");
             }
 
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
-                toastShow(throwable.getMessage());
             }
 
             @Override
             public void onCancel(Platform platform, int i) {
-                toastShow("分享取消");
             }
         });
 
         //启动分享
         oks.show(getActivity());
+        dismiss();
     }
 }

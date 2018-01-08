@@ -63,6 +63,7 @@ public class DataCleanManager {
 		cleanInternalCache(context);
 		cleanExternalCache(context);
 		cleanFiles(context);
+		FileUtil.deleteFile(FileUtil.PATH_BASE);
 	}
 
 	/** @param directory */
