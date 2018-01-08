@@ -10,14 +10,15 @@ import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
-import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.RedPointBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
+import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
+import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
@@ -27,7 +28,6 @@ import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
-import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
@@ -36,6 +36,8 @@ import com.zxcx.zhizhe.ui.welcome.WelcomeBean;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -467,20 +469,22 @@ public interface APIService {
      * 提交自由笔记或审核
      * @param submitType 提交类型 0保存笔记 1提交审核
      */
+    @FormUrlEncoded
     @POST("/note/submitFreeNode")
     Flowable<BaseBean> saveFreeNode(
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("collectionId") Integer classifyId,
-            @Query("content") String content, @Query("submitType") Integer submitType);
+            @Field("content") String content, @Query("submitType") Integer submitType);
 
     /**
      * 提交卡片笔记
      */
+    @FormUrlEncoded
     @POST("/note/submitCardNode")
     Flowable<BaseBean> saveCardNode(
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
-            @Query("content") String content);
+            @Field("content") String content);
 
     /**
      * 获取智力值详情

@@ -1,49 +1,49 @@
 package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.Date;
 
 public class CardDetailsBean extends RetrofitBaen {
 
-    @JSONField(name = "like")
+    @SerializedName("like")
     private boolean isLike;
-    @JSONField(name = "disagree")
+    @SerializedName("disagree")
     private boolean isUnLike;
-    @JSONField(name = "collect")
+    @SerializedName("collect")
     private boolean isCollect;
-    @JSONField(name = "likedUsersCount")
+    @SerializedName("likedUsersCount")
     private int likeNum;
-    @JSONField(name = "disagreeUsersCount")
+    @SerializedName("disagreeUsersCount")
     private int unLikeNum;
-    @JSONField(name = "collectingCount")
+    @SerializedName("collectingCount")
     private int collectNum;
-    @JSONField(name = "collectionId")
+    @SerializedName("collectionId")
     private int cardBagId;
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "collectionName")
+    @SerializedName("collectionName")
     private String cardBagName;
-    @JSONField(name = "authorName")
+    @SerializedName("authorName")
     private String authorName;
-    @JSONField(name = "authorId")
+    @SerializedName("authorId")
     private int authorId;
-    @JSONField(name = "passTime")
+    @SerializedName("passTime")
     private Date date;
-    @JSONField(name = "authorAvatar")
+    @SerializedName("authorAvatar")
     private String authorIcon;
-    @JSONField(name = "authorCreateArticleCount")
+    @SerializedName("authorCreateArticleCount")
     private String authorCardNum;
-    @JSONField(name = "authorFollowerCount")
+    @SerializedName("authorFollowerCount")
     private String authorFansNum;
-    @JSONField(name = "authorIntelligenceValue")
+    @SerializedName("authorIntelligenceValue")
     private String authorReadNum;
-    @JSONField(name = "userAurhorRelationshipType")
+    @SerializedName("userAurhorRelationshipType")
     private int followType;//0为未关注，1为已关注，2为已相互关注&
 
     public boolean getIsLike() {

@@ -1,20 +1,20 @@
 package com.zxcx.zhizhe.ui.my.intelligenceValue
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
-import java.util.ArrayList
+import java.util.*
 
 
 data class IntelligenceValueBean(
-        @JSONField(name = "missionVOList") var missionVOList: ArrayList<MissionVO?>?,
-        @JSONField(name = "todayAchieveMissionCount") var todayAchieveMissionCount: Int?, //0
-        @JSONField(name = "todayAllMissionCount") var todayAllMissionCount: Int?, //0
-        @JSONField(name = "todayValue") var todayValue: Int?, //0
-        @JSONField(name = "totalValue") var totalValue: Int? //0
+        @SerializedName("missionVOList") var missionVOList: ArrayList<MissionVO?>?,
+        @SerializedName("todayAchieveMissionCount") var todayAchieveMissionCount: Int?, //0
+        @SerializedName("todayAllMissionCount") var todayAllMissionCount: Int?, //0
+        @SerializedName("todayValue") var todayValue: Int?, //0
+        @SerializedName("totalValue") var totalValue: Int? //0
 ):RetrofitBaen()
 
 data class MissionVO(
-		@JSONField(name = "limitCount") var limitCount: Int?, //0
-		@JSONField(name = "missionType") var missionType: Int?, //0
-		@JSONField(name = "reachedCount") var reachedCount: Int? //0
+		@SerializedName("limitCount") var limitCount: Int?, //0
+		@SerializedName("missionType") var missionType: Int?, //0
+		@SerializedName("reachedCount") var reachedCount: Int? //0
 ):RetrofitBaen()

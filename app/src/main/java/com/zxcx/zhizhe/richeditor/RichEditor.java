@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -102,6 +103,7 @@ public class RichEditor extends WebView {
 
         if (Constants.IS_NIGHT){
             SETUP_HTML = context.getString(R.string.base_url)+context.getString(R.string.editor_dark_url);
+            setBackgroundColor(ContextCompat.getColor(context, R.color.background));
         }else {
             SETUP_HTML = context.getString(R.string.base_url)+context.getString(R.string.editor_url);
         }

@@ -24,8 +24,11 @@
             android:id="@+id/iv_dialog_share_wechat"
             android:scaleType="centerCrop"
             android:src="@drawable/wechat"
-            android:padding="10dp"
-            android:layout_width="57dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:layout_width="52dp"
             android:layout_height="57dp"/>
 
         <View
@@ -37,8 +40,11 @@
             android:id="@+id/iv_dialog_share_moments"
             android:scaleType="centerCrop"
             android:src="@drawable/moments"
-            android:padding="10dp"
-            android:layout_width="57dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="47dp"
             android:layout_height="57dp"/>
 
         <View
@@ -50,8 +56,11 @@
             android:id="@+id/iv_dialog_share_qq"
             android:scaleType="centerCrop"
             android:src="@drawable/qq"
-            android:padding="10dp"
-            android:layout_width="57dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_width="47dp"
             android:layout_height="57dp"/>
 
         <View
@@ -63,8 +72,11 @@
             android:id="@+id/iv_dialog_share_weibo"
             android:scaleType="centerCrop"
             android:src="@drawable/weibo"
-            android:padding="10dp"
-            android:layout_width="57dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp"
+            android:layout_width="47dp"
             android:layout_height="57dp"/>
 
         <View
@@ -76,7 +88,6 @@
 
     <com.zxcx.zhizhe.widget.RoundedFrameLayout
         android:layout_above="@id/ll_dialog_share"
-        android:background="@drawable/bg_dialog"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ScrollView
@@ -84,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
+                android:background="@drawable/bg_dialog"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -96,7 +108,6 @@
                     android:transitionName="cardImage"/>
 
                 <RelativeLayout
-                    android:background="@color/white"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:layout_width="match_parent"
@@ -155,7 +166,7 @@
                     android:src="@drawable/iv_dialog_share_qr"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="165dp"/>
+                    android:layout_height="146dp"/>
             </LinearLayout>
         </ScrollView>
     </com.zxcx.zhizhe.widget.RoundedFrameLayout>

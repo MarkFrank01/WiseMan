@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -94,6 +95,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
+        rv_creation.addItemDecoration(FansItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核作品","点击创作 随心所欲分享生活",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)

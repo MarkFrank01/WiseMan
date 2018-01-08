@@ -40,7 +40,7 @@ public class CommonSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_common_setting);
         ButterKnife.bind(this);
 
-        initToolBar("通用设置");
+        initToolBar("设置");
         updateCacheSize();
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         mScCommonSettingNightModel.setChecked(isNight);

@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.otherUser
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 /**
@@ -8,10 +8,10 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen
  */
 
 data class OtherUserInfoBean(
-        @JSONField(name = "avatar") var imageUrl: String?, //string
-        @JSONField(name = "hasArticle") var hasCard: Boolean?, //0
-        @JSONField(name = "id") var id: Int?, //0
-        @JSONField(name = "intelligenceValue") var readNum: Int?, //0
-        @JSONField(name = "name") var name: String?, //string
-        @JSONField(name = "sign") var signture: String? //0
+        @SerializedName("avatar") var imageUrl: String?, //string
+        @SerializedName("hasArticle") var hasCard: Boolean?, //0
+        @SerializedName("id") var id: Int?, //0
+        @SerializedName("intelligenceValue") var readNum: Int?, //0
+        @SerializedName("name") var name: String?, //string
+        @SerializedName("sign") var signture: String? //0
 ): RetrofitBaen()

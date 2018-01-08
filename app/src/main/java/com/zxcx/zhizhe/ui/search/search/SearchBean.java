@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.search.search;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class SearchBean extends RetrofitBaen {
@@ -12,11 +12,11 @@ public class SearchBean extends RetrofitBaen {
      * id : 0
      */
 
-    @JSONField(name = "conent")
+    @SerializedName("conent")
     private String conent;
-    @JSONField(name = "createTime")
+    @SerializedName("createTime")
     private String createTime;
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
 
     public String getConent() {

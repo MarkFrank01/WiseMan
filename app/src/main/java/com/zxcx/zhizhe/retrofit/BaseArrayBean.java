@@ -1,16 +1,16 @@
 package com.zxcx.zhizhe.retrofit;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BaseArrayBean<T> {
+public class BaseArrayBean<T> extends RetrofitBaen{
 
-    @JSONField(name = "data")
+    @SerializedName("data")
     private List<T> data;
-    @JSONField(name = "code")
+    @SerializedName("code")
     private int code;
-    @JSONField(name = "message")
+    @SerializedName("message")
     private String message;
 
     public int getCode() {

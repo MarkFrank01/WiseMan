@@ -68,8 +68,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_note_details);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_note_details);
         ButterKnife.bind(this);
 
         initData();

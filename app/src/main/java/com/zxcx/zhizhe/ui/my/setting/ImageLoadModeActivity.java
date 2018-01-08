@@ -31,7 +31,7 @@ public class ImageLoadModeActivity extends BaseActivity {
         ButterKnife.bind(this);
         initToolBar("图片加载");
 
-        imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode,0);
+        imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode,1);
         switch (imageLoadMode){
             case 0:
                 mCbImageLoadModeWifi.setChecked(true);

@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.SelectAttentionEvent;
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
-import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
+import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
@@ -68,7 +68,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new AttentionNeedLoginCallback())
                 .addCallback(new HomeLoadingCallback())
-                .addCallback(new NetworkErrorCallback())
+                .addCallback(new HomeNetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
         loadService = loadSir.register(root, v -> {
@@ -190,7 +190,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
         if (page == 0){
-            loadService.showCallback(NetworkErrorCallback.class);
+            loadService.showCallback(HomeNetworkErrorCallback.class);
         }
     }
 

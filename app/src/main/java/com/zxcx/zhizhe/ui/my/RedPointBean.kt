@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
+import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 /**
  * Created by anm on 2017/12/21.
@@ -13,8 +14,8 @@ const val writer_status_review = 2
 const val writer_status_writer = 3
 
 data class RedPointBean(
-		@JSONField(name = "hasDynamicMessage") var hasDynamicMessage: Boolean, //true
-		@JSONField(name = "hasSystemMessage") var hasSystemMessage: Boolean, //true
-		@JSONField(name = "totalIntelligenceValue") var totalIntelligenceValue: Int, //0
-		@JSONField(name = "writerStatus") var writerStatus: Int //0
-)
+        @SerializedName("hasDynamicMessage") var hasDynamicMessage: Boolean, //true
+        @SerializedName("hasSystemMessage") var hasSystemMessage: Boolean, //true
+        @SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int, //0
+        @SerializedName("writerStatus") var writerStatus: Int //0
+): RetrofitBaen()

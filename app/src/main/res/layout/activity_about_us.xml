@@ -29,6 +29,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="10dp"
             android:paddingTop="10dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/common_back"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.23"/>
+            app:layout_constraintGuide_percent="0.27"/>
 
         <ImageView
             android:id="@+id/iv_about_us_logo"
@@ -66,7 +67,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:textColor="@color/text_color_2"
+            android:textColor="#777B7C"
             android:textSize="@dimen/text_size_text_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.52"/>
+            app:layout_constraintGuide_percent="0.56"/>
 
         <LinearLayout
             android:id="@+id/ll_about_us_share"
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="分享智者"
-                android:textColor="@color/text_color_1"
+                android:textColor="#030303"
                 android:textSize="@dimen/text_size_text_2"/>
 
         </LinearLayout>
@@ -136,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="服务条款"
-                android:textColor="@color/text_color_1"
+                android:textColor="#030303"
                 android:textSize="@dimen/text_size_text_2"/>
 
         </LinearLayout>
@@ -151,7 +152,7 @@
             android:gravity="center"
             android:lineSpacingExtra="6dp"
             android:text="智学创行科技有限公司\nwww.zhi-zhe.com"
-            android:textColor="@color/text_color_2"
+            android:textColor="#777B7C"
             android:textSize="@dimen/text_size_text_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

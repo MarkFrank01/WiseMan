@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.gyf.barlibrary.ImmersionBar;
 import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.R;
@@ -289,9 +289,9 @@ public class RegisterFragment extends MvpFragment<RegisterPresenter> implements 
                         try {
                             Throwable throwable = (Throwable) data;
                             throwable.printStackTrace();
-                            JSONObject object = JSON.parseObject(throwable.getMessage());
-                            String des = object.getString("detail");//错误描述
-                            int status = object.getInteger("status");//错误代码
+                            JsonObject object = new JsonParser().parse(throwable.getMessage()).getAsJsonObject();
+                            String des = object.get("detail").getAsString();//错误描述
+                            int status = object.get("status").getAsInt();//错误代码
                             switch (status) {
                                 case 457:
                                     toastShow("手机号格式错误!");

@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.message.system
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
 import java.util.*
 
@@ -16,13 +16,13 @@ const val message_like = 202
 const val message_collect = 203
 
 data class SystemMessageBean(
-		@JSONField(name = "content") var content: String?, //string
-		@JSONField(name = "intelligenceValue") var intelligenceValue: Int?, //0
-		@JSONField(name = "messageType") var messageType: Int?, //0
-		@JSONField(name = "relatedCardId") var relatedCardId: Int?, //0
-		@JSONField(name = "remaskContent") var remaskContent: String?, //string
-		@JSONField(name = "time") var time: Date?, //2017-12-20T03:28:06.284Z
-		@JSONField(name = "titleColor") var titleColor: String?, //string
-		@JSONField(name = "title") var title: String? //string
+		@SerializedName("content") var content: String?, //string
+		@SerializedName("intelligenceValue") var intelligenceValue: Int?, //0
+		@SerializedName("messageType") var messageType: Int?, //0
+		@SerializedName("relatedCardId") var relatedCardId: Int?, //0
+		@SerializedName("remaskContent") var remaskContent: String?, //string
+		@SerializedName("time") var time: Date?, //2017-12-20T03:28:06.284Z
+		@SerializedName("titleColor") var titleColor: String?, //string
+		@SerializedName("title") var title: String? //string
 ): RetrofitBaen()
 

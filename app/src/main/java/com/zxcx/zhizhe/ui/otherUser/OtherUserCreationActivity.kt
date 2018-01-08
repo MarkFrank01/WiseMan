@@ -41,7 +41,7 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
     }
 
     private fun initLoadSir() {
-        loadService = LoadSir.getDefault().register(this, this)
+        loadService = LoadSir.getDefault().register(rv_other_user_creation, this)
     }
 
     override fun createPresenter(): CreationPresenter {

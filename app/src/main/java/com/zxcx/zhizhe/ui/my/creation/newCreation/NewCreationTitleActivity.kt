@@ -57,8 +57,12 @@ class NewCreationTitleActivity : BaseActivity() , OSSDialog.OSSUploadListener{
         updateView()
     }
 
-    override fun onDestroy() {
+    override fun onBackPressed() {
         Utils.closeInputMethod(et_new_creation_1_title)
+        super.onBackPressed()
+    }
+
+    override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
     }

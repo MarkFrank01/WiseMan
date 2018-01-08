@@ -1,16 +1,16 @@
 package com.zxcx.zhizhe.ui.my.selectAttention;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class SelectAttentionBean extends RetrofitBaen {
-    @JSONField(name = "interested")
+    @SerializedName("interested")
     private boolean isChecked;
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
 
     public boolean isChecked() {

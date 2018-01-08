@@ -24,8 +24,8 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, Bas
     private var page: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_rank)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_rank)
         initToolBar("所有榜单")
         initRecyclerView()
         loadService = LoadSir.getDefault().register(this, this)

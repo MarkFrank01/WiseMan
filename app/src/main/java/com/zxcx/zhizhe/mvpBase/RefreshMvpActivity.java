@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.mvpBase;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.widget.RefreshHeader;
@@ -17,6 +18,25 @@ public abstract class RefreshMvpActivity<P extends BasePresenter> extends MvpAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        mRefreshLayout = (PtrFrameLayout) findViewById(R.id.refresh_layout);
+        initRefreshLayout();
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        mRefreshLayout = (PtrFrameLayout) findViewById(R.id.refresh_layout);
+        initRefreshLayout();
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
         mRefreshLayout = (PtrFrameLayout) findViewById(R.id.refresh_layout);
         initRefreshLayout();
     }

@@ -1,11 +1,11 @@
 package com.zxcx.zhizhe.ui.my.message.dynamic
 
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
-import com.alibaba.fastjson.annotation.JSONField
 
 data class DynamicMessageBean(
-		@JSONField(name = "collectedUserStr") var collectedUserStr: String?, //string
-		@JSONField(name = "followerUserStr") var followerUserStr: String?, //string
-		@JSONField(name = "likeUserStr") var likeUserStr: String? //string
-)
+		@SerializedName("collectedUserStr") var collectedUserStr: String?, //string
+		@SerializedName("followerUserStr") var followerUserStr: String?, //string
+		@SerializedName("likeUserStr") var likeUserStr: String? //string
+): RetrofitBaen()
 

@@ -18,11 +18,12 @@
     <EditText
         android:id="@+id/et_new_creation_1_title"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:background="@null"
         android:maxLines="1"
         android:singleLine="true"
         android:maxLength="20"
-        android:hint="请输入你的标题"
+        android:hint="输入你的标题"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"
         android:textColorHint="@color/et_new_creation_1_title"
@@ -32,7 +33,7 @@
         android:layout_marginRight="20dp"
         android:paddingTop="13dp"
         android:paddingBottom="13dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <View

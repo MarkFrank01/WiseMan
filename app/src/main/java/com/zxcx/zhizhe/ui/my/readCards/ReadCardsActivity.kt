@@ -35,7 +35,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
     }
 
     private fun initLoadSir() {
-        loadService = LoadSir.getDefault().register(this, this)
+        loadService = LoadSir.getDefault().register(rv_read_card, this)
     }
 
     override fun createPresenter(): ReadCardsPresenter {

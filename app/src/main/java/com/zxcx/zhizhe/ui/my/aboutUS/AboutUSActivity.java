@@ -29,31 +29,24 @@ public class AboutUSActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_about_us);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about_us);
         ButterKnife.bind(this);
 
         mTvAboutUsLogo.setText(getString(R.string.tv_about_us_logo, Utils.getAppVersionName(this)));
+        if (Constants.IS_NIGHT) {
+            Drawable drawable = new ColorDrawable(ContextCompat.getColor(mActivity,R.color.opacity_30));
+            mFlAboutUs.setForeground(drawable);
+        }
     }
 
     @Override
     public void initStatusBar() {
         mImmersionBar = ImmersionBar.with(this);
-        if (!Constants.IS_NIGHT) {
-            mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .statusBarDarkFont(true, 0.2f)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-                    .titleBarMarginTop(R.id.cl_about_us);
-        } else {
-            mImmersionBar
-                    .statusBarColor(R.color.background)
-                    .flymeOSStatusBarFontColor(R.color.text_color_1)
-                    .fitsSystemWindows(true)
-                    .titleBarMarginTop(R.id.cl_about_us);
-            Drawable drawable = new ColorDrawable(ContextCompat.getColor(mActivity,R.color.opacity_30));
-            mFlAboutUs.setForeground(drawable);
-        }
+        mImmersionBar
+                .transparentBar()
+                .statusBarDarkFont(true, 0.2f)
+                .flymeOSStatusBarFontColor(R.color.text_color_1);
         mImmersionBar.init();
     }
 

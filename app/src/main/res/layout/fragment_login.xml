@@ -104,6 +104,7 @@
         android:text="@string/login"
         android:textColor="@color/color_btn_login"
         android:textSize="@dimen/text_size_text_1"
+        style="?android:attr/borderlessButtonStyle"
         app:layout_marginTopPercent="10%"/>
 
     <TextView

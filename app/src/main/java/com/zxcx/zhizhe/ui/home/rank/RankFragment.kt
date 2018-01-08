@@ -17,7 +17,7 @@ import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
-import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
+import com.zxcx.zhizhe.loadCallback.HomeRankLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
@@ -48,7 +48,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         mRefreshLayout = root.findViewById(R.id.refresh_layout)
 
         val loadSir = LoadSir.Builder()
-                .addCallback(HomeLoadingCallback())
+                .addCallback(HomeRankLoadingCallback())
                 .addCallback(AttentionNeedLoginCallback())
                 .addCallback(NetworkErrorCallback())
                 .build()
@@ -65,7 +65,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
-        loadService.showCallback(HomeLoadingCallback::class.java)
+        loadService.showCallback(HomeRankLoadingCallback::class.java)
         initRecyclerView()
         onRefresh()
         mHidden = true

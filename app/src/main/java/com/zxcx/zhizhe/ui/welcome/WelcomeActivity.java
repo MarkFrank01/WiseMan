@@ -58,7 +58,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
         getImage();
         String adImageUrl = SharedPreferencesUtil.getString(SVTSConstants.adImageUrl, "");
         if (!StringUtils.isEmpty(adImageUrl)) {
-            ImageLoader.load(this, adImageUrl, mIvWelcomeAd);
+            ImageLoader.load(this, adImageUrl, R.color.background_final, mIvWelcomeAd);
             mWsvWelcomeSkip.setVisibility(View.VISIBLE);
         } else {
             mHandler.post(mRunnable);
@@ -133,7 +133,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
         if (list.size() > 0) {
             WelcomeBean bean = list.get(0);
             if (!this.isDestroyed()) {
-                ImageLoader.load(this, bean.getContent(), mIvWelcomeAd);
+                ImageLoader.load(this, bean.getContent(), R.color.background_final, mIvWelcomeAd);
             }
             SharedPreferencesUtil.saveData(SVTSConstants.adImageUrl, bean.getContent());
             SharedPreferencesUtil.saveData(SVTSConstants.adUrl, bean.getBehavior());

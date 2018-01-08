@@ -1,5 +1,5 @@
 html{
-    margin: 20px 10px 10px 10px;
+    margin: 25px 10px 8px 10px;
     background: #565656;
 }
 
@@ -13,17 +13,14 @@ html{
     margin-bottom: 4px;
 }
 
-body{
-    margin: 0 auto;
-}
 
 p{
     font-family: PingFangSC-Regular;
-    font-size: 16px;
+    font-size: 17px;
     color: #C1C1C1!important;
     letter-spacing: 0;
     text-align: left;
-    margin: 25px 0;
+    margin: 30px 0;
 }
 
 #desc {
@@ -37,7 +34,7 @@ p{
 
 
 img {
-    margin-top: 9px;
+    margin: 8px 0 2px 0;
     width: 100%!important;
 }
 
@@ -49,7 +46,6 @@ img {
 
 
 .author-right{
-
     width: 100%;
     font-size: 12px;
     color: #999999;
@@ -58,7 +54,6 @@ img {
 }
 
 .author-container{
-
     width: 100%;
     margin-top: 15px;
     margin-bottom: 90px;
@@ -112,12 +107,15 @@ img {
     font-size: 14px;
     text-align: center;
     line-height: 0;
+    color: #707070;
+    margin: 10px 0!important;
 }
 
 .image-package .image-caption{
     width:100%;
     min-height:22px;
     display:inline-block;
-    background-color: #f1f3f3;
+    background-color: #AFAFAF;
     line-height: 5px;
+    margin-top: -2px;
 }

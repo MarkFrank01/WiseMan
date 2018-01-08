@@ -107,6 +107,7 @@
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            style="?android:attr/borderlessButtonStyle"
             app:layout_marginTopPercent="10%"/>
     </android.support.percent.PercentRelativeLayout>
 
@@ -158,6 +159,7 @@
             android:layout_marginRight="40dp"
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
+            style="?android:attr/borderlessButtonStyle"
             app:layout_heightPercent="10%"
             app:layout_marginTopPercent="10%"/>
     </android.support.percent.PercentRelativeLayout>

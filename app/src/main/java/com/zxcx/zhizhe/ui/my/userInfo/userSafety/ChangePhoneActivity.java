@@ -8,8 +8,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
@@ -215,9 +215,9 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
                         try {
                             Throwable throwable = (Throwable) data;
                             throwable.printStackTrace();
-                            JSONObject object = JSON.parseObject(throwable.getMessage());
-                            String des = object.getString("detail");//错误描述
-                            int status = object.getInteger("status");//错误代码
+                            JsonObject object = new JsonParser().parse(throwable.getMessage()).getAsJsonObject();
+                            String des = object.get("detail").getAsString();//错误描述
+                            int status = object.get("status").getAsInt();//错误代码
                             switch (status) {
                                 case 457:
                                     toastShow("手机号格式错误!");

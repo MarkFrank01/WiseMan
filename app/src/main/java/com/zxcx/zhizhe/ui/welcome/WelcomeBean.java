@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.welcome;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 /**
@@ -19,19 +19,19 @@ public class WelcomeBean extends RetrofitBaen {
      * platformType : 0
      */
 
-    @JSONField(name = "adNum")
+    @SerializedName("adNum")
     private int adNum;
-    @JSONField(name = "behavior")
+    @SerializedName("behavior")
     private String behavior;
-    @JSONField(name = "content")
+    @SerializedName("content")
     private String content;
-    @JSONField(name = "createTime")
+    @SerializedName("createTime")
     private String createTime;
-    @JSONField(name = "description")
+    @SerializedName("description")
     private String description;
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "platformType")
+    @SerializedName("platformType")
     private int platformType;
 
     public int getAdNum() {

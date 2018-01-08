@@ -24,7 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keepattributes InnerClasses
--keep public class * extends com.zxcx.zhizhe.retrofit.RetrofitBaen { *; }
+-keep class * extends com.zxcx.zhizhe.retrofit.RetrofitBaen { *; }
 -keep class com.zxcx.zhizhe.retrofit.** {*;}
 #Okhttp+Retrofit
 -dontwarn okhttp3.**

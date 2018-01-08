@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.classify;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 /**
@@ -12,11 +12,11 @@ public class ClassifyCardBagBean extends RetrofitBaen implements MultiItemEntity
 
     public static final int TYPE_CARD_BAG = 2;
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
 
     @Override

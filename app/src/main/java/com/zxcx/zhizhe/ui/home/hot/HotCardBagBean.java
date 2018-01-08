@@ -1,17 +1,17 @@
 package com.zxcx.zhizhe.ui.home.hot;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.List;
 
 public class HotCardBagBean extends RetrofitBaen {
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "articleList")
+    @SerializedName("articleList")
     private List<HotCardBean> cardList;
 
     public int getId() {

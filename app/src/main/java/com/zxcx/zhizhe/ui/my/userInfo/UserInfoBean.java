@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class UserInfoBean extends RetrofitBaen {
@@ -16,27 +16,27 @@ public class UserInfoBean extends RetrofitBaen {
      * bandingWeibo : false
      */
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "birth")
+    @SerializedName("birth")
     private String birth;
-    @JSONField(name = "avatar")
+    @SerializedName("avatar")
     private String avatar;
-    @JSONField(name = "name")
+    @SerializedName("name")
     private String name;
-    @JSONField(name = "sign")
+    @SerializedName("sign")
     private String signture;
-    @JSONField(name = "phoneNum")
+    @SerializedName("phoneNum")
     private String phoneNum;
-    @JSONField(name = "gender")
+    @SerializedName("gender")
     private int gender;
-    @JSONField(name = "createTime")
+    @SerializedName("createTime")
     private long createTime;
-    @JSONField(name = "bandingQQ")
+    @SerializedName("bandingQQ")
     private boolean bandingQQ;
-    @JSONField(name = "bandingWeixin")
+    @SerializedName("bandingWeixin")
     private boolean bandingWeixin;
-    @JSONField(name = "bandingWeibo")
+    @SerializedName("bandingWeibo")
     private boolean bandingWeibo;
 
     public int getId() {

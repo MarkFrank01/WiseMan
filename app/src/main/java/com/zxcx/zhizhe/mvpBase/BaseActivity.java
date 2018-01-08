@@ -25,6 +25,7 @@ import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
+import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -70,11 +71,18 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
 
     public void initStatusBar() {
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar
-                .statusBarColor(R.color.background)
-                .statusBarDarkFont(true, 0.2f)
-                .flymeOSStatusBarFontColor(R.color.text_color_1)
-                .fitsSystemWindows(true);
+        if (!Constants.IS_NIGHT){
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .fitsSystemWindows(true);
+        }
         mImmersionBar.init();
     }
 

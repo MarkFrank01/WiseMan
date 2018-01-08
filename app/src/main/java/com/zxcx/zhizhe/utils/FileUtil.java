@@ -356,6 +356,8 @@ public class FileUtil {
                 if (photoBitmap != null) {
                     if (photoBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)) {
                         fileOutputStream.flush();
+                        //回收掉bitmap
+                        photoBitmap.recycle();
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -367,6 +369,7 @@ public class FileUtil {
             } finally{
                 try {
                     fileOutputStream.close();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

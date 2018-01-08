@@ -1,20 +1,21 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.register;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
+import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 /**
  * Created by anm on 2017/12/19.
  */
 
-public class SMSCodeVerificationBean {
+public class SMSCodeVerificationBean extends RetrofitBaen{
     /**
      * phoneNum : string
      * verifyKey : string
      */
 
-    @JSONField(name = "phoneNum")
+    @SerializedName("phoneNum")
     private String phoneNum;
-    @JSONField(name = "verifyKey")
+    @SerializedName("verifyKey")
     private String verifyKey;
 
     public String getPhoneNum() {

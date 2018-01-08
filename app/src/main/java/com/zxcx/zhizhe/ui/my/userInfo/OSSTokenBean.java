@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 /**
@@ -16,13 +16,13 @@ public class OSSTokenBean extends RetrofitBaen{
      * securityToken : string
      */
 
-    @JSONField(name = "accessKeyId")
+    @SerializedName("accessKeyId")
     private String accessKeyId;
-    @JSONField(name = "accessKeySecret")
+    @SerializedName("accessKeySecret")
     private String accessKeySecret;
-    @JSONField(name = "expiration")
+    @SerializedName("expiration")
     private String expiration;
-    @JSONField(name = "securityToken")
+    @SerializedName("securityToken")
     private String securityToken;
 
     public String getAccessKeyId() {

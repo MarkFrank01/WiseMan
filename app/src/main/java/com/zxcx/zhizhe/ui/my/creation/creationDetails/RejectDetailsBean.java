@@ -1,27 +1,27 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.Date;
 
 public class RejectDetailsBean extends RetrofitBaen {
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "collectionId")
+    @SerializedName("collectionId")
     private int cardBagId;
-    @JSONField(name = "collectionName")
+    @SerializedName("collectionName")
     private String cardBagName;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "authorName")
+    @SerializedName("authorName")
     private String authorName;
-    @JSONField(name = "unpassReason")
+    @SerializedName("unpassReason")
     private String rejectReason;
-    @JSONField(name = "modifyTime")
+    @SerializedName("modifyTime")
     private Date date;
 
     public int getId() {

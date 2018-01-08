@@ -19,7 +19,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
-import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
+import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -62,7 +62,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
                 .addCallback(new LoginTimeoutCallback())
-                .addCallback(new NetworkErrorCallback())
+                .addCallback(new HomeNetworkErrorCallback())
                 .setDefaultCallback(HomeLoadingCallback.class)
                 .build();
         loadService = loadSir.register(root, v -> {
@@ -160,7 +160,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         super.toastFail(msg);
         mCardAdapter.loadMoreFail();
         if (mPage == 0) {
-            loadService.showCallback(NetworkErrorCallback.class);
+            loadService.showCallback(HomeNetworkErrorCallback.class);
         }
     }
 

@@ -134,12 +134,12 @@ public class ZhiZheUtils {
         if (number<1000){
             return String.valueOf(number);
         }else if (number<10000){
-            double dou = number / 1000;
-            DecimalFormat df = new DecimalFormat("#.##");
+            double dou = number / 1000.00;
+            DecimalFormat df = new DecimalFormat("#.#");
             return df.format(dou)+"k";
         }else {
-            double dou = number / 10000;
-            DecimalFormat df = new DecimalFormat("#.##");
+            double dou = number / 10000.00;
+            DecimalFormat df = new DecimalFormat("#.#");
             return df.format(dou)+"w";
         }
     }

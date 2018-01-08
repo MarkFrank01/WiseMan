@@ -1,23 +1,23 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.Date;
 
 public class NoteDetailsBean extends RetrofitBaen {
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "relatedArticleId")
+    @SerializedName("relatedArticleId")
     private int withCardId;
-    @JSONField(name = "collectionId")
+    @SerializedName("collectionId")
     private int cardBagId;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "modifyTime")
+    @SerializedName("modifyTime")
     private Date date;
 
     public int getId() {

@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.setting;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 /**
@@ -14,9 +14,9 @@ public class MessageModeBean extends RetrofitBaen{
      * systemMessageSetting : true
      */
 
-    @JSONField(name = "dynamicMessageSetting")
+    @SerializedName("dynamicMessageSetting")
     private boolean dynamicMessageSetting;
-    @JSONField(name = "systemMessageSetting")
+    @SerializedName("systemMessageSetting")
     private boolean systemMessageSetting;
 
     public boolean isDynamicMessageSetting() {

@@ -1,12 +1,12 @@
 package com.zxcx.zhizhe.ui.my.note.cardNote
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 data class NoteBean(
-        @JSONField(name = "id") var id: Int?,
-        @JSONField(name = "title") var name: String?,
-        @JSONField(name = "body") var content: String?
+        @SerializedName("id") var id: Int?,
+        @SerializedName("title") var name: String?,
+        @SerializedName("body") var content: String?
 ) : RetrofitBaen(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

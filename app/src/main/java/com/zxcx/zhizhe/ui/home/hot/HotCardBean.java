@@ -1,21 +1,21 @@
 package com.zxcx.zhizhe.ui.home.hot;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 import java.util.Date;
 
 public class HotCardBean extends RetrofitBaen {
 
-    @JSONField(name = "id")
+    @SerializedName("id")
     private int id;
-    @JSONField(name = "titleImage")
+    @SerializedName("titleImage")
     private String imageUrl;
-    @JSONField(name = "title")
+    @SerializedName("title")
     private String name;
-    @JSONField(name = "passTime")
+    @SerializedName("passTime")
     private Date date;
-    @JSONField(name = "authorName")
+    @SerializedName("authorName")
     private String author;
 
     public int getId() {

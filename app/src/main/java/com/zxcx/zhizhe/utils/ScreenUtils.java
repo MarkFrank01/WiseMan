@@ -92,7 +92,7 @@ public class ScreenUtils {
         }
         // 创建对应大小的bitmap
         bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
-                Bitmap.Config.RGB_565);
+                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         viewGroup.draw(canvas);
         return bitmap;

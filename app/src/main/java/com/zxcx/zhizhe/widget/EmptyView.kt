@@ -22,7 +22,7 @@ object EmptyView {
         emptyView.findViewById<TextView>(R.id.tv_no_data_2).text = str2
         str2Color?.let { emptyView.findViewById<TextView>(R.id.tv_no_data_2).setTextColor(ContextCompat.getColor(context, it)) }
         emptyView.setOnClickListener(listener)
-        val width = ScreenUtils.getScreenWidth()
+        val width = ViewGroup.LayoutParams.MATCH_PARENT
         val height = ScreenUtils.dip2px(400f)
         val lp = ViewGroup.LayoutParams(width,height)
         emptyView.layoutParams = lp

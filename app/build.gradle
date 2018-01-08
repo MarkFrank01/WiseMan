@@ -60,10 +60,10 @@ android {
             //applicationIdSuffix '.test'
         }
         release {
-            buildConfigField 'boolean', 'LOG', 'false'
+            buildConfigField 'boolean', 'LOG', 'true'
             minifyEnabled true
             shrinkResources true
-            debuggable false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
@@ -109,10 +109,10 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     //RxJava retrofit2 转换器
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    //fastjson retrofit2 转换器
-    compile 'org.ligboy.retrofit2:converter-fastjson-android:2.2.0'
-    //fastjson
-    compile 'com.alibaba:fastjson:1.1.64.android'
+    //gson retrofit2 转换器
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //gson
+    compile 'com.google.code.gson:gson:2.8.2'
     //RxAndroid
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     //RxJava
@@ -158,13 +158,11 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //kotlin支持
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    //kotlin反射，为了解决fastjson的问题
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     //Chuck 一个用来记录展示网络请求详情的调试工具库
-//    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-//    releaseCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
+//    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    releaseCompile 'com.readystatesoftware.chuck:library:1.1.0'
+//    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
     //格式化Log输出
     compile 'com.orhanobut:logger:2.1.1'
     //下拉刷新库

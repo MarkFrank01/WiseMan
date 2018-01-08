@@ -1,17 +1,17 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
-import com.alibaba.fastjson.annotation.JSONField
+import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 class FollowUserBean(
-		@JSONField(name = "avatar") var imageUrl: String?, //string
-		@JSONField(name = "createArticleCount") var cardNum: Int?, //0
-		@JSONField(name = "followerCount") var fansNum: Int?, //0
-		@JSONField(name = "id") var id: Int?, //0
-		@JSONField(name = "targetUserId") var targetUserId: Int?, //0
-		@JSONField(name = "intelligenceValue") var readNum: Int?, //0
-		@JSONField(name = "name") var name: String?, //string
-		@JSONField(name = "userAurhorRelationshipType") var followType: Int? //0为未关注，1为已关注，2为已相互关注
+        @SerializedName("avatar") var imageUrl: String?, //string
+        @SerializedName("createArticleCount") var cardNum: Int?, //0
+        @SerializedName("followerCount") var fansNum: Int?, //0
+        @SerializedName("id") var id: Int?, //0
+        @SerializedName("targetUserId") var targetUserId: Int?, //0
+        @SerializedName("intelligenceValue") var readNum: Int?, //0
+        @SerializedName("name") var name: String?, //string
+        @SerializedName("userAurhorRelationshipType") var followType: Int? //0为未关注，1为已关注，2为已相互关注
 ):RetrofitBaen(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

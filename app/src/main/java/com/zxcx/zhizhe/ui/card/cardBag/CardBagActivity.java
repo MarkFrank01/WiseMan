@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.loadCallback.CardBagLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity;
@@ -59,8 +59,8 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_card_bag);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_card_bag);
         ButterKnife.bind(this);
         initData();
         initRecyclerView();
@@ -78,17 +78,17 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
     public void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
-                .addCallback(new CardBagLoadingCallback())
+                .addCallback(new LoadingCallback())
                 .addCallback(new NetworkErrorCallback())
                 .addCallback(new LoginTimeoutCallback())
-                .setDefaultCallback(CardBagLoadingCallback.class)
+                .setDefaultCallback(LoadingCallback.class)
                 .build();
-        loadService = loadSir.register(this, this);
+        loadService = loadSir.register(mRefreshLayout, this);
     }
 
     @Override
     public void onReload(View v) {
-        loadService.showCallback(CardBagLoadingCallback.class);
+        loadService.showCallback(LoadingCallback.class);
         onRefresh();
     }
 
@@ -134,11 +134,11 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
 
     @Override
     public void toastFail(String msg) {
-        mRefreshLayout.refreshComplete();
-        super.toastFail(msg);
         if (page == 0) {
             loadService.showCallback(NetworkErrorCallback.class);
         }
+        mRefreshLayout.refreshComplete();
+        super.toastFail(msg);
     }
 
     @OnClick(R.id.iv_toolbar_right)

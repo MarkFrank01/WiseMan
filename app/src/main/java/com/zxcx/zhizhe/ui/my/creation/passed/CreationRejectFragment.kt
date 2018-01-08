@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
 import com.zxcx.zhizhe.ui.search.result.card.CreationBean
 import com.zxcx.zhizhe.ui.search.result.card.CreationContract
@@ -118,6 +119,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         mAdapter.setOnLoadMoreListener(this,rv_creation)
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
+        rv_creation.addItemDecoration(FansItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无退回作品","点击创作 分享您的实用知识",R.color.button_blue,View.OnClickListener {
             val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
             startActivity(intent)

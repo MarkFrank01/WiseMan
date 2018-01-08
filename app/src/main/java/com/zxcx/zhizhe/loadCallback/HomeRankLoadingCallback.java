@@ -3,29 +3,23 @@ package com.zxcx.zhizhe.loadCallback;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.kingja.loadsir.callback.Callback;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 
-public class CardDetailsLoadingCallback extends Callback {
+public class HomeRankLoadingCallback extends Callback {
 
     private ImageView imageView;
 
     @Override
     protected int onCreateView() {
-        return R.layout.layout_loading;
+        return R.layout.layout_home_rank_loading;
     }
 
     @Override
     public void onAttach(Context context, View view) {
         super.onAttach(context, view);
-        view.setBackgroundResource(R.color.white);
-        ViewGroup.LayoutParams lp = view.getLayoutParams();
-        lp.width = ScreenUtils.getScreenWidth();
-        lp.height = ScreenUtils.dip2px(320);
         imageView = (ImageView) view.findViewById(R.id.iv_loading);
         ((AnimationDrawable) imageView.getDrawable()).start();
     }

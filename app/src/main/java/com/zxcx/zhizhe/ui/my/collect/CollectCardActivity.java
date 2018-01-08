@@ -61,7 +61,7 @@ public class CollectCardActivity extends MvpActivity<CollectCardPresenter> imple
     }
 
     public void initLoadSir() {
-        loadService = LoadSir.getDefault().register(this, this);
+        loadService = LoadSir.getDefault().register(mRvCollectCard, this);
     }
 
     @Override

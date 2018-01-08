@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -52,6 +54,7 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
+import top.zibin.luban.Luban;
 
 public class ShareCardDialog extends BaseDialog {
 
@@ -181,6 +184,7 @@ public class ShareCardDialog extends BaseDialog {
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(getActivity());
+        mWebView.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.bg_details));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
 
@@ -254,8 +258,6 @@ public class ShareCardDialog extends BaseDialog {
     }
 
     private void showShare(String platform) {
-        Bitmap bitmap = ScreenUtils.getBitmapByView(mSvDialogShare);
-        String fileName = FileUtil.getRandomImageName();
 
         OnekeyShare oks = new OnekeyShare();
         //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
@@ -263,15 +265,20 @@ public class ShareCardDialog extends BaseDialog {
             oks.setPlatform(platform);
         }
 
-        //回调
-
-        mDisposable = Flowable.just(bitmap)
+        mDisposable = Flowable.just(mSvDialogShare)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscription -> showLoading())
                 .observeOn(Schedulers.io())
-                .map(bm -> {
+                .map(view -> {
+                    Bitmap bitmap = ScreenUtils.getBitmapByView(view);
+                    String fileName = FileUtil.getRandomImageName();
                     FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
-                    return FileUtil.PATH_BASE + fileName;
+                    String path = FileUtil.PATH_BASE + fileName;
+                    return Luban.with(getActivity())
+                            .load(new File(path))                     //传入要压缩的图片
+                            .get()
+                            .getPath();//启动压缩
+//                    return path;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<String>() {

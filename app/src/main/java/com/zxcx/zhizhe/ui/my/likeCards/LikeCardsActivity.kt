@@ -38,7 +38,7 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
     }
 
     private fun initLoadSir() {
-        loadService = LoadSir.getDefault().register(this, this)
+        loadService = LoadSir.getDefault().register(rv_like_card, this)
     }
 
     override fun createPresenter(): LikeCardsPresenter {

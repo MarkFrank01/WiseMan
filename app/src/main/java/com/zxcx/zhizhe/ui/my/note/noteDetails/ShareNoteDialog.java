@@ -28,6 +28,8 @@ import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,6 +45,7 @@ import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
+import top.zibin.luban.Luban;
 
 public class ShareNoteDialog extends BaseDialog {
 
@@ -186,8 +189,6 @@ public class ShareNoteDialog extends BaseDialog {
     }
 
     private void showShare(String platform) {
-        Bitmap bitmap = ScreenUtils.getBitmapByView(mSvDialogShare);
-        String fileName = FileUtil.getRandomImageName();
 
         OnekeyShare oks = new OnekeyShare();
         //指定分享的平台，如果为空，还是会调用九宫格的平台列表界面
@@ -195,13 +196,20 @@ public class ShareNoteDialog extends BaseDialog {
             oks.setPlatform(platform);
         }
 
-        mDisposable = Flowable.just(bitmap)
+        mDisposable = Flowable.just(mSvDialogShare)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(subscription -> showLoading())
                 .observeOn(Schedulers.io())
-                .map(bm ->{
+                .map(view ->{
+                    Bitmap bitmap = ScreenUtils.getBitmapByView(view);
+                    String fileName = FileUtil.getRandomImageName();
                     FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName);
-                    return FileUtil.PATH_BASE + fileName;
+                    String path = FileUtil.PATH_BASE + fileName;
+                    return Luban.with(getActivity())
+                            .load(new File(path))                     //传入要压缩的图片
+                            .get()
+                            .getPath();//启动压缩
+//                    return path;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSubscriber<String>(){
