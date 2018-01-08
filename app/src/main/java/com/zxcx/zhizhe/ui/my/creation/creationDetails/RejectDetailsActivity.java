@@ -182,8 +182,10 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (isError) return;
-                loadService.showSuccess();
-                loadService = null;
+                if (loadService != null) {
+                    loadService.showSuccess();
+                    loadService = null;
+                }
                 mTvRejectReedit.setVisibility(View.VISIBLE);
             }
 

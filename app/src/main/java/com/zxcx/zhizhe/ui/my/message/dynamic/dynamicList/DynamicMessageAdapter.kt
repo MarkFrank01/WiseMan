@@ -35,7 +35,7 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
                 val imageView = helper.getView<RoundedImageView>(R.id.iv_item_dynamic_message)
                 ImageLoader.load(mContext,bean.relatedUserAvatar,R.drawable.default_header,imageView)
                 helper.setText(R.id.tv_item_dynamic_message_name,bean.relatedUserName)
-                helper.setText(R.id.tv_item_dynamic_message_time,bean.time)
+                helper.setText(R.id.tv_item_dynamic_message_time,bean.newTime)
 
                 if (helper.adapterPosition+1 >= data.size || getItem(helper.adapterPosition+1) is DynamicBean){
                     helper.setGone(R.id.view_line,false)

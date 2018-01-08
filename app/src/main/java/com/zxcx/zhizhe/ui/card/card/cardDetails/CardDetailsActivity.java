@@ -452,8 +452,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (isError) return;
-                loadService.showSuccess();
-                loadService = null;
+                if (loadService != null) {
+                    loadService.showSuccess();
+                    loadService = null;
+                }
                 mLlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mRlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);

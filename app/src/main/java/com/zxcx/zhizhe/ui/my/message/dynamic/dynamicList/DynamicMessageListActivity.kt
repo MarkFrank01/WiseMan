@@ -150,7 +150,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
             for (bean in list) {
                 val date = dateFormat.format(bean.date)
                 val time = timeFormat.format(bean.date)
-                bean.time = time
+                bean.newTime = time
                 if (map.containsKey(date)){
                     map[date]?.add(bean)
                 }else{

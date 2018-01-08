@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.setting;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 import android.widget.CheckBox;
@@ -102,6 +103,14 @@ public class CommonSettingActivity extends BaseActivity {
 
     @OnClick(R.id.ll_common_setting_evaluate)
     public void onMLlCommonSettingEvaluateClicked() {
+        try {
+            Uri uri = Uri.parse("market://details?id="+ getPackageName());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            toastShow("您没有安装应用市场");
+        }
     }
 
     private class OnNightModeCheckChange implements CompoundButton.OnCheckedChangeListener {

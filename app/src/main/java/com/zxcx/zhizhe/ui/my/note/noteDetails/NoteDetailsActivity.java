@@ -180,6 +180,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);
+
+        mWebView.setFocusable(false);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
 
@@ -195,8 +197,10 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (isError) return;
-                loadService.showSuccess();
-                loadService = null;
+                if (loadService != null) {
+                    loadService.showSuccess();
+                    loadService = null;
+                }
                 mLlNoteDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);
             }
