@@ -57,6 +57,7 @@
                 <TextView
                     android:id="@+id/tv_intelligence_value_total"
                     android:layout_marginTop="30dp"
+                    android:textStyle="bold"
                     android:textColor="@color/white_final"
                     android:textSize="44sp"
                     tools:text="16565"
@@ -98,6 +99,7 @@
                             <TextView
                                 android:id="@+id/tv_intelligence_value_today"
                                 tools:text="50"
+                                android:textStyle="bold"
                                 android:textColor="@color/button_blue"
                                 android:textSize="44sp"
                                 android:layout_width="wrap_content"

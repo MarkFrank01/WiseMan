@@ -153,8 +153,8 @@ dependencies {
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     testCompile 'junit:junit:4.12'
     //leakcanary 内存泄漏检测
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //kotlin支持
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

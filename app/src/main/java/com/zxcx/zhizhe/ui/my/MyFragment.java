@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,13 +92,10 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvMyNickName.getPaint();
-        tp.setFakeBoldText(true);
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) == 0) {
             setViewLogout();
         } else {
             setViewLogin();
-            getRedPointStatus();
         }
     }
 

@@ -53,15 +53,15 @@ class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), Int
 
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("title", "帮助")
-            intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_url))
+            if(Constants.IS_NIGHT){
+                intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_dark_url))
+            }else {
+                intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_url))
+            }
             startActivity(intent)
         }
         mAdapter = IntelligenceValueAdapter(ArrayList())
         rv_intelligence_value.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_intelligence_value.adapter = mAdapter
-        var textPaint = tv_intelligence_value_total.paint
-        textPaint.isFakeBoldText = true
-        textPaint = tv_intelligence_value_today.paint
-        textPaint.isFakeBoldText = true
     }
 }

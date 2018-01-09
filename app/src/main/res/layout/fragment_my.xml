@@ -73,6 +73,7 @@
             android:maxLines="1"
             android:maxLength="8"
             tools:text="注册/登录"
+            android:textStyle="bold"
             android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/button_blue"/>
 
