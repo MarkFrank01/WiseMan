@@ -13,6 +13,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         tools:text="审核通过"
+        android:textStyle="bold"
         android:textColor="@color/button_blue"
         android:textSize="@dimen/text_size_title_1"
         android:layout_width="wrap_content"

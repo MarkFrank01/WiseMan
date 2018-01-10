@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -113,6 +114,9 @@ public class RichEditor extends WebView {
         getSettings().setJavaScriptEnabled(true);
         setWebChromeClient(new WebChromeClient());
         setWebViewClient(createWebviewClient());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);//内容加载混合模式，适用于https和http混合时使用
+        }
         loadUrl(SETUP_HTML);
 
         if (BuildConfig.DEBUG) {

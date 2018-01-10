@@ -64,6 +64,12 @@ public class SearchResultActivity extends BaseActivity {
         initView();
     }
 
+    @Override
+    public void onBackPressed() {
+        Utils.closeInputMethod(mEtSearchResult);
+        super.onBackPressed();
+    }
+
     @OnClick(R.id.iv_search_result_clear)
     public void onMIvSearchResultClearClicked() {
         mEtSearchResult.setText("");

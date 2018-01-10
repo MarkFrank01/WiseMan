@@ -369,7 +369,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             return;
         }
         if (!mCbCardDetailsCollect.isChecked()) {
-            mPresenter.addCollectCard(cardId);
+            if (checkLogin()) {
+                mPresenter.addCollectCard(cardId);
+            }
         } else {
             mPresenter.removeCollectCard(cardId);
         }

@@ -91,6 +91,7 @@
                 android:paddingTop="12dp"
                 android:textColor="@color/text_color_1"
                 android:textColorHint="@color/text_color_3"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
                 android:textSize="@dimen/text_size_text_1"/>
 
             <TextView
@@ -151,6 +152,7 @@
                 android:maxLength="11"
                 android:textColor="@color/text_color_1"
                 android:textColorHint="@color/text_color_3"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
                 android:textSize="@dimen/text_size_text_1"/>
 
             <View

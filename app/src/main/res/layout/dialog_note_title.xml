@@ -25,6 +25,7 @@
         android:background="@drawable/bg_dialog_edittext"
         android:textColor="@color/text_color_1"
         android:textColorHint="@color/text_color_3"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:hint="请输入笔记标题"
         android:textSize="@dimen/text_size_text_2"
         android:paddingLeft="4dp"

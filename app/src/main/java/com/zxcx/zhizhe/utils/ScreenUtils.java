@@ -79,7 +79,7 @@ public class ScreenUtils {
     }
 
     /**
-     * 截取scrollview的屏幕
+     * 截取控件的屏幕
      * @param viewGroup
      * @return
      */
@@ -92,7 +92,7 @@ public class ScreenUtils {
         }
         // 创建对应大小的bitmap
         bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
-                Bitmap.Config.ARGB_8888);
+                Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         viewGroup.draw(canvas);
         return bitmap;
