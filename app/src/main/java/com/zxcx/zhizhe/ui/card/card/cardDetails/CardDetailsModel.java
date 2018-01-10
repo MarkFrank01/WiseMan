@@ -9,6 +9,8 @@ import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
 
+import io.reactivex.subscribers.DisposableSubscriber;
+
 public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
     public CardDetailsModel(@NonNull CardDetailsContract.Presenter present) {
         this.mPresenter = present;
@@ -30,7 +32,21 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
     public void readArticle(int cardId){
         AppClient.getAPIService().readArticle(cardId)
                 .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handlePostResult());
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(new DisposableSubscriber<BaseBean>() {
+                    @Override
+                    public void onNext(BaseBean bean) {
+                        //保持为空，不需要返回结果
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     public void likeCard(int cardId){
