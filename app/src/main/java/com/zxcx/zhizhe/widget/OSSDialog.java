@@ -89,15 +89,6 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AnimationDrawable) mIvLoading.getDrawable()).start();
-
-        Dialog dialog = getDialog();
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.dimAmount = 0.0f;
-        lp.width = ScreenUtils.dip2px(80);
-        lp.height = ScreenUtils.dip2px(80);
-        window.setAttributes(lp);
         setCancelable(false);
 
         mOSSAction = getArguments().getInt("OSSAction");
@@ -113,6 +104,15 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
     @Override
     public void onStart() {
         super.onStart();
+
+        Dialog dialog = getDialog();
+        Window window = dialog.getWindow();
+        window.setBackgroundDrawableResource(R.color.translate);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.dimAmount = 0.0f;
+        lp.width = ScreenUtils.dip2px(80);
+        lp.height = ScreenUtils.dip2px(80);
+        window.setAttributes(lp);
     }
 
     @Override

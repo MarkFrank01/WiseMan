@@ -30,12 +30,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
     public void readArticle(int cardId){
         AppClient.getAPIService().readArticle(cardId)
                 .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
-                    @Override
-                    public void onNext(BaseBean bean) {
-                    }
-                });
+                .compose(BaseRxJava.handlePostResult());
     }
 
     public void likeCard(int cardId){

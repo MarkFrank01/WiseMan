@@ -42,6 +42,11 @@ public class LoadingDialog extends BaseDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AnimationDrawable) mIvLoading.getDrawable()).start();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         Dialog dialog = getDialog();
         Window window = dialog.getWindow();
@@ -51,11 +56,6 @@ public class LoadingDialog extends BaseDialog {
         lp.width = ScreenUtils.dip2px(80);
         lp.height = ScreenUtils.dip2px(80);
         window.setAttributes(lp);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
