@@ -43,7 +43,7 @@ public class App extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setAppChannel(WalleChannelReader.getChannel(context));
         Beta.canShowUpgradeActs.add(MainActivity.class);
-        Bugly.init(context, "9e3ef1932f", true, strategy);
+        Bugly.init(context, "9e3ef1932f", BuildConfig.DEBUG, strategy);
 
         //极光推送
         JPushInterface.setDebugMode(true);
