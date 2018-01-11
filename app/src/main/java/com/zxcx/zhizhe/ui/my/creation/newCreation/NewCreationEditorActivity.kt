@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
@@ -149,8 +150,8 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             tv_toolbar_commit.isEnabled = text.isNotEmpty()
             tv_toolbar_save_note.isEnabled = text.isNotEmpty()
         })
-        cb_editor_bold.setOnCheckedChangeListener { _, isChecked ->
-            editor.setBold(isChecked)
+        cb_editor_bold.setOnClickListener {
+            editor.setBold(cb_editor_bold.isChecked)
         }
         iv_editor_album.setOnClickListener {
             // 激活系统图库，选择一张图片
@@ -184,5 +185,13 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
             // 保存为笔记
             mPresenter.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
         }
+
+        //添加方法给js调用
+        editor.addJavascriptInterface(this,"native")
+    }
+
+    @JavascriptInterface
+    fun setBold(boolean: Boolean){
+        cb_editor_bold.isChecked = boolean
     }
 }
