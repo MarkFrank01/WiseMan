@@ -192,6 +192,8 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
 
     @JavascriptInterface
     fun setBold(boolean: Boolean){
-        cb_editor_bold.isChecked = boolean
+        runOnUiThread{
+            cb_editor_bold.isChecked = boolean
+        }
     }
 }
