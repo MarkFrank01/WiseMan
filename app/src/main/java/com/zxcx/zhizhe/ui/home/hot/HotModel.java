@@ -23,7 +23,7 @@ public class HotModel extends BaseModel<HotContract.Presenter> {
         mDisposable = AppClient.getAPIService().getHot(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
-                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.INSTANCE.handleResult())
                 .map(bean -> {
                     //组装数据
                     List<RecommendBean> recommendBeanList = new ArrayList<>();

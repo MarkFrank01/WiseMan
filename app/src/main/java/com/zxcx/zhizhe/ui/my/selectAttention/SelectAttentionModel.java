@@ -20,8 +20,8 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
 
     public void getAttentionList(){
         mDisposable = AppClient.getAPIService().getAttentionList()
-                .compose(BaseRxJava.<BaseArrayBean<SelectAttentionBean>>io_main())
-                .compose(BaseRxJava.<SelectAttentionBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<SelectAttentionBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<SelectAttentionBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<SelectAttentionBean>>(mPresenter) {
                     @Override
                     public void onNext(List<SelectAttentionBean> list) {
@@ -33,8 +33,8 @@ public class SelectAttentionModel extends BaseModel<SelectAttentionContract.Pres
 
     public void changeAttentionList(List<Integer> idList){
         mDisposable = AppClient.getAPIService().changeAttentionList(idList)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(mPresenter))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {

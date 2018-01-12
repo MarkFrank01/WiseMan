@@ -15,8 +15,8 @@ public class UserSafetyModel extends BaseModel<UserSafetyContract.Presenter> {
 
     public void channelBinding(int channelType, int type, String openId){
         mDisposable = AppClient.getAPIService().channelBinding(channelType,type,openId)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.<BaseBean>io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(mPresenter))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {

@@ -93,6 +93,9 @@ public class LoginFragment extends MvpFragment<LoginPresenter> implements LoginC
 
         appType = Constants.APP_TYPE;
         appChannel = WalleChannelReader.getChannel(mActivity);
+        if (appChannel == null){
+            appChannel = "官方";
+        }
         appVersion = Utils.getAppVersionName(mActivity);
         jpushID = JPushInterface.getRegistrationID(mActivity);
     }

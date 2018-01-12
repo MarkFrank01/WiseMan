@@ -166,8 +166,8 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
 
     public void getSearchHot() {
         mDisposable = AppClient.getAPIService().getSearchHot()
-                .compose(BaseRxJava.handleArrayResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new BaseSubscriber<List<SearchBean>>(this) {
                     @Override
                     public void onNext(List<SearchBean> list) {

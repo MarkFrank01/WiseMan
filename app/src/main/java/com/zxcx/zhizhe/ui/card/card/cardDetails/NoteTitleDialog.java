@@ -113,8 +113,8 @@ public class NoteTitleDialog extends BaseDialog implements INullPostPresenter{
 
     public void saveCardNode(String title,String imageUrl, int withCardId,String content) {
         mDisposable = AppClient.getAPIService().saveCardNode(null,title,imageUrl,withCardId,content)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.<BaseBean>io_main_loading(this))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(this))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(this) {
                     @Override
                     public void onNext(BaseBean bean) {

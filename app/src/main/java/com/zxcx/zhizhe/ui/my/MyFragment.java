@@ -281,8 +281,8 @@ public class MyFragment extends BaseFragment implements IGetPresenter<RedPointBe
             return;
         }
         mDisposable = AppClient.getAPIService().getRedPointStatus()
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new BaseSubscriber<RedPointBean>(this) {
                     @Override
                     public void onNext(RedPointBean bean) {

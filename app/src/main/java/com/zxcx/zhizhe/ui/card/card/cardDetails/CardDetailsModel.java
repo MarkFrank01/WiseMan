@@ -18,8 +18,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void getCardDetails(int cardId){
         mDisposable = AppClient.getAPIService().getCardDetails(cardId)
-                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
-                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardDetailsBean>handleResult())
                 .subscribeWith(new BaseSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -31,8 +31,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void readArticle(int cardId){
         AppClient.getAPIService().readArticle(cardId)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
                 .subscribeWith(new DisposableSubscriber<BaseBean>() {
                     @Override
                     public void onNext(BaseBean bean) {
@@ -51,8 +51,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void likeCard(int cardId){
         mDisposable = AppClient.getAPIService().likeCard(cardId)
-                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
-                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardDetailsBean>handleResult())
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -64,8 +64,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void removeLikeCard(int cardId){
         mDisposable = AppClient.getAPIService().removeLikeCard(cardId)
-                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
-                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardDetailsBean>handleResult())
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -77,8 +77,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void unLikeCard(int cardId){
         mDisposable = AppClient.getAPIService().unLikeCard(cardId)
-                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
-                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardDetailsBean>handleResult())
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -90,8 +90,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void removeUnLikeCard(int cardId){
         mDisposable = AppClient.getAPIService().removeUnLikeCard(cardId)
-                .compose(BaseRxJava.<BaseBean<CardDetailsBean>>io_main())
-                .compose(BaseRxJava.<CardDetailsBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<CardDetailsBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardDetailsBean>handleResult())
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -103,8 +103,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void addCollectCard(int cardId) {
         mDisposable = AppClient.getAPIService().addCollectCard(cardId)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -116,8 +116,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void removeCollectCard(int cardId){
         mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new PostSubscriber<CardDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(CardDetailsBean bean) {
@@ -129,8 +129,8 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
 
     public void setUserFollow(int authorId, int followType){
         mDisposable = AppClient.getAPIService().setUserFollow(authorId,followType)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new PostSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {

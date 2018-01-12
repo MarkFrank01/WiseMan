@@ -19,8 +19,8 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
 
     public void getAttentionCard(int page, int pageSize){
         mDisposable = AppClient.getAPIService().getAttentionCard(page,pageSize)
-                .compose(BaseRxJava.<BaseArrayBean<HotCardBean>>io_main())
-                .compose(BaseRxJava.<HotCardBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<HotCardBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<HotCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<HotCardBean>>(mPresenter) {
                     @Override
                     public void onNext(List<HotCardBean> list) {

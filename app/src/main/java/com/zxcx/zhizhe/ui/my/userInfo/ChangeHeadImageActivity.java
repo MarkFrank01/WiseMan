@@ -137,8 +137,8 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
 
     public void changeImageUrl(String imageUrl){
         mDisposable = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null, null)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(this))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(this))
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
                     public void onNext(UserInfoBean bean) {

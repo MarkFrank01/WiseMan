@@ -17,8 +17,8 @@ public class CardBagModel extends BaseModel<CardBagContract.Presenter> {
 
     public void getCardBagCardList(int id, int page, int pageSize){
         mDisposable = AppClient.getAPIService().getCardBagCardList(id,page,pageSize)
-                .compose(BaseRxJava.<BaseArrayBean<CardBagBean>>io_main())
-                .compose(BaseRxJava.<CardBagBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<CardBagBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CardBagBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CardBagBean>>(mPresenter) {
                     @Override
                     public void onNext(List<CardBagBean> list) {

@@ -54,7 +54,7 @@ public interface APIService {
      * 700:已注册
      */
     @POST("/user/isPhoneAlreadyBanding")
-    Flowable<BaseBean> checkPhoneRegistered(@Query("phoneNumber") String phone);
+    Flowable<BaseBean<?>> checkPhoneRegistered(@Query("phoneNumber") String phone);
 
     /**
      * 验证短信验证码
@@ -114,7 +114,7 @@ public interface APIService {
      * 第三方绑定解绑
      */
     @POST("/user/thirdPartyBindingUnbinding")
-    Flowable<BaseBean> channelBinding(
+    Flowable<BaseBean<?>> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
             @Query("openId") String openId);
 
@@ -131,14 +131,14 @@ public interface APIService {
      * 修改密码
      */
     @POST("/user/modifyPassword")
-    Flowable<BaseBean> changePassword(
+    Flowable<BaseBean<?>> changePassword(
             @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     /**
      * 修改手机号
      */
     @POST("/user/modifyPhoneNum")
-    Flowable<BaseBean> changePhone(
+    Flowable<BaseBean<?>> changePhone(
             @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey);
 
     /**
@@ -292,7 +292,7 @@ public interface APIService {
      * 修改兴趣选择列表
      */
     @POST("/collection/followCollection")
-    Flowable<BaseBean> changeAttentionList(
+    Flowable<BaseBean<?>> changeAttentionList(
             @Query("collectionList") List<Integer> idList);
 
     /**
@@ -305,7 +305,7 @@ public interface APIService {
      * 卡片阅读30秒
      */
     @POST("/article/readArticle")
-    Flowable<BaseBean> readArticle(@Query("articleId") int cardId);
+    Flowable<BaseBean<?>> readArticle(@Query("articleId") int cardId);
 
     /**
      * 添加收藏卡片
@@ -347,7 +347,7 @@ public interface APIService {
      *提交反馈
      */
     @POST("/feedback/sumbitFeedbadk")
-    Flowable<BaseBean> feedback(
+    Flowable<BaseBean<?>> feedback(
             @Query("content") String content,@Query("contact") String contact,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
@@ -415,7 +415,7 @@ public interface APIService {
      * @return
      */
     @POST("/user/messageSetting")
-    Flowable<BaseBean> setMessageSetting(
+    Flowable<BaseBean<?>> setMessageSetting(
             @Query("systemMessageSetting") int systemMessageSetting,
             @Query("dynamicMessageSetting") int dynamicMessageSetting);
 
@@ -427,7 +427,7 @@ public interface APIService {
      * @return
      */
     @POST("/user/applyWriterQualification")
-    Flowable<BaseBean> applyCreation(
+    Flowable<BaseBean<?>> applyCreation(
             @Query("realName") String name,@Query("phoneNum") String phone
             ,@Query("identityId") String idCard);
 
@@ -456,7 +456,7 @@ public interface APIService {
      * 清空动态消息列表
      */
     @POST("/message/deleteDynamicMessage")
-    Flowable<BaseBean> deleteDynamicMessageList(
+    Flowable<BaseBean<?>> deleteDynamicMessageList(
             @Query("messageType") int messageType);
 
     /**
@@ -471,7 +471,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("/note/submitFreeNode")
-    Flowable<BaseBean> saveFreeNode(
+    Flowable<BaseBean<?>> saveFreeNode(
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("collectionId") Integer classifyId,
             @Field("content") String content, @Query("submitType") Integer submitType);
@@ -481,7 +481,7 @@ public interface APIService {
      */
     @FormUrlEncoded
     @POST("/note/submitCardNode")
-    Flowable<BaseBean> saveCardNode(
+    Flowable<BaseBean<?>> saveCardNode(
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
             @Field("content") String content);

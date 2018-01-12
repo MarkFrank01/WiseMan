@@ -14,8 +14,8 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 
     public void getRejectDetails(int RejectId){
         mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,2)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
                 .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(RejectDetailsBean bean) {
@@ -27,8 +27,8 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 
     public void getReviewDetails(int RejectId){
         mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,1)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
                 .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(RejectDetailsBean bean) {

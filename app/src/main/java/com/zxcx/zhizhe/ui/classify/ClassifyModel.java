@@ -18,8 +18,8 @@ public class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
 
     public void getClassify(){
         mDisposable = AppClient.getAPIService().getClassify()
-                .compose(BaseRxJava.<BaseArrayBean<ClassifyBean>>io_main())
-                .compose(BaseRxJava.<ClassifyBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<ClassifyBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<ClassifyBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<ClassifyBean>>(mPresenter) {
                     @Override
                     public void onNext(List<ClassifyBean> list) {

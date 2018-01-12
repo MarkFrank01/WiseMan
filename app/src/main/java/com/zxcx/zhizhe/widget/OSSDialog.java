@@ -124,8 +124,8 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 
     public void getOSS(String uuid){
         mDisposable = AppClient.getAPIService().getOSS(uuid)
-                .compose(BaseRxJava.<OSSTokenBean>handleResult())
-                .compose(BaseRxJava.<OSSTokenBean>io_main())
+                .compose(BaseRxJava.INSTANCE.<OSSTokenBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<OSSTokenBean>io_main())
                 .subscribeWith(new BaseSubscriber<OSSTokenBean>(this) {
                     @Override
                     public void onNext(OSSTokenBean bean) {

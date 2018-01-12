@@ -57,8 +57,8 @@ public class ChangeSexActivity extends BaseActivity implements IPostPresenter<Us
 
     public void changeSex(int sex) {
         mDisposable = AppClient.getAPIService().changeUserInfo(null, null, sex, null, null)
-                .compose(BaseRxJava.<BaseBean<UserInfoBean>>io_main())
-                .compose(BaseRxJava.<UserInfoBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<BaseBean<UserInfoBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<UserInfoBean>handleResult())
                 .subscribeWith(new PostSubscriber<UserInfoBean>(this) {
                     @Override
                     public void onNext(UserInfoBean bean) {

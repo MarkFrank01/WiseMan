@@ -16,8 +16,8 @@ public class NoteDetailsModel extends BaseModel<NoteDetailsContract.Presenter> {
 
     public void getNoteDetails(int noteId, int noteType){
         mDisposable = AppClient.getAPIService().getNoteDetails(noteId,noteType)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
                 .subscribeWith(new BaseSubscriber<NoteDetailsBean>(mPresenter) {
                     @Override
                     public void onNext(NoteDetailsBean bean) {
@@ -29,8 +29,8 @@ public class NoteDetailsModel extends BaseModel<NoteDetailsContract.Presenter> {
 
     public void submitReview(int noteId) {
         mDisposable = AppClient.getAPIService().saveFreeNode(noteId,null,null, null,null,1)
-                .compose(BaseRxJava.io_main_loading(mPresenter))
-                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
 
                     @Override

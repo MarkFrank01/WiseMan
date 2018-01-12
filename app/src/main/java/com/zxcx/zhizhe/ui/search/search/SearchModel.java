@@ -27,8 +27,8 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
 
     public void getSearchHot(){
         mDisposable = AppClient.getAPIService().getSearchHot()
-                .compose(BaseRxJava.handleArrayResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new BaseSubscriber<List<SearchBean>>(mPresenter) {
                     @Override
                     public void onNext(List<SearchBean> list) {
@@ -78,8 +78,8 @@ public class SearchModel extends BaseModel<SearchContract.Presenter> {
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .filter(s -> s.length() > 0)
                 .switchMap(s -> AppClient.getAPIService().getSearchPre(keyword)
-                        .compose(BaseRxJava.handleArrayResult()))
-                .compose(BaseRxJava.io_main())
+                        .compose(BaseRxJava.INSTANCE.handleArrayResult()))
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new BaseSubscriber<List<String>>(mPresenter) {
                     @Override
                     public void onNext(List<String> list) {

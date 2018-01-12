@@ -15,8 +15,8 @@ class LoginModel(present: LoginContract.Presenter) : BaseModel<LoginContract.Pre
         this.mPresenter = present
     }
 
-    fun phoneLogin(phone: String, password: String, jpushRID: String, appType: Int, appChannel: String, appVersion: String) {
-        mDisposable = AppClient.getAPIService().phoneLogin(phone, password, jpushRID, appType, appChannel, appVersion)
+    fun phoneLogin(phone:String?, password:String?, jpushRID:String?, appType: Int?, appChannel:String?, appVersion:String?) {
+        mDisposable = AppClient.getAPIService().phoneLogin(phone, password, jpushRID, appType!!, appChannel, appVersion)
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main_loading(mPresenter))
                 .subscribeWith(object : BaseSubscriber<LoginBean>(mPresenter) {
@@ -27,8 +27,8 @@ class LoginModel(present: LoginContract.Presenter) : BaseModel<LoginContract.Pre
         addSubscription(mDisposable)
     }
 
-    fun channelLogin(channelType: Int, openId: String, jpushRID: String, appType: Int, appChannel: String, appVersion: String) {
-        mDisposable = AppClient.getAPIService().channelLogin(channelType, openId, jpushRID, appType, appChannel, appVersion)
+    fun channelLogin(channelType: Int?, openId:String?, jpushRID:String?, appType: Int?, appChannel:String?, appVersion:String?) {
+        mDisposable = AppClient.getAPIService().channelLogin(channelType!!, openId, jpushRID, appType!!, appChannel, appVersion)
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main_loading(mPresenter))
                 .subscribeWith(object : BaseSubscriber<LoginBean>(mPresenter) {

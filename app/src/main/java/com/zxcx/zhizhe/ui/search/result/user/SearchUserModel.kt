@@ -22,5 +22,3 @@ class SearchUserModel(presenter: SearchUserContract.Presenter) : BaseModel<Searc
         addSubscription(mDisposable)
     }
 }
-
-

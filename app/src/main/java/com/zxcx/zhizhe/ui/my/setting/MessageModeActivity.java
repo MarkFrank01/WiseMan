@@ -57,8 +57,8 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
 
     public void getMessageSetting(){
         mDisposable = AppClient.getAPIService().getMessageSetting()
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new NullPostSubscriber<MessageModeBean>(this){
 
                     @Override
@@ -71,8 +71,8 @@ public class MessageModeActivity extends BaseActivity implements INullGetPostPre
 
     public void setMessageSetting(int systemMessageSetting,int dynamicMessageSetting){
         mDisposable = AppClient.getAPIService().setMessageSetting(systemMessageSetting,dynamicMessageSetting)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new NullPostSubscriber<BaseBean>(this){
 
                     @Override

@@ -17,8 +17,8 @@ public class CollectCardModel extends BaseModel<CollectCardContract.Presenter> {
 
     public void getCollectCard(int sortType, int page, int pageSize){
         mDisposable = AppClient.getAPIService().getCollectCard(sortType,page,pageSize)
-                .compose(BaseRxJava.<BaseArrayBean<CollectCardBean>>io_main())
-                .compose(BaseRxJava.<CollectCardBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<CollectCardBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<CollectCardBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<CollectCardBean>>(mPresenter) {
                     @Override
                     public void onNext(List<CollectCardBean> list) {

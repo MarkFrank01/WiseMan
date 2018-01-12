@@ -22,8 +22,8 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
 
     public void phoneRegister(String phone, String verifyKey, String jpushRID, String password, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().phoneRegistered(phone,verifyKey,jpushRID,password,appType,appChannel,appVersion)
-                .compose(BaseRxJava.<LoginBean>handleResult())
-                .compose(BaseRxJava.<LoginBean>io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.<LoginBean>handleResult())
+                .compose(BaseRxJava.INSTANCE.<LoginBean>io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean bean) {
@@ -35,8 +35,8 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
 
     public void checkPhoneRegistered(String phone){
         mDisposable = AppClient.getAPIService().checkPhoneRegistered(phone)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean loginBean) {
@@ -70,8 +70,8 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> {
 
     public void smsCodeVerification(String phone, String code){
         mDisposable = AppClient.getAPIService().smsCodeVerification(phone,code)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<SMSCodeVerificationBean>(mPresenter) {
                     @Override
                     public void onNext(SMSCodeVerificationBean bean) {

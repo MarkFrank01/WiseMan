@@ -21,8 +21,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
 
     public void forgetPassword(String phone, String verifyKey, String jpushRID, String password, int appType){
         mDisposable = AppClient.getAPIService().forgetPassword(phone,verifyKey,jpushRID,password,appType)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean bean) {
@@ -36,8 +36,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
                                 String birthday, String phone, String verifyKey, String jpushRID, int appType, String appChannel, String appVersion){
         mDisposable = AppClient.getAPIService().channelRegister(channelType,openId,password,userIcon,name,
                 sex,birthday,phone,verifyKey,jpushRID,appType,appChannel,appVersion)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<LoginBean>(mPresenter) {
                     @Override
                     public void onNext(LoginBean bean) {
@@ -49,8 +49,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
 
     public void changePhone(String phone, String verifyKey) {
         mDisposable = AppClient.getAPIService().changePhone(phone, verifyKey)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean bean) {
@@ -62,8 +62,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
 
     public void checkPhoneRegistered(String phone){
         mDisposable = AppClient.getAPIService().checkPhoneRegistered(phone)
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handlePostResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<BaseBean>(mPresenter) {
                     @Override
                     public void onNext(BaseBean loginBean) {
@@ -97,8 +97,8 @@ public class ForgetPasswordModel extends BaseModel<ForgetPasswordContract.Presen
 
     public void smsCodeVerification(String phone, String code){
         mDisposable = AppClient.getAPIService().smsCodeVerification(phone,code)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.INSTANCE.handleResult())
+                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
                 .subscribeWith(new BaseSubscriber<SMSCodeVerificationBean>(mPresenter) {
                     @Override
                     public void onNext(SMSCodeVerificationBean bean) {

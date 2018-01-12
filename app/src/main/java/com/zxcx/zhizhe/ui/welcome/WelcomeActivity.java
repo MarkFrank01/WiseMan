@@ -118,8 +118,8 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 
     public void getAD(String adNum) {
         mDisposable = AppClient.getAPIService().getAD(adNum)
-                .compose(BaseRxJava.<BaseArrayBean<WelcomeBean>>io_main())
-                .compose(BaseRxJava.<WelcomeBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<WelcomeBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<WelcomeBean>handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<WelcomeBean>>(this) {
                     @Override
                     public void onNext(List<WelcomeBean> list) {
