@@ -16,7 +16,7 @@ class IntelligenceValueModel(presenter: IntelligenceValueContract.Presenter) : B
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(object : BaseSubscriber<IntelligenceValueBean>(mPresenter) {
                     override fun onNext(bean: IntelligenceValueBean) {
-                        mPresenter.getDataSuccess(bean)
+                        mPresenter?.getDataSuccess(bean)
                     }
                 })
         addSubscription(mDisposable)

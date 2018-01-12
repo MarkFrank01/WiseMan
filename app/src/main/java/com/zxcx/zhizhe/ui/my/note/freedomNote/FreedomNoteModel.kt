@@ -17,7 +17,7 @@ class FreedomNoteModel(presenter: FreedomNoteContract.Presenter) : BaseModel<Fre
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<NoteBean>>(mPresenter) {
                     override fun onNext(list: List<NoteBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

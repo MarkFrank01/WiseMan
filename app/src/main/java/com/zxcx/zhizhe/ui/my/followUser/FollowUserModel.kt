@@ -17,7 +17,7 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<FollowUserBean>>(mPresenter) {
                     override fun onNext(list: List<FollowUserBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)
@@ -29,7 +29,7 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : PostSubscriber<FollowUserBean>(mPresenter) {
                     override fun onNext(bean: FollowUserBean) {
-                        mPresenter.postSuccess(bean)
+                        mPresenter?.postSuccess(bean)
                     }
                 })
         addSubscription(mDisposable)
@@ -41,7 +41,7 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : PostSubscriber<FollowUserBean>(mPresenter) {
                     override fun onNext(bean: FollowUserBean) {
-                        mPresenter.unFollowUserSuccess(bean)
+                        mPresenter?.unFollowUserSuccess(bean)
                     }
                 })
         addSubscription(mDisposable)

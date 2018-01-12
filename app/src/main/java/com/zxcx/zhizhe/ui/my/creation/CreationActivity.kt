@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.widget.TextView
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
@@ -14,6 +15,9 @@ import com.zxcx.zhizhe.ui.search.result.card.CreationInReviewFragment
 import com.zxcx.zhizhe.ui.search.result.card.CreationPassedFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_creation.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by anm on 2017/12/14.
@@ -30,10 +34,16 @@ class CreationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creation)
+        EventBus.getDefault().register(this)
         ButterKnife.bind(this)
 
         initView()
         initListener()
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
     private fun initListener() {
@@ -103,5 +113,10 @@ class CreationActivity : BaseActivity() {
             transaction.hide(mCurrentFragment).add(R.id.fl_creation, newFragment).commitAllowingStateLoss()
         }
         mCurrentFragment = newFragment
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        finish()
     }
 }

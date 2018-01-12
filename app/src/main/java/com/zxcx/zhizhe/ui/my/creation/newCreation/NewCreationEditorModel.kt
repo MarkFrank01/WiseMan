@@ -17,7 +17,7 @@ class NewCreationEditorModel(presenter: NewCreationEditorContract.Presenter) : B
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
                     override fun onNext(bean: BaseBean<*>) {
-                        mPresenter.saveFreedomNoteSuccess()
+                        mPresenter?.saveFreedomNoteSuccess()
                     }
                 })
         addSubscription(mDisposable)
@@ -29,7 +29,7 @@ class NewCreationEditorModel(presenter: NewCreationEditorContract.Presenter) : B
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
                     override fun onNext(bean: BaseBean<*>) {
-                        mPresenter.postSuccess()
+                        mPresenter?.postSuccess()
                     }
                 })
         addSubscription(mDisposable)

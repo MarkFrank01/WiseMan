@@ -23,7 +23,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:maxLength="20"
-        android:hint="输入你的标题"
+        android:hint="输入标题"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"
         android:textColorHint="@color/et_new_creation_1_title"

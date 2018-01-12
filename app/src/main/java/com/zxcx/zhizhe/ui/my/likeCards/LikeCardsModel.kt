@@ -16,7 +16,7 @@ class LikeCardsModel(presenter: LikeCardsContract.Presenter) : BaseModel<LikeCar
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<LikeCardsBean>>(mPresenter) {
                     override fun onNext(list: List<LikeCardsBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

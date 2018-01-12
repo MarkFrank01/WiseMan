@@ -17,7 +17,7 @@ class RankModel(presenter: RankContract.Presenter) : BaseModel<RankContract.Pres
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<UserRankBean>>(mPresenter) {
                     override fun onNext(list: List<UserRankBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

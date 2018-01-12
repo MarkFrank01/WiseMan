@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.message.system
+package com.zxcx.zhizhe.ui.loginAndRegister.login
 
 import com.zxcx.zhizhe.App
 import com.zxcx.zhizhe.R
@@ -6,34 +6,34 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
 
-class SystemMessageModel(presenter: SystemMessageContract.Presenter) : BaseModel<SystemMessageContract.Presenter>() {
+class LoginModel(present: LoginContract.Presenter) : BaseModel<LoginContract.Presenter>() {
+
     init {
-        this.mPresenter = presenter
+        this.mPresenter = present
     }
 
-    fun getSystemMessage(page: Int, pageSize: Int) {
-        mDisposable = AppClient.getAPIService().getSystemMessage(page, pageSize)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<List<SystemMessageBean>>(mPresenter) {
-                    override fun onNext(list: List<SystemMessageBean>) {
-                        mPresenter?.getDataSuccess(list)
+    fun phoneLogin(phone: String, password: String, jpushRID: String, appType: Int, appChannel: String, appVersion: String) {
+        mDisposable = AppClient.getAPIService().phoneLogin(phone, password, jpushRID, appType, appChannel, appVersion)
+                .compose(BaseRxJava.handleResult())
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .subscribeWith(object : BaseSubscriber<LoginBean>(mPresenter) {
+                    override fun onNext(loginBean: LoginBean) {
+                        mPresenter?.getDataSuccess(loginBean)
                     }
                 })
         addSubscription(mDisposable)
     }
 
-    fun getRejectDetails(cardId: Int) {
-        mDisposable = AppClient.getAPIService().getRejectDetails(cardId,2)
-                .compose(BaseRxJava.io_main())
+    fun channelLogin(channelType: Int, openId: String, jpushRID: String, appType: Int, appChannel: String, appVersion: String) {
+        mDisposable = AppClient.getAPIService().channelLogin(channelType, openId, jpushRID, appType, appChannel, appVersion)
                 .compose(BaseRxJava.handleResult())
-                .subscribeWith(object : BaseSubscriber<RejectDetailsBean>(mPresenter) {
-                    override fun onNext(bean: RejectDetailsBean) {
-                        mPresenter?.getCardSuccess(bean.id)
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .subscribeWith(object : BaseSubscriber<LoginBean>(mPresenter) {
+                    override fun onNext(loginBean: LoginBean) {
+                        mPresenter?.channelLoginSuccess(loginBean)
                     }
 
                     override fun onError(t: Throwable) {
@@ -45,7 +45,7 @@ class SystemMessageModel(presenter: SystemMessageContract.Presenter) : BaseModel
                                 t.printStackTrace()
                                 LogCat.d(t.message)
                                 if (Constants.NEED_LOGIN == code1) {
-                                    mPresenter?.getCardNoFound()
+                                    mPresenter?.channelLoginNeedRegister()
                                 } else {
                                     mPresenter?.getDataFail(message)
                                 }

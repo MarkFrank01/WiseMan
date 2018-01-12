@@ -16,7 +16,7 @@ class SearchUserModel(presenter: SearchUserContract.Presenter) : BaseModel<Searc
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<SearchUserBean>>(mPresenter) {
                     override fun onNext(list: List<SearchUserBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

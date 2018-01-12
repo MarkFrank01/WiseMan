@@ -41,7 +41,7 @@ class OtherUserActivity : BaseActivity() , IGetPresenter<OtherUserInfoBean>{
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : BaseSubscriber<OtherUserInfoBean>(this){
-                    override fun onNext(t: OtherUserInfoBean?) {
+                    override fun onNext(t: OtherUserInfoBean) {
                         getDataSuccess(t)
                     }
                 })

@@ -20,7 +20,7 @@ class DynamicMessageListModel(presenter: DynamicMessageListContract.Presenter) :
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<DynamicMessageListBean>>(mPresenter) {
                     override fun onNext(list: List<DynamicMessageListBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)
@@ -32,7 +32,7 @@ class DynamicMessageListModel(presenter: DynamicMessageListContract.Presenter) :
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(object : BaseSubscriber<BaseBean<*>>(mPresenter) {
                     override fun onNext(list: BaseBean<*>) {
-                        mPresenter.postSuccess()
+                        mPresenter?.postSuccess()
                     }
                 })
         addSubscription(mDisposable)

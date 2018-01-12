@@ -17,7 +17,7 @@ class CardNoteModel(presenter: CardNoteContract.Presenter) : BaseModel<CardNoteC
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<NoteBean>>(mPresenter) {
                     override fun onNext(list: List<NoteBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

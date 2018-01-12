@@ -453,7 +453,10 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (isError) return;
+                if (isError) {
+                    isError = false;
+                    return;
+                }
                 if (loadService != null) {
                     loadService.showSuccess();
                     loadService = null;

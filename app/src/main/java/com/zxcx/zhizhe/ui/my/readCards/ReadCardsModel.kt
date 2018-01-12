@@ -16,7 +16,7 @@ class ReadCardsModel(presenter: ReadCardsContract.Presenter) : BaseModel<ReadCar
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<ReadCardsBean>>(mPresenter) {
                     override fun onNext(list: List<ReadCardsBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

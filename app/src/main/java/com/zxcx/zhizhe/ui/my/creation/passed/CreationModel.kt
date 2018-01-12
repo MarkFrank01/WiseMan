@@ -16,7 +16,7 @@ class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationC
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<CreationBean>>(mPresenter) {
                     override fun onNext(list: List<CreationBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)
@@ -28,7 +28,7 @@ class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationC
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<CreationBean>>(mPresenter) {
                     override fun onNext(list: List<CreationBean>) {
-                        mPresenter.getDataSuccess(list)
+                        mPresenter?.getDataSuccess(list)
                     }
                 })
         addSubscription(mDisposable)
