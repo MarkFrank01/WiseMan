@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -57,15 +58,18 @@ public class CreationAgreementDialog extends BaseDialog {
     public void onStart() {
         super.onStart();
 
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
         /*window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(84),
                 ScreenUtils.dip2px(10), ScreenUtils.dip2px(84));*/
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.CENTER;
-        lp.width = ScreenUtils.getScreenWidth() - ScreenUtils.dip2px(20);
-        lp.height = ScreenUtils.getScreenHeight() - ScreenUtils.dip2px(168);
-        window.setAttributes(lp);
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.gravity = Gravity.CENTER;
+            lp.width = ScreenUtils.getScreenWidth() - ScreenUtils.dip2px(20);
+            lp.height = ScreenUtils.getScreenHeight() - ScreenUtils.dip2px(168);
+            window.setAttributes(lp);
+        }
     }
 
     @Override

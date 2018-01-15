@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.widget;
 
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -125,15 +126,17 @@ public class GetPicBottomDialog extends BaseDialog {
     public void onStart() {
         super.onStart();
 
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.BOTTOM;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.gravity = Gravity.BOTTOM;
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+        }
     }
 
     @Override

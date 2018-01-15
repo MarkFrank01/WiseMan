@@ -12,8 +12,10 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CommitNoteReviewEvent;
@@ -55,6 +57,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     ImageView mIvNoteDetailsEdit;
     @BindView(R.id.iv_note_details_source)
     ImageView mIvNoteDetailsSource;
+    @BindView(R.id.rl_note_details)
+    RelativeLayout mRlNoteDetails;
 
     private WebView mWebView;
     private int noteId;
@@ -65,6 +69,8 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     private String date;
     private String mUrl;
     private int noteType;
+    private LoadService loadService2;
+    private LoadSir loadSir2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +110,12 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     @Override
     protected NoteDetailsPresenter createPresenter() {
         return new NoteDetailsPresenter(this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        mPresenter.getNoteDetails(noteId, noteType);
+        mWebView.reload();
     }
 
     @Override
@@ -196,10 +208,16 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (isError) return;
+                if (isError) {
+                    isError = false;
+                    return;
+                }
                 if (loadService != null) {
                     loadService.showSuccess();
                     loadService = null;
+                }
+                if (loadService2 != null) {
+                    loadService2.showSuccess();
                 }
                 mLlNoteDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);
@@ -209,16 +227,20 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 isError = true;
-                loadService.showCallback(CardDetailsNetworkErrorCallback.class);
+                loadService.showSuccess();
+                if (loadService2 == null) {
+                    loadService2 = loadSir2.register(mRlNoteDetails, NoteDetailsActivity.this);
+                }
+                loadService2.showCallback(CardDetailsNetworkErrorCallback.class);
             }
         });
         mFlNoteDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + noteId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + noteId + "?fontSize=" + fontSize;
         } else {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + noteId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + noteId + "?fontSize=" + fontSize;
 
         }
         mWebView.loadUrl(mUrl);
@@ -229,10 +251,12 @@ public class NoteDetailsActivity extends MvpActivity<NoteDetailsPresenter> imple
     private void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new CardDetailsLoadingCallback())
-                .addCallback(new CardDetailsNetworkErrorCallback())
                 .setDefaultCallback(CardDetailsLoadingCallback.class)
                 .build();
         loadService = loadSir.register(mWebView, this);
+        loadSir2 = new LoadSir.Builder()
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .build();
     }
 
     private void gotoShare(String url) {

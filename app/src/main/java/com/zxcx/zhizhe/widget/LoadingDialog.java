@@ -49,13 +49,15 @@ public class LoadingDialog extends BaseDialog {
         super.onStart();
 
         Dialog dialog = getDialog();
-        Window window = dialog.getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.dimAmount = 0.0f;
-        lp.width = ScreenUtils.dip2px(80);
-        lp.height = ScreenUtils.dip2px(80);
-        window.setAttributes(lp);
+        if (dialog != null) {
+            Window window = dialog.getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.dimAmount = 0.0f;
+            lp.width = ScreenUtils.dip2px(80);
+            lp.height = ScreenUtils.dip2px(80);
+            window.setAttributes(lp);
+        }
     }
 
     @Override

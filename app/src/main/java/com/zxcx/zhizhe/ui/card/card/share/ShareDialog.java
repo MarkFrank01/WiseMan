@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card.card.share;
 
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -70,15 +71,17 @@ public class ShareDialog extends BaseDialog {
     @Override
     public void onStart() {
         super.onStart();
-
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.BOTTOM;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = getDialog().getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.gravity = Gravity.BOTTOM;
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+        }
     }
 
     @Override

@@ -2,14 +2,23 @@ package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback;
+import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpActivity;
 import com.zxcx.zhizhe.retrofit.APIService;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
@@ -36,6 +45,8 @@ public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     TextView mTvRejectDetailsInfo;
     @BindView(R.id.tv_reject_details_reject_bag)
     TextView mTvRejectDetailsRejectBag;
+    @BindView(R.id.sv_reject_details)
+    ScrollView mSvRejectDetails;
 
     private WebView mWebView;
     private int cardId;
@@ -44,6 +55,8 @@ public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     private String author;
     private String imageUrl;
     private String date;
+    private LoadService loadService2;
+    private LoadSir loadSir2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +96,12 @@ public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     @Override
     protected RejectDetailsPresenter createPresenter() {
         return new RejectDetailsPresenter(this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        mPresenter.getReviewDetails(cardId);
+        mWebView.reload();
     }
 
     @Override
@@ -126,11 +145,52 @@ public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
             mTvRejectDetailsInfo.setText(getString(R.string.tv_card_info, date, author));
         if (!StringUtils.isEmpty(imageUrl))
             ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, mIvRejectDetails);
+        initWebView();
 
+        initLoadSir();
+    }
+
+    private void initWebView() {
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            boolean isError = false;
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                if (isError) {
+                    isError = false;
+                    return;
+                }
+                if (loadService != null) {
+                    loadService.showSuccess();
+                    loadService = null;
+                }
+                if (loadService2 != null) {
+                    loadService2.showSuccess();
+                }
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                isError = true;
+                loadService.showSuccess();
+                if (loadService2 == null) {
+                    loadService2 = loadSir2.register(mSvRejectDetails, ReviewDetailsActivity.this);
+                }
+                loadService2.showCallback(CardDetailsNetworkErrorCallback.class);
+            }
+        });
+        mWebView.setFocusable(false);
         mFlRejectDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         String url;
@@ -142,5 +202,16 @@ public class ReviewDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
         }
         mWebView.loadUrl(url);
+    }
+
+    private void initLoadSir() {
+        LoadSir loadSir = new LoadSir.Builder()
+                .addCallback(new CardDetailsLoadingCallback())
+                .setDefaultCallback(CardDetailsLoadingCallback.class)
+                .build();
+        loadService = loadSir.register(mWebView, this);
+        loadSir2 = new LoadSir.Builder()
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .build();
     }
 }

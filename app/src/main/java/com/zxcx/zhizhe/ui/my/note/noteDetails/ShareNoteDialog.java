@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -86,16 +87,18 @@ public class ShareNoteDialog extends BaseDialog {
     @Override
     public void onStart() {
         super.onStart();
-
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(10),
-                ScreenUtils.dip2px(10), ScreenUtils.dip2px(10));
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.CENTER;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        window.setAttributes(lp);
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = getDialog().getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(10),
+                    ScreenUtils.dip2px(10), ScreenUtils.dip2px(10));
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.gravity = Gravity.CENTER;
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes(lp);
+        }
 
         ViewGroup.LayoutParams para = mIvDialogShare.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度

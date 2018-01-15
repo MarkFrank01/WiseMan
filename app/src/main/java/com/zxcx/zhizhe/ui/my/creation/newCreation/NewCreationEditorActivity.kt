@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.utils.FileUtil
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.widget.OSSDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
 import org.greenrobot.eventbus.EventBus
@@ -39,6 +40,11 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
         initViewListener()
+    }
+
+    override fun onBackPressed() {
+        Utils.closeInputMethod(mActivity)
+        super.onBackPressed()
     }
 
     private fun initData() {

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.register;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -50,15 +51,17 @@ public class PhoneConfirmDialog extends BaseDialog {
     @Override
     public void onStart() {
         super.onStart();
-
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawableResource(R.color.translate);
-        window.getDecorView().setPadding(ScreenUtils.dip2px(53f), 0, ScreenUtils.dip2px(53f), 0);
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.CENTER;
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            Window window = getDialog().getWindow();
+            window.setBackgroundDrawableResource(R.color.translate);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(53f), 0, ScreenUtils.dip2px(53f), 0);
+            WindowManager.LayoutParams lp = window.getAttributes();
+            lp.gravity = Gravity.CENTER;
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+        }
     }
 
     @Override

@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
@@ -127,6 +128,8 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private static final int MENU_ITEM_SHARE = 1;
     private String mUrl;
     private Date startDate;
+    private LoadService loadService2;
+    private LoadSir loadSir2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -461,6 +464,9 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
                     loadService.showSuccess();
                     loadService = null;
                 }
+                if (loadService2 != null) {
+                    loadService2.showSuccess();
+                }
                 mLlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mRlCardDetailsBottom.setVisibility(View.VISIBLE);
                 mViewLine.setVisibility(View.VISIBLE);
@@ -470,7 +476,11 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 isError = true;
-                loadService.showCallback(CardDetailsNetworkErrorCallback.class);
+                loadService.showSuccess();
+                if (loadService2 == null) {
+                    loadService2 = loadSir2.register(mSvCardDetails, CardDetailsActivity.this);
+                }
+                loadService2.showCallback(CardDetailsNetworkErrorCallback.class);
             }
         });
         mWebView.setFocusable(false);
@@ -489,10 +499,12 @@ public class CardDetailsActivity extends MvpActivity<CardDetailsPresenter> imple
     private void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new CardDetailsLoadingCallback())
-                .addCallback(new CardDetailsNetworkErrorCallback())
                 .setDefaultCallback(CardDetailsLoadingCallback.class)
                 .build();
         loadService = loadSir.register(mWebView, this);
+        loadSir2 = new LoadSir.Builder()
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .build();
     }
 
     @Override

@@ -12,8 +12,10 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent;
@@ -54,6 +56,8 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     TextView mTvRejectReedit;
     @BindView(R.id.tv_reject_details_reject_bag)
     TextView mTvRejectDetailsRejectBag;
+    @BindView(R.id.sv_reject_details)
+    ScrollView mSvRejectDetails;
 
     private WebView mWebView;
     private int cardId;
@@ -63,6 +67,8 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     private String imageUrl;
     private String date;
     private String mUrl;
+    private LoadService loadService2;
+    private LoadSir loadSir2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +110,12 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     @Override
     protected RejectDetailsPresenter createPresenter() {
         return new RejectDetailsPresenter(this);
+    }
+
+    @Override
+    public void onReload(View v) {
+        mPresenter.getRejectDetails(cardId);
+        mWebView.reload();
     }
 
     @Override
@@ -181,10 +193,16 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (isError) return;
+                if (isError) {
+                    isError = false;
+                    return;
+                }
                 if (loadService != null) {
                     loadService.showSuccess();
                     loadService = null;
+                }
+                if (loadService2 != null) {
+                    loadService2.showSuccess();
                 }
                 mTvRejectReedit.setVisibility(View.VISIBLE);
             }
@@ -193,16 +211,20 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 super.onReceivedError(view, request, error);
                 isError = true;
-                loadService.showCallback(CardDetailsNetworkErrorCallback.class);
+                loadService.showSuccess();
+                if (loadService2 == null) {
+                    loadService2 = loadSir2.register(mSvRejectDetails, RejectDetailsActivity.this);
+                }
+                loadService2.showCallback(CardDetailsNetworkErrorCallback.class);
             }
         });
         mFlRejectDetails.addView(mWebView);
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
         int fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1);
         if (isNight) {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize;
         } else {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId+"?fontSize="+fontSize;
+            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize;
 
         }
         mWebView.loadUrl(mUrl);
@@ -213,9 +235,11 @@ public class RejectDetailsActivity extends MvpActivity<RejectDetailsPresenter> i
     private void initLoadSir() {
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new CardDetailsLoadingCallback())
-                .addCallback(new CardDetailsNetworkErrorCallback())
                 .setDefaultCallback(CardDetailsLoadingCallback.class)
                 .build();
         loadService = loadSir.register(mWebView, this);
+        loadSir2 = new LoadSir.Builder()
+                .addCallback(new CardDetailsNetworkErrorCallback())
+                .build();
     }
 }
