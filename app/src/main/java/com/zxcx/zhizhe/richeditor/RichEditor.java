@@ -107,6 +107,7 @@ public class RichEditor extends WebView {
             setBackgroundColor(ContextCompat.getColor(context, R.color.background));
         }else {
             SETUP_HTML = context.getString(R.string.base_url)+context.getString(R.string.editor_url);
+//            SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
         }
 
         setVerticalScrollBarEnabled(false);

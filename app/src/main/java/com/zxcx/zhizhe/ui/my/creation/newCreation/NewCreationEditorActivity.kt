@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
@@ -17,6 +19,7 @@ import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.widget.OSSDialog
+import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
 import org.greenrobot.eventbus.EventBus
 import top.zibin.luban.Luban
@@ -161,9 +164,28 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         }
         iv_editor_album.setOnClickListener {
             // 激活系统图库，选择一张图片
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
+            val rxPermissions = RxPermissions(this)
+            rxPermissions
+                    .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .subscribe { permission ->
+                        when {
+                            permission.granted -> {
+                                // `permission.name` is granted !
+                                // 激活系统图库，选择一张图片
+                                val intent = Intent(Intent.ACTION_PICK)
+                                intent.type = "image/*"
+                                startActivityForResult(intent, 0)
+                            }
+                            permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+                                toastShow("权限已被拒绝！无法进行操作")
+                            else -> {
+                                // Denied permission with ask never again
+                                // Need to go to the settings
+                                val permissionDialog = PermissionDialog()
+                                permissionDialog.show(fragmentManager, "")
+                            }
+                        }
+                    }
         }
         cb_editor_eyeshield.setOnCheckedChangeListener { _, isChecked ->
             // 设置编辑器是否夜间模式
