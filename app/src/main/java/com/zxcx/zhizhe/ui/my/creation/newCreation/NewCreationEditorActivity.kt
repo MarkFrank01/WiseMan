@@ -55,7 +55,6 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         cardBagId = intent.getIntExtra("cardBagId",0)
         title = intent.getStringExtra("title")
         imageUrl = intent.getStringExtra("imageUrl")
-
         if (cardId != 0){
             editor.setCardId(cardId)
         }
