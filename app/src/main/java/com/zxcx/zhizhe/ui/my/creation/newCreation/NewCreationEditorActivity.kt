@@ -60,7 +60,6 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         }
     }
 
-
     override fun initStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
                 .keyboardEnable(true)
