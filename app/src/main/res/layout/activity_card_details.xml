@@ -58,7 +58,7 @@
                     android:layout_toRightOf="@id/tv_card_details_info"
                     android:layout_below="@id/tv_card_details_title"
                     android:paddingTop="10dp"
-                    android:paddingLeft="15dp"
+                    android:paddingLeft="12dp"
                     android:paddingRight="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
