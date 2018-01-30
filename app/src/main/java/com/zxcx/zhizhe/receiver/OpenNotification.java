@@ -33,6 +33,7 @@ public class OpenNotification extends BroadcastReceiver {
         }
         gotoActivity(context, null,0,null,null);*/
         Intent messageIntent = new Intent(context, MessageActivity.class);
+        messageIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(messageIntent);
     }
 
