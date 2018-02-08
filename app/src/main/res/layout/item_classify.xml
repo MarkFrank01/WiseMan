@@ -17,8 +17,7 @@
         android:textColor="@color/text_color_2"
         android:textSize="@dimen/text_size_text_2"
         android:background="@drawable/bg_item_classify"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="40dp"/>
 
 </RelativeLayout>

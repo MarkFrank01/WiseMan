@@ -24,7 +24,7 @@ public class ClassifyItemDecoration extends RecyclerView.ItemDecoration {
         int pos = parent.getChildAdapterPosition(view);
         int spanCount = ((GridLayoutManager)parent.getLayoutManager()).getSpanCount();
         int childCount = parent.getAdapter().getItemCount();
-        if (pos >= childCount - childCount % spanCount)// 如果是最后一行，则需要绘制底部
+        if (pos >= childCount - 1)// 如果是最后一个，则需要绘制底部
             outRect.bottom = bottomSpace;
     }
 }
