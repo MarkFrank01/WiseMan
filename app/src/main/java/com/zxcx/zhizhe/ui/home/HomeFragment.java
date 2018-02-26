@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.GotoHomeRankEvent;
+import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.mvpBase.BaseFragment;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IGetPresenter;
@@ -156,6 +157,11 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GotoHomeRankEvent event) {
         mTlHome.getTabAt(2).select();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(HomeClickRefreshEvent event) {
+        mAppBarLayout.setExpanded(true);
     }
 
     @OnClick(R.id.tv_home_search)

@@ -84,7 +84,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         initRecyclerView();
 
         getHotCard();
-        mHidden = true;
+        mHidden = false;
     }
 
     @Override
