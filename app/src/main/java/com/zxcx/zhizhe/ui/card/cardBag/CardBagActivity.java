@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
@@ -32,7 +33,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implements CardBagContract.View,
         BaseQuickAdapter.RequestLoadMoreListener {
@@ -93,7 +93,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
     }
 
     @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         onRefresh();
     }
 
@@ -110,7 +110,7 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
     @Override
     public void getDataSuccess(List<CardBagBean> list) {
         loadService.showSuccess();
-        mRefreshLayout.refreshComplete();
+        mRefreshLayout.finishRefresh();
         if (page == 0) {
             mCardBagCardAdapter.setNewData(list);
             mCardBagListAdapter.setNewData(list);
@@ -137,7 +137,6 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
         if (page == 0) {
             loadService.showCallback(NetworkErrorCallback.class);
         }
-        mRefreshLayout.refreshComplete();
         super.toastFail(msg);
     }
 

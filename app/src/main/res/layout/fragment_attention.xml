@@ -7,16 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <in.srain.cube.views.ptr.PtrFrameLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_attention_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    </in.srain.cube.views.ptr.PtrFrameLayout>
+            android:layout_height="match_parent"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </FrameLayout>

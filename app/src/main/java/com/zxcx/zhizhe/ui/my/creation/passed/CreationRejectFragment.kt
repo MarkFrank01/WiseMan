@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation.passed
 
-import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
@@ -10,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
@@ -72,7 +72,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     override fun getDataSuccess(list: List<CreationBean>) {
-        mRefreshLayout.refreshComplete()
+        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -88,7 +88,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         }
     }
 
-    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
         mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
     }

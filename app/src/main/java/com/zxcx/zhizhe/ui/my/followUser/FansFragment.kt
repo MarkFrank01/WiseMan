@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.followUser
 
-import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
@@ -82,7 +82,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
     }
 
     override fun getDataSuccess(list: List<FollowUserBean>) {
-        mRefreshLayout.refreshComplete()
+        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -139,7 +139,7 @@ class FansFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContra
         }
     }
 
-    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
         mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
     }

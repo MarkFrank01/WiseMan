@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,11 +14,12 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
-import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback;
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
@@ -38,7 +38,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class HotFragment extends RefreshMvpFragment<HotPresenter> implements HotContract.View,
         BaseQuickAdapter.RequestLoadMoreListener {
@@ -57,8 +56,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_hot, container, false);
         unbinder = ButterKnife.bind(this, root);
-        mRefreshLayout = (PtrFrameLayout) root.findViewById(R.id.refresh_layout);
-        mRefreshLayout.disableWhenHorizontalMove(true);
+        mRefreshLayout = root.findViewById(R.id.refresh_layout);
         LoadSir loadSir = new LoadSir.Builder()
                 .addCallback(new HomeLoadingCallback())
                 .addCallback(new LoginTimeoutCallback())
@@ -116,12 +114,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     }
 
     @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return mAppBarLayoutVerticalOffset == 0 && !ViewCompat.canScrollVertically(frame.getContentView(), -1);
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         mPage = 0;
         getHotCard();
     }
@@ -135,7 +128,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     public void getDataSuccess(List<RecommendBean> list) {
         //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         loadService.showSuccess();
-        mRefreshLayout.refreshComplete();
+        mRefreshLayout.finishRefresh();
         if (mPage == 0) {
             mCardAdapter.setNewData(list);
             mRvHotCard.scrollToPosition(0);

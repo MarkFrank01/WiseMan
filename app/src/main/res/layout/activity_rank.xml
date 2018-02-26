@@ -12,7 +12,7 @@
         android:id="@+id/ll_toolbar"
         layout="@layout/toolbar"/>
 
-    <in.srain.cube.views.ptr.PtrFrameLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,5 +27,5 @@
             tools:listitem="@layout/item_rank_user"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    </in.srain.cube.views.ptr.PtrFrameLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

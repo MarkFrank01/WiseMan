@@ -5,19 +5,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.zxcx.zhizhe.widget.RefreshHeader;
-
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class RefreshMvpFragment<P extends BasePresenter> extends MvpFragment<P> implements PtrHandler {
+public abstract class RefreshMvpFragment<P extends BasePresenter> extends MvpFragment<P> implements OnRefreshListener{
 
-    public PtrFrameLayout mRefreshLayout;
-    public RefreshHeader mRefreshHeader;
+    public SmartRefreshLayout mRefreshLayout;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -27,22 +24,13 @@ public abstract class RefreshMvpFragment<P extends BasePresenter> extends MvpFra
 
     private void initRefreshLayout() {
         if (mRefreshLayout != null) {
-            mRefreshHeader = new RefreshHeader(mActivity);
-            mRefreshLayout.setDurationToCloseHeader(2000);
-            mRefreshLayout.setHeaderView(mRefreshHeader);
-            mRefreshLayout.addPtrUIHandler(mRefreshHeader);
-            mRefreshLayout.setPtrHandler(this);
+            mRefreshLayout.setOnRefreshListener(this);
         }
     }
 
     @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return !frame.getContentView().canScrollVertically(-1);
-    }
-
-    @Override
     public void toastFail(String msg) {
-        mRefreshLayout.refreshComplete();
+        mRefreshLayout.finishRefresh();
         super.toastFail(msg);
     }
 }

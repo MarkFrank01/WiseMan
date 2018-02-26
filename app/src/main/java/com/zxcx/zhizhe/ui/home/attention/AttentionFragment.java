@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.core.LoadSir;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
@@ -44,7 +45,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> implements AttentionContract.View,
         BaseQuickAdapter.RequestLoadMoreListener {
@@ -146,12 +146,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return mAppBarLayoutVerticalOffset == 0 && !frame.getContentView().canScrollVertically(-1);
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         onRefresh();
     }
 
@@ -168,7 +163,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     @Override
     public void getDataSuccess(List<HotCardBean> list) {
         loadService.showSuccess();
-        mRefreshLayout.refreshComplete();
+        mRefreshLayout.finishRefresh();
         if (page == 0){
             mCardAdapter.setNewData(list);
             mRvAttentionCard.scrollToPosition(0);

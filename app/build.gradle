@@ -166,7 +166,7 @@ dependencies {
     //格式化Log输出
     compile 'com.orhanobut:logger:2.1.1'
     //下拉刷新库
-    compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     //Room
     compile "android.arch.persistence.room:runtime:1.0.0"
     compile "android.arch.persistence.room:rxjava2:1.0.0"

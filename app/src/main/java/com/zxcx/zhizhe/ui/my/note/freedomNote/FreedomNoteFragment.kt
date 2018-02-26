@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.note.freedomNote
 
-import `in`.srain.cube.views.ptr.PtrFrameLayout
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitNoteReviewEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
@@ -66,7 +66,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
     }
 
     override fun getDataSuccess(list: List<NoteBean>) {
-        mRefreshLayout.refreshComplete()
+        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -82,7 +82,7 @@ class FreedomNoteFragment : RefreshMvpFragment<FreedomNotePresenter>(), FreedomN
         }
     }
 
-    override fun onRefreshBegin(frame: PtrFrameLayout?) {
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
         mPresenter.getFreedomNote(mSortType,mPage,mPageSize)
     }
