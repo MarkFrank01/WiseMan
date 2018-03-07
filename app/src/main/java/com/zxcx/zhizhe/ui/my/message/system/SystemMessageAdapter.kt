@@ -84,8 +84,9 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
 
     private fun setRankContent(helper: BaseViewHolder, item: SystemMessageBean) {
         val startIndex = item.content?.indexOf("第")
-        if (startIndex != null) {
-            val rank = item.content?.substring(startIndex + 1, startIndex + 2)
+        val endIndex = item.content?.indexOf("名")
+        if (startIndex != null && endIndex != null) {
+            val rank = item.content?.substring(startIndex + 1, endIndex)
             val tv = helper.getView<TextView>(R.id.tv_item_system_message_content)
             TextViewUtils.setTextViewColorAndBold(tv, rank, item.content)
         }

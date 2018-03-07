@@ -87,13 +87,13 @@ dependencies {
     //自动换行布局
     compile 'com.google.android:flexbox:0.3.0'
     //拖动布局
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
     //MD设计库
     compile 'com.android.support:design:26.1.0'
     //去除方法数限制
-    compile 'com.android.support:multidex:1.0.2'
-    androidTestCompile 'com.android.support:multidex:1.0.2'
-    androidTestCompile 'com.android.support:multidex-instrumentation:1.0.2'
+    compile 'com.android.support:multidex:1.0.3'
+    androidTestCompile 'com.android.support:multidex:1.0.3'
+    androidTestCompile 'com.android.support:multidex-instrumentation:1.0.3'
     //状态栏工具
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     //Glide
@@ -157,7 +157,7 @@ dependencies {
 //    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     //kotlin支持
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //Chuck 一个用来记录展示网络请求详情的调试工具库
     debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
 //    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
