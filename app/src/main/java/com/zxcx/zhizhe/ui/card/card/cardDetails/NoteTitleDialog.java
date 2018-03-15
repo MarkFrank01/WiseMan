@@ -1,27 +1,22 @@
 package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.SaveCardNoteSuccessEvent;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
+import com.zxcx.zhizhe.mvpBase.CommonDialog;
 import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,7 +29,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class NoteTitleDialog extends BaseDialog implements INullPostPresenter{
+public class NoteTitleDialog extends CommonDialog implements INullPostPresenter{
 
     Unbinder unbinder;
     @BindView(R.id.tv_dialog_cancel)
@@ -60,28 +55,8 @@ public class NoteTitleDialog extends BaseDialog implements INullPostPresenter{
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            Window window = getDialog().getWindow();
-            window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(52), 0, ScreenUtils.dip2px(52), 0);
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.gravity = Gravity.CENTER;
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-        }
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogConfirm.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogNoteTitle.getPaint();
-        tp.setFakeBoldText(true);
         initData();
     }
 

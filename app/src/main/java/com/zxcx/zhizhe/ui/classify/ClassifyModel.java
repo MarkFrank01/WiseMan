@@ -10,13 +10,13 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 
 import java.util.List;
 
-public class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
+class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
 
-    public ClassifyModel(@NonNull ClassifyContract.Presenter present) {
+    ClassifyModel(@NonNull ClassifyContract.Presenter present) {
         mPresenter = present;
     }
 
-    public void getClassify(){
+    void getClassify(){
         mDisposable = AppClient.getAPIService().getClassify()
                 .compose(BaseRxJava.INSTANCE.<BaseArrayBean<ClassifyBean>>io_main())
                 .compose(BaseRxJava.INSTANCE.<ClassifyBean>handleArrayResult())

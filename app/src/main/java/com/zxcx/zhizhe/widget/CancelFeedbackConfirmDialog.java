@@ -1,21 +1,16 @@
 package com.zxcx.zhizhe.widget;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.CancelFeedbackConfirmEvent;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.mvpBase.CommonDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +23,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class CancelFeedbackConfirmDialog extends BaseDialog {
+public class CancelFeedbackConfirmDialog extends CommonDialog {
 
     Unbinder unbinder;
     @BindView(R.id.tv_dialog_delete_confirm)
@@ -48,29 +43,8 @@ public class CancelFeedbackConfirmDialog extends BaseDialog {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            Window window = dialog.getWindow();
-            window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(53), 0, ScreenUtils.dip2px(53), 0);
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.gravity = Gravity.CENTER;
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-        }
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogCancel.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogConfirm.getPaint();
-        tp.setFakeBoldText(true);
         mTvDialogDeleteConfirm.setText("还有未编辑完的内容，确认退出？");
     }
 

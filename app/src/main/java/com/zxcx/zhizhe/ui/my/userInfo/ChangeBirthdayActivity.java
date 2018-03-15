@@ -54,7 +54,7 @@ public class ChangeBirthdayActivity extends BaseActivity implements IPostPresent
         changeBirthdayDialog.show(getFragmentManager(), "");*/
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
-        mDplDatePicker.setSartAndEndTime("1900-01-01 00:00", now); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        mDplDatePicker.setStartAndEndTime("1900-01-01 00:00", now); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         mDplDatePicker.showSpecificTime(false); // 不显示时和分
         mDplDatePicker.setIsLoop(false); // 不允许循环滚动
         mDplDatePicker.setNow(mBirth);

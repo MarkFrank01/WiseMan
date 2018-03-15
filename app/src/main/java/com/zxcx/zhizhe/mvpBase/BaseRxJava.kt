@@ -54,7 +54,7 @@ object BaseRxJava {
         }
     }
 
-    fun <T> handleArrayResult(): FlowableTransformer<BaseArrayBean<T>, List<T>> {
+    fun <T> handleArrayResult(): FlowableTransformer<BaseArrayBean<T>, MutableList<T>> {
         return FlowableTransformer { upstream ->
             upstream.map { result ->
                 if (Constants.RESULT_OK == result.code) {

@@ -2,19 +2,18 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_toast"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/opacity_70"
+    android:background="@color/button_blue"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="36dp">
 
     <TextView
         android:id="@+id/tv_toast"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
         android:gravity="center_horizontal"
         tools:text="6666"
-        android:textSize="@dimen/text_size_text_3"
+        android:textSize="@dimen/text_size_text_2"
         android:textColor="@color/white_final"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

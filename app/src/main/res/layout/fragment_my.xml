@@ -24,7 +24,7 @@
             android:padding="10dp"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
-        
+
         <FrameLayout
             android:id="@+id/fl_my_message"
             android:layout_toLeftOf="@id/iv_my_setting"
@@ -40,7 +40,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
-            
+
             <ImageView
                 android:id="@+id/iv_message_red_point"
                 android:visibility="gone"

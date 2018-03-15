@@ -24,7 +24,7 @@ import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
-import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
@@ -51,22 +51,32 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         mLoadingDialog = new LoadingDialog();
     }
 
+    /**
+     *方便Kotlin设置控件监听器
+     */
+    public void setListener() {
+
+    }
+
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         initStatusBar();
+        setListener();
     }
 
     @Override
     public void setContentView(View view) {
         super.setContentView(view);
         initStatusBar();
+        setListener();
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         super.setContentView(view, params);
         initStatusBar();
+        setListener();
     }
 
     public void initStatusBar() {
@@ -168,6 +178,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
     }
 
     public void toastShow(int resId) {
+        String text = getString(resId);
+        toastShow(text);
+    }
+
+    public void toastShow(String text) {
+//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
@@ -175,16 +191,21 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(this);
         toast.setView(linearLayout);
-        tvToast.setText(resId);
+        tvToast.setText(text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
-//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
     }
 
-    public void toastShow(String text) {
+    public void toastError(int resId) {
+        String text = getString(resId);
+        toastError(text);
+    }
+
+    public void toastError(String text) {
 //        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
+        linearLayout.setBackgroundResource(R.color.red);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
         params.width = ScreenUtils.getScreenWidth();

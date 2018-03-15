@@ -91,7 +91,7 @@ public class DatePickerLayout extends FrameLayout {
     private boolean spanYear, spanMon, spanDay, spanHour, spanMin;
     private Calendar selectedCalender, startCalendar, endCalendar;
 
-    public void setSartAndEndTime(String startDate, String endDate) {
+    public void setStartAndEndTime(String startDate, String endDate) {
         if (isValidDate(startDate, "yyyy-MM-dd HH:mm") && isValidDate(endDate, "yyyy-MM-dd HH:mm")) {
             canAccess = true;
             selectedCalender = Calendar.getInstance();

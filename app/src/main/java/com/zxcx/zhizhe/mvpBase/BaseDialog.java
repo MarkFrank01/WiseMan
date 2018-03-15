@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
@@ -34,6 +34,11 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
     private CompositeDisposable mCompositeSubscription = null;
 
     public void toastShow(int resId) {
+        String text = getString(resId);
+        toastShow(text);
+    }
+
+    public void toastShow(String text) {
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toast, null);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
@@ -41,14 +46,21 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(getActivity());
         toast.setView(linearLayout);
-        tvToast.setText(resId);
+        tvToast.setText(text);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
         toast.show();
     }
 
-    public void toastShow(String text) {
+    public void toastError(int resId) {
+        String text = getString(resId);
+        toastError(text);
+    }
+
+    public void toastError(String text) {
+//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toast, null);
+        linearLayout.setBackgroundResource(R.color.red);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
         params.width = ScreenUtils.getScreenWidth();

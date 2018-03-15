@@ -9,6 +9,7 @@ public class Constants {
     public static final int RESULT_FAIL = 0;
     public static final int TOKEN_OUTTIME = 800;
     public static final int NEED_LOGIN = 700;
+    public static final int NEED_REGISTER = 710;
     public static final int APP_TYPE = 0;
 
     public static final String PUSH_TYPE_CARD = "card";

@@ -20,9 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created by liuwan on 2016/9/28.
- */
+
 public class CustomDatePicker {
 
     /**
@@ -93,7 +91,7 @@ public class CustomDatePicker {
             window.setGravity(Gravity.CENTER);
 
             window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(53), 0, ScreenUtils.dip2px(53), 0);
+            window.getDecorView().setPadding(ScreenUtils.dip2px(20), 0, ScreenUtils.dip2px(20), 0);
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.gravity = Gravity.CENTER;
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;

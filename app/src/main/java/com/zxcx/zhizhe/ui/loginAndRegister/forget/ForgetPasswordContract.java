@@ -8,12 +8,10 @@ import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 public interface ForgetPasswordContract {
 
     interface View extends GetView<LoginBean> {
-        void getPhoneStatusSuccess(boolean isRegistered);
         void smsCodeVerificationSuccess(SMSCodeVerificationBean bean);
     }
 
     interface Presenter extends IGetPresenter<LoginBean> {
-        void getPhoneStatusSuccess(boolean isRegistered);
         void smsCodeVerificationSuccess(SMSCodeVerificationBean bean);
     }
 }

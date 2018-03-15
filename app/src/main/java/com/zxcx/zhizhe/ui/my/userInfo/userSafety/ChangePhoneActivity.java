@@ -117,11 +117,6 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
     }
 
     @Override
-    public void getPhoneStatusSuccess(boolean isRegistered) {
-        //不需要获取手机号状态
-    }
-
-    @Override
     public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
         //验证码验证成功
         verifyKey = bean.getVerifyKey();
@@ -205,6 +200,7 @@ public class ChangePhoneActivity extends MvpActivity<ForgetPasswordPresenter> im
 
                         } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                             //获取验证码成功
+                            toastShow(R.string.send_verification_code_success);
                             mTvChangePhoneSendVerification.setClickable(false);
                             handler.post(setDjs);
                         } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {

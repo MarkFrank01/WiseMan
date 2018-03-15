@@ -17,8 +17,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
-    <!--申请未知应用安装权限，主要用于自我升级-->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- 申请未知应用安装权限，主要用于自我升级 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
         android:name=".App"
@@ -95,9 +95,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.loginAndRegister.LoginActivity"
+            android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.loginAndRegister.register.RegisterActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.welcome.WebViewActivity"
             android:screenOrientation="portrait"/>
@@ -131,7 +139,8 @@
         <activity
             android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateVisible"/>
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.my.aboutUS.AboutUSActivity"
             android:screenOrientation="portrait"/>
@@ -140,7 +149,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.selectAttention.SelectAttentionActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.feedback.help.HelpActivity"
             android:screenOrientation="portrait"/>
@@ -153,7 +163,7 @@
         <activity
             android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateVisible"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.home.rank.moreRank.RankActivity"
             android:screenOrientation="portrait"/>
@@ -205,7 +215,7 @@
         <activity
             android:name=".ui.my.creation.newCreation.NewCreationEditorActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateVisible"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.otherUser.OtherUserActivity"
             android:screenOrientation="portrait"/>
@@ -246,6 +256,14 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.setting.TextSizeChangeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.passwordLogin.PasswordLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
+            android:name=".ui.loginAndRegister.initUserInfo.InitUserInfoActivity"
             android:screenOrientation="portrait"/>
     </application>
 

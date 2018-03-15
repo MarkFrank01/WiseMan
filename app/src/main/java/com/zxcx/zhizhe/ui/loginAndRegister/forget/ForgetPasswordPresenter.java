@@ -28,10 +28,6 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
         mModel.changePhone(phone, verifyKey);
     }
 
-    public void checkPhoneRegistered(String phone){
-        mModel.checkPhoneRegistered(phone);
-    }
-
     public void smsCodeVerification(String phone, String code){
         mModel.smsCodeVerification(phone,code);
     }
@@ -44,11 +40,6 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
-    }
-
-    @Override
-    public void getPhoneStatusSuccess(boolean isRegistered) {
-        mView.getPhoneStatusSuccess(isRegistered);
     }
 
     @Override

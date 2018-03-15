@@ -1,21 +1,16 @@
 package com.zxcx.zhizhe.ui.my.userInfo.userSafety;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RemoveBindingEvent;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.ScreenUtils;
+import com.zxcx.zhizhe.mvpBase.CommonDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,7 +23,7 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/6.
  */
 
-public class RemoveBindingDialog extends BaseDialog {
+public class RemoveBindingDialog extends CommonDialog {
 
     @BindView(R.id.tv_dialog_logout)
     TextView mTvDialogLogout;
@@ -56,26 +51,6 @@ public class RemoveBindingDialog extends BaseDialog {
         super.onViewCreated(view, savedInstanceState);
         mTvDialogLogoutTitle.setText("账号解绑");
         mTvDialogLogout.setText("确定解除绑定吗");
-        TextPaint tp = mTvDialogCancel.getPaint();
-        tp.setFakeBoldText(true);
-        tp = mTvDialogConfirm.getPaint();
-        tp.setFakeBoldText(true);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            Window window = getDialog().getWindow();
-            window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(53), 0, ScreenUtils.dip2px(53), 0);
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.gravity = Gravity.CENTER;
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-        }
     }
 
     @Override

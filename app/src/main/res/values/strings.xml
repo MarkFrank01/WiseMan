@@ -76,6 +76,7 @@
     <string name="get_verification">获取验证码</string>
     <string name="re_get_verification">重新获取验证码</string>
     <string name="login_timeout">登录超时，请重新登录</string>
+    <string name="tv_login_count_down">%1$d&#160;s</string>
     <string name="tv_my_help">使用帮助</string>
     <string name="agreement">智者用户协议</string>
     <string name="agreement_url">/user-protocol.html</string>
@@ -103,7 +104,7 @@
     <string name="tv_item_card_note_info">%1$s&#160;&#160;&#160;%2$s</string>
     <string name="tv_note_info">记录于&#160;&#160;&#160;%1$s</string>
     <string name="tv_other_user_info">智力值&#160;%1$s</string>
-    <string name="tv_dialog_phone_confirm">发送验证码至&#160;%1$s&#160;吗？</string>
+    <string name="tv_dialog_phone_confirm_title">是否以手机%1$s接收验证码?</string>
     <string name="tv_dialog_phone_registered">手机号&#160;%1$s&#160;已注册，你可直接登录或找回密码</string>
     <string name="tv_dialog_phone_un_registered">手机号&#160;%1$s&#160;未注册，请核对后重试</string>
     <string name="tv_item_message_value">智力值&#160;+%1$d</string>
@@ -117,5 +118,6 @@
     <string name="card_details_light_url">/view/articleLight/</string>
     <string name="editor_dark_url">/view/zzeditor-dark</string>
     <string name="editor_url">/view/zzeditor</string>
+    <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
     <!--common-end-->
 </resources>

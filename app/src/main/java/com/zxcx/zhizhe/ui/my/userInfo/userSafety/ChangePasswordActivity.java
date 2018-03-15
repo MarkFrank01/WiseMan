@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.mvpBase.INullPostPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
-import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.Utils;
 

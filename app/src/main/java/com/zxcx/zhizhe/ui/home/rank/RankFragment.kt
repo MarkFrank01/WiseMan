@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.loadCallback.HomeRankLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.LoginActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants

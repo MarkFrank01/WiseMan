@@ -18,14 +18,6 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
         mModel.phoneRegister(phone,verifyKey,jpushRID,password,appType,appChannel,appVersion);
     }
 
-    public void checkPhoneRegistered(String phone){
-        mModel.checkPhoneRegistered(phone);
-    }
-
-    public void smsCodeVerification(String phone, String code){
-        mModel.smsCodeVerification(phone,code);
-    }
-
     @Override
     public void getDataSuccess(LoginBean bean) {
         mView.getDataSuccess(bean);
@@ -34,16 +26,6 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View> impl
     @Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
-    }
-
-    @Override
-    public void getPhoneStatusSuccess(boolean isRegistered) {
-        mView.getPhoneStatusSuccess(isRegistered);
-    }
-
-    @Override
-    public void smsCodeVerificationSuccess(SMSCodeVerificationBean bean) {
-        mView.smsCodeVerificationSuccess(bean);
     }
 
     @Override

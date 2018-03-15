@@ -19,7 +19,7 @@ import java.util.List;
 public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,BaseViewHolder> {
 
 
-    public ClassifyAdapter(List<MultiItemEntity> data) {
+    ClassifyAdapter(List<MultiItemEntity> data) {
         super(data);
         addItemType(ClassifyBean.TYPE_CLASSIFY, R.layout.item_classify_classify);
         addItemType(ClassifyCardBagBean.TYPE_CARD_BAG,R.layout.item_classify);

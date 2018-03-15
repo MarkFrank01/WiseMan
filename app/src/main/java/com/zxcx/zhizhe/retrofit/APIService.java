@@ -21,7 +21,6 @@ import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
@@ -72,6 +71,15 @@ public interface APIService {
             @Query("jpushRID") String jpushRID, @Query("password") String password,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
+
+    /**
+     * 验证码登录
+     */
+    @POST("/user/smsCodeLogin")
+    Flowable<BaseBean<LoginBean>> smsCodeLogin(
+            @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey,
+            @Query("jpushRID") String jpushRID, @Query("appType") int appType,
+            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
     /**
      * 登录
@@ -285,8 +293,8 @@ public interface APIService {
     /**
      * 获取兴趣列表
      */
-    @POST("/collection/getInterestedCollection")
-    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList();
+    /*@POST("/collection/getInterestedCollection")
+    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList();*/
 
     /**
      * 修改兴趣选择列表
