@@ -1,41 +1,59 @@
 package com.zxcx.zhizhe.ui.my.followUser
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.TextView
-import butterknife.ButterKnife
+import android.widget.CheckBox
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent
+import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserAdapter
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserContract
+import com.zxcx.zhizhe.ui.search.result.card.FollowUserPresenter
+import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_follow_user.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
-/**
- * Created by anm on 2017/12/14.
- */
-class FollowUserActivity : BaseActivity() {
-    private val titles = arrayOf("我关注的", "关注我的")
-    private var mSortType = 0
+class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener{
 
-    private val followFragment = FollowUserFragment()
-    private val fansFragment = FansFragment()
-    private var mCurrentFragment = Fragment()
+    private val mFollowType = 0
+    private var mPage = 0
+    private var mPageSize = Constants.PAGE_SIZE
+    private lateinit var mAdapter: FollowUserAdapter
+    private lateinit var mDialog: UnFollowConfirmDialog
+
+    var mSortType = 0//0倒序 1正序
+        set(value) {
+            field = value
+            mPage = 0
+            mPresenter?.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_follow_user)
-        ButterKnife.bind(this)
-        initToolBar("关注")
-        initView()
-        initListener()
+        initToolBar("我关注的")
+        EventBus.getDefault().register(this)
+        initRecyclerView()
+        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+        mDialog = UnFollowConfirmDialog()
+        iv_toolbar_right.visibility = View.VISIBLE
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
     }
 
-    private fun initListener() {
-        iv_toolbar_back.setOnClickListener {
-            onBackPressed()
-        }
+    override fun setListener() {
         iv_toolbar_right.setOnClickListener {
             if (mSortType == 1) {
                 mSortType = 0
@@ -44,56 +62,91 @@ class FollowUserActivity : BaseActivity() {
                 mSortType = 1
                 iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
             }
-            followFragment.mSortType = mSortType
-            fansFragment.mSortType = mSortType
         }
     }
 
-    private fun initView() {
-        iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
-        for (i in titles.indices) {
-            val tab = tl_follow_user.newTab()
-            tab.setCustomView(R.layout.tab_note)
-            val textView = tab.customView?.findViewById(R.id.tv_tab_note) as TextView
-            textView.text = titles[i]
-            tl_follow_user.addTab(tab)
-            //            tab.setText(titles[i]);
-        }
-        tl_follow_user.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> switchFragment(followFragment)
-                    1 -> switchFragment(fansFragment)
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
-            }
-        })
-
-        val para = tl_follow_user.layoutParams
-        val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
-        para.width = screenWidth * 2 / 3
-        tl_follow_user.layoutParams = para
-        tl_follow_user.getTabAt(0)?.select()
-        switchFragment(followFragment)
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
-    private fun switchFragment(newFragment: Fragment) {
+    override fun createPresenter(): FollowUserPresenter {
+        return FollowUserPresenter(this)
+    }
 
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: UnFollowConfirmEvent) {
+        mPresenter.unFollowUser(event.userId)
+    }
 
-        if (newFragment.isAdded) {
-            //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
-            transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
+    override fun getDataSuccess(list: List<FollowUserBean>) {
+        mRefreshLayout.finishRefresh()
+        if (mPage == 0) {
+            mAdapter.setNewData(list)
         } else {
-            transaction.hide(mCurrentFragment).add(R.id.fl_follow_user, newFragment).commitAllowingStateLoss()
+            mAdapter.addData(list)
         }
-        mCurrentFragment = newFragment
+        mPage++
+        if (list.size < Constants.PAGE_SIZE) {
+            mAdapter.loadMoreEnd(false)
+        } else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
+    }
+
+    override fun postSuccess(bean: FollowUserBean?) {
+        //关注成功回调，我关注的界面不会触发
+    }
+
+    override fun postFail(msg: String?) {
+        toastShow(msg)
+    }
+
+    override fun unFollowUserSuccess(bean: FollowUserBean) {
+        bean.id = bean.targetUserId
+        mAdapter.remove(mAdapter.data.indexOf(bean))
+        EventBus.getDefault().post(FollowUserRefreshEvent())
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        val bean = adapter.data[position] as FollowUserBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
+        val cb = view as CheckBox
+        cb.isChecked = !cb.isChecked
+        val bean = adapter.data[position] as FollowUserBean
+        val bundle = Bundle()
+        bundle.putInt("userId",bean.id?:0)
+        mDialog.arguments = bundle
+        mDialog.show(mActivity.fragmentManager,"")
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
+        mPage = 0
+        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+    }
+
+    override fun onLoadMoreRequested() {
+        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+    }
+
+    private fun initRecyclerView() {
+        mAdapter = FollowUserAdapter(ArrayList())
+        mAdapter.onItemChildClickListener = this
+        mAdapter.onItemClickListener = this
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_follow_user)
+        rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_follow_user.adapter = mAdapter
+        rv_follow_user.addItemDecoration(FansItemDecoration())
+        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有喜欢的作者","快去卡片详情页看看呗",null,null)
+        mAdapter.emptyView = emptyView
     }
 }

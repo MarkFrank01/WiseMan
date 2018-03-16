@@ -1,6 +1,5 @@
 <resources>
     <dimen name="toolbar_height">44dp</dimen>
-    <dimen name="sp_tv_card_title">28sp</dimen>
     <dimen name="fragment_interval">10dp</dimen>
     <dimen name="text_size_title_1">28sp</dimen>
     <dimen name="text_size_title_2">20sp</dimen>

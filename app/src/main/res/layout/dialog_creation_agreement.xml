@@ -22,38 +22,33 @@
                 android:layout_height="0dp">
             </FrameLayout>
 
-            <View
-                android:id="@+id/view_line"
-                android:visibility="gone"
-                style="@style/line"/>
-
             <LinearLayout
                 android:id="@+id/ll_creation_agreement"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="43dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_dialog_cancel"
                     android:text="拒绝"
-                    android:gravity="center"
-                    android:textColor="@color/button_blue"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_color_1"
                     android:textSize="17sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="14dp"
                     android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
-
-                <View
-                    android:background="@color/line"
-                    android:layout_width="0.5dp"
                     android:layout_height="match_parent"/>
 
                 <TextView
                     android:id="@+id/tv_dialog_confirm"
                     android:text="接受"
-                    android:gravity="center"
+                    android:gravity="center_vertical|end"
                     android:textColor="@color/button_blue"
                     android:textSize="17sp"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="14dp"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"/>

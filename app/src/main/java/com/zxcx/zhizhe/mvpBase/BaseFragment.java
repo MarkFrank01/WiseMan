@@ -47,6 +47,11 @@ public class BaseFragment extends Fragment implements BaseView{
         super.onViewCreated(view, savedInstanceState);
         mActivity = getActivity();
         mLoadingDialog = new LoadingDialog();
+        setListener();
+    }
+
+    public void setListener() {
+
     }
 
     @Override

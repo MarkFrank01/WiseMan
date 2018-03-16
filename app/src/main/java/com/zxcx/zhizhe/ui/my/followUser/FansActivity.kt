@@ -3,33 +3,34 @@ package com.zxcx.zhizhe.ui.my.followUser
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserAdapter
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserContract
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserPresenter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.fragment_follow_user.*
+import kotlinx.android.synthetic.main.activity_follow_user.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUserContract.View,
+class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener{
 
-    private val mFollowType = 0
+    private val mFollowType = 1
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: FollowUserAdapter
@@ -42,26 +43,27 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
             mPresenter?.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_follow_user, container, false)
-
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        mRefreshLayout = refresh_layout
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_follow_user)
+        initToolBar("关注我的")
         EventBus.getDefault().register(this)
         initRecyclerView()
         mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
         mDialog = UnFollowConfirmDialog()
+        iv_toolbar_right.visibility = View.VISIBLE
+        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if(hidden){
-            EventBus.getDefault().unregister(this)
-        }else{
-            EventBus.getDefault().register(this)
+    override fun setListener() {
+        iv_toolbar_right.setOnClickListener {
+            if (mSortType == 1) {
+                mSortType = 0
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
+            } else if (mSortType == 0) {
+                mSortType = 1
+                iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
+            }
         }
     }
 
@@ -96,8 +98,11 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
         }
     }
 
-    override fun postSuccess(bean: FollowUserBean?) {
-        //关注成功回调，我关注的界面不会触发
+    override fun postSuccess(bean: FollowUserBean) {
+        val position = mAdapter.data.indexOf(bean)
+        mAdapter.data[position].followType = bean.followType
+        mAdapter.notifyItemChanged(position)
+        EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
     override fun postFail(msg: String?) {
@@ -106,7 +111,9 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
 
     override fun unFollowUserSuccess(bean: FollowUserBean) {
         bean.id = bean.targetUserId
-        mAdapter.remove(mAdapter.data.indexOf(bean))
+        val position = mAdapter.data.indexOf(bean)
+        mAdapter.data[position].followType = bean.followType
+        mAdapter.notifyItemChanged(position)
         EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
@@ -122,10 +129,14 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
         val cb = view as CheckBox
         cb.isChecked = !cb.isChecked
         val bean = adapter.data[position] as FollowUserBean
-        val bundle = Bundle()
-        bundle.putInt("userId",bean.id?:0)
-        mDialog.arguments = bundle
-        mDialog.show(mActivity.fragmentManager,"")
+        if (cb.isChecked) {
+            val bundle = Bundle()
+            bundle.putInt("userId", bean.id ?: 0)
+            mDialog.arguments = bundle
+            mDialog.show(mActivity.fragmentManager, "")
+        }else{
+            mPresenter.followUser(bean.id ?: 0)
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
@@ -146,7 +157,12 @@ class FollowUserFragment : RefreshMvpFragment<FollowUserPresenter>(), FollowUser
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有喜欢的作者","快去卡片详情页看看呗",null,null)
+        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
+            if (ZhiZheUtils.isWriter(mActivity)) {
+                val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+                startActivity(intent)
+            }
+        })
         mAdapter.emptyView = emptyView
     }
 }

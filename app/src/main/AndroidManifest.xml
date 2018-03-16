@@ -226,6 +226,9 @@
             android:name=".ui.my.followUser.FollowUserActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.my.followUser.FansActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.my.setting.MessageModeActivity"
             android:screenOrientation="portrait"/>
         <activity

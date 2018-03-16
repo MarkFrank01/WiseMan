@@ -33,7 +33,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
     private lateinit var mAdapter: SystemMessageAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_system_message, container, false)
+        return inflater?.inflate(R.layout.fragment_system_message, container, false)
     }
 
     override fun createPresenter(): SystemMessagePresenter {

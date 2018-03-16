@@ -5,8 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_classify_classify"
     android:orientation="horizontal"
-    android:layout_marginTop="35dp"
-    android:layout_marginLeft="7.5dp"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="7.5dp"
     android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

@@ -52,7 +52,7 @@
             android:paddingBottom="22dp"
             android:paddingTop="22dp"
             android:textColor="@color/text_color_1"
-            android:textColorHint="@color/text_color_d2"
+            android:textColorHint="@color/text_color_ee"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
             android:textSize="@dimen/text_size_title_2"/>
 
