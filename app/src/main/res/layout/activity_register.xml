@@ -83,6 +83,7 @@
         android:text="登录"
         android:textSize="@dimen/text_size_title_1"
         android:textColor="@color/color_text_enable_blue"
+        android:textStyle="bold"
         android:enabled="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

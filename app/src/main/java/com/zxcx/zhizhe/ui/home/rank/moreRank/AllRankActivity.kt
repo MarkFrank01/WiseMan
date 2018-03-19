@@ -15,9 +15,9 @@ import com.zxcx.zhizhe.ui.home.rank.UserRankBean
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
-import kotlinx.android.synthetic.main.activity_rank.*
+import kotlinx.android.synthetic.main.activity_all_rank.*
 
-class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
+class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.RequestLoadMoreListener{
 
     private lateinit var mRankAdapter : RankAdapter
@@ -25,7 +25,7 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, Bas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rank)
+        setContentView(R.layout.activity_all_rank)
         initToolBar("所有榜单")
         initRecyclerView()
         loadService = LoadSir.getDefault().register(this, this)

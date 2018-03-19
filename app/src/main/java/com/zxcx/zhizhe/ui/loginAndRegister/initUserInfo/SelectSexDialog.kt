@@ -20,7 +20,7 @@ class SelectSexDialog : CommonDialog() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return inflater.inflate(R.layout.dialog_phone_confirm, container)
+        return inflater.inflate(R.layout.dialog_select_sex, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

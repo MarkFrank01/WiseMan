@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,11 +16,14 @@ import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by anm on 2017/7/13.
@@ -46,12 +48,8 @@ public class ChangeNickNameActivity extends BaseActivity implements IPostPresent
         mEtDialogChangeNickName.setSelection(mEtDialogChangeNickName.length());
 
         //延迟弹出软键盘
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Utils.showInputMethod(mEtDialogChangeNickName);
-            }
-        }, 100);
+        Observable.timer(100, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe(aLong -> Utils.showInputMethod(mEtDialogChangeNickName));
     }
 
     @Override

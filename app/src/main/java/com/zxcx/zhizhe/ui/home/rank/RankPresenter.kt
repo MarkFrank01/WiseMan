@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.home.rank
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.welcome.ADBean
 
 class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(), RankContract.Presenter {
 
@@ -15,6 +16,10 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
         mModel.getMyRank()
     }
 
+    fun getAD(){
+        mModel.getAD()
+    }
+
     fun getTopTenRank(){
         mModel.getTopTenRank()
     }
@@ -25,6 +30,10 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
 
     override fun getDataSuccess(beanMy: List<UserRankBean>) {
         mView.getDataSuccess(beanMy)
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        mView.getADSuccess(list)
     }
 
     override fun getDataFail(msg: String) {

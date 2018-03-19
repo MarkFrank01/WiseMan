@@ -12,7 +12,7 @@ import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.my.creation.ApplyForCreationActivity
+import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
@@ -95,7 +95,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 if (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0) == writer_status_user
                         || SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0) == writer_status_reject) {
                     //没有创作资格
-                    intent.setClass(mActivity, ApplyForCreationActivity::class.java)
+                    intent.setClass(mActivity, ApplyForCreation1Activity::class.java)
                 }
                 else {
                     return

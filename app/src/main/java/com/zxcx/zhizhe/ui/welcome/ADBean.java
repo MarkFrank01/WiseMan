@@ -7,7 +7,7 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
  * Created by anm on 2017/9/25.
  */
 
-public class WelcomeBean extends RetrofitBaen {
+public class ADBean extends RetrofitBaen {
 
     /**
      * adNum : 0

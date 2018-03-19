@@ -80,17 +80,19 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 # SMSSDK
--dontwarn com.mob.**
 -keep class com.mob.**{*;}
-
--dontwarn cn.smssdk.**
 -keep class cn.smssdk.**{*;}
+-dontwarn com.mob.**
 #ShareSDK
 -keep class cn.sharesdk.**{*;}
 -keep class com.sina.**{*;}
 -keep class **.R$* {*;}
 -keep class **.R{*;}
+-keep class com.mob.**{*;}
+-keep class m.framework.**{*;}
 -dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn com.mob.**
 -dontwarn **.R$*
 #WeChat
 -keep class com.tencent.mm.opensdk.** {*;}

@@ -30,7 +30,7 @@ import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.SearchBean;
-import com.zxcx.zhizhe.ui.welcome.WelcomeBean;
+import com.zxcx.zhizhe.ui.welcome.ADBean;
 
 import java.util.List;
 
@@ -370,7 +370,7 @@ public interface APIService {
      *获取广告
      */
     @POST("/ad/getAdByAdNum")
-    Flowable<BaseArrayBean<WelcomeBean>> getAD(@Query("adNum") String adNum);
+    Flowable<BaseArrayBean<ADBean>> getAD(@Query("adNum") String adNum);
 
     /**
      *获取其他用户信息
@@ -429,15 +429,12 @@ public interface APIService {
 
     /**
      * 申请创作
-     * @param name 姓名
      * @param phone 手机号
-     * @param idCard 身份证
      * @return
      */
     @POST("/user/applyWriterQualification")
     Flowable<BaseBean<Object>> applyCreation(
-            @Query("realName") String name,@Query("phoneNum") String phone
-            ,@Query("identityId") String idCard);
+            @Query("phoneNum") String phone);
 
     /**
      * 获取系统消息

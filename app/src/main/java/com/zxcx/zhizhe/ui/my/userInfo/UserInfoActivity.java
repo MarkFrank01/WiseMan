@@ -37,13 +37,6 @@ public class UserInfoActivity extends BaseActivity {
     @BindView(R.id.tv_user_info_signature)
     TextView mTvUserInfoSignature;
 
-    private String mHeadImg;
-    private String mNickName;
-    private String mSignture;
-    private int mSex;
-    private String mBirth;
-    private int mUserId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,25 +49,24 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     private void initData() {
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
-        mHeadImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
-        ImageLoader.load(mActivity, mHeadImg, R.drawable.default_header, mIvUserInfoHead);
-        mNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
-        mSignture = SharedPreferencesUtil.getString(SVTSConstants.signture, "");
-        mTvUserInfoNickName.setText(mNickName);
-        if (mSignture.length() > 10) {
-            mTvUserInfoSignature.setText(mSignture.substring(0, 10) + "...");
+        String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
+        ImageLoader.load(mActivity, headImg, R.drawable.default_header, mIvUserInfoHead);
+        String nickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
+        String signture = SharedPreferencesUtil.getString(SVTSConstants.signture, "");
+        mTvUserInfoNickName.setText(nickName);
+        if (signture.length() > 10) {
+            mTvUserInfoSignature.setText(signture.substring(0, 10) + "...");
         }else {
-            mTvUserInfoSignature.setText(mSignture);
+            mTvUserInfoSignature.setText(signture);
         }
-        mSex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
-        if (mSex == 1) {
+        int sex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
+        if (sex == 1) {
             mTvUserInfoSex.setText("男");
         } else {
             mTvUserInfoSex.setText("女");
         }
-        mBirth = SharedPreferencesUtil.getString(SVTSConstants.birthday, "");
-        mTvUserInfoBirthday.setText(mBirth);
+        String birth = SharedPreferencesUtil.getString(SVTSConstants.birthday, "");
+        mTvUserInfoBirthday.setText(birth);
     }
 
     @Override

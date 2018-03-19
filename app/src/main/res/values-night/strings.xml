@@ -1,6 +1,5 @@
 <resources>
     <string name="agreement_url">/user-agreement-dark.html</string>
-    <string name="visit_url">/view-zhizhe.html</string>
     <string name="help_1_url">/help/help1-dark.html</string>
     <string name="help_2_url">/help/help2-dark.html</string>
     <string name="help_3_url">/help/help3-dark.html</string>

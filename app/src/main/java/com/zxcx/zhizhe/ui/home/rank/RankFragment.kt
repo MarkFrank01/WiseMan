@@ -20,9 +20,10 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeRankLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.home.rank.moreRank.RankActivity
+import com.zxcx.zhizhe.ui.home.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -33,6 +34,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , BaseQuickAdapter.OnItemClickListener{
+    override fun getADSuccess(list: MutableList<ADBean>) {
+
+    }
 
     private var isFirst: Boolean = true
     private var mHidden: Boolean = false
@@ -136,7 +140,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     }
 
     private fun gotoMoreRank(){
-        val intent = Intent(mActivity, RankActivity::class.java)
+        val intent = Intent(mActivity, AllRankActivity::class.java)
         startActivity(intent)
     }
 

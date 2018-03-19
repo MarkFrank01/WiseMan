@@ -28,6 +28,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.passwordLogin.PasswordLoginActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -240,6 +241,17 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         vci_login.setOnCompleteListener {
             Utils.closeInputMethod(et_login_phone)
             mPresenter.smsCodeVerification(et_login_phone.text.toString(),it)
+        }
+
+        tv_login_agreement.setOnClickListener {
+            startActivity(WebViewActivity::class.java,{
+                it.putExtra("title", getString(R.string.agreement))
+                if (Constants.IS_NIGHT) {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_dark_url))
+                } else {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_url))
+                }
+            })
         }
     }
 

@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 //apply from: 'tinker-support.gradle'
 apply from: 'multiple-channel.gradle'
 apply plugin: 'kotlin-android-extensions'
+// 添加mob插件
+apply plugin: 'com.mob.sdk'
 
 android {
     compileSdkVersion 26
@@ -149,8 +151,8 @@ dependencies {
     //compile 'jp.wasabeef:blurry:2.1.1'
     //loadsir 加载状态布局管理
     compile 'com.kingja.loadsir:loadsir:1.3.5'
-    //SMSSDK 短信sdk
-    compile name: 'SMSSDK-3.0.0', ext: 'aar'
+    //banner广告
+    compile 'com.youth.banner:banner:1.4.10'
     testCompile 'junit:junit:4.12'
     //leakcanary 内存泄漏检测
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
@@ -190,4 +192,40 @@ configurations.all {
             }
         }
     }
+}
+
+// 在MobSDK的扩展中注册SMSSDK的相关信息
+MobSDK {
+    appKey "2056f7654d8f4"
+    appSecret "4f929b988ab98c88d4e9811e5a9d208c"
+
+    SMSSDK {
+        gui false
+    }
+    ShareSDK {
+        //平台配置信息
+        devInfo {
+            SinaWeibo {
+                appKey "2797113248"
+                appSecret "2a4ecc5a2aa05aca245e01c6aee3e6cb"
+                callbackUri "https://api.weibo.com/oauth2/default.html"
+                shareByAppClient true
+            }
+            Wechat {
+                appId "wxac8cb0c3f9b06b05"
+                appSecret "7dac5a6b10709f3cef1903d5e76a1cb1"
+            }
+            WechatMoments {
+                appId "wxac8cb0c3f9b06b05"
+                appSecret "7dac5a6b10709f3cef1903d5e76a1cb1"
+            }
+            QQ {
+                appId "101433894"
+                appKey "3d6d5c0b147c7444f4c5b3781402682a"
+            }
+            QZone {
+                appId "101433894"
+                appKey "3d6d5c0b147c7444f4c5b3781402682a"
+            }
+        }}
 }

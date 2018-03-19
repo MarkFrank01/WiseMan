@@ -22,7 +22,7 @@
         android:id="@+id/tv_select_attention_hint"
         android:text="花一点点时间让我们更好的了解你 (2/2)"
         android:layout_below="@id/tv_iui_title"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="24dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/text_color_3"

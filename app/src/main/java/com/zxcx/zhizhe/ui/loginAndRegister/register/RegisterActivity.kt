@@ -5,7 +5,6 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import cn.jpush.android.api.JPushInterface
-import cn.smssdk.SMSSDK
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
@@ -61,7 +60,6 @@ class RegisterActivity : MvpActivity<RegisterPresenter>(), RegisterContract.View
     public override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
-        SMSSDK.unregisterAllEventHandler()
     }
 
     override fun createPresenter(): RegisterPresenter {

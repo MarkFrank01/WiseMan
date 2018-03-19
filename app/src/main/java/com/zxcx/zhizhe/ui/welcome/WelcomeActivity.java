@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<WelcomeBean>> , WelcomeSkipView.onFinishListener{
+public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<ADBean>> , WelcomeSkipView.onFinishListener{
 
     @BindView(R.id.iv_welcome_ad)
     ImageView mIvWelcomeAd;
@@ -118,20 +118,20 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 
     public void getAD(String adNum) {
         mDisposable = AppClient.getAPIService().getAD(adNum)
-                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<WelcomeBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<WelcomeBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<WelcomeBean>>(this) {
+                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<ADBean>>io_main())
+                .compose(BaseRxJava.INSTANCE.<ADBean>handleArrayResult())
+                .subscribeWith(new BaseSubscriber<List<ADBean>>(this) {
                     @Override
-                    public void onNext(List<WelcomeBean> list) {
+                    public void onNext(List<ADBean> list) {
                         getDataSuccess(list);
                     }
                 });
     }
 
     @Override
-    public void getDataSuccess(List<WelcomeBean> list) {
+    public void getDataSuccess(List<ADBean> list) {
         if (list.size() > 0) {
-            WelcomeBean bean = list.get(0);
+            ADBean bean = list.get(0);
             if (!this.isDestroyed()) {
                 ImageLoader.load(this, bean.getContent(), R.color.background_final, mIvWelcomeAd);
             }
