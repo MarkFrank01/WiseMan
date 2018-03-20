@@ -13,7 +13,6 @@
     </declare-styleable>
 
     <declare-styleable name="VerificationCodeInput">
-
         <attr name="box" format="integer" />
         <attr name="child_h_padding" format="dimension"/>
         <attr name="child_v_padding" format="dimension"/>
@@ -23,5 +22,11 @@
         <attr name="box_bg_focus" format="reference"/>
         <attr name="box_bg_normal" format="reference"/>
         <attr name="inputType" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CardImageView">
+        <attr name="widthWeight" format="integer" />
+        <attr name="heightWeight" format="integer" />
+        <attr name="hasShade" format="boolean" />
     </declare-styleable>
 </resources>

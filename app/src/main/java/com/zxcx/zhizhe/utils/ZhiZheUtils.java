@@ -19,8 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_review;
-import static com.zxcx.zhizhe.ui.my.RedPointBeanKt.writer_status_writer;
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
 
 public class ZhiZheUtils {
     private static final double EARTH_RADIUS = 6378137.0;

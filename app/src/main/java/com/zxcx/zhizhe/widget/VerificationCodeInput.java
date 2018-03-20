@@ -29,7 +29,7 @@ import java.util.List;
  * Created by anm on 2018/3/13.
  */
 
-public class VerificationCodeInput extends LinearLayout implements TextWatcher, View.OnKeyListener {
+public class VerificationCodeInput extends LinearLayout implements TextWatcher, View.OnKeyListener, View.OnFocusChangeListener {
 
     private final static String TYPE_NUMBER = "number";
     private final static String TYPE_TEXT = "text";
@@ -92,6 +92,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
 
 
             editText.setOnKeyListener(this);
+            editText.setOnFocusChangeListener(this);
             if (i == 0)
                 setBg(editText, true);
             else setBg(editText, false);
@@ -186,8 +187,6 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
         }
         if (full) {
             if (listener != null) {
-                listener.onComplete(stringBuilder.toString());
-                setEnabled(false);
                 //关闭输入法
                 Context context = getContext();
                 if(context instanceof Activity) {
@@ -197,6 +196,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
                         imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
                     }
                 }
+                listener.onComplete(stringBuilder.toString());
             }
 
         }
@@ -268,13 +268,6 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (start == 0 && count >= 1 && currentPosition != mEditTextList.size() - 1) {
-            currentPosition++;
-            mEditTextList.get(currentPosition).requestFocus();
-            setBg(mEditTextList.get(currentPosition), true);
-            setBg(mEditTextList.get(currentPosition - 1), false);
-        }
-
     }
 
     @Override
@@ -300,6 +293,14 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
             }
         }
         return false;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus){
+            ((EditText)v).setText("");
+        }
+        setBg((EditText) v,hasFocus);
     }
 
     public interface Listener {

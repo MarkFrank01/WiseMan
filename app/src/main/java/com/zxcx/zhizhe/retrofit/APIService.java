@@ -10,7 +10,7 @@ import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
-import com.zxcx.zhizhe.ui.my.RedPointBean;
+import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
@@ -29,7 +29,7 @@ import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
-import com.zxcx.zhizhe.ui.search.search.SearchBean;
+import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
 import java.util.List;
@@ -195,7 +195,7 @@ public interface APIService {
      * 获取热门搜索关键词
      */
     @POST("/search/getSearchKeyword")
-    Flowable<BaseArrayBean<SearchBean>> getSearchHot();
+    Flowable<BaseArrayBean<HotSearchBean>> getSearchHot();
 
     /**
      * 获取搜索预选项
@@ -468,7 +468,7 @@ public interface APIService {
      * 获取红点状态
      */
     @POST("/mytabinfo/getMyTabInfo")
-    Flowable<BaseBean<RedPointBean>> getRedPointStatus();
+    Flowable<BaseBean<MyTabBean>> getMyTabInfo();
 
     /**
      * 提交自由笔记或审核

@@ -82,12 +82,17 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         checkNext()
     }
 
+    override fun setListener() {
+        iv_select_attention_close.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
     private fun initRecyclerView() {
         val footer = LayoutInflater.from(mActivity).inflate(R.layout.footer_select_attention, null)
         mTvStart = footer.findViewById(R.id.tv_start)
         mTvStart.setOnClickListener {
             val idList = mutableListOf<Int>()
-            for (id: Int in idList)
             mCheckedList.forEach {
                 idList.add(it.id)
             }

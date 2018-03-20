@@ -1,46 +1,33 @@
 package com.zxcx.zhizhe.ui.search.search;
 
-import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import java.util.List;
 
-public class SearchBean extends RetrofitBaen {
+/**
+ * Created by anm on 2018/3/20.
+ */
 
+public class SearchBean {
+    private List<String> mHotSearchList;
+    private List<String> mSearchHistoryList;
 
-    /**
-     * conent : string
-     * createTime : 2017-09-14T02:06:36.225Z
-     * id : 0
-     */
-
-    @SerializedName("conent")
-    private String conent;
-    @SerializedName("createTime")
-    private String createTime;
-    @SerializedName("id")
-    private int id;
-
-    public String getConent() {
-        return conent;
+    public SearchBean(List<String> hotSearchList, List<String> searchHistoryList) {
+        mHotSearchList = hotSearchList;
+        mSearchHistoryList = searchHistoryList;
     }
 
-    public void setConent(String conent) {
-        this.conent = conent;
+    public List<String> getHotSearchList() {
+        return mHotSearchList;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public void setHotSearchList(List<String> hotSearchList) {
+        mHotSearchList = hotSearchList;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public List<String> getSearchHistoryList() {
+        return mSearchHistoryList;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setSearchHistoryList(List<String> searchHistoryList) {
+        mSearchHistoryList = searchHistoryList;
     }
 }
-

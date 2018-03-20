@@ -211,66 +211,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_my_creation"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:text="创作"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_my_read"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:text="阅读"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_my_note"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-
-            <TextView
-                android:layout_marginStart="20dp"
-                android:text="笔记"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/ll_my_follow"
             android:orientation="horizontal"
             android:layout_width="match_parent"

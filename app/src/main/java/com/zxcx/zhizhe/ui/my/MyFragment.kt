@@ -39,12 +39,16 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * A simple [Fragment] subclass.
  */
-class MyFragment : BaseFragment(), IGetPresenter<RedPointBean> {
+class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 
     private var writerStatus: Int = 0
     private var hasSystemMessage: Boolean = false
     private var hasDynamicMessage: Boolean = false
     private var totalIntelligenceValue: Int = 0
+    private var readNum: Int = 0
+    private var creationNum: Int = 0
+    private var noteNum: Int = 0
+    private var level: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -145,30 +149,6 @@ class MyFragment : BaseFragment(), IGetPresenter<RedPointBean> {
                 mActivity.startActivity(MessageActivity::class.java,{})
             }
         }
-        ll_my_creation.setOnClickListener {
-            if (checkLogin()) {
-                when (writerStatus) {
-                    writer_status_writer -> {
-                        //创作界面
-                        mActivity.startActivity(CreationActivity::class.java,{})
-                    }
-                    else -> {
-                        val dialog = CreationAgreementDialog()
-                        dialog.show(mActivity.fragmentManager, "")
-                    }
-                }
-            }
-        }
-        ll_my_read.setOnClickListener {
-            if (checkLogin()) {
-                mActivity.startActivity(ReadCardsActivity::class.java,{})
-            }
-        }
-        ll_my_note.setOnClickListener {
-            if (checkLogin()) {
-                mActivity.startActivity(NoteActivity::class.java,{})
-            }
-        }
         ll_my_follow.setOnClickListener {
             if (checkLogin()) {
                 mActivity.startActivity(FollowUserActivity::class.java,{})
@@ -228,6 +208,10 @@ class MyFragment : BaseFragment(), IGetPresenter<RedPointBean> {
         hasDynamicMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasDynamicMessage, false)
         hasSystemMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasSystemMessage, false)
         totalIntelligenceValue = SharedPreferencesUtil.getInt(SVTSConstants.totalIntelligenceValue, 0)
+        readNum = SharedPreferencesUtil.getInt(SVTSConstants.readNum, 0)
+        creationNum = SharedPreferencesUtil.getInt(SVTSConstants.creationNum, 0)
+        noteNum = SharedPreferencesUtil.getInt(SVTSConstants.noteNum, 0)
+        level = SharedPreferencesUtil.getString(SVTSConstants.level,"")
         refreshRedPoint()
     }
 
@@ -235,26 +219,34 @@ class MyFragment : BaseFragment(), IGetPresenter<RedPointBean> {
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) == 0) {
             return
         }
-        mDisposable = AppClient.getAPIService().redPointStatus
+        mDisposable = AppClient.getAPIService().myTabInfo
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main())
-                .subscribeWith(object : BaseSubscriber<RedPointBean>(this) {
-                    override fun onNext(bean: RedPointBean) {
+                .subscribeWith(object : BaseSubscriber<MyTabBean>(this) {
+                    override fun onNext(bean: MyTabBean) {
                         getDataSuccess(bean)
                     }
                 })
         addSubscription(mDisposable)
     }
 
-    override fun getDataSuccess(bean: RedPointBean) {
+    override fun getDataSuccess(bean: MyTabBean) {
         writerStatus = bean.writerStatus
         hasDynamicMessage = bean.hasDynamicMessage
         hasSystemMessage = bean.hasSystemMessage
         totalIntelligenceValue = bean.totalIntelligenceValue
+        readNum = bean.cardViewCount
+        creationNum = bean.cardCreationCount
+        noteNum = bean.noteCount
+        level = bean.intelligenceValueLevel
         SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writerStatus)
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
         SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, hasSystemMessage)
         SharedPreferencesUtil.saveData(SVTSConstants.totalIntelligenceValue, totalIntelligenceValue)
+        SharedPreferencesUtil.saveData(SVTSConstants.readNum, readNum)
+        SharedPreferencesUtil.saveData(SVTSConstants.creationNum, creationNum)
+        SharedPreferencesUtil.saveData(SVTSConstants.noteNum, noteNum)
+        SharedPreferencesUtil.saveData(SVTSConstants.level, level)
         refreshRedPoint()
     }
 
@@ -266,6 +258,10 @@ class MyFragment : BaseFragment(), IGetPresenter<RedPointBean> {
         ll_my_fans.visibility = if (writerStatus == writer_status_writer) View.VISIBLE else View.GONE
         tv_my_info.text = getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(totalIntelligenceValue))
         tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue))
+        tv_my_lv.text = level
+        tv_my_top_read_num.text = readNum.toString()
+        tv_my_top_creation_num.text = creationNum.toString()
+        tv_my_top_note_num.text = noteNum.toString()
     }
 
     override fun getDataFail(msg: String) {

@@ -26,7 +26,7 @@ import com.zxcx.zhizhe.ui.home.attention.AttentionFragment;
 import com.zxcx.zhizhe.ui.home.hot.HotFragment;
 import com.zxcx.zhizhe.ui.home.rank.RankFragment;
 import com.zxcx.zhizhe.ui.search.search.SearchActivity;
-import com.zxcx.zhizhe.ui.search.search.SearchBean;
+import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBean> {
+public class HomeFragment extends BaseFragment implements IGetPresenter<HotSearchBean> {
 
     @BindView(R.id.tl_home)
     TabLayout mTlHome;
@@ -174,9 +174,9 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
         mDisposable = AppClient.getAPIService().getSearchHot()
                 .compose(BaseRxJava.INSTANCE.handleArrayResult())
                 .compose(BaseRxJava.INSTANCE.io_main())
-                .subscribeWith(new BaseSubscriber<List<SearchBean>>(this) {
+                .subscribeWith(new BaseSubscriber<List<HotSearchBean>>(this) {
                     @Override
-                    public void onNext(List<SearchBean> list) {
+                    public void onNext(List<HotSearchBean> list) {
                         if (list != null && list.size() > 0) {
                             getDataSuccess(list.get(0));
                         }
@@ -186,7 +186,7 @@ public class HomeFragment extends BaseFragment implements IGetPresenter<SearchBe
     }
 
     @Override
-    public void getDataSuccess(SearchBean bean) {
+    public void getDataSuccess(HotSearchBean bean) {
         mTvHomeSearch.setText(bean.getConent());
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,67 +16,79 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv_card_details"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_card"
-                android:layout_width="match_parent"
-                android:layout_height="212dp"
-                android:transitionName="cardImage"/>
 
-            <RelativeLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_card_details_title"
-                    android:layout_marginTop="25dp"
-                    tools:text="动圈和铁圈耳机的区别"
-                    style="@style/tv_card"
-                    android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/text_size_title_1"
-                    android:lineSpacingExtra="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:transitionName="cardTitle"/>
+                <com.zxcx.zhizhe.widget.CardImageView
+                    android:id="@+id/iv_card_details"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="212dp"
+                    android:transitionName="cardImage"
+                    app:widthWeight="16"
+                    app:heightWeight="9"/>
 
-                <TextView
-                    android:id="@+id/tv_card_details_info"
-                    tools:text="@string/tv_card_info"
-                    android:textColor="@color/text_color_2"
-                    android:textSize="@dimen/text_size_text_2"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/tv_card_details_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:transitionName="cardInfo"/>
-
-                <FrameLayout
-                    android:id="@+id/fl_card_details_card_bag"
-                    android:layout_toRightOf="@id/tv_card_details_info"
-                    android:layout_below="@id/tv_card_details_title"
-                    android:paddingTop="10dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="15dp"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_gravity="bottom"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:id="@+id/tv_card_details_card_bag"
-                        tools:text="数码产品"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_card_details_card_bag"
-                        android:textColor="@color/button_blue"
-                        android:textSize="@dimen/text_size_text_2"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
+                        android:id="@+id/tv_card_details_title"
+                        tools:text="动圈和铁圈耳机的区别"
+                        style="@style/tv_card"
+                        android:textColor="@color/white_final"
+                        android:textSize="@dimen/text_size_title_2"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:transitionName="cardBag"/>
-                </FrameLayout>
+                        android:transitionName="cardTitle"/>
 
-            </RelativeLayout>
+                    <FrameLayout
+                        android:id="@+id/fl_card_details_card_bag"
+                        android:layout_below="@id/tv_card_details_title"
+                        android:paddingTop="15dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_card_details_card_bag"
+                            tools:text="数码产品"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_card_details_card_bag"
+                            android:textColor="@color/text_color_1"
+                            android:textSize="@dimen/text_size_text_4"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardBag"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_card_details_info"
+                        android:layout_toEndOf="@id/fl_card_details_card_bag"
+                        tools:text="@string/tv_card_info"
+                        android:textColor="@color/text_color_ee"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:layout_marginTop="18dp"
+                        android:layout_below="@id/tv_card_details_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardInfo"/>
+
+                </RelativeLayout>
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/fl_card_details"
@@ -85,39 +97,58 @@
                 android:layout_height="0dp">
             </FrameLayout>
 
+            <FrameLayout
+                android:id="@+id/fl_card_details_ad"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.zxcx.zhizhe.widget.CardImageView
+                    android:id="@+id/iv_card_details_ad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:widthWeight="16"
+                    app:heightWeight="9"
+                    app:hasShade="false"/>
+                
+                <ImageView
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
             <RelativeLayout
                 android:id="@+id/rl_card_details_bottom"
                 android:visibility="gone"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="60dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:background="@color/background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_item_rank_user"
                     android:scaleType="centerCrop"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     tools:src="@drawable/logo"
                     app:riv_oval="true"/>
 
                 <RelativeLayout
                     android:orientation="vertical"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/iv_item_rank_user"
+                    android:layout_toEndOf="@id/iv_item_rank_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_item_rank_user_name"
-                        android:layout_marginBottom="6dp"
+                        android:layout_marginBottom="8dp"
                         tools:text="打印纸的规格"
                         style="@style/tv_single"
                         android:textSize="@dimen/text_size_text_1"
@@ -128,7 +159,7 @@
                     <TextView
                         android:id="@+id/tv_item_rank_user_card"
                         android:layout_below="@id/tv_item_rank_user_name"
-                        android:drawableLeft="@drawable/tv_item_rank_user_card"
+                        android:drawableStart="@drawable/tv_item_rank_user_card"
                         android:drawablePadding="5dp"
                         tools:text="500"
                         style="@style/tv_single"
@@ -140,10 +171,10 @@
                     <TextView
                         android:id="@+id/tv_item_rank_user_fans"
                         android:layout_below="@id/tv_item_rank_user_name"
-                        android:layout_toRightOf="@id/tv_item_rank_user_card"
-                        android:drawableLeft="@drawable/tv_item_rank_user_fans"
+                        android:layout_toEndOf="@id/tv_item_rank_user_card"
+                        android:drawableStart="@drawable/tv_item_rank_user_fans"
                         android:drawablePadding="5dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         tools:text="500"
                         style="@style/tv_single"
                         android:textSize="@dimen/text_size_text_3"
@@ -154,10 +185,10 @@
                     <TextView
                         android:id="@+id/tv_item_rank_user_read"
                         android:layout_below="@id/tv_item_rank_user_name"
-                        android:layout_toRightOf="@id/tv_item_rank_user_fans"
-                        android:drawableLeft="@drawable/tv_item_rank_user_read"
+                        android:layout_toEndOf="@id/tv_item_rank_user_fans"
+                        android:drawableStart="@drawable/tv_item_rank_user_read"
                         android:drawablePadding="5dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         tools:text="500"
                         style="@style/tv_single"
                         android:textSize="@dimen/text_size_text_3"
@@ -173,11 +204,12 @@
                         android:textColor="@color/color_checkbox_text_follow"
                         android:button="@null"
                         android:background="@drawable/selector_checkbox_bg_follow"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:gravity="center"
-                        android:layout_width="72dp"
-                        android:layout_height="28dp"/>
+                        android:layout_marginEnd="10dp"
+                        android:layout_width="82dp"
+                        android:layout_height="32dp"/>
 
                 </RelativeLayout>
 
@@ -197,7 +229,7 @@
 
                 <LinearLayout
                     android:id="@+id/ll_card_details_collect"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
@@ -209,12 +241,12 @@
                         tools:text="200"
                         android:textSize="12sp"
                         android:textColor="@color/color_checkbox_card_details"
-                        android:paddingLeft="7.5dp"/>
+                        android:paddingStart="7.5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_card_details_like"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
@@ -227,7 +259,7 @@
                         tools:text="200"
                         android:textSize="12sp"
                         android:textColor="@color/color_checkbox_card_details"
-                        android:paddingLeft="7.5dp"/>
+                        android:paddingStart="7.5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,7 +277,7 @@
                         tools:text="200"
                         android:textSize="12sp"
                         android:textColor="@color/color_checkbox_card_details"
-                        android:paddingLeft="7.5dp"/>
+                        android:paddingStart="7.5dp"/>
                 </LinearLayout>
 
                 <View
@@ -255,7 +287,7 @@
 
                 <ImageView
                     android:id="@+id/iv_card_details_share"
-                    android:paddingRight="30dp"
+                    android:paddingEnd="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:scaleType="center"
@@ -267,24 +299,11 @@
 
     <ImageView
         android:id="@+id/iv_card_details_back"
-        android:layout_alignParentRight="true"
+        android:layout_gravity="end"
         android:src="@drawable/iv_card_details_back"
         android:padding="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
-
-    <TextView
-        android:id="@+id/tv_toast"
-        android:visibility="gone"
-        android:background="@color/opacity_70"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:gravity="center"
-        tools:text="6666"
-        android:textSize="@dimen/text_size_text_3"
-        android:textColor="@color/white_final"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</RelativeLayout>
+</FrameLayout>

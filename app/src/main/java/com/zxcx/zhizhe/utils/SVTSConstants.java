@@ -25,6 +25,10 @@ public class SVTSConstants {
     public static final String dynamicMessageIsOpen = "dynamic_message_is_open";
     public static final String systemMessageIsOpen = "system_message_is_open";
     public static final String totalIntelligenceValue = "total_intelligence_value";
+    public static final String readNum = "read_num";
+    public static final String creationNum = "creation_num";
+    public static final String noteNum = "note_num";
+    public static final String level = "level";
 
     public static final String openId = "open_id";
     public static final String isBindingQQ = "is_binding_qq";

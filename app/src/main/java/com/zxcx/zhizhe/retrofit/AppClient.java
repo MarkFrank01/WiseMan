@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.TimeStampMD5andKL;
 import com.zxcx.zhizhe.utils.Utils;
 
@@ -86,7 +85,7 @@ public class AppClient {
         long localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0);
         long serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0);
         String token = SharedPreferencesUtil.getString(SVTSConstants.token,"");
-        String userId = SharedPreferencesUtil.getString(SVTSConstants.userId,"");
+        int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId,0);
         String timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp,serverTimeStamp);
 
         Request request = chain.request();
@@ -100,7 +99,7 @@ public class AppClient {
         // 添加新的参数
         HttpUrl.Builder urlBuilder = request.url()
                 .newBuilder();
-        if (!StringUtils.isEmpty(userId)){
+        if (userId != 0){
             urlBuilder = urlBuilder
                     .scheme(request.url().scheme())
                     .host(request.url().host())

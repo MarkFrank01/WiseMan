@@ -13,7 +13,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.my.RedPointBean
+import com.zxcx.zhizhe.ui.my.MyTabBean
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageFragment
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageFragment
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -22,7 +22,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_message.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class MessageActivity : BaseActivity() , IGetPresenter<RedPointBean> {
+class MessageActivity : BaseActivity() , IGetPresenter<MyTabBean> {
     private val titles = arrayOf("系统", "动态")
 
     private val systemMessageFragment = SystemMessageFragment()
@@ -108,18 +108,18 @@ class MessageActivity : BaseActivity() , IGetPresenter<RedPointBean> {
     }
 
     private fun getRedPointStatus() {
-        mDisposable = AppClient.getAPIService().redPointStatus
+        mDisposable = AppClient.getAPIService().myTabInfo
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main())
-                .subscribeWith(object : BaseSubscriber<RedPointBean>(this) {
-                    override fun onNext(bean: RedPointBean) {
+                .subscribeWith(object : BaseSubscriber<MyTabBean>(this) {
+                    override fun onNext(bean: MyTabBean) {
                         getDataSuccess(bean)
                     }
                 })
         addSubscription(mDisposable)
     }
 
-    override fun getDataSuccess(bean: RedPointBean) {
+    override fun getDataSuccess(bean: MyTabBean) {
         hasDynamicMessage = bean.hasDynamicMessage
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
         SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, bean.hasSystemMessage)

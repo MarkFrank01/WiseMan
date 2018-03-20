@@ -12,7 +12,7 @@ class RankModel(presenter: RankContract.Presenter) : BaseModel<RankContract.Pres
     }
 
     fun getAD() {
-        mDisposable = AppClient.getAPIService().getAD("101")
+        mDisposable = AppClient.getAPIService().getAD("301")
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {

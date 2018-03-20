@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.search.search;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-import com.zxcx.zhizhe.room.SearchHistory;
 
 import java.util.List;
 
@@ -16,8 +15,8 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mModel = new SearchModel(this);
     }
 
-    public void getSearchHot(){
-        mModel.getSearchHot();
+    public void getSearchBean(){
+        mModel.getSearchBean();
     }
 
     public void getSearchPre(String keyword){
@@ -25,13 +24,8 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
     }
 
     @Override
-    public void getDataSuccess(List<SearchBean> bean) {
+    public void getDataSuccess(SearchBean bean) {
         mView.getDataSuccess(bean);
-    }
-
-    @Override
-    public void getSearchHistorySuccess(List<SearchHistory> list) {
-        mView.getSearchHistorySuccess(list);
     }
 
     @Override
