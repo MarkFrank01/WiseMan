@@ -83,13 +83,13 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         mImmersionBar = ImmersionBar.with(this);
         if (!Constants.IS_NIGHT){
             mImmersionBar
-                    .statusBarColor(R.color.background)
+                    .statusBarColor(R.color.white)
                     .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.text_color_1)
                     .fitsSystemWindows(true);
         }else {
             mImmersionBar
-                    .statusBarColor(R.color.background)
+                    .statusBarColor(R.color.white)
                     .flymeOSStatusBarFontColor(R.color.text_color_1)
                     .fitsSystemWindows(true);
         }

@@ -19,6 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipChildren="false"
-                tools:listitem="@layout/item_home_card"/>
+                tools:listitem="@layout/item_card"/>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </FrameLayout>

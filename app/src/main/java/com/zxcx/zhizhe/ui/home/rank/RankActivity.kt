@@ -7,11 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.home.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -23,7 +22,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , BaseQuickAdapter.OnItemClickListener{
+class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuickAdapter.OnItemClickListener{
 
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private val imageList: MutableList<String> = mutableListOf()
@@ -33,10 +32,8 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , Ba
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank)
-        loadService = LoadSir.getDefault().register(this, this)
         initRecyclerView()
         initView()
-        onRefresh()
         banner_rank.setImageLoader(GlideBannerImageLoader())
         banner_rank.setIndicatorGravity(BannerConfig.CENTER)
         banner_rank.setOnBannerListener {
@@ -49,6 +46,8 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , Ba
         }
         banner_rank.setImages(imageList)
         banner_rank.start()
+        loadService = LoadSir.getDefault().register(this, this)
+        onRefresh()
     }
 
     override fun createPresenter(): RankPresenter {
@@ -72,16 +71,13 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , Ba
         super.onDestroy()
     }
 
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        onRefresh()
-    }
-
     private fun onRefresh() {
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
         if (mUserId != 0) {
             mPresenter.getMyRank()
         }
         mPresenter.getTopTenRank()
+        mPresenter.getAD()
     }
 
     override fun getMyRankSuccess(bean: UserRankBean) {
@@ -104,17 +100,21 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , Ba
 
     override fun getDataSuccess(list: List<UserRankBean>) {
         loadService.showSuccess()
-        mRefreshLayout.finishRefresh()
         mRankAdapter.setNewData(list)
         initView()
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        mAdList = list
-        mAdList.forEach {
-            imageList.add(it.content)
+        loadService.showSuccess()
+        if (list.size > 0) {
+            mAdList = list
+            mAdList.forEach {
+                imageList.add(it.content)
+            }
+            banner_rank.update(imageList)
+        }else{
+            banner_rank.visibility = View.GONE
         }
-        banner_rank.update(imageList)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -145,7 +145,7 @@ class RankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View , Ba
 
     override fun setListener() {
         iv_rank_close.setOnClickListener { onBackPressed() }
-
+        tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
 
     }
 

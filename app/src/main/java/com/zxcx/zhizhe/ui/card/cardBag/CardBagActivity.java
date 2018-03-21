@@ -210,9 +210,9 @@ public class CardBagActivity extends RefreshMvpActivity<CardBagPresenter> implem
             intent.putExtra("author", bean.getAuthor());
             if (isCard){
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
-                        Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
-                        Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
-                        Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle();
+                        Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                        Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                        Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle();
                 mContext.startActivity(intent,bundle);
             }else {
                 mContext.startActivity(intent);

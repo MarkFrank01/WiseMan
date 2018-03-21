@@ -72,6 +72,9 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         SMSSDK.registerEventHandler(EventHandle())
         initData()
         initView()
+        //延迟弹出软键盘
+        Observable.timer(300,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
+                .subscribe { Utils.showInputMethod(et_forget_phone) }
     }
 
     private fun initData() {
@@ -96,15 +99,6 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
 
     override fun initStatusBar() {
 
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            //延迟弹出软键盘
-            Observable.timer(100,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
-                    .subscribe { Utils.showInputMethod(et_forget_phone) }
-        }
     }
 
     override fun onBackPressed() {
@@ -160,7 +154,7 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         tv_forget_phone.setOnClickListener {
             rl_forget_phone.visibility = View.VISIBLE
             ll_forget_code.visibility = View.GONE
-            Observable.timer(300, TimeUnit.MILLISECONDS).subscribe{
+            Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe{
                 et_forget_phone.requestFocus()
             }
         }
@@ -168,7 +162,7 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         tv_forget_password.setOnClickListener {
             rl_forget_phone.visibility = View.VISIBLE
             ll_forget_code.visibility = View.GONE
-            Observable.timer(300, TimeUnit.MILLISECONDS).subscribe{
+            Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe{
                 et_forget_password.requestFocus()
             }
         }

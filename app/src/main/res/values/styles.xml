@@ -35,8 +35,11 @@
     </style>
 
     <style name="tv_card">
-        <item name="android:maxLines">2</item>
+        <item name="android:maxLines">1</item>
         <item name="android:maxLength">20</item>
+        <item name="android:textColor">@color/white_final</item>
+        <item name="android:textSize">@dimen/text_size_title_2</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="tv_single">

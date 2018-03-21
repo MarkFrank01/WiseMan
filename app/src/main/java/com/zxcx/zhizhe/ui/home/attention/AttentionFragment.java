@@ -242,9 +242,9 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
             HotCardBean bean = (HotCardBean) adapter.getData().get(position);
             Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
-                    Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
-                    Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
-                    Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle();
+                    Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle();
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id",bean.getId());
             intent.putExtra("name",bean.getName());

@@ -20,14 +20,10 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeRankLoadingCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.home.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.ZhiZheUtils
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.fragment_rank.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -140,8 +136,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
     }
 
     private fun gotoMoreRank(){
-        val intent = Intent(mActivity, AllRankActivity::class.java)
-        startActivity(intent)
+        mActivity.startActivity(RankActivity::class.java,{})
     }
 
     override fun startLogin() {
@@ -180,7 +175,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
             tv_rank_my_no_rank.visibility = View.GONE
             tv_rank_my_no_login.visibility = View.VISIBLE
             iv_rank_my_header.setImageResource(R.drawable.iv_my_head_placeholder)
-            rl_rank_my.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+            rl_rank_my.setOnClickListener { mActivity.startActivity(LoginActivity::class.java,{}) }
         }else{
             if (isFirst) {
                 mPresenter.getMyRank()

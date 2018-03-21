@@ -13,5 +13,10 @@ data class OtherUserInfoBean(
         @SerializedName("id") var id: Int?, //0
         @SerializedName("intelligenceValue") var readNum: Int?, //0
         @SerializedName("name") var name: String?, //string
+        @SerializedName("cardCreationCount") var cardCreationCount: Int,
+        @SerializedName("cardViewCount") var cardViewCount: Int,
+        @SerializedName("intelligenceValueLevel") var intelligenceValueLevel: String,
+        @SerializedName("noteCount") var noteCount: Int,
+        @SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int,
         @SerializedName("sign") var signture: String? //0
 ): RetrofitBaen()

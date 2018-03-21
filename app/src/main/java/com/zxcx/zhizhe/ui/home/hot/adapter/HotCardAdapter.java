@@ -16,7 +16,6 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBagBean;
 import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
 import com.zxcx.zhizhe.ui.home.hot.RecommendBean;
-import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
@@ -39,7 +38,7 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
 
     public HotCardAdapter(@Nullable List<RecommendBean> data, HotCardBagCardOnClickListener listener) {
         super(data);
-        addItemType(RecommendBean.TYPE_CARD, R.layout.item_home_card);
+        addItemType(RecommendBean.TYPE_CARD, R.layout.item_card);
         addItemType(RecommendBean.TYPE_CARD_BAG,R.layout.item_hot_card_bag);
         mListener = listener;
     }
@@ -59,7 +58,7 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
 
     private void initCardView(BaseViewHolder helper, RecommendBean bean) {
         HotCardBean item = bean.getCardBean();
-        ImageView imageView = helper.getView(R.id.iv_item_home_card_icon);
+        ImageView imageView = helper.getView(R.id.iv_item_card_icon);
         ViewGroup.LayoutParams para = imageView.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.height = (screenWidth - ScreenUtils.dip2px(20 * 2)) * 9/16;
@@ -68,12 +67,18 @@ public class HotCardAdapter extends BaseMultiItemQuickAdapter<RecommendBean,Base
         String imageUrl = ZhiZheUtils.getHDImageUrl(item.getImageUrl());
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView);
 
-        helper.setText(R.id.tv_item_home_card_title,item.getName());
-        helper.setText(R.id.tv_item_home_card_info, mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(item.getDate()), item.getAuthor()));
-
-        TextView title = helper.getView(R.id.tv_item_home_card_title);
-        TextPaint paint = title.getPaint();
-        paint.setFakeBoldText(true);
+        helper.setText(R.id.tv_item_card_title,item.getName());
+        helper.setText(R.id.tv_item_card_card_bag,item.getCardBagName());
+        helper.setText(R.id.tv_item_card_like,item.getLikeNum()+"");
+        helper.setText(R.id.tv_item_card_read,item.getReadNum()+"");
+        switch (item.getCardType()){
+            case 1:
+                helper.setText(R.id.tv_item_card_type,"卡片");
+                break;
+            case 2:
+                helper.setText(R.id.tv_item_card_type,"长文");
+                break;
+        }
     }
 
     private void initCardBagView(BaseViewHolder helper, RecommendBean bean) {

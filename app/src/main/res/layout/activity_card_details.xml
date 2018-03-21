@@ -29,7 +29,8 @@
                     android:layout_height="212dp"
                     android:transitionName="cardImage"
                     app:widthWeight="16"
-                    app:heightWeight="9"/>
+                    app:heightWeight="9"
+                    app:hasShade="true"/>
 
                 <RelativeLayout
                     android:layout_gravity="bottom"

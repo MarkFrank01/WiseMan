@@ -84,9 +84,9 @@ class OtherUserCreationActivity : MvpActivity<CreationPresenter>(), CreationCont
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CreationBean
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-                Pair.create(view.findViewById(R.id.iv_item_home_card_icon), "cardImage"),
-                Pair.create(view.findViewById(R.id.tv_item_home_card_title), "cardTitle"),
-                Pair.create(view.findViewById(R.id.tv_item_home_card_info), "cardInfo")).toBundle()
+                Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)

@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.utils
 
 import android.content.Context
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.youth.banner.loader.ImageLoader
 
 /**
@@ -18,7 +17,7 @@ class GlideBannerImageLoader: ImageLoader() {
         切记不要胡乱强转！
          */
 
-        //Glide 加载图片简单用法
-        Glide.with(context).load(path).into(imageView)
+        //Glide 加载图片简单用法GlideApp
+        GlideApp.with(context).load(path).into(imageView)
     }
 }

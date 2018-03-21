@@ -28,5 +28,6 @@
         <attr name="widthWeight" format="integer" />
         <attr name="heightWeight" format="integer" />
         <attr name="hasShade" format="boolean" />
+        <attr name="radius" format="dimension" />
     </declare-styleable>
 </resources>

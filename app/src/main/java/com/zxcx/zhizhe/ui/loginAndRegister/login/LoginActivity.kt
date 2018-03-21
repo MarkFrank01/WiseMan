@@ -83,19 +83,13 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         appVersion = Utils.getAppVersionName(mActivity)
         jpushID = JPushInterface.getRegistrationID(mActivity)
         SMSSDK.registerEventHandler(EventHandle())
+        //延迟弹出软键盘
+        Observable.timer(300,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
+                .subscribe { Utils.showInputMethod(et_login_phone) }
     }
 
     override fun initStatusBar() {
 
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            //延迟弹出软键盘
-            Observable.timer(100,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
-                    .subscribe { Utils.showInputMethod(et_login_phone) }
-        }
     }
 
     override fun onBackPressed() {
@@ -184,7 +178,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         tv_login_phone.setOnClickListener {
             rl_login_phone.visibility = View.VISIBLE
             ll_login_code.visibility = View.GONE
-            Observable.timer(300,TimeUnit.MILLISECONDS).subscribe{
+            Observable.timer(300,TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe{
                 et_login_phone.requestFocus()
             }
         }

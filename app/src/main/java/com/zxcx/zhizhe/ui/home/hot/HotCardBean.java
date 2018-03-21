@@ -9,6 +9,13 @@ public class HotCardBean extends RetrofitBaen {
 
     @SerializedName("id")
     private int id;
+    @SerializedName("articleType")
+    private int cardType;
+    @SerializedName("likedUsersCount")
+    private int likeNum;
+    // TODO: 2018/3/21 改为阅读数
+    @SerializedName("collectingCount")
+    private int readNum;
     @SerializedName("titleImage")
     private String imageUrl;
     @SerializedName("title")
@@ -17,6 +24,8 @@ public class HotCardBean extends RetrofitBaen {
     private Date date;
     @SerializedName("authorName")
     private String author;
+    @SerializedName("collectionName")
+    private String cardBagName;
 
     public int getId() {
         return id;
@@ -24,6 +33,30 @@ public class HotCardBean extends RetrofitBaen {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(int cardType) {
+        this.cardType = cardType;
+    }
+
+    public int getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(int likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    public int getReadNum() {
+        return readNum;
+    }
+
+    public void setReadNum(int readNum) {
+        this.readNum = readNum;
     }
 
     public String getImageUrl() {
@@ -56,6 +89,14 @@ public class HotCardBean extends RetrofitBaen {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getCardBagName() {
+        return cardBagName;
+    }
+
+    public void setCardBagName(String cardBagName) {
+        this.cardBagName = cardBagName;
     }
 }
 

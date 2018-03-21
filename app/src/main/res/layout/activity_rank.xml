@@ -10,6 +10,7 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/Widget.Design.AppBarLayout.NoElevation"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -40,7 +41,7 @@
             app:layout_scrollFlags="scroll">
 
             <TextView
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="25dp"
                 android:text="本周我的榜单"
                 android:textColor="@color/text_color_2"
                 android:textStyle="bold"
@@ -205,8 +206,7 @@
     <ImageView
         android:id="@+id/iv_rank_close"
         android:layout_gravity="end"
-        android:src="@drawable/login_close"
-        android:layout_marginEnd="20dp"
+        android:src="@drawable/iv_card_details_back"
         android:layout_marginTop="10dp"
         android:layout_width="28dp"
         android:layout_height="28dp"/>

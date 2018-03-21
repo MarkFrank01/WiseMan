@@ -49,15 +49,9 @@ class ApplyForCreation1Activity : BaseActivity() {
         ButterKnife.bind(this)
         EventBus.getDefault().register(this)
         SMSSDK.registerEventHandler(EventHandle())
-    }
-
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        if (hasFocus) {
-            //延迟弹出软键盘
-            Observable.timer(100, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                    .subscribe { Utils.showInputMethod(et_afc_phone) }
-        }
+        //延迟弹出软键盘
+        Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe { Utils.showInputMethod(et_afc_phone) }
     }
 
     override fun onBackPressed() {
@@ -88,7 +82,7 @@ class ApplyForCreation1Activity : BaseActivity() {
         tv_afc_phone.setOnClickListener {
             rl_afc_phone.visibility = View.VISIBLE
             ll_afc_code.visibility = View.GONE
-            Observable.timer(300, TimeUnit.MILLISECONDS).subscribe{
+            Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe{
                 et_afc_phone.requestFocus()
             }
         }
