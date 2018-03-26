@@ -82,7 +82,7 @@
                 android:transitionName="cardBag"/>
 
             <TextView
-                android:id="@+id/tv_item_card_like"
+                android:id="@+id/tv_item_card_reade_num"
                 android:drawableStart="@drawable/tv_item_rank_user_card"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="15dp"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/tv_item_card_read"
+                android:id="@+id/tv_item_card_collect_num"
                 android:drawableStart="@drawable/tv_item_rank_user_fans"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="15dp"

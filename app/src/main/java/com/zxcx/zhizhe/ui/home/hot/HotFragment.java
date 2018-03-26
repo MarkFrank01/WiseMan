@@ -23,8 +23,8 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.home.hot.adapter.HotCardAdapter;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.widget.CustomLoadMoreView;
 
@@ -49,7 +49,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
     private HotCardAdapter mCardAdapter;
     private int mPage = 0;
-    private int mAppBarLayoutVerticalOffset;
     private boolean mHidden = true;
 
     @Override
@@ -125,7 +124,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
     }
 
     @Override
-    public void getDataSuccess(List<RecommendBean> list) {
+    public void getDataSuccess(List<HotBean> list) {
         //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         loadService.showSuccess();
         mRefreshLayout.finishRefresh();
@@ -173,10 +172,6 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         mPresenter.getHotCard(mPage);
     }
 
-    public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
-        this.mAppBarLayoutVerticalOffset = appBarLayoutVerticalOffset;
-    }
-
     private static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener {
 
         private Activity mContext;
@@ -187,32 +182,34 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            RecommendBean recommendBean = (RecommendBean) adapter.getData().get(position);
-            HotCardBean bean = recommendBean.getCardBean();
-            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
-                    Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle();
-            Intent intent = new Intent(mContext, CardDetailsActivity.class);
-            intent.putExtra("id", bean.getId());
-            intent.putExtra("name", bean.getName());
-            intent.putExtra("imageUrl", bean.getImageUrl());
-            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
-            intent.putExtra("author", bean.getAuthor());
-            mContext.startActivity(intent,bundle);
+            HotBean hotBean = (HotBean) adapter.getData().get(position);
+            if (hotBean.getItemType() == HotBean.TYPE_CARD) {
+                CardBean bean = hotBean.getCardBean();
+                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                        Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                        Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                        Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle();
+                Intent intent = new Intent(mContext, CardDetailsActivity.class);
+                intent.putExtra("id", bean.getId());
+                intent.putExtra("name", bean.getName());
+                intent.putExtra("imageUrl", bean.getImageUrl());
+                intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+                intent.putExtra("author", bean.getAuthor());
+                mContext.startActivity(intent, bundle);
+            }
         }
     }
 
-    private static class CardBagCardClickListener implements HotCardAdapter.HotCardBagCardOnClickListener {
+    private static class CardBagCardClickListener implements SubjectOnClickListener {
 
         private Context mContext;
 
-        public CardBagCardClickListener(Context context) {
+        CardBagCardClickListener(Context context) {
             mContext = context;
         }
 
         @Override
-        public void hotCardBagCardOnClick(HotCardBean bean) {
+        public void cardOnClick(CardBean bean) {
             Intent intent = new Intent(mContext, CardDetailsActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());
@@ -223,7 +220,7 @@ public class HotFragment extends RefreshMvpFragment<HotPresenter> implements Hot
         }
 
         @Override
-        public void hotCardBagOnClick(HotCardBagBean bean) {
+        public void subjectOnClick(SubjectBean bean) {
             Intent intent = new Intent(mContext, CardBagActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());

@@ -30,11 +30,11 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         OSSDialog.OSSUploadListener{
 
     private lateinit var mOSSDialog: OSSDialog
-    private var cardId: Int? = null
-    private var cardBagId: Int? = null
-    private var title: String? = null
-    private var imageUrl: String? = null
-    private var content: String? = null
+    private var cardId: Int = 0
+    private var cardBagId: Int = 0
+    private var title: String = ""
+    private var imageUrl: String = ""
+    private var content: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

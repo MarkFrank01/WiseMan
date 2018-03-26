@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GoodView
 import kotlinx.android.synthetic.main.activity_card_details.*
@@ -147,9 +148,17 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         tv_card_details_title.text = name
         tv_card_details_info.text = getString(R.string.tv_card_info, date, author)
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details)
-        TODO("显示广告")
-//        fl_card_details_ad.visibility = View.VISIBLE
-        //ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details)
+        val ad = bean.ad
+        if (ad != null){
+            fl_card_details_ad.visibility = View.VISIBLE
+            ImageLoader.load(mActivity, ad.content, R.drawable.default_card, iv_card_details_ad)
+            fl_card_details_ad.setOnClickListener {
+                startActivity(WebViewActivity::class.java,{
+                    it.putExtra("title", ad.description)
+                    it.putExtra("url", ad.behavior)
+                })
+            }
+        }
     }
 
     override fun likeSuccess(bean: CardDetailsBean) {
@@ -311,9 +320,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
             } else {
                 mPresenter.removeCollectCard(cardId)
             }
-        }
-        fl_card_details_ad.setOnClickListener {
-            TODO("广告点击")
         }
     }
 

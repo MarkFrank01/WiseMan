@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
-import com.zxcx.zhizhe.ui.search.result.card.CreationBean
 import com.zxcx.zhizhe.ui.search.result.card.CreationContract
 import com.zxcx.zhizhe.ui.search.result.card.CreationPresenter
 import com.zxcx.zhizhe.utils.Constants

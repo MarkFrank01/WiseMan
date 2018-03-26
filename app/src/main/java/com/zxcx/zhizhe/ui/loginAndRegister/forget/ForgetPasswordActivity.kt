@@ -97,7 +97,7 @@ class ForgetPasswordActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPas
     }
 
     private fun checkPassword(): Boolean {
-        return passwordPattern.matcher(et_forget_password!!.text.toString()).matches()
+        return passwordPattern.matcher(et_forget_password?.text.toString()).matches()
     }
 
     override fun setListener() {

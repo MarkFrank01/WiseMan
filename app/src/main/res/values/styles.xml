@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="AppTheme.FullScreen" parent="AppTheme">
@@ -37,6 +38,8 @@
     <style name="tv_card">
         <item name="android:maxLines">1</item>
         <item name="android:maxLength">20</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:textColor">@color/white_final</item>
         <item name="android:textSize">@dimen/text_size_title_2</item>
         <item name="android:textStyle">bold</item>

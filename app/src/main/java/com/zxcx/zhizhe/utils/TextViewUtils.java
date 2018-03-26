@@ -146,7 +146,7 @@ public class TextViewUtils {
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, trySize);
     }
 
-    public static void setTextViewColorAndBold(TextView textView, String key, String value) {
+    public static void setTextViewColor(TextView textView, String key, String value) {
         if (isEmpty(value)) {
             return;
         }

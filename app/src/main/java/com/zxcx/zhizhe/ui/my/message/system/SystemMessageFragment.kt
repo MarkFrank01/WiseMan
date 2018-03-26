@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
+import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity

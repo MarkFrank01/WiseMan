@@ -11,16 +11,28 @@ class LikeCardsPresenter(view: LikeCardsContract.View) : BasePresenter<LikeCards
         mModel = LikeCardsModel(this)
     }
 
-    fun getLikeCard(sortType: Int, page: Int, pageSize: Int) {
-        mModel.getLikeCard(sortType, page, pageSize)
+    fun getLikeCard(page: Int, pageSize: Int) {
+        mModel.getLikeCard(page, pageSize)
     }
 
-    override fun getDataSuccess(list: List<LikeCardsBean>) {
+    fun deleteLikeCard(cardId: Int) {
+        mModel.deleteLikeCard(cardId)
+    }
+
+    override fun getDataSuccess(list: List<MyCardsBean>) {
         mView.getDataSuccess(list)
     }
 
     override fun getDataFail(msg: String) {
         mView.toastFail(msg)
+    }
+
+    override fun postSuccess() {
+        mView.postSuccess()
+    }
+
+    override fun postFail(msg: String?) {
+        mView.postFail(msg)
     }
 
     override fun showLoading() {

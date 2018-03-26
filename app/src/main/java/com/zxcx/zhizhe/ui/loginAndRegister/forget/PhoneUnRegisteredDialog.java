@@ -52,7 +52,7 @@ public class PhoneUnRegisteredDialog extends CommonDialog {
         mTvDialogPhoneConfirmTitle.setText("手机号未注册");
 
         phone = getArguments().getString("phone");
-        TextViewUtils.setTextViewColorAndBold(mTvDialogPhoneConfirm, phone, getString(R.string.tv_dialog_phone_un_registered, phone));
+        TextViewUtils.setTextViewColor(mTvDialogPhoneConfirm, phone, getString(R.string.tv_dialog_phone_un_registered, phone));
     }
 
     @Override

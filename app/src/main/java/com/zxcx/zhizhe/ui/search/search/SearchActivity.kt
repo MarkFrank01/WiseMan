@@ -85,8 +85,8 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
 
     override fun getSearchPreSuccess(list: MutableList<String>) {
         rv_search_pre.visibility = View.VISIBLE
-        mSearchPreAdapter!!.setKeyword(et_search.getText().toString())
-        mSearchPreAdapter!!.setNewData(list)
+        mSearchPreAdapter?.setKeyword(et_search.getText().toString())
+        mSearchPreAdapter?.setNewData(list)
     }
 
     override fun setListener() {

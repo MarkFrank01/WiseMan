@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView

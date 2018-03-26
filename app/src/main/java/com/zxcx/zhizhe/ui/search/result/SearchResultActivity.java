@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.room.AppDatabase;
 import com.zxcx.zhizhe.room.SearchHistory;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardFragment;
-import com.zxcx.zhizhe.ui.search.result.user.SearchUserFragment;
+import com.zxcx.zhizhe.ui.search.result.subject.SearchSubjectFragment;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.StringUtils;
@@ -48,10 +48,11 @@ public class SearchResultActivity extends BaseActivity {
     @BindView(R.id.rl_search_result_edit)
     RelativeLayout mRlSearchResultEdit;
 
-    private String[] titles = new String[]{"卡片", "用户"};
+    private String[] titles = new String[]{"卡片", "长文", "用户"};
 
     private SearchCardFragment mSearchCardFragment = new SearchCardFragment();
-    private SearchUserFragment mSearchUserFragment = new SearchUserFragment();
+    private SearchCardFragment mSearchArticleFragment = new SearchCardFragment();
+    private SearchSubjectFragment mSearchSubjectFragment = new SearchSubjectFragment();
     private Fragment mCurrentFragment = new Fragment();
 
     @Override
@@ -60,6 +61,7 @@ public class SearchResultActivity extends BaseActivity {
         setContentView(R.layout.activity_search_result);
         ButterKnife.bind(this);
 
+        mSearchArticleFragment.setCardType(1);
         initData();
         initView();
     }
@@ -84,15 +86,15 @@ public class SearchResultActivity extends BaseActivity {
         String keyword = getIntent().getStringExtra("mKeyword");
         mEtSearchResult.setText(keyword);
         mSearchCardFragment.setMKeyword(keyword);
-        mSearchUserFragment.setMKeyword(keyword);
+        mSearchSubjectFragment.setMKeyword(keyword);
     }
 
     private void initView() {
-        for (int i = 0; i < titles.length; i++) {
+        for (String title : titles) {
             TabLayout.Tab tab = mTlSearchResult.newTab();
             tab.setCustomView(R.layout.tab_home);
             TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_home);
-            textView.setText(titles[i]);
+            textView.setText(title);
             mTlSearchResult.addTab(tab);
 //            tab.setText(titles[i]);
         }
@@ -104,7 +106,7 @@ public class SearchResultActivity extends BaseActivity {
                         switchFragment(mSearchCardFragment);
                         break;
                     case 1:
-                        switchFragment(mSearchUserFragment);
+                        switchFragment(mSearchSubjectFragment);
                         break;
                 }
             }
@@ -158,7 +160,7 @@ public class SearchResultActivity extends BaseActivity {
                     return true;
                 }
                 mSearchCardFragment.setMKeyword(keyword);
-                mSearchUserFragment.setMKeyword(keyword);
+                mSearchSubjectFragment.setMKeyword(keyword);
                 mDisposable = Flowable.just(keyword)
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .observeOn(Schedulers.io())

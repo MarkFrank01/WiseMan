@@ -11,8 +11,8 @@ class NewCreationEditorModel(presenter: NewCreationEditorContract.Presenter) : B
         this.mPresenter = presenter
     }
 
-    fun saveFreeNode(cardId: Int?, title: String?, imageUrl: String?, cardBagId: Int?, content: String?) {
-        mDisposable = AppClient.getAPIService().saveFreeNode(cardId!!,title,imageUrl, cardBagId!!,content,0)
+    fun saveFreeNode(cardId: Int, title: String, imageUrl: String, cardBagId: Int, content: String) {
+        mDisposable = AppClient.getAPIService().saveFreeNode(cardId,title,imageUrl, cardBagId,content,0)
                 .compose(BaseRxJava.io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
@@ -23,8 +23,8 @@ class NewCreationEditorModel(presenter: NewCreationEditorContract.Presenter) : B
         addSubscription(mDisposable)
     }
 
-    fun submitReview(cardId: Int?, title: String?,imageUrl: String?,cardBagId: Int?,content: String?) {
-        mDisposable = AppClient.getAPIService().saveFreeNode(cardId!!,title,imageUrl, cardBagId!!,content,1)
+    fun submitReview(cardId: Int, title: String,imageUrl: String,cardBagId: Int,content: String) {
+        mDisposable = AppClient.getAPIService().saveFreeNode(cardId,title,imageUrl, cardBagId,content,1)
                 .compose(BaseRxJava.io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {

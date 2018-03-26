@@ -10,8 +10,8 @@ class SearchCardModel(presenter: SearchCardContract.Presenter) : BaseModel<Searc
         this.mPresenter = presenter
     }
 
-    fun searchCard(keyword: String, page: Int, pageSize: Int) {
-        mDisposable = AppClient.getAPIService().searchCard(keyword, page, pageSize)
+    fun searchCard(keyword: String, cardType: Int, page: Int, pageSize: Int) {
+        mDisposable = AppClient.getAPIService().searchCard(keyword, cardType, page, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<SearchCardBean>>(mPresenter) {

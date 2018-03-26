@@ -6,29 +6,28 @@ import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
-import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
+import com.zxcx.zhizhe.ui.home.hot.CardBean;
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
-import com.zxcx.zhizhe.ui.my.collect.CollectCardBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
-import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsBean;
+import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
-import com.zxcx.zhizhe.ui.my.note.cardNote.NoteBean;
+import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
-import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.card.CreationBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
-import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
@@ -161,15 +160,15 @@ public interface APIService {
     /**
      * 获取推荐
      */
-    @POST("/article/getRecommendArticle")
-    Flowable<BaseBean<HotBean>> getHot(
+    @POST("/article/getRecommendContent")
+    Flowable<BaseArrayBean<HotBean>> getHot(
             @Query("pageIndex") int page);
 
     /**
      * 获取关注卡片
      */
     @POST("/article/getFollowArticle")
-    Flowable<BaseArrayBean<HotCardBean>> getAttentionCard(
+    Flowable<BaseArrayBean<CardBean>> getAttentionCard(
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
@@ -208,14 +207,14 @@ public interface APIService {
      */
     @POST("/search/searchArticle")
     Flowable<BaseArrayBean<SearchCardBean>> searchCard(
-            @Query("keyword") String keyword, @Query("pageIndex") int page,
-            @Query("pageSize") int pageSize);
+            @Query("keyword") String keyword, @Query("cardType") int cardType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 搜索用户
+     * 搜索专题
      */
-    @POST("/search/searchUsers")
-    Flowable<BaseArrayBean<SearchUserBean>> searchUser(
+    @POST("/search/searchCollection")
+    Flowable<BaseArrayBean<SubjectBean>> searchSubject(
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
@@ -259,18 +258,17 @@ public interface APIService {
 
     /**
      * 获取笔记列表
-     * @param noteType 0自由笔记 1卡片笔记
      */
     @POST("/article/getNoteArticleList")
     Flowable<BaseArrayBean<NoteBean>> getNoteList(
-            @Query("noteType") int noteType, @Query("orderType") int sortType,
-            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+            @Query("orderType") int sortType, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
     /**
      * 获取收藏卡片列表
      */
     @POST("/favorite/getFavoriteArticleList")
-    Flowable<BaseArrayBean<CollectCardBean>> getCollectCard(
+    Flowable<BaseArrayBean<MyCardsBean>> getCollectCard(
             @Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
@@ -278,7 +276,7 @@ public interface APIService {
      * 获取点赞卡片列表
      */
     @POST("/article/getLikeArticleList")
-    Flowable<BaseArrayBean<LikeCardsBean>> getLikeCard(
+    Flowable<BaseArrayBean<MyCardsBean>> getLikeCard(
             @Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
@@ -314,6 +312,13 @@ public interface APIService {
      */
     @POST("/article/readArticle")
     Flowable<BaseBean<Object>> readArticle(@Query("articleId") int cardId);
+
+    /**
+     *删除阅读卡片
+     */
+    @POST("/article/deleteRead")
+    Flowable<BaseBean<Object>> removeReadCard(
+            @Query("relationshipKeyId") int realId,@Query("articleId") int cardId);
 
     /**
      * 添加收藏卡片
@@ -352,6 +357,12 @@ public interface APIService {
     Flowable<BaseBean<CardDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
 
     /**
+     *取消不赞同卡片
+     */
+    @POST("/note/deleteNode")
+    Flowable<BaseBean<Object>> removeNote(@Query("articleId") int noteId);
+
+    /**
      *提交反馈
      */
     @POST("/feedback/sumbitFeedbadk")
@@ -382,7 +393,7 @@ public interface APIService {
      * 获取其他用户创作列表
      */
     @POST("/article/getCreationListByAuthorId")
-    Flowable<BaseArrayBean<CreationBean>> getOtherUserCreation(
+    Flowable<BaseArrayBean<CardBean>> getOtherUserCreation(
             @Query("authorId") int userId,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 

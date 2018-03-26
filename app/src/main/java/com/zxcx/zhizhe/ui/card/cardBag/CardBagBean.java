@@ -11,10 +11,9 @@ public class CardBagBean extends RetrofitBaen {
     private int id;
     @SerializedName("articleType")
     private int cardType;
-    @SerializedName("likedUsersCount")
-    private int likeNum;
-    // TODO: 2018/3/21 改为阅读数
     @SerializedName("collectingCount")
+    private int collectNum;
+    @SerializedName("pv")
     private int readNum;
     @SerializedName("titleImage")
     private String imageUrl;
@@ -35,12 +34,12 @@ public class CardBagBean extends RetrofitBaen {
         this.cardType = cardType;
     }
 
-    public int getLikeNum() {
-        return likeNum;
+    public int getCollectNum() {
+        return collectNum;
     }
 
-    public void setLikeNum(int likeNum) {
-        this.likeNum = likeNum;
+    public void setCollectNum(int collectNum) {
+        this.collectNum = collectNum;
     }
 
     public int getReadNum() {

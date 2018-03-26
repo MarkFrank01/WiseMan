@@ -25,8 +25,8 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
-import com.zxcx.zhizhe.ui.home.hot.HotCardBean;
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration;
+import com.zxcx.zhizhe.ui.home.hot.CardBean;
+import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
 import com.zxcx.zhizhe.utils.Constants;
@@ -161,7 +161,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     @Override
-    public void getDataSuccess(List<HotCardBean> list) {
+    public void getDataSuccess(List<CardBean> list) {
         loadService.showSuccess();
         mRefreshLayout.finishRefresh();
         if (page == 0){
@@ -240,7 +240,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            HotCardBean bean = (HotCardBean) adapter.getData().get(position);
+            CardBean bean = (CardBean) adapter.getData().get(position);
             Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
                     Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),

@@ -203,12 +203,5 @@
         tools:listitem="@layout/item_rank_user"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <ImageView
-        android:id="@+id/iv_rank_close"
-        android:layout_gravity="end"
-        android:src="@drawable/iv_card_details_back"
-        android:layout_marginTop="10dp"
-        android:layout_width="28dp"
-        android:layout_height="28dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

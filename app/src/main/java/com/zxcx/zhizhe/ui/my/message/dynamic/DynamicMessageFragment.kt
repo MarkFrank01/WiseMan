@@ -16,8 +16,6 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListActiv
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.StringUtils
 import com.zxcx.zhizhe.utils.TextViewUtils
 import kotlinx.android.synthetic.main.fragment_dynamic_message.*
@@ -28,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean> {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_dynamic_message, container, false)
+        return inflater?.inflate(R.layout.fragment_dynamic_message, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -91,19 +89,19 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
         bean.followerUserStr?.let {
             if (!StringUtils.isEmpty(bean.followerUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_follow, it)
-                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_follow,bean.followerUserStr,str)
+                TextViewUtils.setTextViewColor(tv_dynamic_message_follow,bean.followerUserStr,str)
             }
         }
         bean.likeUserStr?.let {
             if (!StringUtils.isEmpty(bean.likeUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_like, it)
-                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_like,bean.likeUserStr,str)
+                TextViewUtils.setTextViewColor(tv_dynamic_message_like,bean.likeUserStr,str)
             }
         }
         bean.collectedUserStr?.let {
             if (!StringUtils.isEmpty(bean.collectedUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_collect, it)
-                TextViewUtils.setTextViewColorAndBold(tv_dynamic_message_collect,bean.collectedUserStr,str)
+                TextViewUtils.setTextViewColor(tv_dynamic_message_collect,bean.collectedUserStr,str)
             }
         }
     }

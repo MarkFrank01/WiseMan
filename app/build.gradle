@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 //测试时关闭tinker
 //apply from: 'tinker-support.gradle'
 apply from: 'multiple-channel.gradle'
@@ -31,10 +32,6 @@ android {
 
 
         javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [eventBusIndex        : 'com.zxcx.zhizhe.MyEventBusIndex',
-                             "room.schemaLocation": "$projectDir/schemas".toString()]
-            }
         }
 
         manifestPlaceholders = [
@@ -74,6 +71,9 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+
+
 }
 
 dependencies {
@@ -124,12 +124,14 @@ dependencies {
     //rxpermissions 动态权限获取
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     //EventBus 事件总线
-    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'org.greenrobot:eventbus:3.1.1'
     //BaseRecyclerViewAdapterHelper 简洁RecyclerView-Adapter
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.36'
+    //item侧滑菜单
+    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
     //butterknife 控件注解绑定
     compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     //roundedimageview 圆角ImageView
     compile 'com.makeramen:roundedimageview:2.3.0'
     //walle 瓦力多渠道打包
@@ -172,11 +174,19 @@ dependencies {
     //Room
     compile "android.arch.persistence.room:runtime:1.0.0"
     compile "android.arch.persistence.room:rxjava2:1.0.0"
-    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+    kapt "android.arch.persistence.room:compiler:1.0.0"
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
     /*//Android工具类
     compile 'com.blankj:utilcode:1.9.12'*/
 }
+
+kapt{
+    arguments{
+        arg("eventBusInde", 'com.zxcx.zhizhe.MyEventBusIndex')
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
+    }
+}
+
 repositories {
     mavenCentral()
     flatDir {

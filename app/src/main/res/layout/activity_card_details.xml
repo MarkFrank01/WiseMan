@@ -123,7 +123,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_card_details_bottom"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="40dp"

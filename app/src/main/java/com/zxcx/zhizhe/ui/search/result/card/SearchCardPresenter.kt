@@ -11,8 +11,8 @@ class SearchCardPresenter(view: SearchCardContract.View) : BasePresenter<SearchC
         mModel = SearchCardModel(this)
     }
 
-    fun searchCard(keyword: String, page: Int, pageSize: Int) {
-        mModel.searchCard(keyword, page, pageSize)
+    fun searchCard(keyword: String, cardType: Int, page: Int, pageSize: Int) {
+        mModel.searchCard(keyword, cardType, page, pageSize)
     }
 
     override fun getDataSuccess(bean: List<SearchCardBean>) {

@@ -10,35 +10,36 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.hot.itemDecoration.HomeCardItemDecoration
+import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.fragment_search_card.*
+import kotlinx.android.synthetic.main.fragment_search_result.*
 
 class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     var mPage = 0
-    private var mPageSize = Constants.PAGE_SIZE
+    var cardType = 0 //卡片类型 0卡片 1为长文
+    private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mSearchCardAdapter : SearchCardAdapter
 
     var mKeyword = ""
         set(value) {
             field = value
             mPage = 0
-            mPresenter?.searchCard(mKeyword,mPage,mPageSize)
+            mPresenter?.searchCard(mKeyword,cardType,mPage,mPageSize)
         }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_search_card, container, false)
+        return inflater?.inflate(R.layout.fragment_search_result, container, false)
 
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        mPresenter?.searchCard(mKeyword,mPage,mPageSize)
+        mPresenter?.searchCard(mKeyword,cardType,mPage,mPageSize)
     }
 
     override fun createPresenter(): SearchCardPresenter {
@@ -63,7 +64,7 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.searchCard(mKeyword,mPage,mPageSize)
+        mPresenter.searchCard(mKeyword,cardType,mPage,mPageSize)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -78,10 +79,10 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
         mSearchCardAdapter = SearchCardAdapter(ArrayList())
         mSearchCardAdapter.onItemClickListener = this
         mSearchCardAdapter.setLoadMoreView(CustomLoadMoreView())
-        mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result_card)
-        rv_search_result_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
-        rv_search_result_card.adapter = mSearchCardAdapter
-        rv_search_result_card.addItemDecoration(HomeCardItemDecoration())
+        mSearchCardAdapter.setOnLoadMoreListener(this,rv_search_result)
+        rv_search_result.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_search_result.adapter = mSearchCardAdapter
+        rv_search_result.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索卡片","换个关键词试试",null,null)
         mSearchCardAdapter.emptyView = emptyView
     }

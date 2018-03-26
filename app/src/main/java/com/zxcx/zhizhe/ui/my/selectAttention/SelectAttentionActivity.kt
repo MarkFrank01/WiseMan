@@ -89,7 +89,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
     }
 
     private fun initRecyclerView() {
-        val footer = LayoutInflater.from(mActivity).inflate(R.layout.footer_select_attention, null)
+        val footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_select_attention, null)
         mTvStart = footer.findViewById(R.id.tv_start)
         mTvStart.setOnClickListener {
             val idList = mutableListOf<Int>()

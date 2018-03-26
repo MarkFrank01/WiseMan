@@ -48,7 +48,7 @@ public class PhoneConfirmDialog extends CommonDialog {
         super.onViewCreated(view, savedInstanceState);
 
         String phone = getArguments().getString("phone");
-        TextViewUtils.setTextViewColorAndBold(mTvDialogPhoneConfirmTitle,phone,getString(R.string.tv_dialog_phone_confirm_title,phone));
+        TextViewUtils.setTextViewColor(mTvDialogPhoneConfirmTitle,phone,getString(R.string.tv_dialog_phone_confirm_title,phone));
     }
 
     @Override

@@ -144,7 +144,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
     }
 
     override fun setListener() {
-        iv_rank_close.setOnClickListener { onBackPressed() }
+//        iv_rank_close.setOnClickListener { onBackPressed() }
         tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
 
     }

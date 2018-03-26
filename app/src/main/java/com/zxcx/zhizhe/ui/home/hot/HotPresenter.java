@@ -20,7 +20,7 @@ public class HotPresenter extends BasePresenter<HotContract.View> implements Hot
     }
 
     @Override
-    public void getDataSuccess(List<RecommendBean> s) {
+    public void getDataSuccess(List<HotBean> s) {
         mView.getDataSuccess(s);
     }
 

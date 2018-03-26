@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.card.card.cardDetails;
 
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.ui.welcome.ADBean;
 
 import java.util.Date;
 
@@ -13,6 +14,8 @@ public class CardDetailsBean extends RetrofitBaen {
     private boolean isUnLike;
     @SerializedName("collect")
     private boolean isCollect;
+    @SerializedName("pv")
+    private int readNum;
     @SerializedName("likedUsersCount")
     private int likeNum;
     @SerializedName("disagreeUsersCount")
@@ -45,6 +48,8 @@ public class CardDetailsBean extends RetrofitBaen {
     private String authorReadNum;
     @SerializedName("userAurhorRelationshipType")
     private int followType;//0为未关注，1为已关注，2为已相互关注&
+    @SerializedName("adVO")
+    private ADBean ad;
 
     public boolean getIsLike() {
         return isLike;
@@ -60,6 +65,14 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setIsCollect(boolean isCollect) {
         this.isCollect = isCollect;
+    }
+
+    public int getReadNum() {
+        return readNum;
+    }
+
+    public void setReadNum(int readNum) {
+        this.readNum = readNum;
     }
 
     public int getLikeNum() {
@@ -212,6 +225,14 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setFollowType(int followType) {
         this.followType = followType;
+    }
+
+    public ADBean getAd() {
+        return ad;
+    }
+
+    public void setAd(ADBean ad) {
+        this.ad = ad;
     }
 }
 

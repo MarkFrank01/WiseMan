@@ -11,7 +11,7 @@
     android:layout_height="40dp">
 
     <TextView
-        android:id="@+id/tv_item_card_bag_name"
+        android:id="@+id/tv_item_subject_name"
         tools:text="生活常识"
         android:gravity="center"
         android:textColor="@color/text_color_2"

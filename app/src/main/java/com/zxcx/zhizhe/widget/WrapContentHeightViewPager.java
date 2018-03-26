@@ -12,7 +12,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
  */
 
 public class WrapContentHeightViewPager extends ViewPager{
-    private int height = ScreenUtils.dip2px(390);
+    private int height = ScreenUtils.dip2px(216);
 
     /**
      * Constructor

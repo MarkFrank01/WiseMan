@@ -58,6 +58,7 @@ public class NoteTitleDialog extends CommonDialog implements INullPostPresenter{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
+        mEtDialogNoteTitle.setText(title);
     }
 
     private void initData() {
@@ -82,11 +83,7 @@ public class NoteTitleDialog extends CommonDialog implements INullPostPresenter{
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
         // 保存笔记
-        if (mEtDialogNoteTitle.length()==0){
-            saveCardNode(title,imageUrl,withCardId,content);
-        }else {
-            saveCardNode(mEtDialogNoteTitle.getText().toString(),imageUrl,withCardId,content);
-        }
+        saveCardNode(mEtDialogNoteTitle.getText().toString(),imageUrl,withCardId,content);
     }
 
     public void saveCardNode(String title,String imageUrl, int withCardId,String content) {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_subject_card"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="10dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        tools:src="@drawable/logo"
+        app:riv_corner_radius="6dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/iv_item_subject_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item_subject_card_name"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="40dp"
+            tools:text="打印纸的规格"
+            style="@style/tv_single"
+            android:textSize="@dimen/text_size_text_1"
+            android:textColor="@color/text_color_1"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_item_subject_card_info"
+            tools:text="打印纸的规格"
+            style="@style/tv_single"
+            android:textSize="@dimen/text_size_text_3"
+            android:textColor="@color/text_color_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

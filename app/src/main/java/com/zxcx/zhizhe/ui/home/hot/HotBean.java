@@ -1,34 +1,46 @@
 package com.zxcx.zhizhe.ui.home.hot;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
-
-import java.util.List;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
 
 /**
  * Created by anm on 2017/12/4.
  */
 
-public class HotBean extends RetrofitBaen {
+public class HotBean extends RetrofitBaen implements MultiItemEntity {
 
-    @SerializedName("articleList")
-    private List<HotCardBean> cardList;
-    @SerializedName("collectionList")
-    private List<HotCardBagBean> cardBagList;
+    public static final int TYPE_CARD = 1;
+    public static final int TYPE_SUBJECT = 2;
 
-    public List<HotCardBean> getCardList() {
-        return cardList;
+    @SerializedName("articleContent")
+    private CardBean mCardBean;
+    @SerializedName("collectionContent")
+    private SubjectBean mSubjectBean;
+
+    public CardBean getCardBean() {
+        return mCardBean;
     }
 
-    public void setCardList(List<HotCardBean> cardList) {
-        this.cardList = cardList;
+    public void setCardBean(CardBean cardBean) {
+        mCardBean = cardBean;
     }
 
-    public List<HotCardBagBean> getCardBagList() {
-        return cardBagList;
+    public SubjectBean getSubjectBean() {
+        return mSubjectBean;
     }
 
-    public void setCardBagList(List<HotCardBagBean> cardBagList) {
-        this.cardBagList = cardBagList;
+    public void setSubjectBean(SubjectBean subjectBean) {
+        mSubjectBean = subjectBean;
+    }
+
+    @Override
+    public int getItemType() {
+        if (mCardBean == null){
+            return TYPE_SUBJECT;
+        }else {
+            return TYPE_CARD;
+        }
     }
 }

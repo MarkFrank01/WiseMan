@@ -11,11 +11,11 @@ class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePre
         mModel = NewCreationEditorModel(this)
     }
 
-    fun saveFreeNode(cardId: Int?, title: String?, imageUrl: String?, cardBagId: Int?, content: String?) {
+    fun saveFreeNode(cardId: Int, title: String, imageUrl: String, cardBagId: Int, content: String) {
         mModel.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
     }
 
-    fun submitReview(cardId: Int?, title: String?,imageUrl: String?,cardBagId: Int?,content: String?) {
+    fun submitReview(cardId: Int, title: String,imageUrl: String,cardBagId: Int,content: String) {
         mModel.submitReview(cardId,title,imageUrl,cardBagId,content)
     }
 
@@ -27,7 +27,7 @@ class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePre
         mView.saveFreedomNoteSuccess()
     }
 
-    override fun postFail(msg: String?) {
+    override fun postFail(msg: String) {
         mView.postFail(msg)
     }
 

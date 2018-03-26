@@ -11,8 +11,12 @@ class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCards
         mModel = ReadCardsModel(this)
     }
 
-    fun getReadCard(sortType: Int, page: Int, pageSize: Int) {
-        mModel.getReadCard(sortType, page, pageSize)
+    fun getReadCard(page: Int, pageSize: Int) {
+        mModel.getReadCard(page, pageSize)
+    }
+
+    fun deleteReadCard(realId: Int,cardId: Int) {
+        mModel.deleteReadCard(realId,cardId)
     }
 
     override fun getDataSuccess(list: List<ReadCardsBean>) {
@@ -21,6 +25,14 @@ class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCards
 
     override fun getDataFail(msg: String) {
         mView.toastFail(msg)
+    }
+
+    override fun postSuccess() {
+        mView.postSuccess()
+    }
+
+    override fun postFail(msg: String?) {
+        mView.postFail(msg)
     }
 
     override fun showLoading() {

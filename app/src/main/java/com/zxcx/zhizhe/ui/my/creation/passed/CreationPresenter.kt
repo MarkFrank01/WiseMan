@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 
 class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationContract.View>(), CreationContract.Presenter {
 
@@ -13,10 +14,6 @@ class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationCon
 
     fun getCreation(passType: Int, sortType: Int, page: Int, pageSize: Int) {
         mModel.getCreation(passType,sortType, page, pageSize)
-    }
-
-    fun getOtherUserCreation(id: Int, sortType: Int, page: Int, pageSize: Int) {
-        mModel.getOtherUserCreation(id,sortType, page, pageSize)
     }
 
     override fun getDataSuccess(bean: List<CreationBean>) {

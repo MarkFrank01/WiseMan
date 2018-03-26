@@ -1,12 +1,12 @@
 package com.zxcx.zhizhe.ui.my.readCards
 
-import com.zxcx.zhizhe.mvpBase.GetView
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
+import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter
+import com.zxcx.zhizhe.mvpBase.NullGetPostView
 
 interface ReadCardsContract {
 
-    interface View : GetView<List<ReadCardsBean>>
+    interface View : NullGetPostView<List<ReadCardsBean>>
 
-    interface Presenter : IGetPresenter<List<ReadCardsBean>>
+    interface Presenter : INullGetPostPresenter<List<ReadCardsBean>>
 }
 
