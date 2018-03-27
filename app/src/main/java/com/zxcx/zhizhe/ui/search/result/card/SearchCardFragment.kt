@@ -31,12 +31,12 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
             mPresenter?.searchCard(mKeyword,cardType,mPage,mPageSize)
         }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_search_result, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_search_result, container, false)
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter?.searchCard(mKeyword,cardType,mPage,mPageSize)

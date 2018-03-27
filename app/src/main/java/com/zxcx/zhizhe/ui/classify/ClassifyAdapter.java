@@ -45,7 +45,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
                 helper.itemView.setLayoutParams(para);
 
                 ClassifyCardBagBean cardBagBean = (ClassifyCardBagBean) item;
-                helper.setText(R.id.tv_item_card_bag_name,cardBagBean.getName());
+                helper.setText(R.id.tv_item_subject_name,cardBagBean.getName());
                 break;
         }
     }

@@ -47,7 +47,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         return inflater.inflate(R.layout.fragment_creation, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)

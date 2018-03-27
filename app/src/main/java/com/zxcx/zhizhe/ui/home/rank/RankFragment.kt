@@ -62,7 +62,7 @@ class RankFragment : RefreshMvpFragment<RankPresenter>(), RankContract.View , Ba
         return RankPresenter(this)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
         loadService.showCallback(HomeRankLoadingCallback::class.java)

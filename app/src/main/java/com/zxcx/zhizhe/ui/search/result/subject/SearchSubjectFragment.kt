@@ -11,8 +11,8 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -33,7 +33,7 @@ class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubje
             mPresenter?.searchSubject(mKeyword,mPage,mPageSize)
         }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_search_user, container, false)
     }
 
@@ -41,7 +41,7 @@ class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubje
         return SearchSubjectPresenter(this)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter?.searchSubject(mKeyword,mPage,mPageSize)

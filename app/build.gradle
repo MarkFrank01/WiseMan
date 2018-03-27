@@ -9,12 +9,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.zxcx.zhizhe"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 2
         versionName "1.0.1"
         multiDexEnabled true
@@ -78,106 +78,150 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
 
-    compile 'com.android.support:support-v4:26.1.0'
-    compile 'com.android.support:appcompat-v7:26.1.0'
     //百分比布局
-    compile 'com.android.support:percent:26.1.0'
+    implementation 'com.android.support:percent:27.1.0'
+
     //自动换行布局
-    compile 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android:flexbox:0.3.0'
+
     //拖动布局
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
+
     //MD设计库
-    compile 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:design:27.1.0'
+
     //去除方法数限制
-    compile 'com.android.support:multidex:1.0.3'
-    androidTestCompile 'com.android.support:multidex:1.0.3'
-    androidTestCompile 'com.android.support:multidex-instrumentation:1.0.3'
+    implementation 'com.android.support:multidex:1.0.3'
+    androidTestImplementation 'com.android.support:multidex:1.0.3'
+    androidTestImplementation 'com.android.support:multidex-instrumentation:1.0.3'
+
     //状态栏工具
-    compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+
     //Glide
-    compile 'com.github.bumptech.glide:glide:4.1.1'
-    kapt 'com.github.bumptech.glide:compiler:4.1.1'
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    kapt 'com.github.bumptech.glide:compiler:4.6.1'
+
     //Glide使用okhttp3作为底层网络库
-    compile 'com.github.bumptech.glide:okhttp3-integration:4.1.1'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
+
     //Glide RecyclerView优化库
-    //compile 'com.github.bumptech.glide:recyclerview-integration:4.1.1'
+
+    //implementation 'com.github.bumptech.glide:recyclerview-integration:4.1.1'
+
     //okhttp网络拦截库-日志输出
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
     //retrofit2
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+
     //RxJava retrofit2 转换器
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
     //gson retrofit2 转换器
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+
     //gson
-    compile 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
+
     //RxAndroid
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
     //RxJava
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+
     //rxbinding 点击事件过滤
-    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+
     //rxpermissions 动态权限获取
-    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
     //EventBus 事件总线
-    compile 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
     //BaseRecyclerViewAdapterHelper 简洁RecyclerView-Adapter
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.36'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.36'
+
     //item侧滑菜单
-    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+    implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+
     //butterknife 控件注解绑定
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
+
     //roundedimageview 圆角ImageView
-    compile 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
     //walle 瓦力多渠道打包
-    compile 'com.meituan.android.walle:library:1.1.6'
+    implementation 'com.meituan.android.walle:library:1.1.6'
+
     //bugly
-    compile 'com.tencent.bugly:crashreport_upgrade:1.3.4'
-    compile 'com.tencent.bugly:nativecrashreport:3.3.1'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.4'
+    implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
+
     //极光推送
-    compile 'cn.jiguang.sdk:jpush:3.0.8'
+    implementation 'cn.jiguang.sdk:jpush:3.0.8'
+
     //极光统计
-    compile 'cn.jiguang.sdk:janalytics:1.1.1'
+    implementation 'cn.jiguang.sdk:janalytics:1.1.1'
+
     //极光基础库
-    compile 'cn.jiguang.sdk:jcore:1.1.6'
+    implementation 'cn.jiguang.sdk:jcore:1.1.6'
+
     //阿里云OSS
-    compile 'com.aliyun.dpa:oss-android-sdk:2.3.0'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.3.0'
+
     //Luban 鲁班
-    compile 'top.zibin:Luban:1.1.2'
+    implementation 'top.zibin:Luban:1.1.2'
+
     //blurry 高斯模糊
-    //compile 'jp.wasabeef:blurry:2.1.1'
+
+    //implementation 'jp.wasabeef:blurry:2.1.1'
+
     //loadsir 加载状态布局管理
-    compile 'com.kingja.loadsir:loadsir:1.3.5'
+    implementation 'com.kingja.loadsir:loadsir:1.3.5'
+
     //banner广告
-    compile 'com.youth.banner:banner:1.4.10'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.youth.banner:banner:1.4.10'
+    testImplementation 'junit:junit:4.12'
+
     //leakcanary 内存泄漏检测
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-//    debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+
+    //    debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     //kotlin支持
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
     //Chuck 一个用来记录展示网络请求详情的调试工具库
-    debugCompile 'com.readystatesoftware.chuck:library:1.1.0'
-//    debugCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-//    releaseCompile 'com.readystatesoftware.chuck:library:1.1.0'
-    releaseCompile 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+
+    //    debugImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
+    //    releaseImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+
     //格式化Log输出
-    compile 'com.orhanobut:logger:2.1.1'
+    implementation 'com.orhanobut:logger:2.1.1'
+
     //下拉刷新库
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+
     //Room
-    compile "android.arch.persistence.room:runtime:1.0.0"
-    compile "android.arch.persistence.room:rxjava2:1.0.0"
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
     kapt "android.arch.persistence.room:compiler:1.0.0"
-    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
+
     /*//Android工具类
-    compile 'com.blankj:utilcode:1.9.12'*/
+        compile 'com.blankj:utilcode:1.9.12'*/
 }
 
 kapt{
@@ -188,17 +232,18 @@ kapt{
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
-    flatDir {
-        dirs 'libs' //就是你放aar的目录地址
-    }
+    jcenter()
+    google()
 }
+
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '26.1.0'
+                details.useVersion '27.1.0'
             }
         }
     }

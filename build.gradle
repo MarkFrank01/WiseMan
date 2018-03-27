@@ -8,7 +8,7 @@ buildscript {
         maven { url "http://mvn.mob.com/android" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath 'com.meituan.android.walle:plugin:1.1.6'
         //classpath "com.tencent.bugly:tinker-support:1.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -23,9 +23,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         maven { url "https://jitpack.io" }
-        maven { url 'https://maven.google.com' }
+        jcenter()
         google()
     }
 }

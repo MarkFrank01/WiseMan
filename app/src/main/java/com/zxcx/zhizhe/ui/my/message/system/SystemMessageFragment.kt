@@ -32,7 +32,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: SystemMessageAdapter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_system_message, container, false)
     }
 
@@ -40,7 +40,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         return SystemMessagePresenter(this)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage,true)
         initRecyclerView()
@@ -104,7 +104,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
             message_rank -> {
 //                intent.setClass(mActivity,RankActivity::class.java)
                 EventBus.getDefault().post(GotoHomeRankEvent())
-                activity.finish()
+                mActivity.finish()
                 return
             }
             message_recommend -> {

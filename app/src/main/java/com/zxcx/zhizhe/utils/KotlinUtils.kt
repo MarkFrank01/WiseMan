@@ -20,7 +20,7 @@ fun <T> Context?.startActivity(clazz: Class<T>, action: (intent: Intent) -> Unit
     this.startActivity(intent)
 }
 
-fun Context?.getColorForKotlin(@ColorRes resId: Int): Int{
+fun Context.getColorForKotlin(@ColorRes resId: Int): Int{
     return ContextCompat.getColor(this,resId)
 }
 
