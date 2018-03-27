@@ -10,7 +10,6 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.home.attention.AttentionCardAdapter
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
@@ -28,7 +27,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
     private var mSortType = 0//0倒序 1正序
-    private lateinit var mAdapter: AttentionCardAdapter
+    private lateinit var mAdapter: OtherUserCardsAdapter
     private var id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +111,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     }
 
     private fun initView() {
-        mAdapter = AttentionCardAdapter(ArrayList())
+        mAdapter = OtherUserCardsAdapter(ArrayList())
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_other_user)

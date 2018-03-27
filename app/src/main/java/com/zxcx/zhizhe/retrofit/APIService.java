@@ -5,10 +5,8 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
-import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.hot.CardBean;
-import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
+import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
@@ -22,12 +20,14 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
@@ -167,8 +167,8 @@ public interface APIService {
     /**
      * 获取关注卡片
      */
-    @POST("/article/getFollowArticle")
-    Flowable<BaseArrayBean<CardBean>> getAttentionCard(
+    @POST("/article/getFollowContent")
+    Flowable<BaseArrayBean<HotBean>> getAttentionCard(
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**

@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.home.hot.HotFragment
-import com.zxcx.zhizhe.ui.home.rank.RankFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
@@ -24,7 +23,6 @@ class HomeFragment : BaseFragment() {
 
     private val mHotFragment = HotFragment()
     private val mAttentionFragment = AttentionFragment()
-    private val mRankFragment = RankFragment()
     private var mCurrentFragment = Fragment()
 
     private var llRankOffset: Float = 0f
@@ -37,7 +35,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -60,7 +58,6 @@ class HomeFragment : BaseFragment() {
                 when (tab.position) {
                     0 -> switchFragment(mHotFragment)
                     1 -> switchFragment(mAttentionFragment)
-                    2 -> switchFragment(mRankFragment)
                 }
             }
 

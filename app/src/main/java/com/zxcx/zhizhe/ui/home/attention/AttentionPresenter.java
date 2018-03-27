@@ -3,7 +3,7 @@ package com.zxcx.zhizhe.ui.home.attention;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-import com.zxcx.zhizhe.ui.home.hot.CardBean;
+import com.zxcx.zhizhe.ui.home.hot.HotBean;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
     }
 
     @Override
-    public void getDataSuccess(List<CardBean> list) {
+    public void getDataSuccess(List<HotBean> list) {
         mView.getDataSuccess(list);
     }
 

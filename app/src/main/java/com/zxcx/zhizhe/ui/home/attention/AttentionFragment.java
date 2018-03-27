@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.home.attention;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -25,10 +26,15 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.home.hot.CardBean;
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration;
+import com.zxcx.zhizhe.ui.home.hot.HotBean;
+import com.zxcx.zhizhe.ui.home.hot.HotCardAdapter;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
@@ -53,9 +59,8 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     RecyclerView mRvAttentionCard;
     Unbinder unbinder;
 
-    private AttentionCardAdapter mCardAdapter;
+    private HotCardAdapter mCardAdapter;
     private int page = 0;
-    private int mAppBarLayoutVerticalOffset;
     private boolean mHidden = true;
 
     @Override
@@ -161,7 +166,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     }
 
     @Override
-    public void getDataSuccess(List<CardBean> list) {
+    public void getDataSuccess(List<HotBean> list) {
         loadService.showSuccess();
         mRefreshLayout.finishRefresh();
         if (page == 0){
@@ -202,7 +207,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
     private void initView() {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mCardAdapter = new AttentionCardAdapter(new ArrayList<>());
+        mCardAdapter = new HotCardAdapter(new ArrayList<>(),new CardBagCardClickListener(mActivity));
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
@@ -226,15 +231,11 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mPresenter.getHotCard(page, Constants.PAGE_SIZE);
     }
 
-    public void setAppBarLayoutVerticalOffset(int appBarLayoutVerticalOffset) {
-        this.mAppBarLayoutVerticalOffset = appBarLayoutVerticalOffset;
-    }
-
     static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{
 
         private Activity mContext;
 
-        public CardItemClickListener(Activity context) {
+        CardItemClickListener(Activity context) {
             mContext  = context;
         }
 
@@ -252,6 +253,34 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
             intent.putExtra("author", bean.getAuthor());
             mContext.startActivity(intent,bundle);
+        }
+    }
+
+    private static class CardBagCardClickListener implements SubjectOnClickListener {
+
+        private Context mContext;
+
+        CardBagCardClickListener(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        public void cardOnClick(CardBean bean) {
+            Intent intent = new Intent(mContext, CardDetailsActivity.class);
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("name", bean.getName());
+            intent.putExtra("imageUrl", bean.getImageUrl());
+            intent.putExtra("date", DateTimeUtils.getDateString(bean.getDate()));
+            intent.putExtra("author", bean.getAuthor());
+            mContext.startActivity(intent);
+        }
+
+        @Override
+        public void subjectOnClick(SubjectBean bean) {
+            Intent intent = new Intent(mContext, CardBagActivity.class);
+            intent.putExtra("id", bean.getId());
+            intent.putExtra("name", bean.getName());
+            mContext.startActivity(intent);
         }
     }
 }

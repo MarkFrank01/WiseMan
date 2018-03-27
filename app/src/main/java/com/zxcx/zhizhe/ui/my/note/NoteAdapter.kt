@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.utils.DateTimeUtils
 
 /**
  * Created by anm on 2017/12/1.
@@ -20,10 +21,19 @@ class NoteAdapter(data : List<NoteBean>) : BaseQuickAdapter<NoteBean, BaseViewHo
     }
 
     override fun convert(helper: BaseViewHolder, item: NoteBean) {
-        //todo 笔记列表
+        helper.setText(R.id.tv_item_note_name,item.name)
+        helper.setText(R.id.tv_item_note_content,item.content)
         when (item.noteType) {
-            1 -> {}
-            2 -> {}
+            0 -> {
+                //自由笔记
+                helper.setText(R.id.tv_item_note_info,mContext.getString(R.string.tv_item_card_note_info,
+                        DateTimeUtils.getDateTimeString(item.date),"记录"))
+            }
+            1 -> {
+                //卡片笔记
+                helper.setText(R.id.tv_item_note_info,mContext.getString(R.string.tv_item_card_note_info,
+                        DateTimeUtils.getDateTimeString(item.date),"摘录"))
+            }
         }
 
         val easySwipeMenuLayout = helper.getView<EasySwipeMenuLayout>(R.id.es)

@@ -53,6 +53,12 @@ class MessageActivity : BaseActivity() , IGetPresenter<MyTabBean> {
         }
     }
 
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
     private fun initView() {
         for (i in titles.indices) {
             val tab = tl_message.newTab()

@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ClearMessageEvent
@@ -41,9 +43,6 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_follow_message)
         mMessageType = intent.getIntExtra("messageType",0)
-
-        initView()
-
         initRecyclerView()
         mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
     }
@@ -112,23 +111,9 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         }
     }
 
-    private fun initView() {
-        when (mMessageType) {
-            message_follow -> {
-                initToolBar("关注")
-            }
-            message_like -> {
-                initToolBar("点赞")
-            }
-            message_collect -> {
-                initToolBar("收藏")
-            }
-        }
-
-        iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.common_delete)
-        iv_toolbar_right.setOnClickListener {
-            mPresenter.deleteDynamicMessageList(mMessageType)
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -141,6 +126,19 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         rv_follow_message.adapter = mAdapter
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息","可前往系统设置开启",null,null)
         mAdapter.emptyView = emptyView
+        val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+        when (mMessageType) {
+            message_follow -> {
+                header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
+            }
+            message_like -> {
+                header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
+            }
+            message_collect -> {
+                header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
+            }
+        }
+        mAdapter.addHeaderView(header)
     }
 
     class PackData(private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>>): Function<List<DynamicMessageListBean>, List<DynamicBean>> {
@@ -161,15 +159,15 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
             }
             val dynamicBeanList = ArrayList<DynamicBean>()
             for (mutableEntry in map) {
-                Collections.sort(mutableEntry.value) { o1, o2 ->
+                mutableEntry.value.sortWith(Comparator { o1, o2 ->
                     o2?.date?.compareTo(o1?.date)!!
-                }
+                })
                 val dynamicBean = DynamicBean(mutableEntry.key,mutableEntry.value)
                 dynamicBeanList.add(dynamicBean)
             }
-            Collections.sort(dynamicBeanList) { o1, o2 ->
+            dynamicBeanList.sortWith(Comparator { o1, o2 ->
                 o2?.list?.get(0)?.date?.compareTo(o1?.list?.get(0)?.date)!!
-            }
+            })
             return dynamicBeanList
         }
     }

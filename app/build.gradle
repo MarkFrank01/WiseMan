@@ -72,8 +72,6 @@ android {
         abortOnError false
     }
 
-
-
 }
 
 dependencies {

@@ -10,8 +10,11 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationEditorActivity
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_note.*
@@ -80,7 +83,11 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 
     override fun onContentClick(position: Int) {
         val bean = mAdapter.data[position] as NoteBean
-        //todo 笔记列表点击
+        startActivity(NoteDetailsActivity::class.java,{
+            it.putExtra("id",bean.id)
+            it.putExtra("noteType",bean.noteType)
+            it.putExtra("name",bean.name)
+        })
     }
 
     override fun onDeleteClick(position: Int) {
@@ -97,9 +104,14 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         rv_note.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", "快去给你喜欢的卡片点赞吧~", null, null)
         mAdapter.emptyView = emptyView
-        val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-        header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
-        mAdapter.addHeaderView(header)
+        val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+        title.findViewById<TextView>(R.id.tv_header_title).text = "笔记"
+        mAdapter.addHeaderView(title)
+        val viewAddNewNote = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_add_new_note, null)
+        viewAddNewNote.setOnClickListener {
+            startActivity(NewCreationEditorActivity::class.java,{})
+        }
+        mAdapter.addHeaderView(viewAddNewNote)
     }
 
     override fun setListener() {
