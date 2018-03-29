@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_note_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_above="@+id/ll_note_details_bottom"
+            style="@style/line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_note_details_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/iv_note_details_source"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/iv_note_details_source"
+                android:gravity="center"
+                android:scaleType="center"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/iv_note_details_share"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/selector_tv_card_details_share"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/sv_note_details"
+            android:layout_above="@id/ll_note_details_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.zxcx.zhizhe.widget.CardImageView
+                        android:id="@+id/iv_note_details"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="212dp"
+                        android:transitionName="cardImage"
+                        app:widthWeight="16"
+                        app:heightWeight="9"
+                        app:hasShade="true"/>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="bottom"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_note_details_title"
+                            tools:text="动圈和铁圈耳机的区别"
+                            style="@style/tv_card"
+                            android:textColor="@color/white_final"
+                            android:textSize="@dimen/text_size_title_2"
+                            android:textStyle="bold"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardTitle"/>
+
+                        <TextView
+                            android:id="@+id/tv_note_details_info"
+                            tools:text="@string/tv_card_info"
+                            android:textColor="@color/text_color_ee"
+                            android:textSize="@dimen/text_size_text_3"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="13dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardInfo"/>
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fl_note_details"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_note_details_back"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/iv_card_details_back"
+        android:padding="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+</RelativeLayout>

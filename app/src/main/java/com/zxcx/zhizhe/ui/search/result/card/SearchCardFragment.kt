@@ -83,7 +83,10 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
         rv_search_result.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_search_result.adapter = mSearchCardAdapter
         rv_search_result.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索卡片","换个关键词试试",null,null)
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无搜索卡片","换个关键词试试",R.drawable.no_banner,View.OnClickListener {
+
+        })
         mSearchCardAdapter.emptyView = emptyView
     }
 }

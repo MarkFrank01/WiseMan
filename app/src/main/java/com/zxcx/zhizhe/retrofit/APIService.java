@@ -265,6 +265,14 @@ public interface APIService {
             @Query("pageSize") int pageSize);
 
     /**
+     * 获取阅读，点赞，收藏空白页面推荐卡片
+     * @param tabType 标签类型 0阅读 1点赞 3收藏
+     */
+    @POST("/mytabinfo/getRecommendArticleWhenNoContent")
+    Flowable<BaseBean<CardBean>> getEmptyRecommendCard(
+            @Query("tabType") int tabType);
+
+    /**
      * 获取收藏卡片列表
      */
     @POST("/favorite/getFavoriteArticleList")
@@ -357,7 +365,7 @@ public interface APIService {
     Flowable<BaseBean<CardDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
 
     /**
-     *取消不赞同卡片
+     *删除笔记
      */
     @POST("/note/deleteNode")
     Flowable<BaseBean<Object>> removeNote(@Query("articleId") int noteId);

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/background">
 
     <android.support.design.widget.AppBarLayout
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -119,7 +119,7 @@
         android:id="@+id/rv_other_user"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_card"

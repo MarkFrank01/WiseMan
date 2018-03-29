@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.readCards
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 
 class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCardsContract.View>(), ReadCardsContract.Presenter {
 
@@ -11,12 +12,20 @@ class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCards
         mModel = ReadCardsModel(this)
     }
 
+    fun getEmptyRecommendCard() {
+        mModel.getEmptyRecommendCard()
+    }
+
     fun getReadCard(page: Int, pageSize: Int) {
         mModel.getReadCard(page, pageSize)
     }
 
     fun deleteReadCard(realId: Int,cardId: Int) {
         mModel.deleteReadCard(realId,cardId)
+    }
+
+    override fun getEmptyRecommendCardSuccess(bean: CardBean) {
+        mView.getEmptyRecommendCardSuccess(bean)
     }
 
     override fun getDataSuccess(list: List<ReadCardsBean>) {

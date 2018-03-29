@@ -40,7 +40,7 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         tv_toolbar_right.isEnabled = cardBagId != 0
         tv_toolbar_right.setOnClickListener {
             //进入编辑器页面
-            val intent = Intent(mActivity, NewCreationEditorActivity::class.java)
+            val intent = Intent(mActivity, NoteEditorActivity::class.java)
             intent.putExtra("cardId", cardId)
             intent.putExtra("cardBagId", cardBagId)
             intent.putExtra("title", title)

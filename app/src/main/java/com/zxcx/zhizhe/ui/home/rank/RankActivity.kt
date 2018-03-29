@@ -34,18 +34,6 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
         setContentView(R.layout.activity_rank)
         initRecyclerView()
         initView()
-        banner_rank.setImageLoader(GlideBannerImageLoader())
-        banner_rank.setIndicatorGravity(BannerConfig.CENTER)
-        banner_rank.setOnBannerListener {
-            val adUrl = mAdList[it].behavior
-            val adTitle = mAdList[it].description
-            startActivity(WebViewActivity::class.java,{
-                it.putExtra("title", adTitle)
-                it.putExtra("url", adUrl)
-            })
-        }
-        banner_rank.setImages(imageList)
-        banner_rank.start()
         loadService = LoadSir.getDefault().register(this, this)
         onRefresh()
     }
@@ -111,10 +99,11 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
             mAdList.forEach {
                 imageList.add(it.content)
             }
-            banner_rank.update(imageList)
         }else{
             banner_rank.visibility = View.GONE
         }
+        banner_rank.setImages(imageList)
+        banner_rank.start()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -170,6 +159,17 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
             tv_rank_no_login.visibility = View.VISIBLE
             iv_rank_header.setImageResource(R.drawable.iv_my_head_placeholder)
             rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+        }
+
+        banner_rank.setImageLoader(GlideBannerImageLoader())
+        banner_rank.setIndicatorGravity(BannerConfig.CENTER)
+        banner_rank.setOnBannerListener {
+            val adUrl = mAdList[it].behavior
+            val adTitle = mAdList[it].description
+            startActivity(WebViewActivity::class.java,{
+                it.putExtra("title", adTitle)
+                it.putExtra("url", adUrl)
+            })
         }
     }
 

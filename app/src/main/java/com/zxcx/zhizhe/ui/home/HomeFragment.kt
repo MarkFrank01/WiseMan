@@ -13,7 +13,11 @@ import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.home.hot.HotFragment
+import com.zxcx.zhizhe.ui.home.rank.RankActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -56,8 +60,14 @@ class HomeFragment : BaseFragment() {
         tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> switchFragment(mHotFragment)
-                    1 -> switchFragment(mAttentionFragment)
+                    0 -> {
+                        switchFragment(mHotFragment)
+                        tv_home_type.text = "推荐"
+                    }
+                    1 -> {
+                        switchFragment(mAttentionFragment)
+                        tv_home_type.text = "关注"
+                    }
                 }
             }
 
@@ -77,6 +87,20 @@ class HomeFragment : BaseFragment() {
         switchFragment(mHotFragment)
 
         initAppbarLayout()
+
+        initView()
+    }
+
+    private fun initView() {
+        tv_home_creation.setOnClickListener {
+            mActivity.startActivity(NewCreationTitleActivity::class.java,{})
+        }
+        tv_home_rank.setOnClickListener {
+            mActivity.startActivity(RankActivity::class.java,{})
+        }
+        view_home_search.setOnClickListener {
+            mActivity.startActivity(SearchActivity::class.java,{})
+        }
     }
 
     private fun initAppbarLayout() {

@@ -118,7 +118,8 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
         rv_other_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_other_user.adapter = mAdapter
         rv_other_user.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity, "该用户暂无创作内容", "快去看看其他人吧", null, null)
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyView(mActivity, "该用户暂无创作内容", R.drawable.no_banner)
         mAdapter.emptyView = emptyView
 
         iv_other_user_close.setOnClickListener {

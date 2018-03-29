@@ -146,7 +146,8 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有喜欢的作者","快去卡片详情页看看呗",null,null)
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有喜欢的作者",R.drawable.no_banner)
         mAdapter.emptyView = emptyView
     }
 }

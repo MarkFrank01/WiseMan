@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.event.UnLikeEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
@@ -38,6 +39,7 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         initView()
         initLoadSir()
         mPresenter.getLikeCard(mPage,mPageSize)
+        mPresenter.getEmptyRecommendCard()
     }
 
     override fun onDestroy() {
@@ -58,6 +60,12 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         val bean = MyCardsBean()
         bean.id = event.cardId
         mAdapter.remove(mAdapter.data.indexOf(bean))
+    }
+
+    override fun getEmptyRecommendCardSuccess(bean: CardBean) {
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyViewAndCard(mActivity,"涨知识 点点赞", R.drawable.no_banner, bean)
+        mAdapter.emptyView = emptyView
     }
 
     override fun getDataSuccess(list: List<MyCardsBean>) {
@@ -124,8 +132,6 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_like_card.adapter = mAdapter
         rv_like_card.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", "快去给你喜欢的卡片点赞吧~", null, null)
-        mAdapter.emptyView = emptyView
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
         mAdapter.addHeaderView(header)

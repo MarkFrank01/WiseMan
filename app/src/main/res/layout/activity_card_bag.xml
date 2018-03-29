@@ -9,6 +9,8 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/Widget.Design.AppBarLayout.NoElevation"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -22,7 +24,8 @@
             android:textSize="@dimen/text_size_title_1"
             android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll"/>
 
     </android.support.design.widget.AppBarLayout>
 

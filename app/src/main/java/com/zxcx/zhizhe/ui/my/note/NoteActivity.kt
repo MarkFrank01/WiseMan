@@ -10,10 +10,12 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationEditorActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NoteEditorActivity
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
-import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsActivity
+import com.zxcx.zhizhe.ui.my.note.noteDetails.CardNoteDetailsActivity
+import com.zxcx.zhizhe.ui.my.note.noteDetails.FreedomNoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -83,11 +85,22 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 
     override fun onContentClick(position: Int) {
         val bean = mAdapter.data[position] as NoteBean
-        startActivity(NoteDetailsActivity::class.java,{
-            it.putExtra("id",bean.id)
-            it.putExtra("noteType",bean.noteType)
-            it.putExtra("name",bean.name)
-        })
+        when(bean.noteType){
+            0 -> {
+                startActivity(FreedomNoteDetailsActivity::class.java,{
+                    it.putExtra("id",bean.id)
+                    it.putExtra("name",bean.name)
+                    it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))
+                })
+            }
+            1 -> {
+                startActivity(CardNoteDetailsActivity::class.java,{
+                    it.putExtra("id",bean.id)
+                    it.putExtra("name",bean.name)
+                    it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))
+                })
+            }
+        }
     }
 
     override fun onDeleteClick(position: Int) {
@@ -102,14 +115,15 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         rv_note.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_note.adapter = mAdapter
         rv_note.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", "快去给你喜欢的卡片点赞吧~", null, null)
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", R.drawable.no_banner)
         mAdapter.emptyView = emptyView
         val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         title.findViewById<TextView>(R.id.tv_header_title).text = "笔记"
         mAdapter.addHeaderView(title)
         val viewAddNewNote = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_add_new_note, null)
         viewAddNewNote.setOnClickListener {
-            startActivity(NewCreationEditorActivity::class.java,{})
+            startActivity(NoteEditorActivity::class.java,{})
         }
         mAdapter.addHeaderView(viewAddNewNote)
     }

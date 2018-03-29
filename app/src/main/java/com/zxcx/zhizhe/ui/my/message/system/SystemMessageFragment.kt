@@ -123,7 +123,8 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
         rv_system_message.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息","可前往系统设置开启",null,null)
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_banner)
         mAdapter.emptyView = emptyView
     }
 }

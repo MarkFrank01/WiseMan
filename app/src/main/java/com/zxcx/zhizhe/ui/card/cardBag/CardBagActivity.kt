@@ -115,7 +115,8 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         mCardBagCardAdapter.setLoadMoreView(CustomLoadMoreView())
         mCardBagCardAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
         mCardBagCardAdapter.onItemClickListener = CardItemClickListener(this)
-        val view = EmptyView.getEmptyView(mActivity, "暂无相关内容", "期待你在此分享创作", null, null)
+        //todo 修改占位图
+        val view = EmptyView.getEmptyView(mActivity, "暂无相关内容", R.drawable.no_banner)
         mCardBagCardAdapter.emptyView = view
 
         rv_card_bag_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)

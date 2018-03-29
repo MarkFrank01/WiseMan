@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.collect
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 
 class CollectCardPresenter(view: CollectCardContract.View) : BasePresenter<CollectCardContract.View>(), CollectCardContract.Presenter {
@@ -12,12 +13,20 @@ class CollectCardPresenter(view: CollectCardContract.View) : BasePresenter<Colle
         mModel = CollectCardModel(this)
     }
 
+    fun getEmptyRecommendCard() {
+        mModel.getEmptyRecommendCard()
+    }
+
     fun getCollectCard(page: Int, pageSize: Int) {
         mModel.getCollectCard(page, pageSize)
     }
 
     fun deleteCollectCard(cardId: Int) {
         mModel.deleteCollectCard(cardId)
+    }
+
+    override fun getEmptyRecommendCardSuccess(bean: CardBean) {
+        mView.getEmptyRecommendCardSuccess(bean)
     }
 
     override fun getDataSuccess(bean: List<MyCardsBean>) {

@@ -6,11 +6,24 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 
 class CollectCardModel(present: CollectCardContract.Presenter) : BaseModel<CollectCardContract.Presenter>() {
     init {
         this.mPresenter = present
+    }
+
+    fun getEmptyRecommendCard() {
+        mDisposable = AppClient.getAPIService().getEmptyRecommendCard(2)
+                .compose(BaseRxJava.io_main())
+                .compose<CardBean>(BaseRxJava.handleResult())
+                .subscribeWith(object : BaseSubscriber<CardBean>(mPresenter) {
+                    override fun onNext(bean: CardBean) {
+                        mPresenter?.getEmptyRecommendCardSuccess(bean)
+                    }
+                })
+        addSubscription(mDisposable)
     }
 
     fun getCollectCard(page: Int, pageSize: Int) {

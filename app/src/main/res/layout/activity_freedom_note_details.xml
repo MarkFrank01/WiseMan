@@ -19,26 +19,16 @@
 
         <LinearLayout
             android:id="@+id/ll_note_details_bottom"
-            android:background="@color/white"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
             <ImageView
                 android:id="@+id/iv_note_details_edit"
-                android:layout_marginLeft="30dp"
-                android:padding="10dp"
+                android:layout_marginStart="30dp"
                 android:src="@drawable/iv_note_details_edit"
                 android:gravity="center"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"/>
-
-            <ImageView
-                android:id="@+id/iv_note_details_source"
-                android:layout_marginLeft="30dp"
-                android:padding="10dp"
-                android:src="@drawable/iv_note_details_source"
-                android:gravity="center"
+                android:scaleType="center"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"/>
 
@@ -49,9 +39,8 @@
 
             <ImageView
                 android:id="@+id/iv_note_details_share"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="30dp"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:scaleType="center"
@@ -68,43 +57,39 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_note_details"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="212dp"
-                    android:transitionName="cardImage"/>
 
-                <RelativeLayout
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginTop="40dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_note_details_title"
-                        android:layout_marginTop="25dp"
                         tools:text="动圈和铁圈耳机的区别"
                         style="@style/tv_card"
                         android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/text_size_title_1"
+                        android:textSize="@dimen/text_size_title_2"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:transitionName="cardTitle"/>
 
                     <TextView
                         android:id="@+id/tv_note_details_info"
-                        tools:text="@string/tv_note_info"
-                        android:textColor="@color/text_color_2"
-                        android:textSize="@dimen/text_size_text_2"
-                        android:layout_marginTop="15dp"
-                        android:layout_below="@id/tv_note_details_title"
+                        tools:text="@string/tv_card_info"
+                        android:textColor="@color/text_color_3"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="13dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:transitionName="cardInfo"/>
 
-                </RelativeLayout>
+                </LinearLayout>
 
                 <FrameLayout
                     android:id="@+id/fl_note_details"
@@ -119,11 +104,11 @@
 
     <ImageView
         android:id="@+id/iv_note_details_back"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/iv_card_details_back"
         android:padding="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

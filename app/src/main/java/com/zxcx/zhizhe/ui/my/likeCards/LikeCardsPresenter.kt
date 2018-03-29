@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.likeCards
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 
 class LikeCardsPresenter(view: LikeCardsContract.View) : BasePresenter<LikeCardsContract.View>(), LikeCardsContract.Presenter {
 
@@ -11,12 +12,20 @@ class LikeCardsPresenter(view: LikeCardsContract.View) : BasePresenter<LikeCards
         mModel = LikeCardsModel(this)
     }
 
+    fun getEmptyRecommendCard() {
+        mModel.getEmptyRecommendCard()
+    }
+
     fun getLikeCard(page: Int, pageSize: Int) {
         mModel.getLikeCard(page, pageSize)
     }
 
     fun deleteLikeCard(cardId: Int) {
         mModel.deleteLikeCard(cardId)
+    }
+
+    override fun getEmptyRecommendCardSuccess(bean: CardBean) {
+        mView.getEmptyRecommendCardSuccess(bean)
     }
 
     override fun getDataSuccess(list: List<MyCardsBean>) {

@@ -17,7 +17,7 @@
             android:id="@+id/ll_dynamic_message_follow"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="132dp">
 
@@ -47,7 +47,7 @@
             android:id="@+id/ll_dynamic_message_like"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="132dp">
 
@@ -77,7 +77,7 @@
             android:id="@+id/ll_dynamic_message_collect"
             android:layout_marginTop="20dp"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:background="@color/background"
             android:layout_width="match_parent"
             android:layout_height="132dp">
 

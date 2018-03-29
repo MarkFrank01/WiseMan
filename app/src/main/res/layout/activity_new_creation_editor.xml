@@ -1,4 +1,4 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_rte"
     android:background="@color/background"
@@ -6,111 +6,109 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/rl_toolbar"
-        android:gravity="center_vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_toolbar_back"
-            android:src="@drawable/common_back"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:visibility="visible"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"/>
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_toolbar_commit"
-            android:enabled="false"
-            android:gravity="center"
-            android:text="提交"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:layout_alignParentRight="true"
-            android:padding="10dp"
-            android:layout_marginRight="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            <EditText
+                android:id="@+id/et_editor_title"
+                android:layout_gravity="center_horizontal"
+                android:background="@null"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:maxLength="20"
+                android:hint="编辑笔记标题"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:textColor="@color/text_color_ee"
+                android:textColorHint="@color/et_new_creation_1_title"
+                android:textSize="@dimen/text_size_title_2"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_toolbar_save_note"
-            android:enabled="false"
-            android:gravity="center"
-            android:text="存为笔记"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:layout_toLeftOf="@id/tv_toolbar_commit"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            <com.zxcx.zhizhe.richeditor.RichEditor
+                android:id="@+id/editor"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
 
-    </RelativeLayout>
+            <View
+                android:id="@+id/view_line"
+                style="@style/line"/>
 
-    <View
-        style="@style/line"/>
+            <LinearLayout
+                android:id="@+id/ll_rte_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal">
 
-    <com.zxcx.zhizhe.richeditor.RichEditor
-        android:id="@+id/editor"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
+                <ImageView
+                    android:id="@+id/iv_editor_album"
+                    android:scaleType="center"
+                    android:src="@drawable/iv_rte_album"
+                    android:background="@null"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
 
-    <View
-        android:id="@+id/view_line"
-        style="@style/line"/>
+                <FrameLayout
+                    android:id="@+id/fl_editor_bold"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ll_rte_bottom"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal">
+                    <CheckBox
+                        android:id="@+id/cb_editor_bold"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:button="@drawable/selector_cb_editor_bold"/>
 
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+                </FrameLayout>
 
-        <CheckBox
-            android:id="@+id/cb_editor_bold"
-            android:padding="10dp"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:button="@drawable/selector_cb_editor_bold"/>
+                <ImageView
+                    android:id="@+id/iv_editor_save"
+                    android:scaleType="center"
+                    android:src="@drawable/iv_rte_album"
+                    android:background="@null"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
 
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+                <ImageView
+                    android:id="@+id/iv_editor_share"
+                    android:scaleType="center"
+                    android:src="@drawable/iv_rte_album"
+                    android:background="@null"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
-        <ImageView
-            android:id="@+id/iv_editor_album"
-            android:scaleType="center"
-            android:src="@drawable/iv_rte_album"
-            android:background="@null"
-            android:padding="10dp"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <CheckBox
-            android:id="@+id/cb_editor_eyeshield"
-            android:padding="10dp"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:button="@drawable/selector_cb_editor_eyeshield"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/iv_card_details_back"
+        android:padding="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+</RelativeLayout>
 

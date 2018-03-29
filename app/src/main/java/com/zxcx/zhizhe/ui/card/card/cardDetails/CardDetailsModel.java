@@ -30,7 +30,7 @@ public class CardDetailsModel extends BaseModel<CardDetailsContract.Presenter> {
     }
 
     public void readArticle(int cardId){
-        AppClient.getAPIService().readArticle(cardId)
+        DisposableSubscriber<BaseBean> disposableSubscriber = AppClient.getAPIService().readArticle(cardId)
                 .compose(BaseRxJava.INSTANCE.io_main())
                 .compose(BaseRxJava.INSTANCE.handlePostResult())
                 .subscribeWith(new DisposableSubscriber<BaseBean>() {

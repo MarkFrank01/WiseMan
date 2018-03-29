@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@color/background"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_width="match_parent"
@@ -167,7 +167,7 @@
             <LinearLayout
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="60dp"
-                android:background="@color/white"
+                android:background="@color/background"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:orientation="vertical"

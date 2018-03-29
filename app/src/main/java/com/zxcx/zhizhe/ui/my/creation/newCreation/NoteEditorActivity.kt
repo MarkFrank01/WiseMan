@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.my.creation.newCreation
 import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,6 +17,7 @@ import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_new_creation_editor.*
@@ -26,7 +26,7 @@ import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
 
-class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreationEditorContract.View,
+class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreationEditorContract.View,
         OSSDialog.OSSUploadListener{
 
     private lateinit var mOSSDialog: OSSDialog
@@ -42,7 +42,6 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         initData()
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
-        initViewListener()
     }
 
     override fun onBackPressed() {
@@ -147,16 +146,10 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
         cb_editor_bold.isChecked = false
     }
 
-    private fun initViewListener() {
+    override fun setListener() {
         editor.setOnTextChangeListener({ text ->
-            /*if (text.contains("<p>") && text.indexOf("<p>") != 0) {
-                content = "<p>" + text.substring(0, text.indexOf("<p>")) + "</p>" + text.substring(text.indexOf("<p>"))
-            } else if (!text.contains("<p>")) {
-                content = "<p>$text</p>"
-            }*/
             content = text
-            tv_toolbar_commit.isEnabled = text.isNotEmpty()
-            tv_toolbar_save_note.isEnabled = text.isNotEmpty()
+            iv_editor_save.isEnabled = text.isNotEmpty() && et_editor_title.text.isNotEmpty()
         })
         cb_editor_bold.setOnClickListener {
             editor.setBold(cb_editor_bold.isChecked)
@@ -186,31 +179,15 @@ class NewCreationEditorActivity : MvpActivity<NewCreationEditorPresenter>(), New
                         }
                     }
         }
-        cb_editor_eyeshield.setOnCheckedChangeListener { _, isChecked ->
-            // 设置编辑器是否夜间模式
-            editor.setIsEyeshield(isChecked)
-            if (isChecked){
-                ll_rte.setBackgroundColor(Color.parseColor("#F0EFE4"))
-                ll_rte_bottom.setBackgroundColor(Color.parseColor("#FDFAEF"))
-                mImmersionBar
-                        .statusBarColor("#F0EFE4")
-                        .init()
-            }else{
-                ll_rte.setBackgroundResource(R.color.background)
-                ll_rte_bottom.setBackgroundResource(R.color.white)
-                initStatusBar()
-            }
-        }
-        iv_toolbar_back.setOnClickListener {
+        iv_common_close.setOnClickListener {
             onBackPressed()
         }
-        tv_toolbar_commit.setOnClickListener {
-            // 提交卡片
-            mPresenter.submitReview(cardId,title,imageUrl,cardBagId,content)
-        }
-        tv_toolbar_save_note.setOnClickListener {
+        iv_editor_save.setOnClickListener {
             // 保存为笔记
             mPresenter.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
+        }
+        et_editor_title.afterTextChanged {
+            iv_editor_save.isEnabled = content.isNotEmpty() && it.isNotEmpty()
         }
 
         //添加方法给js调用

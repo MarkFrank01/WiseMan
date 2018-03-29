@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/background"
     tools:context="com.zxcx.zhizhe.ui.home.HomeFragment">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
-        android:background="@color/white"
+        android:background="@color/background"
         style="@style/Widget.Design.AppBarLayout.NoElevation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -157,7 +157,8 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
+        //todo 修改占位图
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
                 startActivity(intent)
