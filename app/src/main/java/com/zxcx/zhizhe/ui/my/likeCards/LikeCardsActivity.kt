@@ -114,9 +114,9 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
         intent.putExtra("author", bean.author)
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-                Pair.create(mAdapter.getViewByPosition(position,R.id.iv_item_card_icon), "cardImage"),
-                Pair.create(mAdapter.getViewByPosition(position,R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(mAdapter.getViewByPosition(position,R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.iv_item_card_icon), "cardImage"),
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_title), "cardTitle"),
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_card_bag), "cardBag")).toBundle()
         mActivity.startActivity(intent, bundle)
     }
 

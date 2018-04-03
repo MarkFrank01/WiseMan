@@ -273,8 +273,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         }
         rl_card_details_bottom.setOnClickListener {
             startActivity(OtherUserActivity::class.java,{
-                intent.putExtra("name", author)
-                intent.putExtra("id", mAuthorId)
+                it.putExtra("name", author)
+                it.putExtra("id", mAuthorId)
             })
         }
         iv_card_details_share.setOnClickListener {

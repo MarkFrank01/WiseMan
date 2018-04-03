@@ -43,7 +43,6 @@ public class UserInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        initToolBar(R.string.title_user_info);
 
         initData();
     }
@@ -83,6 +82,11 @@ public class UserInfoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(UserInfoChangeSuccessEvent event) {
         initData();
+    }
+
+    @OnClick(R.id.iv_common_close)
+    public void onIvCommonCloseClicked() {
+        onBackPressed();
     }
 
     @OnClick(R.id.ll_user_info_head)

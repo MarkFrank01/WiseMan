@@ -24,8 +24,6 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
         helper.setText(R.id.tv_item_system_message_title,item.title)
         helper.setText(R.id.tv_item_system_message_time,format.format(item.time))
         setCardContent(helper, item)
-        helper.setGone(R.id.tv_item_system_message_reason,item.messageType == message_card_reject)
-        helper.setGone(R.id.tv_item_system_message_reason_hint,item.messageType == message_card_reject)
 
         when(item.messageType){
             message_card_pass -> {
@@ -36,7 +34,6 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
                 helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
             }
             message_card_reject -> {
-                helper.setText(R.id.tv_item_system_message_reason,item.remaskContent)
                 helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
                 helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_2))

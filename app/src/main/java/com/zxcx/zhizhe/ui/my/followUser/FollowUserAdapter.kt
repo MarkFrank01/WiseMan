@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.followUser
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

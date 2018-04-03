@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_reject_details.*
 import org.greenrobot.eventbus.EventBus
@@ -137,7 +135,6 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
                 if (loadService2 != null) {
                     loadService2?.showSuccess()
                 }
-                tv_reject_reedit?.visibility = View.VISIBLE
             }
 
             override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
@@ -153,10 +150,10 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         fl_reject_details?.addView(mWebView)
         val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
         val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
-        if (isNight) {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize
+        mUrl = if (isNight) {
+            APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize
         } else {
-            mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize
+            APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize
 
         }
         mWebView?.loadUrl(mUrl)
@@ -165,18 +162,10 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     }
 
     override fun setListener() {
-        iv_reject_details_back.setOnClickListener {
+        iv_common_close.setOnClickListener {
             onBackPressed()
         }
-
-        tv_reject_reedit.setOnClickListener {
-            val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
-            intent.putExtra("cardId", cardId)
-            intent.putExtra("cardBagId", cardBagId)
-            intent.putExtra("title", name)
-            intent.putExtra("imageUrl", imageUrl)
-            startActivity(intent)
-        }
+        //todo 草稿功能
     }
 
     private fun initLoadSir() {

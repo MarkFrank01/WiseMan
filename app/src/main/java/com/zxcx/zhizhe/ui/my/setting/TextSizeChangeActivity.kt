@@ -10,12 +10,13 @@ import kotlinx.android.synthetic.main.activity_text_size_change.*
 
 class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
 
+    private var textSizeValue = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_size_change)
-        initToolBar("字体大小")
 
-        val textSizeValue = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue,1)
+        textSizeValue = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue,1)
 
         val section = ArrayList<String>()
         section.add("默认")
@@ -39,7 +40,7 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
     }
 
     override fun onTouchResponse(volume: Int) {
-        SharedPreferencesUtil.saveData(SVTSConstants.textSizeValue,volume + 1)
+        textSizeValue = volume + 1
         when(volume){
             0 -> {
                 tv_text_size_change.textSize = 17f
@@ -50,6 +51,16 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
             2 -> {
                 tv_text_size_change.textSize = 24f
             }
+        }
+    }
+
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
+
+        tv_size_change_save.setOnClickListener {
+            SharedPreferencesUtil.saveData(SVTSConstants.textSizeValue,textSizeValue + 1)
         }
     }
 }

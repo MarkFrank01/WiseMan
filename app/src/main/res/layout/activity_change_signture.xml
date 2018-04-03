@@ -1,77 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/fragment_my_background"
+    android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <FrameLayout
-        android:background="@color/background"
+
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/login_close"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="修改签名"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/et_dialog_change_signture"
+        android:gravity="center"
+        android:background="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:maxLength="16"
+        tools:text="是是是是是是"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_ee"
+        android:textSize="@dimen/text_size_title_2"
+        android:layout_marginTop="193dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
-
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:gravity="center"
-            android:text="@string/common_cancel"
-            android:textColor="@color/button_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_complete"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:text="@string/common_complete"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-    </FrameLayout>
+        android:layout_height="wrap_content"/>
 
     <View
-        style="@style/line"/>
-
-    <FrameLayout
-        android:layout_marginTop="@dimen/fragment_interval"
-        android:background="@color/background"
+        android:layout_below="@id/et_dialog_change_signture"
+        android:background="@color/text_color_2"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="2dp"/>
 
-        <EditText
-            android:id="@+id/et_dialog_change_signture"
-            android:gravity="top"
-            android:background="@null"
-            android:maxLength="20"
-            tools:text="是是是是是是"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:textColor="@color/text_color_1"
-            android:textColorHint="@color/text_color_3"
-            android:textSize="@dimen/text_size_text_1"
-            android:paddingTop="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/tv_change_signture_hint"
+        android:layout_below="@id/et_dialog_change_signture"
+        android:layout_marginTop="14dp"
+        android:visibility="gone"
+        android:text="签名为6-18个字符"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_size_text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_change_signture_residue"
-            android:layout_gravity="bottom|right"
-            android:text="20"
-            android:textSize="@dimen/text_size_text_2"
-            android:textColor="@color/text_color_3"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_change_signture_save"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="72dp"
+        android:text="保存"
+        android:textColor="@color/button_blue"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-    </FrameLayout>
-</LinearLayout>
+</RelativeLayout>

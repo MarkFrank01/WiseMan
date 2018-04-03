@@ -18,9 +18,10 @@
         android:id="@+id/iv_common_close"
         android:layout_gravity="end"
         android:src="@drawable/iv_card_details_back"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_width="28dp"
-        android:layout_height="28dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="2dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

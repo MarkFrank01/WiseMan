@@ -41,9 +41,5 @@
             android:textSize="@dimen/text_size_text_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <include
-            android:id="@+id/fl_no_data_and_card_card"
-            layout="@layout/item_card"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

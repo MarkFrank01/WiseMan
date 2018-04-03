@@ -3,7 +3,9 @@ package com.zxcx.zhizhe.ui.home.rank.moreRank
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -20,13 +22,12 @@ import kotlinx.android.synthetic.main.activity_all_rank.*
 class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.RequestLoadMoreListener{
 
-    private lateinit var mRankAdapter : RankAdapter
+    private lateinit var mAdapter : RankAdapter
     private var page: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_rank)
-        initToolBar("所有榜单")
         initRecyclerView()
         loadService = LoadSir.getDefault().register(this, this)
         onRefresh()
@@ -57,17 +58,17 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
         loadService.showSuccess()
         mRefreshLayout.finishRefresh()
         if (page == 0) {
-            mRankAdapter.setNewData(list)
+            mAdapter.setNewData(list)
         } else {
-            mRankAdapter.addData(list)
+            mAdapter.addData(list)
         }
         page++
         if (list.size < Constants.PAGE_SIZE) {
-            mRankAdapter.loadMoreEnd(false)
+            mAdapter.loadMoreEnd(false)
         } else {
-            mRankAdapter.loadMoreComplete()
-            mRankAdapter.setEnableLoadMore(false)
-            mRankAdapter.setEnableLoadMore(true)
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
         }
     }
 
@@ -89,11 +90,14 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
     }
 
     private fun initRecyclerView() {
-        mRankAdapter = RankAdapter(ArrayList())
-        mRankAdapter.onItemClickListener = this
-        mRankAdapter.setLoadMoreView(CustomLoadMoreView())
-        mRankAdapter.setOnLoadMoreListener(this, rv_rank_user)
+        mAdapter = RankAdapter(ArrayList())
+        mAdapter.onItemClickListener = this
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_rank_user)
+        val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+        title.findViewById<TextView>(R.id.tv_header_title).text = "本周智者榜单"
+        mAdapter.addHeaderView(title)
         rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_rank_user.adapter = mRankAdapter
+        rv_rank_user.adapter = mAdapter
     }
 }

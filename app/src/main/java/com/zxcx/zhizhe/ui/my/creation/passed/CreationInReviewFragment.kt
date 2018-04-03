@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.creation.passed
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -27,14 +26,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
     private var mPage = 0
     private val mPassType = 0
     private val mPageSize = Constants.PAGE_SIZE
-    private lateinit var mAdapter: CreationAdapter
-
-    var mSortType = 0//0倒序 1正序
-        set(value) {
-            field = value
-            mPage = 0
-            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
-        }
+    private lateinit var mAdapter: ReviewCreationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_creation, container, false)
@@ -44,7 +36,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun createPresenter(): CreationPresenter {
@@ -70,11 +62,11 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -90,7 +82,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
     }
 
     private fun initRecyclerView() {
-        mAdapter = CreationAdapter(ArrayList())
+        mAdapter = ReviewCreationAdapter(ArrayList())
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_creation)

@@ -85,7 +85,7 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         super.toastFail(msg)
     }
 
-    @OnClick(R.id.iv_reject_details_back)
+    @OnClick(R.id.iv_common_close)
     fun onMIvRejectDetailsBackClicked() {
         onBackPressed()
     }

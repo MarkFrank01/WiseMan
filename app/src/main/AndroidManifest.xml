@@ -141,7 +141,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.ChangeNickNameActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity
             android:name=".ui.my.userInfo.ChangeSexActivity"
             android:screenOrientation="portrait"/>
@@ -246,6 +247,16 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.rank.RankActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ImageCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.DraftDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.classify.subject.SubjectActivity"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -1,12 +1,10 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zxcx.zhizhe.R;
@@ -21,6 +19,7 @@ import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
+import com.zxcx.zhizhe.widget.CircleImageView;
 import com.zxcx.zhizhe.widget.GetPicBottomDialog;
 import com.zxcx.zhizhe.widget.OSSDialog;
 import com.zxcx.zhizhe.widget.PermissionDialog;
@@ -36,27 +35,18 @@ import butterknife.OnClick;
 public class ChangeHeadImageActivity extends BaseActivity implements GetPicBottomDialog.GetPicDialogListener,
         IPostPresenter<UserInfoBean>,OSSDialog.OSSUploadListener, OSSDialog.OSSDeleteListener {
 
-    @BindView(R.id.iv_toolbar_right)
-    ImageView mIvToolbarRight;
     @BindView(R.id.iv_head_image)
-    ImageView mIvHeadImage;
+    CircleImageView mIvHeadImage;
 
     private OSSDialog mOSSDialog;
     private boolean isChanged = false;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head_image);
-        initToolBar("头像");
         ButterKnife.bind(this);
-
-        ViewGroup.LayoutParams layoutParams = mIvHeadImage.getLayoutParams();
-        layoutParams.height = layoutParams.width;
-        mIvHeadImage.setLayoutParams(layoutParams);
-
-        mIvToolbarRight.setVisibility(View.VISIBLE);
-        mIvToolbarRight.setImageResource(R.drawable.iv_change_head_image);
 
         String imageUrl = SharedPreferencesUtil.getString(SVTSConstants.imgUrl,"");
         ImageLoader.load(this,imageUrl,R.drawable.iv_my_head_placeholder,mIvHeadImage);
@@ -74,7 +64,8 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         super.onBackPressed();
     }
 
-    @OnClick(R.id.iv_toolbar_right)
+    @SuppressLint("CheckResult")
+    @OnClick(R.id.iv_head_image)
     public void onViewClicked() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions
@@ -83,6 +74,9 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
                     if (permission.granted) {
                         // `permission.name` is granted !
                         GetPicBottomDialog getPicBottomDialog = new GetPicBottomDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title","更换头像");
+                        getPicBottomDialog.setArguments(bundle);
                         getPicBottomDialog.setListener(ChangeHeadImageActivity.this);
                         getPicBottomDialog.setNoCrop(true);
                         getPicBottomDialog.show(getFragmentManager(),"UserInfo");
@@ -98,13 +92,27 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
                 });
     }
 
+    @OnClick(R.id.tv_head_save)
+    public void onSaveClicked() {
+        if (path != null) {
+            uploadImageToOSS(path);
+        }else {
+            onBackPressed();
+        }
+    }
+
+    @OnClick(R.id.iv_common_close)
+    public void onCloseClicked() {
+        onBackPressed();
+    }
+
     @Override
     public void onGetSuccess(GetPicBottomDialog.UriType uriType, Uri uri, String imagePath) {
         String path = FileUtil.getRealFilePathFromUri(mActivity,uri);
         if (path == null){
             path = imagePath;
         }
-        Intent intent = new Intent(mActivity,ClipImageActivity.class);
+        Intent intent = new Intent(mActivity,ImageCropActivity.class);
         intent.putExtra("path",path);
         intent.putExtra("aspectX",1);
         intent.putExtra("aspectY",1);
@@ -117,7 +125,8 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == Constants.CLIP_IMAGE) {
                 //图片裁剪完成
-                uploadImageToOSS(data.getStringExtra("path"));
+                path = data.getStringExtra("path");
+                ImageLoader.load(mActivity,path,mIvHeadImage);
             }
         }
     }

@@ -9,7 +9,7 @@
     android:layout_marginBottom="30dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
-    android:background="@drawable/bg_item_my_card"
+    android:background="@drawable/bg_item_note"
     android:stateListAnimator="@animator/anim_home_card_press"
     android:orientation="vertical"
     app:contentView="@id/content_view"

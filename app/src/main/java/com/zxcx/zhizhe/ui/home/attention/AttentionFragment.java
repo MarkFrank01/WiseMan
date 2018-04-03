@@ -157,12 +157,12 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
     private void onRefresh(){
         page = 0;
-        getHotCard();
+        getAttentionCard();
     }
 
     @Override
     public void onLoadMoreRequested() {
-        getHotCard();
+        getAttentionCard();
     }
 
     @Override
@@ -228,8 +228,8 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         }
     }
 
-    private void getHotCard() {
-        mPresenter.getHotCard(page, Constants.PAGE_SIZE);
+    private void getAttentionCard() {
+        mPresenter.getAttentionCard(page, Constants.PAGE_SIZE);
     }
 
     static class CardItemClickListener implements BaseQuickAdapter.OnItemClickListener{
@@ -242,7 +242,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
 
         @Override
         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-            CardBean bean = (CardBean) adapter.getData().get(position);
+            CardBean bean = ((HotBean)adapter.getData().get(position)).getCardBean();
             Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
                     Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),

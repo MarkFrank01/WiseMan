@@ -7,8 +7,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/ll_reject_details_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_note_details_edit"
+            android:layout_marginStart="30dp"
+            android:src="@drawable/iv_note_details_edit"
+            android:gravity="center"
+            android:scaleType="center"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_note_details_draft"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/selector_tv_card_details_share"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/sv_reject_details"
+        android:layout_above="@id/ll_reject_details_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -127,33 +159,15 @@
                 android:layout_weight="1"
                 android:layout_height="0dp">
             </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_reject_reedit"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/bg_background_6dp"
-                android:drawableLeft="@drawable/tv_reject_reedit"
-                android:drawablePadding="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="85dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:text="重新编辑"
-                android:textColor="@color/button_blue"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 
     <ImageView
-        android:id="@+id/iv_reject_details_back"
-        android:layout_alignParentRight="true"
+        android:id="@+id/iv_common_close"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/iv_card_details_back"
         android:padding="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
         android:layout_width="50dp"
         android:layout_height="50dp"/>

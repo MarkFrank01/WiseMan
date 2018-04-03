@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height">
 
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:gravity="center"
-            android:text="@string/common_cancel"
-            android:textColor="@color/button_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/login_close"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tv_complete"
-            android:layout_gravity="right"
-            android:gravity="center"
-            android:text="@string/common_complete"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-    </FrameLayout>
-
-    <View
-        style="@style/line"/>
+    <TextView
+        android:text="昵称"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <EditText
         android:id="@+id/et_dialog_change_nick_name"
@@ -45,23 +33,47 @@
         android:background="@null"
         android:maxLines="1"
         android:singleLine="true"
-        android:maxLength="8"
+        android:maxLength="10"
         tools:text="是是是是是是"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"
-        android:textColorHint="@color/text_color_3"
-        android:textSize="@dimen/text_size_text_1"
-        android:layout_marginTop="72dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingTop="13dp"
-        android:paddingBottom="13dp"
+        android:textColorHint="@color/text_color_ee"
+        android:textSize="@dimen/text_size_title_2"
+        android:layout_marginTop="193dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <View
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        style="@style/line"/>
-    
-</LinearLayout>
+        android:layout_below="@id/et_dialog_change_nick_name"
+        android:background="@color/text_color_2"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <TextView
+        android:id="@+id/tv_change_nick_name_hint"
+        android:layout_below="@id/et_dialog_change_nick_name"
+        android:layout_marginTop="14dp"
+        android:visibility="gone"
+        android:text="昵称为2-10个字符"
+        android:textColor="@color/red"
+        android:textSize="@dimen/text_size_text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_change_nick_name_save"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="72dp"
+        android:text="保存"
+        android:textColor="@color/button_blue"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

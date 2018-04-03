@@ -10,7 +10,6 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NoteEditorActivity
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.ui.my.note.noteDetails.CardNoteDetailsActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.FreedomNoteDetailsActivity
@@ -32,7 +31,7 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_like_cards)
+        setContentView(R.layout.activity_note)
         initView()
         initLoadSir()
         mPresenter.getNoteList(mPage,mPageSize)
@@ -123,7 +122,8 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         mAdapter.addHeaderView(title)
         val viewAddNewNote = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_add_new_note, null)
         viewAddNewNote.setOnClickListener {
-            startActivity(NoteEditorActivity::class.java,{})
+            //todo 进入新建笔记页
+            //startActivity(NoteEditorActivity::class.java,{})
         }
         mAdapter.addHeaderView(viewAddNewNote)
     }

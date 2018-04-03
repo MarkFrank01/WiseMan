@@ -8,6 +8,7 @@
     android:background="@color/background">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/Widget.Design.AppBarLayout.NoElevation"
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -117,8 +118,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_other_user"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
         android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

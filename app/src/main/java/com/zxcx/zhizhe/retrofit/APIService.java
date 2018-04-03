@@ -25,7 +25,7 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean;
+import com.zxcx.zhizhe.ui.my.followUser.FollowUserBean;
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
 import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
@@ -219,6 +219,15 @@ public interface APIService {
             @Query("pageSize") int pageSize);
 
     /**
+     * 获取卡包内专题列表
+     * todo 修改接口地址
+     */
+    @POST("/search/searchCollection")
+    Flowable<BaseArrayBean<SubjectBean>> getSubject(
+            @Query("id") int id, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
+
+    /**
      * 获取卡包内卡片列表
      */
     @POST("/article/getArticleByCollectionId")
@@ -375,7 +384,7 @@ public interface APIService {
      */
     @POST("/feedback/sumbitFeedbadk")
     Flowable<BaseBean<Object>> feedback(
-            @Query("content") String content,@Query("contact") String contact,
+            @Query("content") String content,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
 
@@ -427,6 +436,12 @@ public interface APIService {
     Flowable<BaseArrayBean<FollowUserBean>> getFollowUser(
             @Query("followType") int followType,@Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 获取我关注的和关注我的
+     */
+    @POST("/mytabinfo/getRecommendUserWhenNoContent")
+    Flowable<BaseArrayBean<FollowUserBean>> getEmptyFollowUser();
 
     /**
      * 获取用户消息开关

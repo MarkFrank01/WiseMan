@@ -20,7 +20,6 @@ import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 class MessageActivity : BaseActivity() , IGetPresenter<MyTabBean> {
     private val titles = arrayOf("系统", "动态")
@@ -35,21 +34,13 @@ class MessageActivity : BaseActivity() , IGetPresenter<MyTabBean> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
         ButterKnife.bind(this)
-        initToolBar("消息")
         initView()
-        initListener()
     }
 
     override fun onResume() {
         super.onResume()
         if(SharedPreferencesUtil.getInt(SVTSConstants.userId,0) != 0) {
             getRedPointStatus()
-        }
-    }
-
-    private fun initListener() {
-        iv_toolbar_back.setOnClickListener {
-            onBackPressed()
         }
     }
 

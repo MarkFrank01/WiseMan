@@ -13,8 +13,8 @@ public class FeedbackPresenter extends BasePresenter<FeedbackContract.View> impl
         mModel = new FeedbackModel(this);
     }
 
-    public void feedback(String content, String contact,int appType, String appChannel, String appVersion){
-        mModel.feedback(content,contact,appType,appChannel,appVersion);
+    public void feedback(String content, int appType, String appChannel, String appVersion){
+        mModel.feedback(content,appType,appChannel,appVersion);
     }
 
     @Override

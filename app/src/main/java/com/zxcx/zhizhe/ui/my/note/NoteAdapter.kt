@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.note
 
-import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -45,7 +45,7 @@ class NoteAdapter(data : List<NoteBean>) : BaseQuickAdapter<NoteBean, BaseViewHo
             mListener.onDeleteClick(mData.indexOf(item))
             remove(mData.indexOf(item))
         }
-        helper.getView<FrameLayout>(R.id.content_view).setOnClickListener {
+        helper.getView<LinearLayout>(R.id.content_view).setOnClickListener {
             easySwipeMenuLayout.resetStatus()
             mListener.onContentClick(mData.indexOf(item))
         }

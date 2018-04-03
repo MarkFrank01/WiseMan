@@ -56,7 +56,6 @@ public class ChangePasswordActivity extends BaseActivity implements INullPostPre
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         ButterKnife.bind(this);
-        initToolBar("修改密码");
 
         CheckNullTextWatcher checkNullTextWatcher = new CheckNullTextWatcher();
         mEtCurrentPassword.addTextChangedListener(new CurrentPasswordTextWatcher());

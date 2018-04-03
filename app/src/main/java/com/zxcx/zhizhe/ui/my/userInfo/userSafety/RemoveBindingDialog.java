@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.RemoveBindingEvent;
 import com.zxcx.zhizhe.mvpBase.CommonDialog;
+import com.zxcx.zhizhe.utils.TextViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,8 +50,9 @@ public class RemoveBindingDialog extends CommonDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTvDialogLogoutTitle.setText("账号解绑");
-        mTvDialogLogout.setText("确定解除绑定吗");
+        String channel = getArguments().getString("channel");
+        TextViewUtils.setTextViewColor(mTvDialogLogoutTitle,channel,getString(R.string.channel_unbind_title,channel));
+        mTvDialogLogout.setText("解除绑定后你将无法通过该方式登录");
     }
 
     @Override

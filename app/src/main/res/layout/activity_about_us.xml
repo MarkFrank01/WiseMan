@@ -1,164 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fl_about_us"
+    android:id="@+id/cl_about_us"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    tools:context="com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity">
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_about_us"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_about_us"/>
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:src="@drawable/login_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            android:id="@+id/iv_toolbar_back"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/common_back"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17"/>
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.27"/>
+    <ImageView
+        android:id="@+id/iv_about_us_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/iv_about_us_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.0"/>
 
-        <ImageView
-            android:id="@+id/iv_about_us_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/iv_about_us_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline7"
-            app:layout_constraintVertical_bias="0.0"/>
+    <TextView
+        android:id="@+id/tv_about_us_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text="智者"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_about_us_logo"
+        app:layout_constraintVertical_bias="0.0"/>
 
-        <TextView
-            android:id="@+id/tv_about_us_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_about_us_logo"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:textColor="#777B7C"
-            android:textSize="@dimen/text_size_text_2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_about_us_logo"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="@string/tv_about_us_logo"/>
+    <TextView
+        android:id="@+id/tv_about_us_versions_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_about_us_title"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="@string/tv_about_us_versions"/>
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.56"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.63"/>
 
-        <LinearLayout
-            android:id="@+id/ll_about_us_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_about_us_logo"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8"
-            app:layout_constraintVertical_bias="0.0">
+    <TextView
+        android:id="@+id/tv_about_us_evaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="鼓励我们"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        app:layout_constraintVertical_bias="0.0"/>
 
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/iv_about_us_share"/>
+    <TextView
+        android:id="@+id/tv_about_us_versions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="版本介绍"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_about_us_evaluate"/>
 
-            <TextView
-                android:id="@+id/tv_about_us_versions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="分享智者"
-                android:textColor="#030303"
-                android:textSize="@dimen/text_size_text_2"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:text="智学创行科技有限公司  www.zhi-zhe.com"
+        android:textColor="#777B7C"
+        android:textSize="@dimen/text_size_text_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_about_us_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_about_us_share"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:gravity="center_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_about_us_share"
-            app:layout_constraintVertical_bias="0.0">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:src="@drawable/iv_about_us_agreement"/>
-
-            <TextView
-                android:id="@+id/tv_about_us_agreement"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="服务条款"
-                android:textColor="#030303"
-                android:textSize="@dimen/text_size_text_2"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:lineSpacingExtra="6dp"
-            android:text="智学创行科技有限公司\nwww.zhi-zhe.com"
-            android:textColor="#777B7C"
-            android:textSize="@dimen/text_size_text_2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
-
-    </android.support.constraint.ConstraintLayout>
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.followUser
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -11,12 +11,24 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
         this.mPresenter = presenter
     }
 
-    fun getFollowUser(followType :Int,sortType: Int, page: Int, pageSize: Int) {
-        mDisposable = AppClient.getAPIService().getFollowUser(followType,sortType, page, pageSize)
+    fun getEmptyFollowUser() {
+        mDisposable = AppClient.getAPIService().emptyFollowUser
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<List<FollowUserBean>>(mPresenter) {
-                    override fun onNext(list: List<FollowUserBean>) {
+                .subscribeWith(object : BaseSubscriber<MutableList<FollowUserBean>>(mPresenter) {
+                    override fun onNext(list: MutableList<FollowUserBean>) {
+                        mPresenter?.getDataSuccess(list)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun getFollowUser(followType :Int, page: Int, pageSize: Int) {
+        mDisposable = AppClient.getAPIService().getFollowUser(followType,0, page, pageSize)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object : BaseSubscriber<MutableList<FollowUserBean>>(mPresenter) {
+                    override fun onNext(list: MutableList<FollowUserBean>) {
                         mPresenter?.getDataSuccess(list)
                     }
                 })

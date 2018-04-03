@@ -1,10 +1,9 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.creation.passed
 
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
@@ -27,7 +26,5 @@ class CreationAdapter(data : List<CreationBean>) : BaseQuickAdapter<CreationBean
             1 -> helper.setText(R.id.tv_item_card_type, "卡片")
             2 -> helper.setText(R.id.tv_item_card_type, "长文")
         }
-
     }
-
 }

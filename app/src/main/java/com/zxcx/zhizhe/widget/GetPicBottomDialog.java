@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.text.TextPaint;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,8 +50,8 @@ public class GetPicBottomDialog extends BaseDialog {
     TextView mTvDialogCamera;
     @BindView(R.id.tv_dialog_album)
     TextView mTvDialogAlbum;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
+    @BindView(R.id.tv_dialog_title)
+    TextView mTvDialogTitle;
 
     private Unbinder mUnbinder;
     private GetPicDialogListener mListener;
@@ -62,6 +61,7 @@ public class GetPicBottomDialog extends BaseDialog {
     private int cutY = 1;
     private UriType mUriType;
     private String mImagePath;
+    private String title;
     private boolean mNoCrop = false;
 
     public enum UriType {
@@ -88,6 +88,7 @@ public class GetPicBottomDialog extends BaseDialog {
         if (bundle != null) {
             cutX = bundle.getInt("cutX", 1);
             cutY = bundle.getInt("cutY", 1);
+            title = bundle.getString("title","选择图片");
         }
         try {
             String fileName = "zhizhe_head_image";
@@ -118,8 +119,7 @@ public class GetPicBottomDialog extends BaseDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextPaint tp = mTvDialogCancel.getPaint();
-        tp.setFakeBoldText(true);
+        mTvDialogTitle.setText(title);
     }
 
     @Override
@@ -130,7 +130,7 @@ public class GetPicBottomDialog extends BaseDialog {
         if (dialog != null) {
             Window window = dialog.getWindow();
             window.setBackgroundDrawableResource(R.color.translate);
-            window.getDecorView().setPadding(ScreenUtils.dip2px(12), 0, ScreenUtils.dip2px(12), ScreenUtils.dip2px(10));
+            window.getDecorView().setPadding(ScreenUtils.dip2px(20), 0, ScreenUtils.dip2px(20), ScreenUtils.dip2px(20));
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.gravity = Gravity.BOTTOM;
             lp.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -167,11 +167,6 @@ public class GetPicBottomDialog extends BaseDialog {
         intent.setType("image/*");
         // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
         startActivityForResult(intent, REQUEST_CODE_USER_ALBUM);
-    }
-
-    @OnClick(R.id.tv_dialog_cancel)
-    public void onMTvDialogCancelClicked() {
-        dismiss();
     }
 
     @Override

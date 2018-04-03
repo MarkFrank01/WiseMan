@@ -16,9 +16,6 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
-import com.zxcx.zhizhe.ui.search.result.card.CreationAdapter
-import com.zxcx.zhizhe.ui.search.result.card.CreationContract
-import com.zxcx.zhizhe.ui.search.result.card.CreationPresenter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -34,14 +31,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     private var mPage = 0
     private val mPassType = 1
     private val mPageSize = Constants.PAGE_SIZE
-    private lateinit var mAdapter: CreationAdapter
-
-    var mSortType = 0//0倒序 1正序
-        set(value) {
-            field = value
-            mPage = 0
-            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
-        }
+    private lateinit var mAdapter: ReviewCreationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_creation, container, false)
@@ -52,7 +42,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
         initRecyclerView()
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onDestroy() {
@@ -67,7 +57,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
         mPage = 0
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun getDataSuccess(list: List<CreationBean>) {
@@ -89,11 +79,11 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -112,7 +102,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     private fun initRecyclerView() {
-        mAdapter = CreationAdapter(ArrayList())
+        mAdapter = ReviewCreationAdapter(ArrayList())
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_creation)

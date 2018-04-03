@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.followUser
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 
@@ -11,8 +11,12 @@ class FollowUserPresenter(view: FollowUserContract.View) : BasePresenter<FollowU
         mModel = FollowUserModel(this)
     }
 
-    fun getFollowUser(followType :Int,sortType: Int, page: Int, pageSize: Int) {
-        mModel.getFollowUser(followType,sortType, page, pageSize)
+    fun getEmptyFollowUser() {
+        mModel.getEmptyFollowUser()
+    }
+
+    fun getFollowUser(followType :Int, page: Int, pageSize: Int) {
+        mModel.getFollowUser(followType, page, pageSize)
     }
 
     fun followUser(authorId: Int) {
@@ -22,8 +26,11 @@ class FollowUserPresenter(view: FollowUserContract.View) : BasePresenter<FollowU
     fun unFollowUser(authorId: Int) {
         mModel.unFollowUser(authorId)
     }
+    override fun getEmptyFollowUserSuccess(list: MutableList<FollowUserBean>) {
+        mView.getEmptyFollowUserSuccess(list)
+    }
 
-    override fun getDataSuccess(bean: List<FollowUserBean>) {
+    override fun getDataSuccess(bean: MutableList<FollowUserBean>) {
         mView.getDataSuccess(bean)
     }
 

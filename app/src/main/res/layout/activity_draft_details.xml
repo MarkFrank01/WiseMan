@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/bg_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_draft_details_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_note_details_edit"
+            android:layout_marginStart="26dp"
+            android:src="@drawable/iv_note_details_edit"
+            android:gravity="center"
+            android:scaleType="center"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_note_details_draft"
+            android:layout_marginStart="26dp"
+            android:src="@drawable/iv_note_details_edit"
+            android:gravity="center"
+            android:scaleType="center"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/iv_note_details_commit"
+            android:layout_marginEnd="26dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="center"
+            android:src="@drawable/selector_tv_card_details_share"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/sv_draft_details"
+        android:layout_above="@id/ll_draft_details_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.zxcx.zhizhe.widget.CardImageView
+                    android:id="@+id/iv_draft_details"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="212dp"
+                    android:transitionName="cardImage"
+                    app:widthWeight="16"
+                    app:heightWeight="9"
+                    app:hasShade="true"/>
+
+                <RelativeLayout
+                    android:layout_gravity="bottom"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_draft_details_title"
+                        tools:text="动圈和铁圈耳机的区别"
+                        style="@style/tv_card"
+                        android:textColor="@color/white_final"
+                        android:textSize="@dimen/text_size_title_2"
+                        android:textStyle="bold"
+                        android:lineSpacingExtra="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardTitle"/>
+
+                    <FrameLayout
+                        android:id="@+id/fl_draft_details_card_bag"
+                        android:layout_below="@id/tv_draft_details_title"
+                        android:paddingTop="15dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_draft_details_card_bag"
+                            tools:text="数码产品"
+                            android:layout_gravity="center"
+                            android:background="@drawable/bg_card_details_card_bag"
+                            android:textColor="@color/text_color_1"
+                            android:textSize="@dimen/text_size_text_4"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardBag"/>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_draft_details_info"
+                        android:layout_toEndOf="@id/fl_draft_details_card_bag"
+                        tools:text="@string/tv_card_info"
+                        android:textColor="@color/text_color_ee"
+                        android:textSize="@dimen/text_size_text_3"
+                        android:layout_marginTop="18dp"
+                        android:layout_below="@id/tv_draft_details_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:transitionName="cardInfo"/>
+
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_draft_details"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/iv_card_details_back"
+        android:padding="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+</RelativeLayout>

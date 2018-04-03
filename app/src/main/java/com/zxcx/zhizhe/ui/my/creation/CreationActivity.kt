@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -9,10 +8,10 @@ import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationDraftsFragment
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationInReviewFragment
+import com.zxcx.zhizhe.ui.my.creation.passed.CreationPassedFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
-import com.zxcx.zhizhe.ui.search.result.card.CreationInReviewFragment
-import com.zxcx.zhizhe.ui.search.result.card.CreationPassedFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_creation.*
 import org.greenrobot.eventbus.EventBus
@@ -23,12 +22,12 @@ import org.greenrobot.eventbus.ThreadMode
  * Created by anm on 2017/12/14.
  */
 class CreationActivity : BaseActivity() {
-    private val titles = arrayOf("已通过", "审核中", "待改进")
-    private var mSortType = 0
+    private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")
 
     private val passedFragment = CreationPassedFragment()
     private val reviewFragment = CreationInReviewFragment()
     private val rejectFragment = CreationRejectFragment()
+    private val draftsFragment = CreationDraftsFragment()
     private var mCurrentFragment = Fragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,25 +46,13 @@ class CreationActivity : BaseActivity() {
     }
 
     private fun initListener() {
-        iv_toolbar_back.setOnClickListener {
+        iv_common_close.setOnClickListener {
             onBackPressed()
         }
-        iv_toolbar_creation.setOnClickListener {
+        /*iv_toolbar_creation.setOnClickListener {
             //进入新建卡片流程，修改标题题图页
             startActivity(Intent(mActivity, NewCreationTitleActivity::class.java))
-        }
-        iv_toolbar_sort.setOnClickListener {
-            if (mSortType == 1) {
-                mSortType = 0
-                iv_toolbar_sort.setImageResource(R.drawable.iv_order_sequence)
-            } else if (mSortType == 0) {
-                mSortType = 1
-                iv_toolbar_sort.setImageResource(R.drawable.iv_order_inverted)
-            }
-            passedFragment.mSortType = mSortType
-            reviewFragment.mSortType = mSortType
-            rejectFragment.mSortType = mSortType
-        }
+        }*/
     }
 
     private fun initView() {
@@ -83,6 +70,7 @@ class CreationActivity : BaseActivity() {
                     0 -> switchFragment(passedFragment)
                     1 -> switchFragment(reviewFragment)
                     2 -> switchFragment(rejectFragment)
+                    3 -> switchFragment(draftsFragment)
                 }
             }
 

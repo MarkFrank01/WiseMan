@@ -1,67 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/fragment_my_background"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/ll_toolbar"
-        layout="@layout/toolbar"/>
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:padding="10dp"
+        android:src="@drawable/login_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <FrameLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="意见反馈"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
-    
-        <EditText
-            android:id="@+id/et_feedback_content"
-            android:hint=" 智者团队欢迎您的建议和吐槽"
-            android:gravity="start"
-            android:background="@color/background"
-            android:layout_marginTop="@dimen/fragment_interval"
-            android:paddingTop="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:maxLength="199"
-            android:textSize="@dimen/text_size_text_1"
-            android:textColor="@color/text_color_1"
-            android:textColorHint="@color/text_color_3"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_feedback_residue"
-            android:layout_gravity="bottom|right"
-            android:text="199"
-            android:textSize="@dimen/text_size_text_2"
-            android:textColor="@color/text_color_3"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </FrameLayout>
+        android:layout_height="2dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/text_color_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"/>
 
     <EditText
-        android:id="@+id/et_feedback_phone"
-        android:hint=" 留下您的手机联系号码（选填）"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:background="@color/background"
-        android:layout_marginTop="@dimen/fragment_interval"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:inputType="phone|textEmailAddress"
-        android:textSize="@dimen/text_size_text_1"
-        android:textColor="@color/text_color_1"
-        android:textColorHint="@color/text_color_3"
-        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:id="@+id/et_feedback_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:gravity="center"
+        android:hint="有什么话想对智者说呢？"
+        android:maxLength="600"
+        android:maxLines="4"
+        android:padding="20dp"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_ee"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:textSize="@dimen/text_size_text_1"
+        app:layout_constraintBottom_toBottomOf="@+id/view_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_feedback_residue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/text_color_d2"
+        android:textSize="@dimen/text_size_text_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_line"
+        tools:text="0/600"/>
+
+    <TextView
+        android:id="@+id/tv_feedback_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:enabled="false"
+        android:text="提交"
+        android:textColor="@color/color_text_enable_blue"
+        android:textSize="@dimen/text_size_title_1"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

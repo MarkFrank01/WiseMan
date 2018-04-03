@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:layout_marginBottom="20dp"
     android:layout_width="match_parent"
-    android:layout_height="154dp">
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:gravity="center"
+        android:background="@drawable/bg_item_note"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="154dp">
 
-    <ImageView
-        android:src="@drawable/iv_new_creation_1_add_img"
-        android:scaleType="center"
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
+        <ImageView
+            android:src="@drawable/iv_new_creation_1_add_img"
+            android:scaleType="center"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
 
-    <TextView
-        android:layout_marginTop="15dp"
-        android:text="添加新笔记"
-        android:textColor="@color/text_color_2"
-        android:textSize="@dimen/text_size_text_1"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginTop="15dp"
+            android:text="添加新笔记"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/text_size_text_1"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    </LinearLayout>
+</FrameLayout>

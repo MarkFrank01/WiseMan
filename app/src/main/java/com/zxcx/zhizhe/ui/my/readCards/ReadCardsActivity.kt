@@ -20,7 +20,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.activity_like_cards.*
+import kotlinx.android.synthetic.main.activity_read_cards.*
 
 class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {
@@ -31,7 +31,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_like_cards)
+        setContentView(R.layout.activity_read_cards)
         initView()
         initLoadSir()
         mPresenter.getReadCard(mPage,mPageSize)
@@ -39,7 +39,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
     }
 
     private fun initLoadSir() {
-        loadService = LoadSir.getDefault().register(rv_like_card, this)
+        loadService = LoadSir.getDefault().register(rv_read_card, this)
     }
 
     override fun createPresenter(): ReadCardsPresenter {
@@ -98,9 +98,9 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
         intent.putExtra("author", bean.author)
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-                Pair.create(mAdapter.getViewByPosition(position,R.id.iv_item_card_icon), "cardImage"),
-                Pair.create(mAdapter.getViewByPosition(position,R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(mAdapter.getViewByPosition(position,R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.iv_item_card_icon), "cardImage"),
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_title), "cardTitle"),
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_card_bag), "cardBag")).toBundle()
         mActivity.startActivity(intent, bundle)
     }
 
@@ -111,13 +111,13 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
     private fun initView() {
         mAdapter = ReadCardsAdapter(ArrayList())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this,rv_like_card)
+        mAdapter.setOnLoadMoreListener(this,rv_read_card)
         mAdapter.mListener = this
-        rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_like_card.adapter = mAdapter
-        rv_like_card.addItemDecoration(HomeCardItemDecoration())
+        rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
+        rv_read_card.adapter = mAdapter
+        rv_read_card.addItemDecoration(HomeCardItemDecoration())
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-        header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
+        header.findViewById<TextView>(R.id.tv_header_title).text = "阅读"
         mAdapter.addHeaderView(header)
     }
 

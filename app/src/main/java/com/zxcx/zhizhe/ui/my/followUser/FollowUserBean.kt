@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.followUser
 
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen

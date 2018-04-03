@@ -16,7 +16,7 @@ public class AttentionPresenter extends BasePresenter<AttentionContract.View> im
         mModel = new AttentionModel(this);
     }
 
-    public void getHotCard(int page, int pageSize){
+    public void getAttentionCard(int page, int pageSize){
         mModel.getAttentionCard(page,pageSize);
     }
 

@@ -3,8 +3,10 @@ package com.zxcx.zhizhe.ui.my.followUser
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
@@ -13,16 +15,11 @@ import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserAdapter
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserBean
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserContract
-import com.zxcx.zhizhe.ui.search.result.card.FollowUserPresenter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_follow_user.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -36,34 +33,18 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
     private lateinit var mAdapter: FollowUserAdapter
     private lateinit var mDialog: UnFollowConfirmDialog
 
-    var mSortType = 0//0倒序 1正序
-        set(value) {
-            field = value
-            mPage = 0
-            mPresenter?.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_follow_user)
-        initToolBar("关注我的")
         EventBus.getDefault().register(this)
         initRecyclerView()
-        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+        mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
         mDialog = UnFollowConfirmDialog()
-        iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
     }
 
     override fun setListener() {
-        iv_toolbar_right.setOnClickListener {
-            if (mSortType == 1) {
-                mSortType = 0
-                iv_toolbar_right.setImageResource(R.drawable.iv_order_sequence)
-            } else if (mSortType == 0) {
-                mSortType = 1
-                iv_toolbar_right.setImageResource(R.drawable.iv_order_inverted)
-            }
+        iv_common_close.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -81,7 +62,9 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         mPresenter.unFollowUser(event.userId)
     }
 
-    override fun getDataSuccess(list: List<FollowUserBean>) {
+    override fun getEmptyFollowUserSuccess(list: MutableList<FollowUserBean>) {}
+
+    override fun getDataSuccess(list: MutableList<FollowUserBean>) {
         mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
@@ -141,11 +124,11 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
-        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+        mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getFollowUser(mFollowType,mSortType,mPage,mPageSize)
+        mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
     }
 
     private fun initRecyclerView() {
@@ -165,5 +148,8 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
             }
         })
         mAdapter.emptyView = emptyView
+        val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+        header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
+        mAdapter.addHeaderView(header)
     }
 }

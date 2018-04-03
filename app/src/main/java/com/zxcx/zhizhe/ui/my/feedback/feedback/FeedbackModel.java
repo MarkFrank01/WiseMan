@@ -13,8 +13,8 @@ public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
         this.mPresenter = present;
     }
 
-    public void feedback(String content, String contact,int appType, String appChannel, String appVersion){
-        mDisposable = AppClient.getAPIService().feedback(content,contact,appType,appChannel,appVersion)
+    public void feedback(String content, int appType, String appChannel, String appVersion){
+        mDisposable = AppClient.getAPIService().feedback(content,appType,appChannel,appVersion)
                 .compose(BaseRxJava.INSTANCE.handlePostResult())
                 .compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(mPresenter))
                 .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {

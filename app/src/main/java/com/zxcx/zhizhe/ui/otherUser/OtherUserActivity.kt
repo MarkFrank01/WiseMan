@@ -33,9 +33,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other_user)
-        val name = intent.getStringExtra("name")
         id = intent.getIntExtra("id",0)
-        initToolBar(name)
         initView()
         initLoadSir()
         mPresenter.getOtherUserInfo(id)
@@ -111,6 +109,9 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     }
 
     private fun initView() {
+        val name = intent.getStringExtra("name")
+        tv_other_user_nick_name.text = name
+
         mAdapter = OtherUserCardsAdapter(ArrayList())
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())

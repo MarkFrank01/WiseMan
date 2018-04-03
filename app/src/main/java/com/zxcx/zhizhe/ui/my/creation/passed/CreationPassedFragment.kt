@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.creation.passed
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
-import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -29,13 +28,6 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: CreationAdapter
 
-    var mSortType = 0//0倒序 1正序
-        set(value) {
-            field = value
-            mPage = 0
-            mPresenter?.getCreation(mPassType,mSortType,mPage,mPageSize)
-        }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_creation, container, false)
     }
@@ -44,7 +36,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun createPresenter(): CreationPresenter {
@@ -70,11 +62,11 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getCreation(mPassType,mSortType,mPage,mPageSize)
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

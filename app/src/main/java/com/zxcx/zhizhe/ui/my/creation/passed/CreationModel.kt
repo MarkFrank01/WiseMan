@@ -1,18 +1,17 @@
-package com.zxcx.zhizhe.ui.search.result.card
+package com.zxcx.zhizhe.ui.my.creation.passed
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean
 
 class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationContract.Presenter>() {
     init {
         this.mPresenter = presenter
     }
 
-    fun getCreation(passType: Int, sortType: Int, page: Int, pageSize: Int) {
-        mDisposable = AppClient.getAPIService().getCreation(passType,sortType, page, pageSize)
+    fun getCreation(passType: Int, page: Int, pageSize: Int) {
+        mDisposable = AppClient.getAPIService().getCreation(passType,0, page, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<List<CreationBean>>(mPresenter) {
