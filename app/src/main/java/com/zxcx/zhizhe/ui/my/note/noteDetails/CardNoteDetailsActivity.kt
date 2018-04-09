@@ -71,7 +71,8 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
 
     override fun getDataSuccess(bean: NoteDetailsBean) {
         date = DateTimeUtils.getDateTimeString(bean.date)
-        tv_note_details_info.text = getString(R.string.tv_note_info, date)
+        tv_note_details_info.text = getString(R.string.tv_item_card_note_info,
+                date,"摘录")
         withCardId = bean.withCardId
         imageUrl = bean.imageUrl
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_note_details)
@@ -180,7 +181,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
     }
 
     private fun gotoShare(url: String?) {
-        val shareDialog = ShareNoteDialog()
+        val shareDialog = ShareCardNoteDialog()
         val bundle = Bundle()
         bundle.putString("name", name)
         bundle.putString("url", url)

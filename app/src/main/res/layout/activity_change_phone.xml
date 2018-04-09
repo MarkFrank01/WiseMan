@@ -13,14 +13,14 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_change_phone_close"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginEnd="12dp"
             android:layout_marginBottom="13dp"
             android:padding="10dp"
             android:src="@drawable/login_close"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </FrameLayout>
 
     <ImageView
@@ -47,8 +47,8 @@
         android:orientation="vertical">
 
         <RelativeLayout
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -74,8 +74,8 @@
 
         <RelativeLayout
             android:layout_marginTop="12dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -98,7 +98,7 @@
                 android:id="@+id/tv_change_phone_send_verification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:text="@string/get_verification"
                 android:textSize="13sp"
@@ -118,8 +118,8 @@
             android:textColor="@color/color_btn_login"
             android:enabled="false"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -134,8 +134,8 @@
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -168,8 +168,8 @@
             android:textColor="@color/color_btn_login"
             android:enabled="false"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/bg_btn_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"

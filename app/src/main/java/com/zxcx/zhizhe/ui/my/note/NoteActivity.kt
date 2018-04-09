@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.CardNoteDetailsActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.FreedomNoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -120,17 +121,15 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         title.findViewById<TextView>(R.id.tv_header_title).text = "笔记"
         mAdapter.addHeaderView(title)
-        val viewAddNewNote = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_add_new_note, null)
-        viewAddNewNote.setOnClickListener {
-            //todo 进入新建笔记页
-            //startActivity(NoteEditorActivity::class.java,{})
-        }
-        mAdapter.addHeaderView(viewAddNewNote)
     }
 
     override fun setListener() {
         iv_common_close.setOnClickListener {
             onBackPressed()
+        }
+
+        fab_add_new.setOnClickListener {
+            mActivity.startActivity(NoteEditorActivity::class.java,{})
         }
     }
 }

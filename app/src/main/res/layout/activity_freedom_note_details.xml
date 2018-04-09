@@ -80,7 +80,7 @@
 
                     <TextView
                         android:id="@+id/tv_note_details_info"
-                        tools:text="@string/tv_card_info"
+                        tools:text="@string/tv_item_card_note_info"
                         android:textColor="@color/text_color_3"
                         android:textSize="@dimen/text_size_text_3"
                         android:layout_marginTop="13dp"

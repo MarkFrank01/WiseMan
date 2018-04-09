@@ -55,4 +55,15 @@
         android:layout_width="28dp"
         android:layout_height="28dp"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_new"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/common_my_add"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:backgroundTint="@color/button_blue"
+        app:borderWidth="0dp"/>
+
 </android.support.design.widget.CoordinatorLayout>

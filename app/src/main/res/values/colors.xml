@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F1F3F3</color>
-    <color name="colorPrimaryDark">#F1F3F3</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#88DDFF</color>
     <color name="button_blue">#0088AA</color>
     <color name="opacity_30_blue">#4C0095B7</color>
@@ -19,7 +19,7 @@
     <color name="white_final">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="background">#FFFFFF</color>
-    <color name="background_final">#F1F3F3</color>
+    <color name="background_final">#FFFFFF</color>
     <color name="fragment_my_background">#FFFFFF</color>
     <color name="line">#EEEEEE</color>
     <color name="strip">#F6F7F9</color>

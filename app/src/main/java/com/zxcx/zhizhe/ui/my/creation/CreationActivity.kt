@@ -8,11 +8,13 @@ import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationDraftsFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationInReviewFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationPassedFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
 import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_creation.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -37,7 +39,6 @@ class CreationActivity : BaseActivity() {
         ButterKnife.bind(this)
 
         initView()
-        initListener()
     }
 
     override fun onDestroy() {
@@ -45,13 +46,17 @@ class CreationActivity : BaseActivity() {
         super.onDestroy()
     }
 
-    private fun initListener() {
+    override fun setListener() {
         iv_common_close.setOnClickListener {
             onBackPressed()
         }
+
+        fab_add_new.setOnClickListener {
+            startActivity(CreationEditorActivity::class.java,{})
+        }
         /*iv_toolbar_creation.setOnClickListener {
             //进入新建卡片流程，修改标题题图页
-            startActivity(Intent(mActivity, NewCreationTitleActivity::class.java))
+            startActivity(Intent(mActivity, CreationEditorActivity::class.java))
         }*/
     }
 

@@ -13,7 +13,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -91,7 +91,7 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         rv_creation.addItemDecoration(FansItemDecoration())
         //todo 修改占位图
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无发布作品","点击创作 随时随地分享智慧",R.color.button_blue,View.OnClickListener {
-            val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+            val intent = Intent(mActivity, CreationEditorActivity::class.java)
             startActivity(intent)
         })
         mAdapter.emptyView = emptyView

@@ -268,7 +268,7 @@ public interface APIService {
     /**
      * 获取笔记列表
      */
-    @POST("/article/getNoteArticleList")
+    @POST("/note/getMemoList")
     Flowable<BaseArrayBean<NoteBean>> getNoteList(
             @Query("orderType") int sortType, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
@@ -514,6 +514,15 @@ public interface APIService {
             @Query("articleId") Integer cardId, @Query("title") String title,
             @Query("titleImage") String imageUrl, @Query("collectionId") Integer classifyId,
             @Field("content") String content, @Query("submitType") Integer submitType);
+
+    /**
+     * 保存笔记
+     */
+    @FormUrlEncoded
+    @POST("/note/saveMemo")
+    Flowable<BaseBean<Object>> saveNote(
+            @Query("articleId") Integer cardId, @Query("title") String title,
+            @Field("content") String content);
 
     /**
      * 提交卡片笔记

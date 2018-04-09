@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebResourceError
@@ -103,6 +104,7 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     }
 
     private fun initView() {
+        tv_reject_agreement?.text = Html.escapeHtml("详情请阅读<font color='#F61616'>智者创作协议</font>")
         if (!StringUtils.isEmpty(name))
             tv_reject_details_title?.text = name
         if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
@@ -164,6 +166,10 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     override fun setListener() {
         iv_common_close.setOnClickListener {
             onBackPressed()
+        }
+
+        tv_reject_agreement.setOnClickListener {
+            //todo 智者创作协议
         }
         //todo 草稿功能
     }

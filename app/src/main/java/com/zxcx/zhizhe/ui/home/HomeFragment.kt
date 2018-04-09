@@ -14,7 +14,7 @@ import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.home.hot.HotFragment
 import com.zxcx.zhizhe.ui.home.rank.RankActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
@@ -93,7 +93,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
         tv_home_creation.setOnClickListener {
-            mActivity.startActivity(NewCreationTitleActivity::class.java,{})
+            mActivity.startActivity(CreationEditorActivity::class.java,{})
         }
         tv_home_rank.setOnClickListener {
             mActivity.startActivity(RankActivity::class.java,{})

@@ -1,91 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.loginAndRegister.register.RegisterActivity">
-
-    <TextView
-        android:id="@+id/tv_register_title"
-        android:text="设置密码"
-        android:textSize="@dimen/text_size_title_1"
-        android:textColor="@color/text_color_1"
-        android:textStyle="bold"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/iv_register_close"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="28dp"
-        android:src="@drawable/login_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <RelativeLayout
-        android:id="@+id/rl_register_password"
-        android:layout_below="@id/tv_register_title"
-        android:layout_marginTop="123dp"
+        android:background="@color/background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
-        android:layout_marginStart="75dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_register_password"
+        <TextView
+            android:id="@+id/tv_register_title"
+            android:text="设置密码"
+            android:textSize="@dimen/text_size_title_1"
+            android:textColor="@color/text_color_1"
+            android:textStyle="bold"
+            android:layout_marginTop="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_register_close"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/login_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_register_password"
+            android:layout_below="@id/tv_register_title"
+            android:layout_marginTop="123dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@null"
-            android:cursorVisible="true"
-            android:hint="设置登录密码"
-            android:inputType="textPassword"
-            android:maxLength="11"
-            android:paddingBottom="22dp"
-            android:paddingTop="22dp"
-            android:textColor="@color/text_color_1"
-            android:textColorHint="@color/text_color_ee"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:textSize="@dimen/text_size_title_2"/>
+            android:layout_marginEnd="75dp"
+            android:layout_marginStart="75dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
-        <CheckBox
-            android:id="@+id/cb_register_password_show"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_alignParentEnd="true"
-            android:padding="12dp"
-            android:button="@null"
-            android:background="@drawable/iv_phone_clear"
-            android:layout_marginTop="15dp"
-            android:visibility="visible"/>
+            <EditText
+                android:id="@+id/et_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:hint="设置登录密码"
+                android:inputType="textPassword"
+                android:maxLength="11"
+                android:paddingBottom="22dp"
+                android:paddingTop="22dp"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_ee"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:textSize="@dimen/text_size_title_2"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/et_register_password"
-            android:background="@color/text_color_2"/>
+            <CheckBox
+                android:id="@+id/cb_register_password_show"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentEnd="true"
+                android:padding="12dp"
+                android:button="@null"
+                android:background="@drawable/iv_phone_clear"
+                android:layout_marginTop="15dp"
+                android:visibility="visible"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/et_register_password"
+                android:background="@color/text_color_2"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_register_login"
+            android:layout_marginTop="122dp"
+            android:layout_below="@id/rl_register_password"
+            android:layout_centerHorizontal="true"
+            android:text="登录"
+            android:textSize="@dimen/text_size_title_1"
+            android:textColor="@color/color_text_enable_blue"
+            android:textStyle="bold"
+            android:enabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_register_login"
-        android:layout_marginTop="122dp"
-        android:layout_below="@id/rl_register_password"
-        android:layout_centerHorizontal="true"
-        android:text="登录"
-        android:textSize="@dimen/text_size_title_1"
-        android:textColor="@color/color_text_enable_blue"
-        android:textStyle="bold"
-        android:enabled="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</RelativeLayout>
+</ScrollView>

@@ -1,18 +1,18 @@
-package com.zxcx.zhizhe.ui.my.creation.newCreation
+package com.zxcx.zhizhe.ui.my.note.newNote
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 
-class NewCreationEditorPresenter(view: NewCreationEditorContract.View) : BasePresenter<NewCreationEditorContract.View>(), NewCreationEditorContract.Presenter {
+class NoteEditorPresenter(view: NoteEditorContract.View) : BasePresenter<NoteEditorContract.View>(), NoteEditorContract.Presenter {
 
-    private val mModel: NewCreationEditorModel
+    private val mModel: NoteEditorModel
 
     init {
         attachView(view)
-        mModel = NewCreationEditorModel(this)
+        mModel = NoteEditorModel(this)
     }
 
-    fun saveFreeNode(cardId: Int, title: String, imageUrl: String, cardBagId: Int, content: String) {
-        mModel.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
+    fun saveNote(cardId: Int, title: String?, content: String?) {
+        mModel.saveNote(cardId,title,content)
     }
 
     fun submitReview(cardId: Int, title: String,imageUrl: String,cardBagId: Int,content: String) {

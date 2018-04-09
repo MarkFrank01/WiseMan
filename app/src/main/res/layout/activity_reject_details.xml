@@ -123,13 +123,12 @@
             </FrameLayout>
 
             <LinearLayout
-                android:background="@color/background"
+                android:background="@drawable/bg_reject_reason"
                 android:orientation="vertical"
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_width="match_parent"
@@ -138,14 +137,26 @@
                 <TextView
                     android:text="未通过原因"
                     android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tv_reject_reason"
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="12dp"
                     tools:text="标题、内容不符合平台定位，内容不够详实、偏离主题。"
                     android:textSize="@dimen/text_size_text_2"
+                    android:textColor="@color/text_color_1"
+                    android:lineSpacingExtra="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_reject_agreement"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    tools:text="标题、内容不符合平台定位"
+                    android:textSize="@dimen/text_size_text_3"
                     android:textColor="@color/text_color_1"
                     android:lineSpacingExtra="6dp"
                     android:layout_width="wrap_content"

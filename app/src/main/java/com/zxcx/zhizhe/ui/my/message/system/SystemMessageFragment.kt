@@ -14,7 +14,7 @@ import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
 import com.zxcx.zhizhe.ui.my.writer_status_user
 import com.zxcx.zhizhe.utils.Constants
@@ -89,7 +89,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 return
             }
             message_apply_pass -> {
-                intent.setClass(mActivity,NewCreationTitleActivity::class.java)
+                intent.setClass(mActivity, CreationEditorActivity::class.java)
             }
             message_apply_reject -> {
                 if (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus,0) == writer_status_user

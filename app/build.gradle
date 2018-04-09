@@ -222,8 +222,8 @@ dependencies {
         compile 'com.blankj:utilcode:1.9.12'*/
 }
 
-kapt{
-    arguments{
+kapt {
+    arguments {
         arg("eventBusInde", 'com.zxcx.zhizhe.MyEventBusIndex')
         arg("room.schemaLocation", "$projectDir/schemas".toString())
     }
@@ -280,5 +280,6 @@ MobSDK {
                 appId "101433894"
                 appKey "3d6d5c0b147c7444f4c5b3781402682a"
             }
-        }}
+        }
+    }
 }

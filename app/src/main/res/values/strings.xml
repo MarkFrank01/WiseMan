@@ -80,8 +80,7 @@
     <string name="user_info_change">修改成功</string>
     <string name="card_details_dark_url">/view/articleDark/</string>
     <string name="card_details_light_url">/view/articleLight/</string>
-    <string name="editor_dark_url">/view/zzeditor-dark</string>
-    <string name="editor_url">/view/zzeditor</string>
+    <string name="note_editor_url">/view/zzeditor</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
     <!--common-end-->
 </resources>

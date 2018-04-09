@@ -13,7 +13,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NewCreationTitleActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ZhiZheUtils
@@ -143,7 +143,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         //todo 修改占位图
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
-                val intent = Intent(mActivity, NewCreationTitleActivity::class.java)
+                val intent = Intent(mActivity, CreationEditorActivity::class.java)
                 startActivity(intent)
             }
         })

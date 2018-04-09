@@ -33,7 +33,7 @@ class LoginModel(present: LoginContract.Presenter) : BaseModel<LoginContract.Pre
                                 val message = t.message?.substring(3)
                                 t.printStackTrace()
                                 LogCat.d(t.message)
-                                if (Constants.NEED_LOGIN == code1) {
+                                if (Constants.NEED_REGISTER == code1) {
                                     mPresenter?.needRegister()
                                 } else {
                                     mPresenter?.getDataFail(message)
@@ -67,7 +67,7 @@ class LoginModel(present: LoginContract.Presenter) : BaseModel<LoginContract.Pre
                                 val message = t.message?.substring(3)
                                 t.printStackTrace()
                                 LogCat.d(t.message)
-                                if (Constants.NEED_LOGIN == code1) {
+                                if (Constants.NEED_REGISTER == code1) {
                                     mPresenter?.channelLoginNeedRegister()
                                 } else {
                                     mPresenter?.getDataFail(message)

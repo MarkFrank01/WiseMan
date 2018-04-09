@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.classify.*
+import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
 import kotlinx.android.synthetic.main.activity_select_card_bag.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -39,7 +40,7 @@ class SelectCardBagActivity : MvpActivity<ClassifyPresenter>(), ClassifyContract
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity,R.color.color_text_enable_blue))
         tv_toolbar_right.isEnabled = cardBagId != 0
         tv_toolbar_right.setOnClickListener {
-            //进入编辑器页面
+            //todo 进入编辑器页面
             val intent = Intent(mActivity, NoteEditorActivity::class.java)
             intent.putExtra("cardId", cardId)
             intent.putExtra("cardBagId", cardBagId)

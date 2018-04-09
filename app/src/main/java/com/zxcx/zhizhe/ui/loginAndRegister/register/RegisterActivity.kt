@@ -70,7 +70,7 @@ class RegisterActivity : MvpActivity<RegisterPresenter>(), RegisterContract.View
         ZhiZheUtils.saveLoginData(bean)
         EventBus.getDefault().post(LoginEvent())
         toastShow("欢迎来到智者")
-        onBackPressed()
+        finish()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

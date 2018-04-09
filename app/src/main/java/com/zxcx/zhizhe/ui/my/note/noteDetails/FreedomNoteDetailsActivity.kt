@@ -148,7 +148,7 @@ class FreedomNoteDetailsActivity : BaseActivity() {
     }
 
     private fun gotoShare(url: String?) {
-        val shareDialog = ShareNoteDialog()
+        val shareDialog = ShareFreedomNoteDialog()
         val bundle = Bundle()
         bundle.putString("name", name)
         bundle.putString("url", url)

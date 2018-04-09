@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.newCreation
+package com.zxcx.zhizhe.ui.my.note.newNote
 
 import android.Manifest
 import android.content.Intent
@@ -15,33 +15,37 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
+import com.zxcx.zhizhe.ui.my.note.noteDetails.ShareFreedomNoteDialog
+import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
-import kotlinx.android.synthetic.main.activity_new_creation_editor.*
+import kotlinx.android.synthetic.main.activity_note_editor.*
 import org.greenrobot.eventbus.EventBus
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
+import java.util.*
 
-class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreationEditorContract.View,
+class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContract.View,
         OSSDialog.OSSUploadListener{
 
     private lateinit var mOSSDialog: OSSDialog
     private var cardId: Int = 0
-    private var cardBagId: Int = 0
-    private var title: String = ""
-    private var imageUrl: String = ""
-    private var content: String = ""
+    private var title: String? = ""
+    private var content: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_creation_editor)
+        setContentView(R.layout.activity_note_editor)
         initData()
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
+
+        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+        editor.url = url
     }
 
     override fun onBackPressed() {
@@ -51,12 +55,12 @@ class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreatio
 
     private fun initData() {
         cardId = intent.getIntExtra("cardId",0)
-        cardBagId = intent.getIntExtra("cardBagId",0)
         title = intent.getStringExtra("title")
-        imageUrl = intent.getStringExtra("imageUrl")
+
         if (cardId != 0){
             editor.setCardId(cardId)
         }
+        et_editor_title.setText(title)
     }
 
     override fun initStatusBar() {
@@ -69,8 +73,8 @@ class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreatio
         mImmersionBar.init()
     }
 
-    override fun createPresenter(): NewCreationEditorPresenter {
-        return NewCreationEditorPresenter(this)
+    override fun createPresenter(): NoteEditorPresenter {
+        return NoteEditorPresenter(this)
     }
 
     override fun postSuccess() {
@@ -149,9 +153,10 @@ class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreatio
     override fun setListener() {
         editor.setOnTextChangeListener({ text ->
             content = text
-            iv_editor_save.isEnabled = text.isNotEmpty() && et_editor_title.text.isNotEmpty()
+            iv_editor_save.isEnabled = text.isNotEmpty() || et_editor_title.text.isNotEmpty()
         })
-        cb_editor_bold.setOnClickListener {
+        fl_editor_bold.setOnClickListener {
+            cb_editor_bold.isChecked = !cb_editor_bold.isChecked
             editor.setBold(cb_editor_bold.isChecked)
         }
         iv_editor_album.setOnClickListener {
@@ -184,10 +189,25 @@ class NoteEditorActivity : MvpActivity<NewCreationEditorPresenter>(), NewCreatio
         }
         iv_editor_save.setOnClickListener {
             // 保存为笔记
-            mPresenter.saveFreeNode(cardId,title,imageUrl,cardBagId,content)
+            if (title.isNullOrEmpty()){
+                title = "新建笔记"
+            }
+            mPresenter.saveNote(cardId,title,content)
+        }
+        iv_editor_share.setOnClickListener {
+            if (title.isNullOrEmpty()){
+                title = "新建笔记"
+            }
+            val shareDialog = ShareFreedomNoteDialog()
+            val bundle = Bundle()
+            bundle.putString("name", title)
+            bundle.putString("content", content)
+            bundle.putString("date", DateTimeUtils.getDateString(Date()))
+            shareDialog.arguments = bundle
+            shareDialog.show(fragmentManager, "")
         }
         et_editor_title.afterTextChanged {
-            iv_editor_save.isEnabled = content.isNotEmpty() && it.isNotEmpty()
+            iv_editor_save.isEnabled = !content.isNullOrEmpty() || it.isNotEmpty()
         }
 
         //添加方法给js调用

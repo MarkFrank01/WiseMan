@@ -3,8 +3,6 @@ package com.zxcx.zhizhe.ui.my.note.noteDetails;
 import android.Manifest;
 import android.app.Dialog;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -21,13 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.FileUtil;
-import com.zxcx.zhizhe.utils.GlideApp;
+import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
 import com.zxcx.zhizhe.widget.PermissionDialog;
@@ -53,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import top.zibin.luban.Luban;
 
-public class ShareNoteDialog extends BaseDialog {
+public class ShareCardNoteDialog extends BaseDialog {
 
 
     @BindView(R.id.iv_dialog_share)
@@ -70,6 +66,7 @@ public class ShareNoteDialog extends BaseDialog {
     private String name;
     private String imageUrl;
     private String url;
+    private String content;
     private String date;
     private Unbinder unbinder;
     private Platform plat;
@@ -79,7 +76,7 @@ public class ShareNoteDialog extends BaseDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_share_note, container);
+        View view = inflater.inflate(R.layout.dialog_share_card_note, container);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -99,11 +96,6 @@ public class ShareNoteDialog extends BaseDialog {
             lp.height = WindowManager.LayoutParams.MATCH_PARENT;
             window.setAttributes(lp);
         }
-
-        ViewGroup.LayoutParams para = mIvDialogShare.getLayoutParams();
-        int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth * 9 / 16);
-        mIvDialogShare.setLayoutParams(para);
     }
 
     @Override
@@ -132,39 +124,28 @@ public class ShareNoteDialog extends BaseDialog {
         name = getArguments().getString("name");
         url = getArguments().getString("url");
         imageUrl = bundle.getString("imageUrl");
+        content = getArguments().getString("content");
         date = bundle.getString("date");
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 延迟共享动画的执行
-            //postponeEnterTransition();
-        }
         TextPaint paint = mTvDialogShareTitle.getPaint();
         paint.setFakeBoldText(true);
         mTvDialogShareTitle.setText(name);
-        mTvDialogShareInfo.setText(getString(R.string.tv_note_info, date));
+        mTvDialogShareInfo.setText(getString(R.string.tv_item_card_note_info, date,"摘录"));
 
-        GlideApp
-                .with(this)
-                .load(imageUrl)
-                .placeholder(R.drawable.default_card)
-                .error(R.drawable.default_card)
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        mIvDialogShare.setImageDrawable(resource);
-                        //图片加载完成的回调中，启动过渡动画
-                        //supportStartPostponedEnterTransition();
-                    }
-                });
+        ImageLoader.load(getActivity(),imageUrl,mIvDialogShare);
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(getActivity());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
         mFlDialogShare.addView(mWebView);
-        mWebView.loadUrl(url);
+        if (url == null || "".equals(url)) {
+            mWebView.loadData(content, "text/html", "utf-8");
+        }else {
+            mWebView.loadUrl(url);
+        }
     }
 
     @OnClick(R.id.iv_dialog_share_wechat)

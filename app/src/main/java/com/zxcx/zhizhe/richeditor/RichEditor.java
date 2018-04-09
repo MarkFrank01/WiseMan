@@ -102,12 +102,8 @@ public class RichEditor extends WebView {
     public RichEditor(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        if (Constants.IS_NIGHT){
-            SETUP_HTML = context.getString(R.string.base_url)+context.getString(R.string.editor_dark_url);
+        if (Constants.IS_NIGHT) {
             setBackgroundColor(ContextCompat.getColor(context, R.color.background));
-        }else {
-            SETUP_HTML = context.getString(R.string.base_url)+context.getString(R.string.editor_url);
-//            SETUP_HTML = "http://192.168.1.149:8043/view/zzeditor";
         }
 
         setVerticalScrollBarEnabled(false);
@@ -118,7 +114,6 @@ public class RichEditor extends WebView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);//内容加载混合模式，适用于https和http混合时使用
         }
-        loadUrl(SETUP_HTML);
 
         if (BuildConfig.DEBUG) {
             WebView.setWebContentsDebuggingEnabled(true);//开启WebView内容调试
@@ -133,6 +128,11 @@ public class RichEditor extends WebView {
 
     protected EditorWebViewClient createWebviewClient() {
         return new EditorWebViewClient();
+    }
+
+    public void setUrl(String url){
+        SETUP_HTML = url;
+        loadUrl(SETUP_HTML);
     }
 
     public void setOnTextChangeListener(OnTextChangeListener listener) {
@@ -403,6 +403,14 @@ public class RichEditor extends WebView {
     public void insertImage(String url) {
         exec("javascript:RE.prepareInsert();");
         exec("javascript:RE.insertImage('" + url + "');");
+    }
+
+    public void setTitleImage(String url) {
+        exec("javascript:setTitleImage('" + url + "');");
+    }
+
+    public void setContentImage(String url) {
+        exec("javascript:setContentImage('" + url + "');");
     }
 
     public void insertLink(String href, String title) {
