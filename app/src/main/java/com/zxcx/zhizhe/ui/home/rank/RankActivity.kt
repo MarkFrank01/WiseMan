@@ -73,14 +73,14 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
         tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity,R.color.text_color_1))
         tv_rank_card.visibility = View.VISIBLE
         tv_rank_fans.visibility = View.VISIBLE
-        tv_rank_read.visibility = View.VISIBLE
+        tv_rank_intelligence.visibility = View.VISIBLE
         tv_rank_no_login.visibility = View.GONE
         rl_rank.setOnClickListener(null)
 
         tv_rank_user_name.text = bean.name
         tv_rank_card.text = (bean.cardNum?:0).toString()
         tv_rank_fans.text = (bean.fansNum?:0).toString()
-        tv_rank_read.text = (bean.readNum?:0).toString()
+        tv_rank_intelligence.text = (bean.readNum?:0).toString()
         val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_rank_header)
         showRank(bean)
@@ -153,7 +153,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
             tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity,R.color.button_blue))
             tv_rank_card.visibility = View.GONE
             tv_rank_fans.visibility = View.GONE
-            tv_rank_read.visibility = View.GONE
+            tv_rank_intelligence.visibility = View.GONE
             fl_rank_header_rank.visibility = View.GONE
             tv_rank_no_rank.visibility = View.GONE
             tv_rank_no_login.visibility = View.VISIBLE

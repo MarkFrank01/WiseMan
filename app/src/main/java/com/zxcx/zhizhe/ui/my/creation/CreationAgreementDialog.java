@@ -35,8 +35,6 @@ public class CreationAgreementDialog extends BaseDialog {
     FrameLayout mFlDialogCreationAgreement;
     @BindView(R.id.tv_dialog_confirm)
     TextView mTvDialogConfirm;
-    @BindView(R.id.view_line)
-    View mViewLine;
     @BindView(R.id.ll_creation_agreement)
     LinearLayout mLlCreationAgreement;
     private WebView mWebView;
@@ -97,6 +95,7 @@ public class CreationAgreementDialog extends BaseDialog {
         mWebView = WebViewUtils.getWebView(getActivity());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
+        mWebView.setVerticalScrollBarEnabled(false);
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -106,7 +105,6 @@ public class CreationAgreementDialog extends BaseDialog {
             @Override
             public void onPageFinished(WebView view, String url) {
                 mLlCreationAgreement.setVisibility(View.VISIBLE);
-                mViewLine.setVisibility(View.VISIBLE);
             }
         });
         mFlDialogCreationAgreement.addView(mWebView);

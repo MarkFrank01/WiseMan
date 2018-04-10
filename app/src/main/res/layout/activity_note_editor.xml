@@ -23,8 +23,8 @@
             android:maxLength="20"
             android:hint="编辑笔记标题"
             android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:textColor="@color/text_color_ee"
-            android:textColorHint="@color/et_new_creation_1_title"
+            android:textColor="@color/text_color_1"
+            android:textColorHint="@color/text_color_ee"
             android:textSize="@dimen/text_size_title_2"
             android:textStyle="bold"
             android:layout_marginTop="30dp"
@@ -79,16 +79,7 @@
 
             <ImageView
                 android:id="@+id/iv_editor_save"
-                android:scaleType="center"
-                android:src="@drawable/iv_rte_album"
-                android:background="@null"
-                android:padding="10dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <ImageView
-                android:id="@+id/iv_editor_share"
+                android:clickable="false"
                 android:scaleType="center"
                 android:src="@drawable/iv_rte_album"
                 android:background="@null"
@@ -102,7 +93,7 @@
     <ImageView
         android:id="@+id/iv_common_close"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:padding="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"

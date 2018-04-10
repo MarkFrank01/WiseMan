@@ -33,7 +33,6 @@ class ImageCropActivity : BaseActivity(), CropImageView.OnBitmapSaveCompleteList
         //获取需要的参数
         mOutputX = 512
         mOutputY = 512
-        mIsSaveRectangle = false
         val imagePath = intent.getStringExtra("path")
 
         cv_crop_image.focusStyle = CropImageView.Style.CIRCLE

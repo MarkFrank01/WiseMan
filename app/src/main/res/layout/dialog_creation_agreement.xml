@@ -8,6 +8,7 @@
     android:layout_height="match_parent">
     <ScrollView
         android:id="@+id/sv_dialog_creation_agreement"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -24,6 +25,7 @@
 
             <LinearLayout
                 android:id="@+id/ll_creation_agreement"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -35,6 +37,7 @@
                     android:textSize="17sp"
                     android:padding="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginBottom="14dp"
                     android:layout_weight="1"
                     android:layout_width="0dp"
@@ -48,6 +51,7 @@
                     android:textSize="17sp"
                     android:padding="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="14dp"
                     android:layout_weight="1"
                     android:layout_width="0dp"

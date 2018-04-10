@@ -96,7 +96,7 @@
                     android:layout_below="@id/tv_other_user_nick_name"
                     android:layout_toEndOf="@id/tv_other_user_fans"
                     android:layout_marginTop="14dp"
-                    android:drawableStart="@drawable/tv_item_rank_user_read"
+                    android:drawableStart="@drawable/tv_item_rank_user_intelligence"
                     android:drawablePadding="5dp"
                     android:layout_marginStart="12dp"
                     tools:text="500"
@@ -127,7 +127,7 @@
     <ImageView
         android:id="@+id/iv_other_user_close"
         android:layout_gravity="end"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="28dp"

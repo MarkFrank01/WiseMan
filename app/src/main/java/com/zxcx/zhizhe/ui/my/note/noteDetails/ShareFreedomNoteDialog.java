@@ -61,7 +61,6 @@ public class ShareFreedomNoteDialog extends BaseDialog {
     private WebView mWebView;
     private String name;
     private String url;
-    private String content;
     private String date;
     private Unbinder unbinder;
     private Platform plat;
@@ -118,7 +117,6 @@ public class ShareFreedomNoteDialog extends BaseDialog {
         Bundle bundle = getArguments();
         name = getArguments().getString("name");
         url = getArguments().getString("url");
-        content = getArguments().getString("content");
         date = bundle.getString("date");
     }
 
@@ -137,11 +135,7 @@ public class ShareFreedomNoteDialog extends BaseDialog {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mWebView.setLayoutParams(params);
         mFlDialogShare.addView(mWebView);
-        if (url == null || "".equals(url)) {
-            mWebView.loadData(content, "text/html", "utf-8");
-        }else {
-            mWebView.loadUrl(url);
-        }
+        mWebView.loadUrl(url);
     }
 
     @OnClick(R.id.iv_dialog_share_wechat)

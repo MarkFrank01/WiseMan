@@ -89,7 +89,8 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun initStatusBar() {
-
+        //全屏输入法问题
+        AndroidBug5497Workaround.assistActivity(this)
     }
 
     override fun onBackPressed() {

@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/iv_search_close"
         android:layout_gravity="end"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:layout_marginEnd="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
@@ -111,7 +111,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:src="@drawable/tv_home_search"/>
+            android:src="@drawable/iv_home_search"/>
 
     </RelativeLayout>
 

@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.ui.my.creation.passed.CreationDraftsFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationInReviewFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationPassedFragment
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationRejectFragment
-import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_creation.*
 import org.greenrobot.eventbus.EventBus
@@ -51,7 +50,7 @@ class CreationActivity : BaseActivity() {
             onBackPressed()
         }
 
-        fab_add_new.setOnClickListener {
+        iv_add_new.setOnClickListener {
             startActivity(CreationEditorActivity::class.java,{})
         }
         /*iv_toolbar_creation.setOnClickListener {
@@ -85,11 +84,6 @@ class CreationActivity : BaseActivity() {
 
             }
         })
-
-        val para = tl_creation.layoutParams
-        val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
-        para.width = screenWidth * 4 / 5
-        tl_creation.layoutParams = para
         tl_creation.getTabAt(0)?.select()
         switchFragment(passedFragment)
     }

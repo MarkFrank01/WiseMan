@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.classify.subject
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -14,6 +13,7 @@ import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean
 import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_user.*
@@ -39,20 +39,21 @@ class SubjectActivity : MvpActivity<SubjectPresenter>(), SubjectContract.View,
     }
 
     override fun cardOnClick(bean: CardBean) {
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        intent.putExtra("imageUrl", bean.imageUrl)
-        intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-        intent.putExtra("author", bean.author)
-        mActivity.startActivity(intent)
+        startActivity(CardDetailsActivity::class.java,{
+            it.putExtra("id", bean.id)
+            it.putExtra("name", bean.name)
+            it.putExtra("imageUrl", bean.imageUrl)
+            it.putExtra("date", DateTimeUtils.getDateString(bean.date))
+            it.putExtra("author", bean.author)
+        })
     }
 
     override fun subjectOnClick(bean: SubjectBean) {
-        val intent = Intent(mActivity, CardBagActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        mActivity.startActivity(intent)
+        startActivity(CardBagActivity::class.java,{
+            it.putExtra("id", bean.id)
+            it.putExtra("name", bean.name)
+            it.putExtra("isSubject",true)
+        })
     }
 
     private fun initRecyclerView() {

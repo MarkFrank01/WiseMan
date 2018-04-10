@@ -15,11 +15,8 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
-import com.zxcx.zhizhe.ui.my.note.noteDetails.ShareFreedomNoteDialog
-import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.utils.Utils
-import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_note_editor.*
@@ -27,7 +24,6 @@ import org.greenrobot.eventbus.EventBus
 import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
-import java.util.*
 
 class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContract.View,
         OSSDialog.OSSUploadListener{
@@ -153,7 +149,7 @@ class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContrac
     override fun setListener() {
         editor.setOnTextChangeListener({ text ->
             content = text
-            iv_editor_save.isEnabled = text.isNotEmpty() || et_editor_title.text.isNotEmpty()
+            iv_editor_save.isClickable = text.isNotEmpty()
         })
         fl_editor_bold.setOnClickListener {
             cb_editor_bold.isChecked = !cb_editor_bold.isChecked
@@ -193,21 +189,6 @@ class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContrac
                 title = "新建笔记"
             }
             mPresenter.saveNote(cardId,title,content)
-        }
-        iv_editor_share.setOnClickListener {
-            if (title.isNullOrEmpty()){
-                title = "新建笔记"
-            }
-            val shareDialog = ShareFreedomNoteDialog()
-            val bundle = Bundle()
-            bundle.putString("name", title)
-            bundle.putString("content", content)
-            bundle.putString("date", DateTimeUtils.getDateString(Date()))
-            shareDialog.arguments = bundle
-            shareDialog.show(fragmentManager, "")
-        }
-        et_editor_title.afterTextChanged {
-            iv_editor_save.isEnabled = !content.isNullOrEmpty() || it.isNotEmpty()
         }
 
         //添加方法给js调用

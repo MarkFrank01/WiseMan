@@ -128,7 +128,7 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
             onBackPressed()
         }
 
-        fab_add_new.setOnClickListener {
+        iv_add_new.setOnClickListener {
             mActivity.startActivity(NoteEditorActivity::class.java,{})
         }
     }

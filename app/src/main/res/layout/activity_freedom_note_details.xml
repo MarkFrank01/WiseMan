@@ -105,7 +105,7 @@
     <ImageView
         android:id="@+id/iv_note_details_back"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:padding="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"

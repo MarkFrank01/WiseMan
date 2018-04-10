@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.webkit.JavascriptInterface
+import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -30,7 +31,8 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creation_editor)
 
-        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+//        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+        val url = "http://192.168.1.153:8043/view/mobile-editor"
         editor.url = url
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
@@ -43,6 +45,25 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
 
         //添加方法给js调用
         editor.addJavascriptInterface(this,"native")
+    }
+
+    override fun initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        }
+        mImmersionBar.init()
     }
 
     override fun createPresenter(): CreationEditorPresenter {
@@ -117,6 +138,18 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
                         }
                     }
                 }
+    }
+
+    @JavascriptInterface
+    fun saveSuccess(){
+        toastShow("保存草稿成功")
+        finish()
+    }
+
+    @JavascriptInterface
+    fun commitSuccess(){
+        toastShow("提交审核成功")
+        finish()
     }
 
     override fun onGetSuccess(uriType: GetPicBottomDialog.UriType, uri: Uri, imagePath: String) {

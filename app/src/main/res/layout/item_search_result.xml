@@ -79,7 +79,7 @@
 
             <TextView
                 android:id="@+id/tv_item_search_result_read"
-                android:drawableStart="@drawable/tv_item_rank_user_card"
+                android:drawableStart="@drawable/item_card_read"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="15dp"
                 tools:text="500"
@@ -91,7 +91,7 @@
 
             <TextView
                 android:id="@+id/tv_item_search_result_collect"
-                android:drawableStart="@drawable/tv_item_rank_user_fans"
+                android:drawableStart="@drawable/item_card_collect"
                 android:drawablePadding="5dp"
                 android:layout_marginStart="15dp"
                 tools:text="500"

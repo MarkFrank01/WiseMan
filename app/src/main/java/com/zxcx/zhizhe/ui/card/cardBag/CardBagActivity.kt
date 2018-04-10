@@ -27,10 +27,10 @@ import java.util.*
 class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.View, BaseQuickAdapter.RequestLoadMoreListener {
 
     private lateinit var mCardBagCardAdapter: CardBagCardAdapter
-    private var isCard = true
     private var mId: Int = 0
     private var page = 0
     private var name = ""
+    private var isSubject = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,12 +101,17 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     private fun getCardBagCardList() {
-        mPresenter.getCardBagCardList(mId, page, Constants.PAGE_SIZE)
+        if (isSubject){
+            mPresenter.getSubjectCardList(mId, page, Constants.PAGE_SIZE)
+        }else {
+            mPresenter.getCardBagCardList(mId, page, Constants.PAGE_SIZE)
+        }
     }
 
     private fun initData() {
         mId = intent.getIntExtra("id", 0)
         name = intent.getStringExtra("name")
+        isSubject = intent.getBooleanExtra("isSubject",false)
         tv_header_title.text = name
     }
 
@@ -139,15 +144,11 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
             intent.putExtra("imageUrl", bean.imageUrl)
             intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
             intent.putExtra("author", bean.author)
-            if (isCard) {
-                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
-                        Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
-                        Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                        Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-                mContext.startActivity(intent, bundle)
-            } else {
-                mContext.startActivity(intent)
-            }
+            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                    Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+            mContext.startActivity(intent, bundle)
         }
     }
 

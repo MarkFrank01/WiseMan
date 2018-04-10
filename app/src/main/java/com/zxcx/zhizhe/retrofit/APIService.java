@@ -220,11 +220,18 @@ public interface APIService {
 
     /**
      * 获取卡包内专题列表
-     * todo 修改接口地址
      */
-    @POST("/search/searchCollection")
+    @POST("/collection/getTopicList")
     Flowable<BaseArrayBean<SubjectBean>> getSubject(
-            @Query("id") int id, @Query("pageIndex") int page,
+            @Query("collectionId") int id, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
+
+    /**
+     * 获取专题内卡片列表
+     */
+    @POST("/article/getArticleByCollectionId")
+    Flowable<BaseArrayBean<CardBagBean>> getSubjectCardList(
+            @Query("topicId") int id, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
     /**

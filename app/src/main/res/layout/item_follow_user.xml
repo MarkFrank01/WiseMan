@@ -65,7 +65,7 @@
             android:id="@+id/tv_item_follow_user_read"
             android:layout_below="@id/tv_item_follow_user_name"
             android:layout_toRightOf="@id/tv_item_follow_user_fans"
-            android:drawableLeft="@drawable/tv_item_rank_user_read"
+            android:drawableLeft="@drawable/tv_item_rank_user_intelligence"
             android:drawablePadding="5dp"
             android:layout_marginLeft="20dp"
             tools:text="1000"

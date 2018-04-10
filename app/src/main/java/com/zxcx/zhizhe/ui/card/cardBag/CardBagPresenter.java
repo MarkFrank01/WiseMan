@@ -19,6 +19,10 @@ public class CardBagPresenter extends BasePresenter<CardBagContract.View> implem
         mModel.getCardBagCardList(id,page,pageSize);
     }
 
+    public void getSubjectCardList(int id, int page, int pageSize){
+        mModel.getSubjectCardList(id,page,pageSize);
+    }
+
     @Override
     public void getDataSuccess(List<CardBagBean> bean) {
         mView.getDataSuccess(bean);

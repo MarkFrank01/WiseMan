@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbars="none"
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -62,13 +63,12 @@
 
             <CheckBox
                 android:id="@+id/cb_register_password_show"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:padding="12dp"
                 android:button="@null"
-                android:background="@drawable/iv_phone_clear"
-                android:layout_marginTop="15dp"
+                android:background="@drawable/selector_cb_login_password"
+                android:layout_marginTop="27dp"
                 android:visibility="visible"/>
 
             <View

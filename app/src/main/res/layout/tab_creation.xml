@@ -12,6 +12,7 @@
         tools:text="卡片笔记"
         android:textColor="@color/color_tab_text_home"
         android:textSize="@dimen/text_size_text_1"
+        android:textStyle="bold"
         android:gravity="center"
         android:paddingBottom="2dp"
         android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
 
     <View
         android:background="@drawable/color_tab_indicator_home"
-        android:layout_width="60dp"
-        android:layout_height="2dp"/>
+        android:layout_width="16dp"
+        android:layout_height="3dp"/>
 
 </LinearLayout>

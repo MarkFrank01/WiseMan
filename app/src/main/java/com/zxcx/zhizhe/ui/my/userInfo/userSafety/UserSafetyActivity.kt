@@ -77,6 +77,9 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
     }
 
     override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
         ll_user_safety_phone_bind.setOnClickListener {
             //更换手机界面
             val intent = Intent(this, ChangePhoneActivity::class.java)

@@ -61,7 +61,8 @@ class ForgetPasswordActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPas
     }
 
     override fun initStatusBar() {
-
+        //全屏输入法问题
+        AndroidBug5497Workaround.assistActivity(this)
     }
 
     public override fun onDestroy() {

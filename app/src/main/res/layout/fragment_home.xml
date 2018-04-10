@@ -52,7 +52,7 @@
                 <TextView
                     android:id="@+id/tv_home_creation"
                     android:padding="10dp"
-                    android:drawableStart="@drawable/tv_home_search"
+                    android:drawableStart="@drawable/tv_home_creation"
                     android:drawablePadding="10dp"
                     android:text="创作"
                     android:textColor="@color/text_color_2"
@@ -64,7 +64,7 @@
                 <TextView
                     android:id="@+id/tv_home_rank"
                     android:padding="10dp"
-                    android:drawableStart="@drawable/tv_home_search"
+                    android:drawableStart="@drawable/tv_home_rank"
                     android:drawablePadding="10dp"
                     android:text="榜单"
                     android:textColor="@color/text_color_2"
@@ -114,7 +114,7 @@
         android:id="@+id/iv_home_search"
         android:layout_gravity="end"
         android:scaleType="center"
-        android:src="@drawable/tv_home_search"
+        android:src="@drawable/iv_home_search"
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:layout_behavior="com.zxcx.zhizhe.ui.home.HomeSearchBehavior"/>

@@ -241,7 +241,7 @@
             android:name=".ui.loginAndRegister.passwordLogin.PasswordLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.loginAndRegister.initUserInfo.InitUserInfoActivity"
             android:screenOrientation="portrait"/>
@@ -260,7 +260,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.newCreation.CreationEditorActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
     </application>
 
 </manifest>

@@ -159,9 +159,9 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     @Override
     public void postSuccess(UserInfoBean bean) {
         String imageUrl = SharedPreferencesUtil.getString(SVTSConstants.imgUrl,"");
-        deleteImageFromOSS(imageUrl);
         ZhiZheUtils.saveUserInfo(bean);
         ImageLoader.load(this,bean.getAvatar(),R.drawable.iv_my_head_placeholder,mIvHeadImage);
+        deleteImageFromOSS(imageUrl);
     }
 
     @Override
@@ -180,10 +180,12 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
     @Override
     public void deleteSuccess() {
         isChanged = true;
+        onBackPressed();
     }
 
     @Override
     public void deleteFail() {
         isChanged = true;
+        onBackPressed();
     }
 }

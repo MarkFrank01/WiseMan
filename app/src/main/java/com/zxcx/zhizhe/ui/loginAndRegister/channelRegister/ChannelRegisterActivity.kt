@@ -98,7 +98,8 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
     }
 
     override fun initStatusBar() {
-
+        //全屏输入法问题
+        AndroidBug5497Workaround.assistActivity(this)
     }
 
     override fun onBackPressed() {

@@ -18,7 +18,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="30dp"
-            android:text="消息"
+            android:text="创作"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_title_1"
             android:textStyle="bold"
@@ -33,7 +33,9 @@
             app:tabSelectedTextColor="@color/translate"
             app:tabBackground="@color/translate"
             app:tabMode="fixed"
-            android:layout_width="248dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"/>
 
     </android.support.design.widget.AppBarLayout>
@@ -49,21 +51,19 @@
     <ImageView
         android:id="@+id/iv_common_close"
         android:layout_gravity="end"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="28dp"
         android:layout_height="28dp"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add_new"
+    <ImageView
+        android:id="@+id/iv_add_new"
         android:layout_gravity="end|bottom"
-        android:layout_marginBottom="30dp"
-        android:layout_marginEnd="30dp"
-        android:src="@drawable/common_my_add"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:backgroundTint="@color/button_blue"
-        app:borderWidth="0dp"/>
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/iv_add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </android.support.design.widget.CoordinatorLayout>

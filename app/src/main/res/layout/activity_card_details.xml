@@ -123,7 +123,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_card_details_bottom"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="40dp"
@@ -187,7 +187,7 @@
                         android:id="@+id/tv_item_rank_user_read"
                         android:layout_below="@id/tv_item_rank_user_name"
                         android:layout_toEndOf="@id/tv_item_rank_user_fans"
-                        android:drawableStart="@drawable/tv_item_rank_user_read"
+                        android:drawableStart="@drawable/tv_item_rank_user_intelligence"
                         android:drawablePadding="5dp"
                         android:layout_marginStart="15dp"
                         tools:text="500"
@@ -224,7 +224,6 @@
             <LinearLayout
                 android:id="@+id/ll_card_details_bottom"
                 android:visibility="gone"
-                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -301,7 +300,7 @@
     <ImageView
         android:id="@+id/iv_card_details_back"
         android:layout_gravity="end"
-        android:src="@drawable/iv_card_details_back"
+        android:src="@drawable/iv_common_close"
         android:padding="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
