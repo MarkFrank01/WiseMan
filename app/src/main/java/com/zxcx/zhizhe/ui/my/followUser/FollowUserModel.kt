@@ -17,7 +17,7 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<FollowUserBean>>(mPresenter) {
                     override fun onNext(list: MutableList<FollowUserBean>) {
-                        mPresenter?.getDataSuccess(list)
+                        mPresenter?.getEmptyFollowUserSuccess(list)
                     }
                 })
         addSubscription(mDisposable)

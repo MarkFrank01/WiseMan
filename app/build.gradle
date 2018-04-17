@@ -79,20 +79,20 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:support-v4:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
     //百分比布局
-    implementation 'com.android.support:percent:27.1.0'
+    implementation 'com.android.support:percent:27.1.1'
 
     //自动换行布局
     implementation 'com.google.android:flexbox:0.3.0'
 
     //拖动布局
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     //MD设计库
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:design:27.1.1'
 
     //去除方法数限制
     implementation 'com.android.support:multidex:1.0.3'
@@ -241,7 +241,7 @@ configurations.all {
         def requested = details.requested
         if (requested.group == 'com.android.support') {
             if (!requested.name.startsWith("multidex")) {
-                details.useVersion '27.1.0'
+                details.useVersion '27.1.1'
             }
         }
     }
@@ -267,18 +267,22 @@ MobSDK {
             Wechat {
                 appId "wxac8cb0c3f9b06b05"
                 appSecret "7dac5a6b10709f3cef1903d5e76a1cb1"
+                shareByAppClient true
             }
             WechatMoments {
                 appId "wxac8cb0c3f9b06b05"
                 appSecret "7dac5a6b10709f3cef1903d5e76a1cb1"
+                shareByAppClient true
             }
             QQ {
                 appId "101433894"
                 appKey "3d6d5c0b147c7444f4c5b3781402682a"
+                shareByAppClient true
             }
             QZone {
                 appId "101433894"
                 appKey "3d6d5c0b147c7444f4c5b3781402682a"
+                shareByAppClient true
             }
         }
     }

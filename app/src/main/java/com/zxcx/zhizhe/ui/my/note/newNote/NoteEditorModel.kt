@@ -22,18 +22,6 @@ class NoteEditorModel(presenter: NoteEditorContract.Presenter) : BaseModel<NoteE
                 })
         addSubscription(mDisposable)
     }
-
-    fun submitReview(cardId: Int, title: String,imageUrl: String,cardBagId: Int,content: String) {
-        mDisposable = AppClient.getAPIService().saveFreeNode(cardId,title,imageUrl, cardBagId,content,1)
-                .compose(BaseRxJava.io_main_loading(mPresenter))
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
-                    override fun onNext(bean: BaseBean<*>) {
-                        mPresenter?.postSuccess()
-                    }
-                })
-        addSubscription(mDisposable)
-    }
 }
 
 

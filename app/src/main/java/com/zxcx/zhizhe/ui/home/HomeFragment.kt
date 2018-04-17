@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.home.hot.HotFragment
 import com.zxcx.zhizhe.ui.home.rank.RankActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
+import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
@@ -93,7 +96,18 @@ class HomeFragment : BaseFragment() {
 
     private fun initView() {
         tv_home_creation.setOnClickListener {
-            mActivity.startActivity(CreationEditorActivity::class.java,{})
+            if (checkLogin()) {
+                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                    writer_status_writer -> {
+                        //创作界面
+                        mActivity.startActivity(CreationEditorActivity::class.java,{})
+                    }
+                    else -> {
+                        val dialog = CreationAgreementDialog()
+                        dialog.show(mActivity.fragmentManager, "")
+                    }
+                }
+            }
         }
         tv_home_rank.setOnClickListener {
             mActivity.startActivity(RankActivity::class.java,{})
@@ -143,11 +157,6 @@ class HomeFragment : BaseFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         EventBus.getDefault().unregister(this)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: GotoHomeRankEvent) {
-        tl_home.getTabAt(2)?.select()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

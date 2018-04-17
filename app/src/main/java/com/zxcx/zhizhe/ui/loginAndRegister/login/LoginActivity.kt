@@ -94,6 +94,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun onBackPressed() {
+        Utils.closeInputMethod(this)
         super.onBackPressed()
         countDownTimer.cancel()
     }

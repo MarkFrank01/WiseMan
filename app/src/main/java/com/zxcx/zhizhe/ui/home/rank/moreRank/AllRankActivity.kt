@@ -80,13 +80,11 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        if (checkLogin()) {
-            val bean = adapter.data[position] as UserRankBean
-            val intent = Intent(mActivity, OtherUserActivity::class.java)
-            intent.putExtra("id", bean.id)
-            intent.putExtra("name", bean.name)
-            startActivity(intent)
-        }
+        val bean = adapter.data[position] as UserRankBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
     }
 
     private fun initRecyclerView() {
@@ -99,5 +97,11 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
         mAdapter.addHeaderView(title)
         rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_rank_user.adapter = mAdapter
+    }
+
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

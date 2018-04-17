@@ -29,28 +29,13 @@
             android:layout_height="match_parent"/>
 
         <ImageView
-            android:id="@+id/iv_note_details_draft"
-            android:layout_marginStart="26dp"
-            android:src="@drawable/iv_note_details_edit"
-            android:gravity="center"
-            android:scaleType="center"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <ImageView
             android:id="@+id/iv_note_details_commit"
             android:layout_marginEnd="26dp"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="center"
-            android:src="@drawable/selector_tv_card_details_share"/>
+            android:src="@drawable/iv_note_details_commit"/>
 
     </LinearLayout>
 

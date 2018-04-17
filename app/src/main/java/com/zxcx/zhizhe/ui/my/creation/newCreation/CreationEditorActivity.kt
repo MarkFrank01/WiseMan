@@ -7,14 +7,15 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ActionMode
+import android.view.MenuItem
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.FileUtil
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
@@ -26,16 +27,32 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
     private lateinit var mOSSDialog: OSSDialog
 
     private var mAction = 0 //0选择标题图，1选择内容图
+    private var mActionMode: ActionMode? = null
+    private var cardId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_creation_editor)
 
+        initEditor()
+
+        mOSSDialog = OSSDialog()
+        mOSSDialog.setUploadListener(this)
+    }
+
+    private fun initEditor() {
 //        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
         val url = "http://192.168.1.153:8043/view/mobile-editor"
         editor.url = url
-        mOSSDialog = OSSDialog()
-        mOSSDialog.setUploadListener(this)
+        cardId = intent.getIntExtra("cardId", 0)
+        if (cardId != 0) {
+            editor.setCardId(cardId)
+        }
+        val localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0)
+        val serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0)
+        val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
+        val timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp, serverTimeStamp)
+        editor.setTimeStampAndToken(timeStamp, token)
     }
 
     override fun setListener() {
@@ -152,6 +169,21 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
         finish()
     }
 
+    @JavascriptInterface
+    fun saveFail(){
+        toastError("保存草稿失败")
+    }
+
+    @JavascriptInterface
+    fun commitFail(){
+        toastError("提交审核失败")
+    }
+
+    @JavascriptInterface
+    fun lack(string: String){
+        toastError(string)
+    }
+
     override fun onGetSuccess(uriType: GetPicBottomDialog.UriType, uri: Uri, imagePath: String) {
         var path: String? = FileUtil.getRealFilePathFromUri(mActivity, uri)
         if (path == null) {
@@ -209,6 +241,33 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
             1 -> {
                 editor.setContentImage(url)
             }
+        }
+    }
+
+    override fun onActionModeStarted(mode: ActionMode) {
+        if (mActionMode == null) {
+            super.onActionModeStarted(mode)
+            mActionMode = mode
+            val menu = mode.menu
+            menu.clear()
+            val menuItemClickListener = MenuItemClickListener()
+            menu.add(0, 0, 0, "保存笔记").setOnMenuItemClickListener(menuItemClickListener)
+        }
+    }
+
+
+    override fun onActionModeFinished(mode: ActionMode) {
+        mActionMode = null
+        editor.clearFocus()//移除高亮显示,如果不移除在三星s6手机上会崩溃
+        super.onActionModeFinished(mode)
+    }
+
+    private inner class MenuItemClickListener : MenuItem.OnMenuItemClickListener {
+
+        override fun onMenuItemClick(item: MenuItem): Boolean {
+            editor.setBold()
+            mActionMode?.finish()
+            return true
         }
     }
 }

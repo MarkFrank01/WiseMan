@@ -19,6 +19,6 @@ public final class CustomLoadMoreView extends LoadMoreView {
     }
 
     @Override protected int getLoadEndViewId() {
-        return 0;
+        return R.id.load_more_load_end_view;
     }
 }

@@ -115,8 +115,7 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         rv_note.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_note.adapter = mAdapter
         rv_note.addItemDecoration(HomeCardItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", R.drawable.no_banner)
+        val emptyView = EmptyView.getEmptyView(mActivity,"涨知识 点点赞", R.drawable.no_data)
         mAdapter.emptyView = emptyView
         val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         title.findViewById<TextView>(R.id.tv_header_title).text = "笔记"

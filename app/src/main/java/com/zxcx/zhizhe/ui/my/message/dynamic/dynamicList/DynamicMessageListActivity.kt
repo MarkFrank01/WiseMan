@@ -124,8 +124,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         mAdapter.setOnLoadMoreListener(this,rv_follow_message)
         rv_follow_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_follow_message.adapter = mAdapter
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_banner)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_data)
         mAdapter.emptyView = emptyView
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         when (mMessageType) {

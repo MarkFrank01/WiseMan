@@ -28,8 +28,6 @@ public class RemoveBindingDialog extends CommonDialog {
 
     @BindView(R.id.tv_dialog_logout)
     TextView mTvDialogLogout;
-    @BindView(R.id.view_line)
-    View mViewLine;
     @BindView(R.id.tv_dialog_cancel)
     TextView mTvDialogCancel;
     @BindView(R.id.tv_dialog_confirm)

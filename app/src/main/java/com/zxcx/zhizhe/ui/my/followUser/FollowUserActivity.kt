@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_follow_user.*
-import kotlinx.android.synthetic.main.layout_no_data.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -61,10 +60,7 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
     }
 
     override fun getEmptyFollowUserSuccess(list: MutableList<FollowUserBean>) {
-        // todo 修改占位图
         val emptyView = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data_and_user, null)
-        emptyView.tv_no_data_1.text = "暂无内容"
-        emptyView.iv_no_data.setImageResource(R.drawable.no_banner)
         mAdapter.addHeaderView(emptyView)
         mAdapter.setNewData(list)
         mAdapter.loadMoreEnd(false)
@@ -91,8 +87,11 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
         }
     }
 
-    override fun postSuccess(bean: FollowUserBean?) {
-        //关注成功回调，我关注的界面不会触发
+    override fun postSuccess(bean: FollowUserBean) {
+        //关注成功回调
+        val position = mAdapter.data.indexOf(bean)
+        mAdapter.data[position].followType = bean.followType
+        mAdapter.notifyItemChanged(mAdapter.getParentPosition(bean))
     }
 
     override fun postFail(msg: String?) {
@@ -117,10 +116,14 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
         val cb = view as CheckBox
         cb.isChecked = !cb.isChecked
         val bean = adapter.data[position] as FollowUserBean
-        val bundle = Bundle()
-        bundle.putInt("userId",bean.id?:0)
-        mDialog.arguments = bundle
-        mDialog.show(mActivity.fragmentManager,"")
+        if (cb.isChecked) {
+            val bundle = Bundle()
+            bundle.putInt("userId", bean.id ?: 0)
+            mDialog.arguments = bundle
+            mDialog.show(mActivity.fragmentManager, "")
+        }else{
+            mPresenter.followUser(bean.id ?: 0)
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {

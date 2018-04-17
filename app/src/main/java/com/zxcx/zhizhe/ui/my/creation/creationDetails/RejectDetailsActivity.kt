@@ -18,6 +18,8 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_reject_details.*
 import org.greenrobot.eventbus.EventBus
@@ -88,6 +90,12 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         tv_reject_details_info?.text = getString(R.string.tv_card_info, date, author)
         tv_reject_details_card_bag?.text = bean.cardBagName
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
+    }
+
+    override fun postSuccess() {
+    }
+
+    override fun postFail(msg: String?) {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -169,7 +177,21 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         }
 
         tv_reject_agreement.setOnClickListener {
-            //todo 智者创作协议
+
+            startActivity(WebViewActivity::class.java,{
+                it.putExtra("title", "智者创作协议")
+                if (Constants.IS_NIGHT) {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url))
+                } else {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_url))
+                }
+            })
+        }
+
+        iv_reject_details_edit.setOnClickListener {
+            startActivity(CreationEditorActivity::class.java,{
+                it.putExtra("cardId", cardId)
+            })
         }
         //todo 草稿功能
     }

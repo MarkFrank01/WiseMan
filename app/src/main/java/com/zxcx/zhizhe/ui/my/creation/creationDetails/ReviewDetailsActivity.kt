@@ -80,6 +80,11 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         tv_review_details_card_bag.text = bean.cardBagName
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
     }
+    override fun postSuccess() {
+    }
+
+    override fun postFail(msg: String?) {
+    }
 
     override fun toastFail(msg: String) {
         super.toastFail(msg)

@@ -71,6 +71,7 @@
                     app:riv_oval="true"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_my_rank"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/iv_rank_header"
                     android:layout_width="wrap_content"
@@ -84,17 +85,6 @@
                         style="@style/tv_single"
                         android:textSize="@dimen/text_size_text_1"
                         android:textColor="@color/text_color_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/tv_rank_no_login"
-                        android:visibility="gone"
-                        android:layout_below="@id/tv_rank_user_name"
-                        android:text="登录智者，查看你的排名"
-                        style="@style/tv_single"
-                        android:textSize="@dimen/text_size_text_3"
-                        android:textColor="@color/text_color_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -174,6 +164,18 @@
                         android:layout_height="wrap_content"/>
 
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_rank_no_login"
+                    android:visibility="gone"
+                    android:layout_centerInParent="true"
+                    android:text="登录查看我的榜单"
+                    style="@style/tv_single"
+                    android:textSize="@dimen/text_size_text_1"
+                    android:textColor="@color/button_blue"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </RelativeLayout>
 

@@ -25,40 +25,43 @@ class SearchSubjectAdapter(data : List<SubjectBean>,private val  mListener: Subj
     override fun convert(helper: BaseViewHolder, item: SubjectBean) {
         val name = helper.getView<TextView>(R.id.tv_item_subject_name)
         TextViewUtils.setTextViewColor(name,mKeyword,item.name)
+        helper.itemView.setOnClickListener {
+            mListener.subjectOnClick(item)
+        }
         val cardList = item.cardList
         if (cardList.size == 0) return
         val viewPager = helper.getView<WrapContentHeightViewPager>(R.id.vp_item_subject)
         viewPager.clipToPadding = false
         viewPager.setPadding(ScreenUtils.dip2px(20f), 0, ScreenUtils.dip2px(20f), 0)
-        viewPager.pageMargin = ScreenUtils.dip2px(10f)
         viewPager.adapter = object : PagerAdapter() {
             override fun getCount(): Int {
-                return cardList.size / 3 + 1
+                return if (cardList.size > 3) cardList.size / 3 else 1
             }
 
             override fun isViewFromObject(view: View, o: Any): Boolean {
                 return view === o
             }
 
-            override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            override fun instantiateItem(container: ViewGroup, position: Int): LinearLayout {
                 val subjectLayout = View.inflate(mContext, R.layout.layout_hot_subject, null) as LinearLayout
                 for (i in 0..2) {
                     val index = position * 3 + i
-                    if (index < count) {
+                    if (index < cardList.size) {
                         val itemCardView = View.inflate(mContext, R.layout.item_hot_subject_card, null)
                         ImageLoader.load(mContext,cardList[index].imageUrl,R.drawable.default_header,itemCardView.iv_item_subject_card)
-                        TextViewUtils.setTextViewColor(itemCardView.tv_item_subject_card_name,mKeyword,cardList[index].name)
+                        itemCardView.tv_item_subject_card_name.text = cardList[index].name
                         itemCardView.tv_item_subject_card_info.text =
                                 mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(cardList[index].date), cardList[index].author)
                         itemCardView.setOnClickListener {
                             mListener.cardOnClick(cardList[index])
                         }
                         subjectLayout.addView(itemCardView)
+                        (itemCardView.layoutParams as ViewGroup.MarginLayoutParams).setMargins(
+                                0, ScreenUtils.dip2px(15f),
+                                0, ScreenUtils.dip2px(15f) )
                     }
                 }
-                subjectLayout.setOnClickListener {
-                    mListener.subjectOnClick(item)
-                }
+                container.addView(subjectLayout)
                 return subjectLayout
             }
 

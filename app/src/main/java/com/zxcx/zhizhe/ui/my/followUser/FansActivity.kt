@@ -84,7 +84,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
     override fun postSuccess(bean: FollowUserBean) {
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
-        mAdapter.notifyItemChanged(position)
+        mAdapter.notifyItemChanged(mAdapter.getParentPosition(bean))
         EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
@@ -96,7 +96,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         bean.id = bean.targetUserId
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
-        mAdapter.notifyItemChanged(position)
+        mAdapter.notifyItemChanged(mAdapter.getParentPosition(bean))
         EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
@@ -140,8 +140,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.drawable.no_data,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, CreationEditorActivity::class.java)
                 startActivity(intent)

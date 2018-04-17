@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_draft_details.*
 import org.greenrobot.eventbus.EventBus
@@ -85,6 +86,15 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
         tv_draft_details_info?.text = getString(R.string.tv_card_info, date, author)
         tv_draft_details_card_bag?.text = bean.cardBagName
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
+    }
+
+    override fun postSuccess() {
+        toastShow("提交成功")
+        onBackPressed()
+    }
+
+    override fun postFail(msg: String?) {
+        toastError("提交失败")
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -163,7 +173,14 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
         iv_common_close.setOnClickListener {
             onBackPressed()
         }
-        //todo 草稿功能
+
+        iv_note_details_edit.setOnClickListener {
+            startActivity(CreationEditorActivity::class.java,{
+                it.putExtra("cardId", cardId)
+            })
+        }
+
+        mPresenter.submitReview(cardId)
     }
 
     private fun initLoadSir() {

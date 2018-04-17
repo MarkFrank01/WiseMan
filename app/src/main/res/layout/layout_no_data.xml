@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/iv_no_data"
-        android:src="@drawable/no_banner"
+        android:src="@drawable/no_data"
         android:scaleType="center"
         android:layout_width="120dp"
         android:layout_height="80dp"/>

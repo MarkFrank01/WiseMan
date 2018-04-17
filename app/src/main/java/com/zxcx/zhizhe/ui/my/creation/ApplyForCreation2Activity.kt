@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
 import com.zxcx.zhizhe.ui.my.userInfo.ChangeHeadImageActivity
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean
+import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_apply_for_creation_2.*
 import org.greenrobot.eventbus.EventBus
@@ -83,6 +84,7 @@ class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfo
     }
 
     override fun postSuccess() {
+        SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writer_status_writer)
         startActivity(CreationActivity::class.java,{})
         finish()
     }

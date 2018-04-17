@@ -211,8 +211,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
         mCardAdapter.setLoadMoreView(new CustomLoadMoreView());
         mCardAdapter.setOnLoadMoreListener(this, mRvAttentionCard);
         mCardAdapter.setOnItemClickListener(new CardItemClickListener(mActivity));
-        //todo 修改占位图
-        View emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无关注","看看你喜欢什么",R.color.button_blue,v -> {
+        View emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无关注","看看你喜欢什么",R.drawable.no_data,v -> {
             Intent intent = new Intent(getActivity(), SelectAttentionActivity.class);
             startActivity(intent);
         });
@@ -281,6 +280,7 @@ public class AttentionFragment extends RefreshMvpFragment<AttentionPresenter> im
             Intent intent = new Intent(mContext, CardBagActivity.class);
             intent.putExtra("id", bean.getId());
             intent.putExtra("name", bean.getName());
+            intent.putExtra("isSubject",true);
             mContext.startActivity(intent);
         }
     }

@@ -21,6 +21,10 @@ public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.
         mModel.getReviewDetails(RejectId);
     }
 
+    public void submitReview(int noteId) {
+        mModel.submitReview(noteId);
+    }
+
     @Override
     public void getDataSuccess(RejectDetailsBean bean) {
         mView.getDataSuccess(bean);
@@ -49,6 +53,16 @@ public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.
     public void detachView() {
         super.detachView();
         mModel.onDestroy();
+    }
+
+    @Override
+    public void postSuccess() {
+        mView.postSuccess();
+    }
+
+    @Override
+    public void postFail(String msg) {
+        mView.postFail(msg);
     }
 }
 

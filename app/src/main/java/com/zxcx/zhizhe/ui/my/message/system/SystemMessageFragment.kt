@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.GotoHomeRankEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
+import com.zxcx.zhizhe.ui.home.rank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
@@ -20,10 +20,10 @@ import com.zxcx.zhizhe.ui.my.writer_status_user
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
-import org.greenrobot.eventbus.EventBus
 
 class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessageContract.View ,
         BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemChildClickListener{
@@ -102,8 +102,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 }
             }
             message_rank -> {
-//                intent.setClass(mActivity,RankActivity::class.java)
-                EventBus.getDefault().post(GotoHomeRankEvent())
+                mActivity.startActivity(RankActivity::class.java,{})
                 mActivity.finish()
                 return
             }
@@ -123,8 +122,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
         rv_system_message.addItemDecoration(HomeCardItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_banner)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_data)
         mAdapter.emptyView = emptyView
     }
 }

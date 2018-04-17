@@ -21,6 +21,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.classify.subject.SubjectActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -37,10 +38,12 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private var mWebView: WebView? = null
     private var cardId: Int = 0
     private var cardBagId: Int = 0
+    private var subjectId: Int = 0
     private var mUserId: Int = 0
     private var mAuthorId: Int = 0
     private var name: String? = null
     private var cardBagName: String? = null
+    private var subjectName: String? = null
     private var imageUrl: String? = null
     private var collectStatus = false
     private var isUnCollect = false
@@ -137,8 +140,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     }
 
     override fun getDataSuccess(bean: CardDetailsBean) {
-        collectStatus = bean.isCollect()
-        likeStatus = bean.isLike()
+        collectStatus = bean.isCollect
+        likeStatus = bean.isLike
         postSuccess(bean)
         //进入时只有id的时候，在这里初始化界面
         name = bean.name
@@ -188,12 +191,14 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         val unLikeNum = bean.unLikeNum
         cardBagName = bean.cardBagName
         cardBagId = bean.cardBagId
-        tv_card_details_card_bag.text = cardBagName
+        subjectName = bean.subjectName
+        subjectId = bean.subjectId
+        tv_card_details_card_bag.text = if (subjectName.isNullOrEmpty()) cardBagName else subjectName
         cb_card_details_collect.text = collectNum.toString()
         cb_card_details_like.text = likeNum.toString()
         cb_card_details_un_like.text = unLikeNum.toString()
-        cb_card_details_collect.isChecked = bean.getIsCollect()
-        cb_card_details_like.isChecked = bean.getIsLike()
+        cb_card_details_collect.isChecked = bean.isCollect
+        cb_card_details_like.isChecked = bean.isLike
         cb_card_details_un_like.isChecked = bean.isUnLike
         mAuthorId = bean.authorId
         ImageLoader.load(mActivity, bean.authorIcon, R.drawable.default_header, iv_item_rank_user)
@@ -245,10 +250,17 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
             onBackPressed()
         }
         fl_card_details_card_bag.setOnClickListener {
-            startActivity(CardBagActivity::class.java,{
-                it.putExtra("name", cardBagName)
-                it.putExtra("id", cardBagId)
-            })
+            if (subjectName.isNullOrEmpty()) {
+                startActivity(CardBagActivity::class.java, {
+                    it.putExtra("name", cardBagName)
+                    it.putExtra("id", cardBagId)
+                })
+            }else{
+                startActivity(SubjectActivity::class.java, {
+                    it.putExtra("name", cardBagName)
+                    it.putExtra("id", cardBagId)
+                })
+            }
         }
         cb_card_details_follow.setOnClickListener {
             cb_card_details_follow.isChecked = !cb_card_details_follow.isChecked
@@ -339,13 +351,12 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
             tv_card_details_info.text = getString(R.string.tv_card_info, date, author)
         if (!StringUtils.isEmpty(imageUrl))
             ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details)
-        initWebview()
-
+        initWebView()
 
         initLoadSir()
     }
 
-    private fun initWebview() {
+    private fun initWebView() {
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this)
         val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)

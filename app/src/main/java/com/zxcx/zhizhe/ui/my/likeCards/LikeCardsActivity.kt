@@ -63,8 +63,7 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
     }
 
     override fun getEmptyRecommendCardSuccess(bean: CardBean) {
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyViewAndCard(mActivity,"涨知识 点点赞", R.drawable.no_banner, bean)
+        val emptyView = EmptyView.getEmptyViewAndCard(mActivity,"涨知识 点点赞", R.drawable.no_data, bean)
         mAdapter.emptyView = emptyView
     }
 

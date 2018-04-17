@@ -24,6 +24,8 @@ public class CardDetailsBean extends RetrofitBaen {
     private int collectNum;
     @SerializedName("collectionId")
     private int cardBagId;
+    @SerializedName("topicId")
+    private int subjectId;
     @SerializedName("id")
     private int id;
     @SerializedName("titleImage")
@@ -32,6 +34,8 @@ public class CardDetailsBean extends RetrofitBaen {
     private String name;
     @SerializedName("collectionName")
     private String cardBagName;
+    @SerializedName("topicName")
+    private String subjectName;
     @SerializedName("authorName")
     private String authorName;
     @SerializedName("authorId")
@@ -51,20 +55,28 @@ public class CardDetailsBean extends RetrofitBaen {
     @SerializedName("adVO")
     private ADBean ad;
 
-    public boolean getIsLike() {
+    public boolean isLike() {
         return isLike;
     }
 
-    public void setIsLike(boolean isLike) {
-        this.isLike = isLike;
+    public void setLike(boolean like) {
+        isLike = like;
     }
 
-    public boolean getIsCollect() {
+    public boolean isUnLike() {
+        return isUnLike;
+    }
+
+    public void setUnLike(boolean unLike) {
+        isUnLike = unLike;
+    }
+
+    public boolean isCollect() {
         return isCollect;
     }
 
-    public void setIsCollect(boolean isCollect) {
-        this.isCollect = isCollect;
+    public void setCollect(boolean collect) {
+        isCollect = collect;
     }
 
     public int getReadNum() {
@@ -83,6 +95,14 @@ public class CardDetailsBean extends RetrofitBaen {
         this.likeNum = likeNum;
     }
 
+    public int getUnLikeNum() {
+        return unLikeNum;
+    }
+
+    public void setUnLikeNum(int unLikeNum) {
+        this.unLikeNum = unLikeNum;
+    }
+
     public int getCollectNum() {
         return collectNum;
     }
@@ -91,20 +111,28 @@ public class CardDetailsBean extends RetrofitBaen {
         this.collectNum = collectNum;
     }
 
-    public boolean isLike() {
-        return isLike;
+    public int getCardBagId() {
+        return cardBagId;
     }
 
-    public void setLike(boolean like) {
-        isLike = like;
+    public void setCardBagId(int cardBagId) {
+        this.cardBagId = cardBagId;
     }
 
-    public boolean isCollect() {
-        return isCollect;
+    public int getSubjectId() {
+        return subjectId;
     }
 
-    public void setCollect(boolean collect) {
-        isCollect = collect;
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getImageUrl() {
@@ -119,40 +147,8 @@ public class CardDetailsBean extends RetrofitBaen {
         return name;
     }
 
-    public boolean isUnLike() {
-        return isUnLike;
-    }
-
-    public void setUnLike(boolean unLike) {
-        isUnLike = unLike;
-    }
-
-    public int getUnLikeNum() {
-        return unLikeNum;
-    }
-
-    public void setUnLikeNum(int unLikeNum) {
-        this.unLikeNum = unLikeNum;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getCardBagId() {
-        return cardBagId;
-    }
-
-    public void setCardBagId(int cardBagId) {
-        this.cardBagId = cardBagId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCardBagName() {
@@ -161,6 +157,14 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setCardBagName(String cardBagName) {
         this.cardBagName = cardBagName;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public String getAuthorName() {

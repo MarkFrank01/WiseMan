@@ -123,17 +123,15 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        if (checkLogin()) {
-            val bean = adapter.data[position] as UserRankBean
-            val intent = Intent(mActivity, OtherUserActivity::class.java)
-            intent.putExtra("id", bean.id)
-            intent.putExtra("name", bean.name)
-            startActivity(intent)
-        }
+        val bean = adapter.data[position] as UserRankBean
+        val intent = Intent(mActivity, OtherUserActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
     }
 
     override fun setListener() {
-//        iv_rank_close.setOnClickListener { onBackPressed() }
+        iv_common_close.setOnClickListener { onBackPressed() }
         tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
 
     }
@@ -149,15 +147,9 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
     private fun initView() {
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
         if (mUserId == 0){
-            tv_rank_user_name.text = "注册/登录"
-            tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity,R.color.button_blue))
-            tv_rank_card.visibility = View.GONE
-            tv_rank_fans.visibility = View.GONE
-            tv_rank_intelligence.visibility = View.GONE
-            fl_rank_header_rank.visibility = View.GONE
-            tv_rank_no_rank.visibility = View.GONE
+            rl_my_rank.visibility = View.GONE
+            iv_rank_header.visibility = View.GONE
             tv_rank_no_login.visibility = View.VISIBLE
-            iv_rank_header.setImageResource(R.drawable.iv_my_head_placeholder)
             rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
         }
 

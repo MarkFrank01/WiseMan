@@ -13,10 +13,6 @@ public class NoteDetailsPresenter extends BasePresenter<NoteDetailsContract.View
         mModel = new NoteDetailsModel(this);
     }
 
-    public void submitReview(int noteId) {
-        mModel.submitReview(noteId);
-    }
-
     public void getNoteDetails(int noteId,int noteType){
         mModel.getNoteDetails(noteId,noteType);
     }

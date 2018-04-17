@@ -12,7 +12,6 @@ import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.startActivity
@@ -93,7 +92,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as MyCardsBean
+        val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardDetailsActivity::class.java,{
             it.putExtra("id", bean.id)
             it.putExtra("name", bean.name)
@@ -101,7 +100,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as MyCardsBean
+        val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardBagActivity::class.java,{
             it.putExtra("id", bean.id)
             it.putExtra("name", bean.name)
@@ -119,8 +118,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
         rv_other_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_other_user.adapter = mAdapter
         rv_other_user.addItemDecoration(HomeCardItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyView(mActivity, "该用户暂无创作内容", R.drawable.no_banner)
+        val emptyView = EmptyView.getEmptyView(mActivity, "该用户暂无创作内容", R.drawable.no_data)
         mAdapter.emptyView = emptyView
 
         iv_other_user_close.setOnClickListener {

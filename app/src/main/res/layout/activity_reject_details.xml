@@ -14,7 +14,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/iv_note_details_edit"
+            android:id="@+id/iv_reject_details_edit"
             android:layout_marginStart="30dp"
             android:src="@drawable/iv_note_details_edit"
             android:gravity="center"
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"/>
 
         <ImageView
-            android:id="@+id/iv_note_details_draft"
+            android:id="@+id/iv_note_details_share"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="30dp"
             android:layout_width="40dp"

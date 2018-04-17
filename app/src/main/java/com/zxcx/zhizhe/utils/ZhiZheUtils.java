@@ -30,6 +30,7 @@ public class ZhiZheUtils {
         SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, date.getTime());
         SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, bean.getServiceStartTime());
         SharedPreferencesUtil.saveData(SVTSConstants.token, bean.getToken());
+        SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, bean.getWriterStatus());
         saveUserInfo(bean.getUser());
     }
 

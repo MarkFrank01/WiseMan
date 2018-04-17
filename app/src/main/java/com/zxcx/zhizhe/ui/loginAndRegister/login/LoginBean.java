@@ -16,6 +16,8 @@ public class LoginBean extends RetrofitBaen {
     private long serviceStartTime;
     @SerializedName("token")
     private String token;
+    @SerializedName("writerStatus")
+    private int writerStatus;
     @SerializedName("user")
     private UserInfoBean user;
 
@@ -33,6 +35,14 @@ public class LoginBean extends RetrofitBaen {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public int getWriterStatus() {
+        return writerStatus;
+    }
+
+    public void setWriterStatus(int writerStatus) {
+        this.writerStatus = writerStatus;
     }
 
     public UserInfoBean getUser() {

@@ -16,9 +16,11 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.WebViewUtils
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_freedom_note_details.*
 
 class FreedomNoteDetailsActivity : BaseActivity() {
@@ -132,7 +134,10 @@ class FreedomNoteDetailsActivity : BaseActivity() {
         }
 
         iv_note_details_edit.setOnClickListener {
-            //todo 自由笔记编辑页
+            startActivity(NoteEditorActivity::class.java,{
+                it.putExtra("cardId",noteId)
+                it.putExtra("title",name)
+            })
         }
     }
 

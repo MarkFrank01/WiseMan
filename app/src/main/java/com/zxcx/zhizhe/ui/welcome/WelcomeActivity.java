@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
@@ -14,10 +15,12 @@ import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.MainActivity;
+import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.WelcomeSkipView;
 
 import java.util.List;
@@ -33,7 +36,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     @BindView(R.id.wsv_welcome_skip)
     WelcomeSkipView mWsvWelcomeSkip;
     private Handler mHandler = new Handler();
-    private int mCount = 2;
+    private int mCount = 3;
 
     Runnable mRunnable = new Runnable() {
         @Override
@@ -62,6 +65,13 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
             mWsvWelcomeSkip.setVisibility(View.VISIBLE);
         } else {
             mHandler.post(mRunnable);
+            GlideApp
+                    .with(this)
+                    .load("https://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/ad/iv_welcome_ad.gif")
+                    .placeholder(R.color.background)
+                    .error(R.color.background)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .into(mIvWelcomeAd);
         }
     }
 
@@ -79,6 +89,15 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 
     private void getImage() {
         getAD("101");
+    }
+
+    /**
+     * 判断是否是第一次启动App
+     *
+     * @return 是-true 否-false
+     */
+    private boolean isFirstLaunchApp() {
+        return Utils.getIsFirstLaunchApp();
     }
 
     @OnClick(R.id.iv_welcome_ad)
@@ -106,12 +125,17 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
     }
 
     private void gotoMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        Bundle bundle = getIntent().getBundleExtra("push");
-        if (bundle != null) {
-            intent.putExtra("push", bundle);
+        if (isFirstLaunchApp()){
+            Intent intent = new Intent(this, GuidePageActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent(this, MainActivity.class);
+            Bundle bundle = getIntent().getBundleExtra("push");
+            if (bundle != null) {
+                intent.putExtra("push", bundle);
+            }
+            startActivity(intent);
         }
-        startActivity(intent);
         mHandler.removeCallbacks(mRunnable);
         finish();
     }

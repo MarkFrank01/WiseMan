@@ -109,6 +109,7 @@
             android:id="@+id/tv_afc_phone"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_title_2"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="11"

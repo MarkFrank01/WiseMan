@@ -30,6 +30,15 @@ public class ImageLoader {
         }
     }
 
+    public static void load(Context context, int resInt, int defaultImage, ImageView imageView) {
+        GlideApp
+                .with(context)
+                .load(resInt)
+                .placeholder(defaultImage)
+                .error(defaultImage)
+                .into(imageView);
+    }
+
     public static void load(Activity activity, String url, int defaultImage, ImageView imageView) {
         if (TextUtils.isEmpty(url)) {
             imageView.setImageResource(defaultImage);

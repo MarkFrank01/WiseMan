@@ -309,6 +309,10 @@ public class RichEditor extends WebView {
         exec("javascript:RE.redo();");
     }
 
+    public void setBold() {
+        exec("javascript:RE.setBold();");
+    }
+
     public void setBold(boolean isBold) {
         exec("javascript:RE.setBold("+isBold+");");
     }
@@ -339,6 +343,10 @@ public class RichEditor extends WebView {
 
     public void setCardId(Integer cardId) {
         exec("javascript:RE.setArticleId('" + cardId + "');");
+    }
+
+    public void setTimeStampAndToken(String timeStamp, String token) {
+        exec("javascript:RE.setArticleId('" + timeStamp + "','"+token+"');");
     }
 
     public void setTextColor(int color) {

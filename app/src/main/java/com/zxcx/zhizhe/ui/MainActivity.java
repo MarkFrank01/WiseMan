@@ -13,13 +13,13 @@ import android.widget.RadioGroup;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.ChangeNightModeEvent;
 import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
-import com.zxcx.zhizhe.event.GotoHomeRankEvent;
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.classify.ClassifyFragment;
 import com.zxcx.zhizhe.ui.home.HomeFragment;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.ui.my.MyFragment;
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
 import com.zxcx.zhizhe.utils.Constants;
@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity {
 
         Intent intent = getIntent();
         //判断是否点击了广告或通知
+        gotoLoginActivity(intent);
         gotoADActivity(intent);
         gotoNotificationActivity(intent);
     }
@@ -99,11 +100,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(GotoHomeRankEvent event) {
-        mHomeTabHome.performClick();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeNightModeEvent event) {
         this.recreate();
     }
@@ -127,6 +123,13 @@ public class MainActivity extends BaseActivity {
                 transaction.hide(mCurrentFragment).add(R.id.home_fragment_content, newFragment).commitAllowingStateLoss();
             }
             mCurrentFragment = newFragment;
+        }
+    }
+
+    private void gotoLoginActivity(Intent intent) {
+        if (intent.getBooleanExtra("isFirst", false)) {
+            Intent intent1 = new Intent(this, LoginActivity.class);
+            startActivity(intent1);
         }
     }
 

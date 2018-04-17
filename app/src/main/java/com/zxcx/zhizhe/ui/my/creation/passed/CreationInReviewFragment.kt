@@ -89,8 +89,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
         rv_creation.addItemDecoration(FansItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无审核作品","点击创作 随心所欲分享生活",R.color.button_blue,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无审核作品","点击创作 随心所欲分享生活",R.drawable.no_data,View.OnClickListener {
             val intent = Intent(mActivity, CreationEditorActivity::class.java)
             startActivity(intent)
         })

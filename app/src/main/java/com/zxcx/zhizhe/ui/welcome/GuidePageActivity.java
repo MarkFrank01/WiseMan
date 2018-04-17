@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.utils.Constants;
+import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.Utils;
 
 import java.util.ArrayList;
@@ -45,11 +45,7 @@ public class GuidePageActivity extends BaseActivity {
 
         initImgData();
 
-        if (isFirstLaunchApp()) {
-            initViewPager();
-        } else {
-            jumpToIndexActivity();
-        }
+        initViewPager();
     }
 
     @Override
@@ -67,38 +63,17 @@ public class GuidePageActivity extends BaseActivity {
         }
     }
 
-    /**
-     * 判断是否是第一次启动App
-     *
-     * @return 是-true 否-false
-     */
-    private boolean isFirstLaunchApp() {
-        return Utils.getIsFirstLaunchApp();
-    }
-
 
     /**
      * 跳转到App主界面
      */
     private void jumpToIndexActivity() {
 
-        Utils.setIsFirstLaunchApp(false);
-
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        Bundle bundle = getIntent().getBundleExtra("push");
-        if (bundle != null){
-            String type = bundle.getString("type");
-            switch (type){
-                case Constants.PUSH_TYPE_CARD_BAG:
-                case Constants.PUSH_TYPE_CARD:
-                case Constants.PUSH_TYPE_AD:
-                    intent.putExtra("push",bundle);
-                    break;
-                default:
-                    break;
-            }
-        }
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("isFirst", true);
         startActivity(intent);
+
+        Utils.setIsFirstLaunchApp(false);
 
         finish();
     }

@@ -17,14 +17,14 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.fragment_search_user.*
+import kotlinx.android.synthetic.main.fragment_search_result.*
 
 class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubjectContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, SubjectOnClickListener{
 
     var mPage = 0
     var mPageSize = Constants.PAGE_SIZE
-    lateinit var mSearchUserAdapter : SearchSubjectAdapter
+    lateinit var mAdapter : SearchSubjectAdapter
 
     var mKeyword = ""
         set(value) {
@@ -34,7 +34,7 @@ class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubje
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_search_user, container, false)
+        return inflater.inflate(R.layout.fragment_search_result, container, false)
     }
 
     override fun createPresenter(): SearchSubjectPresenter {
@@ -45,6 +45,38 @@ class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubje
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
         mPresenter?.searchSubject(mKeyword,mPage,mPageSize)
+    }
+
+    override fun getDataSuccess(list: List<SubjectBean>) {
+        mAdapter.mKeyword = mKeyword
+        if (mPage == 0) {
+            mAdapter.setNewData(list)
+        } else {
+            mAdapter.addData(list)
+        }
+        mPage++
+        if (list.size < Constants.PAGE_SIZE) {
+            mAdapter.loadMoreEnd(false)
+        } else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
+    }
+
+    override fun onLoadMoreRequested() {
+        mPresenter.searchSubject(mKeyword,mPage,mPageSize)
+    }
+
+    private fun initRecyclerView() {
+        mAdapter = SearchSubjectAdapter(ArrayList(),this)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_search_result)
+        rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
+        rv_search_result.adapter = mAdapter
+        rv_search_result.addItemDecoration(HomeCardItemDecoration())
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索专题",R.drawable.search_no_data)
+        mAdapter.emptyView = emptyView
     }
 
     override fun cardOnClick(bean: CardBean) {
@@ -62,38 +94,5 @@ class SearchSubjectFragment : MvpFragment<SearchSubjectPresenter>(), SearchSubje
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         mActivity.startActivity(intent)
-    }
-
-    private fun initRecyclerView() {
-        mSearchUserAdapter = SearchSubjectAdapter(ArrayList(),this)
-        mSearchUserAdapter.setLoadMoreView(CustomLoadMoreView())
-        mSearchUserAdapter.setOnLoadMoreListener(this,rv_search_result_user)
-        rv_search_result_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_search_result_user.adapter = mSearchUserAdapter
-        rv_search_result_user.addItemDecoration(HomeCardItemDecoration())
-        //todo 修改占位图
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索用户",R.drawable.no_banner)
-        mSearchUserAdapter.emptyView = emptyView
-    }
-
-    override fun getDataSuccess(list: List<SubjectBean>) {
-        mSearchUserAdapter.mKeyword = mKeyword
-        if (mPage == 0) {
-            mSearchUserAdapter.setNewData(list)
-        } else {
-            mSearchUserAdapter.addData(list)
-        }
-        mPage++
-        if (list.size < Constants.PAGE_SIZE) {
-            mSearchUserAdapter.loadMoreEnd(false)
-        } else {
-            mSearchUserAdapter.loadMoreComplete()
-            mSearchUserAdapter.setEnableLoadMore(false)
-            mSearchUserAdapter.setEnableLoadMore(true)
-        }
-    }
-
-    override fun onLoadMoreRequested() {
-        mPresenter.searchSubject(mKeyword,mPage,mPageSize)
     }
 }

@@ -15,10 +15,6 @@ class NoteEditorPresenter(view: NoteEditorContract.View) : BasePresenter<NoteEdi
         mModel.saveNote(cardId,title,content)
     }
 
-    fun submitReview(cardId: Int, title: String,imageUrl: String,cardBagId: Int,content: String) {
-        mModel.submitReview(cardId,title,imageUrl,cardBagId,content)
-    }
-
     override fun postSuccess() {
         mView.postSuccess()
     }

@@ -235,7 +235,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
             int cHeight = child.getMeasuredHeight();
             int cWidth = child.getMeasuredWidth();
             int maxH = cHeight + 2 * childVPadding;
-            int maxW = (cWidth + childHPadding) * box + childHPadding;
+            int maxW = (cWidth + 2*childHPadding) * box;
             setMeasuredDimension(resolveSize(maxW, widthMeasureSpec),
                     resolveSize(maxH, heightMeasureSpec));
         }
@@ -251,7 +251,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
             child.setVisibility(View.VISIBLE);
             int cWidth = child.getMeasuredWidth();
             int cHeight = child.getMeasuredHeight();
-            int cl = (i) * (cWidth + childHPadding);
+            int cl = (i) * (cWidth + 2*childHPadding) + childHPadding;
             int cr = cl + cWidth;
             int ct = childVPadding;
             int cb = ct + cHeight;
@@ -299,6 +299,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus){
             ((EditText)v).setText("");
+            currentPosition = mEditTextList.indexOf(((EditText)v));
         }
         setBg((EditText) v,hasFocus);
     }

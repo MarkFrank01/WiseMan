@@ -12,6 +12,7 @@
         android:id="@+id/iv_welcome_ad"
         android:layout_above="@+id/iv_welcome_icon"
         android:scaleType="centerCrop"
+        android:src="@drawable/iv_welcome_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
