@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.card.cardBag
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
@@ -17,6 +16,12 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
+import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.home.hot.HotBean
+import com.zxcx.zhizhe.ui.home.hot.HotCardAdapter
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean
+import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -24,13 +29,14 @@ import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_card_bag.*
 import java.util.*
 
-class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.View, BaseQuickAdapter.RequestLoadMoreListener {
+class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
+        SubjectOnClickListener {
 
-    private lateinit var mCardBagCardAdapter: CardBagCardAdapter
+    private lateinit var mAdapter: HotCardAdapter
     private var mId: Int = 0
     private var page = 0
     private var name = ""
-    private var isSubject = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,21 +81,21 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         getCardBagCardList()
     }
 
-    override fun getDataSuccess(list: List<CardBagBean>) {
+    override fun getDataSuccess(list: List<HotBean>) {
         loadService.showSuccess()
         mRefreshLayout.finishRefresh()
         if (page == 0) {
-            mCardBagCardAdapter.setNewData(list)
+            mAdapter.setNewData(list)
         } else {
-            mCardBagCardAdapter.addData(list)
+            mAdapter.addData(list)
         }
         page++
         if (list.size < Constants.PAGE_SIZE) {
-            mCardBagCardAdapter.loadMoreEnd(false)
+            mAdapter.loadMoreEnd(false)
         } else {
-            mCardBagCardAdapter.loadMoreComplete()
-            mCardBagCardAdapter.setEnableLoadMore(false)
-            mCardBagCardAdapter.setEnableLoadMore(true)
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
         }
     }
 
@@ -101,30 +107,25 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     private fun getCardBagCardList() {
-        if (isSubject){
-            mPresenter.getSubjectCardList(mId, page, Constants.PAGE_SIZE)
-        }else {
-            mPresenter.getCardBagCardList(mId, page, Constants.PAGE_SIZE)
-        }
+        mPresenter.getCardBagCardList(mId, page, Constants.PAGE_SIZE)
     }
 
     private fun initData() {
         mId = intent.getIntExtra("id", 0)
         name = intent.getStringExtra("name")
-        isSubject = intent.getBooleanExtra("isSubject",false)
         tv_header_title.text = name
     }
 
     private fun initView() {
-        mCardBagCardAdapter = CardBagCardAdapter(ArrayList())
-        mCardBagCardAdapter.setLoadMoreView(CustomLoadMoreView())
-        mCardBagCardAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
-        mCardBagCardAdapter.onItemClickListener = CardItemClickListener(this)
+        mAdapter = HotCardAdapter(ArrayList(),this)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
+        mAdapter.onItemClickListener = this
         val view = EmptyView.getEmptyView(mActivity, "暂无相关内容", R.drawable.no_data)
-        mCardBagCardAdapter.emptyView = view
+        mAdapter.emptyView = view
 
         rv_card_bag_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
-        rv_card_bag_card.adapter = mCardBagCardAdapter
+        rv_card_bag_card.adapter = mAdapter
     }
 
     override fun setListener() {
@@ -133,22 +134,39 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         }
     }
 
-    internal inner class CardItemClickListener(private val mContext: Activity) : BaseQuickAdapter.OnItemClickListener {
-
-        override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-            val bean = adapter.data[position] as CardBagBean
-            val intent = Intent(mContext, CardDetailsActivity::class.java)
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val hotBean = adapter.data[position] as HotBean
+        if (hotBean.itemType == HotBean.TYPE_CARD) {
+            val bean = hotBean.cardBean
+            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                    Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
+                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+            val intent = Intent(this, CardDetailsActivity::class.java)
             intent.putExtra("id", bean.id)
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
             intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
             intent.putExtra("author", bean.author)
-            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
-                    Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-            mContext.startActivity(intent, bundle)
+            startActivity(intent, bundle)
         }
+    }
+
+    override fun cardOnClick(bean: CardBean) {
+        val intent = Intent(this, CardDetailsActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        intent.putExtra("imageUrl", bean.imageUrl)
+        intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
+        intent.putExtra("author", bean.author)
+        startActivity(intent)
+    }
+
+    override fun subjectOnClick(bean: SubjectBean) {
+        val intent = Intent(this, SubjectCardActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        startActivity(intent)
     }
 
 }

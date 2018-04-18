@@ -35,8 +35,8 @@ class AboutUSActivity : BaseActivity() {
             }
         }
 
-        tv_about_us_versions.setOnClickListener {
-            //todo 版本介绍
+        tv_about_share.setOnClickListener {
+
         }
     }
 }

@@ -102,8 +102,8 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardBagActivity::class.java,{
-            it.putExtra("id", bean.id)
-            it.putExtra("name", bean.name)
+            it.putExtra("id", bean.cardBagId)
+            it.putExtra("name", bean.cardBagName)
         })
     }
 
@@ -113,6 +113,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
 
         mAdapter = OtherUserCardsAdapter(ArrayList())
         mAdapter.onItemClickListener = this
+        mAdapter.onItemChildClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_other_user)
         rv_other_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)

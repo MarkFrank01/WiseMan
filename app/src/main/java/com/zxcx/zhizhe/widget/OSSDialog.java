@@ -69,6 +69,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 
     public interface OSSUploadListener{
         void uploadSuccess(String url);
+        void uploadFail(String message);
     }
 
     public interface OSSDeleteListener {
@@ -168,7 +169,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 final String imageUrl = "http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/"+fileName;
-                if (mUploadListener != null)
+                if (mUploadListener != null) {
                     dismiss();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -176,16 +177,30 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
                             mUploadListener.uploadSuccess(imageUrl);
                         }
                     });
+                }
             }
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                String message = "上传失败";
                 // 请求异常
                 if (clientExcepion != null) {
                     // 本地异常如网络异常等
                     clientExcepion.printStackTrace();
+                    message = clientExcepion.getMessage();
                 }
                 if (serviceException != null) {
                     // 服务异常
+                    message = serviceException.getMessage();
+                }
+                if (mUploadListener != null) {
+                    dismiss();
+                    String finalMessage = message;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mUploadListener.uploadFail(finalMessage);
+                        }
+                    });
                 }
             }
         });

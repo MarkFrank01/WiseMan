@@ -48,7 +48,7 @@ public class SearchResultActivity extends BaseActivity {
     @BindView(R.id.rl_search_result_edit)
     RelativeLayout mRlSearchResultEdit;
 
-    private String[] titles = new String[]{"卡片", "长文", "用户"};
+    private String[] titles = new String[]{"卡片", "长文", "专题"};
 
     private SearchCardFragment mSearchCardFragment = new SearchCardFragment();
     private SearchCardFragment mSearchArticleFragment = new SearchCardFragment();

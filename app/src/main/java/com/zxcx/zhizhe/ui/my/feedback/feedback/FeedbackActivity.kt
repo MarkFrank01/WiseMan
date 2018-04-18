@@ -51,7 +51,7 @@ class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View
         }
 
         et_feedback_content.afterTextChanged {
-            tv_feedback_commit.isEnabled = it.isNotEmpty()
+            tv_feedback_commit.isEnabled = it.length >= 10
             tv_feedback_residue.text = getString(R.string.tv_feedback_residue,it.length,600-it.length)
             if(it.length == 600){
                 tv_feedback_residue.setTextColor(mActivity.getColorForKotlin(R.color.red))
@@ -59,5 +59,6 @@ class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View
                 tv_feedback_residue.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
             }
         }
+
     }
 }

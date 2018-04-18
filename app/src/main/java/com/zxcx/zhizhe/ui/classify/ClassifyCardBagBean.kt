@@ -8,14 +8,12 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen
  * Created by anm on 2017/8/30.
  */
 
-class ClassifyCardBagBean : RetrofitBaen(), MultiItemEntity {
+class ClassifyCardBean : RetrofitBaen(), MultiItemEntity {
 
     @SerializedName("interested")
     var isChecked: Boolean = false
     @SerializedName("id")
     var id: Int = 0
-    @SerializedName("type") //卡包类型，0为普通卡包，1为专题卡包
-    var type: Int = 0
     @SerializedName("titleImage")
     var imageUrl: String? = null
     @SerializedName("title")
@@ -29,7 +27,7 @@ class ClassifyCardBagBean : RetrofitBaen(), MultiItemEntity {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as ClassifyCardBagBean
+        other as ClassifyCardBean
 
         if (id != other.id) return false
 

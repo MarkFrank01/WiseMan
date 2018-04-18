@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
@@ -14,6 +15,7 @@ import com.zxcx.zhizhe.event.UnCollectEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsAdapter
@@ -21,6 +23,7 @@ import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_collect_card.*
@@ -30,7 +33,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
@@ -108,6 +111,14 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
         mPresenter.getCollectCard(mPage,mPageSize)
     }
 
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CardBean
+        mActivity.startActivity(CardBagActivity::class.java,{
+            it.putExtra("id", bean.cardBagId)
+            it.putExtra("name", bean.cardBagName)
+        })
+    }
+
     override fun onContentClick(position: Int) {
         val bean = mAdapter.data[position] as MyCardsBean
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
@@ -132,6 +143,7 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_collect_card)
         mAdapter.mListener = this
+        mAdapter.onItemChildClickListener = this
         rv_collect_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_collect_card.adapter = mAdapter
         rv_collect_card.addItemDecoration(HomeCardItemDecoration())

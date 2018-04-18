@@ -36,6 +36,7 @@ class HotCardAdapter(data: List<HotBean>?, private val mListener: SubjectOnClick
     }
 
     private fun initCardView(helper: BaseViewHolder, bean: HotBean) {
+        helper.addOnClickListener(R.id.tv_item_card_card_bag)
         val item = bean.cardBean
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
 

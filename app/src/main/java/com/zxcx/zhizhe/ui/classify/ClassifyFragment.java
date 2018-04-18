@@ -19,7 +19,6 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-import com.zxcx.zhizhe.ui.classify.subject.SubjectActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,13 +32,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements ClassifyContract.View,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.OnItemChildClickListener{
 
     @BindView(R.id.rv_classify)
     RecyclerView mRvClassify;
     Unbinder unbinder;
 
-    private ClassifyAdapter mClassifyAdapter;
+    private ClassifyAdapter mAdapter;
     private GridLayoutManager manager;
 
     @Override
@@ -93,7 +92,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     @Override
     public void clearLeaks() {
         loadService = null;
-        mClassifyAdapter = null;
+        mAdapter = null;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -111,11 +110,11 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     public void getDataSuccess(List<ClassifyBean> list) {
         loadService.showSuccess();
         for (ClassifyBean bean : list) {
-            mClassifyAdapter.getData().add(bean);
-            mClassifyAdapter.getData().addAll(bean.getDataList());
+            mAdapter.getData().add(bean);
+            mAdapter.getData().addAll(bean.getDataList());
         }
-        mClassifyAdapter.notifyDataSetChanged();
-        if (mClassifyAdapter.getData().size() == 0){
+        mAdapter.notifyDataSetChanged();
+        if (mAdapter.getData().size() == 0){
             //占空图
         }
     }
@@ -131,42 +130,34 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements 
     }
 
     private void initRecyclerView() {
-        mClassifyAdapter = new ClassifyAdapter(new ArrayList<>());
-        mClassifyAdapter.setOnItemChildClickListener(new OnClassifyItemClickListener());
+        mAdapter = new ClassifyAdapter(new ArrayList<>());
+        mAdapter.setOnItemChildClickListener(this);
         manager = new GridLayoutManager(getContext(), 3);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(mClassifyAdapter.getItemViewType(position) == ClassifyCardBagBean.TYPE_CARD_BAG){
+                if(mAdapter.getItemViewType(position) == ClassifyCardBean.TYPE_CARD_BAG){
                     return 1;
                 }else {
                     return manager.getSpanCount();
                 }
             }
         });
-        mRvClassify.setAdapter(mClassifyAdapter);
+        mRvClassify.setAdapter(mAdapter);
         mRvClassify.setLayoutManager(manager);
         mRvClassify.addItemDecoration(new ClassifyItemDecoration());
     }
 
-    class OnClassifyItemClickListener implements BaseQuickAdapter.OnItemChildClickListener{
-
-        @Override
-        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-            switch (view.getId()){
-                case R.id.rl_item_classify:
-                    ClassifyCardBagBean bean = (ClassifyCardBagBean) adapter.getData().get(position);
-                    Intent intent = new Intent();
-                    if (bean.getType() == 0){
-                        intent.setClass(mActivity, CardBagActivity.class);
-                    }else {
-                        intent.setClass(mActivity, SubjectActivity.class);
-                    }
-                    intent.putExtra("id",bean.getId());
-                    intent.putExtra("name",bean.getName());
-                    startActivity(intent);
-                    break;
-            }
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        switch (view.getId()){
+            case R.id.rl_item_classify:
+                ClassifyCardBean bean = (ClassifyCardBean) adapter.getData().get(position);
+                Intent intent = new Intent(mActivity, CardBagActivity.class);
+                intent.putExtra("id",bean.getId());
+                intent.putExtra("name",bean.getName());
+                startActivity(intent);
+                break;
         }
     }
 }

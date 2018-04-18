@@ -83,9 +83,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         appVersion = Utils.getAppVersionName(mActivity)
         jpushID = JPushInterface.getRegistrationID(mActivity)
         SMSSDK.registerEventHandler(EventHandle())
-        //延迟弹出软键盘
-        Observable.timer(300,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
-                .subscribe { Utils.showInputMethod(et_login_phone) }
     }
 
     override fun initStatusBar() {

@@ -345,6 +345,10 @@ public class RichEditor extends WebView {
         exec("javascript:RE.setArticleId('" + cardId + "');");
     }
 
+    public void setNoteId(Integer cardId) {
+        exec("javascript:RE.setNoteId('" + cardId + "');");
+    }
+
     public void setTimeStampAndToken(String timeStamp, String token) {
         exec("javascript:RE.setArticleId('" + timeStamp + "','"+token+"');");
     }

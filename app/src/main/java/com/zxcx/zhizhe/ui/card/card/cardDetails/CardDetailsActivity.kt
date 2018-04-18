@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.classify.subject.SubjectActivity
+import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -256,7 +256,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                     it.putExtra("id", cardBagId)
                 })
             }else{
-                startActivity(SubjectActivity::class.java, {
+                startActivity(SubjectCardActivity::class.java, {
                     it.putExtra("name", cardBagName)
                     it.putExtra("id", cardBagId)
                 })

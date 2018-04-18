@@ -75,6 +75,15 @@ public class MainActivity extends BaseActivity {
     public void recreate() {
         Intent intent = new Intent();
         setIntent(intent);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.remove(mHomeFragment)
+                .remove(mClassifyFragment)
+                .remove(mMyFragment)
+                .commitAllowingStateLoss() ;
+        mHomeFragment = null;
+        mClassifyFragment = null;
+        mMyFragment = null;
         super.recreate();
     }
 

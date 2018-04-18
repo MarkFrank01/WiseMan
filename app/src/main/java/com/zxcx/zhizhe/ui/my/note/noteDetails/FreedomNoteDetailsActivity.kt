@@ -135,7 +135,7 @@ class FreedomNoteDetailsActivity : BaseActivity() {
 
         iv_note_details_edit.setOnClickListener {
             startActivity(NoteEditorActivity::class.java,{
-                it.putExtra("cardId",noteId)
+                it.putExtra("noteId",noteId)
                 it.putExtra("title",name)
             })
         }

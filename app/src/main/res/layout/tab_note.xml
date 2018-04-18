@@ -19,7 +19,7 @@
 
     <View
         android:background="@drawable/color_tab_indicator_home"
-        android:layout_width="80dp"
-        android:layout_height="2dp"/>
+        android:layout_width="16dp"
+        android:layout_height="3dp"/>
 
 </LinearLayout>

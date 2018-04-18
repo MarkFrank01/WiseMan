@@ -71,7 +71,6 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
                         }
                         mAdapter.notifyDataSetChanged()
 
-                        iv_toolbar_right.visibility = if (mAdapter.data.isEmpty()) View.GONE else View.VISIBLE
                         mPage ++
                         if (list.size < mPageSize) {
                             mAdapter.loadMoreEnd(false)

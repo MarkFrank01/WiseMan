@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.card.cardBag;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.home.hot.HotBean;
 
 import java.util.List;
 
@@ -19,12 +20,8 @@ public class CardBagPresenter extends BasePresenter<CardBagContract.View> implem
         mModel.getCardBagCardList(id,page,pageSize);
     }
 
-    public void getSubjectCardList(int id, int page, int pageSize){
-        mModel.getSubjectCardList(id,page,pageSize);
-    }
-
     @Override
-    public void getDataSuccess(List<CardBagBean> bean) {
+    public void getDataSuccess(List<HotBean> bean) {
         mView.getDataSuccess(bean);
     }
 

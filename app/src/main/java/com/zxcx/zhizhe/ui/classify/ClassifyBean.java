@@ -20,7 +20,7 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
     @SerializedName("title")
     private String title;
     @SerializedName("collectionData")
-    private List<ClassifyCardBagBean> dataList;
+    private List<ClassifyCardBean> dataList;
 
     @Override
     public int getItemType() {
@@ -35,11 +35,11 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity{
         this.title = title;
     }
 
-    public List<ClassifyCardBagBean> getDataList() {
+    public List<ClassifyCardBean> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<ClassifyCardBagBean> dataList) {
+    public void setDataList(List<ClassifyCardBean> dataList) {
         this.dataList = dataList;
     }
 }

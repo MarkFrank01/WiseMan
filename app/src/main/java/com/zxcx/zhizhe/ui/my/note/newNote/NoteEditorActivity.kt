@@ -1,135 +1,170 @@
 package com.zxcx.zhizhe.ui.my.note.newNote
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.ActionMode
+import android.view.MenuItem
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.my.creation.CreationActivity
-import com.zxcx.zhizhe.ui.my.note.NoteActivity
-import com.zxcx.zhizhe.utils.FileUtil
-import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
+import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
-import kotlinx.android.synthetic.main.activity_note_editor.*
-import org.greenrobot.eventbus.EventBus
-import top.zibin.luban.Luban
-import top.zibin.luban.OnCompressListener
-import java.io.File
+import kotlinx.android.synthetic.main.activity_creation_editor.*
 
-class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContract.View,
-        OSSDialog.OSSUploadListener{
+class NoteEditorActivity : BaseActivity(),
+        OSSDialog.OSSUploadListener , GetPicBottomDialog.GetPicDialogListener{
 
     private lateinit var mOSSDialog: OSSDialog
-    private var cardId: Int = 0
-    private var title: String? = ""
-    private var content: String? = ""
+
+    private var mAction = 0 //0选择标题图，1选择内容图
+    private var mActionMode: ActionMode? = null
+    private var noteId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_note_editor)
-        initData()
+        setContentView(R.layout.activity_creation_editor)
+
+        initEditor()
+
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
+    }
 
-        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+    private fun initEditor() {
+//        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+        val url = "http://192.168.1.153:8043/view/NoteEditor"
         editor.url = url
-    }
-
-    override fun onBackPressed() {
-        Utils.closeInputMethod(mActivity)
-        super.onBackPressed()
-    }
-
-    private fun initData() {
-        cardId = intent.getIntExtra("cardId",0)
-        title = intent.getStringExtra("title")
-
-        if (cardId != 0){
-            editor.setCardId(cardId)
+        noteId = intent.getIntExtra("noteId", 0)
+        if (noteId != 0) {
+            editor.setNoteId(noteId)
         }
-        et_editor_title.setText(title)
+        val localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0)
+        val serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0)
+        val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
+        val timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp, serverTimeStamp)
+        editor.setTimeStampAndToken(timeStamp, token)
+    }
+
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
+
+        //添加方法给js调用
+        editor.addJavascriptInterface(this,"native")
     }
 
     override fun initStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
-                .keyboardEnable(true)
-                .fitsSystemWindows(true)
-                .statusBarColor(R.color.background)
-                .statusBarDarkFont(true, 0.2f)
-                .flymeOSStatusBarFontColor(R.color.text_color_1)
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        }
         mImmersionBar.init()
     }
 
-    override fun createPresenter(): NoteEditorPresenter {
-        return NoteEditorPresenter(this)
+    @JavascriptInterface
+    fun getContentImage(){
+        mAction = 1
+        val rxPermissions = RxPermissions(this)
+        rxPermissions
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe { permission ->
+                    when {
+                        permission.granted -> {
+                            // `permission.name` is granted !
+                            // 激活系统图库，选择一张图片
+                            val intent = Intent(Intent.ACTION_PICK)
+                            intent.type = "image/*"
+                            // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+                            startActivityForResult(intent, 1)
+                        }
+                        permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+                            toastShow("权限已被拒绝！无法进行操作")
+                        else -> {
+                            // Denied permission with ask never again
+                            // Need to go to the settings
+                            val permissionDialog = PermissionDialog()
+                            permissionDialog.show(fragmentManager, "")
+                        }
+                    }
+                }
     }
 
-    override fun postSuccess() {
-        EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
-        val intent = Intent(mActivity,CreationActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        toastShow("提交成功")
-        finish()
-    }
-
-    override fun saveFreedomNoteSuccess() {
-        EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
-        val intent = Intent(mActivity,NoteActivity::class.java)
-        intent.putExtra("isFreedomNote",true)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+    @JavascriptInterface
+    fun saveSuccess(){
         toastShow("保存成功")
         finish()
     }
 
-    override fun postFail(msg: String?) {
-        toastShow(msg)
+    @JavascriptInterface
+    fun saveFail(){
+        toastError("保存失败")
+    }
+
+    @JavascriptInterface
+    fun lack(string: String){
+        toastError(string)
+    }
+
+    override fun onGetSuccess(uriType: GetPicBottomDialog.UriType, uri: Uri, imagePath: String) {
+        var path: String? = FileUtil.getRealFilePathFromUri(mActivity, uri)
+        if (path == null) {
+            path = imagePath
+        }
+        val intent = Intent(mActivity, ClipImageActivity::class.java)
+        intent.putExtra("path", path)
+        intent.putExtra("aspectX", 16)
+        intent.putExtra("aspectY", 9)
+        startActivityForResult(intent,Constants.CLIP_IMAGE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == BaseActivity.RESULT_OK && data != null) {
-            var photoUri = data.data
-            var imagePath = ""
-            if (photoUri != null) {
-                imagePath = FileUtil.getRealFilePathFromUri(mActivity,photoUri)
-            } else {
-                val extras = data.extras
-                if (extras != null) {
-                    val imageBitmap = extras.get("data") as Bitmap
-                    photoUri = Uri
-                            .parse(MediaStore.Images.Media.insertImage(
-                                    mActivity.contentResolver, imageBitmap, null, null))
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == Constants.CLIP_IMAGE) {
+                //图片裁剪完成
+                val path = data.getStringExtra("path")
+                uploadImageToOSS(path)
+            }else {
+                //图片选择完成
+                var photoUri = data.data
+                var imagePath: String = ""
+                if (photoUri != null) {
+                    imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+                } else {
+                    val extras = data.extras
+                    if (extras != null) {
+                        val imageBitmap = extras.get("data") as Bitmap
+                        photoUri = Uri
+                                .parse(MediaStore.Images.Media.insertImage(
+                                        mActivity.contentResolver, imageBitmap, null, null))
 
-                    imagePath = FileUtil.getRealFilePathFromUri(mActivity,photoUri)
+                        imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+                    }
                 }
+                uploadImageToOSS(imagePath)
             }
-            Luban.with(mActivity)
-                    .load(File(imagePath))                     //传入要压缩的图片
-                    .setCompressListener(object : OnCompressListener { //设置回调
-                        override fun onStart() {
-                            // 压缩开始前调用，可以在方法内启动 loading UI
-                        }
-
-                        override fun onSuccess(file: File) {
-                            //  压缩成功后调用，返回压缩后的图片文件
-                            uploadImageToOSS(file.path)
-                        }
-
-                        override fun onError(e: Throwable) {
-                            //  当压缩过程出现问题时调用
-                        }
-                    }).launch()    //启动压缩
         }
     }
 
@@ -142,63 +177,43 @@ class NoteEditorActivity : MvpActivity<NoteEditorPresenter>(), NoteEditorContrac
     }
 
     override fun uploadSuccess(url: String) {
-        editor.insertImage(url)
-        cb_editor_bold.isChecked = false
-    }
-
-    override fun setListener() {
-        editor.setOnTextChangeListener({ text ->
-            content = text
-            iv_editor_save.isClickable = text.isNotEmpty()
-        })
-        fl_editor_bold.setOnClickListener {
-            cb_editor_bold.isChecked = !cb_editor_bold.isChecked
-            editor.setBold(cb_editor_bold.isChecked)
-        }
-        iv_editor_album.setOnClickListener {
-            // 激活系统图库，选择一张图片
-            val rxPermissions = RxPermissions(this)
-            rxPermissions
-                    .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .subscribe { permission ->
-                        when {
-                            permission.granted -> {
-                                // `permission.name` is granted !
-                                // 激活系统图库，选择一张图片
-                                val intent = Intent(Intent.ACTION_PICK)
-                                intent.type = "image/*"
-                                startActivityForResult(intent, 0)
-                            }
-                            permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
-                                toastShow("权限已被拒绝！无法进行操作")
-                            else -> {
-                                // Denied permission with ask never again
-                                // Need to go to the settings
-                                val permissionDialog = PermissionDialog()
-                                permissionDialog.show(fragmentManager, "")
-                            }
-                        }
-                    }
-        }
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
-        iv_editor_save.setOnClickListener {
-            // 保存为笔记
-            if (title.isNullOrEmpty()){
-                title = "新建笔记"
+        when(mAction) {
+            0 -> {
+                editor.setTitleImage(url)
             }
-            mPresenter.saveNote(cardId,title,content)
+            1 -> {
+                editor.setContentImage(url)
+            }
         }
-
-        //添加方法给js调用
-        editor.addJavascriptInterface(this,"native")
     }
 
-    @JavascriptInterface
-    fun setBold(boolean: Boolean){
-        runOnUiThread{
-            cb_editor_bold.isChecked = boolean
+    override fun uploadFail(message: String?) {
+        toastError(message)
+    }
+
+    override fun onActionModeStarted(mode: ActionMode) {
+        if (mActionMode == null) {
+            super.onActionModeStarted(mode)
+            mActionMode = mode
+            val menu = mode.menu
+            menu.clear()
+            val menuItemClickListener = MenuItemClickListener()
+            menu.add(0, 0, 0, "保存笔记").setOnMenuItemClickListener(menuItemClickListener)
+        }
+    }
+
+    override fun onActionModeFinished(mode: ActionMode) {
+        mActionMode = null
+        editor.clearFocus()//移除高亮显示,如果不移除在三星s6手机上会崩溃
+        super.onActionModeFinished(mode)
+    }
+
+    private inner class MenuItemClickListener : MenuItem.OnMenuItemClickListener {
+
+        override fun onMenuItemClick(item: MenuItem): Boolean {
+            editor.setBold()
+            mActionMode?.finish()
+            return true
         }
     }
 }

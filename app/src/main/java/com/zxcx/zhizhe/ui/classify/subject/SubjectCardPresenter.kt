@@ -1,22 +1,22 @@
 package com.zxcx.zhizhe.ui.classify.subject
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean
+import com.zxcx.zhizhe.ui.home.hot.CardBean
 
-class SubjectPresenter(view: SubjectContract.View) : BasePresenter<SubjectContract.View>(), SubjectContract.Presenter {
+class SubjectCardPresenter(view: SubjectCardContract.View) : BasePresenter<SubjectCardContract.View>(), SubjectCardContract.Presenter {
 
-    private val mModel: SubjectModel
+    private val mModel: SubjectCardModel
 
     init {
         attachView(view)
-        mModel = SubjectModel(this)
+        mModel = SubjectCardModel(this)
     }
 
-    fun getSubject(id: Int, page: Int, pageSize: Int) {
-        mModel.getSubject(id, page, pageSize)
+    fun getSubjectCardList(id: Int, page: Int, pageSize: Int) {
+        mModel.getSubjectCardList(id, page, pageSize)
     }
 
-    override fun getDataSuccess(bean: List<SubjectBean>) {
+    override fun getDataSuccess(bean: List<CardBean>) {
         mView.getDataSuccess(bean)
     }
 

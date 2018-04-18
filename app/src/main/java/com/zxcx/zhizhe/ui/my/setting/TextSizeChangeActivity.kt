@@ -60,7 +60,9 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
         }
 
         tv_size_change_save.setOnClickListener {
-            SharedPreferencesUtil.saveData(SVTSConstants.textSizeValue,textSizeValue + 1)
+            SharedPreferencesUtil.saveData(SVTSConstants.textSizeValue,textSizeValue)
+            toastShow("保存成功")
+            onBackPressed()
         }
     }
 }

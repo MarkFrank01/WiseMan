@@ -13,8 +13,8 @@ public class NoteDetailsPresenter extends BasePresenter<NoteDetailsContract.View
         mModel = new NoteDetailsModel(this);
     }
 
-    public void getNoteDetails(int noteId,int noteType){
-        mModel.getNoteDetails(noteId,noteType);
+    public void getNoteDetails(int noteId){
+        mModel.getNoteDetails(noteId);
     }
 
     @Override

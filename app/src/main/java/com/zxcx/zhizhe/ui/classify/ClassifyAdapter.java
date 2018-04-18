@@ -22,7 +22,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
     ClassifyAdapter(List<MultiItemEntity> data) {
         super(data);
         addItemType(ClassifyBean.TYPE_CLASSIFY, R.layout.item_classify_classify);
-        addItemType(ClassifyCardBagBean.TYPE_CARD_BAG,R.layout.item_classify);
+        addItemType(ClassifyCardBean.TYPE_CARD_BAG,R.layout.item_classify);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
                 TextPaint paint = title.getPaint();
                 paint.setFakeBoldText(true);
                 break;
-            case ClassifyCardBagBean.TYPE_CARD_BAG:
+            case ClassifyCardBean.TYPE_CARD_BAG:
 
                 helper.addOnClickListener(R.id.rl_item_classify);
 
@@ -44,8 +44,8 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
                 para.width = (screenWidth - ScreenUtils.dip2px(15*2) - ScreenUtils.dip2px(20*2)) / 3;
                 helper.itemView.setLayoutParams(para);
 
-                ClassifyCardBagBean cardBagBean = (ClassifyCardBagBean) item;
-                helper.setText(R.id.tv_item_subject_name,cardBagBean.getName());
+                ClassifyCardBean CardBean = (ClassifyCardBean) item;
+                helper.setText(R.id.tv_item_subject_name,CardBean.getName());
                 break;
         }
     }

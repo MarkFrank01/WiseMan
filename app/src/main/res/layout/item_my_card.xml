@@ -126,6 +126,7 @@
             android:textColor="@color/white_final"
             android:textSize="@dimen/text_size_text_1"
             android:textStyle="bold"
+            android:background="@color/text_color_d2"
             android:gravity="center"
             android:paddingStart="23dp"
             android:paddingEnd="23dp"

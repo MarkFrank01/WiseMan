@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.retrofit;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsBean;
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.hot.CardBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
@@ -219,26 +218,18 @@ public interface APIService {
             @Query("pageSize") int pageSize);
 
     /**
-     * 获取卡包内专题列表
-     */
-    @POST("/collection/getTopicList")
-    Flowable<BaseArrayBean<SubjectBean>> getSubject(
-            @Query("collectionId") int id, @Query("pageIndex") int page,
-            @Query("pageSize") int pageSize);
-
-    /**
      * 获取专题内卡片列表
      */
-    @POST("/article/getArticleByCollectionId")
-    Flowable<BaseArrayBean<CardBagBean>> getSubjectCardList(
+    @POST("/collection/getTopicArticleList")
+    Flowable<BaseArrayBean<CardBean>> getSubjectCardList(
             @Query("topicId") int id, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
     /**
-     * 获取卡包内卡片列表
+     * 获取卡包内内容列表
      */
-    @POST("/article/getArticleByCollectionId")
-    Flowable<BaseArrayBean<CardBagBean>> getCardBagCardList(
+    @POST("/article/getContentByCollectionId")
+    Flowable<BaseArrayBean<HotBean>> getCardBagCardList(
             @Query("collectionId") int id, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 

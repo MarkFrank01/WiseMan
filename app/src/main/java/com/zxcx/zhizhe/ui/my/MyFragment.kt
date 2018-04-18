@@ -172,7 +172,10 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
         ll_my_setting.setOnClickListener {
             mActivity.startActivity(CommonSettingActivity::class.java,{})
         }
-        cb_my_night_model.setOnCheckedChangeListener { _, isChecked ->
+        //添加监听前初始化
+        cb_my_night_model.isChecked = Constants.IS_NIGHT
+        cb_my_night_model.setOnClickListener { _->
+            val isChecked = cb_my_night_model.isChecked
             SharedPreferencesUtil.saveData(SVTSConstants.isNight, isChecked)
             Constants.IS_NIGHT = isChecked
             if (isChecked) {

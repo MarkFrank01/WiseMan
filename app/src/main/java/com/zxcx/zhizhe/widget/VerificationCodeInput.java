@@ -144,6 +144,8 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
             editText = (EditText) getChildAt(i);
             if (editText.getText().length() < 1) {
                 editText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editText,0);
                 return;
             }
         }

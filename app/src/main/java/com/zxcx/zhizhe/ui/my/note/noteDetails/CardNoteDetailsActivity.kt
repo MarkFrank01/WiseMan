@@ -43,7 +43,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
         initData()
         initView()
 
-        mPresenter.getNoteDetails(noteId, 1)
+        mPresenter.getNoteDetails(noteId)
     }
 
     override fun initStatusBar() {
@@ -65,7 +65,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
     }
 
     override fun onReload(v: View) {
-        mPresenter.getNoteDetails(noteId, 1)
+        mPresenter.getNoteDetails(noteId)
         mWebView?.reload()
     }
 
@@ -163,6 +163,9 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
         }
 
         iv_note_details_source.setOnClickListener {
+            if (withCardId == 0){
+                return@setOnClickListener
+            }
             val intent = Intent(mActivity, CardDetailsActivity::class.java)
             intent.putExtra("id", withCardId)
             startActivity(intent)

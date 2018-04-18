@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
@@ -13,17 +14,19 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_read_cards.*
 
 class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private var mPage = 0
     private var mPageSize = Constants.PAGE_SIZE
@@ -105,6 +108,14 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
     override fun onDeleteClick(position: Int) {
         mPresenter.deleteReadCard(mAdapter.data[position].realId,mAdapter.data[position].id)
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CardBean
+        mActivity.startActivity(CardBagActivity::class.java,{
+            it.putExtra("id", bean.cardBagId)
+            it.putExtra("name", bean.cardBagName)
+        })
     }
 
     private fun initView() {

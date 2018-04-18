@@ -144,6 +144,11 @@ public class ChangeHeadImageActivity extends BaseActivity implements GetPicBotto
         changeImageUrl(url);
     }
 
+    @Override
+    public void uploadFail(String message) {
+        toastError(message);
+    }
+
     public void changeImageUrl(String imageUrl){
         mDisposable = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null, null)
                 .compose(BaseRxJava.INSTANCE.handleResult())

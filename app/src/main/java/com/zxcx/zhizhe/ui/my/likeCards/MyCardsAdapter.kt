@@ -22,8 +22,8 @@ class MyCardsAdapter(data : List<MyCardsBean>) : BaseQuickAdapter<MyCardsBean, B
     }
 
     override fun convert(helper: BaseViewHolder, item: MyCardsBean) {
+        helper.addOnClickListener(R.id.tv_item_card_card_bag)
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
-
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 

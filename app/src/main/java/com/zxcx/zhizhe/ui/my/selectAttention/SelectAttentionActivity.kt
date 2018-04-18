@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SelectAttentionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
-import com.zxcx.zhizhe.ui.classify.ClassifyCardBagBean
+import com.zxcx.zhizhe.ui.classify.ClassifyCardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyItemDecoration
 import kotlinx.android.synthetic.main.activity_select_attention.*
 import org.greenrobot.eventbus.EventBus
@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.EventBus
 class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectAttentionContract.View,
         BaseQuickAdapter.OnItemChildClickListener {
 
-    private val mCheckedList = ArrayList<ClassifyCardBagBean>()
+    private val mCheckedList = ArrayList<ClassifyCardBean>()
     private lateinit var mAdapter: SelectAttentionAdapter
     private lateinit var mTvStart: TextView
 
@@ -66,7 +66,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-        val bean = adapter.data[position] as ClassifyCardBagBean
+        val bean = adapter.data[position] as ClassifyCardBean
         bean.isChecked = !bean.isChecked
         mAdapter.notifyItemChanged(position)
 
@@ -106,7 +106,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         val manager = GridLayoutManager(mActivity, 3)
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (mAdapter.getItemViewType(position) == ClassifyCardBagBean.TYPE_CARD_BAG) {
+                return if (mAdapter.getItemViewType(position) == ClassifyCardBean.TYPE_CARD_BAG) {
                     1
                 } else {
                     manager.spanCount

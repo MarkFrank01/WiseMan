@@ -13,7 +13,7 @@ import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
@@ -21,7 +21,7 @@ import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 
-class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationEditorContract.View,
+class CreationEditorActivity : BaseActivity(),
         OSSDialog.OSSUploadListener , GetPicBottomDialog.GetPicDialogListener{
 
     private lateinit var mOSSDialog: OSSDialog
@@ -81,22 +81,6 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
                     .fitsSystemWindows(true)
         }
         mImmersionBar.init()
-    }
-
-    override fun createPresenter(): CreationEditorPresenter {
-        return CreationEditorPresenter(this)
-    }
-
-    override fun saveDraftSuccess() {
-
-    }
-
-    override fun postSuccess() {
-
-    }
-
-    override fun postFail(msg: String?) {
-
     }
 
     @JavascriptInterface
@@ -242,6 +226,10 @@ class CreationEditorActivity : MvpActivity<CreationEditorPresenter>(), CreationE
                 editor.setContentImage(url)
             }
         }
+    }
+
+    override fun uploadFail(message: String?) {
+        toastError(message)
     }
 
     override fun onActionModeStarted(mode: ActionMode) {
