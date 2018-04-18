@@ -1,6 +1,8 @@
 package com.zxcx.zhizhe.ui.my.feedback.feedback
 
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import butterknife.ButterKnife
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
@@ -58,6 +60,19 @@ class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View
             }else{
                 tv_feedback_residue.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
             }
+        }
+
+        et_feedback_content.setOnEditorActionListener { v, actionId, event ->
+            //此处会响应2次 分别为ACTION_DOWN和ACTION_UP
+            if (actionId == EditorInfo.IME_ACTION_SEARCH
+                    || actionId == EditorInfo.IME_ACTION_DONE
+                    || event != null && KeyEvent.KEYCODE_ENTER == event.keyCode && KeyEvent.ACTION_DOWN == event.action) {
+
+                Utils.closeInputMethod(et_feedback_content)
+
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
         }
 
     }

@@ -30,6 +30,7 @@ import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
+import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
 
@@ -121,6 +122,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。
         // "SplashScreen"为页面名称，可自定义
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Utils.closeInputMethod(this);
+        super.onBackPressed();
     }
 
     @Override

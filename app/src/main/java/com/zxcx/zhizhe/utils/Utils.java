@@ -35,19 +35,27 @@ public class Utils {
     public static void showInputMethod(EditText editText) {
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText,0);
+        if (imm != null) {
+            imm.showSoftInput(editText,0);
+        }
 //        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
     }
 
     public static void closeInputMethod(EditText editText) {
         InputMethodManager imm = (InputMethodManager) editText.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+        }
     }
 
     public static void closeInputMethod(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
-            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+            try {
+                imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),0);
+            } catch (Exception e) {
+
+            }
         }
     }
 

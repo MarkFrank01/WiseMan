@@ -380,11 +380,11 @@ public interface APIService {
     /**
      *提交反馈
      */
+    @FormUrlEncoded
     @POST("/feedback/sumbitFeedbadk")
     Flowable<BaseBean<Object>> feedback(
-            @Query("content") String content,
-            @Query("appType") int appType, @Query("appChannel") String appChannel,
-            @Query("appVersion") String appVersion);
+            @Field("content") String content, @Query("appType") int appType,
+            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
     /**
      *OSS秘钥获取

@@ -6,6 +6,7 @@ import android.os.Bundle
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.card.card.share.ShareDialog
 import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_about_us.*
 
@@ -36,7 +37,14 @@ class AboutUSActivity : BaseActivity() {
         }
 
         tv_about_share.setOnClickListener {
-
+            val shareCardDialog = ShareDialog()
+            val bundle = Bundle()
+            bundle.putString("title", getString(R.string.app_name))
+            bundle.putString("text", "只看实用知识")
+            bundle.putString("url", "http://a.app.qq.com/o/simple.jsp?pkgname=com.zxcx.zhizhe")
+            bundle.putString("imageUrl", "http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon_1024.png")
+            shareCardDialog.arguments = bundle
+            shareCardDialog.show(fragmentManager, "")
         }
     }
 }

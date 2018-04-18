@@ -28,6 +28,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.passwordLogin.PasswordLoginActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
@@ -56,6 +57,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     private var appVersion: String? = null
     private var jpushID: String? = null
     private var verifyKey: String? = null
+    private var isFirstLogin = SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLogin, false)
 
     val countDownTimer: CountDownTimer = object : CountDownTimer(60000,1000){
         override fun onFinish() {
@@ -147,6 +149,9 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: RegisterEvent) {
         //登录成功通知
+        if (isFirstLogin){
+            startActivity(SelectAttentionActivity::class.java,{})
+        }
         EventBus.getDefault().post(LoginEvent())
         toastShow("欢迎来到智者")
         mActivity.finish()
