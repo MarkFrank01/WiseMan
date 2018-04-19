@@ -13,7 +13,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -89,10 +88,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
         rv_creation.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无审核作品","点击创作 随心所欲分享生活",R.drawable.no_data,View.OnClickListener {
-            val intent = Intent(mActivity, CreationEditorActivity::class.java)
-            startActivity(intent)
-        })
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核作品",R.drawable.no_data)
         mAdapter.emptyView = emptyView
     }
 }

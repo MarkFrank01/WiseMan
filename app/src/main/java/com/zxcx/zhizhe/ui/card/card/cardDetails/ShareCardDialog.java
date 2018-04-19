@@ -58,6 +58,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import top.zibin.luban.Luban;
@@ -268,20 +269,20 @@ public class ShareCardDialog extends BaseDialog {
 
     private void checkPermission(String platform){
         RxPermissions rxPermissions = new RxPermissions(getActivity());
-        rxPermissions
+        Disposable subscribe = rxPermissions
                 .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe(permission -> {
                     if (permission.granted) {
                         // `permission.name` is granted !
                         showShare(platform);
-                    } else if (permission.shouldShowRequestPermissionRationale){
+                    } else if (permission.shouldShowRequestPermissionRationale) {
                         // Denied permission without ask never again
                         toastShow("权限已被拒绝！无法进行操作");
                     } else {
                         // Denied permission with ask never again
                         // Need to go to the settings
                         PermissionDialog permissionDialog = new PermissionDialog();
-                        permissionDialog.show(getFragmentManager(),"");
+                        permissionDialog.show(getFragmentManager(), "");
                     }
                 });
     }

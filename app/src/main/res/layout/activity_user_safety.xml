@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:text="修改签名"
+        android:text="绑定设置"
         android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_title_1"
         android:textStyle="bold"
@@ -54,35 +54,7 @@
                 android:gravity="right"
                 android:textSize="@dimen/text_size_text_2"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/text_color_2"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_user_safety_wechat_bind"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-            <TextView
-                android:text="@string/tv_user_safety_wechat"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_user_safety_wechat_bind_status"
-                android:text="@string/is_binding"
-                android:gravity="right"
-                android:textSize="@dimen/text_size_text_2"
-                android:layout_marginRight="5dp"
-                android:textColor="@color/text_color_2"
+                android:textColor="@color/button_blue"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -110,7 +82,35 @@
                 android:gravity="right"
                 android:textSize="@dimen/text_size_text_2"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/text_color_2"
+                android:textColor="@color/text_color_3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_user_safety_wechat_bind"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+            <TextView
+                android:text="@string/tv_user_safety_wechat"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_user_safety_wechat_bind_status"
+                android:text="@string/is_binding"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
@@ -138,7 +138,7 @@
                 android:gravity="right"
                 android:textSize="@dimen/text_size_text_2"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/text_color_2"
+                android:textColor="@color/text_color_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>

@@ -22,7 +22,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="18dp"
         android:text="当前验证次数已满，请12小时后再试"
         android:textSize="14sp"
         android:textColor="@color/text_color_2"/>

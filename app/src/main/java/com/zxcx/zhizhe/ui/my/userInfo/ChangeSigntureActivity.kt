@@ -24,7 +24,7 @@ class ChangeSigntureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
         ButterKnife.bind(this)
 
         val signture = SharedPreferencesUtil.getString(SVTSConstants.signture, "")
-        et_dialog_change_signture.hint = signture
+        et_dialog_change_signture.setText(signture)
     }
 
     override fun onBackPressed() {
@@ -48,17 +48,14 @@ class ChangeSigntureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
         }
 
         tv_change_signture_save.setOnClickListener {
-            when {
-                et_dialog_change_signture.length() in 1..7 -> return@setOnClickListener
-                et_dialog_change_signture.length() == 0 -> onBackPressed()
-                else -> changeSignture(et_dialog_change_signture.text.toString())
-            }
+            changeSignture(et_dialog_change_signture.text.toString())
         }
 
         et_dialog_change_signture.afterTextChanged {
             if (et_dialog_change_signture.length() > 0){
                 tv_change_signture_hint.visibility = View.VISIBLE
             }
+            tv_change_signture_save.isEnabled = it.length in 6..18
         }
     }
 

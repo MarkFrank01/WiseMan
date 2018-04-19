@@ -47,7 +47,7 @@
                     android:gravity="center"
                     android:background="@null"
                     android:cursorVisible="true"
-                    android:hint="输入手机号"
+                    android:hint="请输入手机号"
                     android:inputType="phone"
                     android:maxLength="11"
                     android:paddingBottom="22dp"
@@ -69,7 +69,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="1dp"
                     android:layout_below="@+id/et_login_phone"
                     android:background="@color/text_color_2"/>
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_text_enable_blue"
                     android:enabled="false"
-                    android:textSize="@dimen/text_size_title_2"
+                    android:textSize="@dimen/text_size_text_1"
                     android:text="获取验证码"/>
 
             </RelativeLayout>
@@ -117,15 +117,15 @@
                     android:layout_marginTop="25dp"
                     android:layout_gravity="center_horizontal"
                     app:box="4"
-                    app:box_bg_normal="@drawable/verification_edit_bg_normal"
-                    app:box_bg_focus="@drawable/verification_edit_bg_focus"
+                    app:box_bg_normal="@drawable/verification_edit_bg"
+                    app:box_bg_focus="@drawable/verification_edit_bg"
                     app:child_h_padding="6dp"
-                    android:layout_marginBottom="24dp"/>
+                    android:layout_marginBottom="18dp"/>
 
                 <TextView
                     android:id="@+id/tv_login_resend_code"
                     tools:text="48 s"
-                    android:textSize="@dimen/text_size_title_2"
+                    android:textSize="@dimen/text_size_text_1"
                     android:textColor="@color/color_text_enable_blue"
                     android:enabled="false"
                     android:layout_width="wrap_content"

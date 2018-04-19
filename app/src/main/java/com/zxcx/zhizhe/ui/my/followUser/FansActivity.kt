@@ -148,7 +148,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         })
         mAdapter.emptyView = emptyView
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-        header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
+        header.findViewById<TextView>(R.id.tv_header_title).text = "粉丝"
         mAdapter.addHeaderView(header)
     }
 }

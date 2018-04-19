@@ -15,7 +15,10 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
-import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.FileUtil
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
@@ -48,11 +51,8 @@ class NoteEditorActivity : BaseActivity(),
         if (noteId != 0) {
             editor.setNoteId(noteId)
         }
-        val localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0)
-        val serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0)
         val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
-        val timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp, serverTimeStamp)
-        editor.setTimeStampAndToken(timeStamp, token)
+        editor.setTimeStampAndToken(token)
     }
 
     override fun setListener() {

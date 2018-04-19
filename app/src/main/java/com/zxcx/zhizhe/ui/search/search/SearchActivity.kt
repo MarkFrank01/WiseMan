@@ -90,12 +90,13 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
     }
 
     override fun setListener() {
-        iv_search_close.setOnClickListener {
+        iv_common_close.setOnClickListener {
             onBackPressed()
         }
         iv_search.setOnClickListener {
             if (StringUtils.isEmpty(et_search.text.toString())) {
                 toastShow("搜索内容不能为空！")
+                return@setOnClickListener
             }
 
             gotoSearchResult(et_search.text.toString())

@@ -1,65 +1,66 @@
-package com.zxcx.zhizhe.ui.home.hot
+package com.zxcx.zhizhe.ui.search.result
 
 import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.makeramen.roundedimageview.RoundedImageView
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener
-import com.zxcx.zhizhe.utils.DateTimeUtils
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.ZhiZheUtils
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.WrapContentHeightViewPager
 import kotlinx.android.synthetic.main.item_hot_subject_card.view.*
 
 /**
- * Created by anm on 2017/6/26.
+ * Created by anm on 2017/12/1.
  */
+class SearchResultAdapter(data : List<SearchResultBean>, private val mListener: SubjectOnClickListener)
+    : BaseMultiItemQuickAdapter<SearchResultBean, BaseViewHolder>(data){
 
-class HotCardAdapter(data: List<HotBean>?, private val mListener: SubjectOnClickListener) : BaseMultiItemQuickAdapter<HotBean, BaseViewHolder>(data) {
+    var mKeyword = ""
 
     init {
-        addItemType(HotBean.TYPE_CARD, R.layout.item_card)
-        addItemType(HotBean.TYPE_SUBJECT, R.layout.item_subject)
+        addItemType(SearchResultBean.TYPE_CARD, R.layout.item_search_result)
+        addItemType(SearchResultBean.TYPE_SUBJECT, R.layout.item_subject)
     }
 
-    override fun convert(helper: BaseViewHolder, item: HotBean) {
+    override fun convert(helper: BaseViewHolder, item: SearchResultBean) {
         when (helper.itemViewType) {
-            HotBean.TYPE_CARD -> initCardView(helper, item)
-            HotBean.TYPE_SUBJECT -> initCardBagView(helper, item)
+            SearchResultBean.TYPE_CARD -> initCardView(helper, item)
+            SearchResultBean.TYPE_SUBJECT -> initCardBagView(helper, item)
         }
 
     }
 
-    private fun initCardView(helper: BaseViewHolder, bean: HotBean) {
-        helper.addOnClickListener(R.id.tv_item_card_card_bag)
+    private fun initCardView(helper: BaseViewHolder, bean: SearchResultBean) {
+        helper.addOnClickListener(R.id.tv_item_search_result_card_bag)
         val item = bean.cardBean
-        val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
-
+        val title = helper.getView<TextView>(R.id.tv_item_search_result_title)
+        val content = helper.getView<TextView>(R.id.tv_item_search_result_content)
+        TextViewUtils.setTextViewColor(title, mKeyword, item.name)
+        TextViewUtils.setTextViewColor(content, mKeyword, item.content)
+        val imageView = helper.getView<RoundedImageView>(R.id.iv_item_search_result_icon)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
-
-        helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_card_bag, item.cardBagName)
-        helper.setText(R.id.tv_item_card_reade_num, item.readNum.toString())
-        helper.setText(R.id.tv_item_card_collect_num, item.collectNum.toString())
+        helper.setText(R.id.tv_item_search_result_card_bag, item.cardBagName)
+        helper.setText(R.id.tv_item_search_result_collect, item.collectNum.toString() + "")
+        helper.setText(R.id.tv_item_search_result_read, item.readNum.toString() + "")
         when (item.cardType) {
             1 -> helper.setText(R.id.tv_item_card_type, "卡片")
             2 -> helper.setText(R.id.tv_item_card_type, "长文")
         }
     }
 
-    private fun initCardBagView(helper: BaseViewHolder, bean: HotBean) {
-        val subjectBean = bean.subjectBean
-        helper.setText(R.id.tv_item_subject_name,subjectBean.name)
+    private fun initCardBagView(helper: BaseViewHolder, bean: SearchResultBean) {
+        val item = bean.subjectBean
+        val name = helper.getView<TextView>(R.id.tv_item_subject_name)
+        TextViewUtils.setTextViewColor(name,mKeyword,item.name)
         helper.itemView.setOnClickListener {
-            mListener.subjectOnClick(subjectBean)
+            mListener.subjectOnClick(item)
         }
-        val cardList = subjectBean.cardList
+        val cardList = item.cardList
         if (cardList.size == 0) return
         val viewPager = helper.getView<WrapContentHeightViewPager>(R.id.vp_item_subject)
         viewPager.clipToPadding = false
@@ -101,4 +102,5 @@ class HotCardAdapter(data: List<HotBean>?, private val mListener: SubjectOnClick
             }
         }
     }
+
 }

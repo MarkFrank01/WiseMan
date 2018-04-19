@@ -145,9 +145,9 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
         tv_user_safety_qq_bind_status.text = if (isBindingQQ) getString(R.string.is_binding) else getString(R.string.no_binding)
         tv_user_safety_wechat_bind_status.text = if (isBindingWechat) getString(R.string.is_binding) else getString(R.string.no_binding)
         tv_user_safety_weibo_bind_status.text = if (isBindingWeibo) getString(R.string.is_binding) else getString(R.string.no_binding)
-        tv_user_safety_qq_bind_status.setTextColor(if (isBindingQQ) mActivity.getColorForKotlin(R.color.button_blue) else mActivity.getColorForKotlin(R.color.text_color_3))
-        tv_user_safety_wechat_bind_status.setTextColor(if (isBindingWechat) mActivity.getColorForKotlin(R.color.button_blue) else mActivity.getColorForKotlin(R.color.text_color_3))
-        tv_user_safety_weibo_bind_status.setTextColor(if (isBindingWeibo) mActivity.getColorForKotlin(R.color.button_blue) else mActivity.getColorForKotlin(R.color.text_color_3))
+        tv_user_safety_qq_bind_status.setTextColor(mActivity.getColorForKotlin(if (isBindingQQ) R.color.button_blue else R.color.text_color_3))
+        tv_user_safety_wechat_bind_status.setTextColor(mActivity.getColorForKotlin(if (isBindingWechat) R.color.button_blue else R.color.text_color_3))
+        tv_user_safety_weibo_bind_status.setTextColor(mActivity.getColorForKotlin(if (isBindingWeibo) R.color.button_blue else R.color.text_color_3))
     }
 
     internal inner class ChannelLoginListener : PlatformActionListener {

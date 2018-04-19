@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean;
+import com.zxcx.zhizhe.ui.my.followUser.FollowUserBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
@@ -24,9 +25,8 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.my.followUser.FollowUserBean;
-import com.zxcx.zhizhe.ui.search.result.card.SearchCardBean;
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
+import com.zxcx.zhizhe.ui.search.result.SearchResultBean;
+import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
@@ -202,17 +202,17 @@ public interface APIService {
     Flowable<BaseArrayBean<String>> getSearchPre(@Query("keyword") String keyword);
 
     /**
-     * 搜索卡片
+     * 搜索卡片，长文，专题
      */
-    @POST("/search/searchArticle")
-    Flowable<BaseArrayBean<SearchCardBean>> searchCard(
-            @Query("keyword") String keyword, @Query("cardType") int cardType,
-            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+    @POST("/search/searchContent")
+    Flowable<BaseArrayBean<SearchResultBean>> search(
+            @Query("keyword") String keyword,@Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
     /**
      * 搜索专题
      */
-    @POST("/search/searchCollection")
+    @POST("/search/searchTopic")
     Flowable<BaseArrayBean<SubjectBean>> searchSubject(
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);

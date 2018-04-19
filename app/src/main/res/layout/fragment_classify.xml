@@ -10,8 +10,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_classify"
-        android:paddingLeft="12.5dp"
-        android:paddingRight="12.5dp"
+        android:paddingLeft="13.5dp"
+        android:paddingRight="13.5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_classify"/>

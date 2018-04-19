@@ -26,7 +26,7 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
         ButterKnife.bind(this)
 
         name = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
-        et_dialog_change_nick_name.hint = name
+        et_dialog_change_nick_name.setText(name)
     }
 
     override fun onBackPressed() {

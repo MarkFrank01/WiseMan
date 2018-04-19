@@ -14,6 +14,8 @@ public class CardDetailsBean extends RetrofitBaen {
     private boolean isUnLike;
     @SerializedName("collect")
     private boolean isCollect;
+    @SerializedName("articleType")
+    private int cardType;
     @SerializedName("pv")
     private int readNum;
     @SerializedName("likedUsersCount")
@@ -77,6 +79,14 @@ public class CardDetailsBean extends RetrofitBaen {
 
     public void setCollect(boolean collect) {
         isCollect = collect;
+    }
+
+    public int getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(int cardType) {
+        this.cardType = cardType;
     }
 
     public int getReadNum() {

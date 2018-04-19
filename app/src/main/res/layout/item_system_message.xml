@@ -24,7 +24,7 @@
         android:layout_marginTop="7dp"
         android:layout_marginStart="20dp"
         tools:text="2017/11/12 18:06"
-        android:textColor="@color/text_color_3"
+        android:textColor="@color/text_color_d2"
         android:textSize="@dimen/text_size_text_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -48,7 +48,7 @@
         <TextView
             android:id="@+id/tv_item_system_message_value"
             tools:text="智力值 +100"
-            android:textColor="@color/text_color_1"
+            android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_3"
             android:layout_marginStart="20dp"
             android:layout_marginTop="1dp"
@@ -62,6 +62,7 @@
             tools:text="查看卡片"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_text_3"
+            android:textStyle="bold"
             android:paddingTop="21dp"
             android:paddingBottom="15dp"
             android:paddingStart="10dp"

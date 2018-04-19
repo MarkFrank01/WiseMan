@@ -15,6 +15,10 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 class SubjectCardAdapter(data: List<CardBean>?) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_card, data) {
 
+    init {
+        setHeaderAndEmpty(true)
+    }
+
     override fun convert(helper: BaseViewHolder, item: CardBean) {
         helper.addOnClickListener(R.id.tv_item_card_card_bag)
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)

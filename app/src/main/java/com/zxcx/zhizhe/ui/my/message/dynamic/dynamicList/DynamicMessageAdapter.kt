@@ -20,6 +20,7 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 
 
     init {
+        setHeaderAndEmpty(true)
         addItemType(dynamic_date, R.layout.item_dynamic_message_date)
         addItemType(dynamic_content, R.layout.item_dynamic_message)
     }

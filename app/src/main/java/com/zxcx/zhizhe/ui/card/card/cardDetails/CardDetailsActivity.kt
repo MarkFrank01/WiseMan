@@ -20,6 +20,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.card.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
@@ -41,6 +42,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private var subjectId: Int = 0
     private var mUserId: Int = 0
     private var mAuthorId: Int = 0
+    private var mCardType: Int = 0
     private var name: String? = null
     private var cardBagName: String? = null
     private var subjectName: String? = null
@@ -201,6 +203,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         cb_card_details_like.isChecked = bean.isLike
         cb_card_details_un_like.isChecked = bean.isUnLike
         mAuthorId = bean.authorId
+        mCardType = bean.cardType
         ImageLoader.load(mActivity, bean.authorIcon, R.drawable.default_header, iv_item_rank_user)
         tv_item_rank_user_name.text = bean.authorName
         tv_item_rank_user_card.text = bean.authorCardNum
@@ -290,7 +293,11 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
             })
         }
         iv_card_details_share.setOnClickListener {
-            gotoShare(mUrl, null)
+            when(mCardType){
+                1 -> gotoImageShare(mUrl, null)
+                2 -> gotoHtmlShare()
+            }
+
         }
         cb_card_details_un_like.setOnClickListener {
             //checkBox点击之后选中状态就已经更改了
@@ -421,7 +428,18 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 .build()
     }
 
-    private fun gotoShare(url: String?, content: String?) {
+    private fun gotoHtmlShare() {
+        val shareCardDialog = ShareDialog()
+        val bundle = Bundle()
+        bundle.putString("title", getString(R.string.app_name))
+        bundle.putString("text", name)
+        bundle.putString("url", getString(R.string.base_url)+getString(R.string.card_share_url)+cardId.toString())
+        bundle.putString("imageUrl", imageUrl)
+        shareCardDialog.arguments = bundle
+        shareCardDialog.show(fragmentManager, "")
+    }
+
+    private fun gotoImageShare(url: String?, content: String?) {
         val shareDialog = ShareCardDialog()
         val bundle = Bundle()
         bundle.putString("name", name)
@@ -466,7 +484,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                         noteTitleDialog.arguments = bundle
                         noteTitleDialog.show(fragmentManager, "")
                     }
-                    MENU_ITEM_SHARE -> gotoShare(mUrl, content)
+                    MENU_ITEM_SHARE -> gotoImageShare(mUrl, content)
                 }
             }
             mActionMode?.finish()

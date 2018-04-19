@@ -177,26 +177,26 @@ public class RichEditor extends WebView {
         int gravity = ta.getInt(0, NO_ID);
         switch (gravity) {
             case Gravity.LEFT:
-                exec("javascript:RE.setTextAlign(\"left\")");
+                exec("setTextAlign(\"left\")");
                 break;
             case Gravity.RIGHT:
-                exec("javascript:RE.setTextAlign(\"right\")");
+                exec("setTextAlign(\"right\")");
                 break;
             case Gravity.TOP:
-                exec("javascript:RE.setVerticalAlign(\"top\")");
+                exec("setVerticalAlign(\"top\")");
                 break;
             case Gravity.BOTTOM:
-                exec("javascript:RE.setVerticalAlign(\"bottom\")");
+                exec("setVerticalAlign(\"bottom\")");
                 break;
             case Gravity.CENTER_VERTICAL:
-                exec("javascript:RE.setVerticalAlign(\"middle\")");
+                exec("setVerticalAlign(\"middle\")");
                 break;
             case Gravity.CENTER_HORIZONTAL:
-                exec("javascript:RE.setTextAlign(\"center\")");
+                exec("setTextAlign(\"center\")");
                 break;
             case Gravity.CENTER:
-                exec("javascript:RE.setVerticalAlign(\"middle\")");
-                exec("javascript:RE.setTextAlign(\"center\")");
+                exec("setVerticalAlign(\"middle\")");
+                exec("setTextAlign(\"center\")");
                 break;
         }
 
@@ -208,7 +208,7 @@ public class RichEditor extends WebView {
             contents = "";
         }
         try {
-            exec("javascript:RE.setHtml('" + URLEncoder.encode(contents, "UTF-8") + "');");
+            exec("setHtml('" + URLEncoder.encode(contents, "UTF-8") + "');");
         } catch (UnsupportedEncodingException e) {
             // No handling
         }
@@ -221,17 +221,17 @@ public class RichEditor extends WebView {
 
     public void setEditorFontColor(int color) {
         String hex = convertHexColorString(color);
-        exec("javascript:RE.setBaseTextColor('" + hex + "');");
+        exec("setBaseTextColor('" + hex + "');");
     }
 
     public void setEditorFontSize(int px) {
-        exec("javascript:RE.setBaseFontSize('" + px + "px');");
+        exec("setBaseFontSize('" + px + "px');");
     }
 
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
         super.setPadding(left, top, right, bottom);
-        exec("javascript:RE.setPadding('" + left + "px', '" + top + "px', '" + right + "px', '" + bottom
+        exec("setPadding('" + left + "px', '" + top + "px', '" + right + "px', '" + bottom
                 + "px');");
     }
 
@@ -256,7 +256,7 @@ public class RichEditor extends WebView {
         String base64 = Utils.toBase64(bitmap);
         bitmap.recycle();
 
-        exec("javascript:RE.setBackgroundImage('url(data:image/png;base64," + base64 + ")');");
+        exec("setBackgroundImage('url(data:image/png;base64," + base64 + ")');");
     }
 
     @Override
@@ -265,27 +265,27 @@ public class RichEditor extends WebView {
         String base64 = Utils.toBase64(bitmap);
         bitmap.recycle();
 
-        exec("javascript:RE.setBackgroundImage('url(data:image/png;base64," + base64 + ")');");
+        exec("setBackgroundImage('url(data:image/png;base64," + base64 + ")');");
     }
 
     public void setBackground(String url) {
-        exec("javascript:RE.setBackgroundImage('url(" + url + ")');");
+        exec("setBackgroundImage('url(" + url + ")');");
     }
 
     public void setEditorWidth(int px) {
-        exec("javascript:RE.setWidth('" + px + "px');");
+        exec("setWidth('" + px + "px');");
     }
 
     public void setEditorHeight(int px) {
-        exec("javascript:RE.setHeight('" + px + "px');");
+        exec("setHeight('" + px + "px');");
     }
 
     public void setPlaceholder(String placeholder) {
-        exec("javascript:RE.setPlaceholder('" + placeholder + "');");
+        exec("setPlaceholder('" + placeholder + "');");
     }
 
     public void setInputEnabled(Boolean inputEnabled) {
-        exec("javascript:RE.setInputEnabled(" + inputEnabled + ")");
+        exec("setInputEnabled(" + inputEnabled + ")");
     }
 
     public void loadCSS(String cssFile) {
@@ -298,150 +298,150 @@ public class RichEditor extends WebView {
                 "    link.media = \"all\";" +
                 "    head.appendChild(link);" +
                 "}) ();";
-        exec("javascript:" + jsCSSImport + "");
+        exec("" + jsCSSImport + "");
     }
 
     public void undo() {
-        exec("javascript:RE.undo();");
+        exec("undo();");
     }
 
     public void redo() {
-        exec("javascript:RE.redo();");
+        exec("redo();");
     }
 
     public void setBold() {
-        exec("javascript:RE.setBold();");
+        exec("setBold();");
     }
 
     public void setBold(boolean isBold) {
-        exec("javascript:RE.setBold("+isBold+");");
+        exec("setBold("+isBold+");");
     }
 
     public void setItalic() {
-        exec("javascript:RE.setItalic();");
+        exec("setItalic();");
     }
 
     public void setSubscript() {
-        exec("javascript:RE.setSubscript();");
+        exec("setSubscript();");
     }
 
     public void setSuperscript() {
-        exec("javascript:RE.setSuperscript();");
+        exec("setSuperscript();");
     }
 
     public void setStrikeThrough() {
-        exec("javascript:RE.setStrikeThrough();");
+        exec("setStrikeThrough();");
     }
 
     public void setUnderline() {
-        exec("javascript:RE.setUnderline();");
+        exec("setUnderline();");
     }
 
     public void setIsEyeshield(boolean isEyeshield) {
-        exec("javascript:RE.setIsEyeshield("+isEyeshield+");");
+        exec("setIsEyeshield("+isEyeshield+");");
     }
 
     public void setCardId(Integer cardId) {
-        exec("javascript:RE.setArticleId('" + cardId + "');");
+        exec("articleReedit(" + cardId + ");");
     }
 
     public void setNoteId(Integer cardId) {
-        exec("javascript:RE.setNoteId('" + cardId + "');");
+        exec("noteReedit(" + cardId + ");");
     }
 
-    public void setTimeStampAndToken(String timeStamp, String token) {
-        exec("javascript:RE.setArticleId('" + timeStamp + "','"+token+"');");
+    public void setTimeStampAndToken(String token) {
+        exec("setTimeStampAndToken('"+token+"');");
     }
 
     public void setTextColor(int color) {
-        exec("javascript:RE.prepareInsert();");
+        exec("prepareInsert();");
 
         String hex = convertHexColorString(color);
-        exec("javascript:RE.setTextColor('" + hex + "');");
+        exec("setTextColor('" + hex + "');");
     }
 
     public void setTextBackgroundColor(int color) {
-        exec("javascript:RE.prepareInsert();");
+        exec("prepareInsert();");
 
         String hex = convertHexColorString(color);
-        exec("javascript:RE.setTextBackgroundColor('" + hex + "');");
+        exec("setTextBackgroundColor('" + hex + "');");
     }
 
     public void setFontSize(int fontSize) {
 
-        exec("javascript:RE.setFontSize('" + fontSize + "');");
+        exec("setFontSize('" + fontSize + "');");
     }
 
     public void removeFormat() {
-        exec("javascript:RE.removeFormat();");
+        exec("removeFormat();");
     }
 
     public void setHeading(int heading) {
-        exec("javascript:RE.setHeading('" + heading + "');");
+        exec("setHeading('" + heading + "');");
     }
 
     public void setIndent() {
-        exec("javascript:RE.setIndent();");
+        exec("setIndent();");
     }
 
     public void setOutdent() {
-        exec("javascript:RE.setOutdent();");
+        exec("setOutdent();");
     }
 
     public void setAlignLeft() {
-        exec("javascript:RE.setJustifyLeft();");
+        exec("setJustifyLeft();");
     }
 
     public void setAlignCenter() {
-        exec("javascript:RE.setJustifyCenter();");
+        exec("setJustifyCenter();");
     }
 
     public void setAlignRight() {
-        exec("javascript:RE.setJustifyRight();");
+        exec("setJustifyRight();");
     }
 
     public void setBlockquote() {
-        exec("javascript:RE.setBlockquote();");
+        exec("setBlockquote();");
     }
 
     public void setBullets() {
-        exec("javascript:RE.setBullets();");
+        exec("setBullets();");
     }
 
     public void setNumbers() {
-        exec("javascript:RE.setNumbers();");
+        exec("setNumbers();");
     }
 
     public void insertImage(String url) {
-        exec("javascript:RE.prepareInsert();");
-        exec("javascript:RE.insertImage('" + url + "');");
+        exec("prepareInsert();");
+        exec("insertImage('" + url + "');");
     }
 
     public void setTitleImage(String url) {
-        exec("javascript:setTitleImage('" + url + "');");
+        exec("setTitleImage('" + url + "');");
     }
 
     public void setContentImage(String url) {
-        exec("javascript:setContentImage('" + url + "');");
+        exec("setContentImage('" + url + "');");
     }
 
     public void insertLink(String href, String title) {
-        exec("javascript:RE.prepareInsert();");
-        exec("javascript:RE.insertLink('" + href + "', '" + title + "');");
+        exec("prepareInsert();");
+        exec("insertLink('" + href + "', '" + title + "');");
     }
 
     public void insertTodo() {
-        exec("javascript:RE.prepareInsert();");
-        exec("javascript:RE.setTodo('" + Utils.getCurrentTime() + "');");
+        exec("prepareInsert();");
+        exec("setTodo('" + Utils.getCurrentTime() + "');");
     }
 
     public void focusEditor() {
         requestFocus();
-        exec("javascript:RE.focus();");
+        exec("focus();");
     }
 
     public void clearFocusEditor() {
-        exec("javascript:RE.blurFocus();");
+        exec("blurFocus();");
     }
 
     private String convertHexColorString(int color) {

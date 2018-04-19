@@ -80,7 +80,7 @@
                     android:layout_marginEnd="5dp"
                     android:maxLength="8"
                     android:maxLines="1"
-                    android:textColor="@color/text_color_2"
+                    android:textColor="@color/text_color_3"
                     android:textSize="@dimen/text_size_text_2"
                     tools:text="一叶知秋"/>
 
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:textColor="@color/text_color_2"
+                    android:textColor="@color/text_color_3"
                     android:textSize="@dimen/text_size_text_2"
                     tools:text="男"/>
 
@@ -138,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:textColor="@color/text_color_2"
+                    android:textColor="@color/text_color_3"
                     android:textSize="@dimen/text_size_text_2"
                     tools:text="1999-12-10"/>
 
@@ -170,7 +170,7 @@
                     android:ellipsize="end"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:textColor="@color/text_color_2"
+                    android:textColor="@color/text_color_3"
                     android:textSize="@dimen/text_size_text_2"
                     tools:text="曾经我有一句空白签名，现在asdasda"/>
 

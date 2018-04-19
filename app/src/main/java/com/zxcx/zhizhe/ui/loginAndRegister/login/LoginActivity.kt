@@ -24,11 +24,11 @@ import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.event.RegisterEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.initUserInfo.InitUserInfoActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.passwordLogin.PasswordLoginActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
 import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
@@ -109,6 +109,9 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun getDataSuccess(bean: LoginBean) {
+        if (isFirstLogin){
+            startActivity(InitUserInfoActivity::class.java,{})
+        }
         ZhiZheUtils.saveLoginData(bean)
         //极光统计
         val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)
@@ -150,7 +153,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     fun onMessageEvent(event: RegisterEvent) {
         //登录成功通知
         if (isFirstLogin){
-            startActivity(SelectAttentionActivity::class.java,{})
+            startActivity(InitUserInfoActivity::class.java,{})
         }
         EventBus.getDefault().post(LoginEvent())
         toastShow("欢迎来到智者")
@@ -160,6 +163,9 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PasswordLoginEvent) {
         //登录成功通知
+        if (isFirstLogin){
+            startActivity(InitUserInfoActivity::class.java,{})
+        }
         EventBus.getDefault().post(LoginEvent())
         toastShow("欢迎来到智者")
         mActivity.finish()

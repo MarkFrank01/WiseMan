@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result.subject;
+package com.zxcx.zhizhe.ui.search.result;
 
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;

@@ -26,8 +26,8 @@
             android:src="@drawable/wechat"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
             android:layout_width="52dp"
             android:layout_height="57dp"/>
 
@@ -42,8 +42,8 @@
             android:src="@drawable/moments"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:layout_width="47dp"
             android:layout_height="57dp"/>
 
@@ -58,8 +58,8 @@
             android:src="@drawable/qq"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:layout_width="47dp"
             android:layout_height="57dp"/>
 
@@ -74,8 +74,8 @@
             android:src="@drawable/weibo"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="10dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="10dp"
             android:layout_width="47dp"
             android:layout_height="57dp"/>
 
@@ -99,59 +99,70 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_dialog_share"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="212dp"
-                    android:transitionName="cardImage"/>
 
-                <RelativeLayout
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_dialog_share_title"
-                        android:layout_marginTop="25dp"
-                        tools:text="动圈和铁圈耳机的区别"
-                        style="@style/tv_card"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/text_size_title_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardTitle"/>
+                    <com.zxcx.zhizhe.widget.CardImageView
+                        android:id="@+id/iv_dialog_share"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/default_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="212dp"
+                        android:transitionName="cardImage"
+                        app:widthWeight="16"
+                        app:heightWeight="9"
+                        app:hasShade="true"/>
 
-                    <TextView
-                        android:id="@+id/tv_dialog_share_info"
-                        tools:text="@string/tv_card_info"
-                        android:textColor="@color/text_color_2"
-                        android:textSize="@dimen/text_size_text_2"
-                        android:layout_marginTop="15dp"
-                        android:layout_below="@id/tv_dialog_share_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardInfo"/>
+                    <RelativeLayout
+                        android:layout_gravity="bottom"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_dialog_share_card_bag"
-                        android:layout_toRightOf="@id/tv_dialog_share_info"
-                        android:layout_below="@id/tv_dialog_share_title"
-                        tools:text="数码产品"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_card_details_card_bag"
-                        android:textColor="@color/button_blue"
-                        android:textSize="@dimen/text_size_text_2"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/tv_dialog_share_title"
+                            tools:text="动圈和铁圈耳机的区别"
+                            style="@style/tv_card"
+                            android:textColor="@color/white_final"
+                            android:textSize="@dimen/text_size_title_2"
+                            android:textStyle="bold"
+                            android:lineSpacingExtra="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardTitle"/>
 
-                </RelativeLayout>
+                        <FrameLayout
+                            android:id="@+id/fl_dialog_share_card_bag"
+                            android:layout_below="@id/tv_dialog_share_title"
+                            android:paddingTop="12dp"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_dialog_share_card_bag"
+                                tools:text="数码产品"
+                                style="@style/tv_card_bag"/>
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tv_dialog_share_info"
+                            android:layout_toEndOf="@id/fl_dialog_share_card_bag"
+                            tools:text="@string/tv_card_info"
+                            android:textColor="@color/text_color_ee"
+                            android:textSize="@dimen/text_size_text_3"
+                            android:layout_marginTop="12dp"
+                            android:layout_below="@id/tv_dialog_share_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:transitionName="cardInfo"/>
+
+                    </RelativeLayout>
+                </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/fl_dialog_share"
@@ -173,11 +184,11 @@
 
     <ImageView
         android:id="@+id/iv_dialog_share_back"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/iv_common_close"
         android:padding="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

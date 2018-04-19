@@ -23,15 +23,12 @@ import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.home.hot.HotBean
-import com.zxcx.zhizhe.ui.home.hot.HotCardAdapter
+import com.zxcx.zhizhe.ui.home.hot.HotAdapter
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.DateTimeUtils
-import com.zxcx.zhizhe.utils.ZhiZheUtils
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.ui.search.result.SubjectBean
+import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_hot.*
@@ -44,7 +41,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
-    private lateinit var mAdapter: HotCardAdapter
+    private lateinit var mAdapter: HotAdapter
     private var page = 0
     private var mHidden = true
 
@@ -178,7 +175,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
     private fun initView() {
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = HotCardAdapter(ArrayList(), this)
+        mAdapter = HotAdapter(ArrayList(), this)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_hot_card)
         mAdapter.onItemClickListener = this
@@ -191,7 +188,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         rv_hot_card.layoutManager = layoutManager
         rv_hot_card.adapter = mAdapter
         rv_hot_card.addItemDecoration(HomeCardItemDecoration())
-        if (checkLogin()) {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
             onRefresh()
         } else {
             loadService.showCallback(AttentionNeedLoginCallback::class.java)

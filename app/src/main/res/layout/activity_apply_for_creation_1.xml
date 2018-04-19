@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +14,7 @@
         android:textSize="@dimen/text_size_title_1"
         android:textColor="@color/text_color_1"
         android:textStyle="bold"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -30,8 +32,9 @@
     <ImageView
         android:id="@+id/iv_afc_close"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="18dp"
+        android:padding="10dp"
         android:src="@drawable/login_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -54,7 +57,7 @@
             android:gravity="center"
             android:background="@null"
             android:cursorVisible="true"
-            android:hint="输入手机号"
+            android:hint="请输入手机号"
             android:inputType="phone"
             android:maxLength="11"
             android:paddingBottom="22dp"
@@ -76,7 +79,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_below="@+id/et_afc_phone"
             android:background="@color/text_color_2"/>
 
@@ -89,7 +92,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_text_enable_blue"
             android:enabled="false"
-            android:textSize="@dimen/text_size_title_2"
+            android:textSize="@dimen/text_size_text_1"
             android:text="获取验证码"/>
 
     </RelativeLayout>
@@ -126,12 +129,12 @@
             app:box_bg_normal="@drawable/verification_edit_bg_normal"
             app:box_bg_focus="@drawable/verification_edit_bg_focus"
             app:child_h_padding="12dp"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="18dp"/>
 
         <TextView
             android:id="@+id/tv_afc_resend_code"
             tools:text="48 s"
-            android:textSize="@dimen/text_size_title_2"
+            android:textSize="@dimen/text_size_text_1"
             android:textColor="@color/color_text_enable_blue"
             android:enabled="false"
             android:layout_width="wrap_content"

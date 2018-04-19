@@ -3,10 +3,6 @@
 
     <solid android:color="@color/bg_card_bag"/>
 
-    <size
-        android:width="76dp"
-        android:height="32dp"/>
-
-    <corners android:radius="32dp"/>
+    <corners android:radius="6dp"/>
 
 </shape>

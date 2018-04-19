@@ -18,10 +18,10 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.home.hot.HotAdapter
 import com.zxcx.zhizhe.ui.home.hot.HotBean
-import com.zxcx.zhizhe.ui.home.hot.HotCardAdapter
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectOnClickListener
+import com.zxcx.zhizhe.ui.search.result.SubjectBean
+import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -33,7 +33,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         SubjectOnClickListener {
 
-    private lateinit var mAdapter: HotCardAdapter
+    private lateinit var mAdapter: HotAdapter
     private var mId: Int = 0
     private var page = 0
     private var name = ""
@@ -117,7 +117,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     private fun initView() {
-        mAdapter = HotCardAdapter(ArrayList(),this)
+        mAdapter = HotAdapter(ArrayList(),this)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
         mAdapter.onItemClickListener = this

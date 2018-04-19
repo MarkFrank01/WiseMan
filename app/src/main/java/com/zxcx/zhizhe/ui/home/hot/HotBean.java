@@ -3,7 +3,7 @@ package com.zxcx.zhizhe.ui.home.hot;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
-import com.zxcx.zhizhe.ui.search.result.subject.SubjectBean;
+import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 
 /**
  * Created by anm on 2017/12/4.

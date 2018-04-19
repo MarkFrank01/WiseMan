@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_item_classify"
-    android:layout_marginLeft="7.5dp"
-    android:layout_marginRight="7.5dp"
+    android:layout_marginLeft="6.5dp"
+    android:layout_marginRight="6.5dp"
     android:layout_marginTop="12dp"
     android:layout_width="102dp"
     android:layout_height="40dp">

@@ -49,9 +49,6 @@ class ApplyForCreation1Activity : BaseActivity() {
         ButterKnife.bind(this)
         EventBus.getDefault().register(this)
         SMSSDK.registerEventHandler(EventHandle())
-        //延迟弹出软键盘
-        Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                .subscribe { Utils.showInputMethod(et_afc_phone) }
     }
 
     override fun onBackPressed() {

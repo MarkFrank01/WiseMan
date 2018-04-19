@@ -16,6 +16,10 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
 
     var mKeyword = ""
 
+    init {
+        setHeaderAndEmpty(true)
+    }
+
     override fun convert(helper: BaseViewHolder, item: UserRankBean) {
         val title = helper.getView<TextView>(R.id.tv_item_rank_user_name)
         TextViewUtils.setTextViewColor(title, mKeyword, item.name)

@@ -115,6 +115,9 @@ class HomeFragment : BaseFragment() {
         view_home_search.setOnClickListener {
             mActivity.startActivity(SearchActivity::class.java,{})
         }
+        iv_home_search.setOnClickListener {
+            mActivity.startActivity(SearchActivity::class.java,{})
+        }
     }
 
     private fun initAppbarLayout() {

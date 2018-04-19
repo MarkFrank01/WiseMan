@@ -41,7 +41,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
 
                 ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
                 int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-                para.width = (screenWidth - ScreenUtils.dip2px(15*2) - ScreenUtils.dip2px(20*2)) / 3;
+                para.width = (screenWidth - ScreenUtils.dip2px(13*2) - ScreenUtils.dip2px(20*2)) / 3;
                 helper.itemView.setLayoutParams(para);
 
                 ClassifyCardBean CardBean = (ClassifyCardBean) item;
