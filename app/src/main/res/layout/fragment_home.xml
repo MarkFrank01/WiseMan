@@ -25,17 +25,16 @@
                 android:id="@+id/tv_home_title"
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="30dp"
                 android:text="智者"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/text_size_title_1"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <View
                 android:id="@+id/view_home_search"
                 android:background="@drawable/bg_home_search"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="22dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"

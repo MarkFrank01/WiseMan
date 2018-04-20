@@ -16,10 +16,9 @@
 
     <TextView
         android:id="@+id/tv_no_data_1"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="暂无内容"
-        android:textColor="@color/text_color_2"
-        android:textStyle="bold"
+        android:textColor="@color/text_color_3"
         android:textSize="@dimen/text_size_text_2"
         android:lineSpacingExtra="8dp"
         android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
         android:layout_marginTop="16dp"
         android:text="等你来创作"
         android:textColor="@color/button_blue"
-        android:textSize="@dimen/text_size_text_1"
+        android:textSize="@dimen/text_size_text_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

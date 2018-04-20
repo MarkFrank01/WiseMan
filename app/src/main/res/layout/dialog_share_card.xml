@@ -137,7 +137,7 @@
                         <FrameLayout
                             android:id="@+id/fl_dialog_share_card_bag"
                             android:layout_below="@id/tv_dialog_share_title"
-                            android:paddingTop="12dp"
+                            android:paddingTop="8dp"
                             android:paddingStart="0dp"
                             android:paddingEnd="10dp"
                             android:paddingBottom="12dp"

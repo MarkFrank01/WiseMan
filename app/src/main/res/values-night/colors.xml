@@ -16,6 +16,7 @@
     <color name="bg_card_bag">#151516</color>
     <color name="dialog_background">#565656</color>
     <color name="white_final">#FFFFFF</color>
+    <color name="text_card_type">#B2FFFFFF</color>
     <color name="black">#000000</color>
     <color name="background">#1D1D1E</color>
     <color name="fragment_my_background">#3C3C3D</color>

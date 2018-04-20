@@ -42,7 +42,9 @@ class InitUserInfoActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
     }
 
     override fun postSuccess(bean: UserInfoBean?) {
-        mActivity.startActivity(SelectAttentionActivity::class.java,{})
+        mActivity.startActivity(SelectAttentionActivity::class.java,{
+            it.putExtra("isInit",true)
+        })
     }
 
     override fun postFail(msg: String?) {

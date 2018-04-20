@@ -122,7 +122,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
         rv_system_message.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
         mAdapter.emptyView = emptyView
     }
 }

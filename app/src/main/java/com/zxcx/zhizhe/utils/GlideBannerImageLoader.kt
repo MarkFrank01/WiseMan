@@ -1,8 +1,12 @@
 package com.zxcx.zhizhe.utils
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.widget.ImageView
 import com.youth.banner.loader.ImageLoader
+import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.widget.CardRoundedImageView
+
 
 /**
  * Created by anm on 2018/3/19.
@@ -17,7 +21,16 @@ class GlideBannerImageLoader: ImageLoader() {
         切记不要胡乱强转！
          */
 
-        //Glide 加载图片简单用法GlideApp
+        //Glide 加载图片简单用法
         GlideApp.with(context).load(path).into(imageView)
+    }
+
+    override fun createImageView(context: Context?): ImageView {
+        val imageView = LayoutInflater.from(context).inflate(R.layout.layout_ad_image, null) as CardRoundedImageView
+        /*val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams.setMargins(0, 10, 0, 0)
+        imageView.layoutParams = layoutParams*/
+        imageView.setPadding(0,ScreenUtils.dip2px(8f),0,0)
+        return imageView
     }
 }

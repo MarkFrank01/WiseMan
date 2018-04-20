@@ -18,7 +18,6 @@ import com.zxcx.zhizhe.utils.TextViewUtils
 
 class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
 
-
     init {
         setHeaderAndEmpty(true)
         addItemType(dynamic_date, R.layout.item_dynamic_message_date)

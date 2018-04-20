@@ -140,7 +140,7 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
         rv_follow_user.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"你还没有“小粉丝”","点击创作 让更多的人知道你",R.drawable.no_data,View.OnClickListener {
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无内容","点击创作 让更多的人知道你",R.drawable.no_data,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, CreationEditorActivity::class.java)
                 startActivity(intent)

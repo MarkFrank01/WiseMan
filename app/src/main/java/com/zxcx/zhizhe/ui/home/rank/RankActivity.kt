@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
@@ -163,6 +164,28 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
                 it.putExtra("url", adUrl)
             })
         }
+        banner_rank.setPageTransformer(true,{ page: View, position: Float ->
+            if (position <= 0.0f) {
+                page.alpha = 1.0f
+                Log.e("onTransform", "position <= 0.0f ==>$position")
+                page.translationY = 0f
+                //控制停止滑动切换的时候，只有最上面的一张卡片可以点击
+                page.isClickable = true
+            } else if (position <= 2.0f) {
+                Log.e("onTransform", "position <= 3.0f ==>$position")
+                val scale = (page.width - (ScreenUtils.dip2px(10f) * position)) / page.width.toFloat()
+                //控制下面卡片的可见度
+                page.alpha = 1.0f
+                //控制停止滑动切换的时候，只有最上面的一张卡片可以点击
+                page.isClickable = false
+                page.pivotX = page.width / 2f
+                page.pivotY = page.height / 2f
+                page.scaleX = scale
+                page.scaleY = scale
+                page.translationY = - page.height * 0.5f * (1 - scale) - ScreenUtils.dip2px(8f) * position
+                page.translationX = -page.width * position
+            }
+        })
     }
 
     private fun showRank(bean: UserRankBean) {

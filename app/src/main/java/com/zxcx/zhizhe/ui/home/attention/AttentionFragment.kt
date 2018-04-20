@@ -180,7 +180,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         mAdapter.setOnLoadMoreListener(this, rv_hot_card)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无关注", "看看你喜欢什么", R.drawable.no_data, View.OnClickListener {
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "看看你喜欢什么", R.drawable.no_data, View.OnClickListener {
             mActivity.startActivity(SelectAttentionActivity::class.java,{})
         })
 

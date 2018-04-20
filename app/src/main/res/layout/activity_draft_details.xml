@@ -86,7 +86,7 @@
                     <FrameLayout
                         android:id="@+id/fl_draft_details_card_bag"
                         android:layout_below="@id/tv_draft_details_title"
-                        android:paddingTop="12dp"
+                        android:paddingTop="8dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="12dp"
@@ -104,7 +104,7 @@
                         tools:text="@string/tv_card_info"
                         android:textColor="@color/text_color_ee"
                         android:textSize="@dimen/text_size_text_3"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="10dp"
                         android:layout_below="@id/tv_draft_details_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

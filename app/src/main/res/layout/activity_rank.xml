@@ -26,10 +26,12 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll"/>
 
-        <com.youth.banner.Banner
+        <com.zxcx.zhizhe.ui.home.rank.ADBanner
             android:id="@+id/banner_rank"
             android:layout_width="match_parent"
-            android:layout_height="172dp"
+            android:layout_height="wrap_content"
+            app:indicator_width="5dp"
+            app:indicator_height="5dp"
             app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
             app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
             app:indicator_margin="5dp"
@@ -42,10 +44,9 @@
             app:layout_scrollFlags="scroll">
 
             <TextView
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="40dp"
                 android:text="本周我的榜单"
-                android:textColor="@color/text_color_2"
-                android:textStyle="bold"
+                android:textColor="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -53,7 +54,7 @@
             <RelativeLayout
                 android:id="@+id/rl_rank"
                 android:background="@drawable/bg_item_note"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:paddingTop="30dp"
                 android:paddingBottom="30dp"
                 android:paddingStart="20dp"
@@ -79,7 +80,7 @@
 
                     <TextView
                         android:id="@+id/tv_rank_user_name"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         tools:text="打印纸的规格"
                         android:textStyle="bold"
                         style="@style/tv_single"
@@ -92,7 +93,7 @@
                         android:id="@+id/tv_rank_card"
                         android:layout_below="@id/tv_rank_user_name"
                         android:drawableStart="@drawable/tv_item_rank_user_card"
-                        android:drawablePadding="5dp"
+                        android:drawablePadding="3dp"
                         tools:text="1000"
                         style="@style/tv_single"
                         android:textSize="@dimen/text_size_text_3"
@@ -105,7 +106,7 @@
                         android:layout_below="@id/tv_rank_user_name"
                         android:layout_toEndOf="@id/tv_rank_card"
                         android:drawableStart="@drawable/tv_item_rank_user_fans"
-                        android:drawablePadding="5dp"
+                        android:drawablePadding="3dp"
                         android:layout_marginStart="15dp"
                         tools:text="1000"
                         style="@style/tv_single"
@@ -119,7 +120,7 @@
                         android:layout_below="@id/tv_rank_user_name"
                         android:layout_toEndOf="@id/tv_rank_fans"
                         android:drawableStart="@drawable/tv_item_rank_user_intelligence"
-                        android:drawablePadding="5dp"
+                        android:drawablePadding="3dp"
                         android:layout_marginStart="15dp"
                         tools:text="1000"
                         style="@style/tv_single"
@@ -184,13 +185,11 @@
         <TextView
             android:id="@+id/tv_rank_more_rank"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="本周智者榜单"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_3"
-            android:textStyle="bold"
             android:drawablePadding="6dp"
             android:drawableEnd="@drawable/tv_rank_more_rank"
             android:layout_width="wrap_content"

@@ -35,20 +35,8 @@
 
         <TextView
             android:id="@+id/tv_item_card_type"
-            android:gravity="center"
             android:text="卡片"
-            android:textColor="@color/white_final"
-            android:textSize="@dimen/text_size_text_3"
-            android:background="@drawable/bg_tv_item_card_type"
-            android:layout_gravity="end"
-            android:paddingStart="7dp"
-            android:paddingEnd="7dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/tv_card_type"/>
 
         <LinearLayout
             android:layout_gravity="bottom"
@@ -67,7 +55,7 @@
                 android:transitionName="cardTitle"/>
 
             <LinearLayout
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
@@ -81,7 +69,7 @@
                 <TextView
                     android:id="@+id/tv_item_card_reade_num"
                     android:drawableStart="@drawable/tv_item_rank_user_card"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="3dp"
                     android:layout_marginStart="15dp"
                     tools:text="500"
                     style="@style/tv_single"
@@ -93,7 +81,7 @@
                 <TextView
                     android:id="@+id/tv_item_card_collect_num"
                     android:drawableStart="@drawable/tv_item_rank_user_fans"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="3dp"
                     android:layout_marginStart="15dp"
                     tools:text="500"
                     style="@style/tv_single"

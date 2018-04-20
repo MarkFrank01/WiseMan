@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zxcx.zhizhe.widget.CardRoundedImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/iv_item_card_icon"
+    tools:src="@drawable/iv_item_home_card_icon"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:scaleType="centerCrop"
+    android:transitionName="cardImage"
+    app:riv_corner_radius="6dp"
+    app:widthWeight="16"
+    app:heightWeight="9"
+    app:radius="6dp"
+    app:hasShade="true"/>

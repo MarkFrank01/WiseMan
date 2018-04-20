@@ -8,11 +8,10 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -21,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContract.View,
+class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener{
 
     private val mFollowType = 0
@@ -71,7 +70,6 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
             mPresenter.getEmptyFollowUser()
             return
         }
-        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -124,11 +122,6 @@ class FollowUserActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUser
         }else{
             mPresenter.followUser(bean.id ?: 0)
         }
-    }
-
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        mPage = 0
-        mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
     }
 
     override fun onLoadMoreRequested() {

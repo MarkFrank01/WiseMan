@@ -121,7 +121,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
         mAdapter.onItemClickListener = this
-        val view = EmptyView.getEmptyView(mActivity, "暂无相关内容", R.drawable.no_data)
+        val view = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
         mAdapter.emptyView = view
 
         rv_card_bag_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)

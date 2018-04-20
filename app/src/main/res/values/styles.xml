@@ -68,10 +68,26 @@
         <item name="android:background">@drawable/bg_card_details_card_bag</item>
         <item name="android:textColor">@color/text_color_1</item>
         <item name="android:textSize">@dimen/text_size_text_4</item>
-        <item name="android:paddingTop">2dp</item>
-        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
         <item name="android:paddingStart">6dp</item>
         <item name="android:paddingEnd">6dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="tv_card_type">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_card_type</item>
+        <item name="android:textSize">@dimen/text_size_text_3</item>
+        <item name="android:background">@drawable/bg_tv_item_card_type</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:paddingStart">7dp</item>
+        <item name="android:paddingEnd">7dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:layout_marginTop">12dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

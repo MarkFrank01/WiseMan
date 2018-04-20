@@ -28,7 +28,15 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         setContentView(R.layout.activity_select_attention)
         ButterKnife.bind(this)
         initRecyclerView()
+        initView()
         mPresenter.getClassify()
+    }
+
+    private fun initView() {
+        val isInit = intent.getBooleanExtra("isInit",false)
+        if (!isInit){
+            tv_select_attention_hint.text = "花一点点时间让我们更好的了解你"
+        }
     }
 
     override fun initStatusBar() {

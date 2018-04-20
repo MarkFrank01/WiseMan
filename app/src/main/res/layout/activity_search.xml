@@ -80,8 +80,8 @@
 
             <EditText
                 android:id="@+id/et_search"
-                android:paddingStart="8dp"
-                android:paddingEnd="0dp"
+                android:paddingStart="25dp"
+                android:paddingEnd="40dp"
                 android:gravity="center"
                 android:textSize="17sp"
                 android:textColor="@color/text_color_1"

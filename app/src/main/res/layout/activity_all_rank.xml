@@ -16,8 +16,6 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_rank_user"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_rank_user"

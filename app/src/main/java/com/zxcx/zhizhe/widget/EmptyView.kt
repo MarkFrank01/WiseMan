@@ -32,7 +32,7 @@ object EmptyView {
         emptyView.iv_no_data.setImageResource(imgRes)
 
         val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ScreenUtils.dip2px(400f)
+        val height = ScreenUtils.dip2px(350f)
         val lp = ViewGroup.LayoutParams(width,height)
         emptyView.layoutParams = lp
         return emptyView
@@ -48,7 +48,7 @@ object EmptyView {
         emptyView.setOnClickListener(listener)
 
         val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ScreenUtils.dip2px(400f)
+        val height = ScreenUtils.dip2px(350f)
         val lp = ViewGroup.LayoutParams(width,height)
         emptyView.layoutParams = lp
         return emptyView

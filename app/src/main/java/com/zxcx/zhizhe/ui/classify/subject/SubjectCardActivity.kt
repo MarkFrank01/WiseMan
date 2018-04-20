@@ -78,7 +78,7 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         rv_subject.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_subject.adapter = mCardAdapter
         rv_subject.addItemDecoration(HomeCardItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无搜索用户",R.drawable.no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
         mCardAdapter.emptyView = emptyView
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         header.findViewById<TextView>(R.id.tv_header_title).text = name

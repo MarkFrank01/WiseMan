@@ -88,7 +88,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         rv_creation.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_creation.adapter = mAdapter
         rv_creation.addItemDecoration(FansItemDecoration())
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无审核作品",R.drawable.no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
         mAdapter.emptyView = emptyView
     }
 }
