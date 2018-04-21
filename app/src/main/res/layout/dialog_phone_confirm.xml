@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/tv_dialog_phone_confirm_title"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
         android:text="@string/tv_dialog_phone_confirm_title"
         android:textStyle="bold"
-        android:textColor="@color/text_color_1"
+        android:textColor="@color/text_color_2"
         android:textSize="@dimen/text_size_text_1"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/tv_dialog_phone_confirm"
         android:layout_below="@id/tv_dialog_phone_confirm_title"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="12dp"
@@ -45,8 +45,8 @@
             android:textColor="@color/text_color_1"
             android:textSize="17sp"
             android:paddingStart="20dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="18dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
@@ -58,8 +58,8 @@
             android:textColor="@color/button_blue"
             android:textSize="17sp"
             android:paddingEnd="20dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="18dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="16dp"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>

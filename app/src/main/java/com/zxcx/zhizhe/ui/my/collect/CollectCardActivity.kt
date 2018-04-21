@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsAdapter
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
@@ -146,7 +145,6 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
         mAdapter.onItemChildClickListener = this
         rv_collect_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_collect_card.adapter = mAdapter
-        rv_collect_card.addItemDecoration(HomeCardItemDecoration())
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
         mAdapter.addHeaderView(header)

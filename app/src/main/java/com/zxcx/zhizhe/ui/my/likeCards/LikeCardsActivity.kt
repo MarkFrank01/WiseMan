@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.startActivity
@@ -142,7 +141,6 @@ class LikeCardsActivity : MvpActivity<LikeCardsPresenter>(), LikeCardsContract.V
         mAdapter.onItemChildClickListener = this
         rv_like_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_like_card.adapter = mAdapter
-        rv_like_card.addItemDecoration(HomeCardItemDecoration())
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
         mAdapter.addHeaderView(header)

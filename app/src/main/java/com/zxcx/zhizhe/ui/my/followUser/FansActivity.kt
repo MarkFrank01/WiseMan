@@ -8,11 +8,10 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -24,7 +23,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContract.View,
+class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener{
 
     private val mFollowType = 1
@@ -65,7 +64,6 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
     override fun getEmptyFollowUserSuccess(list: MutableList<FollowUserBean>) {}
 
     override fun getDataSuccess(list: MutableList<FollowUserBean>) {
-        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
         } else {
@@ -122,11 +120,6 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         }
     }
 
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        mPage = 0
-        mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
-    }
-
     override fun onLoadMoreRequested() {
         mPresenter.getFollowUser(mFollowType,mPage,mPageSize)
     }
@@ -139,7 +132,6 @@ class FansActivity : RefreshMvpActivity<FollowUserPresenter>(), FollowUserContra
         mAdapter.setOnLoadMoreListener(this,rv_follow_user)
         rv_follow_user.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_follow_user.adapter = mAdapter
-        rv_follow_user.addItemDecoration(FansItemDecoration())
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无内容","点击创作 让更多的人知道你",R.drawable.no_data,View.OnClickListener {
             if (ZhiZheUtils.isWriter(mActivity)) {
                 val intent = Intent(mActivity, CreationEditorActivity::class.java)

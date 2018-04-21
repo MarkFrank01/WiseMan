@@ -118,8 +118,8 @@
                     android:layout_marginTop="25dp"
                     android:layout_gravity="center_horizontal"
                     app:box="4"
-                    app:box_bg_normal="@drawable/verification_edit_bg_normal"
-                    app:box_bg_focus="@drawable/verification_edit_bg_focus"
+                    app:box_bg_normal="@drawable/verification_edit_bg"
+                    app:box_bg_focus="@drawable/verification_edit_bg"
                     app:child_h_padding="12dp"
                     android:layout_marginBottom="18dp"/>
 

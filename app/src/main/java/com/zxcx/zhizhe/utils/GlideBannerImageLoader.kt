@@ -30,7 +30,7 @@ class GlideBannerImageLoader: ImageLoader() {
         /*val layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.setMargins(0, 10, 0, 0)
         imageView.layoutParams = layoutParams*/
-        imageView.setPadding(0,ScreenUtils.dip2px(8f),0,0)
+//        imageView.setPadding(0,ScreenUtils.dip2px(8f),0,0)
         return imageView
     }
 }

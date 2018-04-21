@@ -1,67 +1,52 @@
 package com.zxcx.zhizhe.ui.my.intelligenceValue
 
-import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import com.gyf.barlibrary.ImmersionBar
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.WebViewUtils
 import kotlinx.android.synthetic.main.activity_intelligence_value.*
-import java.util.*
 
-class IntelligenceValueActivity : MvpActivity<IntelligenceValuePresenter>(), IntelligenceValueContract.View {
+class IntelligenceValueActivity : BaseActivity(){
 
-    private lateinit var mAdapter: IntelligenceValueAdapter
+    private var mWebView: WebView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intelligence_value)
-        initView()
-        mPresenter.getIntelligenceValue()
-        if (Constants.IS_NIGHT){
-            val drawable = ColorDrawable(ContextCompat.getColor(mActivity, R.color.opacity_30))
-            fl_intelligence_value.foreground = drawable
-        }
+        initWebView()
     }
 
-    override fun initStatusBar() {
-        ImmersionBar.with(this)
-                .transparentBar()
-                .init()
-    }
-
-    override fun createPresenter(): IntelligenceValuePresenter {
-        return IntelligenceValuePresenter(this)
-    }
-
-    override fun getDataSuccess(bean: IntelligenceValueBean) {
-        mAdapter.setNewData(bean.missionVOList)
-        tv_intelligence_value_total.text = bean.totalValue.toString()
-        tv_intelligence_value_today.text = bean.todayValue.toString()
-        rpb_intelligence_value_progress.setProgress((bean.todayAchieveMissionCount!! * 100/ bean.todayAllMissionCount!!).toFloat())
-    }
-
-    private fun initView() {
-        iv_intelligence_value_back.setOnClickListener {
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
             onBackPressed()
         }
-        tv_intelligence_value_help.setOnClickListener {
+    }
 
-            val intent = Intent(this, WebViewActivity::class.java)
-            intent.putExtra("title", "帮助")
-            if(Constants.IS_NIGHT){
-                intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_dark_url))
-            }else {
-                intent.putExtra("url", getString(R.string.base_url) + getString(R.string.intelligence_value_help_url))
+    private fun initWebView() {
+        mWebView = WebViewUtils.getWebView(this)
+        fl_intelligence_value.addView(mWebView,0)
+        mWebView?.loadUrl("http://192.168.1.153:8043/view/intelligence")
+        mWebView?.webViewClient = object : WebViewClient() {
+
+            override fun onPageFinished(view: WebView, url: String) {
+                val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
+                mWebView?.evaluateJavascript("setTimeStampAndToken('$token');",null)
             }
-            startActivity(intent)
         }
-        mAdapter = IntelligenceValueAdapter(ArrayList())
-        rv_intelligence_value.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_intelligence_value.adapter = mAdapter
+    }
+
+    override fun onDestroy() {
+        mWebView?.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
+        mWebView?.clearHistory()
+
+        (mWebView?.parent as ViewGroup).removeView(mWebView)
+        mWebView?.destroy()
+        mWebView = null
+        super.onDestroy()
     }
 }

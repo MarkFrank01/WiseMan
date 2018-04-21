@@ -114,7 +114,6 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
         mAdapter.mListener = this
         rv_note.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_note.adapter = mAdapter
-        rv_note.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容", R.drawable.no_data)
         mAdapter.emptyView = emptyView
         val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)

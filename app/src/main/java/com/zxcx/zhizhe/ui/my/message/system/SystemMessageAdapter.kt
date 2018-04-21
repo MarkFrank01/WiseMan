@@ -31,29 +31,29 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
                 helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_1))
             }
             message_card_reject -> {
                 helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_2))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_3))
             }
             message_apply_pass -> {
                 helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"马上创作")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_1))
             }
             message_apply_reject -> {
                 helper.setGone(R.id.tv_item_system_message_value,false)
                 helper.setText(R.id.tv_item_system_message_action,"申请创作")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_1))
             }
             message_rank -> {
                 helper.setText(R.id.tv_item_system_message_value,
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
                 helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看榜单")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_1))
                 setRankContent(helper, item)
             }
             message_recommend -> {
@@ -61,7 +61,7 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
                         mContext.getString(R.string.tv_item_message_value,item.intelligenceValue))
                 helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.setText(R.id.tv_item_system_message_action,"查看卡片")
-                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.button_blue))
+                helper.setTextColor(R.id.tv_item_system_message_title,ContextCompat.getColor(mContext,R.color.text_color_1))
             }
         }
     }

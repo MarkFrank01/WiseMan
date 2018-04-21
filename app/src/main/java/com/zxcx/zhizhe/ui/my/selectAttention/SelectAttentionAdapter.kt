@@ -29,13 +29,9 @@ class SelectAttentionAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAd
                 val bean = item as ClassifyBean
                 val title = helper.getView<TextView>(R.id.tv_item_classify_classify)
                 title.text = bean.title
-                val paint = title.paint
-                paint.isFakeBoldText = true
-                if (helper.adapterPosition == 0){
-                    val lp = title.layoutParams as LinearLayout.LayoutParams
-                    lp.setMargins(0, ScreenUtils.dip2px(16f), 0, 0)
-                    title.layoutParams = lp
-                }
+                val lp = title.layoutParams as LinearLayout.LayoutParams
+                lp.setMargins(0, ScreenUtils.dip2px(if (helper.adapterPosition == 0) 16f else 40f), 0, 0)
+                title.layoutParams = lp
             }
             ClassifyCardBean.TYPE_CARD_BAG -> {
                 helper.addOnClickListener(R.id.fl_item_select_card_bag)
@@ -44,9 +40,9 @@ class SelectAttentionAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAd
                 para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 3
                 helper.itemView.layoutParams = para
 
-                val CardBean = item as ClassifyCardBean
-                helper.setText(R.id.cb_item_select_card_bag, CardBean.name)
-                helper.setChecked(R.id.cb_item_select_card_bag, CardBean.isChecked)
+                val cardBean = item as ClassifyCardBean
+                helper.setText(R.id.cb_item_select_card_bag, cardBean.name)
+                helper.setChecked(R.id.cb_item_select_card_bag, cardBean.isChecked)
             }
         }
     }

@@ -10,13 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
-import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
@@ -31,7 +30,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
+class HotFragment : MvpFragment<HotPresenter>(), HotContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
@@ -41,7 +40,6 @@ class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_hot, container, false)
-        mRefreshLayout = root.findViewById(R.id.refresh_layout)
         val loadSir = LoadSir.Builder()
                 .addCallback(HomeLoadingCallback())
                 .addCallback(LoginTimeoutCallback())
@@ -86,13 +84,9 @@ class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
     fun onMessageEvent(event: HomeClickRefreshEvent) {
         if (!mHidden) {
             rv_hot_card.scrollToPosition(0)
-            mRefreshLayout.autoRefresh()
+            mPage = 0
+            getHotCard()
         }
-    }
-
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        mPage = 0
-        getHotCard()
     }
 
     override fun onLoadMoreRequested() {
@@ -102,7 +96,6 @@ class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
     override fun getDataSuccess(list: List<HotBean>) {
         //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         loadService.showSuccess()
-        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
             rv_hot_card.scrollToPosition(0)
@@ -110,7 +103,7 @@ class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
             mAdapter.addData(list)
         }
         mPage++
-        if (list.size == 0) {
+        if (list.isEmpty()) {
             mAdapter.loadMoreEnd(false)
         } else {
             mAdapter.loadMoreComplete()

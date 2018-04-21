@@ -16,7 +16,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
@@ -125,7 +124,6 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         mAdapter.mListener = this
         rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_read_card.adapter = mAdapter
-        rv_read_card.addItemDecoration(HomeCardItemDecoration())
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
         header.findViewById<TextView>(R.id.tv_header_title).text = "阅读"
         mAdapter.addHeaderView(header)

@@ -17,7 +17,7 @@
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="250dp"
             android:minHeight="40dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
@@ -28,14 +28,15 @@
                 android:text="智者"
                 android:textColor="@color/text_color_1"
                 android:textSize="@dimen/text_size_title_1"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <View
                 android:id="@+id/view_home_search"
                 android:background="@drawable/bg_home_search"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="22dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_gravity="center"
@@ -77,12 +78,11 @@
             <TextView
                 android:id="@+id/tv_home_type"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="2dp"
                 android:layout_marginStart="20dp"
                 android:text="推荐"
                 android:textColor="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_3"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"/>

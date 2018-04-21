@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.startActivity
@@ -77,7 +76,6 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         mCardAdapter.setOnLoadMoreListener(this,rv_subject)
         rv_subject.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_subject.adapter = mCardAdapter
-        rv_subject.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
         mCardAdapter.emptyView = emptyView
         val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)

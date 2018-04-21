@@ -10,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.home.rank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
@@ -121,7 +120,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         mAdapter.setOnLoadMoreListener(this,rv_system_message)
         rv_system_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_system_message.adapter = mAdapter
-        rv_system_message.addItemDecoration(HomeCardItemDecoration())
+        rv_system_message.addItemDecoration(SystemMessageItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
         mAdapter.emptyView = emptyView
     }

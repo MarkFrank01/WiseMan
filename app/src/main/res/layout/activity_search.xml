@@ -34,7 +34,6 @@
                 android:layout_marginStart="20dp"
                 android:text="热门搜索"
                 android:textColor="@color/text_color_3"
-                android:textStyle="bold"
                 android:textSize="@dimen/text_size_text_3"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -46,8 +45,6 @@
                 android:src="@drawable/common_delete"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

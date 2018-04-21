@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@color/fragment_my_background"
+    android:background="@color/background"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:gravity="center"
-        android:hint="有什么话想对智者说呢？"
+        android:hint="   有什么话想对智者说呢？"
         android:maxLength="600"
         android:maxLines="4"
         android:padding="20dp"

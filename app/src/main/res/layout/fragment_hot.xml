@@ -8,17 +8,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_hot_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_hot_card"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipChildren="false"
-                tools:listitem="@layout/item_card"/>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:clipChildren="false"
+            tools:listitem="@layout/item_card"/>
 </FrameLayout>

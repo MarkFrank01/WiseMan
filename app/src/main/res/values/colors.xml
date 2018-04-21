@@ -21,7 +21,6 @@
     <color name="black">#000000</color>
     <color name="background">#FFFFFF</color>
     <color name="background_final">#FFFFFF</color>
-    <color name="fragment_my_background">#FFFFFF</color>
     <color name="line">#EEEEEE</color>
     <color name="strip">#F6F7F9</color>
     <color name="toolbar_line">#EEEEEE</color>

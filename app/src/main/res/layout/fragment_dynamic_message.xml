@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:id="@+id/ll_dynamic_message_follow"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:orientation="vertical"
             android:background="@drawable/bg_item_note"
             android:layout_width="match_parent"
@@ -37,6 +37,7 @@
                 android:id="@+id/tv_dynamic_message_follow"
                 android:layout_below="@id/tv_dynamic_message_title_1"
                 android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="50dp"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/tv_dynamic_message_no_data"
@@ -72,6 +73,7 @@
                 android:id="@+id/tv_dynamic_message_like"
                 android:layout_below="@id/tv_dynamic_message_title_2"
                 android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="50dp"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/tv_dynamic_message_no_data"
@@ -107,6 +109,7 @@
                 android:id="@+id/tv_dynamic_message_collect"
                 android:layout_below="@id/tv_dynamic_message_title_3"
                 android:layout_margin="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="50dp"
                 android:lineSpacingExtra="10dp"
                 android:text="@string/tv_dynamic_message_no_data"

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
@@ -28,7 +28,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private val imageList: MutableList<String> = mutableListOf()
     private var mUserId : Int = 0
-    private lateinit var mRankAdapter : RankAdapter
+    private lateinit var mAdapter : RankAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +89,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
 
     override fun getDataSuccess(list: List<UserRankBean>) {
         loadService.showSuccess()
-        mRankAdapter.setNewData(list)
+        mAdapter.setNewData(list)
         initView()
     }
 
@@ -138,11 +138,12 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
     }
 
     private fun initRecyclerView() {
-        rv_rank.isFocusable = false
-        mRankAdapter = RankAdapter(ArrayList())
-        mRankAdapter.onItemClickListener = this
+        mAdapter = RankAdapter(ArrayList())
+        mAdapter.onItemClickListener = this
         rv_rank.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_rank.adapter = mRankAdapter
+        rv_rank.adapter = mAdapter
+        val footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_rank, null)
+        mAdapter.addFooterView(footer)
     }
 
     private fun initView() {
@@ -164,7 +165,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
                 it.putExtra("url", adUrl)
             })
         }
-        banner_rank.setPageTransformer(true,{ page: View, position: Float ->
+        /*banner_rank.setPageTransformer(true,{ page: View, position: Float ->
             if (position <= 0.0f) {
                 page.alpha = 1.0f
                 Log.e("onTransform", "position <= 0.0f ==>$position")
@@ -185,7 +186,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
                 page.translationY = - page.height * 0.5f * (1 - scale) - ScreenUtils.dip2px(8f) * position
                 page.translationX = -page.width * position
             }
-        })
+        })*/
     }
 
     private fun showRank(bean: UserRankBean) {

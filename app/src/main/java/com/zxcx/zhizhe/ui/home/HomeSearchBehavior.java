@@ -48,7 +48,7 @@ public class HomeSearchBehavior extends CoordinatorLayout.Behavior<ImageView> {
             startX = (int) (dependency.getWidth() - maxChildWidth - ScreenUtils.dip2px(24));
         //计算出搜索按钮的起始y坐标
         if (startY == 0)
-            startY = (int) (dependency.getBottom() / 2 - maxChildWidth / 2 - ScreenUtils.dip2px(7));
+            startY = (int) (dependency.getBottom() / 2 - maxChildWidth / 2 - ScreenUtils.dip2px(5));
 
         //计算出appbar已经变化距离的百分比，起始位置y减去当前位置y，然后除以最大距离
         float expandedPercentageFactor = (appbarStartPoint - dependency.getBottom()) * 1.0f /

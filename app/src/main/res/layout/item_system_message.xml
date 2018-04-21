@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/bg_item_note"
     android:orientation="vertical"
-    android:layout_marginBottom="15dp"
+    android:layout_marginBottom="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/tv_item_system_message_time"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="2dp"
         android:layout_marginStart="20dp"
         tools:text="2017/11/12 18:06"
         android:textColor="@color/text_color_d2"
@@ -35,7 +35,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         tools:text="你创作的卡片《hifi数码常识》已审核通过，感谢你对智者内容的分享和支持。"
-        android:textColor="@color/text_color_2"
+        android:textColor="@color/text_color_3"
         android:textSize="@dimen/text_size_text_2"
         android:lineSpacingExtra="6dp"
         android:layout_width="wrap_content"
@@ -58,13 +58,13 @@
 
         <TextView
             android:id="@+id/tv_item_system_message_action"
-            android:drawableEnd="@drawable/common_into"
+            android:drawableEnd="@drawable/tv_item_system_message_action"
             tools:text="查看卡片"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_text_3"
             android:textStyle="bold"
             android:paddingTop="21dp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="12dp"
             android:paddingStart="10dp"
             android:paddingEnd="20dp"
             android:gravity="center_vertical|end"

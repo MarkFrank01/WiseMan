@@ -42,7 +42,7 @@
         <TextView
             android:id="@+id/tv_prompt"
             android:paddingTop="8dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="28dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
 
         <TextView
             android:paddingTop="8dp"
-            android:paddingBottom="20dp"
+            android:paddingBottom="28dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
