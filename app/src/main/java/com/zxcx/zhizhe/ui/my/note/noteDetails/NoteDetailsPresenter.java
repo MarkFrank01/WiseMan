@@ -28,16 +28,6 @@ public class NoteDetailsPresenter extends BasePresenter<NoteDetailsContract.View
     }
 
     @Override
-    public void postSuccess() {
-        mView.postSuccess();
-    }
-
-    @Override
-    public void postFail(String msg) {
-        mView.postFail(msg);
-    }
-
-    @Override
     public void showLoading() {
         mView.showLoading();
     }

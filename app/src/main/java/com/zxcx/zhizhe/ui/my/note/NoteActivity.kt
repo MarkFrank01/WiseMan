@@ -7,9 +7,9 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.CardNoteDetailsActivity
@@ -20,6 +20,9 @@ import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_note.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by anm on 2017/12/14.
@@ -33,6 +36,7 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
+        EventBus.getDefault().register(this)
         initView()
         initLoadSir()
         mPresenter.getNoteList(mPage,mPageSize)
@@ -44,6 +48,17 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 
     override fun createPresenter(): NotePresenter {
         return NotePresenter(this)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        mPage = 0
+        mPresenter.getNoteList(mPage,mPageSize)
     }
 
     override fun getDataSuccess(list: List<NoteBean>) {

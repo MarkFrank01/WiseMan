@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.passed
+package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
@@ -6,7 +6,7 @@ import java.util.*
 
 data class CreationBean(
         @SerializedName("id") var id: Int?,
-        @SerializedName("articleType") var cardType: Int?,
+        @SerializedName("type") var cardType: Int?,
         @SerializedName("collectingCount") var collectNum: Int?,
         @SerializedName("pv") var readNum: Int?,
         @SerializedName("collectionName") var cardBagName: String?,

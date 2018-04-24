@@ -143,7 +143,6 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
     }
 
     fun gotoSearchResult(keyword: String) {
-        et_search.setText(keyword)
         mDisposable = Flowable.just(keyword)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .filter { s -> !mHistoryList.contains(s) }

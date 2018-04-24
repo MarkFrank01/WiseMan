@@ -96,7 +96,10 @@ class ApplyForCreation1Activity : BaseActivity() {
             SMSSDK.getVerificationCode("86", et_afc_phone.text.toString())
         }
 
-        iv_afc_phone_clear.setOnClickListener { et_afc_phone.setText("") }
+        iv_afc_phone_clear.setOnClickListener {
+            et_afc_phone.setText("")
+            Utils.showInputMethod(et_afc_phone)
+        }
 
         et_afc_phone.afterTextChanged {
             val isPhone = checkPhone()

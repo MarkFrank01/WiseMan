@@ -13,7 +13,6 @@ import butterknife.ButterKnife
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.CommitNoteReviewEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -21,7 +20,6 @@ import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_card_note_details.*
-import org.greenrobot.eventbus.EventBus
 
 class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetailsContract.View {
 
@@ -76,16 +74,6 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
         withCardId = bean.withCardId
         imageUrl = bean.imageUrl
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_note_details)
-    }
-
-    override fun postSuccess() {
-        EventBus.getDefault().post(CommitNoteReviewEvent(noteId))
-        onBackPressed()
-        toastShow("提交成功")
-    }
-
-    override fun postFail(msg: String) {
-        toastShow(msg)
     }
 
     private fun initData() {

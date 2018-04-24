@@ -13,7 +13,7 @@ import butterknife.ButterKnife
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
+import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -72,7 +72,12 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         return RejectDetailsPresenter(this)
     }
 
-    override fun onReload(v: View) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveDraftSuccessEvent) {
+        onReload(null)
+    }
+
+    override fun onReload(v: View?) {
         mPresenter.getRejectDetails(cardId)
         mWebView?.reload()
     }
@@ -93,14 +98,12 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     }
 
     override fun postSuccess() {
+        toastShow("删除成功")
+        onBackPressed()
     }
 
     override fun postFail(msg: String?) {
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
-        finish()
+        toastError(msg)
     }
 
     private fun initData() {
@@ -191,9 +194,13 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         iv_reject_details_edit.setOnClickListener {
             startActivity(CreationEditorActivity::class.java,{
                 it.putExtra("cardId", cardId)
+                it.putExtra("type", 2)
             })
         }
-        //todo 草稿功能
+
+        iv_reject_details_delete.setOnClickListener {
+            mPresenter.deleteCard(cardId)
+        }
     }
 
     private fun initLoadSir() {

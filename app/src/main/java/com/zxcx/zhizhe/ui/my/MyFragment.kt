@@ -191,7 +191,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
         iv_message_red_point.visibility = View.GONE
         tv_my_nick_name.text = "注册/登录"
         tv_my_nick_name.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue))
-        tv_my_info.text = "登录看谁在关注你"
+        tv_my_info.text = "登录后收藏喜欢的知识"
         tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_3))
         iv_my_head.setImageResource(R.drawable.iv_my_head_placeholder)
         ll_my_fans.visibility = View.GONE

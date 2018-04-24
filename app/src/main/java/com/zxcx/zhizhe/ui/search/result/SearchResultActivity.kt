@@ -10,10 +10,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
@@ -34,7 +33,7 @@ import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.activity_search_result.*
 import java.util.*
 
-class SearchResultActivity : RefreshMvpActivity<SearchResultPresenter>(), SearchResultContract.View,
+class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
@@ -66,11 +65,6 @@ class SearchResultActivity : RefreshMvpActivity<SearchResultPresenter>(), Search
         search()
     }
 
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        mPage = 0
-        search()
-    }
-
     override fun onLoadMoreRequested() {
         search()
     }
@@ -79,7 +73,6 @@ class SearchResultActivity : RefreshMvpActivity<SearchResultPresenter>(), Search
         //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         mAdapter.mKeyword = keyword
         loadService.showSuccess()
-        mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             mAdapter.setNewData(list)
             rv_search_result.scrollToPosition(0)
@@ -244,6 +237,6 @@ class SearchResultActivity : RefreshMvpActivity<SearchResultPresenter>(), Search
     }
 
     private fun initView() {
-        loadService = LoadSir.getDefault().register(mRefreshLayout, this)
+        loadService = LoadSir.getDefault().register(rv_search_result, this)
     }
 }

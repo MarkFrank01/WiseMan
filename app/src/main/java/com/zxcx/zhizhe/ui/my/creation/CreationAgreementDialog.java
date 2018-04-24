@@ -122,7 +122,7 @@ public class CreationAgreementDialog extends BaseDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        startActivity(new Intent(getActivity(), ApplyForCreation1Activity.class));
+        startActivity(new Intent(getActivity(), ApplyForCreation2Activity.class));
         dismiss();
     }
 }

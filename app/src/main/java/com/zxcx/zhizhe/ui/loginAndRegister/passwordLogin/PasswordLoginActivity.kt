@@ -66,7 +66,10 @@ class PasswordLoginActivity : MvpActivity<PasswordLoginPresenter>(), PasswordLog
     override fun setListener() {
         iv_login_close.setOnClickListener { onBackPressed() }
 
-        iv_login_phone_clear.setOnClickListener { et_login_phone.setText("") }
+        iv_login_phone_clear.setOnClickListener {
+            et_login_phone.setText("")
+            Utils.showInputMethod(et_login_phone)
+        }
 
         et_login_phone.afterTextChanged {
             val isPhone = checkPhone()
@@ -86,6 +89,7 @@ class PasswordLoginActivity : MvpActivity<PasswordLoginPresenter>(), PasswordLog
             }else{
                 et_login_password.transformationMethod = PasswordTransformationMethod.getInstance()
             }
+            Utils.showInputMethod(et_login_password)
         }
 
         tv_login_login.setOnClickListener {

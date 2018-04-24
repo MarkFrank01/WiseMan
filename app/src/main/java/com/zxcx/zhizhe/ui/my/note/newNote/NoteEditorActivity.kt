@@ -13,6 +13,7 @@ import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -23,6 +24,7 @@ import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
+import org.greenrobot.eventbus.EventBus
 
 class NoteEditorActivity : BaseActivity(),
         OSSDialog.OSSUploadListener , GetPicBottomDialog.GetPicDialogListener{
@@ -44,15 +46,16 @@ class NoteEditorActivity : BaseActivity(),
     }
 
     private fun initEditor() {
-//        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
-        val url = "http://192.168.1.153:8043/view/NoteEditor"
+        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+//        val url = "http://192.168.1.153:8043/view/NoteEditor"
         editor.url = url
         noteId = intent.getIntExtra("noteId", 0)
-        if (noteId != 0) {
-            editor.setNoteId(noteId)
-        }
         val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
-        editor.setTimeStampAndToken(token)
+        if (noteId != 0) {
+            editor.noteReedit(noteId,token)
+        }else {
+            editor.setTimeStampAndToken(token)
+        }
     }
 
     override fun setListener() {
@@ -114,6 +117,7 @@ class NoteEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun saveSuccess(){
         toastShow("保存成功")
+        EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
         finish()
     }
 

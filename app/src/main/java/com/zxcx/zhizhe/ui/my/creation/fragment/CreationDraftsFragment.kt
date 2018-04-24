@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.passed
+package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,19 +11,25 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
-class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
+class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
-    private val mPassType = 0
+    private val mPassType = 3
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: ReviewCreationAdapter
 
@@ -34,12 +40,30 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mRefreshLayout = refresh_layout
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         initRecyclerView()
         mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     override fun createPresenter(): CreationPresenter {
         return CreationPresenter(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveDraftSuccessEvent) {
+        mPage = 0
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: CommitCardReviewEvent) {
+        mPage = 0
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
     }
 
     override fun getDataSuccess(list: List<CreationBean>) {
@@ -74,10 +98,13 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
                 Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-        val intent = Intent(mActivity,ReviewDetailsActivity::class.java)
+        val intent = Intent(mActivity, DraftDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
-        startActivity(intent,bundle)
+        intent.putExtra("imageUrl", bean.imageUrl)
+        intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
+        intent.putExtra("author", bean.author)
+        mActivity.startActivity(intent, bundle)
     }
 
     private fun initRecyclerView() {

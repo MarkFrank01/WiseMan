@@ -68,18 +68,12 @@
 
     </LinearLayout>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_layout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_search_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_search_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipChildren="false"
-            tools:listitem="@layout/item_search_result"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        tools:listitem="@layout/item_search_result"/>
 
 
 </LinearLayout>

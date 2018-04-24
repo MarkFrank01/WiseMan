@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="parallax"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/ll_home_tab"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
@@ -96,6 +96,7 @@
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tl_home"
+                    android:layout_centerHorizontal="true"
                     app:tabIndicatorColor="@color/translate"
                     app:tabSelectedTextColor="@color/translate"
                     app:tabBackground="@color/translate"
@@ -104,7 +105,16 @@
                     android:layout_height="40dp">
                 </android.support.design.widget.TabLayout>
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_attention_add"
+                    android:visibility="gone"
+                    android:layout_marginStart="20dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/iv_attention_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 

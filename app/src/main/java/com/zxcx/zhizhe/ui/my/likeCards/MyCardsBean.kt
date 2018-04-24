@@ -6,7 +6,7 @@ import java.util.*
 
 class MyCardsBean(
         @SerializedName("id") var id: Int = 0,
-        @SerializedName("articleType") var cardType: Int = 0,
+        @SerializedName("type") var cardType: Int = 0,
         @SerializedName("collectingCount") var collectNum: Int = 0,
         @SerializedName("pv") var readNum: Int = 0,
         @SerializedName("titleImage") var imageUrl: String = "",

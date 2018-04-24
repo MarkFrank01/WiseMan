@@ -22,7 +22,7 @@
         android:visibility="gone"
         android:layout_marginBottom="-5dp"
         android:layout_marginLeft="-5dp"
-        android:src="@drawable/red_point"
+        android:src="@drawable/point_red"
         android:layout_above="@id/tv_tab_message"
         android:layout_toRightOf="@id/tv_tab_message"
         android:layout_width="8dp"

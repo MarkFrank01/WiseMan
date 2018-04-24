@@ -60,7 +60,6 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
             }
         }
         mAdapter.notifyDataSetChanged()
-        checkNext()
     }
 
     override fun postSuccess() {
@@ -87,7 +86,6 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
                 mCheckedList.remove(bean)
             }
         }
-        checkNext()
     }
 
     override fun setListener() {
@@ -106,7 +104,6 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
             }
             mPresenter.changeAttentionList(idList)
         }
-        mTvStart.isEnabled = false
 
         mAdapter = SelectAttentionAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
@@ -124,9 +121,5 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         rv_select_attention.adapter = mAdapter
         rv_select_attention.layoutManager = manager
         rv_select_attention.addItemDecoration(ClassifyItemDecoration())
-    }
-
-    private fun checkNext() {
-        mTvStart.isEnabled = mCheckedList.size > 0
     }
 }

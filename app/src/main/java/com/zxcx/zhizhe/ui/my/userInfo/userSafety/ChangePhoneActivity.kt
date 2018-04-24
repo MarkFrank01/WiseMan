@@ -142,7 +142,10 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
             SMSSDK.getVerificationCode("86", et_change_phone_phone.text.toString())
         }
 
-        iv_change_phone_phone_clear.setOnClickListener { et_change_phone_phone.setText("") }
+        iv_change_phone_phone_clear.setOnClickListener {
+            et_change_phone_phone.setText("")
+            Utils.showInputMethod(et_change_phone_phone)
+        }
 
         //在添加监听前初始化手机号
        phone = SharedPreferencesUtil.getString(SVTSConstants.phone, "")
@@ -207,9 +210,9 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
                         val des = `object`.get("detail").asString//错误描述
                         val status = `object`.get("status").asInt//错误代码
                         when (status) {
-                            457 -> toastShow("手机号格式错误!")
-                            463, 464, 465, 477, 478 -> toastShow("获取验证码次数频繁，请稍后重试")
-                            else -> toastShow(des)
+                            457 -> toastError("手机号格式错误!")
+                            463, 464, 465, 477, 478 -> toastError("获取验证码次数频繁，请稍后重试")
+                            else -> toastError(des)
                         }
                     } catch (e: Exception) {
                         //do something

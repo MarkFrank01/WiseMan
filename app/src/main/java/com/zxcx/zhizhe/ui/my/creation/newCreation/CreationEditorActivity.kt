@@ -13,6 +13,8 @@ import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -23,6 +25,7 @@ import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
+import org.greenrobot.eventbus.EventBus
 
 class CreationEditorActivity : BaseActivity(),
         OSSDialog.OSSUploadListener , GetPicBottomDialog.GetPicDialogListener{
@@ -44,15 +47,17 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     private fun initEditor() {
-//        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
-        val url = "http://192.168.1.153:8043/view/mobile-editor"
+        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
+//        val url = "http://192.168.1.153:8043/view/mobile-editor"
         editor.url = url
         cardId = intent.getIntExtra("cardId", 0)
-        if (cardId != 0) {
-            editor.setCardId(cardId)
-        }
+        val type = intent.getIntExtra("type", 0)
         val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
-        editor.setTimeStampAndToken(token)
+        if (cardId != 0) {
+            editor.articleReedit(cardId,token,type)
+        }else{
+            editor.setTimeStampAndToken(token)
+        }
     }
 
     override fun setListener() {
@@ -144,12 +149,14 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun saveSuccess(){
         toastShow("保存草稿成功")
+        EventBus.getDefault().post(SaveDraftSuccessEvent())
         finish()
     }
 
     @JavascriptInterface
     fun commitSuccess(){
         toastShow("提交审核成功")
+        EventBus.getDefault().post(CommitCardReviewEvent())
         finish()
     }
 

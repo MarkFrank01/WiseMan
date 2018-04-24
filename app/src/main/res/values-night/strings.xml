@@ -1,6 +1,9 @@
 <resources>
     <string name="agreement_url">/user-agreement-dark.html</string>
-    <string name="note_editor_url">/view/zzeditor-dark</string>
+    <string name="creation_agreement_url">/create-protocol.html</string>
+    <string name="note_editor_url">/view/NoteEditorDark</string>
+    <string name="creation_editor_url">/view/mobile-editor-dark</string>
+    <string name="intelligence_url">/view/intelligenceDark</string>
     <string name="help_1_url">/help/help1-dark.html</string>
     <string name="help_2_url">/help/help2-dark.html</string>
     <string name="help_3_url">/help/help3-dark.html</string>

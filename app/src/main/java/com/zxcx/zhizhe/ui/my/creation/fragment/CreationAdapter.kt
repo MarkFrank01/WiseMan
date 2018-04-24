@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.passed
+package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter

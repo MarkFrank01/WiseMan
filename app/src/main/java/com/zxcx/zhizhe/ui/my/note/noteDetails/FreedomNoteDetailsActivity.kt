@@ -12,6 +12,7 @@ import butterknife.ButterKnife
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.BaseActivity
@@ -22,6 +23,9 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.WebViewUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_freedom_note_details.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class FreedomNoteDetailsActivity : BaseActivity() {
 
@@ -37,6 +41,7 @@ class FreedomNoteDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_freedom_note_details)
         ButterKnife.bind(this)
+        EventBus.getDefault().register(this)
 
         initData()
         initView()
@@ -47,6 +52,7 @@ class FreedomNoteDetailsActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
         mWebView?.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
         mWebView?.clearHistory()
 
@@ -56,8 +62,13 @@ class FreedomNoteDetailsActivity : BaseActivity() {
         super.onDestroy()
     }
 
-    override fun onReload(v: View) {
+    override fun onReload(v: View?) {
         mWebView?.reload()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+        onReload(null)
     }
 
     private fun initData() {

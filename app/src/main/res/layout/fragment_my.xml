@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:maxLength="8"
+                android:maxLength="10"
                 tools:text="注册/登录"
                 android:textStyle="bold"
                 android:textSize="@dimen/text_size_title_1"
@@ -57,7 +57,7 @@
                     android:id="@+id/tv_my_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="登录看谁在关注你"
+                    tools:text="登录后收藏喜欢的知识"
                     android:textSize="@dimen/text_size_text_3"
                     android:textColor="@color/text_color_3"/>
 
@@ -194,7 +194,7 @@
 
                 <ImageView
                     android:id="@+id/iv_message_red_point"
-                    android:src="@drawable/red_point"
+                    android:src="@drawable/point_red"
                     android:layout_gravity="top|end"
                     android:layout_width="8dp"
                     android:layout_height="8dp"/>

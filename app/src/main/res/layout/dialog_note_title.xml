@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/tv_dialog_note_title"
         android:layout_marginStart="20dp"
-        android:paddingTop="30dp"
+        android:paddingTop="28dp"
         android:paddingBottom="12dp"
         android:background="@null"
         android:text="存为笔记"

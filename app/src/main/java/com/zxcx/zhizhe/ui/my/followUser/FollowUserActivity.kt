@@ -89,7 +89,7 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
         //关注成功回调
         val position = mAdapter.data.indexOf(bean)
         mAdapter.data[position].followType = bean.followType
-        mAdapter.notifyItemChanged(mAdapter.getParentPosition(bean))
+        mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
     }
 
     override fun postFail(msg: String?) {
@@ -100,6 +100,9 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
         bean.id = bean.targetUserId
         mAdapter.remove(mAdapter.data.indexOf(bean))
         EventBus.getDefault().post(FollowUserRefreshEvent())
+        if (mAdapter.data.isEmpty()){
+            mPresenter.getEmptyFollowUser()
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {

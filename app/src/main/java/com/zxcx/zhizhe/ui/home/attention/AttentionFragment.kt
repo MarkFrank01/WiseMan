@@ -10,20 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.*
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
-import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.home.hot.HotAdapter
+import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.result.SubjectBean
@@ -31,13 +30,13 @@ import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.fragment_hot.*
+import kotlinx.android.synthetic.main.fragment_attention.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionContract.View,
+class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
@@ -47,8 +46,6 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_attention, container, false)
-
-        mRefreshLayout = root.findViewById(R.id.refresh_layout)
 
         val loadSir = LoadSir.Builder()
                 .addCallback(AttentionNeedLoginCallback())
@@ -93,8 +90,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HomeClickRefreshEvent) {
         if (!mHidden) {
-            rv_hot_card.scrollToPosition(0)
-            mRefreshLayout.autoRefresh()
+            rv_attention_card.scrollToPosition(0)
         }
     }
 
@@ -123,10 +119,6 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         onRefresh()
     }
 
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        onRefresh()
-    }
-
     private fun onRefresh() {
         page = 0
         getAttentionCard()
@@ -138,10 +130,9 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
 
     override fun getDataSuccess(list: List<HotBean>) {
         loadService.showSuccess()
-        mRefreshLayout.finishRefresh()
         if (page == 0) {
             mAdapter.setNewData(list)
-            rv_hot_card.scrollToPosition(0)
+            rv_attention_card.scrollToPosition(0)
         } else {
             mAdapter.addData(list)
         }
@@ -177,7 +168,7 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mAdapter = HotAdapter(ArrayList(), this)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this, rv_hot_card)
+        mAdapter.setOnLoadMoreListener(this, rv_attention_card)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "看看你喜欢什么", R.drawable.no_data, View.OnClickListener {
@@ -185,9 +176,9 @@ class AttentionFragment : RefreshMvpFragment<AttentionPresenter>(), AttentionCon
         })
 
         mAdapter.emptyView = emptyView
-        rv_hot_card.layoutManager = layoutManager
-        rv_hot_card.adapter = mAdapter
-        rv_hot_card.addItemDecoration(HomeCardItemDecoration())
+        rv_attention_card.layoutManager = layoutManager
+        rv_attention_card.adapter = mAdapter
+        rv_attention_card.addItemDecoration(HomeCardItemDecoration())
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
             onRefresh()
         } else {

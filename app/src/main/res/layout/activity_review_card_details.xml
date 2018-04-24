@@ -90,7 +90,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/iv_review_details_back"
+        android:id="@+id/iv_common_close"
         android:layout_alignParentEnd="true"
         android:src="@drawable/iv_common_close"
         android:padding="10dp"

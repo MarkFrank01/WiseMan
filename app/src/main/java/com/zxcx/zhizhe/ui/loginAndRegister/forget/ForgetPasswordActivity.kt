@@ -104,7 +104,10 @@ class ForgetPasswordActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPas
     override fun setListener() {
         iv_forget_close.setOnClickListener { onBackPressed() }
 
-        iv_forget_phone_clear.setOnClickListener { et_forget_phone.setText("") }
+        iv_forget_phone_clear.setOnClickListener {
+            et_forget_phone.setText("")
+            Utils.showInputMethod(et_forget_phone)
+        }
 
         tv_forget_phone.setOnClickListener {
             rl_forget_phone.visibility = View.VISIBLE
@@ -148,6 +151,7 @@ class ForgetPasswordActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPas
             }else{
                 et_forget_password.transformationMethod = PasswordTransformationMethod.getInstance()
             }
+            Utils.showInputMethod(et_forget_password)
         }
 
         vci_forget.setOnCompleteListener {
@@ -193,9 +197,9 @@ class ForgetPasswordActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPas
                         val des = `object`.get("detail").asString//错误描述
                         val status = `object`.get("status").asInt//错误代码
                         when (status) {
-                            457 -> toastShow("手机号格式错误!")
-                            463, 464, 465, 477, 478 -> toastShow("获取验证码次数频繁，请稍后重试")
-                            else -> toastShow(des)
+                            457 -> toastError("手机号格式错误!")
+                            463, 464, 465, 477, 478 -> toastError("获取验证码次数频繁，请稍后重试")
+                            else -> toastError(des)
                         }
                     } catch (e: Exception) {
                         //do something

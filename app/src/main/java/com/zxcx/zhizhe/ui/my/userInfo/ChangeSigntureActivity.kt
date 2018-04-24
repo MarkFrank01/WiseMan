@@ -52,8 +52,10 @@ class ChangeSigntureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
         }
 
         et_dialog_change_signture.afterTextChanged {
-            if (et_dialog_change_signture.length() > 0){
+            if (et_dialog_change_signture.length() in 1..5 || et_dialog_change_signture.length() == 18){
                 tv_change_signture_hint.visibility = View.VISIBLE
+            }else{
+                tv_change_signture_hint.visibility = View.GONE
             }
             tv_change_signture_save.isEnabled = it.length in 6..18
         }

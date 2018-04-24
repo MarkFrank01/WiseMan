@@ -18,10 +18,7 @@ import cn.smssdk.SMSSDK
 import com.google.gson.JsonParser
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.LoginEvent
-import com.zxcx.zhizhe.event.PasswordLoginEvent
-import com.zxcx.zhizhe.event.PhoneConfirmEvent
-import com.zxcx.zhizhe.event.RegisterEvent
+import com.zxcx.zhizhe.event.*
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.initUserInfo.InitUserInfoActivity
@@ -178,6 +175,12 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
         SMSSDK.getVerificationCode("86", et_login_phone.text.toString())
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: StopRegisteredEvent) {
+        //中断注册
+        finish()
+    }
+
     private fun checkPhone(): Boolean {
         return phonePattern.matcher(et_login_phone.text.toString()).matches()
     }
@@ -205,7 +208,10 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
             SMSSDK.getVerificationCode("86", et_login_phone.text.toString())
         }
 
-        iv_login_phone_clear.setOnClickListener { et_login_phone.setText("") }
+        iv_login_phone_clear.setOnClickListener {
+            et_login_phone.setText("")
+            Utils.showInputMethod(et_login_phone)
+        }
 
         iv_login_password.setOnClickListener {
             mActivity.startActivity(PasswordLoginActivity::class.java,{})

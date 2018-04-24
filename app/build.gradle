@@ -201,9 +201,9 @@ dependencies {
     //Chuck 一个用来记录展示网络请求详情的调试工具库
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
 
-    //    debugImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+//    debugImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
-    //    releaseImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+//    releaseImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
     //格式化Log输出

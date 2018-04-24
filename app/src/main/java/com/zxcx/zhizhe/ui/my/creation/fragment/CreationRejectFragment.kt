@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.passed
+package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,8 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteRejectSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
@@ -24,11 +25,11 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
+class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private var mPage = 0
-    private val mPassType = 3
+    private val mPassType = 1
     private val mPageSize = Constants.PAGE_SIZE
     private lateinit var mAdapter: ReviewCreationAdapter
 
@@ -54,7 +55,13 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
+    fun onMessageEvent(event: DeleteRejectSuccessEvent) {
+        mPage = 0
+        mPresenter.getCreation(mPassType,mPage,mPageSize)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: CommitCardReviewEvent) {
         mPage = 0
         mPresenter.getCreation(mPassType,mPage,mPageSize)
     }

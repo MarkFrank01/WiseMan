@@ -8,6 +8,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
+import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -58,7 +59,7 @@ class MessageModeActivity : BaseActivity(), INullGetPostPresenter<MessageModeBea
         mDisposable = AppClient.getAPIService().messageSetting
                 .compose(BaseRxJava.handleResult())
                 .compose(BaseRxJava.io_main())
-                .subscribeWith(object : NullPostSubscriber<MessageModeBean>(this) {
+                .subscribeWith(object : BaseSubscriber<MessageModeBean>(this) {
 
                     override fun onNext(bean: MessageModeBean) {
                         getDataSuccess(bean)

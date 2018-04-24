@@ -30,7 +30,8 @@ class IntelligenceValueActivity : BaseActivity(){
     private fun initWebView() {
         mWebView = WebViewUtils.getWebView(this)
         fl_intelligence_value.addView(mWebView,0)
-        mWebView?.loadUrl("http://192.168.1.153:8043/view/intelligence")
+        val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.intelligence_url)
+        mWebView?.loadUrl(url)
         mWebView?.webViewClient = object : WebViewClient() {
 
             override fun onPageFinished(view: WebView, url: String) {

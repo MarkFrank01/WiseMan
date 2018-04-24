@@ -199,7 +199,7 @@
                         android:layout_centerVertical="true"
                         android:gravity="center"
                         android:layout_marginEnd="10dp"
-                        android:layout_width="82dp"
+                        android:layout_width="72dp"
                         android:layout_height="32dp"/>
 
                 </RelativeLayout>
@@ -281,7 +281,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:scaleType="center"
-                    android:src="@drawable/selector_tv_card_details_share"/>
+                    android:src="@drawable/tv_card_details_share"/>
 
             </LinearLayout>
         </LinearLayout>

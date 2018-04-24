@@ -7,7 +7,7 @@ import android.view.View
 import cn.jpush.android.api.JPushInterface
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.LoginEvent
+import com.zxcx.zhizhe.event.RegisterEvent
 import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
@@ -69,7 +69,7 @@ class RegisterActivity : MvpActivity<RegisterPresenter>(), RegisterContract.View
 
     override fun getDataSuccess(bean: LoginBean) {
         ZhiZheUtils.saveLoginData(bean)
-        EventBus.getDefault().post(LoginEvent())
+        EventBus.getDefault().post(RegisterEvent())
         toastShow("欢迎来到智者")
         finish()
     }

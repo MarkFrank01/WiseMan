@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
-import com.zxcx.zhizhe.ui.my.creation.passed.CreationBean;
+import com.zxcx.zhizhe.ui.my.creation.fragment.CreationBean;
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean;
@@ -257,7 +257,7 @@ public interface APIService {
 
     /**
      * 获取笔记详情
-     * @param noteType 预览类型 0审核通过（默认）1审核中 2审核未通过 3自由笔记 4卡片笔记
+     * @param noteType 预览类型 0审核通过（默认）1审核中 2审核未通过 3草稿箱 4卡片笔记
      */
     @POST("/article/getArticleBasicInfo")
     Flowable<BaseBean<NoteDetailsBean>> getNoteDetails(
@@ -461,12 +461,10 @@ public interface APIService {
 
     /**
      * 申请创作
-     * @param phone 手机号
      * @return
      */
     @POST("/user/applyWriterQualification")
-    Flowable<BaseBean<Object>> applyCreation(
-            @Query("phoneNum") String phone);
+    Flowable<BaseBean<Object>> applyCreation();
 
     /**
      * 获取系统消息
@@ -501,6 +499,12 @@ public interface APIService {
      */
     @POST("/mytabinfo/getMyTabInfo")
     Flowable<BaseBean<MyTabBean>> getMyTabInfo();
+
+    /**
+     * 删除笔记文章
+     */
+    @POST("/note/deleteNode")
+    Flowable<BaseBean<Object>> deleteCard(@Query("articleId") int cardId);
 
     /**
      * 提交自由笔记或审核

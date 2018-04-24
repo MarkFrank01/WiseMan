@@ -44,7 +44,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:scaleType="center"
-                android:src="@drawable/selector_tv_card_details_share"/>
+                android:src="@drawable/tv_card_details_share"/>
 
         </LinearLayout>
 

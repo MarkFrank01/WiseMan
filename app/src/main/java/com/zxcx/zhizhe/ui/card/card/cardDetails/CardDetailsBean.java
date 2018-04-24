@@ -14,7 +14,7 @@ public class CardDetailsBean extends RetrofitBaen {
     private boolean isUnLike;
     @SerializedName("collect")
     private boolean isCollect;
-    @SerializedName("articleType")
+    @SerializedName("type")
     private int cardType;
     @SerializedName("pv")
     private int readNum;

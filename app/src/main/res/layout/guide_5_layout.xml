@@ -6,16 +6,16 @@
 
     <ImageView
         android:background="@drawable/guide_3"
+        android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <ImageView
         android:id="@+id/guide_button"
-        android:layout_marginBottom="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:layout_width="match_parent"
-        android:layout_height="60dp"/>
+        android:layout_height="100dp"/>
 
 </RelativeLayout>

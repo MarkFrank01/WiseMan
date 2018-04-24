@@ -12,7 +12,8 @@ import butterknife.ButterKnife
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -46,7 +47,7 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
         initData()
         initView()
 
-        mPresenter.getRejectDetails(cardId)
+        mPresenter.getDraftDetails(cardId)
     }
 
     override fun initStatusBar() {
@@ -70,8 +71,8 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
         return RejectDetailsPresenter(this)
     }
 
-    override fun onReload(v: View) {
-        mPresenter.getRejectDetails(cardId)
+    override fun onReload(v: View?) {
+        mPresenter.getDraftDetails(cardId)
         mWebView?.reload()
     }
 
@@ -90,6 +91,7 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 
     override fun postSuccess() {
         toastShow("提交成功")
+        EventBus.getDefault().post(SaveDraftSuccessEvent())
         onBackPressed()
     }
 
@@ -98,8 +100,13 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: SaveFreedomNoteSuccessEvent) {
-        finish()
+    fun onMessageEvent(event: CommitCardReviewEvent) {
+        onBackPressed()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveDraftSuccessEvent) {
+        onReload(null)
     }
 
     private fun initData() {
@@ -177,10 +184,13 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
         iv_note_details_edit.setOnClickListener {
             startActivity(CreationEditorActivity::class.java,{
                 it.putExtra("cardId", cardId)
+                it.putExtra("type", 3)
             })
         }
 
-        mPresenter.submitReview(cardId)
+        iv_note_details_commit.setOnClickListener {
+            mPresenter.submitReview(cardId)
+        }
     }
 
     private fun initLoadSir() {

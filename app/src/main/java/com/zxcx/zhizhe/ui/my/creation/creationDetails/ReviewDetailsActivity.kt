@@ -8,8 +8,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
@@ -35,7 +33,6 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_review_card_details)
         super.onCreate(savedInstanceState)
-        ButterKnife.bind(this)
 
         initData()
         initView()
@@ -90,9 +87,10 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         super.toastFail(msg)
     }
 
-    @OnClick(R.id.iv_common_close)
-    fun onMIvRejectDetailsBackClicked() {
-        onBackPressed()
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun initData() {

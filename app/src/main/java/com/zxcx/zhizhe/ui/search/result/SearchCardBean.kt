@@ -6,7 +6,7 @@ import java.util.*
 
 data class SearchCardBean(
         @SerializedName("id") var id: Int?,
-        @SerializedName("articleType") var cardType: Int = 0,
+        @SerializedName("type") var cardType: Int = 0,
         @SerializedName("collectingCount") var collectNum: Int?,
         @SerializedName("pv") var readNum: Int?,
         @SerializedName("titleImage") var imageUrl: String?,

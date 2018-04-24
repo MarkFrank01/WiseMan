@@ -29,7 +29,7 @@ class NoteTitleDialog : CommonDialog(), INullPostPresenter {
     private var imageUrl: String? = null
     private var content: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val view = inflater.inflate(R.layout.dialog_note_title, container)
         return view

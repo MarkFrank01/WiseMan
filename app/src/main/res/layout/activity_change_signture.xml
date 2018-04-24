@@ -33,7 +33,7 @@
         android:background="@null"
         android:maxLines="1"
         android:singleLine="true"
-        android:maxLength="16"
+        android:maxLength="18"
         tools:text="是是是是是是"
         android:textCursorDrawable="@drawable/bg_edit_cursor"
         android:textColor="@color/text_color_1"

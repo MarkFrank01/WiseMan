@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.my.creation.passed
+package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava

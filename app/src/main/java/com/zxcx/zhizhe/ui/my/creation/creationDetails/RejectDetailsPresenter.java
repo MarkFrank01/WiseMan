@@ -21,8 +21,16 @@ public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.
         mModel.getReviewDetails(RejectId);
     }
 
+    public void getDraftDetails(int RejectId){
+        mModel.getDraftDetails(RejectId);
+    }
+
     public void submitReview(int noteId) {
         mModel.submitReview(noteId);
+    }
+
+    public void deleteCard(int cardId) {
+        mModel.deleteCard(cardId);
     }
 
     @Override

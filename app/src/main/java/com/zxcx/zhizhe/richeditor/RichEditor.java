@@ -341,12 +341,18 @@ public class RichEditor extends WebView {
         exec("setIsEyeshield("+isEyeshield+");");
     }
 
-    public void setCardId(Integer cardId) {
-        exec("articleReedit(" + cardId + ");");
+    /**
+     * 文章再编辑
+     * @param cardId
+     * @param token
+     * @param viewType 审核未通过2，草稿箱3
+     */
+    public void articleReedit(Integer cardId, String token, Integer viewType) {
+        exec("articleReedit(" + cardId + ",'"+ token + "',"+ viewType +");");
     }
 
-    public void setNoteId(Integer cardId) {
-        exec("noteReedit(" + cardId + ");");
+    public void noteReedit(Integer cardId, String token) {
+        exec("noteReedit(" + cardId + ",'"+ token + "');");
     }
 
     public void setTimeStampAndToken(String token) {

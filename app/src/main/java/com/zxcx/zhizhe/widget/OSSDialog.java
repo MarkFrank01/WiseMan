@@ -214,6 +214,9 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
             fileName = url.split("http://"+bucketName+".oss-cn-shenzhen.aliyuncs.com/")[1];
         } catch (Exception e) {
             e.printStackTrace();
+            if (mDeleteListener != null)
+                mDeleteListener.deleteFail();
+            dismiss();
             return;
         }
 

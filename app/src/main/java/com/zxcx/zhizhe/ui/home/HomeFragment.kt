@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.home.hot.HotFragment
 import com.zxcx.zhizhe.ui.home.rank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -118,6 +119,9 @@ class HomeFragment : BaseFragment() {
         iv_home_search.setOnClickListener {
             mActivity.startActivity(SearchActivity::class.java,{})
         }
+        iv_attention_add.setOnClickListener {
+            mActivity.startActivity(SelectAttentionActivity::class.java,{})
+        }
     }
 
     private fun initAppbarLayout() {
@@ -137,6 +141,11 @@ class HomeFragment : BaseFragment() {
                 ll_home_rank.alpha = 0f
                 ll_home_tab.visibility = View.VISIBLE
                 ll_home_tab.alpha = if (p == 1f) p else p/2
+                if (mCurrentFragment == mAttentionFragment){
+                    iv_attention_add.visibility = View.VISIBLE
+                }else{
+                    iv_attention_add.visibility = View.GONE
+                }
             }else{
                 ll_home_tab.visibility = View.INVISIBLE
             }

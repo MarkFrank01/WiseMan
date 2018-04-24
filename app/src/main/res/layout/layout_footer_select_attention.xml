@@ -13,7 +13,6 @@
         android:textColor="@color/color_text_enable_blue"
         android:textSize="@dimen/text_size_title_1"
         android:textStyle="bold"
-        android:enabled="false"
         android:layout_marginTop="62dp"
         android:layout_marginBottom="62dp"
         android:padding="10dp"/>

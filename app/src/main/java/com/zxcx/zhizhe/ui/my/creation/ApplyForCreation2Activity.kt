@@ -26,6 +26,8 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfoBean>{
 
+    private val oldNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_apply_for_creation_2)
@@ -33,8 +35,7 @@ class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfo
 
         val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
         ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_afc2_head)
-        val nickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
-        et_afc2_nick_name.setText(nickName)
+        et_afc2_nick_name.setText(oldNickName)
     }
 
     public override fun onDestroy() {
@@ -61,8 +62,8 @@ class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfo
         addSubscription(mDisposable)
     }
 
-    private fun applyCreation(phone: String) {
-        mDisposable = AppClient.getAPIService().applyCreation(phone)
+    private fun applyCreation() {
+        mDisposable = AppClient.getAPIService().applyCreation()
                 .compose(BaseRxJava.handlePostResult())
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(this) {
@@ -76,7 +77,7 @@ class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfo
 
     override fun getDataSuccess(bean: UserInfoBean?) {
         ZhiZheUtils.saveUserInfo(bean)
-        applyCreation(intent.getStringExtra("phone"))
+        applyCreation()
     }
 
     override fun getDataFail(msg: String?) {
@@ -105,7 +106,12 @@ class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfo
         }
 
         tv_afc2_start.setOnClickListener {
-            changeNickName(et_afc2_nick_name.text.toString())
+            if (et_afc2_nick_name.text.toString() != oldNickName) {
+                changeNickName(et_afc2_nick_name.text.toString())
+            }else{
+                //未改动昵称时，直接申请
+                applyCreation()
+            }
         }
     }
 }
