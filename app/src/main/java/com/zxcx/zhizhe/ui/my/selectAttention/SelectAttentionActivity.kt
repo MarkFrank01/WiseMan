@@ -20,6 +20,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         BaseQuickAdapter.OnItemChildClickListener {
 
     private val mCheckedList = ArrayList<ClassifyCardBean>()
+    private lateinit var footer :View
     private lateinit var mAdapter: SelectAttentionAdapter
     private lateinit var mTvStart: TextView
 
@@ -48,6 +49,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
     }
 
     override fun getDataSuccess(list: MutableList<ClassifyBean>) {
+        footer.visibility = View.VISIBLE
         for (bean in list) {
             mAdapter.data.add(bean)
             for (bagBean in bean.dataList) {
@@ -95,7 +97,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
     }
 
     private fun initRecyclerView() {
-        val footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_select_attention, null)
+        footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_select_attention, null)
         mTvStart = footer.findViewById(R.id.tv_start)
         mTvStart.setOnClickListener {
             val idList = mutableListOf<Int>()
@@ -107,6 +109,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 
         mAdapter = SelectAttentionAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
+        footer.visibility = View.GONE
         mAdapter.addFooterView(footer)
         val manager = GridLayoutManager(mActivity, 3)
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

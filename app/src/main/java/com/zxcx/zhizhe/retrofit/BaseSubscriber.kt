@@ -17,7 +17,6 @@ abstract class BaseSubscriber<T>(private val mPresenter: IGetPresenter<*>?) : Di
     abstract override fun onNext(t: T)
 
     override fun onError(t: Throwable) {
-        LogCat.e(t.message, t)
         if (t.message != null) {
             val code = t.message?.substring(0, 3)
             try {

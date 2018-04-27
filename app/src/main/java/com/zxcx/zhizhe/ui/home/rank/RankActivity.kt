@@ -109,6 +109,9 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuick
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LoginEvent) {
+        rl_my_rank.visibility = View.VISIBLE
+        iv_rank_header.visibility = View.VISIBLE
+        tv_rank_no_login.visibility = View.GONE
         onRefresh()
     }
 

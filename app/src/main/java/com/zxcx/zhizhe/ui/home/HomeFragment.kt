@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
+import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.home.hot.HotFragment
@@ -84,7 +85,7 @@ class HomeFragment : BaseFragment() {
 
         val para = tl_home.layoutParams
         val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
-        para.width = screenWidth * 2 / 3
+        para.width = screenWidth * 1 / 2
         tl_home.layoutParams = para
 
         tl_home.getTabAt(0)?.select()
@@ -173,6 +174,11 @@ class HomeFragment : BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: HomeClickRefreshEvent) {
+        app_bar_layout.setExpanded(true)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: LogoutEvent) {
         app_bar_layout.setExpanded(true)
     }
 }

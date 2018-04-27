@@ -89,7 +89,6 @@
 
             <RelativeLayout
                 android:id="@+id/ll_home_tab"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_collapseMode="pin">
@@ -108,7 +107,8 @@
                 <ImageView
                     android:id="@+id/iv_attention_add"
                     android:visibility="gone"
-                    android:layout_marginStart="20dp"
+                    android:padding="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/iv_attention_add"
                     android:layout_width="wrap_content"

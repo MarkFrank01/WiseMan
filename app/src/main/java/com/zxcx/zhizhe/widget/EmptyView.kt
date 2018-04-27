@@ -8,13 +8,11 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 import kotlinx.android.synthetic.main.item_card.view.*
 import kotlinx.android.synthetic.main.layout_no_data.view.*
@@ -30,11 +28,6 @@ object EmptyView {
         val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
         emptyView.tv_no_data_1.text = str1
         emptyView.iv_no_data.setImageResource(imgRes)
-
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ScreenUtils.dip2px(350f)
-        val lp = ViewGroup.LayoutParams(width,height)
-        emptyView.layoutParams = lp
         return emptyView
     }
 
@@ -46,11 +39,6 @@ object EmptyView {
         emptyView.tv_no_data_2.text = str2
         emptyView.iv_no_data.setImageResource(imgRes)
         emptyView.setOnClickListener(listener)
-
-        val width = ViewGroup.LayoutParams.MATCH_PARENT
-        val height = ScreenUtils.dip2px(350f)
-        val lp = ViewGroup.LayoutParams(width,height)
-        emptyView.layoutParams = lp
         return emptyView
     }
 

@@ -12,18 +12,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
-import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_subject.*
 
 class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
-        BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
     var mPage = 0
     var mId = 0
@@ -72,7 +69,6 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         mCardAdapter = SubjectCardAdapter(ArrayList())
         mCardAdapter.setLoadMoreView(CustomLoadMoreView())
         mCardAdapter.onItemClickListener = this
-        mCardAdapter.onItemChildClickListener = this
         mCardAdapter.setOnLoadMoreListener(this,rv_subject)
         rv_subject.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_subject.adapter = mCardAdapter
@@ -102,13 +98,5 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
         intent.putExtra("author", bean.author)
         startActivity(intent, bundle)
-    }
-
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as CardBean
-        mActivity.startActivity(CardBagActivity::class.java,{
-            it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardBagName)
-        })
     }
 }

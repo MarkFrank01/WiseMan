@@ -260,7 +260,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 })
             }else{
                 startActivity(SubjectCardActivity::class.java, {
-                    it.putExtra("name", cardBagName)
+                    it.putExtra("name", subjectName)
                     it.putExtra("id", cardBagId)
                 })
             }

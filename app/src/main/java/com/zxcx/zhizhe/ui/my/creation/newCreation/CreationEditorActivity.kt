@@ -7,8 +7,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.ActionMode
-import android.view.MenuItem
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -33,7 +31,6 @@ class CreationEditorActivity : BaseActivity(),
     private lateinit var mOSSDialog: OSSDialog
 
     private var mAction = 0 //0选择标题图，1选择内容图
-    private var mActionMode: ActionMode? = null
     private var cardId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -237,32 +234,5 @@ class CreationEditorActivity : BaseActivity(),
 
     override fun uploadFail(message: String?) {
         toastError(message)
-    }
-
-    override fun onActionModeStarted(mode: ActionMode) {
-        if (mActionMode == null) {
-            super.onActionModeStarted(mode)
-            mActionMode = mode
-            val menu = mode.menu
-            menu.clear()
-            val menuItemClickListener = MenuItemClickListener()
-            menu.add(0, 0, 0, "保存笔记").setOnMenuItemClickListener(menuItemClickListener)
-        }
-    }
-
-
-    override fun onActionModeFinished(mode: ActionMode) {
-        mActionMode = null
-        editor.clearFocus()//移除高亮显示,如果不移除在三星s6手机上会崩溃
-        super.onActionModeFinished(mode)
-    }
-
-    private inner class MenuItemClickListener : MenuItem.OnMenuItemClickListener {
-
-        override fun onMenuItemClick(item: MenuItem): Boolean {
-            editor.setBold()
-            mActionMode?.finish()
-            return true
-        }
     }
 }

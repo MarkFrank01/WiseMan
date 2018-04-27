@@ -15,7 +15,8 @@ class CardBean(
         @SerializedName("passTime") var date: Date? = null,
         @SerializedName("authorName") var author: String? = null,
         @SerializedName("collectionId") var cardBagId: Int = 0,
-        @SerializedName("collectionName") var cardBagName: String? = null
+        @SerializedName("collectionName") var cardBagName: String? = null,
+        @SerializedName("topicName") var subjectName: String? = null
 ) : RetrofitBaen() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

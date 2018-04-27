@@ -87,9 +87,6 @@ class HotAdapter(data: List<HotBean>?, private val mListener: SubjectOnClickList
                             mListener.cardOnClick(cardList[index])
                         }
                         subjectLayout.addView(itemCardView)
-                        (itemCardView.layoutParams as ViewGroup.MarginLayoutParams).setMargins(
-                                0, ScreenUtils.dip2px(15f),
-                                0, ScreenUtils.dip2px(15f) )
                     }
                 }
                 container.addView(subjectLayout)

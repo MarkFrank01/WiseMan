@@ -28,9 +28,8 @@
 
     <com.zxcx.zhizhe.widget.WrapContentHeightViewPager
         android:id="@+id/vp_item_subject"
-        android:layout_marginTop="77dp"
-        android:clipChildren="false"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

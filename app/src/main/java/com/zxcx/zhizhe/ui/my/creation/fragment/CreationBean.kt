@@ -9,6 +9,7 @@ data class CreationBean(
         @SerializedName("type") var cardType: Int?,
         @SerializedName("collectingCount") var collectNum: Int?,
         @SerializedName("pv") var readNum: Int?,
+        @SerializedName("topicName") var subjectName: String? = null,
         @SerializedName("collectionName") var cardBagName: String?,
         @SerializedName("titleImage") var imageUrl: String?,
         @SerializedName("title") var name: String?,
