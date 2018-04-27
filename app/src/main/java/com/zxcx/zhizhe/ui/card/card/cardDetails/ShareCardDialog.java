@@ -120,7 +120,6 @@ public class ShareCardDialog extends BaseDialog {
             window.setAttributes(lp);
         }
 
-
         ViewGroup.LayoutParams para = mIvDialogShare.getLayoutParams();
         int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
         para.height = (screenWidth * 9 / 16);

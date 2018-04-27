@@ -135,32 +135,36 @@
                             android:layout_height="wrap_content"
                             android:transitionName="cardTitle"/>
 
-                        <FrameLayout
-                            android:id="@+id/fl_dialog_share_card_bag"
+                        <LinearLayout
+                            android:layout_marginBottom="4dp"
+                            android:gravity="center"
                             android:layout_below="@id/tv_dialog_share_title"
-                            android:paddingTop="8dp"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="12dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/tv_dialog_share_card_bag"
-                                tools:text="数码产品"
-                                style="@style/tv_card_bag"/>
-                        </FrameLayout>
 
-                        <TextView
-                            android:id="@+id/tv_dialog_share_info"
-                            android:layout_toEndOf="@id/fl_dialog_share_card_bag"
-                            tools:text="@string/tv_card_info"
-                            android:textColor="@color/text_color_ee"
-                            android:textSize="@dimen/text_size_text_3"
-                            android:layout_marginTop="12dp"
-                            android:layout_below="@id/tv_dialog_share_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:transitionName="cardInfo"/>
+                            <FrameLayout
+                                android:id="@+id/fl_dialog_share_card_bag"
+                                android:paddingTop="8dp"
+                                android:paddingStart="0dp"
+                                android:paddingEnd="10dp"
+                                android:paddingBottom="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/tv_dialog_share_card_bag"
+                                    tools:text="数码产品"
+                                    style="@style/tv_card_bag"/>
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tv_dialog_share_info"
+                                tools:text="@string/tv_card_info"
+                                android:textColor="@color/text_color_ee"
+                                android:textSize="@dimen/text_size_text_3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:transitionName="cardInfo"/>
+                        </LinearLayout>
 
                     </RelativeLayout>
                 </FrameLayout>

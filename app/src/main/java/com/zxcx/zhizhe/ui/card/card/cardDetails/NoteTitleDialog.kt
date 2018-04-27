@@ -39,6 +39,7 @@ class NoteTitleDialog : CommonDialog(), INullPostPresenter {
         super.onViewCreated(view, savedInstanceState)
         initData()
         et_dialog_note_title.setText(title)
+        et_dialog_note_title.setSelection(et_dialog_note_title.length())
         setListener()
     }
 

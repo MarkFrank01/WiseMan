@@ -147,7 +147,7 @@
 
                 <ImageView
                     android:id="@+id/iv_dialog_share_qr"
-                    android:src="@drawable/iv_dialog_share_qr"
+                    android:src="@drawable/iv_dialog_share_note_qr"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="165dp"/>

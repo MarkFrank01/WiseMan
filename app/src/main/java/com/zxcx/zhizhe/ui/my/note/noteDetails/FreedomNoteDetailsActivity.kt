@@ -74,12 +74,13 @@ class FreedomNoteDetailsActivity : BaseActivity() {
     private fun initData() {
         noteId = intent.getIntExtra("id", 0)
         name = intent.getStringExtra("name")
+        date = getString(R.string.tv_item_card_note_info,
+                intent.getStringExtra("date"),"记录")
     }
 
     private fun initView() {
         tv_note_details_title.text = name
-        tv_note_details_info.text = getString(R.string.tv_item_card_note_info,
-                intent.getStringExtra("date"),"记录")
+        tv_note_details_info.text = date
 
         //获取WebView，并将WebView高度设为WRAP_CONTENT
         mWebView = WebViewUtils.getWebView(this)
