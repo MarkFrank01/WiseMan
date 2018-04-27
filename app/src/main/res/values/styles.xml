@@ -66,7 +66,7 @@
     <style name="tv_card_bag">
         <item name="android:layout_gravity">center</item>
         <item name="android:background">@drawable/bg_card_details_card_bag</item>
-        <item name="android:textColor">@color/text_color_1</item>
+        <item name="android:textColor">@color/text_color_card_bag</item>
         <item name="android:textSize">@dimen/text_size_text_4</item>
         <item name="android:paddingTop">1dp</item>
         <item name="android:paddingBottom">1dp</item>

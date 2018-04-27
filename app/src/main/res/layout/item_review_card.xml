@@ -9,6 +9,7 @@
     android:layout_marginBottom="30dp"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
+    android:foreground="@drawable/fg_item_card"
     android:background="@color/background"
     android:stateListAnimator="@animator/anim_home_card_press"
     android:orientation="vertical">

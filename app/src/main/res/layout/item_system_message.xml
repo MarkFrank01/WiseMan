@@ -62,7 +62,6 @@
             tools:text="查看卡片"
             android:textColor="@color/text_color_1"
             android:textSize="@dimen/text_size_text_3"
-            android:textStyle="bold"
             android:paddingTop="21dp"
             android:paddingBottom="12dp"
             android:paddingStart="10dp"

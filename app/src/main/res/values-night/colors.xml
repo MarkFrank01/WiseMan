@@ -8,6 +8,7 @@
     <color name="translate">#00000000</color>
     <color name="opacity_20">#33000000</color>
     <color name="opacity_30">#4C000000</color>
+    <color name="opacity_35">#59000000</color>
     <color name="opacity_45">#72000000</color>
     <color name="opacity_70">#B2000000</color>
     <color name="white">#1D1D1E</color>
@@ -30,6 +31,7 @@
     <color name="text_color_3">#4F4F4F</color>
     <color name="text_color_d2">#6B6B6B</color>
     <color name="text_color_ee">#6B6B6B</color>
+    <color name="text_color_card_bag">#333333</color>
     <color name="et_new_creation_1_title">#707070</color>
     <color name="text_item_select_card_bag_selected">#DADADA</color>
     <color name="iv_new_creation_1_add_img">#AFAFAF</color>
