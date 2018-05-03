@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -37,6 +36,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
+import com.zxcx.zhizhe.widget.CardImageView;
 import com.zxcx.zhizhe.widget.PermissionDialog;
 
 import java.io.File;
@@ -67,7 +67,7 @@ public class ShareCardDialog extends BaseDialog {
 
 
     @BindView(R.id.iv_dialog_share)
-    ImageView mIvDialogShare;
+    CardImageView mIvDialogShare;
     @BindView(R.id.tv_dialog_share_title)
     TextView mTvDialogShareTitle;
     @BindView(R.id.tv_dialog_share_info)
@@ -119,11 +119,6 @@ public class ShareCardDialog extends BaseDialog {
             lp.height = WindowManager.LayoutParams.MATCH_PARENT;
             window.setAttributes(lp);
         }
-
-        ViewGroup.LayoutParams para = mIvDialogShare.getLayoutParams();
-        int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
-        para.height = (screenWidth * 9 / 16);
-        mIvDialogShare.setLayoutParams(para);
     }
 
     @Override
@@ -167,10 +162,6 @@ public class ShareCardDialog extends BaseDialog {
     }
 
     private void initView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 延迟共享动画的执行
-            //postponeEnterTransition();
-        }
         TextPaint paint = mTvDialogShareTitle.getPaint();
         paint.setFakeBoldText(true);
         mTvDialogShareTitle.setText(name);

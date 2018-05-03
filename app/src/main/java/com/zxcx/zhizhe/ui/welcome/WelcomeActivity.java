@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
@@ -15,7 +14,6 @@ import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.MainActivity;
-import com.zxcx.zhizhe.utils.GlideApp;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
@@ -61,17 +59,10 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
         getImage();
         String adImageUrl = SharedPreferencesUtil.getString(SVTSConstants.adImageUrl, "");
         if (!StringUtils.isEmpty(adImageUrl)) {
-            ImageLoader.load(this, adImageUrl, R.color.background_final, mIvWelcomeAd);
+            ImageLoader.load(this, adImageUrl, R.color.white_final, mIvWelcomeAd);
             mWsvWelcomeSkip.setVisibility(View.VISIBLE);
         } else {
             mHandler.post(mRunnable);
-            GlideApp
-                    .with(this)
-                    .load("https://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/ad/iv_welcome_ad.gif")
-                    .placeholder(R.color.background)
-                    .error(R.color.background)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .into(mIvWelcomeAd);
         }
     }
 
@@ -157,7 +148,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
         if (list.size() > 0) {
             ADBean bean = list.get(0);
             if (!this.isDestroyed()) {
-                ImageLoader.load(this, bean.getContent(), R.color.background_final, mIvWelcomeAd);
+                ImageLoader.load(this, bean.getContent(), R.color.white_final, mIvWelcomeAd);
             }
             SharedPreferencesUtil.saveData(SVTSConstants.adImageUrl, bean.getContent());
             SharedPreferencesUtil.saveData(SVTSConstants.adUrl, bean.getBehavior());

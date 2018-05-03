@@ -16,12 +16,13 @@
     <color name="red">#F61616</color>
     <color name="bg_details">#FFFFFF</color>
     <color name="bg_card_bag">#F6F7F9</color>
+    <color name="bg_home_search">#D2D2D2</color>
+    <color name="bg_checkbox_follow">#EEEEEE</color>
     <color name="dialog_background">#FFFFFF</color>
     <color name="white_final">#FFFFFF</color>
     <color name="text_card_type">#B2FFFFFF</color>
     <color name="black">#000000</color>
     <color name="background">#FFFFFF</color>
-    <color name="background_final">#FFFFFF</color>
     <color name="line">#EEEEEE</color>
     <color name="strip">#F6F7F9</color>
     <color name="toolbar_line">#EEEEEE</color>

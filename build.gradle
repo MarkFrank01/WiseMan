@@ -10,7 +10,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.2'
         classpath 'com.meituan.android.walle:plugin:1.1.6'
-        //classpath "com.tencent.bugly:tinker-support:1.1.1"
+        classpath "com.tencent.bugly:tinker-support:1.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0

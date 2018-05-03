@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_final"
+    android:background="@color/white_final"
     tools:context="com.zxcx.zhizhe.ui.welcome.WelcomeActivity">
 
     <ImageView
@@ -15,20 +15,6 @@
         android:src="@drawable/iv_welcome_ad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-    <!--<TextView
-        android:id="@+id/tv_welcome_skip"
-        android:visibility="gone"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentRight="true"
-        android:text="@string/tv_welcome_skip"
-        android:textSize="14sp"
-        android:textColor="@color/text_color_ff"
-        android:gravity="center"
-        android:background="@drawable/bg_welcome_skip"
-        android:layout_width="75dp"
-        android:layout_height="30dp"/>-->
 
     <com.zxcx.zhizhe.widget.WelcomeSkipView
         android:id="@+id/wsv_welcome_skip"

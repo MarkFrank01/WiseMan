@@ -13,7 +13,8 @@ class MyCardsBean(
         @SerializedName("title") var name: String = "",
         @SerializedName("passTime") var date: Date = Date(),
         @SerializedName("authorName") var author: String = "",
-        @SerializedName("collectionName") var cardBagName: String = ""
+        @SerializedName("collectionName") var cardBagName: String = "",
+        @SerializedName("topicName") var subjectName: String? = null
 ) : RetrofitBaen() {
 
     override fun equals(other: Any?): Boolean {

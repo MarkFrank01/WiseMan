@@ -14,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -26,6 +25,7 @@ import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.WebViewUtils;
+import com.zxcx.zhizhe.widget.CardImageView;
 import com.zxcx.zhizhe.widget.PermissionDialog;
 
 import java.io.File;
@@ -53,7 +53,7 @@ public class ShareCardNoteDialog extends BaseDialog {
 
 
     @BindView(R.id.iv_dialog_share)
-    ImageView mIvDialogShare;
+    CardImageView mIvDialogShare;
     @BindView(R.id.tv_dialog_share_title)
     TextView mTvDialogShareTitle;
     @BindView(R.id.tv_dialog_share_info)

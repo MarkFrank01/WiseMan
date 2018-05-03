@@ -54,7 +54,7 @@
         android:hint="   有什么话想对智者说呢？"
         android:maxLength="600"
         android:maxLines="4"
-        android:padding="20dp"
+        android:padding="16dp"
         android:layout_marginBottom="2dp"
         android:lineSpacingExtra="11dp"
         android:textColor="@color/text_color_1"

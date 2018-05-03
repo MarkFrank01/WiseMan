@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.view.View
@@ -115,7 +116,11 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
     }
 
     private fun initView() {
-        tv_reject_agreement?.text = Html.escapeHtml("详情请阅读<font color='#F61616'>智者创作协议</font>")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            tv_reject_agreement?.text = Html.fromHtml("详情请阅读<font color='#0088AA'>智者创作协议</font>",Html.FROM_HTML_MODE_LEGACY)
+        }else{
+            tv_reject_agreement?.text = Html.fromHtml("详情请阅读<font color='#0088AA'>智者创作协议</font>")
+        }
         if (!StringUtils.isEmpty(name))
             tv_reject_details_title?.text = name
         if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))

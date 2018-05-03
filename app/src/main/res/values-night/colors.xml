@@ -16,6 +16,8 @@
     <color name="bg_details">#1D1D1E</color>
     <color name="bg_card_bag">#151516</color>
     <color name="dialog_background">#1D1D1E</color>
+    <color name="bg_home_search">#666666</color>
+    <color name="bg_checkbox_follow">#272829</color>
     <color name="white_final">#FFFFFF</color>
     <color name="text_card_type">#B2FFFFFF</color>
     <color name="black">#000000</color>

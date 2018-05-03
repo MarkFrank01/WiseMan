@@ -25,7 +25,11 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
         sb_text_size.initData(section)
         sb_text_size.setResponseOnTouch(this)
 
-        sb_text_size.setProgress(textSizeValue - 1)
+        if (textSizeValue !in 2..3){
+            sb_text_size.setProgress(0)
+        }else{
+            sb_text_size.setProgress(textSizeValue - 1)
+        }
         when(textSizeValue){
             1 -> {
                 tv_text_size_change.textSize = 17f

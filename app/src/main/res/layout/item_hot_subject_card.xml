@@ -8,19 +8,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_item_subject_card"
-        android:scaleType="centerCrop"
-        android:layout_marginEnd="10dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        tools:src="@drawable/logo"
-        app:riv_corner_radius="6dp"/>
+    <FrameLayout
+        android:id="@+id/fl_item_subject_card"
+        android:foreground="@drawable/fg_item_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_item_subject_card"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="10dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            tools:src="@drawable/logo"
+            app:riv_corner_radius="6dp"/>
+    </FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/iv_item_subject_card"
+        android:layout_toEndOf="@id/fl_item_subject_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

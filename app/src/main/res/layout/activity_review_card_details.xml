@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <FrameLayout
+                android:foreground="@drawable/fg_item_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

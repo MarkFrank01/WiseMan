@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stroke android:width="1dp"
-            android:color="#D2D2D2"/>
+            android:color="@color/bg_home_search"/>
 
     <corners android:radius="6dp"/>
 

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 //测试时关闭tinker
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 apply from: 'multiple-channel.gradle'
 apply plugin: 'kotlin-android-extensions'
 // 添加mob插件
@@ -15,8 +15,8 @@ android {
         applicationId "com.zxcx.zhizhe"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.compileOptions.sourceCompatibility 1.8
@@ -86,7 +86,7 @@ dependencies {
     implementation 'com.android.support:percent:27.1.1'
 
     //自动换行布局
-    implementation 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android:flexbox:0.3.2'
 
     //拖动布局
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
