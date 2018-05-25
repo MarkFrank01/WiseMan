@@ -192,7 +192,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(this);
         toast.setView(linearLayout);
@@ -213,7 +213,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView ,Callbac
         linearLayout.setBackgroundResource(R.color.red);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(this);
         toast.setView(linearLayout);

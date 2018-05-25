@@ -30,11 +30,11 @@ public class LoadingLayout extends LinearLayout {
         super.onLayout(changed, l, t, r, b);
         getLocationOnScreen(position);
         ViewGroup.LayoutParams lp = getLayoutParams();
-        lp.width = ScreenUtils.getScreenWidth();
+        lp.width = ScreenUtils.getDisplayWidth();
         if (getContext() instanceof MainActivity){
-            lp.height = ScreenUtils.getScreenHeight() - position[1] - ScreenUtils.dip2px(50);
+            lp.height = ScreenUtils.getDisplayHeight() - position[1] - ScreenUtils.dip2px(50);
         }else {
-            lp.height = ScreenUtils.getScreenHeight() - position[1];
+            lp.height = ScreenUtils.getDisplayHeight() - position[1];
         }
         setLayoutParams(lp);
     }

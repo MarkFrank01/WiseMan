@@ -63,8 +63,8 @@ public class CreationAgreementDialog extends BaseDialog {
                 ScreenUtils.dip2px(10), ScreenUtils.dip2px(84));*/
             WindowManager.LayoutParams lp = window.getAttributes();
             lp.gravity = Gravity.CENTER;
-            lp.width = ScreenUtils.getScreenWidth() - ScreenUtils.dip2px(20);
-            lp.height = ScreenUtils.getScreenHeight() - ScreenUtils.dip2px(168);
+            lp.width = ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20);
+            lp.height = ScreenUtils.getDisplayHeight() - ScreenUtils.dip2px(168);
             window.setAttributes(lp);
         }
     }

@@ -36,7 +36,7 @@ class SelectAttentionAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAd
             ClassifyCardBean.TYPE_CARD_BAG -> {
                 helper.addOnClickListener(R.id.fl_item_select_card_bag)
                 val para = helper.itemView.layoutParams
-                val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
+                val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
                 para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 3
                 helper.itemView.layoutParams = para
 

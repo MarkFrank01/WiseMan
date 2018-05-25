@@ -80,7 +80,7 @@ class MessageActivity : BaseActivity() , IGetPresenter<MyTabBean> {
         })
 
         val para = tl_message.layoutParams
-        val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
+        val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
         para.width = screenWidth * 2 / 3
         tl_message.layoutParams = para
         tl_message.getTabAt(0)?.select()

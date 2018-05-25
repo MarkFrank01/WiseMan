@@ -40,7 +40,7 @@ public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,B
                 helper.addOnClickListener(R.id.rl_item_classify);
 
                 ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
-                int screenWidth = ScreenUtils.getScreenWidth(); //屏幕宽度
+                int screenWidth = ScreenUtils.getDisplayWidth(); //屏幕宽度
                 para.width = (screenWidth - ScreenUtils.dip2px(13*2) - ScreenUtils.dip2px(20*2)) / 3;
                 helper.itemView.setLayoutParams(para);
 

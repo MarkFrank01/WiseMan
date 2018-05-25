@@ -66,7 +66,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         EventBus.getDefault().register(this)
 
         val para = iv_card_details.layoutParams
-        val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
+        val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
         para.height = screenWidth * 9 / 16
         iv_card_details.layoutParams = para
 

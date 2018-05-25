@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.util.DisplayMetrics;
@@ -20,8 +21,9 @@ public class ScreenUtils {
      * @return
      */
     public static int[] getScreenSize() {
-        DisplayMetrics dm ;
-        dm = App.getContext().getResources().getDisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowMgr = (WindowManager)App.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowMgr.getDefaultDisplay().getRealMetrics(dm);
         int[] size = {dm.widthPixels, dm.heightPixels};
         return size;
     }
@@ -31,10 +33,14 @@ public class ScreenUtils {
      * @return
      */
     public static int getScreenWidth() {
-        DisplayMetrics dm ;
-        dm = App.getContext().getResources().getDisplayMetrics();
-        int size = dm.widthPixels;
-        return size;
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowMgr = (WindowManager)App.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowMgr.getDefaultDisplay().getRealMetrics(dm);
+        // 获取高度
+        int height = dm.heightPixels;
+        // 获取宽度
+        int width = dm.widthPixels;
+        return width;
     }
 
     /**
@@ -42,6 +48,43 @@ public class ScreenUtils {
      * @return
      */
     public static int getScreenHeight() {
+        DisplayMetrics dm = new DisplayMetrics();
+        WindowManager windowMgr = (WindowManager)App.getContext().getSystemService(Context.WINDOW_SERVICE);
+        windowMgr.getDefaultDisplay().getRealMetrics(dm);
+        // 获取高度
+        int height = dm.heightPixels;
+        // 获取宽度
+        int width = dm.widthPixels;
+        return height;
+    }
+
+    /**
+     * 获取屏幕尺寸
+     * @return
+     */
+    public static int[] getDisplaySize() {
+        DisplayMetrics dm ;
+        dm = App.getContext().getResources().getDisplayMetrics();
+        int[] size = {dm.widthPixels, dm.heightPixels};
+        return size;
+    }
+
+    /**
+     * 获取显示尺寸Width
+     * @return
+     */
+    public static int getDisplayWidth() {
+        DisplayMetrics dm ;
+        dm = App.getContext().getResources().getDisplayMetrics();
+        int size = dm.widthPixels;
+        return size;
+    }
+
+    /**
+     * 获取显示尺寸Height
+     * @return
+     */
+    public static int getDisplayHeight() {
         DisplayMetrics dm ;
         dm = App.getContext().getResources().getDisplayMetrics();
         int size = dm.heightPixels;

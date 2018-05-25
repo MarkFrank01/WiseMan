@@ -84,7 +84,7 @@ class HomeFragment : BaseFragment() {
         })
 
         val para = tl_home.layoutParams
-        val screenWidth = ScreenUtils.getScreenWidth() //屏幕宽度
+        val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
         para.width = screenWidth * 1 / 2
         tl_home.layoutParams = para
 

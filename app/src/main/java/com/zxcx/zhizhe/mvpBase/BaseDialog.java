@@ -42,7 +42,7 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toast, null);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(getActivity());
         toast.setView(linearLayout);
@@ -63,7 +63,7 @@ public class BaseDialog extends DialogFragment implements IBasePresenter{
         linearLayout.setBackgroundResource(R.color.red);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(getActivity());
         toast.setView(linearLayout);

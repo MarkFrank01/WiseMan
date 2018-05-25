@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 //测试时关闭tinker
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
 apply from: 'multiple-channel.gradle'
 apply plugin: 'kotlin-android-extensions'
 // 添加mob插件

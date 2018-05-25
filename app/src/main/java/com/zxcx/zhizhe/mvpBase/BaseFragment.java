@@ -95,7 +95,7 @@ public class BaseFragment extends Fragment implements BaseView{
         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(mActivity);
         toast.setView(linearLayout);
@@ -116,7 +116,7 @@ public class BaseFragment extends Fragment implements BaseView{
         linearLayout.setBackgroundResource(R.color.red);
         TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
         ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getScreenWidth();
+        params.width = ScreenUtils.getDisplayWidth();
         tvToast.setLayoutParams(params);
         Toast toast = new Toast(mActivity);
         toast.setView(linearLayout);
