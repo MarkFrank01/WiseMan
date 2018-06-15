@@ -123,6 +123,20 @@ public class FileUtil {
     }
 
     /**
+     * 获取随机图片名
+     *
+     * @return
+     */
+    public static String getRandomImageName(String path) {
+        String suffixName = path.substring(path.lastIndexOf("."),path.length());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS",
+                Locale.getDefault());
+        Date cruDate = Calendar.getInstance().getTime();
+        String strDate = sdf.format(cruDate);
+        return strDate + ".png";
+    }
+
+    /**
      * 图片基础路径
      *
      * @return
