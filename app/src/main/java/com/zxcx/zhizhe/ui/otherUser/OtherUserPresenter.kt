@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.otherUser
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class OtherUserPresenter(view: OtherUserContract.View) : BasePresenter<OtherUserContract.View>(), OtherUserContract.Presenter {
 

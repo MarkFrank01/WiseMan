@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.likeCards
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class LikeCardsPresenter(view: LikeCardsContract.View) : BasePresenter<LikeCardsContract.View>(), LikeCardsContract.Presenter {
 

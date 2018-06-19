@@ -1,16 +1,16 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails;
+package com.zxcx.zhizhe.ui.article.articleDetails;
 
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
 
-public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View> implements CardDetailsContract.Presenter {
+public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContract.View> implements ArticleDetailsContract.Presenter {
 
-    private final CardDetailsModel mModel;
+    private final ArticleDetailsModel mModel;
 
-    public CardDetailsPresenter(@NonNull CardDetailsContract.View view) {
+    public ArticleDetailsPresenter(@NonNull ArticleDetailsContract.View view) {
         attachView(view);
-        mModel = new CardDetailsModel(this);
+        mModel = new ArticleDetailsModel(this);
     }
 
     public void getCardDetails(int cardId){
@@ -50,7 +50,7 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     }
 
     @Override
-    public void getDataSuccess(CardDetailsBean bean) {
+    public void getDataSuccess(ArticleDetailsBean bean) {
         mView.getDataSuccess(bean);
     }
 
@@ -80,7 +80,7 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     }
 
     @Override
-    public void postSuccess(CardDetailsBean bean) {
+    public void postSuccess(ArticleDetailsBean bean) {
         mView.postSuccess(bean);
     }
 
@@ -95,12 +95,12 @@ public class CardDetailsPresenter extends BasePresenter<CardDetailsContract.View
     }
 
     @Override
-    public void likeSuccess(CardDetailsBean bean) {
+    public void likeSuccess(ArticleDetailsBean bean) {
         mView.likeSuccess(bean);
     }
 
     @Override
-    public void collectSuccess(CardDetailsBean bean) {
+    public void collectSuccess(ArticleDetailsBean bean) {
         mView.collectSuccess(bean);
     }
 }

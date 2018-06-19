@@ -8,9 +8,9 @@ import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
@@ -93,7 +93,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CardBean
-        mActivity.startActivity(CardDetailsActivity::class.java,{
+        mActivity.startActivity(ArticleDetailsActivity::class.java,{
             it.putExtra("id", bean.id)
             it.putExtra("name", bean.name)
         })
@@ -103,7 +103,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
         val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardBagActivity::class.java,{
             it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardBagName)
+            it.putExtra("name", bean.cardCategoryName)
         })
     }
 

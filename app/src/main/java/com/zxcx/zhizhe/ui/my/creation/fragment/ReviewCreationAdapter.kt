@@ -19,7 +19,7 @@ class ReviewCreationAdapter(data : List<CreationBean>) : BaseQuickAdapter<Creati
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
         helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_card_bag, item.cardBagName)
+        helper.setText(R.id.tv_item_card_category, item.cardBagName)
         when (item.cardType) {
             1 -> helper.setText(R.id.tv_item_card_type, "卡片")
             2 -> helper.setText(R.id.tv_item_card_type, "长文")

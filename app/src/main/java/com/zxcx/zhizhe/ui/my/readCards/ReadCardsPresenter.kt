@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.readCards
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCardsContract.View>(), ReadCardsContract.Presenter {
 

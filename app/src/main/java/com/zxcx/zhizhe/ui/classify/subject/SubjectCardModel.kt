@@ -5,7 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseArrayBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class SubjectCardModel(presenter: SubjectCardContract.Presenter) : BaseModel<SubjectCardContract.Presenter>() {
     init {

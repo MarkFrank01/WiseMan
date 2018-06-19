@@ -6,7 +6,7 @@ import android.os.Bundle
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.card.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_about_us.*
 

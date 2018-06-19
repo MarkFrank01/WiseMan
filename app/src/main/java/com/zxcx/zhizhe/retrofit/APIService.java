@@ -2,9 +2,9 @@ package com.zxcx.zhizhe.retrofit;
 
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsBean;
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
-import com.zxcx.zhizhe.ui.home.hot.CardBean;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
@@ -30,6 +30,7 @@ import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -164,10 +165,17 @@ public interface APIService {
             @Query("pageIndex") int page);
 
     /**
+     * 获取推荐卡片
+     */
+    @POST("/article/getRecommendContent")
+    Flowable<BaseArrayBean<CardBean>> getHotCard(
+		    @Query("lastRefresh")Date date, @Query("pageIndex") int page);
+
+    /**
      * 获取关注卡片
      */
     @POST("/article/getFollowContent")
-    Flowable<BaseArrayBean<HotBean>> getAttentionCard(
+    Flowable<BaseArrayBean<CardBean>> getAttentionCard(
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
@@ -320,7 +328,7 @@ public interface APIService {
      * 获取卡片详情
      */
     @POST("/article/getArticleBasicInfo")
-    Flowable<BaseBean<CardDetailsBean>> getCardDetails(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> getCardDetails(@Query("articleId") int cardId);
 
     /**
      * 卡片阅读30秒
@@ -339,37 +347,37 @@ public interface APIService {
      * 添加收藏卡片
      */
     @POST("/favorite/collectArticle")
-    Flowable<BaseBean<CardDetailsBean>> addCollectCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> addCollectCard(@Query("articleId") int cardId);
 
     /**
      *取消收藏卡片
      */
     @POST("/favorite/uncollectSingleArticle")
-    Flowable<BaseBean<CardDetailsBean>> removeCollectCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> removeCollectCard(@Query("articleId") int cardId);
 
     /**
      *点赞卡片
      */
     @POST("/article/setLikeForArticle")
-    Flowable<BaseBean<CardDetailsBean>> likeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> likeCard(@Query("articleId") int cardId);
 
     /**
      *取消点赞卡片
      */
     @POST("/article/unLikeForArticle")
-    Flowable<BaseBean<CardDetailsBean>> removeLikeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> removeLikeCard(@Query("articleId") int cardId);
 
     /**
      *不赞同卡片
      */
     @POST("/article/setDisagreeForArticle")
-    Flowable<BaseBean<CardDetailsBean>> unLikeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> unLikeCard(@Query("articleId") int cardId);
 
     /**
      *取消不赞同卡片
      */
     @POST("/article/unDisagreeForArticle")
-    Flowable<BaseBean<CardDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
+    Flowable<BaseBean<ArticleDetailsBean>> removeUnLikeCard(@Query("articleId") int cardId);
 
     /**
      *删除笔记

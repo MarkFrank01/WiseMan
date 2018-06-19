@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.search.result
 
-import com.zxcx.zhizhe.ui.home.hot.CardBean
-import com.zxcx.zhizhe.ui.search.result.SubjectBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 /**
  * Created by anm on 2018/3/26.

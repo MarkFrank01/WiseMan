@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.zxcx.zhizhe.ui.MainActivity;
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity;
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
 import com.zxcx.zhizhe.ui.my.message.MessageActivity;
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity;
@@ -56,7 +56,7 @@ public class OpenNotification extends BroadcastReceiver {
                     detailIntent.setClass(context, CardBagActivity.class);
                     break;
                 case Constants.PUSH_TYPE_CARD:
-                    detailIntent.setClass(context, CardDetailsActivity.class);
+                    detailIntent.setClass(context, ArticleDetailsActivity.class);
                     break;
                 case Constants.PUSH_TYPE_AD:
                     detailIntent.setClass(context, WebViewActivity.class);

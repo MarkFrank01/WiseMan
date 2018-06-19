@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails;
+package com.zxcx.zhizhe.ui.article.articleDetails;
 
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
@@ -6,7 +6,7 @@ import com.zxcx.zhizhe.ui.welcome.ADBean;
 
 import java.util.Date;
 
-public class CardDetailsBean extends RetrofitBaen {
+public class ArticleDetailsBean extends RetrofitBaen {
 
     @SerializedName("like")
     private boolean isLike;

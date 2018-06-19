@@ -16,12 +16,12 @@ import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.card.hot.CardAdapter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.home.hot.HotAdapter
 import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
@@ -40,7 +40,7 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
-    private lateinit var mAdapter: HotAdapter
+    private lateinit var mAdapter: CardAdapter
     private var page = 0
     private var mHidden = true
 
@@ -128,7 +128,7 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         getAttentionCard()
     }
 
-    override fun getDataSuccess(list: List<HotBean>) {
+    override fun getDataSuccess(list: List<CardBean>) {
         loadService.showSuccess()
         if (page == 0) {
             mAdapter.setNewData(list)
@@ -166,7 +166,7 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
     private fun initView() {
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = HotAdapter(ArrayList(), this)
+        mAdapter = CardAdapter(ArrayList())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_attention_card)
         mAdapter.onItemClickListener = this
@@ -195,8 +195,8 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+                Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
+        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
@@ -209,12 +209,12 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardBagActivity::class.java,{
             it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardBagName)
+            it.putExtra("name", bean.cardCategoryName)
         })
     }
 
     override fun cardOnClick(bean: CardBean) {
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

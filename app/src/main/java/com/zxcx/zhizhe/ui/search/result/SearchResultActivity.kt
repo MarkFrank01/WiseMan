@@ -15,10 +15,10 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
@@ -109,7 +109,7 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
                     Pair.create(view.findViewById(R.id.iv_item_search_result_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_search_result_title), "cardTitle"),
                     Pair.create(view.findViewById(R.id.tv_item_search_result_card_bag), "cardBag")).toBundle()
-            val intent = Intent(mActivity, CardDetailsActivity::class.java)
+            val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
             intent.putExtra("id", bean.id)
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
@@ -129,7 +129,7 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
     }
 
     override fun cardOnClick(bean: CardBean) {
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

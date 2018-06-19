@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.classify.subject
 
 import com.zxcx.zhizhe.mvpBase.GetView
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface SubjectCardContract {
 

@@ -27,15 +27,26 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/home_tab_home"
+            android:id="@+id/home_tab_card"
             style="@style/BottomTab"
-            android:text="@string/home_home"
+            android:text="@string/home_card"
             android:drawableTop="@drawable/selector_home_home"/>
 
         <RadioButton
-            android:id="@+id/home_tab_classify"
+            android:id="@+id/home_tab_article"
             style="@style/BottomTab"
-            android:text="@string/home_classify"
+            android:text="@string/home_article"
+            android:drawableTop="@drawable/selector_home_classify" />
+
+        <ImageView
+            android:id="@+id/iv_home_creation"
+            style="@style/BottomTab"
+            android:src="@drawable/iv_add_new"/>
+
+        <RadioButton
+            android:id="@+id/home_tab_rank"
+            style="@style/BottomTab"
+            android:text="@string/home_rank"
             android:drawableTop="@drawable/selector_home_classify" />
 
         <RadioButton

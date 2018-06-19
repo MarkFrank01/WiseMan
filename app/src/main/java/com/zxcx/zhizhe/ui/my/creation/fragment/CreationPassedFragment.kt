@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -73,8 +73,8 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-        val intent = Intent(mActivity,CardDetailsActivity::class.java)
+                Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
+        val intent = Intent(mActivity,ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         startActivity(intent,bundle)

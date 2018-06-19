@@ -13,7 +13,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.zxcx.zhizhe"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 3
         versionName "1.1.0"
@@ -164,13 +164,13 @@ dependencies {
     implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
 
     //极光推送
-    implementation 'cn.jiguang.sdk:jpush:3.0.8'
+    implementation 'cn.jiguang.sdk:jpush:3.1.3'
 
     //极光统计
-    implementation 'cn.jiguang.sdk:janalytics:1.1.1'
+    implementation 'cn.jiguang.sdk:janalytics:1.2.1'
 
     //极光基础库
-    implementation 'cn.jiguang.sdk:jcore:1.1.6'
+    implementation 'cn.jiguang.sdk:jcore:1.2.1'
 
     //阿里云OSS
     implementation 'com.aliyun.dpa:oss-android-sdk:2.3.0'
@@ -217,6 +217,9 @@ dependencies {
     implementation 'android.arch.persistence.room:rxjava2:1.1.0'
     kapt "android.arch.persistence.room:compiler:1.1.0"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
+
+    //HTML转SpannableString
+    implementation 'com.pixplicity.htmlcompat:library:1.1.1'
 
     /*//Android工具类
         compile 'com.blankj:utilcode:1.9.12'*/

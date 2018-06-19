@@ -101,7 +101,6 @@
                 android:layout_height="wrap_content">
 
                 <FrameLayout
-                    android:foreground="@drawable/fg_item_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -154,7 +153,7 @@
                                 <TextView
                                     android:id="@+id/tv_dialog_share_card_bag"
                                     tools:text="数码产品"
-                                    style="@style/tv_card_bag"/>
+                                    style="@style/tv_card_category"/>
                             </FrameLayout>
 
                             <TextView

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails
+package com.zxcx.zhizhe.ui.article.articleDetails
 
 import android.os.Build
 import android.os.Bundle
@@ -20,21 +20,21 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
-import com.zxcx.zhizhe.ui.card.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GoodView
-import kotlinx.android.synthetic.main.activity_card_details.*
+import kotlinx.android.synthetic.main.activity_article_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
+class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View {
 
     private var mWebView: WebView? = null
     private var cardId: Int = 0
@@ -61,7 +61,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_card_details)
+        setContentView(R.layout.activity_article_details)
         ButterKnife.bind(this)
         EventBus.getDefault().register(this)
 
@@ -132,8 +132,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         super.onActionModeFinished(mode)
     }
 
-    override fun createPresenter(): CardDetailsPresenter {
-        return CardDetailsPresenter(this)
+    override fun createPresenter(): ArticleDetailsPresenter {
+        return ArticleDetailsPresenter(this)
     }
 
     override fun onReload(v: View) {
@@ -141,7 +141,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         mWebView?.reload()
     }
 
-    override fun getDataSuccess(bean: CardDetailsBean) {
+    override fun getDataSuccess(bean: ArticleDetailsBean) {
         collectStatus = bean.isCollect
         likeStatus = bean.isLike
         postSuccess(bean)
@@ -166,7 +166,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         }
     }
 
-    override fun likeSuccess(bean: CardDetailsBean) {
+    override fun likeSuccess(bean: ArticleDetailsBean) {
         toastShow("点赞成功")
         postSuccess(bean)
         val goodView = GoodView(this)
@@ -175,7 +175,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         goodView.show(cb_card_details_like)
     }
 
-    override fun collectSuccess(bean: CardDetailsBean) {
+    override fun collectSuccess(bean: ArticleDetailsBean) {
         toastShow("收藏成功")
         postSuccess(bean)
         val goodView = GoodView(this)
@@ -184,7 +184,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         goodView.show(cb_card_details_collect)
     }
 
-    override fun postSuccess(bean: CardDetailsBean) {
+    override fun postSuccess(bean: ArticleDetailsBean) {
         isUnCollect = collectStatus != bean.isCollect() && !bean.isCollect()
         isUnLike = likeStatus != bean.isLike() && !bean.isLike()
 
@@ -399,7 +399,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 isError = true
                 loadService.showSuccess()
                 if (loadService2 == null) {
-                    loadService2 = loadSir2?.register(sv_card_details, this@CardDetailsActivity)
+                    loadService2 = loadSir2?.register(sv_card_details, this@ArticleDetailsActivity)
                 }
                 loadService2?.showCallback(CardDetailsNetworkErrorCallback::class.java)
             }
@@ -451,7 +451,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         bundle.putString("imageUrl", imageUrl)
         bundle.putString("date", date)
         bundle.putString("author", author)
-        bundle.putString("cardBagName", cardBagName)
+        bundle.putString("cardCategoryName", cardBagName)
         bundle.putInt("cardBagId", cardBagId)
         shareDialog.arguments = bundle
         val fragmentManager = fragmentManager

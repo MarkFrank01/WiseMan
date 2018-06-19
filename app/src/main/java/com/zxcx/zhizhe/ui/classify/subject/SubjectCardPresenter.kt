@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.classify.subject
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class SubjectCardPresenter(view: SubjectCardContract.View) : BasePresenter<SubjectCardContract.View>(), SubjectCardContract.Presenter {
 

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.share;
+package com.zxcx.zhizhe.ui.card.share;
 
 import android.app.Dialog;
 import android.content.ClipData;

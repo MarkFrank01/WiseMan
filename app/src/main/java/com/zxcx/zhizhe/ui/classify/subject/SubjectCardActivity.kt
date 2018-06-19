@@ -11,8 +11,8 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -90,8 +90,8 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-        val intent = Intent(this, CardDetailsActivity::class.java)
+                Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
+        val intent = Intent(this, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

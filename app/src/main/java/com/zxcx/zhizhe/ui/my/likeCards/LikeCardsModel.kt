@@ -6,7 +6,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class LikeCardsModel(presenter: LikeCardsContract.Presenter) : BaseModel<LikeCardsContract.Presenter>() {
     init {

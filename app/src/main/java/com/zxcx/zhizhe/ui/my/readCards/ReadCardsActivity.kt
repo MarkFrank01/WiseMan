@@ -13,9 +13,9 @@ import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
@@ -92,7 +92,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
     override fun onContentClick(position: Int) {
         val bean = mAdapter.data[position] as ReadCardsBean
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
@@ -101,7 +101,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+                Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_category), "cardBag")).toBundle()
         mActivity.startActivity(intent, bundle)
     }
 
@@ -113,7 +113,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         val bean = adapter.data[position] as CardBean
         mActivity.startActivity(CardBagActivity::class.java,{
             it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardBagName)
+            it.putExtra("name", bean.cardCategoryName)
         })
     }
 

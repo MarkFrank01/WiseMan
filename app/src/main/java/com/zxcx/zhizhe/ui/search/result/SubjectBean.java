@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.search.result;
 
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
-import com.zxcx.zhizhe.ui.home.hot.CardBean;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 import java.util.List;
 

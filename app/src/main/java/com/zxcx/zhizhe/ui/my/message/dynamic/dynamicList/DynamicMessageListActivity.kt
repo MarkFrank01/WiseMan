@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ClearMessageEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
@@ -103,7 +103,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
         if (mAdapter.data[position].itemType == dynamic_content) {
             val bean = mAdapter.data[position] as DynamicMessageListBean
             if (bean.messageType != message_follow){
-                val intent = Intent(mActivity,CardDetailsActivity::class.java)
+                val intent = Intent(mActivity,ArticleDetailsActivity::class.java)
                 intent.putExtra("id",bean.relatedCardId)
                 startActivity(intent)
             }

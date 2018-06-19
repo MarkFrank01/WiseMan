@@ -89,7 +89,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
+                Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
         val intent = Intent(mActivity,ReviewDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)

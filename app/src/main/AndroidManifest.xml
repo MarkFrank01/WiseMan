@@ -105,7 +105,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.card.card.cardDetails.CardDetailsActivity"
+            android:name=".ui.article.articleDetails.ArticleDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
@@ -259,6 +259,9 @@
             android:name=".ui.my.creation.newCreation.CreationEditorActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.card.cardDetails.CardDetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

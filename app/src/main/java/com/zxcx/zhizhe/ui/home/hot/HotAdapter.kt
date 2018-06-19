@@ -36,7 +36,7 @@ class HotAdapter(data: List<HotBean>?, private val mListener: SubjectOnClickList
     }
 
     private fun initCardView(helper: BaseViewHolder, bean: HotBean) {
-        helper.addOnClickListener(R.id.tv_item_card_card_bag)
+        helper.addOnClickListener(R.id.tv_item_card_category)
         val item = bean.cardBean
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
 
@@ -44,7 +44,7 @@ class HotAdapter(data: List<HotBean>?, private val mListener: SubjectOnClickList
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
         helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_card_bag, item.cardBagName)
+        helper.setText(R.id.tv_item_card_category, item.cardCategoryName)
         helper.setText(R.id.tv_item_card_reade_num, item.readNum.toString())
         helper.setText(R.id.tv_item_card_collect_num, item.collectNum.toString())
         when (item.cardType) {

@@ -4,7 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class OtherUserModel(presenter: OtherUserContract.Presenter) : BaseModel<OtherUserContract.Presenter>() {
     init {

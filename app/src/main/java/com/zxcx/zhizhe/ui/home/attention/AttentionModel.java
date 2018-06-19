@@ -6,7 +6,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
-import com.zxcx.zhizhe.ui.home.hot.HotBean;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 import java.util.List;
 
@@ -20,9 +20,9 @@ public class AttentionModel extends BaseModel<AttentionContract.Presenter> {
         mDisposable = AppClient.getAPIService().getAttentionCard(page,pageSize)
                 .compose(BaseRxJava.INSTANCE.io_main())
                 .compose(BaseRxJava.INSTANCE.handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<HotBean>>(mPresenter) {
+                .subscribeWith(new BaseSubscriber<List<CardBean>>(mPresenter) {
                     @Override
-                    public void onNext(List<HotBean> list) {
+                    public void onNext(List<CardBean> list) {
                         mPresenter.getDataSuccess(list);
                     }
                 });

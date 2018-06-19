@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails
+package com.zxcx.zhizhe.ui.article.articleDetails
 
 import android.os.Bundle
 import android.view.LayoutInflater

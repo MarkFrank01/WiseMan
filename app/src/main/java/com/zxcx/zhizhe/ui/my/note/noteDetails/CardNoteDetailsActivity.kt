@@ -17,7 +17,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_card_note_details.*
 
@@ -154,7 +154,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
             if (withCardId == 0){
                 return@setOnClickListener
             }
-            val intent = Intent(mActivity, CardDetailsActivity::class.java)
+            val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
             intent.putExtra("id", withCardId)
             startActivity(intent)
         }

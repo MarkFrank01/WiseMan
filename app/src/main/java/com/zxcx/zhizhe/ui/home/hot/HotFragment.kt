@@ -10,14 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
-import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.search.result.SubjectBean
 import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
@@ -30,13 +32,14 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-class HotFragment : MvpFragment<HotPresenter>(), HotContract.View,
+class HotFragment : RefreshMvpFragment<HotPresenter>(), HotContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, SubjectOnClickListener {
 
     private lateinit var mAdapter: HotAdapter
     private var mPage = 0
     private var mHidden = true
+    private var mLastDate = Date()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_hot, container, false)
@@ -88,15 +91,18 @@ class HotFragment : MvpFragment<HotPresenter>(), HotContract.View,
             getHotCard()
         }
     }
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
+        getHotCard()
+    }
 
     override fun onLoadMoreRequested() {
         getHotCard()
     }
 
     override fun getDataSuccess(list: List<HotBean>) {
-        //loadService.showSuccess()的调用必须在PtrFrameLayout.refreshComplete()之前，因为loadService的调用会使得界面重新加载，这将导致PtrFrameLayout移除
         loadService.showSuccess()
         if (mPage == 0) {
+            mRefreshLayout.finishRefresh()
             mAdapter.setNewData(list)
             rv_hot_card.scrollToPosition(0)
         } else {
@@ -147,8 +153,8 @@ class HotFragment : MvpFragment<HotPresenter>(), HotContract.View,
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                     Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-            val intent = Intent(mActivity, CardDetailsActivity::class.java)
+                    Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
+            val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
             intent.putExtra("id", bean.id)
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
@@ -160,14 +166,14 @@ class HotFragment : MvpFragment<HotPresenter>(), HotContract.View,
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CardBean
-        mActivity.startActivity(CardBagActivity::class.java,{
+        mActivity.startActivity(CardBagActivity::class.java) {
             it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardBagName)
-        })
+            it.putExtra("name", bean.cardCategoryName)
+        }
     }
 
     override fun cardOnClick(bean: CardBean) {
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
+        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

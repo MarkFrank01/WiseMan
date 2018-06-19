@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
+import android.text.SpannableString
 import android.view.View
 import butterknife.ButterKnife
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -15,9 +16,9 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
 import com.zxcx.zhizhe.ui.home.hot.HotAdapter
 import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.search.result.SubjectBean
@@ -141,8 +142,8 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
                     Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-                    Pair.create(view.findViewById(R.id.tv_item_card_card_bag), "cardBag")).toBundle()
-            val intent = Intent(this, CardDetailsActivity::class.java)
+                    Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
+            val intent = Intent(this, ArticleDetailsActivity::class.java)
             intent.putExtra("id", bean.id)
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
@@ -153,7 +154,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     override fun cardOnClick(bean: CardBean) {
-        val intent = Intent(this, CardDetailsActivity::class.java)
+        val intent = Intent(this, ArticleDetailsActivity::class.java)
         intent.putExtra("id", bean.id)
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)

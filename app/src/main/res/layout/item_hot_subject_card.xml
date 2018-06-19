@@ -10,7 +10,6 @@
 
     <FrameLayout
         android:id="@+id/fl_item_subject_card"
-        android:foreground="@drawable/fg_item_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 

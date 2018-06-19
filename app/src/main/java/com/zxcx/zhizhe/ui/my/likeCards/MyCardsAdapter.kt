@@ -22,13 +22,13 @@ class MyCardsAdapter(data : List<MyCardsBean>) : BaseQuickAdapter<MyCardsBean, B
     }
 
     override fun convert(helper: BaseViewHolder, item: MyCardsBean) {
-        helper.addOnClickListener(R.id.tv_item_card_card_bag)
+        helper.addOnClickListener(R.id.tv_item_card_category)
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
         helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_card_bag, if (item.subjectName.isNullOrEmpty()) item.cardBagName else item.subjectName)
+        helper.setText(R.id.tv_item_card_category, if (item.subjectName.isNullOrEmpty()) item.cardBagName else item.subjectName)
         helper.setText(R.id.tv_item_card_reade_num, item.readNum.toString())
         helper.setText(R.id.tv_item_card_collect_num, item.collectNum.toString())
         when (item.cardType) {

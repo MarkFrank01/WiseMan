@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.card.card.cardDetails;
+package com.zxcx.zhizhe.ui.article.articleDetails;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -150,7 +150,7 @@ public class ShareCardDialog extends BaseDialog {
         imageUrl = bundle.getString("imageUrl");
         date = bundle.getString("date");
         author = bundle.getString("author");
-        cardBagName = bundle.getString("cardBagName");
+        cardBagName = bundle.getString("cardCategoryName");
         cardBagId = bundle.getInt("cardBagId", 0);
 
         boolean isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);

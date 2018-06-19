@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.home.hot;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 
 /**
@@ -15,11 +16,11 @@ public class HotBean extends RetrofitBaen implements MultiItemEntity {
     public static final int TYPE_SUBJECT = 2;
 
     @SerializedName("articleContent")
-    private CardBean mCardBean;
+    private com.zxcx.zhizhe.ui.card.hot.CardBean mCardBean;
     @SerializedName("collectionContent")
     private SubjectBean mSubjectBean;
 
-    public CardBean getCardBean() {
+    public com.zxcx.zhizhe.ui.card.hot.CardBean getCardBean() {
         return mCardBean;
     }
 

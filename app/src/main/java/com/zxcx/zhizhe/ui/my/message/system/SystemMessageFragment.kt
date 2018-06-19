@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.home.rank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
@@ -80,7 +80,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
         val intent = Intent()
         when(bean.messageType){
             message_card_pass -> {
-                intent.setClass(mActivity,CardDetailsActivity::class.java)
+                intent.setClass(mActivity,ArticleDetailsActivity::class.java)
                 intent.putExtra("id",bean.relatedCardId)
             }
             message_card_reject -> {
@@ -106,7 +106,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 return
             }
             message_recommend -> {
-                intent.setClass(mActivity,CardDetailsActivity::class.java)
+                intent.setClass(mActivity,ArticleDetailsActivity::class.java)
                 intent.putExtra("id",bean.relatedCardId)
             }
         }

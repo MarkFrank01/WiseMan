@@ -5,7 +5,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
@@ -25,7 +25,7 @@ class SubjectCardAdapter(data: List<CardBean>?) : BaseQuickAdapter<CardBean, Bas
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
         helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_card_bag, item.subjectName)
+        helper.setText(R.id.tv_item_card_category, item.subjectName)
         helper.setText(R.id.tv_item_card_reade_num, item.readNum.toString() + "")
         helper.setText(R.id.tv_item_card_collect_num, item.collectNum.toString() + "")
         when (item.cardType) {

@@ -9,8 +9,8 @@ import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.card.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.ui.home.hot.CardBean
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
@@ -51,20 +51,14 @@ object EmptyView {
         val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
         ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
         emptyView.tv_item_card_title.text = bean.name
-        emptyView.tv_item_card_card_bag.text = bean.cardBagName
-        emptyView.tv_item_card_reade_num.text = bean.readNum.toString()
-        emptyView.tv_item_card_collect_num.text = bean.collectNum.toString()
-        when (bean.cardType) {
-            1 -> emptyView.tv_item_card_type.text = "卡片"
-            2 -> emptyView.tv_item_card_type.text = "长文"
-        }
+        emptyView.tv_item_card_category.text = bean.cardCategoryName
 
         emptyView.fl_no_data_and_card_card.setOnClickListener {
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                     Pair.create(emptyView.iv_item_card_icon, "cardImage"),
                     Pair.create(emptyView.tv_item_card_title, "cardTitle"),
-                    Pair.create(emptyView.tv_item_card_card_bag, "cardBag")).toBundle()
-            val intent = Intent(activity, CardDetailsActivity::class.java)
+                    Pair.create(emptyView.tv_item_card_category, "cardBag")).toBundle()
+            val intent = Intent(activity, ArticleDetailsActivity::class.java)
             intent.putExtra("id", bean.id)
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)

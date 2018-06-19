@@ -7,6 +7,17 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowSoftInputMode">adjustUnspecified|stateAlwaysHidden</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementReturnTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementReenterTransition">
+            @transition/change_image_transform</item>
     </style>
 
     <style name="AppTheme.FullScreen" parent="AppTheme">
@@ -37,11 +48,11 @@
 
     <style name="tv_card">
         <item name="android:maxLines">1</item>
-        <item name="android:maxLength">20</item>
+        <item name="android:maxLength">18</item>
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:textColor">@color/white_final</item>
-        <item name="android:textSize">@dimen/text_size_title_2</item>
+        <item name="android:textColor">@color/text_color_1</item>
+        <item name="android:textSize">@dimen/text_size_text_1</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -63,17 +74,20 @@
         <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
     </style>
 
-    <style name="tv_card_bag">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:background">@drawable/bg_card_details_card_bag</item>
-        <item name="android:textColor">@color/text_color_card_bag</item>
-        <item name="android:textSize">@dimen/text_size_text_4</item>
-        <item name="android:paddingTop">1dp</item>
-        <item name="android:paddingBottom">1dp</item>
-        <item name="android:paddingStart">6dp</item>
-        <item name="android:paddingEnd">6dp</item>
+    <style name="tv_card_category">
+        <item name="android:textColor">@color/text_color_3</item>
+        <item name="android:textSize">@dimen/text_size_text_3</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:transitionName">cardCategory</item>
+    </style>
+
+    <style name="tv_card_label">
+        <item name="android:textColor">@color/text_color_3</item>
+        <item name="android:textSize">@dimen/text_size_text_3</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:transitionName">cardLabel</item>
     </style>
 
     <style name="tv_card_type">
