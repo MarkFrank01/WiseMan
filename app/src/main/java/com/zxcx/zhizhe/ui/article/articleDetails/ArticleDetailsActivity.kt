@@ -158,10 +158,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             fl_card_details_ad.visibility = View.VISIBLE
             ImageLoader.load(mActivity, ad.content, R.drawable.default_card, iv_card_details_ad)
             fl_card_details_ad.setOnClickListener {
-                startActivity(WebViewActivity::class.java,{
+                startActivity(WebViewActivity::class.java) {
                     it.putExtra("title", ad.description)
                     it.putExtra("url", ad.behavior)
-                })
+                }
             }
         }
     }
@@ -210,11 +210,11 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         tv_item_rank_user_fans.text = bean.authorFansNum
         tv_item_rank_user_read.text = bean.authorReadNum
         if (bean.followType == 0) {
-            cb_card_details_follow.text = "关注"
-            cb_card_details_follow.isChecked = false
+            cb_item_card_details_follow.text = "关注"
+            cb_item_card_details_follow.isChecked = false
         } else {
-            cb_card_details_follow.text = "已关注"
-            cb_card_details_follow.isChecked = true
+            cb_item_card_details_follow.text = "已关注"
+            cb_item_card_details_follow.isChecked = true
         }
     }
 
@@ -223,15 +223,15 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
     }
 
     override fun followSuccess() {
-        if (cb_card_details_follow.isChecked) {
+        if (cb_item_card_details_follow.isChecked) {
             //取消成功
-            cb_card_details_follow.text = "关注"
-            cb_card_details_follow.isChecked = false
+            cb_item_card_details_follow.text = "关注"
+            cb_item_card_details_follow.isChecked = false
         } else {
             //关注成功
             toastShow("关注成功")
-            cb_card_details_follow.text = "已关注"
-            cb_card_details_follow.isChecked = true
+            cb_item_card_details_follow.text = "已关注"
+            cb_item_card_details_follow.isChecked = true
         }
         EventBus.getDefault().post(FollowUserRefreshEvent())
     }
@@ -265,8 +265,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
                 })
             }
         }
-        cb_card_details_follow.setOnClickListener {
-            cb_card_details_follow.isChecked = !cb_card_details_follow.isChecked
+        cb_item_card_details_follow.setOnClickListener {
+            cb_item_card_details_follow.isChecked = !cb_item_card_details_follow.isChecked
             if (!checkLogin()) {
                 return@setOnClickListener
             }
@@ -274,7 +274,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
                 toastShow("无法关注自己")
                 return@setOnClickListener
             }
-            if (!cb_card_details_follow.isChecked) {
+            if (!cb_item_card_details_follow.isChecked) {
                 //关注
                 mPresenter.setUserFollow(mAuthorId, 0)
             } else {
@@ -347,7 +347,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         name = intent.getStringExtra("name")
         imageUrl = intent.getStringExtra("imageUrl")
         date = intent.getStringExtra("date")
-        author = intent.getStringExtra("author")
+        author = intent.getStringExtra("authorName")
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
     }
 
@@ -450,7 +450,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         }
         bundle.putString("imageUrl", imageUrl)
         bundle.putString("date", date)
-        bundle.putString("author", author)
+        bundle.putString("authorName", author)
         bundle.putString("cardCategoryName", cardBagName)
         bundle.putInt("cardBagId", cardBagId)
         shareDialog.arguments = bundle

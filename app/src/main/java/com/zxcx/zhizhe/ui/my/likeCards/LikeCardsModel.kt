@@ -38,7 +38,7 @@ class LikeCardsModel(presenter: LikeCardsContract.Presenter) : BaseModel<LikeCar
     }
 
     fun deleteLikeCard(cardId: Int) {
-        mDisposable = AppClient.getAPIService().removeLikeCard(cardId)
+        mDisposable = AppClient.getAPIService().removeLikeArticle(cardId)
                 .compose(BaseRxJava.handlePostResult())
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {

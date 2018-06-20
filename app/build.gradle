@@ -179,8 +179,7 @@ dependencies {
     implementation 'top.zibin:Luban:1.1.2'
 
     //blurry 高斯模糊
-
-    //implementation 'jp.wasabeef:blurry:2.1.1'
+    implementation 'jp.wasabeef:blurry:2.1.1'
 
     //loadsir 加载状态布局管理
     implementation 'com.kingja.loadsir:loadsir:1.3.5'

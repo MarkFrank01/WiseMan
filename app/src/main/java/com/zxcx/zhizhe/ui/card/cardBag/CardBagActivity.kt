@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
-import android.text.SpannableString
 import android.view.View
 import butterknife.ButterKnife
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -148,7 +147,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
             intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-            intent.putExtra("author", bean.author)
+            intent.putExtra("authorName", bean.authorName)
             startActivity(intent, bundle)
         }
     }
@@ -159,7 +158,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-        intent.putExtra("author", bean.author)
+        intent.putExtra("authorName", bean.authorName)
         startActivity(intent)
     }
 

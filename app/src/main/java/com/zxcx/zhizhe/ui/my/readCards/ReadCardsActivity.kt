@@ -97,7 +97,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-        intent.putExtra("author", bean.author)
+        intent.putExtra("authorName", bean.author)
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(mAdapter.getViewByPosition(position+mAdapter.headerLayoutCount,R.id.tv_item_card_title), "cardTitle"),

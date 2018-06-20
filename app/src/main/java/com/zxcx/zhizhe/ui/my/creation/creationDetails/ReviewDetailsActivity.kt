@@ -98,7 +98,7 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
         name = intent.getStringExtra("name")
         imageUrl = intent.getStringExtra("imageUrl")
         date = intent.getStringExtra("date")
-        author = intent.getStringExtra("author")
+        author = intent.getStringExtra("authorName")
     }
 
     private fun initView() {

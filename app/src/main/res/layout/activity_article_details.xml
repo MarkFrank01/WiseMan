@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"/>
 
                     <CheckBox
-                        android:id="@+id/cb_card_details_follow"
+                        android:id="@+id/cb_item_card_details_follow"
                         android:text="关注"
                         android:textSize="14sp"
                         android:checked="false"

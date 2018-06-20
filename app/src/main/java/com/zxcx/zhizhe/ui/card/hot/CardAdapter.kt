@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.card.hot
 
 import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
@@ -23,5 +24,12 @@ class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHol
         helper.setText(R.id.tv_item_card_category, item.cardCategoryName)
         helper.setText(R.id.tv_item_card_label, item.cardLabelName)
 
+        imageView.transitionName = mContext.getString(R.string.card_img_transition_name,helper.adapterPosition)
+        helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
+                R.string.card_title_transition_name,helper.adapterPosition)
+        helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
+                R.string.card_category_transition_name,helper.adapterPosition)
+        helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
+                R.string.card_label_transition_name,helper.adapterPosition)
     }
 }

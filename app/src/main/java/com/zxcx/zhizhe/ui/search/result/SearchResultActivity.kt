@@ -114,7 +114,7 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
             intent.putExtra("name", bean.name)
             intent.putExtra("imageUrl", bean.imageUrl)
             intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-            intent.putExtra("author", bean.author)
+            intent.putExtra("authorName", bean.author)
             mActivity.startActivity(intent, bundle)
         }
     }
@@ -134,7 +134,7 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-        intent.putExtra("author", bean.author)
+        intent.putExtra("authorName", bean.authorName)
         mActivity.startActivity(intent)
     }
 

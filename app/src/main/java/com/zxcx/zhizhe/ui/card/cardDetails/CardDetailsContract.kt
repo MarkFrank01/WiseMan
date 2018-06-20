@@ -1,13 +1,21 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
-import com.zxcx.zhizhe.mvpBase.GetView
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
-import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsBean
+import com.zxcx.zhizhe.mvpBase.GetPostView
+import com.zxcx.zhizhe.mvpBase.IGetPostPresenter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface CardDetailsContract {
 
-    interface View : GetView<CardDetailsBean>
+    interface View : GetPostView<MutableList<CardBean>,CardBean>{
+        fun followSuccess(bean: CardBean)
+        fun likeSuccess(bean: CardBean)
+        fun collectSuccess(bean: CardBean)
+    }
 
-    interface Presenter : IGetPresenter<CardDetailsBean>
+    interface Presenter : IGetPostPresenter<MutableList<CardBean>,CardBean>{
+        fun followSuccess(bean: CardBean)
+        fun likeSuccess(bean: CardBean)
+        fun collectSuccess(bean: CardBean)
+    }
 }
 

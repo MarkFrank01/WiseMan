@@ -39,7 +39,7 @@ class CollectCardModel(present: CollectCardContract.Presenter) : BaseModel<Colle
     }
 
     fun deleteCollectCard(cardId: Int) {
-        mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
+        mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
                 .compose(BaseRxJava.handlePostResult())
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {

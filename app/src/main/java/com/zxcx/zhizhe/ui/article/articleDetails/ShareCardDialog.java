@@ -149,7 +149,7 @@ public class ShareCardDialog extends BaseDialog {
         content = getArguments().getString("content");
         imageUrl = bundle.getString("imageUrl");
         date = bundle.getString("date");
-        author = bundle.getString("author");
+        author = bundle.getString("authorName");
         cardBagName = bundle.getString("cardCategoryName");
         cardBagId = bundle.getInt("cardBagId", 0);
 

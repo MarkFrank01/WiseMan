@@ -96,7 +96,7 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
         intent.putExtra("name", bean.name)
         intent.putExtra("imageUrl", bean.imageUrl)
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-        intent.putExtra("author", bean.author)
+        intent.putExtra("authorName", bean.authorName)
         startActivity(intent, bundle)
     }
 }

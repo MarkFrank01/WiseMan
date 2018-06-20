@@ -87,4 +87,11 @@
     <string name="intelligence_url">/view/intelligence</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
     <!--common-end-->
+
+    <!--transitionNameStart-->
+    <string name="card_img_transition_name">cardImg%1$d</string>
+    <string name="card_title_transition_name">cardTitle%1$d</string>
+    <string name="card_category_transition_name">cardCategory%1$d</string>
+    <string name="card_label_transition_name">cardLabel%1$d</string>
+    <!--transitionNameEnd-->
 </resources>

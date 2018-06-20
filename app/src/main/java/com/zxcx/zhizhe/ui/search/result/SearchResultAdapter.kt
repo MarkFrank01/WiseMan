@@ -83,7 +83,7 @@ class SearchResultAdapter(data : List<SearchResultBean>, private val mListener: 
                         ImageLoader.load(mContext,cardList[index].imageUrl,R.drawable.default_header,itemCardView.iv_item_subject_card)
                         itemCardView.tv_item_subject_card_name.text = cardList[index].name
                         itemCardView.tv_item_subject_card_info.text =
-                                mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(cardList[index].date), cardList[index].author)
+                                mContext.getString(R.string.tv_card_info, DateTimeUtils.getDateString(cardList[index].date), cardList[index].authorName)
                         itemCardView.setOnClickListener {
                             mListener.cardOnClick(cardList[index])
                         }
