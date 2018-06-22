@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.retrofit;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsBean;
+import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.home.hot.HotBean;
@@ -177,6 +178,19 @@ public interface APIService {
     @POST("/article/getFollowContent")
     Flowable<BaseArrayBean<CardBean>> getAttentionCard(
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * todo 获取卡片类别
+     */
+    @POST("/article/getFollowContent")
+    Flowable<BaseArrayBean<CardCategoryBean>> getCardCategory();
+
+    /**
+     * todo 获取卡片类别下卡片列表
+     */
+    @POST("/article/getFollowContent")
+    Flowable<BaseArrayBean<CardBean>> getCardListForCategory(
+		    @Query("pageIndex") int cardCategoryId,@Query("pageIndex") int page);
 
     /**
      * 获取我的榜单信息

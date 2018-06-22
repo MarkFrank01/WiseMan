@@ -287,10 +287,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             }
         }
         rl_card_details_bottom.setOnClickListener {
-            startActivity(OtherUserActivity::class.java,{
+            startActivity(OtherUserActivity::class.java) {
                 it.putExtra("name", author)
                 it.putExtra("id", mAuthorId)
-            })
+            }
         }
         iv_card_details_share.setOnClickListener {
             when(mCardType){

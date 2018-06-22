@@ -7,11 +7,13 @@ import java.util.ArrayList;
 public class UpdateTransitionEvent {
 	private int page;
 	private int currentPosition;
+	private String sourceName;
 	private ArrayList<CardBean> list;
 
-	public UpdateTransitionEvent(int page, int currentPosition, ArrayList<CardBean> list) {
+	public UpdateTransitionEvent(int page, int currentPosition, String sourceName, ArrayList<CardBean> list) {
 		this.page = page;
 		this.currentPosition = currentPosition;
+		this.sourceName = sourceName;
 		this.list = list;
 	}
 
@@ -29,6 +31,14 @@ public class UpdateTransitionEvent {
 
 	public void setCurrentPosition(int currentPosition) {
 		this.currentPosition = currentPosition;
+	}
+
+	public String getSourceName() {
+		return sourceName;
+	}
+
+	public void setSourceName(String sourceName) {
+		this.sourceName = sourceName;
 	}
 
 	public ArrayList<CardBean> getList() {

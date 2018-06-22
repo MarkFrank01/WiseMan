@@ -43,4 +43,11 @@
             <enum name="circle" value="1"/>
         </attr>
     </declare-styleable>
+    
+    <declare-styleable name="CardListTabLayout">
+        <attr name="minTextSize" format="dimension"/>
+        <attr name="maxTextSize" format="dimension"/>
+        <attr name="minTextColor" format="color"/>
+        <attr name="maxTextColor" format="color"/>
+    </declare-styleable>
 </resources>

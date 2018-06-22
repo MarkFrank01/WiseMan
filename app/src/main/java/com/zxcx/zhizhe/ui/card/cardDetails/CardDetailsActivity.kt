@@ -4,6 +4,7 @@ import android.app.SharedElementCallback
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewTreeObserver
@@ -16,6 +17,7 @@ import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.event.UpdateTransitionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ShareCardDialog
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -39,6 +41,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private var mPage = 0
     private var mLastDate = Date()
     private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+    private var mSourceName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private fun initData() {
         mList = intent.getParcelableArrayListExtra<CardBean>("list")
         mCurrentPosition = intent.getIntExtra("currentPosition",0)
+        mSourceName = intent.getStringExtra("sourceName")
         mPage = intent.getIntExtra("page",0)
         mLastDate = intent.getSerializableExtra("date") as Date
         mAdapter.setNewData(mList)
@@ -140,6 +144,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         mAdapter.onItemChildClickListener = this
         rv_card_details.layoutManager = layoutManager
         rv_card_details.adapter = mAdapter
+        PagerSnapHelper().attachToRecyclerView(rv_card_details)
         rv_card_details.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -155,6 +160,11 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                         .into(iv_card_details_bg)
             }
         })
+    }
+
+    override fun setListener() {
+        super.setListener()
+        iv_card_details_back.setOnClickListener { onBackPressed() }
     }
 
     override fun onLoadMoreRequested() {
@@ -194,26 +204,79 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                     dialog.show(fragmentManager, "")
                 }
             }
-            R.id.tv_item_card_details_label -> {
-
+            R.id.iv_item_card_details_comment -> {
+                //todo 评论
             }
-            R.id.tv_item_card_details_label -> {
-
+            R.id.cb_item_card_details_collect -> {
+                //checkBox点击之后选中状态就已经更改了
+                view as CheckBox
+                view.isChecked = !view.isChecked
+                if (mUserId == bean.authorId) {
+                    toastShow("不能收藏自己哦")
+                    return
+                }
+                if (!view.isChecked) {
+                    if (checkLogin()) {
+                        mPresenter.addCollectCard(bean.id)
+                    }
+                } else {
+                    mPresenter.removeCollectCard(bean.id)
+                }
             }
-            R.id.tv_item_card_details_label -> {
-
+            R.id.cb_item_card_details_like -> {
+                //checkBox点击之后选中状态就已经更改了
+                view as CheckBox
+                view.isChecked = !view.isChecked
+                if (mUserId == bean.authorId) {
+                    toastShow("不能点赞自己哦")
+                    return
+                }
+                if (!view.isChecked) {
+                    if (checkLogin()) {
+                        mPresenter.likeCard(bean.id)
+                    }
+                } else {
+                    mPresenter.removeLikeCard(bean.id)
+                }
             }
-            R.id.tv_item_card_details_label -> {
-
+            R.id.iv_item_card_details_share -> {
+                //todo 分享
             }
         }
     }
 
     override fun finishAfterTransition() {
         mIsReturning = true
-        val event = UpdateTransitionEvent(mPage,mCurrentPosition,mList)
+        val event = UpdateTransitionEvent(mPage,mCurrentPosition,mSourceName,mList)
         EventBus.getDefault().post(event)
         super.finishAfterTransition()
+    }
+
+    private fun gotoImageShare(url: String?, content: String?) {
+        val shareDialog = ShareCardDialog()
+        val bundle = Bundle()
+        /*bundle.putString("name", name)
+        if (!StringUtils.isEmpty(content)) {
+            bundle.putString("content", content)
+        } else {
+            bundle.putString("url", url)
+        }
+        bundle.putString("imageUrl", imageUrl)
+        bundle.putString("date", date)
+        bundle.putString("authorName", author)
+        bundle.putString("cardCategoryName", cardBagName)
+        bundle.putInt("cardBagId", cardBagId)
+        shareDialog.arguments = bundle
+        val fragmentManager = fragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            transaction.addSharedElement(iv_card_details, "cardImage")
+            transaction.addSharedElement(tv_card_details_title, "cardTitle")
+            transaction.addSharedElement(tv_card_details_info, "cardInfo")
+            transaction.addSharedElement(tv_card_details_card_bag, "cardBag")
+
+        }
+        shareDialog.show(transaction, "")*/
     }
 
     private val mCallback = object : SharedElementCallback() {

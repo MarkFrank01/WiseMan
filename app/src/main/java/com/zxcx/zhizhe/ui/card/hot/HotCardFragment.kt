@@ -20,9 +20,7 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
-import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
@@ -31,8 +29,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
-        BaseQuickAdapter.OnItemChildClickListener{
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private lateinit var mAdapter: CardAdapter
     private var mList = arrayListOf<CardBean>()
@@ -93,10 +90,12 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UpdateTransitionEvent) {
-        mPage = event.page
-        mList = event.list as ArrayList<CardBean>
-        mAdapter.notifyDataSetChanged()
-        rv_hot_card.scrollToPosition(event.currentPosition)
+        if (this::class.java.name == event.sourceName) {
+            mPage = event.page
+            mList = event.list as ArrayList<CardBean>
+            mAdapter.notifyDataSetChanged()
+            rv_hot_card.scrollToPosition(event.currentPosition)
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
@@ -125,9 +124,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
         }
-        if (mAdapter.data.size == 0) {
-            //占空图
-        }
     }
 
     override fun toastFail(msg: String) {
@@ -145,7 +141,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_hot_card)
         mAdapter.onItemClickListener = this
-        mAdapter.onItemChildClickListener = this
         rv_hot_card.layoutManager = layoutManager
         rv_hot_card.adapter = mAdapter
     }
@@ -168,16 +163,9 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
         intent.putExtra("list", mList)
         intent.putExtra("currentPosition", position)
+        intent.putExtra("sourceName",this::class.java.name)
         intent.putExtra("page", mPage)
         intent.putExtra("date", mLastDate)
         mActivity.startActivity(intent, bundle)
-    }
-
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as CardBean
-        mActivity.startActivity(CardBagActivity::class.java) {
-            it.putExtra("id", bean.cardBagId)
-            it.putExtra("name", bean.cardCategoryName)
-        }
     }
 }
