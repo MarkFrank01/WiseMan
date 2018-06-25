@@ -1,9 +1,7 @@
-package com.zxcx.zhizhe.ui.home.attention
+package com.zxcx.zhizhe.ui.card.attention
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +13,14 @@ import com.zxcx.zhizhe.event.*
 import com.zxcx.zhizhe.loadCallback.AttentionNeedLoginCallback
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
+import com.zxcx.zhizhe.loadCallback.SelectAttentionCallback
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.classify.ClassifyBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
-import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.result.SubjectBean
@@ -119,6 +117,15 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         onRefresh()
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: ChangeAttentionEvent) {
+        val idList = mutableListOf<Int>()
+        event.list.forEach {
+            idList.add(it.id)
+        }
+        mPresenter.changeAttentionList(idList)
+    }
+
     private fun onRefresh() {
         page = 0
         getAttentionCard()
@@ -129,6 +136,9 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
     }
 
     override fun getDataSuccess(list: List<CardBean>) {
+        if (list.isEmpty() && page == 0){
+            mPresenter.getClassify()
+        }
         loadService.showSuccess()
         if (page == 0) {
             mAdapter.setNewData(list)
@@ -144,6 +154,19 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
         }
+    }
+
+    override fun postSuccess() {
+        onRefresh()
+    }
+
+    override fun postFail(msg: String) {
+        toastFail(msg)
+    }
+
+    override fun getClassifySuccess(list: List<ClassifyBean>) {
+        loadService.loadLayout.addCallback(SelectAttentionCallback(list))
+        loadService.showCallback(SelectAttentionCallback::class.java)
     }
 
     override fun toastFail(msg: String) {
@@ -178,7 +201,6 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         mAdapter.emptyView = emptyView
         rv_attention_card.layoutManager = layoutManager
         rv_attention_card.adapter = mAdapter
-        rv_attention_card.addItemDecoration(HomeCardItemDecoration())
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
             onRefresh()
         } else {
@@ -191,7 +213,7 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = (adapter.data[position] as HotBean).cardBean
+        /*val bean = (adapter.data[position] as CardBean).cardBean
         val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                 Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                 Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
@@ -202,15 +224,15 @@ class AttentionFragment : MvpFragment<AttentionPresenter>(), AttentionContract.V
         intent.putExtra("imageUrl", bean.imageUrl)
         intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
         intent.putExtra("authorName", bean.authorName)
-        mActivity.startActivity(intent, bundle)
+        mActivity.startActivity(intent, bundle)*/
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CardBean
-        mActivity.startActivity(CardBagActivity::class.java,{
+        mActivity.startActivity(CardBagActivity::class.java) {
             it.putExtra("id", bean.cardBagId)
             it.putExtra("name", bean.cardCategoryName)
-        })
+        }
     }
 
     override fun cardOnClick(bean: CardBean) {

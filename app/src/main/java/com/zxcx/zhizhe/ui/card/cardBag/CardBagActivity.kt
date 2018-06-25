@@ -2,8 +2,6 @@ package com.zxcx.zhizhe.ui.card.cardBag
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import butterknife.ButterKnife
@@ -16,10 +14,9 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.HotAdapter
-import com.zxcx.zhizhe.ui.home.hot.HotBean
 import com.zxcx.zhizhe.ui.search.result.SubjectBean
 import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
 import com.zxcx.zhizhe.utils.Constants
@@ -33,7 +30,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
         SubjectOnClickListener {
 
-    private lateinit var mAdapter: HotAdapter
+    private lateinit var mAdapter: CardAdapter
     private var mId: Int = 0
     private var page = 0
     private var name = ""
@@ -81,7 +78,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
         getCardBagCardList()
     }
 
-    override fun getDataSuccess(list: List<HotBean>) {
+    override fun getDataSuccess(list: List<CardBean>) {
         loadService.showSuccess()
         mRefreshLayout.finishRefresh()
         if (page == 0) {
@@ -117,7 +114,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     private fun initView() {
-        mAdapter = HotAdapter(ArrayList(),this)
+        mAdapter = CardAdapter(ArrayList())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
         mAdapter.onItemClickListener = this
@@ -135,9 +132,9 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val hotBean = adapter.data[position] as HotBean
-        if (hotBean.itemType == HotBean.TYPE_CARD) {
-            val bean = hotBean.cardBean
+        /*val CardBean = adapter.data[position] as CardBean
+        if (CardBean.itemType == CardBean.TYPE_CARD) {
+            val bean = CardBean.cardBean
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
                     Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
@@ -149,7 +146,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
             intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
             intent.putExtra("authorName", bean.authorName)
             startActivity(intent, bundle)
-        }
+        }*/
     }
 
     override fun cardOnClick(bean: CardBean) {

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
 
-import java.util.Date;
 import java.util.List;
 
 public class HotCardPresenter extends BasePresenter<HotCardContract.View> implements HotCardContract.Presenter {
@@ -16,7 +15,7 @@ public class HotCardPresenter extends BasePresenter<HotCardContract.View> implem
         mModel = new HotCardModel(this);
     }
 
-    public void getHotCard(Date lastRefresh, int page){
+    public void getHotCard(String lastRefresh, int page){
         mModel.getHotCard(lastRefresh,page);
     }
 

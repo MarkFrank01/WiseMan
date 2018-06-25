@@ -4,9 +4,8 @@ import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
-import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
-import com.zxcx.zhizhe.ui.home.hot.HotBean;
+import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
@@ -31,7 +30,6 @@ import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -159,18 +157,12 @@ public interface APIService {
             @Query("sign") String sign);
 
     /**
-     * 获取推荐
-     */
-    @POST("/article/getRecommendContent")
-    Flowable<BaseArrayBean<HotBean>> getHot(
-            @Query("pageIndex") int page);
-
-    /**
      * 获取推荐卡片
      */
     @POST("/article/getRecommendContent")
     Flowable<BaseArrayBean<CardBean>> getHotCard(
-		    @Query("lastRefresh")Date date, @Query("pageIndex") int page);
+		    @Query("lastRefreshTime")String date, @Query("pageIndex") int page,
+		    @Query("pageSize") int pageSize);
 
     /**
      * 获取关注卡片
@@ -180,17 +172,18 @@ public interface APIService {
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * todo 获取卡片类别
+     * 获取卡片类别
      */
-    @POST("/article/getFollowContent")
+    @POST("/article/getCardListTabClassifyList")
     Flowable<BaseArrayBean<CardCategoryBean>> getCardCategory();
 
     /**
-     * todo 获取卡片类别下卡片列表
+     * 获取卡片类别下卡片列表
      */
-    @POST("/article/getFollowContent")
+    @POST("/article/getCardListByClassifyId")
     Flowable<BaseArrayBean<CardBean>> getCardListForCategory(
-		    @Query("pageIndex") int cardCategoryId,@Query("pageIndex") int page);
+		    @Query("classifyId") int cardCategoryId,@Query("pageIndex") int page,
+		    @Query("pageSize") int pageSize);
 
     /**
      * 获取我的榜单信息
@@ -251,7 +244,7 @@ public interface APIService {
      * 获取卡包内内容列表
      */
     @POST("/article/getContentByCollectionId")
-    Flowable<BaseArrayBean<HotBean>> getCardBagCardList(
+    Flowable<BaseArrayBean<CardBean>> getCardBagCardList(
             @Query("collectionId") int id, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 

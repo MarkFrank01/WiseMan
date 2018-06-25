@@ -6,8 +6,8 @@ import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
+import com.zxcx.zhizhe.utils.Constants;
 
-import java.util.Date;
 import java.util.List;
 
 public class HotCardModel extends BaseModel<HotCardContract.Presenter> {
@@ -16,8 +16,8 @@ public class HotCardModel extends BaseModel<HotCardContract.Presenter> {
         this.mPresenter = present;
     }
 
-    public void getHotCard(Date lastRefresh,int page){
-        mDisposable = AppClient.getAPIService().getHotCard(lastRefresh,page)
+    public void getHotCard(String lastRefresh,int page){
+        mDisposable = AppClient.getAPIService().getHotCard(lastRefresh,page, Constants.PAGE_SIZE)
                 .compose(BaseRxJava.INSTANCE.handleArrayResult())
                 .compose(BaseRxJava.INSTANCE.io_main())
                 .subscribeWith(new BaseSubscriber<List<CardBean>>(mPresenter) {

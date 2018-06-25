@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.card.cardDetails
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import java.util.*
 
 class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardDetailsContract.View>(), CardDetailsContract.Presenter {
 
@@ -13,7 +12,7 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
         mModel = CardDetailsModel(this)
     }
 
-    fun getHotCard(lastRefresh: Date, page: Int) {
+    fun getHotCard(lastRefresh: String, page: Int) {
         mModel.getHotCard(lastRefresh, page)
     }
 

@@ -19,7 +19,6 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
@@ -102,9 +101,9 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val hotBean = adapter.data[position] as SearchResultBean
-        if (hotBean.itemType == SearchResultBean.TYPE_CARD) {
-            val bean = hotBean.cardBean
+        val CardBean = adapter.data[position] as SearchResultBean
+        if (CardBean.itemType == SearchResultBean.TYPE_CARD) {
+            val bean = CardBean.cardBean
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
                     Pair.create(view.findViewById(R.id.iv_item_search_result_icon), "cardImage"),
                     Pair.create(view.findViewById(R.id.tv_item_search_result_title), "cardTitle"),
@@ -120,8 +119,8 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val hotBean = adapter.data[position] as SearchResultBean
-        val bean = hotBean.cardBean
+        val CardBean = adapter.data[position] as SearchResultBean
+        val bean = CardBean.cardBean
         mActivity.startActivity(CardBagActivity::class.java,{
             it.putExtra("id", bean.cardBagId)
             it.putExtra("name", bean.cardBagName)
@@ -218,7 +217,6 @@ class SearchResultActivity : MvpActivity<SearchResultPresenter>(), SearchResultC
         mAdapter.onItemChildClickListener = this
         rv_search_result.layoutManager = layoutManager
         rv_search_result.adapter = mAdapter
-        rv_search_result.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"暂无内容","等你来创作",R.drawable.search_no_data,View.OnClickListener {
             if (checkLogin()) {
                 when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {

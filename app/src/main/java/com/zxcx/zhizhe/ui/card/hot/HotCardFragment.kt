@@ -39,6 +39,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_hot, container, false)
+        mRefreshLayout = root.findViewById(R.id.refresh_layout)
         val loadSir = LoadSir.Builder()
                 .addCallback(HomeLoadingCallback())
                 .addCallback(LoginTimeoutCallback())
@@ -99,6 +100,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
+        mPage = 0
         getHotCard()
     }
 
@@ -110,7 +112,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         loadService.showSuccess()
         if (mPage == 0) {
             mRefreshLayout.finishRefresh()
-            mList = list as ArrayList<CardBean>
+            mList.clear()
+            mList.addAll(list)
             mAdapter.notifyDataSetChanged()
             rv_hot_card.scrollToPosition(0)
         } else {
@@ -135,7 +138,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     private fun initRecyclerView() {
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mAdapter = CardAdapter(mList)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
@@ -146,7 +148,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     private fun getHotCard() {
-        mPresenter.getHotCard(mLastDate,mPage)
+        mPresenter.getHotCard(mLastDate.time.toString(),mPage)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

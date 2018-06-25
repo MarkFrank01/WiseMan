@@ -3,7 +3,7 @@ package com.zxcx.zhizhe.ui.card.cardBag;
 import android.support.annotation.NonNull;
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-import com.zxcx.zhizhe.ui.home.hot.HotBean;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class CardBagPresenter extends BasePresenter<CardBagContract.View> implem
     }
 
     @Override
-    public void getDataSuccess(List<HotBean> bean) {
+    public void getDataSuccess(List<CardBean> bean) {
         mView.getDataSuccess(bean);
     }
 

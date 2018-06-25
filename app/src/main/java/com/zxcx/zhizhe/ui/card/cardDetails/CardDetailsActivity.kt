@@ -168,7 +168,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getHotCard(mLastDate,mPage)
+        mPresenter.getHotCard(mLastDate.time.toString(),mPage)
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View, position: Int) {
@@ -181,6 +181,9 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 startActivity(OtherUserActivity::class.java) {
                     it.putExtra("id",bean.authorId)
                 }
+            }
+            R.id.tv_item_card_details_goto_ad -> {
+                //todo 广告
             }
             R.id.cb_item_card_details_follow -> {
                 view as CheckBox

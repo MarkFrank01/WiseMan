@@ -11,7 +11,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.HomeCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.startActivity
@@ -118,7 +117,6 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>() , OtherUserContract.
         mAdapter.setOnLoadMoreListener(this,rv_other_user)
         rv_other_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_other_user.adapter = mAdapter
-        rv_other_user.addItemDecoration(HomeCardItemDecoration())
         val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
         mAdapter.emptyView = emptyView
 

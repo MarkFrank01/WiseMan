@@ -9,18 +9,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseFragment
+import com.zxcx.zhizhe.ui.card.attention.AttentionFragment
+import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
-import com.zxcx.zhizhe.ui.home.attention.AttentionFragment
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.greenrobot.eventbus.EventBus
 
 class HomeFragment : BaseFragment() {
 
     private val mHotFragment = HotCardFragment()
     private val mAttentionFragment = AttentionFragment()
+    private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
     private val titles = arrayOf("推荐", "关注", "列表")
@@ -32,7 +33,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        EventBus.getDefault().register(this)
         for (i in titles.indices) {
             val tab = tl_home.newTab()
             tab.setCustomView(R.layout.tab_home)
@@ -48,6 +48,9 @@ class HomeFragment : BaseFragment() {
                     }
                     1 -> {
                         switchFragment(mAttentionFragment)
+                    }
+                    2 -> {
+                        switchFragment(mListFragment)
                     }
                 }
             }
@@ -91,6 +94,5 @@ class HomeFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        EventBus.getDefault().unregister(this)
     }
 }

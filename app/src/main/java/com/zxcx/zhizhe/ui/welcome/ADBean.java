@@ -1,5 +1,8 @@
 package com.zxcx.zhizhe.ui.welcome;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
@@ -7,14 +10,14 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
  * Created by anm on 2017/9/25.
  */
 
-public class ADBean extends RetrofitBaen {
+public class ADBean extends RetrofitBaen implements Parcelable {
 
     /**
      * adNum : 0
-     * behavior : string
-     * content : string
+     * behavior : 点击跳转地址
+     * content : 图片地址
      * createTime : 2017-09-25T09:18:25.424Z
-     * description : string
+     * description : 广告标题
      * id : 0
      * platformType : 0
      */
@@ -89,4 +92,45 @@ public class ADBean extends RetrofitBaen {
     public void setPlatformType(int platformType) {
         this.platformType = platformType;
     }
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(this.adNum);
+		dest.writeString(this.behavior);
+		dest.writeString(this.content);
+		dest.writeString(this.createTime);
+		dest.writeString(this.description);
+		dest.writeInt(this.id);
+		dest.writeInt(this.platformType);
+	}
+
+	public ADBean() {
+	}
+
+	protected ADBean(Parcel in) {
+		this.adNum = in.readInt();
+		this.behavior = in.readString();
+		this.content = in.readString();
+		this.createTime = in.readString();
+		this.description = in.readString();
+		this.id = in.readInt();
+		this.platformType = in.readInt();
+	}
+
+	public static final Parcelable.Creator<ADBean> CREATOR = new Parcelable.Creator<ADBean>() {
+		@Override
+		public ADBean createFromParcel(Parcel source) {
+			return new ADBean(source);
+		}
+
+		@Override
+		public ADBean[] newArray(int size) {
+			return new ADBean[size];
+		}
+	};
 }

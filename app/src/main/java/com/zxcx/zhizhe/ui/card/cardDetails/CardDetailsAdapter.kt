@@ -28,6 +28,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.setText(R.id.tv_item_card_details_category, item.cardCategoryName)
         helper.setText(R.id.tv_item_card_details_label, item.cardLabelName)
         helper.setText(R.id.tv_item_card_details_author, item.authorName)
+        helper.setText(R.id.tv_item_card_details_goto_ad, item.authorName)
         helper.setText(R.id.tv_item_card_details_comment, item.commentNum)
         helper.setText(R.id.tv_item_card_details_collect, item.collectNum)
         helper.setText(R.id.tv_item_card_details_like, item.likeNum)
@@ -58,10 +59,16 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         //点击事件
         helper.addOnClickListener(R.id.tv_item_card_details_label)
         helper.addOnClickListener(R.id.tv_item_card_details_author)
+        helper.addOnClickListener(R.id.tv_item_card_details_goto_ad)
         helper.addOnClickListener(R.id.cb_item_card_details_follow)
         helper.addOnClickListener(R.id.iv_item_card_details_comment)
         helper.addOnClickListener(R.id.cb_item_card_details_collect)
         helper.addOnClickListener(R.id.cb_item_card_details_like)
         helper.addOnClickListener(R.id.iv_item_card_details_share)
+
+        //是否广告
+        helper.setVisible(R.id.tv_item_card_details_author, item.adUrl == null)
+        helper.setVisible(R.id.cb_item_card_details_follow, item.adUrl == null)
+        helper.setVisible(R.id.tv_item_card_details_goto_ad, item.adUrl != null)
     }
 }

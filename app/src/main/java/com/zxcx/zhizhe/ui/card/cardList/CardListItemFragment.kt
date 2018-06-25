@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
 import org.greenrobot.eventbus.Subscribe
@@ -145,7 +146,7 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
     }
 
     private fun getCardListForCategory(cardCategoryId: Int, page: Int) {
-        mDisposable = AppClient.getAPIService().getCardListForCategory(cardCategoryId, page)
+        mDisposable = AppClient.getAPIService().getCardListForCategory(cardCategoryId, page,Constants.PAGE_SIZE)
                 .compose(BaseRxJava.handleArrayResult())
                 .compose(BaseRxJava.io_main())
                 .subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(this) {

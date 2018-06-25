@@ -11,7 +11,6 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.mvpBase.IGetPresenter;
 import com.zxcx.zhizhe.retrofit.AppClient;
-import com.zxcx.zhizhe.retrofit.BaseArrayBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
@@ -133,8 +132,8 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 
     public void getAD(String adNum) {
         mDisposable = AppClient.getAPIService().getAD(adNum)
-                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<ADBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ADBean>handleArrayResult())
+                .compose(BaseRxJava.INSTANCE.io_main())
+                .compose(BaseRxJava.INSTANCE.handleArrayResult())
                 .subscribeWith(new BaseSubscriber<List<ADBean>>(this) {
                     @Override
                     public void onNext(List<ADBean> list) {

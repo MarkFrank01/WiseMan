@@ -73,18 +73,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_category"/>
 
-    <TextView
-        android:id="@+id/tv_item_card_details_author"
+    <FrameLayout
+        android:id="@+id/fl_item_card_details_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:textColor="@color/text_color_3"
-        android:textSize="@dimen/text_size_text_3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="66666666666"/>
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/tv_item_card_details_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/text_color_3"
+            android:textSize="@dimen/text_size_text_3"
+            tools:text="66666666666"/>
+        <TextView
+            android:id="@+id/tv_item_card_details_goto_ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/text_color_3"
+            android:textSize="@dimen/text_size_text_3"
+            tools:text="66666666666"/>
+    </FrameLayout>
 
     <CheckBox
         android:id="@+id/cb_item_card_details_follow"
@@ -94,9 +109,9 @@
         android:button="@null"
         android:checked="false"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_details_author"
-        app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_author"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_card_details_author"/>
+        app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+        app:layout_constraintStart_toEndOf="@+id/fl_item_card_details_author"
+        app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <ImageView
         android:id="@+id/iv_item_card_details_comment"
@@ -105,9 +120,9 @@
         android:layout_marginEnd="15dp"
         android:scaleType="center"
         android:src="@drawable/tv_card_details_share"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_details_author"
+        app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_collect"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_card_details_author"/>
+        app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
         android:id="@+id/tv_item_card_details_comment"
@@ -128,10 +143,10 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/selector_cb_card_details_collect"
         android:button="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_details_author"
+        app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_like"
         app:layout_constraintStart_toEndOf="@+id/iv_item_card_details_comment"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_card_details_author"/>
+        app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
         android:id="@+id/tv_item_card_details_collect"
@@ -152,10 +167,10 @@
         android:layout_marginStart="15dp"
         android:background="@drawable/selector_cb_card_details_like"
         android:button="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_details_author"
+        app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toStartOf="@+id/iv_item_card_details_share"
         app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_collect"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_card_details_author"/>
+        app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
         android:id="@+id/tv_item_card_details_like"
@@ -176,9 +191,9 @@
         android:layout_marginStart="15dp"
         android:scaleType="center"
         android:src="@drawable/tv_card_details_share"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_details_author"
+        app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_like"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_card_details_author"/>
+        app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
 </android.support.constraint.ConstraintLayout>

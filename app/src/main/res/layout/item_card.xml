@@ -21,7 +21,8 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:transitionName="cardImage"
-        app:riv_corner_radius="6dp"
+        app:riv_corner_radius_top_left="6dp"
+        app:riv_corner_radius_top_right="6dp"
         app:layout_constraintDimensionRatio="4:3"/>
 
     <android.support.constraint.ConstraintLayout

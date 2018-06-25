@@ -13,21 +13,23 @@ class CardBean(
         @SerializedName("collectingCount") var collectNum: Int = 0,
         @SerializedName("pv") var readNum: Int = 0,
         @SerializedName("likedUsersCount") var likeNum: Int = 0,
-        @SerializedName("pv") var commentNum: Int = 0,//todo 修改字段名
+        @SerializedName("commentCount") var commentNum: Int = 0,
         @SerializedName("titleImage") var imageUrl: String? = null,
         @SerializedName("title") var name: String? = null,
         @SerializedName("passTime") var date: Date? = null,
         @SerializedName("authorName") var authorName: String? = null,
         @SerializedName("authorId") var authorId: Int = 0,
-        @SerializedName("collectionId") var cardBagId: Int = 0,
-        @SerializedName("collectionName") var cardCategoryName: String? = null,
-        @SerializedName("collectionName") var cardLabelName: String? = null,//todo 修改字段名
+        @SerializedName("classifyId") var cardBagId: Int = 0,
+        @SerializedName("classifyTitle") var cardCategoryName: String? = null,
+        @SerializedName("collectionTitle") var cardLabelName: String? = null,
+        @SerializedName("collectionId") var cardLabelId: Int = 0,
         @SerializedName("topicName") var subjectName: String? = null,
         @SerializedName("collectionName") var content: String = "",
         @SerializedName("like") var isLike: Boolean = false,
         @SerializedName("disagree") var isUnLike: Boolean = false,
         @SerializedName("collect") var isCollect: Boolean = false,
-        @SerializedName("userAurhorRelationshipType") var followType: Int = 0//0为未关注，1为已关注，2为已相互关注&
+        @SerializedName("userAurhorRelationshipType") var followType: Int = 0,//0为未关注，1为已关注，2为已相互关注&
+        @SerializedName("adUrl") var adUrl: String? = null
 ) : RetrofitBaen(), Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -59,12 +61,14 @@ class CardBean(
             source.readInt(),
             source.readString(),
             source.readString(),
+            source.readInt(),
             source.readString(),
             source.readString(),
             1 == source.readInt(),
             1 == source.readInt(),
             1 == source.readInt(),
-            source.readInt()
+            source.readInt(),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -84,12 +88,14 @@ class CardBean(
         writeInt(cardBagId)
         writeString(cardCategoryName)
         writeString(cardLabelName)
+        writeInt(cardLabelId)
         writeString(subjectName)
         writeString(content)
         writeInt((if (isLike) 1 else 0))
         writeInt((if (isUnLike) 1 else 0))
         writeInt((if (isCollect) 1 else 0))
         writeInt(followType)
+        writeString(adUrl)
     }
 
     companion object {
