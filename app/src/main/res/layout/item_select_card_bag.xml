@@ -7,19 +7,19 @@
     android:layout_marginLeft="7.5dp"
     android:layout_marginRight="7.5dp"
     android:layout_marginTop="15dp"
-    android:layout_width="102dp"
-    android:layout_height="40dp">
+    android:layout_width="72dp"
+    android:layout_height="36dp">
 
     <CheckBox
         android:id="@+id/cb_item_select_card_bag"
         android:gravity="center"
         android:text="生活常识"
-        android:textSize="@dimen/text_size_text_2"
+        android:textSize="@dimen/text_size_text_3"
         android:checked="true"
         android:clickable="false"
         android:textColor="@color/color_checkbox_text_select_attention"
         android:button="@null"
-        android:background="@drawable/selector_checkbox_bg_select_attention"
+        android:background="@drawable/bg_checkbox_select_attention"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

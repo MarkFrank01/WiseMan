@@ -72,7 +72,6 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
     }
 
     private fun initRecyclerView() {
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mAdapter = CardAdapter(mList)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
@@ -115,7 +114,7 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
         if (this::class.java.name == event.sourceName) {
             mPage = event.page
             mList = event.list as ArrayList<CardBean>
-            mAdapter.notifyDataSetChanged()
+            mAdapter.setNewData(mList)
             rv_card_list_item.scrollToPosition(event.currentPosition)
         }
     }
@@ -124,8 +123,7 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
         if (mPage == 0) {
             refresh_layout.finishRefresh()
             mList = list as ArrayList<CardBean>
-            mAdapter.notifyDataSetChanged()
-            rv_card_list_item.scrollToPosition(0)
+            mAdapter.setNewData(mList)
         } else {
             mAdapter.addData(list)
         }

@@ -71,6 +71,11 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         mHidden = hidden
     }
 
+    override fun onPause() {
+        super.onPause()
+        rv_hot_card.itemAnimator = null
+    }
+
     override fun onDestroyView() {
         EventBus.getDefault().unregister(this)
         super.onDestroyView()
@@ -93,9 +98,12 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     fun onMessageEvent(event: UpdateTransitionEvent) {
         if (this::class.java.name == event.sourceName) {
             mPage = event.page
-            mList = event.list as ArrayList<CardBean>
-            mAdapter.notifyDataSetChanged()
+            if (mList.size != event.list.size) {
+                mList = event.list as ArrayList<CardBean>
+                mAdapter.setNewData(mList)
+            }
             rv_hot_card.scrollToPosition(event.currentPosition)
+            rv_hot_card.invalidate()
         }
     }
 
@@ -112,9 +120,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         loadService.showSuccess()
         if (mPage == 0) {
             mRefreshLayout.finishRefresh()
-            mList.clear()
-            mList.addAll(list)
-            mAdapter.notifyDataSetChanged()
+            mList = list as ArrayList<CardBean>
+            mAdapter.setNewData(mList)
             rv_hot_card.scrollToPosition(0)
         } else {
             mAdapter.addData(list)

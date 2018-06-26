@@ -8,7 +8,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
-import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean;
+import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.creation.fragment.CreationBean;
@@ -61,30 +61,11 @@ public interface APIService {
             @Query("phoneNumber") String phone,@Query("SMSCode") String code);
 
     /**
-     * 注册
-     */
-    @POST("/user/PhoneRegistered")
-    Flowable<BaseBean<LoginBean>> phoneRegistered(
-            @Query("phoneNumber") String phone,@Query("verifyKey") String verifyKey,
-            @Query("jpushRID") String jpushRID, @Query("password") String password,
-            @Query("appType") int appType, @Query("appChannel") String appChannel,
-            @Query("appVersion") String appVersion);
-
-    /**
      * 验证码登录
      */
     @POST("/user/smsCodeLogin")
     Flowable<BaseBean<LoginBean>> smsCodeLogin(
-            @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey,
-            @Query("jpushRID") String jpushRID, @Query("appType") int appType,
-            @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
-
-    /**
-     * 登录
-     */
-    @POST("/user/PhoneLogin")
-    Flowable<BaseBean<LoginBean>> phoneLogin(
-            @Query("phoneNumber") String phone, @Query("password") String password,
+            @Query("phoneNumber") String phone, @Query("smsCode") String smsCode,
             @Query("jpushRID") String jpushRID, @Query("appType") int appType,
             @Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
 
@@ -94,10 +75,10 @@ public interface APIService {
     @POST("/user/thirdPartyRegistered")
     Flowable<BaseBean<LoginBean>> channelRegister(
             @Query("thirdPartyType") int channelType, @Query("uuid") String openId,
-            @Query("password") String password, @Query("avatar") String userIcon,
+            @Query("avatar") String userIcon,
             @Query("name") String name, @Query("gender") Integer sex,
             @Query("birth") String birthday, @Query("phoneNumber") String phone,
-            @Query("verifyKey") String verifyKey, @Query("jpushRID") String jpushRID,
+            @Query("smsCode") String smsCode, @Query("jpushRID") String jpushRID,
             @Query("appType") int appType, @Query("appChannel") String appChannel,
             @Query("appVersion") String appVersion);
 
@@ -123,22 +104,6 @@ public interface APIService {
     Flowable<BaseBean<Object>> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
             @Query("openId") String openId);
-
-    /**
-     * 忘记密码
-     */
-    @POST("/user/ChangePassword")
-    Flowable<BaseBean<LoginBean>> forgetPassword(
-            @Query("phoneNumber") String phone, @Query("verifyKey") String verifyKey,
-            @Query("jpushRID") String jpushRID, @Query("password") String password,
-            @Query("appType") int appType);
-
-    /**
-     * 修改密码
-     */
-    @POST("/user/modifyPassword")
-    Flowable<BaseBean<Object>> changePassword(
-            @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
     /**
      * 修改手机号
@@ -249,12 +214,6 @@ public interface APIService {
             @Query("pageSize") int pageSize);
 
     /**
-     * 获取全部分类
-     */
-    @POST("/classify/getAllClassify")
-    Flowable<BaseArrayBean<ClassifyBean>> getClassify();
-
-    /**
      * 获取创作列表
      * @param passType 文章状态 0审核中 1未通过 2通过
      */
@@ -318,16 +277,16 @@ public interface APIService {
             @Query("orderType") int sortType,
             @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
-    /**
-     * 获取兴趣列表
-     */
-    /*@POST("/collection/getInterestedCollection")
-    Flowable<BaseArrayBean<SelectAttentionBean>> getAttentionList();*/
+	/**
+	 * 获取全部分类
+	 */
+	@POST("/classifyCollection/getInterestedCollection")
+	Flowable<BaseArrayBean<ClassifyBean>> getClassify();
 
     /**
      * 修改兴趣选择列表
      */
-    @POST("/collection/followCollection")
+    @POST("/classifyCollection/followCollection")
     Flowable<BaseBean<Object>> changeAttentionList(
             @Query("collectionList") List<Integer> idList);
 

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity">
     <ScrollView
         android:scrollbars="none"
         android:fillViewport="true"
@@ -18,7 +19,7 @@
 
             <TextView
                 android:id="@+id/tv_forget_title"
-                android:text="忘记密码"
+                android:text="输入手机号"
                 android:textSize="@dimen/text_size_title_1"
                 android:textColor="@color/text_color_1"
                 android:textStyle="bold"
@@ -27,15 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <RelativeLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/rl_forget_phone"
                 android:layout_below="@id/tv_forget_title"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="125dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="75dp"
                 android:layout_marginStart="75dp"
                 android:focusable="true"
+                android:visibility="visible"
                 android:focusableInTouchMode="true">
 
                 <EditText
@@ -48,8 +50,8 @@
                     android:hint="请输入手机号"
                     android:inputType="phone"
                     android:maxLength="11"
-                    android:paddingBottom="16dp"
-                    android:paddingTop="18dp"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
                     android:textColor="@color/text_color_1"
                     android:textColorHint="@color/text_color_ee"
                     android:textCursorDrawable="@drawable/bg_edit_cursor"
@@ -59,72 +61,39 @@
                     android:id="@+id/iv_forget_phone_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:padding="12dp"
                     android:src="@drawable/iv_phone_clear"
-                    android:layout_marginTop="15dp"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/et_forget_phone"
+                    app:layout_constraintTop_toTopOf="@id/et_forget_phone"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/et_forget_phone"
-                    android:background="@color/text_color_2"/>
-
-                <EditText
-                    android:id="@+id/et_forget_password"
-                    android:layout_below="@id/et_forget_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:background="@null"
-                    android:cursorVisible="true"
-                    android:hint="输入新密码"
-                    android:inputType="textPassword"
-                    android:maxLength="11"
-                    android:paddingBottom="16dp"
-                    android:paddingTop="20dp"
-                    android:textColor="@color/text_color_1"
-                    android:textColorHint="@color/text_color_ee"
-                    android:textCursorDrawable="@drawable/bg_edit_cursor"
-                    android:textSize="@dimen/text_size_title_2"/>
-
-                <CheckBox
-                    android:id="@+id/cb_forget_password_show"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/et_forget_phone"
-                    android:button="@null"
-                    android:background="@drawable/selector_cb_login_password"
-                    android:layout_marginTop="22dp"
-                    android:visibility="gone"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/et_forget_password"
-                    android:background="@color/text_color_2"/>
+                    android:background="@color/text_color_2"
+                    app:layout_constraintTop_toBottomOf="@id/et_forget_phone"/>
 
                 <TextView
                     android:id="@+id/tv_forget_send_code"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/et_forget_password"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="26dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_text_enable_blue"
                     android:enabled="false"
                     android:textSize="@dimen/text_size_text_1"
-                    android:text="获取验证码"/>
+                    android:text="获取验证码"
+                    app:layout_constraintTop_toBottomOf="@id/et_forget_phone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
-            </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/ll_forget_code"
                 android:visibility="gone"
                 android:layout_below="@id/tv_forget_title"
-                android:layout_marginTop="77dp"
+                android:layout_marginTop="108dp"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:gravity="center_horizontal"
@@ -140,16 +109,6 @@
                     android:layout_height="wrap_content"
                     android:maxLength="11"
                     tools:text="19999999999"/>
-
-                <TextView
-                    android:id="@+id/tv_forget_password"
-                    android:textColor="@color/text_color_1"
-                    android:textSize="@dimen/text_size_title_2"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="• • • • • • • • • •"/>
 
                 <com.zxcx.zhizhe.widget.VerificationCodeInput
                     android:id="@+id/vci_forget"
@@ -174,19 +133,6 @@
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_forget_confirm"
-                android:layout_marginTop="300dp"
-                android:layout_below="@id/tv_forget_title"
-                android:layout_centerHorizontal="true"
-                android:text="确定"
-                android:textSize="@dimen/text_size_title_1"
-                android:textColor="@color/color_text_enable_blue"
-                android:textStyle="bold"
-                android:enabled="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
     </ScrollView>

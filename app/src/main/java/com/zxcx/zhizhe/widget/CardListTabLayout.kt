@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.zxcx.zhizhe.App
@@ -55,6 +54,14 @@ class CardListTabLayout : TabLayout {
         child.layoutParams = lp
     }
 
+    override fun addTab(tab: Tab) {
+        super.addTab(tab)
+        if (tabCount == 1){
+            val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+            textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX,mSelectTextSize.toFloat())
+        }
+    }
+
     override fun setupWithViewPager(viewPager: ViewPager?) {
         super.setupWithViewPager(viewPager)
         viewPager?.addOnPageChangeListener(CardListTabLayoutOnPageChangeListener(this))
@@ -71,8 +78,8 @@ class CardListTabLayout : TabLayout {
                                     positionOffsetPixels: Int) {
             val tabLayout = mTabLayoutRef.get()
             val selectedChild = tabLayout?.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-            val nextChild = if (position + 1 < (tabLayout?.getChildAt(0) as ViewGroup).childCount)
-                (tabLayout.getChildAt(0) as ViewGroup).getChildAt(position + 1) as TextView
+            val nextChild = if (position + 1 < tabLayout?.tabCount?:0)
+                tabLayout?.getTabAt(position + 1)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
             else
                 null
 
@@ -105,7 +112,7 @@ class CardListTabLayout : TabLayout {
                     positionOffset > 1 -> //滚动到一个定值后,颜色最深,而且不再加深
                         mSelectTextColor
                     else -> //滚动过程中渐变的颜色
-                        tabLayout.argbEvaluator.evaluate(positionOffset, mNormalTextColor, mSelectTextColor) as Int
+                        tabLayout?.argbEvaluator?.evaluate(positionOffset, mNormalTextColor, mSelectTextColor) as Int
                 }
                 bgColor?.let { nextChild.setTextColor(bgColor) }
                 if (Math.abs(positionOffset) > 0.5) {

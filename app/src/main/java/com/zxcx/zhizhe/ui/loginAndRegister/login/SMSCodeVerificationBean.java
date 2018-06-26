@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.loginAndRegister.register;
+package com.zxcx.zhizhe.ui.loginAndRegister.login;
 
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;

@@ -134,10 +134,6 @@
             android:name=".ui.my.userInfo.userSafety.UserSafetyActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.userInfo.userSafety.ChangePasswordActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity
             android:name=".ui.home.rank.moreRank.AllRankActivity"
             android:screenOrientation="portrait"/>
         <activity
@@ -261,7 +257,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.card.cardDetails.CardDetailsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
     </application>
 
 </manifest>

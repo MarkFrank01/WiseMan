@@ -2,8 +2,6 @@ package com.zxcx.zhizhe.ui.loginAndRegister.channelRegister
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.View
 import butterknife.ButterKnife
 import cn.jpush.android.api.JPushInterface
@@ -13,32 +11,24 @@ import com.google.gson.JsonParser
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
-import com.zxcx.zhizhe.event.RegisterEvent
 import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordContract
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordPresenter
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
-import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
-import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
-import com.zxcx.zhizhe.ui.loginAndRegister.register.StopRegisteredDialog
+import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_forget_password.*
+import kotlinx.android.synthetic.main.activity_channel_register.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswordContract.View{
+class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), ChannelRegisterContract.View{
 
     private var phoneRules = "^1\\d{10}$"
-    private var passwordRules = "^.{8,20}$"
     private var phonePattern = Pattern.compile(phoneRules)
-    private var passwordPattern = Pattern.compile(passwordRules)
-    private var verifyKey: String? = null
     private var jpushRID: String? = null
     private var userId:String? = null
     private var userName:String? = null
@@ -64,14 +54,13 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forget_password)
+        setContentView(R.layout.activity_channel_register)
         ButterKnife.bind(this)
         EventBus.getDefault().register(this)
 
         jpushRID = JPushInterface.getRegistrationID(mActivity)
         SMSSDK.registerEventHandler(EventHandle())
         initData()
-        initView()
         //延迟弹出软键盘
         Observable.timer(300,TimeUnit.MILLISECONDS,AndroidSchedulers.mainThread())
                 .subscribe { Utils.showInputMethod(et_forget_phone) }
@@ -92,11 +81,6 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         sex = if ("m" == userGender) 1 else 2
     }
 
-    private fun initView() {
-        tv_forget_title.text = "绑定手机号"
-        tv_forget_confirm.text = "立即体验"
-    }
-
     override fun initStatusBar() {
         //全屏输入法问题
         AndroidBug5497Workaround.assistActivity(this)
@@ -113,18 +97,13 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         SMSSDK.unregisterAllEventHandler()
     }
 
-    override fun createPresenter(): ForgetPasswordPresenter {
-        return ForgetPasswordPresenter(this)
+    override fun createPresenter(): ChannelRegisterPresenter {
+        return ChannelRegisterPresenter(this)
     }
 
     override fun getDataSuccess(bean: LoginBean) {
         ZhiZheUtils.saveLoginData(bean)
-        EventBus.getDefault().post(RegisterEvent())
         finish()
-    }
-
-    override fun smsCodeVerificationSuccess(bean: SMSCodeVerificationBean) {
-        tv_forget_confirm.isEnabled = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -143,10 +122,6 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         return phonePattern.matcher(et_forget_phone.text.toString()).matches()
     }
 
-    private fun checkPassword(): Boolean {
-        return passwordPattern.matcher(et_forget_password?.text.toString()).matches()
-    }
-
     override fun setListener() {
         iv_forget_close.setOnClickListener { onBackPressed() }
 
@@ -163,14 +138,6 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
             }
         }
 
-        tv_forget_password.setOnClickListener {
-            rl_forget_phone.visibility = View.VISIBLE
-            ll_forget_code.visibility = View.GONE
-            Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe{
-                et_forget_password.requestFocus()
-            }
-        }
-
         tv_forget_send_code.setOnClickListener {
             val confirmDialog = PhoneConfirmDialog()
             val bundle = Bundle()
@@ -182,35 +149,15 @@ class ChannelRegisterActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPa
         et_forget_phone.afterTextChanged {
             val isPhone = checkPhone()
             iv_forget_phone_clear.visibility = if (et_forget_phone.length() == 0) View.GONE else View.VISIBLE
-            tv_forget_send_code.isEnabled = isPhone && checkPassword()
-            et_forget_password.isEnabled = isPhone
-        }
-
-        et_forget_password.afterTextChanged {
-            cb_forget_password_show.visibility = if (et_forget_password.length() == 0) View.GONE else View.VISIBLE
-            tv_forget_send_code.isEnabled = checkPhone() && checkPassword()
-        }
-
-        cb_forget_password_show.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                et_forget_password.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            }else{
-                et_forget_password.transformationMethod = PasswordTransformationMethod.getInstance()
-            }
-            Utils.showInputMethod(et_forget_password)
+            tv_forget_send_code.isEnabled = isPhone
         }
 
         vci_forget.setOnCompleteListener {
-            mPresenter.smsCodeVerification(et_forget_phone.text.toString(),it)
-        }
-
-        tv_forget_confirm.setOnClickListener {
             val jpushRID = JPushInterface.getRegistrationID(mActivity)
             val appType = Constants.APP_TYPE
             val phone = et_forget_phone.text.toString()
-            val password = MD5Utils.md5(et_forget_password.text.toString())
-            mPresenter.channelRegister(channelType, userId, password, userIcon, userName, sex,
-                    null, phone, verifyKey, jpushRID, appType, appChannel, appVersion)
+            mPresenter.channelRegister(channelType, userId, userIcon, userName, sex,
+                    null, phone, it, jpushRID, appType, appChannel, appVersion)
         }
     }
 

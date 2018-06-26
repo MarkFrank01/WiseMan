@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.loginAndRegister.register;
+package com.zxcx.zhizhe.ui.loginAndRegister.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,8 +9,9 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.StopRegisteredEvent;
+import com.zxcx.zhizhe.event.PhoneConfirmEvent;
 import com.zxcx.zhizhe.mvpBase.CommonDialog;
+import com.zxcx.zhizhe.utils.TextViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,13 +24,16 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class StopRegisteredDialog extends CommonDialog {
+public class PhoneConfirmDialog extends CommonDialog {
 
     Unbinder unbinder;
-    @BindView(R.id.tv_dialog_phone_confirm)
-    TextView mTvDialogPhoneConfirm;
+    @BindView(R.id.tv_dialog_cancel)
+    TextView mTvDialogCancel;
+    @BindView(R.id.tv_dialog_confirm)
+    TextView mTvDialogConfirm;
     @BindView(R.id.tv_dialog_phone_confirm_title)
     TextView mTvDialogPhoneConfirmTitle;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,9 +47,8 @@ public class StopRegisteredDialog extends CommonDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mTvDialogPhoneConfirmTitle.setText("是否要中断注册登录操作？");
-
-        mTvDialogPhoneConfirm.setText("注册登录后可自由创作及定制兴趣内容");
+        String phone = getArguments().getString("phone");
+        TextViewUtils.setTextViewColor(mTvDialogPhoneConfirmTitle,phone,getString(R.string.tv_dialog_phone_confirm_title,phone));
     }
 
     @Override
@@ -61,7 +64,7 @@ public class StopRegisteredDialog extends CommonDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new StopRegisteredEvent());
+        EventBus.getDefault().post(new PhoneConfirmEvent());
         this.dismiss();
     }
 }

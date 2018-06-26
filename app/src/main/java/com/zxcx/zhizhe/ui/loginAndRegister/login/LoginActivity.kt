@@ -18,14 +18,12 @@ import cn.smssdk.SMSSDK
 import com.google.gson.JsonParser
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.*
+import com.zxcx.zhizhe.event.LoginEvent
+import com.zxcx.zhizhe.event.PhoneConfirmEvent
+import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.initUserInfo.InitUserInfoActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.passwordLogin.PasswordLoginActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
-import com.zxcx.zhizhe.ui.loginAndRegister.register.RegisterActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
@@ -54,7 +52,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     private var appVersion: String? = null
     private var jpushID: String? = null
     private var verifyKey: String? = null
-    private var isFirstLogin = SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLogin, false)
 
     val countDownTimer: CountDownTimer = object : CountDownTimer(60000,1000){
         override fun onFinish() {
@@ -111,9 +108,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun getDataSuccess(bean: LoginBean) {
-        if (isFirstLogin){
-            startActivity(InitUserInfoActivity::class.java,{})
-        }
+        startActivity(SelectAttentionActivity::class.java) {}
         ZhiZheUtils.saveLoginData(bean)
         //极光统计
         val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)
@@ -131,46 +126,12 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
     }
 
     override fun channelLoginNeedRegister() {
-        mActivity.startActivity(ChannelRegisterActivity::class.java,{
+        mActivity.startActivity(ChannelRegisterActivity::class.java) {
             it.putExtra("userId", userId)
             it.putExtra("userName", userName)
             it.putExtra("userIcon", userIcon)
             it.putExtra("userGender", userGender)
-            it.putExtra("channelType", channelType)})
-    }
-
-    override fun needRegister() {
-        onBackPressed()
-        mActivity.startActivity(RegisterActivity::class.java,{
-            it.putExtra("phone", et_login_phone.text.toString())
-            it.putExtra("verifyKey", verifyKey)})
-    }
-
-    override fun smsCodeVerificationSuccess(bean: SMSCodeVerificationBean?) {
-        verifyKey = bean?.verifyKey
-        mPresenter.smsCodeLogin(et_login_phone.text.toString(),verifyKey,jpushID,appType,appChannel,appVersion)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: RegisterEvent) {
-        //登录成功通知
-        if (isFirstLogin){
-            startActivity(InitUserInfoActivity::class.java,{})
-        }
-        EventBus.getDefault().post(LoginEvent())
-        toastShow("欢迎来到智者")
-        mActivity.finish()
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: PasswordLoginEvent) {
-        //登录成功通知
-        if (isFirstLogin){
-            startActivity(InitUserInfoActivity::class.java,{})
-        }
-        EventBus.getDefault().post(LoginEvent())
-        toastShow("欢迎来到智者")
-        mActivity.finish()
+            it.putExtra("channelType", channelType)}
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -218,10 +179,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
             Utils.showInputMethod(et_login_phone)
         }
 
-        iv_login_password.setOnClickListener {
-            mActivity.startActivity(PasswordLoginActivity::class.java,{})
-        }
-
         iv_login_qq.setOnClickListener {
             channelType = 1
             val qq = ShareSDK.getPlatform(QQ.NAME)
@@ -255,18 +212,18 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
         vci_login.setOnCompleteListener {
             Utils.closeInputMethod(et_login_phone)
-            mPresenter.smsCodeVerification(et_login_phone.text.toString(),it)
+            mPresenter.smsCodeLogin(et_login_phone.text.toString(),it,jpushID,appType,appChannel,appVersion)
         }
 
         tv_login_agreement.setOnClickListener {
-            startActivity(WebViewActivity::class.java,{
+            startActivity(WebViewActivity::class.java) {
                 it.putExtra("title", getString(R.string.agreement))
                 if (Constants.IS_NIGHT) {
                     it.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_dark_url))
                 } else {
                     it.putExtra("url", getString(R.string.base_url) + getString(R.string.agreement_url))
                 }
-            })
+            }
         }
     }
 

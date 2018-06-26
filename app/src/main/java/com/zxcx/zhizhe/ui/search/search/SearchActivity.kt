@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +17,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
 import com.zxcx.zhizhe.ui.search.result.SearchResultActivity
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.StringUtils
-import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.utils.*
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -42,8 +37,6 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
         ButterKnife.bind(this)
 
         initRecyclerView()
-        et_search.addTextChangedListener(SearchTextWatcher())
-        et_search.setOnEditorActionListener(SearchListener())
         mPresenter.getSearchBean()
     }
 
@@ -72,15 +65,16 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
     override fun getDataSuccess(bean: SearchBean) {
         mHotList = bean.hotSearchList
         mHistoryList = bean.searchHistoryList
+
+        tv_search_history.visibility = if (mHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
+        iv_search_clear_history.visibility = if (mHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
+        fl_search_history.visibility = if (mHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
+
         if (mHistoryList.size > 0){
-            tv_search_history_type.setText(R.string.search_search_history)
-            iv_search_clear_history.visibility = View.VISIBLE
-            addLabel(mHistoryList)
-        }else{
-            tv_search_history_type.setText(R.string.search_hot_search)
-            iv_search_clear_history.visibility = View.GONE
-            addLabel(mHotList)
+            addHistoryLabel(mHistoryList)
         }
+
+        addHotLabel(mHotList)
     }
 
     override fun getSearchPreSuccess(list: MutableList<String>) {
@@ -89,50 +83,46 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
         mSearchPreAdapter?.setNewData(list)
     }
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
-        iv_search.setOnClickListener {
-            if (StringUtils.isEmpty(et_search.text.toString())) {
-                toastShow("搜索内容不能为空！")
-                return@setOnClickListener
-            }
-
-            gotoSearchResult(et_search.text.toString())
-        }
-        iv_search_clear_history.setOnClickListener {
-            mDisposable = Flowable.just(0)
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .observeOn(Schedulers.io())
-                    .map { AppDatabase.getInstance().mSearchHistoryDao().deleteAll() }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(object : DisposableSubscriber<Int>() {
-                        override fun onNext(aVoid: Int?) {
-                            tv_search_history_type.setText(R.string.search_hot_search)
-                            iv_search_clear_history.visibility = View.GONE
-                            addLabel(mHotList)
-                        }
-
-                        override fun onError(t: Throwable) {
-                            LogCat.e("删除失败", t)
-                        }
-
-                        override fun onComplete() {}
-                    })
-
-            addSubscription(mDisposable)
-        }
+    override fun deleteHistorySuccess() {
+        tv_search_history.visibility = View.GONE
+        iv_search_clear_history.visibility = View.GONE
+        fl_search_history.visibility = View.GONE
     }
 
-    private fun addLabel(list: MutableList<String>) {
-        fl_search_hot.removeAllViews()
+    override fun setListener() {
+        tv_search_cancel.setOnClickListener {
+            onBackPressed()
+        }
+        iv_search_clear_history.setOnClickListener {
+        }
+        et_search.afterTextChanged {
+            rv_search_pre.visibility = View.GONE
+            mPresenter.getSearchPre(it.toString())
+        }
+        et_search.setOnEditorActionListener(SearchListener())
+    }
+
+    private fun addHistoryLabel(list: MutableList<String>) {
+        fl_search_history.removeAllViews()
         for (i in list.indices) {
             val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null) as FrameLayout
             val textView =frameLayout.findViewById<TextView>(R.id.tv_item_search_hot)
             textView.text = list[i]
             textView.setOnClickListener(this@SearchActivity)
-            fl_search_hot.addView(frameLayout)
+            fl_search_history.addView(frameLayout)
+            val mlp = frameLayout.layoutParams as ViewGroup.MarginLayoutParams
+            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(10f), ScreenUtils.dip2px(7.5f), 0)
+        }
+    }
+
+    private fun addHotLabel(list: MutableList<String>) {
+        fl_hot_search.removeAllViews()
+        for (i in list.indices) {
+            val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null) as FrameLayout
+            val textView =frameLayout.findViewById<TextView>(R.id.tv_item_search_hot)
+            textView.text = list[i]
+            textView.setOnClickListener(this@SearchActivity)
+            fl_hot_search.addView(frameLayout)
             val mlp = frameLayout.layoutParams as ViewGroup.MarginLayoutParams
             mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(10f), ScreenUtils.dip2px(7.5f), 0)
         }
@@ -198,22 +188,6 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
                 return true
             }
             return false
-        }
-    }
-
-    internal inner class SearchTextWatcher : TextWatcher {
-
-        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-
-        }
-
-        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            rv_search_pre.visibility = View.GONE
-            mPresenter.getSearchPre(s.toString())
-        }
-
-        override fun afterTextChanged(s: Editable) {
-
         }
     }
 

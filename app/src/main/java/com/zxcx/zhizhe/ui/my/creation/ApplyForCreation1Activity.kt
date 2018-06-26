@@ -10,7 +10,7 @@ import com.google.gson.JsonParser
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
+import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.utils.startActivity

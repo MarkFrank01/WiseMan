@@ -33,7 +33,12 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mView.getSearchPreSuccess(list);
     }
 
-    @Override
+	@Override
+	public void deleteHistorySuccess() {
+		mView.deleteHistorySuccess();
+	}
+
+	@Override
     public void getDataFail(String msg) {
         mView.toastFail(msg);
     }

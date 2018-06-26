@@ -9,10 +9,12 @@ public interface SearchContract {
 
     interface View extends GetView<SearchBean> {
         void getSearchPreSuccess(List<String> list);
+        void deleteHistorySuccess();
     }
 
     interface Presenter extends IGetPresenter<SearchBean> {
-        void getSearchPreSuccess(List<String> list);
+	    void getSearchPreSuccess(List<String> list);
+	    void deleteHistorySuccess();
     }
 }
 

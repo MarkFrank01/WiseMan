@@ -117,7 +117,7 @@
         android:id="@+id/iv_item_card_details_comment"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="30dp"
         android:scaleType="center"
         android:src="@drawable/tv_card_details_share"
         app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
@@ -139,13 +139,11 @@
         android:id="@+id/cb_item_card_details_collect"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/selector_cb_card_details_collect"
         android:button="@null"
         app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_like"
-        app:layout_constraintStart_toEndOf="@+id/iv_item_card_details_comment"
         app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
@@ -163,13 +161,11 @@
         android:id="@+id/cb_item_card_details_like"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/selector_cb_card_details_like"
         android:button="@null"
         app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toStartOf="@+id/iv_item_card_details_share"
-        app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_collect"
         app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
@@ -188,12 +184,10 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="15dp"
         android:scaleType="center"
         android:src="@drawable/tv_card_details_share"
         app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_like"
         app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
 </android.support.constraint.ConstraintLayout>

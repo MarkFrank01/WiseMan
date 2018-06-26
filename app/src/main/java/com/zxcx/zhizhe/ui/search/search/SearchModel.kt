@@ -1,13 +1,20 @@
 package com.zxcx.zhizhe.ui.search.search
 
+import android.view.View
+import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
+import com.zxcx.zhizhe.utils.LogCat
 import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
+import kotlinx.android.synthetic.main.activity_search.*
 import java.util.concurrent.TimeUnit
 
 class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.Presenter>() {
@@ -55,6 +62,26 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
                         mPresenter?.getSearchPreSuccess(list)
                     }
                 })
+        addSubscription(mDisposable)
+    }
+
+    fun deleteAllSearchHistory(){
+        mDisposable = Flowable.just(0)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .map { AppDatabase.getInstance().mSearchHistoryDao().deleteAll() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<Int>() {
+                    override fun onNext(aVoid: Int?) {
+                    }
+
+                    override fun onError(t: Throwable) {
+                        LogCat.e("删除失败", t)
+                    }
+
+                    override fun onComplete() {}
+                })
+
         addSubscription(mDisposable)
     }
 }

@@ -70,7 +70,7 @@
     <string name="tv_feedback_residue">%1$d/%2$d</string>
     <string name="tv_note_info">记录于&#160;&#160;&#160;%1$s</string>
     <string name="tv_other_user_info">当前智力值&#160;%1$s</string>
-    <string name="tv_dialog_phone_confirm_title">以手机%1$s接收验证码?</string>
+    <string name="tv_dialog_phone_confirm_title">是否以手机号%1$s接收验证码?</string>
     <string name="tv_dialog_phone_un_registered">手机号&#160;%1$s&#160;未注册，请核对后重试</string>
     <string name="tv_item_message_value">智力值&#160;+%1$d</string>
     <string name="tv_dynamic_message_no_data">暂无消息</string>

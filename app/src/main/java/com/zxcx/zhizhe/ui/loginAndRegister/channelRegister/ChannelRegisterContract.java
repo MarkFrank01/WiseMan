@@ -1,10 +1,10 @@
-package com.zxcx.zhizhe.ui.loginAndRegister.register;
+package com.zxcx.zhizhe.ui.loginAndRegister.channelRegister;
 
-import com.zxcx.zhizhe.mvpBase.IGetPresenter;
 import com.zxcx.zhizhe.mvpBase.GetView;
+import com.zxcx.zhizhe.mvpBase.IGetPresenter;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 
-public interface RegisterContract {
+public interface ChannelRegisterContract {
 
     interface View extends GetView<LoginBean> {
     }

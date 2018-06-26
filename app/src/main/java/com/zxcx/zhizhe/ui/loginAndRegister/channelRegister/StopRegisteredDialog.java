@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.loginAndRegister.forget;
+package com.zxcx.zhizhe.ui.loginAndRegister.channelRegister;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,8 +9,10 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.StopRegisteredEvent;
 import com.zxcx.zhizhe.mvpBase.CommonDialog;
-import com.zxcx.zhizhe.utils.TextViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,20 +23,11 @@ import butterknife.Unbinder;
  * Created by anm on 2017/7/21.
  */
 
-public class PhoneUnRegisteredDialog extends CommonDialog {
+public class StopRegisteredDialog extends CommonDialog {
 
     Unbinder unbinder;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
-    @BindView(R.id.tv_dialog_confirm)
-    TextView mTvDialogConfirm;
-    @BindView(R.id.tv_dialog_phone_confirm)
-    TextView mTvDialogPhoneConfirm;
     @BindView(R.id.tv_dialog_phone_confirm_title)
     TextView mTvDialogPhoneConfirmTitle;
-
-    private String phone;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -47,12 +40,8 @@ public class PhoneUnRegisteredDialog extends CommonDialog {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTvDialogConfirm.setText("确定");
 
-        mTvDialogPhoneConfirmTitle.setText("手机号未注册");
-
-        phone = getArguments().getString("phone");
-        TextViewUtils.setTextViewColor(mTvDialogPhoneConfirm, phone, getString(R.string.tv_dialog_phone_un_registered, phone));
+        mTvDialogPhoneConfirmTitle.setText("是否要中断注册登录操作？");
     }
 
     @Override
@@ -68,6 +57,7 @@ public class PhoneUnRegisteredDialog extends CommonDialog {
 
     @OnClick(R.id.tv_dialog_confirm)
     public void onMTvDialogConfirmClicked() {
+        EventBus.getDefault().post(new StopRegisteredEvent());
         this.dismiss();
     }
 }

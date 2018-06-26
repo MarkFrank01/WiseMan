@@ -15,7 +15,6 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import kotlinx.android.synthetic.main.fragment_card_list.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class CardListFragment : BaseFragment() , IGetPresenter<MutableList<CardCategoryBean>>{
 
@@ -32,20 +31,20 @@ class CardListFragment : BaseFragment() , IGetPresenter<MutableList<CardCategory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tl_card_list.setupWithViewPager(vp_card_list)
         getCardCategory()
     }
 
     override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+        vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
         tl_card_list.removeAllTabs()
         list.forEach {
-            val tab = tl_home.newTab()
+            val tab = tl_card_list.newTab()
             tab.setCustomView(R.layout.tab_card_list)
             val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
             textView?.text = it.name
-            tl_home.addTab(tab)
+            tl_card_list.addTab(tab)
         }
-        vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
-        tl_card_list.setupWithViewPager(vp_card_list)
     }
 
     override fun getDataFail(msg: String?) {

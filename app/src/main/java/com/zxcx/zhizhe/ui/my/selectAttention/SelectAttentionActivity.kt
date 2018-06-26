@@ -111,7 +111,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
         mAdapter.onItemChildClickListener = this
         footer.visibility = View.GONE
         mAdapter.addFooterView(footer)
-        val manager = GridLayoutManager(mActivity, 3)
+        val manager = GridLayoutManager(mActivity, 4)
         manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (mAdapter.getItemViewType(position) == ClassifyCardBean.TYPE_CARD_BAG) {

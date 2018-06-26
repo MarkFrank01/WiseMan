@@ -35,6 +35,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemChildClickListener {
 
     private lateinit var mAdapter: CardDetailsAdapter
+    private lateinit var mLayoutManager: LinearLayoutManager
     private var mList = arrayListOf<CardBean>()
     private var mCurrentPosition = 0
     private var mIsReturning = false
@@ -55,6 +56,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
         super.onResume()
     }
+
+    override fun initStatusBar() {}
 
     private fun initShareElement() {
         postponeEnterTransition()
@@ -137,27 +140,32 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+        mLayoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = CardDetailsAdapter(mList)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_card_details)
         mAdapter.onItemChildClickListener = this
-        rv_card_details.layoutManager = layoutManager
+        rv_card_details.layoutManager = mLayoutManager
         rv_card_details.adapter = mAdapter
         PagerSnapHelper().attachToRecyclerView(rv_card_details)
         rv_card_details.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                mCurrentPosition = layoutManager.findFirstCompletelyVisibleItemPosition()
-                val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
-                ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
-                Blurry.with(mActivity)
-                        .radius(10)
-                        .sampling(2)
-                        .color(Color.argb(216, 255, 255, 255))
-                        .async()
-                        .capture(iv_card_details_bg)
-                        .into(iv_card_details_bg)
+                val currentPosition = mLayoutManager.findFirstCompletelyVisibleItemPosition()
+                if(currentPosition != -1 && currentPosition < mAdapter.data.size && currentPosition != mCurrentPosition) {
+                    mCurrentPosition = currentPosition
+                    val event = UpdateTransitionEvent(mPage,mCurrentPosition,mSourceName,mList)
+                    EventBus.getDefault().post(event)
+                    val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
+                    ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
+                    Blurry.with(mActivity)
+                            .radius(10)
+                            .sampling(2)
+                            .color(Color.argb(216, 255, 255, 255))
+                            .async()
+                            .capture(iv_card_details_bg)
+                            .into(iv_card_details_bg)
+                }
             }
         })
     }
@@ -250,8 +258,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
     override fun finishAfterTransition() {
         mIsReturning = true
-        val event = UpdateTransitionEvent(mPage,mCurrentPosition,mSourceName,mList)
-        EventBus.getDefault().post(event)
         super.finishAfterTransition()
     }
 
@@ -288,7 +294,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
             if (mIsReturning) {
                 names.clear()
                 sharedElements.clear()
-                val view = rv_card_details.getChildAt(mCurrentPosition)
+                val view = mLayoutManager.findViewByPosition(mCurrentPosition)
                 val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_details_icon)
                 val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_details_title)
                 val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_details_category)

@@ -10,11 +10,11 @@ import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordContract
-import com.zxcx.zhizhe.ui.loginAndRegister.forget.ForgetPasswordPresenter
+import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterContract
+import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterPresenter
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
-import com.zxcx.zhizhe.ui.loginAndRegister.register.PhoneConfirmDialog
-import com.zxcx.zhizhe.ui.loginAndRegister.register.SMSCodeVerificationBean
+import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
+import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,7 +25,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswordContract.View {
+class ChangePhoneActivity : MvpActivity<ChannelRegisterPresenter>(), ChannelRegisterContract.View {
 
     internal var phoneRules = "^1\\d{10}$"
     internal var phonePattern = Pattern.compile(phoneRules)
@@ -83,8 +83,8 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
         super.onDestroy()
     }
 
-    override fun createPresenter(): ForgetPasswordPresenter {
-        return ForgetPasswordPresenter(this)
+    override fun createPresenter(): ChannelRegisterPresenter {
+        return ChannelRegisterPresenter(this)
     }
 
     override fun getDataSuccess(bean: LoginBean) {
@@ -92,7 +92,7 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
         finish()
     }
 
-    override fun smsCodeVerificationSuccess(bean: SMSCodeVerificationBean) {
+    fun smsCodeVerificationSuccess(bean: SMSCodeVerificationBean) {
         //验证码验证成功
         verifyKey = bean.verifyKey
         rl_change_phone_phone.visibility = View.VISIBLE
@@ -148,7 +148,7 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
         }
 
         //在添加监听前初始化手机号
-       phone = SharedPreferencesUtil.getString(SVTSConstants.phone, "")
+        phone = SharedPreferencesUtil.getString(SVTSConstants.phone, "")
         et_change_phone_phone.setText(phone)
         tv_change_phone_send_code.isEnabled = true
         et_change_phone_phone.afterTextChanged {
@@ -165,7 +165,7 @@ class ChangePhoneActivity : MvpActivity<ForgetPasswordPresenter>(), ForgetPasswo
         vci_change_phone.setOnCompleteListener {
             Utils.closeInputMethod(et_change_phone_phone)
             if (newPhone.isNullOrEmpty()) {
-                mPresenter.smsCodeVerification(et_change_phone_phone.text.toString(), it)
+                //mPresenter.smsCodeVerification(et_change_phone_phone.text.toString(), it)
             }else{
                 SMSSDK.submitVerificationCode("86",newPhone,it)
             }
