@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.ui.search.search
 
-import android.view.View
-import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
@@ -14,7 +12,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
-import kotlinx.android.synthetic.main.activity_search.*
 import java.util.concurrent.TimeUnit
 
 class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.Presenter>() {
@@ -23,7 +20,6 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
     }
 
     fun getSearchBean() {
-
         mDisposable = Flowable.zip(
                 AppClient.getAPIService().searchHot.compose<MutableList<HotSearchBean>>(BaseRxJava.handleArrayResult()),
                 AppDatabase.getInstance().mSearchHistoryDao().flowableAll,
@@ -48,7 +44,6 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
     }
 
     fun getSearchPre(keyword: String) {
-
         mDisposable = Flowable.just(keyword)
                 .debounce(400, TimeUnit.MILLISECONDS)
                 .filter { s -> s.isNotEmpty() }
@@ -73,6 +68,7 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSubscriber<Int>() {
                     override fun onNext(aVoid: Int?) {
+                        mPresenter?.deleteHistorySuccess()
                     }
 
                     override fun onError(t: Throwable) {

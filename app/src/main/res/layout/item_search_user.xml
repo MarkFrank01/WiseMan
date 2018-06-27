@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_rank_user"
+        android:scaleType="centerCrop"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        tools:src="@drawable/logo"
+        app:riv_oval="true"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_name"
+        tools:text="打印纸的规格"
+        android:textStyle="bold"
+        style="@style/tv_single"
+        android:maxLength="8"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_text_1"
+        android:textColor="@color/text_color_1"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_item_rank_user"
+        app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_level"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:drawablePadding="2dp"
+        android:drawableStart="@drawable/tv_item_rank_user_card"
+        android:gravity="center"
+        tools:text="1000"
+        style="@style/tv_single"
+        android:textSize="@dimen/text_size_text_3"
+        android:textColor="@color/text_color_ff"
+        android:background="@drawable/bg_item_user_level"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_item_rank_user_name"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_rank_user_name"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_name"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_card"
+        android:drawableStart="@drawable/tv_item_rank_user_card"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        tools:text="1000"
+        style="@style/tv_single"
+        android:textSize="@dimen/text_size_text_4"
+        android:textColor="@color/text_color_2"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+        app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_fans"
+        android:drawableStart="@drawable/tv_item_rank_user_fans"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        tools:text="1000"
+        style="@style/tv_single"
+        android:textSize="@dimen/text_size_text_4"
+        android:textColor="@color/text_color_2"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_card"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_like"
+        android:drawableStart="@drawable/tv_item_rank_user_card"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        tools:text="1000"
+        style="@style/tv_single"
+        android:textSize="@dimen/text_size_text_4"
+        android:textColor="@color/text_color_2"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_fans"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_collect"
+        android:drawableStart="@drawable/tv_item_rank_user_card"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        tools:text="1000"
+        style="@style/tv_single"
+        android:textSize="@dimen/text_size_text_4"
+        android:textColor="@color/text_color_2"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_like"/>
+
+    <CheckBox
+        android:id="@+id/cb_item_card_details_follow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/selector_card_details_follow"
+        android:button="@null"
+        android:checked="false"
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

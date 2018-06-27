@@ -1,21 +1,22 @@
-package com.zxcx.zhizhe.ui.search.result
+package com.zxcx.zhizhe.ui.search.result.card
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
-class SearchResultPresenter(view: SearchResultContract.View) : BasePresenter<SearchResultContract.View>(), SearchResultContract.Presenter {
+class SearchCardPresenter(view: SearchCardContract.View) : BasePresenter<SearchCardContract.View>(), SearchCardContract.Presenter {
 
-    private val mModel: SearchResultModel
+    private val mModel: SearchCardModel
 
     init {
         attachView(view)
-        mModel = SearchResultModel(this)
+        mModel = SearchCardModel(this)
     }
 
-    fun search(keyword: String, page: Int, pageSize: Int) {
-        mModel.search(keyword, page, pageSize)
+    fun searchCard(keyword: String, cardType: Int, page: Int) {
+        mModel.searchCard(keyword, cardType, page)
     }
 
-    override fun getDataSuccess(bean: MutableList<SearchResultBean>) {
+    override fun getDataSuccess(bean: MutableList<CardBean>) {
         mView.getDataSuccess(bean)
     }
 

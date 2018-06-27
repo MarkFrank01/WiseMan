@@ -72,7 +72,7 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
         if (m.find()) {
             val cardName = m.group(1)
             if (!StringUtils.isEmpty(cardName)) {
-                TextViewUtils.setTextViewColor(tv, cardName, item.content)
+                TextViewUtils.setTextViewColorBlue(tv, cardName, item.content)
             }
         }else {
             helper.setText(R.id.tv_item_system_message_content, item.content)
@@ -85,7 +85,7 @@ class SystemMessageAdapter(data : List<SystemMessageBean>) : BaseQuickAdapter<Sy
         if (startIndex != null && endIndex != null) {
             val rank = item.content?.substring(startIndex + 1, endIndex)
             val tv = helper.getView<TextView>(R.id.tv_item_system_message_content)
-            TextViewUtils.setTextViewColor(tv, rank, item.content)
+            TextViewUtils.setTextViewColorBlue(tv, rank, item.content)
         }
     }
 

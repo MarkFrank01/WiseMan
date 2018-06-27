@@ -12,7 +12,7 @@
         android:id="@+id/rv_like_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_search_result"/>
+        tools:listitem="@layout/item_search_card"/>
 
     <ImageView
         android:id="@+id/iv_common_close"

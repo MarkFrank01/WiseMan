@@ -35,10 +35,15 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.setChecked(R.id.cb_item_card_details_follow, item.followType != 0)
         helper.setChecked(R.id.cb_item_card_details_collect,item.isCollect)
         helper.setChecked(R.id.cb_item_card_details_like,item.isLike)
-        val fromHtml = HtmlCompat.fromHtml(mContext, item.content, 0)
-        val tvContent = helper.getView<TextView>(R.id.tv_item_card_details_content)
-        tvContent.movementMethod = LinkMovementMethod.getInstance()
-        tvContent.text = fromHtml
+
+        try {
+            val fromHtml = HtmlCompat.fromHtml(mContext, item.content, 0)
+            val tvContent = helper.getView<TextView>(R.id.tv_item_card_details_content)
+            tvContent.movementMethod = LinkMovementMethod.getInstance()
+            tvContent.text = fromHtml
+        }catch (e:Exception){
+
+        }
 
         //设置transitionName
         imageView.transitionName = mContext.getString(R.string.card_img_transition_name,helper.adapterPosition)

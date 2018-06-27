@@ -79,7 +79,7 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
 
     override fun getSearchPreSuccess(list: MutableList<String>) {
         rv_search_pre.visibility = View.VISIBLE
-        mSearchPreAdapter?.setKeyword(et_search.getText().toString())
+        mSearchPreAdapter?.setKeyword(et_search.text.toString())
         mSearchPreAdapter?.setNewData(list)
     }
 
@@ -94,12 +94,17 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
             onBackPressed()
         }
         iv_search_clear_history.setOnClickListener {
+            mPresenter.deleteAllSearchHistory()
         }
         et_search.afterTextChanged {
+            iv_search_input_clear.visibility = if (it.isNotEmpty()) View.VISIBLE else View.GONE
             rv_search_pre.visibility = View.GONE
-            mPresenter.getSearchPre(it.toString())
+            mPresenter.getSearchPre(it)
         }
         et_search.setOnEditorActionListener(SearchListener())
+        iv_search_input_clear.setOnClickListener {
+            et_search.setText("")
+        }
     }
 
     private fun addHistoryLabel(list: MutableList<String>) {
@@ -108,10 +113,10 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
             val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null) as FrameLayout
             val textView =frameLayout.findViewById<TextView>(R.id.tv_item_search_hot)
             textView.text = list[i]
-            textView.setOnClickListener(this@SearchActivity)
+            textView.setOnClickListener(this)
             fl_search_history.addView(frameLayout)
             val mlp = frameLayout.layoutParams as ViewGroup.MarginLayoutParams
-            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(10f), ScreenUtils.dip2px(7.5f), 0)
+            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(15f), ScreenUtils.dip2px(7.5f), 0)
         }
     }
 
@@ -121,10 +126,10 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View ,View
             val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_search_hot, null) as FrameLayout
             val textView =frameLayout.findViewById<TextView>(R.id.tv_item_search_hot)
             textView.text = list[i]
-            textView.setOnClickListener(this@SearchActivity)
+            textView.setOnClickListener(this)
             fl_hot_search.addView(frameLayout)
             val mlp = frameLayout.layoutParams as ViewGroup.MarginLayoutParams
-            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(10f), ScreenUtils.dip2px(7.5f), 0)
+            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(15f), ScreenUtils.dip2px(7.5f), 0)
         }
     }
 

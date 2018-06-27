@@ -24,7 +24,8 @@ class CardBean(
         @SerializedName("collectionTitle") var cardLabelName: String? = null,
         @SerializedName("collectionId") var cardLabelId: Int = 0,
         @SerializedName("topicName") var subjectName: String? = null,
-        @SerializedName("collectionName") var content: String = "",
+        @SerializedName("content") var content: String = "",
+        @SerializedName("matchContent") var searchContent: String = "",
         @SerializedName("like") var isLike: Boolean = false,
         @SerializedName("disagree") var isUnLike: Boolean = false,
         @SerializedName("collect") var isCollect: Boolean = false,
@@ -64,6 +65,7 @@ class CardBean(
             source.readInt(),
             source.readString(),
             source.readString(),
+            source.readString(),
             1 == source.readInt(),
             1 == source.readInt(),
             1 == source.readInt(),
@@ -91,6 +93,7 @@ class CardBean(
         writeInt(cardLabelId)
         writeString(subjectName)
         writeString(content)
+        writeString(searchContent)
         writeInt((if (isLike) 1 else 0))
         writeInt((if (isUnLike) 1 else 0))
         writeInt((if (isCollect) 1 else 0))

@@ -49,7 +49,7 @@ public class RemoveBindingDialog extends CommonDialog {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String channel = getArguments().getString("channel");
-        TextViewUtils.setTextViewColor(mTvDialogLogoutTitle,channel,getString(R.string.channel_unbind_title,channel));
+        TextViewUtils.setTextViewColorBlue(mTvDialogLogoutTitle,channel,getString(R.string.channel_unbind_title,channel));
         mTvDialogLogout.setText("解除绑定后你将无法通过该方式登录");
     }
 

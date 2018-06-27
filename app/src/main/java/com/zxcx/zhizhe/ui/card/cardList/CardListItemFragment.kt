@@ -14,7 +14,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.UpdateTransitionEvent
+import com.zxcx.zhizhe.event.AddCardDetailsListEvent
+import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
@@ -26,9 +27,9 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 private const val ARG_ID = "categoryId"
 
@@ -37,7 +38,6 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
         OnRefreshListener{
 
     private lateinit var mAdapter: CardAdapter
-    private var mList = arrayListOf<CardBean>()
     private var mPage = 0
 
     companion object {
@@ -73,7 +73,7 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = CardAdapter(mList)
+        mAdapter = CardAdapter(arrayListOf())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
         mAdapter.onItemClickListener = this
@@ -93,10 +93,9 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
                 Pair.create(cardCategory, cardCategory.transitionName),
                 Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
-        intent.putExtra("list", mList)
+        intent.putExtra("list", mAdapter.data as ArrayList)
         intent.putExtra("currentPosition", position)
         intent.putExtra("sourceName",this::class.java.name)
-        intent.putExtra("page", mPage)
         mActivity.startActivity(intent, bundle)
     }
 
@@ -110,11 +109,11 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UpdateTransitionEvent) {
+    fun onMessageEvent(event: UpdateCardListPositionEvent) {
         if (this::class.java.name == event.sourceName) {
-            mPage = event.page
-            mList = event.list as ArrayList<CardBean>
-            mAdapter.setNewData(mList)
+            if (event.currentPosition == mAdapter.data.size-1) {
+                getCardListForCategory(categoryId,mPage)
+            }
             rv_card_list_item.scrollToPosition(event.currentPosition)
         }
     }
@@ -122,10 +121,11 @@ class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean
     override fun getDataSuccess(list: MutableList<CardBean>) {
         if (mPage == 0) {
             refresh_layout.finishRefresh()
-            mList = list as ArrayList<CardBean>
-            mAdapter.setNewData(mList)
+            mAdapter.setNewData(list)
         } else {
             mAdapter.addData(list)
+            val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
+            EventBus.getDefault().post(event)
         }
         mPage++
         if (list.isEmpty()) {

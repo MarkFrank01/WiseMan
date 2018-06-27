@@ -49,10 +49,10 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
                         tvContent.text = bean.content
                     }
                     message_like -> {
-                        TextViewUtils.setTextViewColor(tvContent,"《"+bean.relatedCardName+"》",bean.content)
+                        TextViewUtils.setTextViewColorBlue(tvContent,"《"+bean.relatedCardName+"》",bean.content)
                     }
                     message_collect -> {
-                        TextViewUtils.setTextViewColor(tvContent,"《"+bean.relatedCardName+"》",bean.content)
+                        TextViewUtils.setTextViewColorBlue(tvContent,"《"+bean.relatedCardName+"》",bean.content)
                     }
                 }
             }

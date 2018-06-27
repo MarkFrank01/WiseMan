@@ -12,10 +12,6 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
         mModel = CardDetailsModel(this)
     }
 
-    fun getHotCard(lastRefresh: String, page: Int) {
-        mModel.getHotCard(lastRefresh, page)
-    }
-
     fun readCard(cardId: Int) {
         mModel.readCard(cardId)
     }

@@ -13,9 +13,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.event.UpdateTransitionEvent
+import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ShareCardDialog
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -29,7 +30,6 @@ import kotlinx.android.synthetic.main.activity_card_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View,
         BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemChildClickListener {
@@ -39,8 +39,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private var mList = arrayListOf<CardBean>()
     private var mCurrentPosition = 0
     private var mIsReturning = false
-    private var mPage = 0
-    private var mLastDate = Date()
     private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
     private var mSourceName = ""
 
@@ -68,8 +66,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         mList = intent.getParcelableArrayListExtra<CardBean>("list")
         mCurrentPosition = intent.getIntExtra("currentPosition",0)
         mSourceName = intent.getStringExtra("sourceName")
-        mPage = intent.getIntExtra("page",0)
-        mLastDate = intent.getSerializableExtra("date") as Date
         mAdapter.setNewData(mList)
         rv_card_details.scrollToPosition(mCurrentPosition)
         rv_card_details.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -86,15 +82,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
-        mAdapter.addData(list)
-        mPage++
-        if (list.isEmpty()) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
+
     }
 
     override fun likeSuccess(bean: CardBean) {
@@ -139,6 +127,13 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         mPresenter.setUserFollow(mAdapter.data[mCurrentPosition].authorId, 1,mAdapter.data[mCurrentPosition])
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: AddCardDetailsListEvent) {
+        if (mSourceName == event.sourceName) {
+            mAdapter.addData(event.list)
+        }
+    }
+
     private fun initRecyclerView() {
         mLayoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         mAdapter = CardDetailsAdapter(mList)
@@ -154,7 +149,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 val currentPosition = mLayoutManager.findFirstCompletelyVisibleItemPosition()
                 if(currentPosition != -1 && currentPosition < mAdapter.data.size && currentPosition != mCurrentPosition) {
                     mCurrentPosition = currentPosition
-                    val event = UpdateTransitionEvent(mPage,mCurrentPosition,mSourceName,mList)
+                    val event = UpdateCardListPositionEvent(mCurrentPosition, mSourceName)
                     EventBus.getDefault().post(event)
                     val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
                     ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
@@ -176,7 +171,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     }
 
     override fun onLoadMoreRequested() {
-        mPresenter.getHotCard(mLastDate.time.toString(),mPage)
+        val event = UpdateCardListPositionEvent(mCurrentPosition, mSourceName)
+        EventBus.getDefault().post(event)
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View, position: Int) {

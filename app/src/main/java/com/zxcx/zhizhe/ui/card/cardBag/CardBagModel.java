@@ -1,7 +1,11 @@
 package com.zxcx.zhizhe.ui.card.cardBag;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 
+import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.mvpBase.BaseModel;
 
 public class CardBagModel extends BaseModel<CardBagContract.Presenter> {

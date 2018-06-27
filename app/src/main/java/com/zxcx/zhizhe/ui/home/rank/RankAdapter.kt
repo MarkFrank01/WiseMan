@@ -22,7 +22,7 @@ class RankAdapter(data : List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Ba
 
     override fun convert(helper: BaseViewHolder, item: UserRankBean) {
         val title = helper.getView<TextView>(R.id.tv_item_rank_user_name)
-        TextViewUtils.setTextViewColor(title, mKeyword, item.name)
+        TextViewUtils.setTextViewColorBlue(title, mKeyword, item.name)
         val imageView = helper.getView<RoundedImageView>(R.id.iv_item_rank_user)
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)

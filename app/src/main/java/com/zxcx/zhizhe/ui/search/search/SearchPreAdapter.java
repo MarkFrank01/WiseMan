@@ -29,6 +29,6 @@ public class SearchPreAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         TextView textView = helper.getView(R.id.tv_item_search_pre);
-        TextViewUtils.setTextViewColor(textView,mKeyword,item);
+        TextViewUtils.setTextViewColorBlack(textView,mKeyword,item);
     }
 }

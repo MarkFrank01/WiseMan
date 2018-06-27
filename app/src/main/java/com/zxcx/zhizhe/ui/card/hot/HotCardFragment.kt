@@ -14,8 +14,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
-import com.zxcx.zhizhe.event.UpdateTransitionEvent
+import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
@@ -32,7 +33,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
 
     private lateinit var mAdapter: CardAdapter
-    private var mList = arrayListOf<CardBean>()
     private var mPage = 0
     private var mHidden = true
     private var mLastDate = Date()
@@ -95,12 +95,10 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UpdateTransitionEvent) {
+    fun onMessageEvent(event: UpdateCardListPositionEvent) {
         if (this::class.java.name == event.sourceName) {
-            mPage = event.page
-            if (mList.size != event.list.size) {
-                mList = event.list as ArrayList<CardBean>
-                mAdapter.setNewData(mList)
+            if (event.currentPosition == mAdapter.data.size-1) {
+                getHotCard()
             }
             rv_hot_card.scrollToPosition(event.currentPosition)
             rv_hot_card.invalidate()
@@ -120,11 +118,12 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         loadService.showSuccess()
         if (mPage == 0) {
             mRefreshLayout.finishRefresh()
-            mList = list as ArrayList<CardBean>
-            mAdapter.setNewData(mList)
+            mAdapter.setNewData(list)
             rv_hot_card.scrollToPosition(0)
         } else {
             mAdapter.addData(list)
+            val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
+            EventBus.getDefault().post(event)
         }
         mPage++
         if (list.isEmpty()) {
@@ -146,7 +145,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = CardAdapter(mList)
+        mAdapter = CardAdapter(arrayListOf())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_hot_card)
         mAdapter.onItemClickListener = this
@@ -170,11 +169,9 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
                 Pair.create(cardCategory, cardCategory.transitionName),
                 Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
         val intent = Intent(mActivity, CardDetailsActivity::class.java)
-        intent.putExtra("list", mList)
+        intent.putExtra("list", mAdapter.data as ArrayList)
         intent.putExtra("currentPosition", position)
         intent.putExtra("sourceName",this::class.java.name)
-        intent.putExtra("page", mPage)
-        intent.putExtra("date", mLastDate)
         mActivity.startActivity(intent, bundle)
     }
 }

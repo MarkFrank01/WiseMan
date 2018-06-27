@@ -19,6 +19,10 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
         mModel.getSearchBean();
     }
 
+    public void deleteAllSearchHistory(){
+        mModel.deleteAllSearchHistory();
+    }
+
     public void getSearchPre(String keyword){
         mModel.getSearchPre(keyword);
     }

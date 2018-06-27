@@ -89,19 +89,19 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
         bean.followerUserStr?.let {
             if (!StringUtils.isEmpty(bean.followerUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_follow, it)
-                TextViewUtils.setTextViewColor(tv_dynamic_message_follow,bean.followerUserStr,str)
+                TextViewUtils.setTextViewColorBlue(tv_dynamic_message_follow,bean.followerUserStr,str)
             }
         }
         bean.likeUserStr?.let {
             if (!StringUtils.isEmpty(bean.likeUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_like, it)
-                TextViewUtils.setTextViewColor(tv_dynamic_message_like,bean.likeUserStr,str)
+                TextViewUtils.setTextViewColorBlue(tv_dynamic_message_like,bean.likeUserStr,str)
             }
         }
         bean.collectedUserStr?.let {
             if (!StringUtils.isEmpty(bean.collectedUserStr)) {
                 val str = getString(R.string.tv_dynamic_message_collect, it)
-                TextViewUtils.setTextViewColor(tv_dynamic_message_collect,bean.collectedUserStr,str)
+                TextViewUtils.setTextViewColorBlue(tv_dynamic_message_collect,bean.collectedUserStr,str)
             }
         }
     }

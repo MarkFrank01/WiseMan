@@ -25,8 +25,7 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
-import com.zxcx.zhizhe.ui.search.result.SearchResultBean;
-import com.zxcx.zhizhe.ui.search.result.SubjectBean;
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
 
@@ -185,16 +184,24 @@ public interface APIService {
      * 搜索卡片，长文，专题
      */
     @POST("/search/searchContent")
-    Flowable<BaseArrayBean<SearchResultBean>> search(
-            @Query("keyword") String keyword,@Query("pageIndex") int page,
-            @Query("pageSize") int pageSize);
+    Flowable<BaseArrayBean<CardBean>> searchCard(
+            @Query("keyword") String keyword,@Query("cardType") int cardType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
 
     /**
-     * 搜索专题
+     * 搜索卡片，长文，专题
      */
-    @POST("/search/searchTopic")
-    Flowable<BaseArrayBean<SubjectBean>> searchSubject(
-            @Query("keyword") String keyword, @Query("pageIndex") int page,
+    @POST("/search/searchContent")
+    Flowable<BaseArrayBean<CardBean>> searchArticle(
+            @Query("keyword") String keyword,@Query("cardType") int cardType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    /**
+     * 搜索卡片，长文，专题
+     */
+    @POST("/search/searchContent")
+    Flowable<BaseArrayBean<SearchUserBean>> searchUser(
+            @Query("keyword") String keyword,@Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
     /**
