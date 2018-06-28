@@ -5,9 +5,9 @@ import com.zxcx.zhizhe.R;
 
 public class HomeNetworkErrorCallback extends Callback {
 
-    @Override
-    protected int onCreateView() {
-        return R.layout.view_home_network_error;
-    }
+	@Override
+	protected int onCreateView() {
+		return R.layout.view_home_network_error;
+	}
 
 }

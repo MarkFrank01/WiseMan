@@ -12,14 +12,15 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 public class CardBagCardItemDecoration extends RecyclerView.ItemDecoration {
 
-    public CardBagCardItemDecoration() {
-        super();
-    }
+	public CardBagCardItemDecoration() {
+		super();
+	}
 
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getChildAdapterPosition(view) == 0){
-            outRect.top = ScreenUtils.dip2px(20);
-        }
-    }
+	@Override
+	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+		RecyclerView.State state) {
+		if (parent.getChildAdapterPosition(view) == 0) {
+			outRect.top = ScreenUtils.dip2px(20);
+		}
+	}
 }

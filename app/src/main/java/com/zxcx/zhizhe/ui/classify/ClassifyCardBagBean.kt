@@ -10,36 +10,36 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 class ClassifyCardBean : RetrofitBaen(), MultiItemEntity {
 
-    @SerializedName("interested")
-    var isChecked: Boolean = false
-    @SerializedName("id")
-    var id: Int = 0
-    @SerializedName("titleImage")
-    var imageUrl: String? = null
-    @SerializedName("title")
-    var name: String? = null
+	@SerializedName("interested")
+	var isChecked: Boolean = false
+	@SerializedName("id")
+	var id: Int = 0
+	@SerializedName("titleImage")
+	var imageUrl: String? = null
+	@SerializedName("title")
+	var name: String? = null
 
-    override fun getItemType(): Int {
-        return TYPE_CARD_BAG
-    }
+	override fun getItemType(): Int {
+		return TYPE_CARD_BAG
+	}
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (javaClass != other?.javaClass) return false
 
-        other as ClassifyCardBean
+		other as ClassifyCardBean
 
-        if (id != other.id) return false
+		if (id != other.id) return false
 
-        return true
-    }
+		return true
+	}
 
-    override fun hashCode(): Int {
-        return id
-    }
+	override fun hashCode(): Int {
+		return id
+	}
 
-    companion object {
+	companion object {
 
-        const val TYPE_CARD_BAG = 2
-    }
+		const val TYPE_CARD_BAG = 2
+	}
 }

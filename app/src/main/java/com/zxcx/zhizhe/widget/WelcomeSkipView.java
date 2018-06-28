@@ -22,89 +22,92 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
  */
 
 public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView {
-
-    private String text = "跳过";
-    private Paint backgroundPaint = new Paint();
-    private Paint circlePaint = new Paint();
-    private Rect textRect = new Rect();
-    public int countdown = 5;
-    private RectF oval = new RectF();
-    private float sweepAngle;
-    private ObjectAnimator animator = ObjectAnimator.ofFloat(this, "sweepAngle", -360, 0);
-    private onFinishListener mListener;
-
-    public interface onFinishListener{
-        void onAnimationFinish();
-    }
-
-    public WelcomeSkipView(Context context) {
-        super(context);
-    }
-
-    public WelcomeSkipView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public WelcomeSkipView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    {
-        backgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.opacity_20));
-        backgroundPaint.setAntiAlias(true);
-        circlePaint.setColor(ContextCompat.getColor(getContext(), R.color.button_blue));
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeWidth(ScreenUtils.dip2px(2));
-        circlePaint.setAntiAlias(true);
-
-        animator.setDuration(countdown * 1000);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mListener.onAnimationFinish();
-            }
-        });
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        animator.start();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        animator.removeAllListeners();
-        animator.cancel();
-    }
-
-    public void stop() {
-        animator.removeAllListeners();
-        animator.cancel();
-    }
-
-    public void setListener(onFinishListener listener) {
-        mListener = listener;
-    }
-
-    public void setCountdown(int countdown) {
-        countdown = countdown;
-    }
-
-    @Keep
-    @SuppressWarnings("unused")
-    public void setSweepAngle(float sweepAngle) {
-        this.sweepAngle = sweepAngle;
-        invalidate();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawCircle(getMeasuredWidth()/2,getMeasuredHeight()/2,getMeasuredWidth()/2 - ScreenUtils.dip2px(1.5f),backgroundPaint);
-        oval.set(ScreenUtils.dip2px(1),ScreenUtils.dip2px(1),getMeasuredWidth() -2,getMeasuredHeight() -2);
-        canvas.drawArc(oval,-90,sweepAngle,false,circlePaint);
-        super.onDraw(canvas);
-    }
+	
+	public int countdown = 5;
+	private String text = "跳过";
+	private Paint backgroundPaint = new Paint();
+	private Paint circlePaint = new Paint();
+	private Rect textRect = new Rect();
+	private RectF oval = new RectF();
+	private float sweepAngle;
+	private ObjectAnimator animator = ObjectAnimator.ofFloat(this, "sweepAngle", -360, 0);
+	private onFinishListener mListener;
+	
+	{
+		backgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.opacity_20));
+		backgroundPaint.setAntiAlias(true);
+		circlePaint.setColor(ContextCompat.getColor(getContext(), R.color.button_blue));
+		circlePaint.setStyle(Paint.Style.STROKE);
+		circlePaint.setStrokeWidth(ScreenUtils.dip2px(2));
+		circlePaint.setAntiAlias(true);
+		
+		animator.setDuration(countdown * 1000);
+		animator.setInterpolator(new LinearInterpolator());
+		animator.addListener(new AnimatorListenerAdapter() {
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				mListener.onAnimationFinish();
+			}
+		});
+	}
+	
+	public WelcomeSkipView(Context context) {
+		super(context);
+	}
+	
+	public WelcomeSkipView(Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+	}
+	
+	public WelcomeSkipView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
+	
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		animator.start();
+	}
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		animator.removeAllListeners();
+		animator.cancel();
+	}
+	
+	public void stop() {
+		animator.removeAllListeners();
+		animator.cancel();
+	}
+	
+	public void setListener(onFinishListener listener) {
+		mListener = listener;
+	}
+	
+	public void setCountdown(int countdown) {
+		countdown = countdown;
+	}
+	
+	@Keep
+	@SuppressWarnings("unused")
+	public void setSweepAngle(float sweepAngle) {
+		this.sweepAngle = sweepAngle;
+		invalidate();
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2,
+			getMeasuredWidth() / 2 - ScreenUtils.dip2px(1.5f), backgroundPaint);
+		oval.set(ScreenUtils.dip2px(1), ScreenUtils.dip2px(1), getMeasuredWidth() - 2,
+			getMeasuredHeight() - 2);
+		canvas.drawArc(oval, -90, sweepAngle, false, circlePaint);
+		super.onDraw(canvas);
+	}
+	
+	public interface onFinishListener {
+		
+		void onAnimationFinish();
+	}
 }

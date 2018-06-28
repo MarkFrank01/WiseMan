@@ -12,22 +12,22 @@ import java.util.List;
 
 class ClassifyModel extends BaseModel<ClassifyContract.Presenter> {
 
-    ClassifyModel(@NonNull ClassifyContract.Presenter present) {
-        mPresenter = present;
-    }
+	ClassifyModel(@NonNull ClassifyContract.Presenter present) {
+		mPresenter = present;
+	}
 
-    void getClassify(){
-        mDisposable = AppClient.getAPIService().getClassify()
-                .compose(BaseRxJava.INSTANCE.<BaseArrayBean<ClassifyBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ClassifyBean>handleArrayResult())
-                .subscribeWith(new BaseSubscriber<List<ClassifyBean>>(mPresenter) {
-                    @Override
-                    public void onNext(List<ClassifyBean> list) {
-                        mPresenter.getDataSuccess(list);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	void getClassify() {
+		mDisposable = AppClient.getAPIService().getClassify()
+			.compose(BaseRxJava.INSTANCE.<BaseArrayBean<ClassifyBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ClassifyBean>handleArrayResult())
+			.subscribeWith(new BaseSubscriber<List<ClassifyBean>>(mPresenter) {
+				@Override
+				public void onNext(List<ClassifyBean> list) {
+					mPresenter.getDataSuccess(list);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 }
 
 

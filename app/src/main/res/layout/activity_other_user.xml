@@ -1,136 +1,136 @@
 <android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
-
-    <android.support.design.widget.AppBarLayout
-        style="@style/Widget.Design.AppBarLayout.NoElevation"
-        android:background="@color/background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/rl_other_user_head"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll">
-
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/iv_other_user_head"
-                android:scaleType="centerCrop"
-                android:layout_centerVertical="true"
-                android:src="@drawable/iv_my_head_placeholder"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginEnd="10dp"
-                app:riv_oval="true"/>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_other_user_nick_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:maxLength="8"
-                    tools:text="怕是个傻子哦"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_size_title_2"
-                    android:textColor="@color/text_color_1"/>
-
-                <TextView
-                    android:id="@+id/tv_other_user_lv"
-                    android:layout_below="@id/tv_other_user_nick_name"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    tools:text="LV.3"
-                    android:gravity="center"
-                    android:textColor="@color/button_blue"
-                    android:textSize="@dimen/text_size_text_3"
-                    android:background="@drawable/bg_lv"
-                    android:layout_width="40dp"
-                    android:layout_height="18dp"/>
-
-                <TextView
-                    android:id="@+id/tv_other_user_creation"
-                    android:layout_below="@id/tv_other_user_nick_name"
-                    android:layout_toEndOf="@id/tv_other_user_lv"
-                    android:layout_marginTop="12dp"
-                    android:drawableStart="@drawable/tv_item_rank_user_card"
-                    android:drawablePadding="3dp"
-                    tools:text="500"
-                    style="@style/tv_single"
-                    android:textSize="@dimen/text_size_text_3"
-                    android:textColor="@color/text_color_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_other_user_fans"
-                    android:layout_below="@id/tv_other_user_nick_name"
-                    android:layout_toEndOf="@id/tv_other_user_creation"
-                    android:layout_marginTop="12dp"
-                    android:drawableStart="@drawable/tv_item_rank_user_fans"
-                    android:drawablePadding="3dp"
-                    android:layout_marginStart="15dp"
-                    tools:text="500"
-                    style="@style/tv_single"
-                    android:textSize="@dimen/text_size_text_3"
-                    android:textColor="@color/text_color_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_other_user_intelligence"
-                    android:layout_below="@id/tv_other_user_nick_name"
-                    android:layout_toEndOf="@id/tv_other_user_fans"
-                    android:layout_marginTop="12dp"
-                    android:drawableStart="@drawable/tv_item_rank_user_intelligence"
-                    android:drawablePadding="3dp"
-                    android:layout_marginStart="15dp"
-                    tools:text="500"
-                    style="@style/tv_single"
-                    android:textSize="@dimen/text_size_text_3"
-                    android:textColor="@color/text_color_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-        <View
-            android:background="@color/strip"
-            android:layout_width="match_parent"
-            android:layout_height="6dp"
-            android:layout_marginBottom="20dp"
-            app:layout_scrollFlags="scroll"/>
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_other_user"
-        android:background="@color/background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_card"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <ImageView
-        android:id="@+id/iv_other_user_close"
-        android:layout_gravity="end"
-        android:src="@drawable/iv_common_close"
-        android:layout_marginEnd="10dp"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	android:orientation="vertical">
+	
+	<android.support.design.widget.AppBarLayout
+		style="@style/Widget.Design.AppBarLayout.NoElevation"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/background">
+		
+		<LinearLayout
+			android:id="@+id/rl_other_user_head"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="40dp"
+			android:layout_marginBottom="30dp"
+			android:paddingStart="20dp"
+			android:paddingEnd="20dp"
+			android:gravity="center_vertical"
+			app:layout_scrollFlags="scroll">
+			
+			<com.makeramen.roundedimageview.RoundedImageView
+				android:id="@+id/iv_other_user_head"
+				android:layout_width="56dp"
+				android:layout_height="56dp"
+				android:layout_marginEnd="10dp"
+				android:layout_centerVertical="true"
+				android:scaleType="centerCrop"
+				android:src="@drawable/iv_my_head_placeholder"
+				app:riv_oval="true"/>
+			
+			<RelativeLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:id="@+id/tv_other_user_nick_name"
+					android:textStyle="bold"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:maxLength="8"
+					android:maxLines="1"
+					android:textColor="@color/text_color_1"
+					android:textSize="@dimen/text_size_title_2"
+					tools:text="怕是个傻子哦"/>
+				
+				<TextView
+					android:id="@+id/tv_other_user_lv"
+					android:layout_width="40dp"
+					android:layout_height="18dp"
+					android:layout_marginTop="10dp"
+					android:layout_marginEnd="10dp"
+					android:layout_below="@id/tv_other_user_nick_name"
+					android:background="@drawable/bg_lv"
+					android:gravity="center"
+					android:textColor="@color/button_blue"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="LV.3"/>
+				
+				<TextView
+					android:id="@+id/tv_other_user_creation"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="12dp"
+					android:layout_below="@id/tv_other_user_nick_name"
+					android:layout_toEndOf="@id/tv_other_user_lv"
+					android:drawablePadding="3dp"
+					android:drawableStart="@drawable/tv_item_rank_user_card"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="500"/>
+				
+				<TextView
+					android:id="@+id/tv_other_user_fans"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="12dp"
+					android:layout_marginStart="15dp"
+					android:layout_below="@id/tv_other_user_nick_name"
+					android:layout_toEndOf="@id/tv_other_user_creation"
+					android:drawablePadding="3dp"
+					android:drawableStart="@drawable/tv_item_rank_user_fans"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="500"/>
+				
+				<TextView
+					android:id="@+id/tv_other_user_intelligence"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="12dp"
+					android:layout_marginStart="15dp"
+					android:layout_below="@id/tv_other_user_nick_name"
+					android:layout_toEndOf="@id/tv_other_user_fans"
+					android:drawablePadding="3dp"
+					android:drawableStart="@drawable/tv_item_rank_user_intelligence"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="500"/>
+			</RelativeLayout>
+		</LinearLayout>
+		
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="6dp"
+			android:layout_marginBottom="20dp"
+			android:background="@color/strip"
+			app:layout_scrollFlags="scroll"/>
+	</android.support.design.widget.AppBarLayout>
+	
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/rv_other_user"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/background"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"
+		tools:listitem="@layout/item_card"/>
+	
+	<ImageView
+		android:id="@+id/iv_other_user_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="10dp"
+		android:layout_gravity="end"
+		android:padding="10dp"
+		android:src="@drawable/iv_common_close"/>
 
 </android.support.design.widget.CoordinatorLayout>

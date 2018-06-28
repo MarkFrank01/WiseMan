@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_item_note"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_item_follow_user"
-        android:scaleType="centerCrop"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        tools:src="@drawable/logo"
-        app:riv_oval="true"/>
-
-    <RelativeLayout
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/iv_item_follow_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_item_follow_user_name"
-            android:layout_marginBottom="8dp"
-            tools:text="打印纸的规格"
-            style="@style/tv_single"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_text_1"
-            android:textColor="@color/text_color_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_follow_user_card"
-            android:layout_below="@id/tv_item_follow_user_name"
-            android:drawableStart="@drawable/tv_item_rank_user_card"
-            android:drawablePadding="3dp"
-            tools:text="1000"
-            style="@style/tv_single"
-            android:textSize="@dimen/text_size_text_3"
-            android:textColor="@color/text_color_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_follow_user_fans"
-            android:layout_below="@id/tv_item_follow_user_name"
-            android:layout_toEndOf="@id/tv_item_follow_user_card"
-            android:drawableStart="@drawable/tv_item_rank_user_fans"
-            android:drawablePadding="3dp"
-            android:layout_marginStart="15dp"
-            tools:text="1000"
-            style="@style/tv_single"
-            android:textSize="@dimen/text_size_text_3"
-            android:textColor="@color/text_color_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_follow_user_read"
-            android:layout_below="@id/tv_item_follow_user_name"
-            android:layout_toEndOf="@id/tv_item_follow_user_fans"
-            android:drawableStart="@drawable/tv_item_rank_user_intelligence"
-            android:drawablePadding="3dp"
-            android:layout_marginStart="15dp"
-            tools:text="1000"
-            style="@style/tv_single"
-            android:textSize="@dimen/text_size_text_3"
-            android:textColor="@color/text_color_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <CheckBox
-            android:id="@+id/cb_item_follow_user"
-            android:text="关注"
-            android:textSize="14sp"
-            android:checked="false"
-            android:textColor="@color/color_checkbox_text_follow"
-            android:button="@null"
-            android:background="@drawable/selector_checkbox_bg_follow"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:layout_width="76dp"
-            android:layout_height="32dp"/>
-
-    </RelativeLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="20dp"
+	android:layout_marginStart="20dp"
+	android:layout_marginEnd="20dp"
+	android:paddingStart="15dp"
+	android:paddingEnd="15dp"
+	android:background="@drawable/bg_item_note">
+	
+	<com.makeramen.roundedimageview.RoundedImageView
+		android:id="@+id/iv_item_follow_user"
+		android:layout_width="48dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="20dp"
+		android:layout_marginEnd="10dp"
+		android:scaleType="centerCrop"
+		app:riv_oval="true"
+		tools:src="@drawable/logo"/>
+	
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_toEndOf="@id/iv_item_follow_user"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/tv_item_follow_user_name"
+			style="@style/tv_single"
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"
+			tools:text="打印纸的规格"/>
+		
+		<TextView
+			android:id="@+id/tv_item_follow_user_card"
+			style="@style/tv_single"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_item_follow_user_name"
+			android:drawablePadding="3dp"
+			android:drawableStart="@drawable/tv_item_rank_user_card"
+			android:textColor="@color/text_color_2"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="1000"/>
+		
+		<TextView
+			android:id="@+id/tv_item_follow_user_fans"
+			style="@style/tv_single"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="15dp"
+			android:layout_below="@id/tv_item_follow_user_name"
+			android:layout_toEndOf="@id/tv_item_follow_user_card"
+			android:drawablePadding="3dp"
+			android:drawableStart="@drawable/tv_item_rank_user_fans"
+			android:textColor="@color/text_color_2"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="1000"/>
+		
+		<TextView
+			android:id="@+id/tv_item_follow_user_read"
+			style="@style/tv_single"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="15dp"
+			android:layout_below="@id/tv_item_follow_user_name"
+			android:layout_toEndOf="@id/tv_item_follow_user_fans"
+			android:drawablePadding="3dp"
+			android:drawableStart="@drawable/tv_item_rank_user_intelligence"
+			android:textColor="@color/text_color_2"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="1000"/>
+		
+		<CheckBox
+			android:id="@+id/cb_item_follow_user"
+			android:layout_width="76dp"
+			android:layout_height="32dp"
+			android:layout_alignParentEnd="true"
+			android:layout_centerVertical="true"
+			android:background="@drawable/selector_checkbox_bg_follow"
+			android:button="@null"
+			android:checked="false"
+			android:gravity="center"
+			android:text="关注"
+			android:textColor="@color/color_checkbox_text_follow"
+			android:textSize="14sp"/>
+	
+	</RelativeLayout>
 
 </RelativeLayout>

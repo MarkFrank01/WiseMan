@@ -24,44 +24,45 @@ import butterknife.Unbinder;
  */
 
 public class CancelFeedbackConfirmDialog extends CommonDialog {
-
-    Unbinder unbinder;
-    @BindView(R.id.tv_dialog_delete_confirm)
-    TextView mTvDialogDeleteConfirm;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
-    @BindView(R.id.tv_dialog_confirm)
-    TextView mTvDialogConfirm;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_un_follow, container);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mTvDialogDeleteConfirm.setText("还有未编辑完的内容，确认退出？");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    @OnClick(R.id.tv_dialog_cancel)
-    public void onMTvDialogCancelClicked() {
-        this.dismiss();
-    }
-
-    @OnClick(R.id.tv_dialog_confirm)
-    public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new CancelFeedbackConfirmEvent());
-        this.dismiss();
-    }
+	
+	Unbinder unbinder;
+	@BindView(R.id.tv_dialog_delete_confirm)
+	TextView mTvDialogDeleteConfirm;
+	@BindView(R.id.tv_dialog_cancel)
+	TextView mTvDialogCancel;
+	@BindView(R.id.tv_dialog_confirm)
+	TextView mTvDialogConfirm;
+	
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+		Bundle savedInstanceState) {
+		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		View view = inflater.inflate(R.layout.dialog_un_follow, container);
+		unbinder = ButterKnife.bind(this, view);
+		return view;
+	}
+	
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mTvDialogDeleteConfirm.setText("还有未编辑完的内容，确认退出？");
+	}
+	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
+	
+	@OnClick(R.id.tv_dialog_cancel)
+	public void onMTvDialogCancelClicked() {
+		this.dismiss();
+	}
+	
+	@OnClick(R.id.tv_dialog_confirm)
+	public void onMTvDialogConfirmClicked() {
+		EventBus.getDefault().post(new CancelFeedbackConfirmEvent());
+		this.dismiss();
+	}
 }

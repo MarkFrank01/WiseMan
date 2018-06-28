@@ -10,19 +10,20 @@ import java.util.List;
  */
 
 public class SystemUtils {
-    public static boolean isProessRunning(Context context, String proessName) {
 
-        boolean isRunning = false;
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+	public static boolean isProessRunning(Context context, String proessName) {
 
-        List<ActivityManager.RunningAppProcessInfo> lists = am.getRunningAppProcesses();
-        for(ActivityManager.RunningAppProcessInfo info : lists){
-            if(info.processName.equals(proessName)){
-                //Log.i("Service2进程", ""+info.processName);
-                isRunning = true;
-            }
-        }
+		boolean isRunning = false;
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
-        return isRunning;
-    }
+		List<ActivityManager.RunningAppProcessInfo> lists = am.getRunningAppProcesses();
+		for (ActivityManager.RunningAppProcessInfo info : lists) {
+			if (info.processName.equals(proessName)) {
+				//Log.i("Service2进程", ""+info.processName);
+				isRunning = true;
+			}
+		}
+
+		return isRunning;
+	}
 }

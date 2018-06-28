@@ -31,153 +31,157 @@ import io.reactivex.disposables.Disposable;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment implements BaseView{
-    private LoadingDialog mLoadingDialog;
-    public Activity mActivity;
-    public LoadService loadService;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return null;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mActivity = getActivity();
-        mLoadingDialog = new LoadingDialog();
-        setListener();
-    }
-
-    public void setListener() {
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        onUnsubscribe();
-        mActivity = null;
-        clearLeaks();
-        super.onDestroy();
-    }
-
-    public Toolbar initToolBar(View view, String title) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(title);
-        return toolbar;
-    }
-
-    public Toolbar initToolBar(View view,@StringRes int title) {
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(title);
-        return toolbar;
-    }
-
-    public void toastShow(int resId) {
-        String text = getString(resId);
-        toastShow(text);
-    }
-
-    public void toastShow(String text) {
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
-        TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-        ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getDisplayWidth();
-        tvToast.setLayoutParams(params);
-        Toast toast = new Toast(mActivity);
-        toast.setView(linearLayout);
-        tvToast.setText(text);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
-        toast.show();
-    }
-
-    public void toastError(int resId) {
-        String text = getString(resId);
-        toastError(text);
-    }
-
-    public void toastError(String text) {
+public class BaseFragment extends Fragment implements BaseView {
+	
+	public Activity mActivity;
+	public LoadService loadService;
+	protected Disposable mDisposable;
+	private LoadingDialog mLoadingDialog;
+	private CompositeDisposable mCompositeSubscription;
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+		Bundle savedInstanceState) {
+		return null;
+	}
+	
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mActivity = getActivity();
+		mLoadingDialog = new LoadingDialog();
+		setListener();
+	}
+	
+	public void setListener() {
+	
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+	
+	@Override
+	public void onDestroy() {
+		onUnsubscribe();
+		mActivity = null;
+		clearLeaks();
+		super.onDestroy();
+	}
+	
+	public Toolbar initToolBar(View view, String title) {
+		Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+		TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+		toolbar_title.setText(title);
+		return toolbar;
+	}
+	
+	public Toolbar initToolBar(View view, @StringRes int title) {
+		Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+		TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+		toolbar_title.setText(title);
+		return toolbar;
+	}
+	
+	public void toastShow(int resId) {
+		String text = getString(resId);
+		toastShow(text);
+	}
+	
+	public void toastShow(String text) {
+		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
+			.inflate(R.layout.toast, null);
+		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
+		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
+		params.width = ScreenUtils.getDisplayWidth();
+		tvToast.setLayoutParams(params);
+		Toast toast = new Toast(mActivity);
+		toast.setView(linearLayout);
+		tvToast.setText(text);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
+	}
+	
+	public void toastError(int resId) {
+		String text = getString(resId);
+		toastError(text);
+	}
+	
+	public void toastError(String text) {
 //        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity).inflate(R.layout.toast, null);
-        linearLayout.setBackgroundResource(R.color.red);
-        TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-        ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-        params.width = ScreenUtils.getDisplayWidth();
-        tvToast.setLayoutParams(params);
-        Toast toast = new Toast(mActivity);
-        toast.setView(linearLayout);
-        tvToast.setText(text);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL,0,0);
-        toast.show();
-    }
-
-    public void clearLeaks() {
-
-    }
-
-    protected Disposable mDisposable;
-    private CompositeDisposable mCompositeSubscription;
-
-    public void onUnsubscribe() {
-        if (mCompositeSubscription != null) {
-            mCompositeSubscription.dispose();//取消注册，以避免内存泄露
-        }
-    }
-
-    public void addSubscription(Disposable subscription) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeDisposable();
-        }
-        mCompositeSubscription.add(subscription);
-    }
-
-    @Override
-    public void showLoading() {
-        if (mLoadingDialog != null && !mLoadingDialog.isAdded())
-            mLoadingDialog.show(mActivity.getFragmentManager(),"");
-    }
-
-    @Override
-    public void hideLoading() {
-        if (mLoadingDialog != null && mLoadingDialog.isAdded())
-            mLoadingDialog.dismiss();
-    }
-
-    @Override
-    public void startLogin() {
-        ZhiZheUtils.logout();
-        toastShow(R.string.login_timeout);
-        startActivity(new Intent(mActivity, LoginActivity.class));
-        if (loadService != null){
-            loadService.showCallback(LoginTimeoutCallback.class);
-        }
-    }
-
-    public boolean checkLogin(){
-        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-            return true;
-        } else {
-            startActivity(new Intent(mActivity, LoginActivity.class));
-            return false;
-        }
-    }
-
-    public void toastFail(String msg) {
-        toastShow(msg);
-    }
+		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
+			.inflate(R.layout.toast, null);
+		linearLayout.setBackgroundResource(R.color.red);
+		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
+		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
+		params.width = ScreenUtils.getDisplayWidth();
+		tvToast.setLayoutParams(params);
+		Toast toast = new Toast(mActivity);
+		toast.setView(linearLayout);
+		tvToast.setText(text);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.show();
+	}
+	
+	public void clearLeaks() {
+	
+	}
+	
+	public void onUnsubscribe() {
+		if (mCompositeSubscription != null) {
+			mCompositeSubscription.dispose();//取消注册，以避免内存泄露
+		}
+	}
+	
+	public void addSubscription(Disposable subscription) {
+		if (mCompositeSubscription == null) {
+			mCompositeSubscription = new CompositeDisposable();
+		}
+		mCompositeSubscription.add(subscription);
+	}
+	
+	@Override
+	public void showLoading() {
+		if (mLoadingDialog != null && !mLoadingDialog.isAdded()) {
+			mLoadingDialog.show(mActivity.getFragmentManager(), "");
+		}
+	}
+	
+	@Override
+	public void hideLoading() {
+		if (mLoadingDialog != null && mLoadingDialog.isAdded()) {
+			mLoadingDialog.dismiss();
+		}
+	}
+	
+	@Override
+	public void startLogin() {
+		ZhiZheUtils.logout();
+		toastShow(R.string.login_timeout);
+		startActivity(new Intent(mActivity, LoginActivity.class));
+		if (loadService != null) {
+			loadService.showCallback(LoginTimeoutCallback.class);
+		}
+	}
+	
+	public boolean checkLogin() {
+		if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+			return true;
+		} else {
+			startActivity(new Intent(mActivity, LoginActivity.class));
+			return false;
+		}
+	}
+	
+	public void toastFail(String msg) {
+		toastShow(msg);
+	}
 }

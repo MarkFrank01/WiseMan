@@ -7,44 +7,44 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
 class RankModel(presenter: RankContract.Presenter) : BaseModel<RankContract.Presenter>() {
-    init {
-        this.mPresenter = presenter
-    }
+	init {
+		this.mPresenter = presenter
+	}
 
-    fun getAD() {
-        mDisposable = AppClient.getAPIService().getAD("301")
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {
-                    override fun onNext(list: MutableList<ADBean>) {
-                        mPresenter?.getADSuccess(list)
-                    }
-                })
-    }
+	fun getAD() {
+		mDisposable = AppClient.getAPIService().getAD("301")
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {
+					override fun onNext(list: MutableList<ADBean>) {
+						mPresenter?.getADSuccess(list)
+					}
+				})
+	}
 
-    fun getMyRank(){
-        mDisposable = AppClient.getAPIService().myRank
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleResult())
-                .subscribeWith(object : BaseSubscriber<UserRankBean>(mPresenter) {
-                    override fun onNext(bean: UserRankBean) {
-                        mPresenter?.getMyRankSuccess(bean)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	fun getMyRank() {
+		mDisposable = AppClient.getAPIService().myRank
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleResult())
+				.subscribeWith(object : BaseSubscriber<UserRankBean>(mPresenter) {
+					override fun onNext(bean: UserRankBean) {
+						mPresenter?.getMyRankSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    fun getTopTenRank(){
-        mDisposable = AppClient.getAPIService().topTenRank
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<List<UserRankBean>>(mPresenter) {
-                    override fun onNext(list: List<UserRankBean>) {
-                        mPresenter?.getDataSuccess(list)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	fun getTopTenRank() {
+		mDisposable = AppClient.getAPIService().topTenRank
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<List<UserRankBean>>(mPresenter) {
+					override fun onNext(list: List<UserRankBean>) {
+						mPresenter?.getDataSuccess(list)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 }
 
 

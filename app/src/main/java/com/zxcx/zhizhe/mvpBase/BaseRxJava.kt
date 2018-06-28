@@ -13,56 +13,56 @@ import io.reactivex.schedulers.Schedulers
 
 object BaseRxJava {
 
-    fun <T> io_main(): FlowableTransformer<T, T> {
-        return FlowableTransformer { upstream ->
-            upstream.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
+	fun <T> io_main(): FlowableTransformer<T, T> {
+		return FlowableTransformer { upstream ->
+			upstream.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+		}
+	}
 
-    fun <T> io_main_loading(presenter: IBasePresenter?): FlowableTransformer<T, T> {
-        return FlowableTransformer { upstream ->
-            upstream
-                    .subscribeOn(Schedulers.io())
-                    .doOnSubscribe { presenter?.showLoading() }
-                    .doOnTerminate { presenter?.hideLoading() }
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
+	fun <T> io_main_loading(presenter: IBasePresenter?): FlowableTransformer<T, T> {
+		return FlowableTransformer { upstream ->
+			upstream
+					.subscribeOn(Schedulers.io())
+					.doOnSubscribe { presenter?.showLoading() }
+					.doOnTerminate { presenter?.hideLoading() }
+					.observeOn(AndroidSchedulers.mainThread())
+		}
+	}
 
-    fun <T> handleResult(): FlowableTransformer<BaseBean<T>, T> {
-        return FlowableTransformer { upstream ->
-            upstream.map { result ->
-                if (Constants.RESULT_OK == result.code) {
-                    result.data
-                } else {
-                    throw RuntimeException(result.code.toString() + result.message)
-                }
-            }
-        }
-    }
+	fun <T> handleResult(): FlowableTransformer<BaseBean<T>, T> {
+		return FlowableTransformer { upstream ->
+			upstream.map { result ->
+				if (Constants.RESULT_OK == result.code) {
+					result.data
+				} else {
+					throw RuntimeException(result.code.toString() + result.message)
+				}
+			}
+		}
+	}
 
-    fun handlePostResult(): FlowableTransformer<BaseBean<*>, BaseBean<*>> {
-        return FlowableTransformer { upstream ->
-            upstream.map { result ->
-                if (Constants.RESULT_OK == result.code) {
-                    result
-                } else {
-                    throw RuntimeException(result.code.toString() + result.message)
-                }
-            }
-        }
-    }
+	fun handlePostResult(): FlowableTransformer<BaseBean<*>, BaseBean<*>> {
+		return FlowableTransformer { upstream ->
+			upstream.map { result ->
+				if (Constants.RESULT_OK == result.code) {
+					result
+				} else {
+					throw RuntimeException(result.code.toString() + result.message)
+				}
+			}
+		}
+	}
 
-    fun <T> handleArrayResult(): FlowableTransformer<BaseArrayBean<T>, MutableList<T>> {
-        return FlowableTransformer { upstream ->
-            upstream.map { result ->
-                if (Constants.RESULT_OK == result.code) {
-                    result.data
-                } else {
-                    throw RuntimeException(result.code.toString() + result.message)
-                }
-            }
-        }
-    }
+	fun <T> handleArrayResult(): FlowableTransformer<BaseArrayBean<T>, MutableList<T>> {
+		return FlowableTransformer { upstream ->
+			upstream.map { result ->
+				if (Constants.RESULT_OK == result.code) {
+					result.data
+				} else {
+					throw RuntimeException(result.code.toString() + result.message)
+				}
+			}
+		}
+	}
 }

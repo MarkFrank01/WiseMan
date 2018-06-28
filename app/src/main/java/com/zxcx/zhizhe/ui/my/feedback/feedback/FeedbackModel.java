@@ -9,22 +9,23 @@ import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 
 public class FeedbackModel extends BaseModel<FeedbackContract.Presenter> {
-    public FeedbackModel(@NonNull FeedbackContract.Presenter present) {
-        this.mPresenter = present;
-    }
 
-    public void feedback(String content, int appType, String appChannel, String appVersion){
-        mDisposable = AppClient.getAPIService().feedback(content,appType,appChannel,appVersion)
-                .compose(BaseRxJava.INSTANCE.handlePostResult())
-                .compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(mPresenter))
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.postSuccess();
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public FeedbackModel(@NonNull FeedbackContract.Presenter present) {
+		this.mPresenter = present;
+	}
+
+	public void feedback(String content, int appType, String appChannel, String appVersion) {
+		mDisposable = AppClient.getAPIService().feedback(content, appType, appChannel, appVersion)
+			.compose(BaseRxJava.INSTANCE.handlePostResult())
+			.compose(BaseRxJava.INSTANCE.<BaseBean>io_main_loading(mPresenter))
+			.subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+				@Override
+				public void onNext(BaseBean bean) {
+					mPresenter.postSuccess();
+				}
+			});
+		addSubscription(mDisposable);
+	}
 }
 
 

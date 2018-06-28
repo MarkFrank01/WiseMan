@@ -12,133 +12,135 @@ import com.zxcx.zhizhe.retrofit.PostSubscriber;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presenter> {
-    public ArticleDetailsModel(@NonNull ArticleDetailsContract.Presenter present) {
-        this.mPresenter = present;
-    }
 
-    public void getCardDetails(int cardId){
-        mDisposable = AppClient.getAPIService().getCardDetails(cardId)
-                .compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-                .subscribeWith(new BaseSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public ArticleDetailsModel(@NonNull ArticleDetailsContract.Presenter present) {
+		this.mPresenter = present;
+	}
 
-    public void readArticle(int cardId){
-        DisposableSubscriber<BaseBean> disposableSubscriber = AppClient.getAPIService().readArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .compose(BaseRxJava.INSTANCE.handlePostResult())
-                .subscribeWith(new DisposableSubscriber<BaseBean>() {
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        //保持为空，不需要返回结果
-                    }
+	public void getCardDetails(int cardId) {
+		mDisposable = AppClient.getAPIService().getCardDetails(cardId)
+			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
+			.subscribeWith(new BaseSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.getDataSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-                    @Override
-                    public void onError(Throwable t) {
-                    }
+	public void readArticle(int cardId) {
+		DisposableSubscriber<BaseBean> disposableSubscriber = AppClient.getAPIService()
+			.readArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handlePostResult())
+			.subscribeWith(new DisposableSubscriber<BaseBean>() {
+				@Override
+				public void onNext(BaseBean bean) {
+					//保持为空，不需要返回结果
+				}
 
-                    @Override
-                    public void onComplete() {
-                    }
-                });
-    }
+				@Override
+				public void onError(Throwable t) {
+				}
 
-    public void likeCard(int cardId){
-        mDisposable = AppClient.getAPIService().likeArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.likeSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+				@Override
+				public void onComplete() {
+				}
+			});
+	}
 
-    public void removeLikeCard(int cardId){
-        mDisposable = AppClient.getAPIService().removeLikeArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void likeCard(int cardId) {
+		mDisposable = AppClient.getAPIService().likeArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.likeSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void unLikeCard(int cardId){
-        mDisposable = AppClient.getAPIService().unLikeArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void removeLikeCard(int cardId) {
+		mDisposable = AppClient.getAPIService().removeLikeArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.postSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void removeUnLikeCard(int cardId){
-        mDisposable = AppClient.getAPIService().removeUnLikeArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-                .compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void unLikeCard(int cardId) {
+		mDisposable = AppClient.getAPIService().unLikeArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.postSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void addCollectCard(int cardId) {
-        mDisposable = AppClient.getAPIService().addCollectArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.handleResult())
-                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.collectSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void removeUnLikeCard(int cardId) {
+		mDisposable = AppClient.getAPIService().removeUnLikeArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
+			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.postSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void removeCollectCard(int cardId){
-        mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
-                .compose(BaseRxJava.INSTANCE.handleResult())
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(ArticleDetailsBean bean) {
-                        mPresenter.postSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void addCollectCard(int cardId) {
+		mDisposable = AppClient.getAPIService().addCollectArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.collectSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void setUserFollow(int authorId, int followType){
-        mDisposable = AppClient.getAPIService().setUserFollow(authorId,followType)
-                .compose(BaseRxJava.INSTANCE.handlePostResult())
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .subscribeWith(new PostSubscriber<BaseBean>(mPresenter) {
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.followSuccess();
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void removeCollectCard(int cardId) {
+		mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(ArticleDetailsBean bean) {
+					mPresenter.postSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
+
+	public void setUserFollow(int authorId, int followType) {
+		mDisposable = AppClient.getAPIService().setUserFollow(authorId, followType)
+			.compose(BaseRxJava.INSTANCE.handlePostResult())
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.subscribeWith(new PostSubscriber<BaseBean>(mPresenter) {
+				@Override
+				public void onNext(BaseBean bean) {
+					mPresenter.followSuccess();
+				}
+			});
+		addSubscription(mDisposable);
+	}
 }
 
 

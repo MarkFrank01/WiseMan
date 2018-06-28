@@ -5,9 +5,9 @@ import com.zxcx.zhizhe.R;
 
 public class NetworkErrorCallback extends Callback {
 
-    @Override
-    protected int onCreateView() {
-        return R.layout.view_network_error;
-    }
+	@Override
+	protected int onCreateView() {
+		return R.layout.view_network_error;
+	}
 
 }

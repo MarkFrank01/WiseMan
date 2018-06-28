@@ -7,6 +7,6 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 
 interface SubjectOnClickListener {
-    fun cardOnClick(bean: CardBean)
-    fun subjectOnClick(bean: SubjectBean)
+	fun cardOnClick(bean: CardBean)
+	fun subjectOnClick(bean: SubjectBean)
 }

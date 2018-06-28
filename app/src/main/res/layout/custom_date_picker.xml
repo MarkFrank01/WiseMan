@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_dialog"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_marginTop="30dp"
-        android:textColor="@color/text_color_2"
-        android:textSize="@dimen/text_size_text_1"
-        android:text="选择你的生日"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal"
-        android:paddingBottom="15dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="15dp">
-
-        <com.zxcx.zhizhe.widget.DatePickerView
-            android:id="@+id/year_pv"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_weight="2" />
-
-        <com.zxcx.zhizhe.widget.DatePickerView
-            android:id="@+id/month_pv"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_weight="1" />
-
-        <com.zxcx.zhizhe.widget.DatePickerView
-            android:id="@+id/day_pv"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_weight="1" />
-
-        <com.zxcx.zhizhe.widget.DatePickerView
-            android:id="@+id/hour_pv"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_weight="1" />
-
-        <com.zxcx.zhizhe.widget.DatePickerView
-            android:id="@+id/minute_pv"
-            android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view_line"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="43dp">
-
-        <TextView
-            android:id="@+id/tv_dialog_cancel"
-            android:text="@string/common_cancel"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_color_1"
-            android:textSize="17sp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <View
-            android:background="@color/line"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_dialog_confirm"
-            android:text="@string/common_confirm"
-            android:gravity="center_vertical|end"
-            android:textColor="@color/button_blue"
-            android:textSize="17sp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:paddingStart="20dp"
+	android:paddingEnd="20dp"
+	android:background="@drawable/bg_dialog"
+	android:orientation="vertical">
+	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="30dp"
+		android:text="选择你的生日"
+		android:textColor="@color/text_color_2"
+		android:textSize="@dimen/text_size_text_1"/>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:paddingTop="15dp"
+		android:paddingBottom="15dp"
+		android:paddingLeft="20dp"
+		android:paddingRight="20dp"
+		android:orientation="horizontal">
+		
+		<com.zxcx.zhizhe.widget.DatePickerView
+			android:id="@+id/year_pv"
+			android:layout_width="0dp"
+			android:layout_height="160dp"
+			android:layout_weight="2"/>
+		
+		<com.zxcx.zhizhe.widget.DatePickerView
+			android:id="@+id/month_pv"
+			android:layout_width="0dp"
+			android:layout_height="160dp"
+			android:layout_weight="1"/>
+		
+		<com.zxcx.zhizhe.widget.DatePickerView
+			android:id="@+id/day_pv"
+			android:layout_width="0dp"
+			android:layout_height="160dp"
+			android:layout_weight="1"/>
+		
+		<com.zxcx.zhizhe.widget.DatePickerView
+			android:id="@+id/hour_pv"
+			android:layout_width="0dp"
+			android:layout_height="160dp"
+			android:layout_weight="1"/>
+		
+		<com.zxcx.zhizhe.widget.DatePickerView
+			android:id="@+id/minute_pv"
+			android:layout_width="0dp"
+			android:layout_height="160dp"
+			android:layout_weight="1"/>
+	
+	</LinearLayout>
+	
+	<View
+		android:id="@+id/view_line"
+		style="@style/line"/>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="43dp">
+		
+		<TextView
+			android:id="@+id/tv_dialog_cancel"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical"
+			android:text="@string/common_cancel"
+			android:textColor="@color/text_color_1"
+			android:textSize="17sp"/>
+		
+		<View
+			android:layout_width="0.5dp"
+			android:layout_height="match_parent"
+			android:background="@color/line"/>
+		
+		<TextView
+			android:id="@+id/tv_dialog_confirm"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:gravity="center_vertical|end"
+			android:text="@string/common_confirm"
+			android:textColor="@color/button_blue"
+			android:textSize="17sp"/>
+	
+	</LinearLayout>
 
 </LinearLayout>

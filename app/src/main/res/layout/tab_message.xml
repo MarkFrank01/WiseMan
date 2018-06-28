@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tv_tab_message"
-        tools:text="推荐"
-        android:layout_centerInParent="true"
-        android:textColor="@color/color_tab_text_home"
-        android:textSize="17sp"
-        android:gravity="center"
-        android:paddingBottom="2dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    
-    <ImageView
-        android:id="@+id/iv_tab_red_point"
-        android:visibility="gone"
-        android:layout_marginBottom="-5dp"
-        android:layout_marginLeft="-5dp"
-        android:src="@drawable/point_red"
-        android:layout_above="@id/tv_tab_message"
-        android:layout_toRightOf="@id/tv_tab_message"
-        android:layout_width="8dp"
-        android:layout_height="8dp"/>
-
-    <View
-        android:layout_below="@id/tv_tab_message"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/color_tab_indicator_home"
-        android:layout_width="16dp"
-        android:layout_height="3dp"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_tab_message"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true"
+		android:paddingBottom="2dp"
+		android:gravity="center"
+		android:textColor="@color/color_tab_text_home"
+		android:textSize="17sp"
+		tools:text="推荐"/>
+	
+	<ImageView
+		android:id="@+id/iv_tab_red_point"
+		android:layout_width="8dp"
+		android:layout_height="8dp"
+		android:layout_marginBottom="-5dp"
+		android:layout_marginLeft="-5dp"
+		android:layout_above="@id/tv_tab_message"
+		android:layout_toRightOf="@id/tv_tab_message"
+		android:src="@drawable/point_red"
+		android:visibility="gone"/>
+	
+	<View
+		android:layout_width="16dp"
+		android:layout_height="3dp"
+		android:layout_below="@id/tv_tab_message"
+		android:layout_centerHorizontal="true"
+		android:background="@drawable/color_tab_indicator_home"/>
 
 </RelativeLayout>

@@ -23,202 +23,202 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class RankActivity : MvpActivity<RankPresenter>(), RankContract.View , BaseQuickAdapter.OnItemClickListener{
+class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener {
 
-    private var mAdList: MutableList<ADBean> = mutableListOf()
-    private val imageList: MutableList<String> = mutableListOf()
-    private var mUserId : Int = 0
-    private lateinit var mAdapter : RankAdapter
+	private var mAdList: MutableList<ADBean> = mutableListOf()
+	private val imageList: MutableList<String> = mutableListOf()
+	private var mUserId: Int = 0
+	private lateinit var mAdapter: RankAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rank)
-        initRecyclerView()
-        initView()
-        loadService = LoadSir.getDefault().register(this, this)
-        onRefresh()
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_rank)
+		initRecyclerView()
+		initView()
+		loadService = LoadSir.getDefault().register(this, this)
+		onRefresh()
+	}
 
-    override fun createPresenter(): RankPresenter {
-        return RankPresenter(this)
-    }
+	override fun createPresenter(): RankPresenter {
+		return RankPresenter(this)
+	}
 
-    override fun onStart() {
-        super.onStart()
-        //开始轮播
-        banner_rank.startAutoPlay()
-    }
+	override fun onStart() {
+		super.onStart()
+		//开始轮播
+		banner_rank.startAutoPlay()
+	}
 
-    override fun onStop() {
-        super.onStop()
-        //结束轮播
-        banner_rank.stopAutoPlay()
-    }
+	override fun onStop() {
+		super.onStop()
+		//结束轮播
+		banner_rank.stopAutoPlay()
+	}
 
-    override fun onDestroy() {
-        EventBus.getDefault().unregister(this)
-        super.onDestroy()
-    }
+	override fun onDestroy() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
+	}
 
-    private fun onRefresh() {
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-        if (mUserId != 0) {
-            mPresenter.getMyRank()
-        }
-        mPresenter.getTopTenRank()
-        mPresenter.getAD()
-    }
+	private fun onRefresh() {
+		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+		if (mUserId != 0) {
+			mPresenter.getMyRank()
+		}
+		mPresenter.getTopTenRank()
+		mPresenter.getAD()
+	}
 
-    override fun getMyRankSuccess(bean: UserRankBean) {
-        loadService.showSuccess()
-        tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity,R.color.text_color_1))
-        tv_rank_card.visibility = View.VISIBLE
-        tv_rank_fans.visibility = View.VISIBLE
-        tv_rank_intelligence.visibility = View.VISIBLE
-        tv_rank_no_login.visibility = View.GONE
-        rl_rank.setOnClickListener(null)
+	override fun getMyRankSuccess(bean: UserRankBean) {
+		loadService.showSuccess()
+		tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1))
+		tv_rank_card.visibility = View.VISIBLE
+		tv_rank_fans.visibility = View.VISIBLE
+		tv_rank_intelligence.visibility = View.VISIBLE
+		tv_rank_no_login.visibility = View.GONE
+		rl_rank.setOnClickListener(null)
 
-        tv_rank_user_name.text = bean.name
-        tv_rank_card.text = (bean.cardNum?:0).toString()
-        tv_rank_fans.text = (bean.fansNum?:0).toString()
-        tv_rank_intelligence.text = (bean.readNum?:0).toString()
-        val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
-        ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_rank_header)
-        showRank(bean)
-    }
+		tv_rank_user_name.text = bean.name
+		tv_rank_card.text = (bean.cardNum ?: 0).toString()
+		tv_rank_fans.text = (bean.fansNum ?: 0).toString()
+		tv_rank_intelligence.text = (bean.readNum ?: 0).toString()
+		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
+		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_rank_header)
+		showRank(bean)
+	}
 
-    override fun getDataSuccess(list: List<UserRankBean>) {
-        loadService.showSuccess()
-        mAdapter.setNewData(list)
-        initView()
-    }
+	override fun getDataSuccess(list: List<UserRankBean>) {
+		loadService.showSuccess()
+		mAdapter.setNewData(list)
+		initView()
+	}
 
-    override fun getADSuccess(list: MutableList<ADBean>) {
-        loadService.showSuccess()
-        if (list.size > 0) {
-            mAdList = list
-            mAdList.forEach {
-                imageList.add(it.content)
-            }
-        }else{
-            banner_rank.visibility = View.GONE
-        }
-        banner_rank.setImages(imageList)
-        banner_rank.start()
-    }
+	override fun getADSuccess(list: MutableList<ADBean>) {
+		loadService.showSuccess()
+		if (list.size > 0) {
+			mAdList = list
+			mAdList.forEach {
+				imageList.add(it.content)
+			}
+		} else {
+			banner_rank.visibility = View.GONE
+		}
+		banner_rank.setImages(imageList)
+		banner_rank.start()
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: LoginEvent) {
-        rl_my_rank.visibility = View.VISIBLE
-        iv_rank_header.visibility = View.VISIBLE
-        tv_rank_no_login.visibility = View.GONE
-        onRefresh()
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: LoginEvent) {
+		rl_my_rank.visibility = View.VISIBLE
+		iv_rank_header.visibility = View.VISIBLE
+		tv_rank_no_login.visibility = View.GONE
+		onRefresh()
+	}
 
-    private fun gotoMoreRank(){
-        val intent = Intent(mActivity, AllRankActivity::class.java)
-        startActivity(intent)
-    }
+	private fun gotoMoreRank() {
+		val intent = Intent(mActivity, AllRankActivity::class.java)
+		startActivity(intent)
+	}
 
-    override fun startLogin() {
-        ZhiZheUtils.logout()
-        toastShow(R.string.login_timeout)
-        startActivity(Intent(mActivity, LoginActivity::class.java))
-    }
+	override fun startLogin() {
+		ZhiZheUtils.logout()
+		toastShow(R.string.login_timeout)
+		startActivity(Intent(mActivity, LoginActivity::class.java))
+	}
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as UserRankBean
-        val intent = Intent(mActivity, OtherUserActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        startActivity(intent)
-    }
+	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+		val bean = adapter.data[position] as UserRankBean
+		val intent = Intent(mActivity, OtherUserActivity::class.java)
+		intent.putExtra("id", bean.id)
+		intent.putExtra("name", bean.name)
+		startActivity(intent)
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener { onBackPressed() }
-        tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
+	override fun setListener() {
+		iv_common_close.setOnClickListener { onBackPressed() }
+		tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
 
-    }
+	}
 
-    private fun initRecyclerView() {
-        mAdapter = RankAdapter(ArrayList())
-        mAdapter.onItemClickListener = this
-        rv_rank.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_rank.adapter = mAdapter
-        val footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_rank, null)
-        mAdapter.addFooterView(footer)
-    }
+	private fun initRecyclerView() {
+		mAdapter = RankAdapter(ArrayList())
+		mAdapter.onItemClickListener = this
+		rv_rank.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+		rv_rank.adapter = mAdapter
+		val footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_rank, null)
+		mAdapter.addFooterView(footer)
+	}
 
-    private fun initView() {
-        mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-        if (mUserId == 0){
-            rl_my_rank.visibility = View.GONE
-            iv_rank_header.visibility = View.GONE
-            tv_rank_no_login.visibility = View.VISIBLE
-            rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
-        }
+	private fun initView() {
+		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+		if (mUserId == 0) {
+			rl_my_rank.visibility = View.GONE
+			iv_rank_header.visibility = View.GONE
+			tv_rank_no_login.visibility = View.VISIBLE
+			rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+		}
 
-        banner_rank.setImageLoader(GlideBannerImageLoader())
-        banner_rank.setIndicatorGravity(BannerConfig.CENTER)
-        banner_rank.setOnBannerListener {
-            val adUrl = mAdList[it].behavior
-            val adTitle = mAdList[it].description
-            startActivity(WebViewActivity::class.java,{
-                it.putExtra("title", adTitle)
-                it.putExtra("url", adUrl)
-            })
-        }
-        /*banner_rank.setPageTransformer(true,{ page: View, position: Float ->
-            if (position <= 0.0f) {
-                page.alpha = 1.0f
-                Log.e("onTransform", "position <= 0.0f ==>$position")
-                page.translationY = 0f
-                //控制停止滑动切换的时候，只有最上面的一张卡片可以点击
-                page.isClickable = true
-            } else if (position <= 2.0f) {
-                Log.e("onTransform", "position <= 3.0f ==>$position")
-                val scale = (page.width - (ScreenUtils.dip2px(10f) * position)) / page.width.toFloat()
-                //控制下面卡片的可见度
-                page.alpha = 1.0f
-                //控制停止滑动切换的时候，只有最上面的一张卡片可以点击
-                page.isClickable = false
-                page.pivotX = page.width / 2f
-                page.pivotY = page.height / 2f
-                page.scaleX = scale
-                page.scaleY = scale
-                page.translationY = - page.height * 0.5f * (1 - scale) - ScreenUtils.dip2px(8f) * position
-                page.translationX = -page.width * position
-            }
-        })*/
-    }
+		banner_rank.setImageLoader(GlideBannerImageLoader())
+		banner_rank.setIndicatorGravity(BannerConfig.CENTER)
+		banner_rank.setOnBannerListener {
+			val adUrl = mAdList[it].behavior
+			val adTitle = mAdList[it].description
+			startActivity(WebViewActivity::class.java, {
+				it.putExtra("title", adTitle)
+				it.putExtra("url", adUrl)
+			})
+		}
+		/*banner_rank.setPageTransformer(true,{ page: View, position: Float ->
+			if (position <= 0.0f) {
+				page.alpha = 1.0f
+				Log.e("onTransform", "position <= 0.0f ==>$position")
+				page.translationY = 0f
+				//控制停止滑动切换的时候，只有最上面的一张卡片可以点击
+				page.isClickable = true
+			} else if (position <= 2.0f) {
+				Log.e("onTransform", "position <= 3.0f ==>$position")
+				val scale = (page.width - (ScreenUtils.dip2px(10f) * position)) / page.width.toFloat()
+				//控制下面卡片的可见度
+				page.alpha = 1.0f
+				//控制停止滑动切换的时候，只有最上面的一张卡片可以点击
+				page.isClickable = false
+				page.pivotX = page.width / 2f
+				page.pivotY = page.height / 2f
+				page.scaleX = scale
+				page.scaleY = scale
+				page.translationY = - page.height * 0.5f * (1 - scale) - ScreenUtils.dip2px(8f) * position
+				page.translationX = -page.width * position
+			}
+		})*/
+	}
 
-    private fun showRank(bean: UserRankBean) {
-        when (bean.rankIndex) {
-            1 -> {
-                tv_rank_header_rank.visibility = View.GONE
-                tv_rank_no_rank.visibility = View.GONE
-                iv_rank_header_rank.setImageResource(R.drawable.rank_1)
-            }
-            2 -> {
-                tv_rank_header_rank.visibility = View.GONE
-                tv_rank_no_rank.visibility = View.GONE
-                iv_rank_header_rank.setImageResource(R.drawable.rank_2)
-            }
-            3 -> {
-                tv_rank_header_rank.visibility = View.GONE
-                tv_rank_no_rank.visibility = View.GONE
-                iv_rank_header_rank.setImageResource(R.drawable.rank_3)
-            }
-            in 4..99 -> {
-                tv_rank_no_rank.visibility = View.GONE
-                tv_rank_header_rank.visibility = View.VISIBLE
-                tv_rank_header_rank.text = bean.rankIndex.toString()
-                iv_rank_header_rank.setImageResource(R.drawable.rank_4)
-            }
-            else -> {
-                fl_rank_header_rank.visibility = View.GONE
-                tv_rank_no_rank.visibility = View.VISIBLE
-            }
-        }
-    }
+	private fun showRank(bean: UserRankBean) {
+		when (bean.rankIndex) {
+			1 -> {
+				tv_rank_header_rank.visibility = View.GONE
+				tv_rank_no_rank.visibility = View.GONE
+				iv_rank_header_rank.setImageResource(R.drawable.rank_1)
+			}
+			2 -> {
+				tv_rank_header_rank.visibility = View.GONE
+				tv_rank_no_rank.visibility = View.GONE
+				iv_rank_header_rank.setImageResource(R.drawable.rank_2)
+			}
+			3 -> {
+				tv_rank_header_rank.visibility = View.GONE
+				tv_rank_no_rank.visibility = View.GONE
+				iv_rank_header_rank.setImageResource(R.drawable.rank_3)
+			}
+			in 4..99 -> {
+				tv_rank_no_rank.visibility = View.GONE
+				tv_rank_header_rank.visibility = View.VISIBLE
+				tv_rank_header_rank.text = bean.rankIndex.toString()
+				iv_rank_header_rank.setImageResource(R.drawable.rank_4)
+			}
+			else -> {
+				fl_rank_header_rank.visibility = View.GONE
+				tv_rank_no_rank.visibility = View.VISIBLE
+			}
+		}
+	}
 }

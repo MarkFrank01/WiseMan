@@ -4,127 +4,121 @@ import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class UserInfoBean extends RetrofitBaen {
-    /**
-     * id : 8
-     * birth : 2017-03-25
-     * avatar : default
-     * name : zxst_82698
-     * gender : 1
-     * createTime : 1508142980000
-     * bandingQQ : true
-     * bandingWeixin : false
-     * bandingWeibo : false
-     */
 
-    @SerializedName("id")
-    private int id;
-    @SerializedName("birth")
-    private String birth;
-    @SerializedName("avatar")
-    private String avatar;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("sign")
-    private String signture;
-    @SerializedName("phoneNum")
-    private String phoneNum;
-    @SerializedName("gender")
-    private int gender;
-    @SerializedName("createTime")
-    private long createTime;
-    @SerializedName("bandingQQ")
-    private boolean bandingQQ;
-    @SerializedName("bandingWeixin")
-    private boolean bandingWeixin;
-    @SerializedName("bandingWeibo")
-    private boolean bandingWeibo;
+	/**
+	 * id : 8 birth : 2017-03-25 avatar : default name : zxst_82698 gender : 1 createTime :
+	 * 1508142980000 bandingQQ : true bandingWeixin : false bandingWeibo : false
+	 */
 
-    public int getId() {
-        return id;
-    }
+	@SerializedName("id")
+	private int id;
+	@SerializedName("birth")
+	private String birth;
+	@SerializedName("avatar")
+	private String avatar;
+	@SerializedName("name")
+	private String name;
+	@SerializedName("sign")
+	private String signture;
+	@SerializedName("phoneNum")
+	private String phoneNum;
+	@SerializedName("gender")
+	private int gender;
+	@SerializedName("createTime")
+	private long createTime;
+	@SerializedName("bandingQQ")
+	private boolean bandingQQ;
+	@SerializedName("bandingWeixin")
+	private boolean bandingWeixin;
+	@SerializedName("bandingWeibo")
+	private boolean bandingWeibo;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getBirth() {
-        return birth;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setBirth(String birth) {
-        this.birth = birth;
-    }
+	public String getBirth() {
+		return birth;
+	}
 
-    public String getAvatar() {
-        return avatar;
-    }
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
+	public String getAvatar() {
+		return avatar;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getSignture() {
-        return signture;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setSignture(String signture) {
-        this.signture = signture;
-    }
+	public String getSignture() {
+		return signture;
+	}
 
-    public String getPhoneNum() {
-        return phoneNum;
-    }
+	public void setSignture(String signture) {
+		this.signture = signture;
+	}
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
-    }
+	public String getPhoneNum() {
+		return phoneNum;
+	}
 
-    public int getGender() {
-        return gender;
-    }
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+	public int getGender() {
+		return gender;
+	}
 
-    public long getCreateTime() {
-        return createTime;
-    }
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
 
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
+	public long getCreateTime() {
+		return createTime;
+	}
 
-    public boolean isBandingQQ() {
-        return bandingQQ;
-    }
+	public void setCreateTime(long createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setBandingQQ(boolean bandingQQ) {
-        this.bandingQQ = bandingQQ;
-    }
+	public boolean isBandingQQ() {
+		return bandingQQ;
+	}
 
-    public boolean isBandingWeixin() {
-        return bandingWeixin;
-    }
+	public void setBandingQQ(boolean bandingQQ) {
+		this.bandingQQ = bandingQQ;
+	}
 
-    public void setBandingWeixin(boolean bandingWeixin) {
-        this.bandingWeixin = bandingWeixin;
-    }
+	public boolean isBandingWeixin() {
+		return bandingWeixin;
+	}
 
-    public boolean isBandingWeibo() {
-        return bandingWeibo;
-    }
+	public void setBandingWeixin(boolean bandingWeixin) {
+		this.bandingWeixin = bandingWeixin;
+	}
 
-    public void setBandingWeibo(boolean bandingWeibo) {
-        this.bandingWeibo = bandingWeibo;
-    }
+	public boolean isBandingWeibo() {
+		return bandingWeibo;
+	}
+
+	public void setBandingWeibo(boolean bandingWeibo) {
+		this.bandingWeibo = bandingWeibo;
+	}
 }
 

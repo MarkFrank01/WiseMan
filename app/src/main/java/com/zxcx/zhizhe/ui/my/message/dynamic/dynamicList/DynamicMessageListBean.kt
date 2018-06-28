@@ -15,10 +15,10 @@ data class DynamicMessageListBean(
 		@SerializedName("relatedUserName") var relatedUserName: String?, //string
 		@SerializedName("time") var date: Date? //2017-12-20T09:17:26.516Z
 
-): RetrofitBaen(), MultiItemEntity {
-    var newTime: String? = ""
-    override fun getItemType(): Int {
-        return dynamic_content
-    }
+) : RetrofitBaen(), MultiItemEntity {
+	var newTime: String? = ""
+	override fun getItemType(): Int {
+		return dynamic_content
+	}
 }
 

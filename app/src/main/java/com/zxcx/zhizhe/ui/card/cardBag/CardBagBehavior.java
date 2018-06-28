@@ -13,28 +13,30 @@ import android.view.View;
 
 public class CardBagBehavior extends AppBarLayout.ScrollingViewBehavior {
 
-    public CardBagBehavior() {
-    }
+	public CardBagBehavior() {
+	}
 
-    public CardBagBehavior(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public CardBagBehavior(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-        if (child instanceof RecyclerView && child.getVisibility() == View.VISIBLE){
-            return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
-        }else {
-            return false;
-        }
-    }
+	@Override
+	public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child,
+		View directTargetChild, View target, int nestedScrollAxes) {
+		if (child instanceof RecyclerView && child.getVisibility() == View.VISIBLE) {
+			return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
+				nestedScrollAxes);
+		} else {
+			return false;
+		}
+	}
 
-    @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
-        if (child instanceof RecyclerView && child.getVisibility() == View.VISIBLE){
-            return true;
-        }else {
-            return false;
-        }
-    }
+	@Override
+	public boolean layoutDependsOn(CoordinatorLayout parent, View child, View dependency) {
+		if (child instanceof RecyclerView && child.getVisibility() == View.VISIBLE) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

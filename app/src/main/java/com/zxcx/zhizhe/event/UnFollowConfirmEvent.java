@@ -5,17 +5,18 @@ package com.zxcx.zhizhe.event;
  */
 
 public class UnFollowConfirmEvent {
-    private int userId;
-
-    public UnFollowConfirmEvent(int userId) {
-        this.userId = userId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+	
+	private int userId;
+	
+	public UnFollowConfirmEvent(int userId) {
+		this.userId = userId;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 }

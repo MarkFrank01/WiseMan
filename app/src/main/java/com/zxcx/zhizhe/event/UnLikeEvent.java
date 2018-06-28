@@ -5,18 +5,18 @@ package com.zxcx.zhizhe.event;
  */
 
 public class UnLikeEvent {
-
-    private int cardId;
-
-    public UnLikeEvent(int cardId) {
-        this.cardId = cardId;
-    }
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int id) {
-        this.cardId = id;
-    }
+	
+	private int cardId;
+	
+	public UnLikeEvent(int cardId) {
+		this.cardId = cardId;
+	}
+	
+	public int getCardId() {
+		return cardId;
+	}
+	
+	public void setCardId(int id) {
+		this.cardId = id;
+	}
 }

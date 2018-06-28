@@ -6,8 +6,8 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface SearchCardContract {
 
-    interface View : GetView<MutableList<CardBean>>
+	interface View : GetView<MutableList<CardBean>>
 
-    interface Presenter : IGetPresenter<MutableList<CardBean>>
+	interface Presenter : IGetPresenter<MutableList<CardBean>>
 }
 

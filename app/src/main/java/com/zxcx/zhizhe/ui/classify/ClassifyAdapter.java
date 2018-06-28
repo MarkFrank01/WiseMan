@@ -16,37 +16,38 @@ import java.util.List;
  * Created by anm on 2017/5/23.
  */
 
-public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,BaseViewHolder> {
+public class ClassifyAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
 
 
-    ClassifyAdapter(List<MultiItemEntity> data) {
-        super(data);
-        addItemType(ClassifyBean.TYPE_CLASSIFY, R.layout.item_classify_classify);
-        addItemType(ClassifyCardBean.TYPE_CARD_BAG,R.layout.item_classify);
-    }
+	ClassifyAdapter(List<MultiItemEntity> data) {
+		super(data);
+		addItemType(ClassifyBean.TYPE_CLASSIFY, R.layout.item_classify_classify);
+		addItemType(ClassifyCardBean.TYPE_CARD_BAG, R.layout.item_classify);
+	}
 
-    @Override
-    protected void convert(final BaseViewHolder helper, MultiItemEntity item) {
-        switch (helper.getItemViewType()) {
-            case ClassifyBean.TYPE_CLASSIFY:
-                ClassifyBean bean = (ClassifyBean) item;
-                TextView title = helper.getView(R.id.tv_item_classify_classify);
-                title.setText(bean.getTitle());
-                TextPaint paint = title.getPaint();
-                paint.setFakeBoldText(true);
-                break;
-            case ClassifyCardBean.TYPE_CARD_BAG:
+	@Override
+	protected void convert(final BaseViewHolder helper, MultiItemEntity item) {
+		switch (helper.getItemViewType()) {
+			case ClassifyBean.TYPE_CLASSIFY:
+				ClassifyBean bean = (ClassifyBean) item;
+				TextView title = helper.getView(R.id.tv_item_classify_classify);
+				title.setText(bean.getTitle());
+				TextPaint paint = title.getPaint();
+				paint.setFakeBoldText(true);
+				break;
+			case ClassifyCardBean.TYPE_CARD_BAG:
 
-                helper.addOnClickListener(R.id.rl_item_classify);
+				helper.addOnClickListener(R.id.rl_item_classify);
 
-                ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
-                int screenWidth = ScreenUtils.getDisplayWidth(); //屏幕宽度
-                para.width = (screenWidth - ScreenUtils.dip2px(13*2) - ScreenUtils.dip2px(20*2)) / 3;
-                helper.itemView.setLayoutParams(para);
+				ViewGroup.LayoutParams para = helper.itemView.getLayoutParams();
+				int screenWidth = ScreenUtils.getDisplayWidth(); //屏幕宽度
+				para.width =
+					(screenWidth - ScreenUtils.dip2px(13 * 2) - ScreenUtils.dip2px(20 * 2)) / 3;
+				helper.itemView.setLayoutParams(para);
 
-                ClassifyCardBean CardBean = (ClassifyCardBean) item;
-                helper.setText(R.id.tv_item_subject_name,CardBean.getName());
-                break;
-        }
-    }
+				ClassifyCardBean CardBean = (ClassifyCardBean) item;
+				helper.setText(R.id.tv_item_subject_name, CardBean.getName());
+				break;
+		}
+	}
 }

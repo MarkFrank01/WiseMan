@@ -5,8 +5,8 @@ import com.zxcx.zhizhe.mvpBase.NullGetPostView
 
 interface DynamicMessageListContract {
 
-    interface View : NullGetPostView<List<DynamicMessageListBean>>
+	interface View : NullGetPostView<List<DynamicMessageListBean>>
 
-    interface Presenter : INullGetPostPresenter<List<DynamicMessageListBean>>
+	interface Presenter : INullGetPostPresenter<List<DynamicMessageListBean>>
 }
 

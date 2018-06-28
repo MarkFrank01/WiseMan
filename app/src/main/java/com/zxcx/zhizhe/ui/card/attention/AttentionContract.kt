@@ -7,12 +7,12 @@ import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 interface AttentionContract {
 
-    interface View : NullGetPostView<List<CardBean>>{
-        fun getClassifySuccess(list: List<ClassifyBean>)
-    }
+	interface View : NullGetPostView<List<CardBean>> {
+		fun getClassifySuccess(list: List<ClassifyBean>)
+	}
 
-    interface Presenter : INullGetPostPresenter<List<CardBean>>{
-        fun getClassifySuccess(list: List<ClassifyBean>)
-    }
+	interface Presenter : INullGetPostPresenter<List<CardBean>> {
+		fun getClassifySuccess(list: List<ClassifyBean>)
+	}
 }
 

@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_item_note"
-    android:orientation="vertical"
-    android:layout_marginBottom="20dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_item_system_message_title"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        tools:text="审核通过"
-        android:textStyle="bold"
-        android:textColor="@color/text_color_1"
-        android:textSize="@dimen/text_size_text_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tv_item_system_message_time"
-        android:layout_marginTop="2dp"
-        android:layout_marginStart="20dp"
-        tools:text="2017/11/12 18:06"
-        android:textColor="@color/text_color_d2"
-        android:textSize="@dimen/text_size_text_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/tv_item_system_message_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        tools:text="你创作的卡片《hifi数码常识》已审核通过，感谢你对智者内容的分享和支持。"
-        android:textColor="@color/text_color_3"
-        android:textSize="@dimen/text_size_text_2"
-        android:lineSpacingExtra="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_item_system_message_value"
-            tools:text="智力值 +100"
-            android:textColor="@color/text_color_3"
-            android:textSize="@dimen/text_size_text_3"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="1dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_system_message_action"
-            android:drawableEnd="@drawable/tv_item_system_message_action"
-            tools:text="查看卡片"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/text_size_text_3"
-            android:paddingTop="21dp"
-            android:paddingBottom="12dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="20dp"
-            android:gravity="center_vertical|end"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="20dp"
+	android:background="@drawable/bg_item_note"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_item_system_message_title"
+		android:textStyle="bold"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:layout_marginStart="20dp"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"
+		tools:text="审核通过"/>
+	
+	<TextView
+		android:id="@+id/tv_item_system_message_time"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="2dp"
+		android:layout_marginStart="20dp"
+		android:textColor="@color/text_color_d2"
+		android:textSize="@dimen/text_size_text_3"
+		tools:text="2017/11/12 18:06"/>
+	
+	<TextView
+		android:id="@+id/tv_item_system_message_content"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="13dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
+		android:lineSpacingExtra="6dp"
+		android:textColor="@color/text_color_3"
+		android:textSize="@dimen/text_size_text_2"
+		tools:text="你创作的卡片《hifi数码常识》已审核通过，感谢你对智者内容的分享和支持。"/>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<TextView
+			android:id="@+id/tv_item_system_message_value"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="1dp"
+			android:layout_marginStart="20dp"
+			android:layout_gravity="center_vertical"
+			android:textColor="@color/text_color_3"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="智力值 +100"/>
+		
+		<TextView
+			android:id="@+id/tv_item_system_message_action"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:paddingTop="21dp"
+			android:paddingBottom="12dp"
+			android:paddingStart="10dp"
+			android:paddingEnd="20dp"
+			android:drawableEnd="@drawable/tv_item_system_message_action"
+			android:gravity="center_vertical|end"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="查看卡片"/>
+	
+	</LinearLayout>
 
 </LinearLayout>

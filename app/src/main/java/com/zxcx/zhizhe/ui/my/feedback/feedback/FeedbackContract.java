@@ -5,12 +5,12 @@ import com.zxcx.zhizhe.mvpBase.NullPostView;
 
 public interface FeedbackContract {
 
-    interface View extends NullPostView {
+	interface View extends NullPostView {
 
-    }
+	}
 
-    interface Presenter extends INullPostPresenter {
+	interface Presenter extends INullPostPresenter {
 
-    }
+	}
 }
 

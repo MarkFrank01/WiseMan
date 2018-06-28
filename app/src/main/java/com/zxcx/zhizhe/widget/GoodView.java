@@ -40,284 +40,256 @@ import android.widget.TextView;
 public class GoodView extends PopupWindow {
 
 
-    private int DISTANCE = 60;   // 默认移动距离
+	private int DISTANCE = 60;   // 默认移动距离
 
-    private int FROM_Y_DELTA = 0; // Y轴移动起始偏移量
+	private int FROM_Y_DELTA = 0; // Y轴移动起始偏移量
 
-    private int TO_Y_DELTA = DISTANCE; // Y轴移动最终偏移量
+	private int TO_Y_DELTA = DISTANCE; // Y轴移动最终偏移量
 
-    private float FROM_ALPHA = 1.0f;    // 起始时透明度
+	private float FROM_ALPHA = 1.0f;    // 起始时透明度
 
-    private float TO_ALPHA = 0.0f;  // 结束时透明度
+	private float TO_ALPHA = 0.0f;  // 结束时透明度
 
-    private int DURATION = 800; // 动画时长
+	private int DURATION = 800; // 动画时长
 
-    private String TEXT = ""; // 默认文本
+	private String TEXT = ""; // 默认文本
 
-    private int TEXT_SIZE = 12; // 默认文本字体大小
+	private int TEXT_SIZE = 12; // 默认文本字体大小
 
-    private int TEXT_COLOR = Color.BLACK;   // 默认文本字体颜色
+	private int TEXT_COLOR = Color.BLACK;   // 默认文本字体颜色
 
-    private String mText = TEXT;
+	private String mText = TEXT;
 
-    private int mTextColor = TEXT_COLOR;
+	private int mTextColor = TEXT_COLOR;
 
-    private int mTextSize = TEXT_SIZE;
+	private int mTextSize = TEXT_SIZE;
 
-    private int mFromY = FROM_Y_DELTA;
+	private int mFromY = FROM_Y_DELTA;
 
-    private int mToY = TO_Y_DELTA;
+	private int mToY = TO_Y_DELTA;
 
-    private float mFromAlpha = FROM_ALPHA;
+	private float mFromAlpha = FROM_ALPHA;
 
-    private float mToAlpha = TO_ALPHA;
+	private float mToAlpha = TO_ALPHA;
 
-    private int mDuration = DURATION;
+	private int mDuration = DURATION;
 
-    private int mDistance = DISTANCE;
+	private int mDistance = DISTANCE;
 
-    private AnimationSet mAnimationSet;
+	private AnimationSet mAnimationSet;
 
-    private boolean mChanged = false;
+	private boolean mChanged = false;
 
-    private Context mContext = null;
+	private Context mContext = null;
 
-    private TextView mGood = null;
+	private TextView mGood = null;
 
-    public GoodView(Context context) {
-        super(context);
-        mContext = context;
-        initView();
-    }
+	public GoodView(Context context) {
+		super(context);
+		mContext = context;
+		initView();
+	}
 
-    private void initView() {
-        RelativeLayout layout = new RelativeLayout(mContext);
-        RelativeLayout.LayoutParams params =
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	private static int getTextViewHeight(TextView textView, int width) {
+		int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
+		int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		textView.measure(widthMeasureSpec, heightMeasureSpec);
+		return textView.getMeasuredHeight();
+	}
 
-        mGood = new TextView(mContext);
-        mGood.setIncludeFontPadding(false);
-        mGood.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mTextSize);
-        mGood.setTextColor(mTextColor);
-        mGood.setText(mText);
-        mGood.setLayoutParams(params);
-        layout.addView(mGood);
-        setContentView(layout);
+	private void initView() {
+		RelativeLayout layout = new RelativeLayout(mContext);
+		RelativeLayout.LayoutParams params =
+			new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        mGood.measure(w, h);
-        setWidth(mGood.getMeasuredWidth());
-        setHeight(mDistance + mGood.getMeasuredHeight());
-        setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setFocusable(false);
-        setTouchable(false);
-        setOutsideTouchable(false);
+		mGood = new TextView(mContext);
+		mGood.setIncludeFontPadding(false);
+		mGood.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mTextSize);
+		mGood.setTextColor(mTextColor);
+		mGood.setText(mText);
+		mGood.setLayoutParams(params);
+		layout.addView(mGood);
+		setContentView(layout);
 
-        mAnimationSet = createAnimation();
-    }
+		int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+		mGood.measure(w, h);
+		setWidth(mGood.getMeasuredWidth());
+		setHeight(mDistance + mGood.getMeasuredHeight());
+		setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		setFocusable(false);
+		setTouchable(false);
+		setOutsideTouchable(false);
 
-    /**
-     * 设置文本
-     *
-     * @param text
-     */
-    public void setText(String text) {
-        if (TextUtils.isEmpty(text)) {
-            throw new IllegalArgumentException("text cannot be null.");
-        }
-        mText = text;
-        mGood.setText(text);
-        mGood.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        int w = (int) mGood.getPaint().measureText(text);
-        setWidth(w);
-        setHeight(mDistance + getTextViewHeight(mGood, w));
-    }
+		mAnimationSet = createAnimation();
+	}
 
-    private static int getTextViewHeight(TextView textView, int width) {
-        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
-        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        textView.measure(widthMeasureSpec, heightMeasureSpec);
-        return textView.getMeasuredHeight();
-    }
+	/**
+	 * 设置文本
+	 */
+	public void setText(String text) {
+		if (TextUtils.isEmpty(text)) {
+			throw new IllegalArgumentException("text cannot be null.");
+		}
+		mText = text;
+		mGood.setText(text);
+		mGood.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		int w = (int) mGood.getPaint().measureText(text);
+		setWidth(w);
+		setHeight(mDistance + getTextViewHeight(mGood, w));
+	}
 
-    /**
-     * 设置文本颜色
-     *
-     * @param color
-     */
-    public void setTextColor(int color) {
-        mTextColor = color;
-        mGood.setTextColor(color);
-    }
+	/**
+	 * 设置文本颜色
+	 */
+	public void setTextColor(int color) {
+		mTextColor = color;
+		mGood.setTextColor(color);
+	}
 
-    /**
-     * 设置文本大小
-     *
-     * @param textSize
-     */
-    public void setTextSize(int textSize) {
-        mTextSize = textSize;
-        mGood.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
-    }
+	/**
+	 * 设置文本大小
+	 */
+	public void setTextSize(int textSize) {
+		mTextSize = textSize;
+		mGood.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
+	}
 
-    /**
-     * 设置文本信息
-     *
-     * @param text
-     * @param textColor
-     * @param textSize
-     */
-    public void setTextInfo(String text, int textColor, int textSize) {
-        setTextColor(textColor);
-        setTextSize(textSize);
-        setText(text);
-    }
+	/**
+	 * 设置文本信息
+	 */
+	public void setTextInfo(String text, int textColor, int textSize) {
+		setTextColor(textColor);
+		setTextSize(textSize);
+		setText(text);
+	}
 
-    /**
-     * 设置图片
-     *
-     * @param resId
-     */
-    public void setImage(int resId) {
-        setImage(mContext.getResources().getDrawable(resId));
-    }
+	/**
+	 * 设置图片
+	 */
+	public void setImage(int resId) {
+		setImage(mContext.getResources().getDrawable(resId));
+	}
 
-    /**
-     * 设置图片
-     *
-     * @param drawable
-     */
-    public void setImage(Drawable drawable) {
-        if (drawable == null) {
-            throw new IllegalArgumentException("drawable cannot be null.");
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mGood.setBackground(drawable);
-        } else {
-            mGood.setBackgroundDrawable(drawable);
-        }
-        mGood.setText("");
-        setWidth(drawable.getIntrinsicWidth());
-        setHeight(mDistance + drawable.getIntrinsicHeight());
-    }
+	/**
+	 * 设置图片
+	 */
+	public void setImage(Drawable drawable) {
+		if (drawable == null) {
+			throw new IllegalArgumentException("drawable cannot be null.");
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			mGood.setBackground(drawable);
+		} else {
+			mGood.setBackgroundDrawable(drawable);
+		}
+		mGood.setText("");
+		setWidth(drawable.getIntrinsicWidth());
+		setHeight(mDistance + drawable.getIntrinsicHeight());
+	}
 
-    /**
-     * 设置移动距离
-     *
-     * @param dis
-     */
-    public void setDistance(int dis) {
-        mDistance = dis;
-        mToY = dis;
-        mChanged = true;
-        setHeight(mDistance + mGood.getMeasuredHeight());
-    }
+	/**
+	 * 设置移动距离
+	 */
+	public void setDistance(int dis) {
+		mDistance = dis;
+		mToY = dis;
+		mChanged = true;
+		setHeight(mDistance + mGood.getMeasuredHeight());
+	}
 
-    /**
-     * 设置Y轴移动属性
-     *
-     * @param fromY
-     * @param toY
-     */
-    public void setTranslateY(int fromY, int toY) {
-        mFromY = fromY;
-        mToY = toY;
-        mChanged = true;
-    }
+	/**
+	 * 设置Y轴移动属性
+	 */
+	public void setTranslateY(int fromY, int toY) {
+		mFromY = fromY;
+		mToY = toY;
+		mChanged = true;
+	}
 
-    /**
-     * 设置透明度属性
-     *
-     * @param fromAlpha
-     * @param toAlpha
-     */
-    public void setAlpha(float fromAlpha, float toAlpha) {
-        mFromAlpha = fromAlpha;
-        mToAlpha = toAlpha;
-        mChanged = true;
-    }
+	/**
+	 * 设置透明度属性
+	 */
+	public void setAlpha(float fromAlpha, float toAlpha) {
+		mFromAlpha = fromAlpha;
+		mToAlpha = toAlpha;
+		mChanged = true;
+	}
 
-    /**
-     * 设置动画时长
-     *
-     * @param duration
-     */
-    public void setDuration(int duration) {
-        mDuration = duration;
-        mChanged = true;
-    }
+	/**
+	 * 设置动画时长
+	 */
+	public void setDuration(int duration) {
+		mDuration = duration;
+		mChanged = true;
+	}
 
-    /**
-     * 重置属性
-     */
-    public void reset() {
-        mText = TEXT;
-        mTextColor = TEXT_COLOR;
-        mTextSize = TEXT_SIZE;
-        mFromY = FROM_Y_DELTA;
-        mToY = TO_Y_DELTA;
-        mFromAlpha = FROM_ALPHA;
-        mToAlpha = TO_ALPHA;
-        mDuration = DURATION;
-        mDistance = DISTANCE;
-        mChanged = false;
-        mAnimationSet = createAnimation();
-    }
+	/**
+	 * 重置属性
+	 */
+	public void reset() {
+		mText = TEXT;
+		mTextColor = TEXT_COLOR;
+		mTextSize = TEXT_SIZE;
+		mFromY = FROM_Y_DELTA;
+		mToY = TO_Y_DELTA;
+		mFromAlpha = FROM_ALPHA;
+		mToAlpha = TO_ALPHA;
+		mDuration = DURATION;
+		mDistance = DISTANCE;
+		mChanged = false;
+		mAnimationSet = createAnimation();
+	}
 
-    /**
-     * 展示
-     *
-     * @param v
-     */
-    public void show(View v) {
-        if (!isShowing()) {
-            int offsetY = -v.getHeight() - getHeight();
-            showAsDropDown(v, v.getWidth() / 2 - getWidth() / 2, offsetY);
-            if (mAnimationSet == null || mChanged) {
-                mAnimationSet = createAnimation();
-                mChanged = false;
-            }
-            mGood.startAnimation(mAnimationSet);
-        }
-    }
+	/**
+	 * 展示
+	 */
+	public void show(View v) {
+		if (!isShowing()) {
+			int offsetY = -v.getHeight() - getHeight();
+			showAsDropDown(v, v.getWidth() / 2 - getWidth() / 2, offsetY);
+			if (mAnimationSet == null || mChanged) {
+				mAnimationSet = createAnimation();
+				mChanged = false;
+			}
+			mGood.startAnimation(mAnimationSet);
+		}
+	}
 
-    /**
-     * 动画
-     *
-     * @return
-     */
-    private AnimationSet createAnimation() {
-        mAnimationSet = new AnimationSet(true);
-        TranslateAnimation translateAnim = new TranslateAnimation(0, 0, mFromY, -mToY);
-        AlphaAnimation alphaAnim = new AlphaAnimation(mFromAlpha, mToAlpha);
-        mAnimationSet.addAnimation(translateAnim);
-        mAnimationSet.addAnimation(alphaAnim);
-        mAnimationSet.setDuration(mDuration);
-        mAnimationSet.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
+	/**
+	 * 动画
+	 */
+	private AnimationSet createAnimation() {
+		mAnimationSet = new AnimationSet(true);
+		TranslateAnimation translateAnim = new TranslateAnimation(0, 0, mFromY, -mToY);
+		AlphaAnimation alphaAnim = new AlphaAnimation(mFromAlpha, mToAlpha);
+		mAnimationSet.addAnimation(translateAnim);
+		mAnimationSet.addAnimation(alphaAnim);
+		mAnimationSet.setDuration(mDuration);
+		mAnimationSet.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {
+			}
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if (isShowing()) {
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            dismiss();
-                        }
-                    });
-                }
-            }
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				if (isShowing()) {
+					new Handler().post(new Runnable() {
+						@Override
+						public void run() {
+							dismiss();
+						}
+					});
+				}
+			}
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        return mAnimationSet;
-    }
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+			}
+		});
+		return mAnimationSet;
+	}
 }

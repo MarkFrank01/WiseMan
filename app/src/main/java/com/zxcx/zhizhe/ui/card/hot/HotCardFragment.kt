@@ -30,148 +30,148 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener{
+		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
-    private lateinit var mAdapter: CardAdapter
-    private var mPage = 0
-    private var mHidden = true
-    private var mLastDate = Date()
+	private lateinit var mAdapter: CardAdapter
+	private var mPage = 0
+	private var mHidden = true
+	private var mLastDate = Date()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_hot, container, false)
-        mRefreshLayout = root.findViewById(R.id.refresh_layout)
-        val loadSir = LoadSir.Builder()
-                .addCallback(HomeLoadingCallback())
-                .addCallback(LoginTimeoutCallback())
-                .addCallback(HomeNetworkErrorCallback())
-                .setDefaultCallback(HomeLoadingCallback::class.java)
-                .build()
-        loadService = loadSir.register(root) { v ->
-            loadService.showCallback(HomeLoadingCallback::class.java)
-            getHotCard()
-        }
-        return loadService.loadLayout
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		val root = inflater.inflate(R.layout.fragment_hot, container, false)
+		mRefreshLayout = root.findViewById(R.id.refresh_layout)
+		val loadSir = LoadSir.Builder()
+				.addCallback(HomeLoadingCallback())
+				.addCallback(LoginTimeoutCallback())
+				.addCallback(HomeNetworkErrorCallback())
+				.setDefaultCallback(HomeLoadingCallback::class.java)
+				.build()
+		loadService = loadSir.register(root) { v ->
+			loadService.showCallback(HomeLoadingCallback::class.java)
+			getHotCard()
+		}
+		return loadService.loadLayout
+	}
 
-    override fun createPresenter(): HotCardPresenter {
-        return HotCardPresenter(this)
-    }
+	override fun createPresenter(): HotCardPresenter {
+		return HotCardPresenter(this)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        EventBus.getDefault().register(this)
-        initRecyclerView()
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		EventBus.getDefault().register(this)
+		initRecyclerView()
 
-        getHotCard()
-        mHidden = false
-    }
+		getHotCard()
+		mHidden = false
+	}
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.setUserVisibleHint(hidden)
-        mHidden = hidden
-    }
+	override fun onHiddenChanged(hidden: Boolean) {
+		super.setUserVisibleHint(hidden)
+		mHidden = hidden
+	}
 
-    override fun onPause() {
-        super.onPause()
-        rv_hot_card.itemAnimator = null
-    }
+	override fun onPause() {
+		super.onPause()
+		rv_hot_card.itemAnimator = null
+	}
 
-    override fun onDestroyView() {
-        EventBus.getDefault().unregister(this)
-        super.onDestroyView()
-    }
+	override fun onDestroyView() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroyView()
+	}
 
-    override fun clearLeaks() {
-        loadService = null
-    }
+	override fun clearLeaks() {
+		loadService = null
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: HomeClickRefreshEvent) {
-        if (!mHidden) {
-            rv_hot_card.scrollToPosition(0)
-            mPage = 0
-            getHotCard()
-        }
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: HomeClickRefreshEvent) {
+		if (!mHidden) {
+			rv_hot_card.scrollToPosition(0)
+			mPage = 0
+			getHotCard()
+		}
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UpdateCardListPositionEvent) {
-        if (this::class.java.name == event.sourceName) {
-            if (event.currentPosition == mAdapter.data.size-1) {
-                getHotCard()
-            }
-            rv_hot_card.scrollToPosition(event.currentPosition)
-            rv_hot_card.invalidate()
-        }
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListPositionEvent) {
+		if (this::class.java.name == event.sourceName) {
+			if (event.currentPosition == mAdapter.data.size - 1) {
+				getHotCard()
+			}
+			rv_hot_card.scrollToPosition(event.currentPosition)
+			rv_hot_card.invalidate()
+		}
+	}
 
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        mPage = 0
-        getHotCard()
-    }
+	override fun onRefresh(refreshLayout: RefreshLayout?) {
+		mPage = 0
+		getHotCard()
+	}
 
-    override fun onLoadMoreRequested() {
-        getHotCard()
-    }
+	override fun onLoadMoreRequested() {
+		getHotCard()
+	}
 
-    override fun getDataSuccess(list: MutableList<CardBean>) {
-        loadService.showSuccess()
-        if (mPage == 0) {
-            mRefreshLayout.finishRefresh()
-            mAdapter.setNewData(list)
-            rv_hot_card.scrollToPosition(0)
-        } else {
-            mAdapter.addData(list)
-            val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
-            EventBus.getDefault().post(event)
-        }
-        mPage++
-        if (list.isEmpty()) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
-    }
+	override fun getDataSuccess(list: MutableList<CardBean>) {
+		loadService.showSuccess()
+		if (mPage == 0) {
+			mRefreshLayout.finishRefresh()
+			mAdapter.setNewData(list)
+			rv_hot_card.scrollToPosition(0)
+		} else {
+			mAdapter.addData(list)
+			val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
+			EventBus.getDefault().post(event)
+		}
+		mPage++
+		if (list.isEmpty()) {
+			mAdapter.loadMoreEnd(false)
+		} else {
+			mAdapter.loadMoreComplete()
+			mAdapter.setEnableLoadMore(false)
+			mAdapter.setEnableLoadMore(true)
+		}
+	}
 
-    override fun toastFail(msg: String) {
-        super.toastFail(msg)
-        mAdapter.loadMoreFail()
-        if (mPage == 0) {
-            loadService.showCallback(HomeNetworkErrorCallback::class.java)
-        }
-    }
+	override fun toastFail(msg: String) {
+		super.toastFail(msg)
+		mAdapter.loadMoreFail()
+		if (mPage == 0) {
+			loadService.showCallback(HomeNetworkErrorCallback::class.java)
+		}
+	}
 
-    private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = CardAdapter(arrayListOf())
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this, rv_hot_card)
-        mAdapter.onItemClickListener = this
-        rv_hot_card.layoutManager = layoutManager
-        rv_hot_card.adapter = mAdapter
-    }
+	private fun initRecyclerView() {
+		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+		mAdapter = CardAdapter(arrayListOf())
+		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setOnLoadMoreListener(this, rv_hot_card)
+		mAdapter.onItemClickListener = this
+		rv_hot_card.layoutManager = layoutManager
+		rv_hot_card.adapter = mAdapter
+	}
 
-    private fun getHotCard() {
-        mPresenter.getHotCard(mLastDate.time.toString(),mPage)
-    }
+	private fun getHotCard() {
+		mPresenter.getHotCard(mLastDate.time.toString(), mPage)
+	}
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as CardBean
-        val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-        val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-        val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
-        val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
-        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-                Pair.create(cardImg, cardImg.transitionName),
-                Pair.create(cardTitle, cardTitle.transitionName),
-                Pair.create(cardCategory, cardCategory.transitionName),
-                Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
-        intent.putExtra("list", mAdapter.data as ArrayList)
-        intent.putExtra("currentPosition", position)
-        intent.putExtra("sourceName",this::class.java.name)
-        mActivity.startActivity(intent, bundle)
-    }
+	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+		val bean = adapter.data[position] as CardBean
+		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+		val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+		val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+				Pair.create(cardImg, cardImg.transitionName),
+				Pair.create(cardTitle, cardTitle.transitionName),
+				Pair.create(cardCategory, cardCategory.transitionName),
+				Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
+		val intent = Intent(mActivity, CardDetailsActivity::class.java)
+		intent.putExtra("list", mAdapter.data as ArrayList)
+		intent.putExtra("currentPosition", position)
+		intent.putExtra("sourceName", this::class.java.name)
+		mActivity.startActivity(intent, bundle)
+	}
 }

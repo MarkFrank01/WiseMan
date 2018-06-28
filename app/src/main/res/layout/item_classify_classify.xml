@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_classify_classify"
-    android:orientation="horizontal"
-    android:layout_marginTop="40dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="7.5dp"
-    android:gravity="center_vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_item_classify_classify"
-        tools:text="聪慧生活"
-        android:textSize="@dimen/text_size_title_1"
-        android:textColor="@color/text_color_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/ll_classify_classify"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginTop="40dp"
+	android:layout_marginBottom="8dp"
+	android:layout_marginStart="7.5dp"
+	android:gravity="center_vertical"
+	android:orientation="horizontal">
+	
+	<TextView
+		android:id="@+id/tv_item_classify_classify"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_title_1"
+		tools:text="聪慧生活"/>
 
 </LinearLayout>

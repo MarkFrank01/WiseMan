@@ -5,8 +5,8 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 
 interface SearchUserContract {
 
-    interface View : GetView<List<SearchUserBean>>
+	interface View : GetView<List<SearchUserBean>>
 
-    interface Presenter : IGetPresenter<List<SearchUserBean>>
+	interface Presenter : IGetPresenter<List<SearchUserBean>>
 }
 

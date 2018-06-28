@@ -1,106 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bg_details"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
-        android:id="@+id/sv_review_details"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zxcx.zhizhe.widget.CardImageView
-                    android:id="@+id/iv_review_details"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="212dp"
-                    android:transitionName="cardImage"
-                    app:widthWeight="16"
-                    app:heightWeight="9"
-                    app:hasShade="true"/>
-
-                <RelativeLayout
-                    android:layout_gravity="bottom"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_review_details_title"
-                        tools:text="动圈和铁圈耳机的区别"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:textColor="@color/white_final"
-                        android:textSize="@dimen/text_size_title_2"
-                        android:textStyle="bold"
-                        android:lineSpacingExtra="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardTitle"/>
-
-                    <LinearLayout
-                        android:layout_marginBottom="4dp"
-                        android:gravity="center"
-                        android:layout_below="@id/tv_review_details_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <FrameLayout
-                            android:id="@+id/fl_review_details_card_bag"
-                            android:paddingTop="8dp"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="8dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/tv_review_details_card_bag"
-                                tools:text="数码产品"
-                                style="@style/tv_card_category"/>
-                        </FrameLayout>
-
-                        <TextView
-                            android:id="@+id/tv_review_details_info"
-                            tools:text="@string/tv_card_info"
-                            android:textColor="@color/text_color_ee"
-                            android:textSize="@dimen/text_size_text_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:transitionName="cardInfo"/>
-                    </LinearLayout>
-
-                </RelativeLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/fl_review_details"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp">
-            </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/iv_common_close"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/iv_common_close"
-        android:padding="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_details">
+	
+	<ScrollView
+		android:id="@+id/sv_review_details"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<com.zxcx.zhizhe.widget.CardImageView
+					android:id="@+id/iv_review_details"
+					android:layout_width="match_parent"
+					android:layout_height="212dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/default_card"
+					android:transitionName="cardImage"
+					app:hasShade="true"
+					app:heightWeight="9"
+					app:widthWeight="16"/>
+				
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_gravity="bottom"
+					android:paddingStart="20dp"
+					android:paddingEnd="20dp">
+					
+					<TextView
+						android:id="@+id/tv_review_details_title"
+						android:textStyle="bold"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ellipsize="end"
+						android:lineSpacingExtra="4dp"
+						android:maxLines="2"
+						android:textColor="@color/white_final"
+						android:textSize="@dimen/text_size_title_2"
+						android:transitionName="cardTitle"
+						tools:text="动圈和铁圈耳机的区别"/>
+					
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="4dp"
+						android:layout_below="@id/tv_review_details_title"
+						android:gravity="center">
+						
+						<FrameLayout
+							android:id="@+id/fl_review_details_card_bag"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingTop="8dp"
+							android:paddingBottom="8dp"
+							android:paddingStart="0dp"
+							android:paddingEnd="10dp">
+							
+							<TextView
+								android:id="@+id/tv_review_details_card_bag"
+								style="@style/tv_card_category"
+								tools:text="数码产品"/>
+						</FrameLayout>
+						
+						<TextView
+							android:id="@+id/tv_review_details_info"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/text_color_ee"
+							android:textSize="@dimen/text_size_text_3"
+							android:transitionName="cardInfo"
+							tools:text="@string/tv_card_info"/>
+					</LinearLayout>
+				
+				</RelativeLayout>
+			</FrameLayout>
+			
+			<FrameLayout
+				android:id="@+id/fl_review_details"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="1">
+			</FrameLayout>
+		</LinearLayout>
+	</ScrollView>
+	
+	<ImageView
+		android:id="@+id/iv_common_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_marginEnd="10dp"
+		android:layout_alignParentEnd="true"
+		android:padding="10dp"
+		android:src="@drawable/iv_common_close"/>
 </RelativeLayout>

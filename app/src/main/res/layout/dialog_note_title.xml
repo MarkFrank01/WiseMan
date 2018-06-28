@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@drawable/bg_dialog"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/bg_dialog"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_dialog_note_title"
+		android:textStyle="bold"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:paddingTop="28dp"
+		android:paddingBottom="12dp"
+		android:background="@null"
+		android:text="存为笔记"
+		android:textColor="@color/text_color_2"
+		android:textSize="17sp"/>
+	
+	<EditText
+		android:id="@+id/et_dialog_note_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="12.5dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_below="@id/tv_dialog_note_title"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:background="@drawable/bg_item_classify"
+		android:hint="请输入笔记标题"
+		android:maxLength="20"
+		android:maxLines="1"
+		android:singleLine="true"
+		android:textColor="@color/text_color_1"
+		android:textColorHint="@color/text_color_d2"
+		android:textCursorDrawable="@drawable/bg_edit_cursor"
+		android:textSize="@dimen/text_size_text_2"/>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/et_dialog_note_title">
+		
+		<TextView
+			android:id="@+id/tv_dialog_cancel"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:paddingTop="24dp"
+			android:paddingBottom="18dp"
+			android:paddingStart="20dp"
+			android:gravity="center_vertical"
+			android:text="@string/common_cancel"
+			android:textColor="@color/text_color_1"
+			android:textSize="17sp"/>
+		
+		<TextView
+			android:id="@+id/tv_dialog_confirm"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:paddingTop="24dp"
+			android:paddingBottom="18dp"
+			android:paddingEnd="20dp"
+			android:gravity="center_vertical|end"
+			android:text="@string/common_confirm"
+			android:textColor="@color/color_text_enable_blue"
+			android:textSize="17sp"/>
+	
+	</LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_dialog_note_title"
-        android:layout_marginStart="20dp"
-        android:paddingTop="28dp"
-        android:paddingBottom="12dp"
-        android:background="@null"
-        android:text="存为笔记"
-        android:textStyle="bold"
-        android:textColor="@color/text_color_2"
-        android:textSize="17sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/et_dialog_note_title"
-        android:layout_below="@id/tv_dialog_note_title"
-        android:background="@drawable/bg_item_classify"
-        android:textColor="@color/text_color_1"
-        android:textColorHint="@color/text_color_d2"
-        android:textCursorDrawable="@drawable/bg_edit_cursor"
-        android:hint="请输入笔记标题"
-        android:textSize="@dimen/text_size_text_2"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:maxLength="20"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="12.5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_below="@id/et_dialog_note_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_dialog_cancel"
-            android:text="@string/common_cancel"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_color_1"
-            android:textSize="17sp"
-            android:paddingStart="20dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="18dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_dialog_confirm"
-            android:text="@string/common_confirm"
-            android:gravity="center_vertical|end"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="17sp"
-            android:paddingEnd="20dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="18dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-    
 </RelativeLayout>

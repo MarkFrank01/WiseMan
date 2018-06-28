@@ -12,36 +12,36 @@ import com.zxcx.zhizhe.ui.search.result.SubjectBean;
 
 public class HotBean extends RetrofitBaen implements MultiItemEntity {
 
-    public static final int TYPE_CARD = 1;
-    public static final int TYPE_SUBJECT = 2;
+	public static final int TYPE_CARD = 1;
+	public static final int TYPE_SUBJECT = 2;
 
-    @SerializedName("articleContent")
-    private CardBean mCardBean;
-    @SerializedName("collectionContent")
-    private SubjectBean mSubjectBean;
+	@SerializedName("articleContent")
+	private CardBean mCardBean;
+	@SerializedName("collectionContent")
+	private SubjectBean mSubjectBean;
 
-    public CardBean getCardBean() {
-        return mCardBean;
-    }
+	public CardBean getCardBean() {
+		return mCardBean;
+	}
 
-    public void setCardBean(CardBean cardBean) {
-        mCardBean = cardBean;
-    }
+	public void setCardBean(CardBean cardBean) {
+		mCardBean = cardBean;
+	}
 
-    public SubjectBean getSubjectBean() {
-        return mSubjectBean;
-    }
+	public SubjectBean getSubjectBean() {
+		return mSubjectBean;
+	}
 
-    public void setSubjectBean(SubjectBean subjectBean) {
-        mSubjectBean = subjectBean;
-    }
+	public void setSubjectBean(SubjectBean subjectBean) {
+		mSubjectBean = subjectBean;
+	}
 
-    @Override
-    public int getItemType() {
-        if (mCardBean == null){
-            return TYPE_SUBJECT;
-        }else {
-            return TYPE_CARD;
-        }
-    }
+	@Override
+	public int getItemType() {
+		if (mCardBean == null) {
+			return TYPE_SUBJECT;
+		} else {
+			return TYPE_CARD;
+		}
+	}
 }

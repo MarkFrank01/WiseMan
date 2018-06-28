@@ -9,16 +9,17 @@ import java.util.List;
  */
 
 public class ChangeAttentionEvent {
+	
 	private List<ClassifyCardBean> mList;
-
+	
 	public ChangeAttentionEvent(List<ClassifyCardBean> list) {
 		mList = list;
 	}
-
+	
 	public List<ClassifyCardBean> getList() {
 		return mList;
 	}
-
+	
 	public void setList(List<ClassifyCardBean> list) {
 		mList = list;
 	}

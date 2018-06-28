@@ -31,143 +31,143 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), DynamicMessageListContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener {
+		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
-    private var mMessageType = 0
-    private var mPage = 0
-    private val mPageSize = Constants.PAGE_SIZE
-    private lateinit var mAdapter: DynamicMessageAdapter
-    private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>> = ArrayMap()
+	private var mMessageType = 0
+	private var mPage = 0
+	private val mPageSize = Constants.PAGE_SIZE
+	private lateinit var mAdapter: DynamicMessageAdapter
+	private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>> = ArrayMap()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_follow_message)
-        mMessageType = intent.getIntExtra("messageType",0)
-        initRecyclerView()
-        mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_follow_message)
+		mMessageType = intent.getIntExtra("messageType", 0)
+		initRecyclerView()
+		mPresenter.getDynamicMessageList(mMessageType, mPage, mPageSize)
+	}
 
-    override fun createPresenter(): DynamicMessageListPresenter {
-        return DynamicMessageListPresenter(this)
-    }
+	override fun createPresenter(): DynamicMessageListPresenter {
+		return DynamicMessageListPresenter(this)
+	}
 
-    override fun getDataSuccess(list: List<DynamicMessageListBean>) {
-        mDisposable = Flowable.just(list)
-                .observeOn(Schedulers.computation())
-                .map(PackData(map))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object: DisposableSubscriber<List<DynamicBean>>() {
-                    override fun onError(t: Throwable?) {
-                    }
+	override fun getDataSuccess(list: List<DynamicMessageListBean>) {
+		mDisposable = Flowable.just(list)
+				.observeOn(Schedulers.computation())
+				.map(PackData(map))
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeWith(object : DisposableSubscriber<List<DynamicBean>>() {
+					override fun onError(t: Throwable?) {
+					}
 
-                    override fun onComplete() {
-                    }
+					override fun onComplete() {
+					}
 
-                    override fun onNext(list: List<DynamicBean>) {
-                        mAdapter.data.clear()
-                        for (dynamicBean in list){
-                            mAdapter.data.add(dynamicBean)
-                            mAdapter.data.addAll(dynamicBean.list)
-                        }
-                        mAdapter.notifyDataSetChanged()
+					override fun onNext(list: List<DynamicBean>) {
+						mAdapter.data.clear()
+						for (dynamicBean in list) {
+							mAdapter.data.add(dynamicBean)
+							mAdapter.data.addAll(dynamicBean.list)
+						}
+						mAdapter.notifyDataSetChanged()
 
-                        mPage ++
-                        if (list.size < mPageSize) {
-                            mAdapter.loadMoreEnd(false)
-                        } else {
-                            mAdapter.loadMoreComplete()
-                            mAdapter.setEnableLoadMore(false)
-                            mAdapter.setEnableLoadMore(true)
-                        }
-                    }
+						mPage++
+						if (list.size < mPageSize) {
+							mAdapter.loadMoreEnd(false)
+						} else {
+							mAdapter.loadMoreComplete()
+							mAdapter.setEnableLoadMore(false)
+							mAdapter.setEnableLoadMore(true)
+						}
+					}
 
-                })
-    }
+				})
+	}
 
-    override fun postSuccess() {
-        mAdapter.data.clear()
-        mAdapter.notifyDataSetChanged()
-        iv_toolbar_right.visibility = View.GONE
-        EventBus.getDefault().post(ClearMessageEvent(mMessageType))
-    }
+	override fun postSuccess() {
+		mAdapter.data.clear()
+		mAdapter.notifyDataSetChanged()
+		iv_toolbar_right.visibility = View.GONE
+		EventBus.getDefault().post(ClearMessageEvent(mMessageType))
+	}
 
-    override fun postFail(msg: String?) {
-        toastShow(msg)
-    }
+	override fun postFail(msg: String?) {
+		toastShow(msg)
+	}
 
-    override fun onLoadMoreRequested() {
-        mPresenter.getDynamicMessageList(mMessageType,mPage,mPageSize)
-    }
+	override fun onLoadMoreRequested() {
+		mPresenter.getDynamicMessageList(mMessageType, mPage, mPageSize)
+	}
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        if (mAdapter.data[position].itemType == dynamic_content) {
-            val bean = mAdapter.data[position] as DynamicMessageListBean
-            if (bean.messageType != message_follow){
-                val intent = Intent(mActivity,ArticleDetailsActivity::class.java)
-                intent.putExtra("id",bean.relatedCardId)
-                startActivity(intent)
-            }
-        }
-    }
+	override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+		if (mAdapter.data[position].itemType == dynamic_content) {
+			val bean = mAdapter.data[position] as DynamicMessageListBean
+			if (bean.messageType != message_follow) {
+				val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+				intent.putExtra("id", bean.relatedCardId)
+				startActivity(intent)
+			}
+		}
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
-    }
+	override fun setListener() {
+		iv_common_close.setOnClickListener {
+			onBackPressed()
+		}
+	}
 
-    private fun initRecyclerView() {
-        mAdapter = DynamicMessageAdapter(ArrayList())
-        mAdapter.onItemClickListener = this
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this,rv_follow_message)
-        rv_follow_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_follow_message.adapter = mAdapter
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无消息",R.drawable.no_data)
-        mAdapter.emptyView = emptyView
-        val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-        when (mMessageType) {
-            message_follow -> {
-                header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
-            }
-            message_like -> {
-                header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
-            }
-            message_collect -> {
-                header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
-            }
-        }
-        mAdapter.addHeaderView(header)
-    }
+	private fun initRecyclerView() {
+		mAdapter = DynamicMessageAdapter(ArrayList())
+		mAdapter.onItemClickListener = this
+		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setOnLoadMoreListener(this, rv_follow_message)
+		rv_follow_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+		rv_follow_message.adapter = mAdapter
+		val emptyView = EmptyView.getEmptyView(mActivity, "暂无消息", R.drawable.no_data)
+		mAdapter.emptyView = emptyView
+		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+		when (mMessageType) {
+			message_follow -> {
+				header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
+			}
+			message_like -> {
+				header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
+			}
+			message_collect -> {
+				header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
+			}
+		}
+		mAdapter.addHeaderView(header)
+	}
 
-    class PackData(private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>>): Function<List<DynamicMessageListBean>, List<DynamicBean>> {
-        private val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.CHINA)
-        private val timeFormat = SimpleDateFormat("HH:mm", Locale.CHINA)
-        override fun apply(list: List<DynamicMessageListBean>): List<DynamicBean> {
-            for (bean in list) {
-                val date = dateFormat.format(bean.date)
-                val time = timeFormat.format(bean.date)
-                bean.newTime = time
-                if (map.containsKey(date)){
-                    map[date]?.add(bean)
-                }else{
-                    val newList: ArrayList<DynamicMessageListBean> = ArrayList()
-                    newList.add(bean)
-                    map[date] = newList
-                }
-            }
-            val dynamicBeanList = ArrayList<DynamicBean>()
-            for (mutableEntry in map) {
-                mutableEntry.value.sortWith(Comparator { o1, o2 ->
-                    o2?.date?.compareTo(o1?.date)!!
-                })
-                val dynamicBean = DynamicBean(mutableEntry.key,mutableEntry.value)
-                dynamicBeanList.add(dynamicBean)
-            }
-            dynamicBeanList.sortWith(Comparator { o1, o2 ->
-                o2?.list?.get(0)?.date?.compareTo(o1?.list?.get(0)?.date)!!
-            })
-            return dynamicBeanList
-        }
-    }
+	class PackData(private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>>) : Function<List<DynamicMessageListBean>, List<DynamicBean>> {
+		private val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.CHINA)
+		private val timeFormat = SimpleDateFormat("HH:mm", Locale.CHINA)
+		override fun apply(list: List<DynamicMessageListBean>): List<DynamicBean> {
+			for (bean in list) {
+				val date = dateFormat.format(bean.date)
+				val time = timeFormat.format(bean.date)
+				bean.newTime = time
+				if (map.containsKey(date)) {
+					map[date]?.add(bean)
+				} else {
+					val newList: ArrayList<DynamicMessageListBean> = ArrayList()
+					newList.add(bean)
+					map[date] = newList
+				}
+			}
+			val dynamicBeanList = ArrayList<DynamicBean>()
+			for (mutableEntry in map) {
+				mutableEntry.value.sortWith(Comparator { o1, o2 ->
+					o2?.date?.compareTo(o1?.date)!!
+				})
+				val dynamicBean = DynamicBean(mutableEntry.key, mutableEntry.value)
+				dynamicBeanList.add(dynamicBean)
+			}
+			dynamicBeanList.sortWith(Comparator { o1, o2 ->
+				o2?.list?.get(0)?.date?.compareTo(o1?.list?.get(0)?.date)!!
+			})
+			return dynamicBeanList
+		}
+	}
 }

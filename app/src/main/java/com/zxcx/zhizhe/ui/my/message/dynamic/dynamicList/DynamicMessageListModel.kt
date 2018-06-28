@@ -10,33 +10,33 @@ class DynamicMessageListModel(presenter: DynamicMessageListContract.Presenter) :
 
 
 
-    init {
-        this.mPresenter = presenter
-    }
+	init {
+		this.mPresenter = presenter
+	}
 
-    fun getDynamicMessageList(messageType: Int, page: Int, pageSize: Int) {
-        mDisposable = AppClient.getAPIService().getDynamicMessageList(messageType, page, pageSize)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<List<DynamicMessageListBean>>(mPresenter) {
-                    override fun onNext(list: List<DynamicMessageListBean>) {
-                        mPresenter?.getDataSuccess(list)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	fun getDynamicMessageList(messageType: Int, page: Int, pageSize: Int) {
+		mDisposable = AppClient.getAPIService().getDynamicMessageList(messageType, page, pageSize)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<List<DynamicMessageListBean>>(mPresenter) {
+					override fun onNext(list: List<DynamicMessageListBean>) {
+						mPresenter?.getDataSuccess(list)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    fun deleteDynamicMessageList(messageType: Int) {
-        mDisposable = AppClient.getAPIService().deleteDynamicMessageList(messageType)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handlePostResult())
-                .subscribeWith(object : BaseSubscriber<BaseBean<*>>(mPresenter) {
-                    override fun onNext(list: BaseBean<*>) {
-                        mPresenter?.postSuccess()
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	fun deleteDynamicMessageList(messageType: Int) {
+		mDisposable = AppClient.getAPIService().deleteDynamicMessageList(messageType)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handlePostResult())
+				.subscribeWith(object : BaseSubscriber<BaseBean<*>>(mPresenter) {
+					override fun onNext(list: BaseBean<*>) {
+						mPresenter?.postSuccess()
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
 }
 

@@ -31,98 +31,103 @@ import butterknife.Unbinder;
 public class CreationAgreementDialog extends BaseDialog {
 
 
-    @BindView(R.id.fl_dialog_creation_agreement)
-    FrameLayout mFlDialogCreationAgreement;
-    @BindView(R.id.tv_dialog_confirm)
-    TextView mTvDialogConfirm;
-    @BindView(R.id.ll_creation_agreement)
-    LinearLayout mLlCreationAgreement;
-    private WebView mWebView;
-    private Unbinder unbinder;
+	@BindView(R.id.fl_dialog_creation_agreement)
+	FrameLayout mFlDialogCreationAgreement;
+	@BindView(R.id.tv_dialog_confirm)
+	TextView mTvDialogConfirm;
+	@BindView(R.id.ll_creation_agreement)
+	LinearLayout mLlCreationAgreement;
+	private WebView mWebView;
+	private Unbinder unbinder;
 
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getDialog().setCanceledOnTouchOutside(true);
-        View view = inflater.inflate(R.layout.dialog_creation_agreement, container);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+		Bundle savedInstanceState) {
+		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getDialog().setCanceledOnTouchOutside(true);
+		View view = inflater.inflate(R.layout.dialog_creation_agreement, container);
+		unbinder = ButterKnife.bind(this, view);
+		return view;
+	}
 
-    @Override
-    public void onStart() {
-        super.onStart();
+	@Override
+	public void onStart() {
+		super.onStart();
 
-        Dialog dialog = getDialog();
-        if (dialog != null) {
-            Window window = dialog.getWindow();
-            window.setBackgroundDrawableResource(R.color.translate);
+		Dialog dialog = getDialog();
+		if (dialog != null) {
+			Window window = dialog.getWindow();
+			window.setBackgroundDrawableResource(R.color.translate);
         /*window.getDecorView().setPadding(ScreenUtils.dip2px(10), ScreenUtils.dip2px(84),
                 ScreenUtils.dip2px(10), ScreenUtils.dip2px(84));*/
-            WindowManager.LayoutParams lp = window.getAttributes();
-            lp.gravity = Gravity.CENTER;
-            lp.width = ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20);
-            lp.height = ScreenUtils.getDisplayHeight() - ScreenUtils.dip2px(168);
-            window.setAttributes(lp);
-        }
-    }
+			WindowManager.LayoutParams lp = window.getAttributes();
+			lp.gravity = Gravity.CENTER;
+			lp.width = ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20);
+			lp.height = ScreenUtils.getDisplayHeight() - ScreenUtils.dip2px(168);
+			window.setAttributes(lp);
+		}
+	}
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView();
-    }
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		initView();
+	}
 
-    @Override
-    public void onDestroy() {
-        if (mWebView != null) {
-            mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-            mWebView.clearHistory();
+	@Override
+	public void onDestroy() {
+		if (mWebView != null) {
+			mWebView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+			mWebView.clearHistory();
 
-            ((ViewGroup) mWebView.getParent()).removeView(mWebView);
-            mWebView.destroy();
-            mWebView = null;
-        }
-        unbinder.unbind();
-        super.onDestroy();
-    }
+			((ViewGroup) mWebView.getParent()).removeView(mWebView);
+			mWebView.destroy();
+			mWebView = null;
+		}
+		unbinder.unbind();
+		super.onDestroy();
+	}
 
-    private void initView() {
+	private void initView() {
 
-        //获取WebView，并将WebView高度设为WRAP_CONTENT
-        mWebView = WebViewUtils.getWebView(getActivity());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mWebView.setLayoutParams(params);
-        mWebView.setVerticalScrollBarEnabled(false);
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return true;
-            }
+		//获取WebView，并将WebView高度设为WRAP_CONTENT
+		mWebView = WebViewUtils.getWebView(getActivity());
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+			ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		mWebView.setLayoutParams(params);
+		mWebView.setVerticalScrollBarEnabled(false);
+		mWebView.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+				return true;
+			}
 
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                mLlCreationAgreement.setVisibility(View.VISIBLE);
-            }
-        });
-        mFlDialogCreationAgreement.addView(mWebView);
-        if (Constants.IS_NIGHT){
-            mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url));
-        }else {
-            mWebView.loadUrl(getString(R.string.base_url) + getString(R.string.creation_agreement_url));
-        }
-    }
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				mLlCreationAgreement.setVisibility(View.VISIBLE);
+			}
+		});
+		mFlDialogCreationAgreement.addView(mWebView);
+		if (Constants.IS_NIGHT) {
+			mWebView
+				.loadUrl(
+					getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url));
+		} else {
+			mWebView
+				.loadUrl(getString(R.string.base_url) + getString(R.string.creation_agreement_url));
+		}
+	}
 
-    @OnClick(R.id.tv_dialog_cancel)
-    public void onMTvDialogCancelClicked() {
-        dismiss();
-    }
+	@OnClick(R.id.tv_dialog_cancel)
+	public void onMTvDialogCancelClicked() {
+		dismiss();
+	}
 
-    @OnClick(R.id.tv_dialog_confirm)
-    public void onMTvDialogConfirmClicked() {
-        startActivity(new Intent(getActivity(), ApplyForCreation2Activity.class));
-        dismiss();
-    }
+	@OnClick(R.id.tv_dialog_confirm)
+	public void onMTvDialogConfirmClicked() {
+		startActivity(new Intent(getActivity(), ApplyForCreation2Activity.class));
+		dismiss();
+	}
 }

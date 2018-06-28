@@ -11,5 +11,5 @@ data class SearchUserBean(
 		@SerializedName("intelligenceValue") var readNum: Int?, //0
 		@SerializedName("name") var name: String?, //string
 		@SerializedName("rankIndex") var rankIndex: Int? //0
-): RetrofitBaen()
+) : RetrofitBaen()
 

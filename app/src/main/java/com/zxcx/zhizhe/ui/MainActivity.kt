@@ -29,129 +29,129 @@ import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity() {
 
-    private var mCurrentFragment = Fragment()
-    private var mHomeFragment: HomeFragment? = HomeFragment()
-    private var mClassifyFragment: ClassifyFragment? = ClassifyFragment()
-    private var mMyFragment: MyFragment? = MyFragment()
+	private var mCurrentFragment = Fragment()
+	private var mHomeFragment: HomeFragment? = HomeFragment()
+	private var mClassifyFragment: ClassifyFragment? = ClassifyFragment()
+	private var mMyFragment: MyFragment? = MyFragment()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        EventBus.getDefault().register(this)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_main)
+		EventBus.getDefault().register(this)
 
-        home_tab_card.performClick()
+		home_tab_card.performClick()
 
-        val intent = intent
-        //判断是否点击了广告或通知
-        gotoLoginActivity(intent)
-        gotoADActivity(intent)
-        gotoNotificationActivity(intent)
-    }
+		val intent = intent
+		//判断是否点击了广告或通知
+		gotoLoginActivity(intent)
+		gotoADActivity(intent)
+		gotoNotificationActivity(intent)
+	}
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        //避免恢复视图状态
-    }
+	override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+		//避免恢复视图状态
+	}
 
-    override fun recreate() {
-        val intent = Intent()
-        setIntent(intent)
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
-        transaction.remove(mHomeFragment)
-                .remove(mClassifyFragment)
-                .remove(mMyFragment)
-                .commitAllowingStateLoss()
-        mHomeFragment = null
-        mClassifyFragment = null
-        mMyFragment = null
-        super.recreate()
-    }
+	override fun recreate() {
+		val intent = Intent()
+		setIntent(intent)
+		val fm = supportFragmentManager
+		val transaction = fm.beginTransaction()
+		transaction.remove(mHomeFragment)
+				.remove(mClassifyFragment)
+				.remove(mMyFragment)
+				.commitAllowingStateLoss()
+		mHomeFragment = null
+		mClassifyFragment = null
+		mMyFragment = null
+		super.recreate()
+	}
 
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
+	override fun onDestroy() {
+		super.onDestroy()
+		EventBus.getDefault().unregister(this)
+	}
 
-    override fun setListener() {
-        super.setListener()
-        iv_home_creation.setOnClickListener {
-            if (checkLogin()) {
-                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                    writer_status_writer -> {
-                        //创作界面
-                        mActivity.startActivity(CreationEditorActivity::class.java,{})
-                    }
-                    else -> {
-                        val dialog = CreationAgreementDialog()
-                        dialog.show(mActivity.fragmentManager, "")
-                    }
-                }
-            }
-        }
-        home_tab_card.setOnClickListener { switchFragment(mHomeFragment) }
-        home_tab_article.setOnClickListener { switchFragment(mClassifyFragment) }
-        home_tab_rank.setOnClickListener {
-            //todo 替换成榜单
-        }
-        home_tab_my.setOnClickListener { switchFragment(mMyFragment) }
-    }
+	override fun setListener() {
+		super.setListener()
+		iv_home_creation.setOnClickListener {
+			if (checkLogin()) {
+				when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+					writer_status_writer -> {
+						//创作界面
+						mActivity.startActivity(CreationEditorActivity::class.java, {})
+					}
+					else -> {
+						val dialog = CreationAgreementDialog()
+						dialog.show(mActivity.fragmentManager, "")
+					}
+				}
+			}
+		}
+		home_tab_card.setOnClickListener { switchFragment(mHomeFragment) }
+		home_tab_article.setOnClickListener { switchFragment(mClassifyFragment) }
+		home_tab_rank.setOnClickListener {
+			//todo 替换成榜单
+		}
+		home_tab_my.setOnClickListener { switchFragment(mMyFragment) }
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: ChangeNightModeEvent) {
-        this.recreate()
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: ChangeNightModeEvent) {
+		this.recreate()
+	}
 
-    private fun switchFragment(newFragment: Fragment?) {
+	private fun switchFragment(newFragment: Fragment?) {
 
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
+		val fm = supportFragmentManager
+		val transaction = fm.beginTransaction()
 
-        if (mCurrentFragment === newFragment) {
-            if (newFragment === mHomeFragment) {
-                EventBus.getDefault().post(HomeClickRefreshEvent())
-            } else if (newFragment === mClassifyFragment) {
-                EventBus.getDefault().post(ClassifyClickRefreshEvent())
-            }
-        } else {
-            if (newFragment!!.isAdded) {
-                //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
-                transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
-            } else {
-                transaction.hide(mCurrentFragment).add(R.id.home_fragment_content, newFragment).commitAllowingStateLoss()
-            }
-            mCurrentFragment = newFragment
-        }
-    }
+		if (mCurrentFragment === newFragment) {
+			if (newFragment === mHomeFragment) {
+				EventBus.getDefault().post(HomeClickRefreshEvent())
+			} else if (newFragment === mClassifyFragment) {
+				EventBus.getDefault().post(ClassifyClickRefreshEvent())
+			}
+		} else {
+			if (newFragment!!.isAdded) {
+				//.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
+				transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
+			} else {
+				transaction.hide(mCurrentFragment).add(R.id.home_fragment_content, newFragment).commitAllowingStateLoss()
+			}
+			mCurrentFragment = newFragment
+		}
+	}
 
-    private fun gotoLoginActivity(intent: Intent) {
-        if (intent.getBooleanExtra("isFirst", false)) {
-            val intent1 = Intent(this, LoginActivity::class.java)
-            startActivity(intent1)
-        }
-    }
+	private fun gotoLoginActivity(intent: Intent) {
+		if (intent.getBooleanExtra("isFirst", false)) {
+			val intent1 = Intent(this, LoginActivity::class.java)
+			startActivity(intent1)
+		}
+	}
 
-    private fun gotoADActivity(intent: Intent) {
-        if (intent.getBooleanExtra("hasAd", false)) {
-            val intent1 = Intent(this, WebViewActivity::class.java)
-            intent1.putExtra("title", intent.getStringExtra("title"))
-            intent1.putExtra("url", intent.getStringExtra("url"))
-            startActivity(intent1)
-        }
-    }
+	private fun gotoADActivity(intent: Intent) {
+		if (intent.getBooleanExtra("hasAd", false)) {
+			val intent1 = Intent(this, WebViewActivity::class.java)
+			intent1.putExtra("title", intent.getStringExtra("title"))
+			intent1.putExtra("url", intent.getStringExtra("url"))
+			startActivity(intent1)
+		}
+	}
 
-    private fun gotoNotificationActivity(intent: Intent) {
-        val bundle = intent.getBundleExtra("push")
-        if (bundle != null) {
-            val type = bundle.getString("type")
-            val detailIntent = Intent()
+	private fun gotoNotificationActivity(intent: Intent) {
+		val bundle = intent.getBundleExtra("push")
+		if (bundle != null) {
+			val type = bundle.getString("type")
+			val detailIntent = Intent()
 
-            when (type) {
-                Constants.PUSH_TYPE_CARD_BAG -> detailIntent.setClass(this, CardBagActivity::class.java)
-                Constants.PUSH_TYPE_CARD -> detailIntent.setClass(this, ArticleDetailsActivity::class.java)
-                Constants.PUSH_TYPE_AD -> detailIntent.setClass(this, WebViewActivity::class.java)
-            }
-            detailIntent.putExtras(bundle)
-            startActivity(detailIntent)
-        }
-    }
+			when (type) {
+				Constants.PUSH_TYPE_CARD_BAG -> detailIntent.setClass(this, CardBagActivity::class.java)
+				Constants.PUSH_TYPE_CARD -> detailIntent.setClass(this, ArticleDetailsActivity::class.java)
+				Constants.PUSH_TYPE_AD -> detailIntent.setClass(this, WebViewActivity::class.java)
+			}
+			detailIntent.putExtras(bundle)
+			startActivity(detailIntent)
+		}
+	}
 }

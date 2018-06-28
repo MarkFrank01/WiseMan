@@ -18,51 +18,52 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
  */
 
 public class RoundProgressBar extends View {
-
-    private Paint backgroundPaint = new Paint();
-    private Paint circlePaint = new Paint();
-    private RectF oval = new RectF();
-    private float sweepAngle;
-    private int strokeWidth = ScreenUtils.dip2px(5);
-
-    public RoundProgressBar(Context context) {
-        super(context);
-    }
-
-    public RoundProgressBar(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public RoundProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    {
-        backgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.opacity_30_blue));
-        backgroundPaint.setStyle(Paint.Style.STROKE);
-        backgroundPaint.setStrokeWidth(strokeWidth);
-        backgroundPaint.setAntiAlias(true);
-        circlePaint.setColor(ContextCompat.getColor(getContext(), R.color.button_blue));
-        circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeCap(Paint.Cap.ROUND);
-        circlePaint.setStrokeWidth(strokeWidth);
-        circlePaint.setAntiAlias(true);
-    }
-
-    @Keep
-    @SuppressWarnings("unused")
-    public void setProgress(float progress) {
-        this.sweepAngle = progress * 360 / 100;
-        invalidate();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawCircle(getMeasuredWidth()/2,getMeasuredHeight()/2,
-                getMeasuredWidth()/2 - ScreenUtils.dip2px(5),backgroundPaint);
-        oval.set(ScreenUtils.dip2px(5),ScreenUtils.dip2px(5),
-                getMeasuredWidth()-ScreenUtils.dip2px(5),getMeasuredHeight()-ScreenUtils.dip2px(5));
-        canvas.drawArc(oval,-90,sweepAngle,false,circlePaint);
-        super.onDraw(canvas);
-    }
+	
+	private Paint backgroundPaint = new Paint();
+	private Paint circlePaint = new Paint();
+	private RectF oval = new RectF();
+	private float sweepAngle;
+	private int strokeWidth = ScreenUtils.dip2px(5);
+	
+	{
+		backgroundPaint.setColor(ContextCompat.getColor(getContext(), R.color.opacity_30_blue));
+		backgroundPaint.setStyle(Paint.Style.STROKE);
+		backgroundPaint.setStrokeWidth(strokeWidth);
+		backgroundPaint.setAntiAlias(true);
+		circlePaint.setColor(ContextCompat.getColor(getContext(), R.color.button_blue));
+		circlePaint.setStyle(Paint.Style.STROKE);
+		circlePaint.setStrokeCap(Paint.Cap.ROUND);
+		circlePaint.setStrokeWidth(strokeWidth);
+		circlePaint.setAntiAlias(true);
+	}
+	
+	public RoundProgressBar(Context context) {
+		super(context);
+	}
+	
+	public RoundProgressBar(Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+	}
+	
+	public RoundProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
+	
+	@Keep
+	@SuppressWarnings("unused")
+	public void setProgress(float progress) {
+		this.sweepAngle = progress * 360 / 100;
+		invalidate();
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2,
+			getMeasuredWidth() / 2 - ScreenUtils.dip2px(5), backgroundPaint);
+		oval.set(ScreenUtils.dip2px(5), ScreenUtils.dip2px(5),
+			getMeasuredWidth() - ScreenUtils.dip2px(5),
+			getMeasuredHeight() - ScreenUtils.dip2px(5));
+		canvas.drawArc(oval, -90, sweepAngle, false, circlePaint);
+		super.onDraw(canvas);
+	}
 }

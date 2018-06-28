@@ -4,51 +4,52 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter
 
 class SystemMessagePresenter(view: SystemMessageContract.View) : BasePresenter<SystemMessageContract.View>(), SystemMessageContract.Presenter {
 
-    private val mModel: SystemMessageModel
+	private val mModel: SystemMessageModel
 
-    init {
-        attachView(view)
-        mModel = SystemMessageModel(this)
-    }
+	init {
+		attachView(view)
+		mModel = SystemMessageModel(this)
+	}
 
-    fun getSystemMessage(page: Int, pageSize: Int) {
-        mModel.getSystemMessage(page, pageSize)
-    }
+	fun getSystemMessage(page: Int, pageSize: Int) {
+		mModel.getSystemMessage(page, pageSize)
+	}
 
-    fun getRejectDetails(cardId: Int) {
-        mModel.getRejectDetails(cardId)
-    }
+	fun getRejectDetails(cardId: Int) {
+		mModel.getRejectDetails(cardId)
+	}
 
-    override fun getDataSuccess(list: List<SystemMessageBean>) {
-        mView.getDataSuccess(list)
-    }
+	override fun getDataSuccess(list: List<SystemMessageBean>) {
+		mView.getDataSuccess(list)
+	}
 
-    override fun getDataFail(msg: String) {
-        mView.toastFail(msg)
-    }
-    override fun getCardSuccess(cardId: Int) {
-        mView.getCardSuccess(cardId)
-    }
+	override fun getDataFail(msg: String) {
+		mView.toastFail(msg)
+	}
 
-    override fun getCardNoFound() {
-        mView.getCardNoFound()
-    }
+	override fun getCardSuccess(cardId: Int) {
+		mView.getCardSuccess(cardId)
+	}
 
-    override fun showLoading() {
-        mView.showLoading()
-    }
+	override fun getCardNoFound() {
+		mView.getCardNoFound()
+	}
 
-    override fun hideLoading() {
-        mView.hideLoading()
-    }
+	override fun showLoading() {
+		mView.showLoading()
+	}
 
-    override fun startLogin() {
-        mView.startLogin()
-    }
+	override fun hideLoading() {
+		mView.hideLoading()
+	}
 
-    override fun detachView() {
-        super.detachView()
-        mModel.onDestroy()
-    }
+	override fun startLogin() {
+		mView.startLogin()
+	}
+
+	override fun detachView() {
+		super.detachView()
+		mModel.onDestroy()
+	}
 }
 

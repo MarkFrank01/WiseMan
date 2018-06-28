@@ -26,45 +26,47 @@ import butterknife.Unbinder;
 
 public class PhoneConfirmDialog extends CommonDialog {
 
-    Unbinder unbinder;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
-    @BindView(R.id.tv_dialog_confirm)
-    TextView mTvDialogConfirm;
-    @BindView(R.id.tv_dialog_phone_confirm_title)
-    TextView mTvDialogPhoneConfirmTitle;
+	Unbinder unbinder;
+	@BindView(R.id.tv_dialog_cancel)
+	TextView mTvDialogCancel;
+	@BindView(R.id.tv_dialog_confirm)
+	TextView mTvDialogConfirm;
+	@BindView(R.id.tv_dialog_phone_confirm_title)
+	TextView mTvDialogPhoneConfirmTitle;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_phone_confirm, container);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+		Bundle savedInstanceState) {
+		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		View view = inflater.inflate(R.layout.dialog_phone_confirm, container);
+		unbinder = ButterKnife.bind(this, view);
+		return view;
+	}
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-        String phone = getArguments().getString("phone");
-        TextViewUtils.setTextViewColorBlue(mTvDialogPhoneConfirmTitle,phone,getString(R.string.tv_dialog_phone_confirm_title,phone));
-    }
+		String phone = getArguments().getString("phone");
+		TextViewUtils.setTextViewColorBlue(mTvDialogPhoneConfirmTitle, phone,
+			getString(R.string.tv_dialog_phone_confirm_title, phone));
+	}
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 
-    @OnClick(R.id.tv_dialog_cancel)
-    public void onMTvDialogCancelClicked() {
-        this.dismiss();
-    }
+	@OnClick(R.id.tv_dialog_cancel)
+	public void onMTvDialogCancelClicked() {
+		this.dismiss();
+	}
 
-    @OnClick(R.id.tv_dialog_confirm)
-    public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new PhoneConfirmEvent());
-        this.dismiss();
-    }
+	@OnClick(R.id.tv_dialog_confirm)
+	public void onMTvDialogConfirmClicked() {
+		EventBus.getDefault().post(new PhoneConfirmEvent());
+		this.dismiss();
+	}
 }

@@ -12,17 +12,18 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 public class FansItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int defultSpace = ScreenUtils.dip2px(13f);
+	private int defultSpace = ScreenUtils.dip2px(13f);
 
-    public FansItemDecoration() {
-        super();
-    }
+	public FansItemDecoration() {
+		super();
+	}
 
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int position = parent.getChildAdapterPosition(view);
-        if (position == 0){
-            outRect.top = defultSpace;
-        }
-    }
+	@Override
+	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+		RecyclerView.State state) {
+		int position = parent.getChildAdapterPosition(view);
+		if (position == 0) {
+			outRect.top = defultSpace;
+		}
+	}
 }

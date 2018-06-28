@@ -26,47 +26,49 @@ import butterknife.Unbinder;
 
 public class RemoveBindingDialog extends CommonDialog {
 
-    @BindView(R.id.tv_dialog_logout)
-    TextView mTvDialogLogout;
-    @BindView(R.id.tv_dialog_cancel)
-    TextView mTvDialogCancel;
-    @BindView(R.id.tv_dialog_confirm)
-    TextView mTvDialogConfirm;
-    @BindView(R.id.tv_dialog_logout_title)
-    TextView mTvDialogLogoutTitle;
-    private Unbinder unbinder;
+	@BindView(R.id.tv_dialog_logout)
+	TextView mTvDialogLogout;
+	@BindView(R.id.tv_dialog_cancel)
+	TextView mTvDialogCancel;
+	@BindView(R.id.tv_dialog_confirm)
+	TextView mTvDialogConfirm;
+	@BindView(R.id.tv_dialog_logout_title)
+	TextView mTvDialogLogoutTitle;
+	private Unbinder unbinder;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_logout, container);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+		Bundle savedInstanceState) {
+		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		View view = inflater.inflate(R.layout.dialog_logout, container);
+		unbinder = ButterKnife.bind(this, view);
+		return view;
+	}
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        String channel = getArguments().getString("channel");
-        TextViewUtils.setTextViewColorBlue(mTvDialogLogoutTitle,channel,getString(R.string.channel_unbind_title,channel));
-        mTvDialogLogout.setText("解除绑定后你将无法通过该方式登录");
-    }
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		String channel = getArguments().getString("channel");
+		TextViewUtils.setTextViewColorBlue(mTvDialogLogoutTitle, channel,
+			getString(R.string.channel_unbind_title, channel));
+		mTvDialogLogout.setText("解除绑定后你将无法通过该方式登录");
+	}
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 
-    @OnClick(R.id.tv_dialog_cancel)
-    public void onMTvDialogCancelClicked() {
-        this.dismiss();
-    }
+	@OnClick(R.id.tv_dialog_cancel)
+	public void onMTvDialogCancelClicked() {
+		this.dismiss();
+	}
 
-    @OnClick(R.id.tv_dialog_confirm)
-    public void onMTvDialogConfirmClicked() {
-        EventBus.getDefault().post(new RemoveBindingEvent());
-        this.dismiss();
-    }
+	@OnClick(R.id.tv_dialog_confirm)
+	public void onMTvDialogConfirmClicked() {
+		EventBus.getDefault().post(new RemoveBindingEvent());
+		this.dismiss();
+	}
 }

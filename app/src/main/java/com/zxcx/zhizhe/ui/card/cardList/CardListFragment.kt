@@ -16,60 +16,60 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import kotlinx.android.synthetic.main.fragment_card_list.*
 
-class CardListFragment : BaseFragment() , IGetPresenter<MutableList<CardCategoryBean>>{
+class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryBean>> {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+	}
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_card_list, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+	                          savedInstanceState: Bundle?): View? {
+		// Inflate the layout for this fragment
+		return inflater.inflate(R.layout.fragment_card_list, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        tl_card_list.setupWithViewPager(vp_card_list)
-        getCardCategory()
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		tl_card_list.setupWithViewPager(vp_card_list)
+		getCardCategory()
+	}
 
-    override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
-        vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
-        tl_card_list.removeAllTabs()
-        list.forEach {
-            val tab = tl_card_list.newTab()
-            tab.setCustomView(R.layout.tab_card_list)
-            val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-            textView?.text = it.name
-            tl_card_list.addTab(tab)
-        }
-    }
+	override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+		vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
+		tl_card_list.removeAllTabs()
+		list.forEach {
+			val tab = tl_card_list.newTab()
+			tab.setCustomView(R.layout.tab_card_list)
+			val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+			textView?.text = it.name
+			tl_card_list.addTab(tab)
+		}
+	}
 
-    override fun getDataFail(msg: String?) {
-        toastFail(msg)
-    }
+	override fun getDataFail(msg: String?) {
+		toastFail(msg)
+	}
 
-    private fun getCardCategory() {
-        mDisposable = AppClient.getAPIService().cardCategory
-                .compose(BaseRxJava.handleArrayResult())
-                .compose(BaseRxJava.io_main())
-                .subscribeWith(object : BaseSubscriber<MutableList<CardCategoryBean>>(this) {
-                    override fun onNext(t: MutableList<CardCategoryBean>) {
-                        getDataSuccess(t)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	private fun getCardCategory() {
+		mDisposable = AppClient.getAPIService().cardCategory
+				.compose(BaseRxJava.handleArrayResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : BaseSubscriber<MutableList<CardCategoryBean>>(this) {
+					override fun onNext(t: MutableList<CardCategoryBean>) {
+						getDataSuccess(t)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    class CardListViewPagerAdapter(val list: MutableList<CardCategoryBean>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-        override fun getItem(position: Int): Fragment {
-            return CardListItemFragment.newInstance(list[position].id)
-        }
+	class CardListViewPagerAdapter(val list: MutableList<CardCategoryBean>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+		override fun getItem(position: Int): Fragment {
+			return CardListItemFragment.newInstance(list[position].id)
+		}
 
-        override fun getCount(): Int {
-            return list.size
-        }
-    }
+		override fun getCount(): Int {
+			return list.size
+		}
+	}
 }

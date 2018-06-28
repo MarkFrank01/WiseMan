@@ -9,8 +9,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 const val dynamic_date = 1
 const val dynamic_content = 2
 
-data class DynamicBean( var date: String,var list: List<DynamicMessageListBean>): MultiItemEntity{
-    override fun getItemType(): Int {
-        return dynamic_date
-    }
+data class DynamicBean(var date: String, var list: List<DynamicMessageListBean>) : MultiItemEntity {
+	override fun getItemType(): Int {
+		return dynamic_date
+	}
 }

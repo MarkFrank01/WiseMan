@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_card_note"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_note"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background">
+	
+	<com.scwang.smartrefresh.layout.SmartRefreshLayout
+		android:id="@+id/refresh_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<android.support.v7.widget.RecyclerView
+			android:id="@+id/rv_card_note"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:listitem="@layout/item_note"/>
+	</com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

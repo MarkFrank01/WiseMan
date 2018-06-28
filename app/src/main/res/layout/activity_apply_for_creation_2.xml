@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/tv_afc2_title"
-        android:text="申请创作"
-        android:textSize="@dimen/text_size_title_1"
-        android:textColor="@color/text_color_1"
-        android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="你希望大家怎么认识你？"
-        android:layout_below="@id/tv_afc2_title"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/text_color_3"
-        android:textSize="@dimen/text_size_text_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/iv_afc2_close"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="18dp"
-        android:padding="10dp"
-        android:src="@drawable/login_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/iv_afc2_head"
-        tools:src="@drawable/default_header"
-        android:layout_below="@id/tv_afc2_title"
-        android:layout_marginTop="106dp"
-        android:layout_centerHorizontal="true"
-        android:scaleType="centerCrop"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        app:riv_oval="true"/>
-
-    <EditText
-        android:id="@+id/et_afc2_nick_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_afc2_head"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginStart="75dp"
-        android:gravity="center"
-        android:background="@null"
-        android:cursorVisible="true"
-        android:inputType="phone"
-        android:maxLength="11"
-        android:paddingBottom="16dp"
-        android:paddingTop="18dp"
-        android:textColor="@color/text_color_1"
-        android:textColorHint="@color/text_color_ee"
-        android:textCursorDrawable="@drawable/bg_edit_cursor"
-        android:textSize="@dimen/text_size_title_2"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginStart="75dp"
-        android:layout_below="@+id/et_afc2_nick_name"
-        android:background="@color/text_color_2"/>
-
-    <TextView
-        android:id="@+id/tv_afc2_start"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
-        android:text="开始创作"
-        android:textSize="@dimen/text_size_title_1"
-        android:textColor="@color/color_text_enable_blue"
-        android:textStyle="bold"
-        android:enabled="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background">
+	
+	<TextView
+		android:id="@+id/tv_afc2_title"
+		android:textStyle="bold"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="40dp"
+		android:layout_marginStart="20dp"
+		android:text="申请创作"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_title_1"/>
+	
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_marginStart="20dp"
+		android:layout_below="@id/tv_afc2_title"
+		android:text="你希望大家怎么认识你？"
+		android:textColor="@color/text_color_3"
+		android:textSize="@dimen/text_size_text_2"/>
+	
+	<ImageView
+		android:id="@+id/iv_afc2_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="30dp"
+		android:layout_marginEnd="18dp"
+		android:layout_alignParentEnd="true"
+		android:padding="10dp"
+		android:src="@drawable/login_close"/>
+	
+	<com.makeramen.roundedimageview.RoundedImageView
+		android:id="@+id/iv_afc2_head"
+		android:layout_width="56dp"
+		android:layout_height="56dp"
+		android:layout_marginTop="106dp"
+		android:layout_below="@id/tv_afc2_title"
+		android:layout_centerHorizontal="true"
+		android:scaleType="centerCrop"
+		app:riv_oval="true"
+		tools:src="@drawable/default_header"/>
+	
+	<EditText
+		android:id="@+id/et_afc2_nick_name"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="22dp"
+		android:layout_marginStart="75dp"
+		android:layout_marginEnd="75dp"
+		android:layout_below="@id/iv_afc2_head"
+		android:paddingTop="18dp"
+		android:paddingBottom="16dp"
+		android:background="@null"
+		android:cursorVisible="true"
+		android:gravity="center"
+		android:inputType="phone"
+		android:maxLength="11"
+		android:textColor="@color/text_color_1"
+		android:textColorHint="@color/text_color_ee"
+		android:textCursorDrawable="@drawable/bg_edit_cursor"
+		android:textSize="@dimen/text_size_title_2"/>
+	
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:layout_marginStart="75dp"
+		android:layout_marginEnd="75dp"
+		android:layout_below="@+id/et_afc2_nick_name"
+		android:background="@color/text_color_2"/>
+	
+	<TextView
+		android:id="@+id/tv_afc2_start"
+		android:textStyle="bold"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="72dp"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:enabled="false"
+		android:text="开始创作"
+		android:textColor="@color/color_text_enable_blue"
+		android:textSize="@dimen/text_size_title_1"/>
 
 </android.support.percent.PercentRelativeLayout>

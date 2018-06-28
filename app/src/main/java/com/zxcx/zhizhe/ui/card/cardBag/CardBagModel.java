@@ -9,11 +9,12 @@ import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.mvpBase.BaseModel;
 
 public class CardBagModel extends BaseModel<CardBagContract.Presenter> {
-    public CardBagModel(@NonNull CardBagContract.Presenter present) {
-        this.mPresenter = present;
-    }
 
-    public void getCardBagCardList(int id, int page, int pageSize){
+	public CardBagModel(@NonNull CardBagContract.Presenter present) {
+		this.mPresenter = present;
+	}
+
+	public void getCardBagCardList(int id, int page, int pageSize) {
         /*mDisposable = AppClient.getAPIService().getCardBagCardList(id,page,pageSize)
                 .compose(BaseRxJava.INSTANCE.io_main())
                 .compose(BaseRxJava.INSTANCE.handleArrayResult())
@@ -24,8 +25,8 @@ public class CardBagModel extends BaseModel<CardBagContract.Presenter> {
                     }
                 });
         addSubscription(mDisposable);*/
-    }
-    
+	}
+
 }
 
 

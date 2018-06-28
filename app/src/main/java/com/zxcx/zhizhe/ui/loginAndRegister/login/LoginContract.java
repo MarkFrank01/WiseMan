@@ -5,14 +5,18 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter;
 
 public interface LoginContract {
 
-    interface View extends GetView<LoginBean> {
-        void channelLoginSuccess(LoginBean bean);
-        void channelLoginNeedRegister();
-    }
+	interface View extends GetView<LoginBean> {
 
-    interface Presenter extends IGetPresenter<LoginBean> {
-        void channelLoginSuccess(LoginBean bean);
-        void channelLoginNeedRegister();
-    }
+		void channelLoginSuccess(LoginBean bean);
+
+		void channelLoginNeedRegister();
+	}
+
+	interface Presenter extends IGetPresenter<LoginBean> {
+
+		void channelLoginSuccess(LoginBean bean);
+
+		void channelLoginNeedRegister();
+	}
 }
 

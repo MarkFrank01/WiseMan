@@ -1,149 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/ll_dialog_share"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_dialog"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="57dp">
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <ImageView
-            android:id="@+id/iv_dialog_share_wechat"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wechat"
-            android:padding="10dp"
-            android:layout_width="57dp"
-            android:layout_height="57dp"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <ImageView
-            android:id="@+id/iv_dialog_share_moments"
-            android:scaleType="centerCrop"
-            android:src="@drawable/moments"
-            android:padding="10dp"
-            android:layout_width="57dp"
-            android:layout_height="57dp"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <ImageView
-            android:id="@+id/iv_dialog_share_qq"
-            android:scaleType="centerCrop"
-            android:src="@drawable/qq"
-            android:padding="10dp"
-            android:layout_width="57dp"
-            android:layout_height="57dp"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-        <ImageView
-            android:id="@+id/iv_dialog_share_weibo"
-            android:scaleType="centerCrop"
-            android:src="@drawable/weibo"
-            android:padding="10dp"
-            android:layout_width="57dp"
-            android:layout_height="57dp"/>
-
-        <View
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
-    <com.zxcx.zhizhe.widget.RoundedFrameLayout
-        android:layout_above="@id/ll_dialog_share"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ScrollView
-            android:id="@+id/sv_dialog_share"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:background="@drawable/bg_dialog"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RelativeLayout
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_dialog_share_title"
-                        android:layout_marginTop="25dp"
-                        tools:text="动圈和铁圈耳机的区别"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/text_size_title_2"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardTitle"/>
-
-                    <TextView
-                        android:id="@+id/tv_dialog_share_info"
-                        tools:text="@string/tv_item_card_note_info"
-                        android:textColor="@color/text_color_3"
-                        android:textSize="@dimen/text_size_text_3"
-                        android:layout_marginTop="12dp"
-                        android:layout_below="@id/tv_dialog_share_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardInfo"/>
-
-                </RelativeLayout>
-
-                <FrameLayout
-                    android:id="@+id/fl_dialog_share"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:layout_height="0dp">
-                </FrameLayout>
-
-                <ImageView
-                    android:id="@+id/iv_dialog_share_qr"
-                    android:src="@drawable/iv_dialog_share_note_qr"
-                    android:scaleType="centerCrop"
-                    android:layout_width="match_parent"
-                    android:layout_height="165dp"/>
-            </LinearLayout>
-        </ScrollView>
-    </com.zxcx.zhizhe.widget.RoundedFrameLayout>
-
-    <ImageView
-        android:id="@+id/iv_dialog_share_back"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/iv_common_close"
-        android:padding="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	
+	<LinearLayout
+		android:id="@+id/ll_dialog_share"
+		android:layout_width="match_parent"
+		android:layout_height="57dp"
+		android:layout_marginTop="10dp"
+		android:layout_alignParentBottom="true"
+		android:background="@drawable/bg_dialog"
+		android:gravity="center">
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+		
+		<ImageView
+			android:id="@+id/iv_dialog_share_wechat"
+			android:layout_width="57dp"
+			android:layout_height="57dp"
+			android:padding="10dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/wechat"/>
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+		
+		<ImageView
+			android:id="@+id/iv_dialog_share_moments"
+			android:layout_width="57dp"
+			android:layout_height="57dp"
+			android:padding="10dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/moments"/>
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+		
+		<ImageView
+			android:id="@+id/iv_dialog_share_qq"
+			android:layout_width="57dp"
+			android:layout_height="57dp"
+			android:padding="10dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/qq"/>
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+		
+		<ImageView
+			android:id="@+id/iv_dialog_share_weibo"
+			android:layout_width="57dp"
+			android:layout_height="57dp"
+			android:padding="10dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/weibo"/>
+		
+		<View
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+	
+	</LinearLayout>
+	
+	<com.zxcx.zhizhe.widget.RoundedFrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@id/ll_dialog_share">
+		
+		<ScrollView
+			android:id="@+id/sv_dialog_share"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="@drawable/bg_dialog"
+				android:orientation="vertical">
+				
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingEnd="20dp"
+					android:paddingLeft="20dp">
+					
+					<TextView
+						android:id="@+id/tv_dialog_share_title"
+						android:textStyle="bold"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="25dp"
+						android:ellipsize="end"
+						android:maxLines="2"
+						android:textColor="@color/text_color_1"
+						android:textSize="@dimen/text_size_title_2"
+						android:transitionName="cardTitle"
+						tools:text="动圈和铁圈耳机的区别"/>
+					
+					<TextView
+						android:id="@+id/tv_dialog_share_info"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="12dp"
+						android:layout_below="@id/tv_dialog_share_title"
+						android:textColor="@color/text_color_3"
+						android:textSize="@dimen/text_size_text_3"
+						android:transitionName="cardInfo"
+						tools:text="@string/tv_item_card_note_info"/>
+				
+				</RelativeLayout>
+				
+				<FrameLayout
+					android:id="@+id/fl_dialog_share"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1">
+				</FrameLayout>
+				
+				<ImageView
+					android:id="@+id/iv_dialog_share_qr"
+					android:layout_width="match_parent"
+					android:layout_height="165dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/iv_dialog_share_note_qr"/>
+			</LinearLayout>
+		</ScrollView>
+	</com.zxcx.zhizhe.widget.RoundedFrameLayout>
+	
+	<ImageView
+		android:id="@+id/iv_dialog_share_back"
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:layout_marginTop="10dp"
+		android:layout_marginEnd="10dp"
+		android:layout_alignParentEnd="true"
+		android:padding="10dp"
+		android:src="@drawable/iv_common_close"/>
 </RelativeLayout>

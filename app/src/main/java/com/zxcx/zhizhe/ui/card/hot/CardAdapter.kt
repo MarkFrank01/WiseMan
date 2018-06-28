@@ -12,25 +12,25 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
  * Created by anm on 2017/6/26.
  */
 
-class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_card,data) {
+class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_card, data) {
 
-    override fun convert(helper: BaseViewHolder, item: CardBean) {
-        val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
-        val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
-        ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
+	override fun convert(helper: BaseViewHolder, item: CardBean) {
+		val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
+		val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
+		ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
-        helper.setText(R.id.tv_item_card_title, item.name)
-        helper.setText(R.id.tv_item_card_category, item.cardCategoryName)
-        helper.setText(R.id.tv_item_card_label, item.cardLabelName)
-        helper.setText(R.id.tv_item_card_read, item.readNum.toString())
-        helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
+		helper.setText(R.id.tv_item_card_title, item.name)
+		helper.setText(R.id.tv_item_card_category, item.cardCategoryName)
+		helper.setText(R.id.tv_item_card_label, item.cardLabelName)
+		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
+		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
-        imageView.transitionName = mContext.getString(R.string.card_img_transition_name,helper.adapterPosition)
-        helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
-                R.string.card_title_transition_name,helper.adapterPosition)
-        helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
-                R.string.card_category_transition_name,helper.adapterPosition)
-        helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
-                R.string.card_label_transition_name,helper.adapterPosition)
-    }
+		imageView.transitionName = mContext.getString(R.string.card_img_transition_name, helper.adapterPosition)
+		helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
+				R.string.card_title_transition_name, helper.adapterPosition)
+		helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
+				R.string.card_category_transition_name, helper.adapterPosition)
+		helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
+				R.string.card_label_transition_name, helper.adapterPosition)
+	}
 }

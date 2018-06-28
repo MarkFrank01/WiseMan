@@ -10,76 +10,77 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
 
 public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presenter> {
-    public RejectDetailsModel(@NonNull RejectDetailsContract.Presenter present) {
-        this.mPresenter = present;
-    }
 
-    public void getRejectDetails(int RejectId){
-        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,2)
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .compose(BaseRxJava.INSTANCE.handleResult())
-                .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(RejectDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public RejectDetailsModel(@NonNull RejectDetailsContract.Presenter present) {
+		this.mPresenter = present;
+	}
 
-    public void getReviewDetails(int RejectId){
-        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,1)
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .compose(BaseRxJava.INSTANCE.handleResult())
-                .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(RejectDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void getRejectDetails(int RejectId) {
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 2)
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(RejectDetailsBean bean) {
+					mPresenter.getDataSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void getDraftDetails(int RejectId){
-        mDisposable = AppClient.getAPIService().getRejectDetails(RejectId,3)
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .compose(BaseRxJava.INSTANCE.handleResult())
-                .subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
-                    @Override
-                    public void onNext(RejectDetailsBean bean) {
-                        mPresenter.getDataSuccess(bean);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void getReviewDetails(int RejectId) {
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 1)
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(RejectDetailsBean bean) {
+					mPresenter.getDataSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-    public void submitReview(int noteId) {
-        mDisposable = AppClient.getAPIService().saveFreeNode(noteId,null,null, null,null,1)
-                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
-                .compose(BaseRxJava.INSTANCE.handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+	public void getDraftDetails(int RejectId) {
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 3)
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+				@Override
+				public void onNext(RejectDetailsBean bean) {
+					mPresenter.getDataSuccess(bean);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.postSuccess();
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void submitReview(int noteId) {
+		mDisposable = AppClient.getAPIService().saveFreeNode(noteId, null, null, null, null, 1)
+			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
+			.compose(BaseRxJava.INSTANCE.handlePostResult())
+			.subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
 
-    public void deleteCard(int cardId) {
-        mDisposable = AppClient.getAPIService().deleteCard(cardId)
-                .compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
-                .compose(BaseRxJava.INSTANCE.handlePostResult())
-                .subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+				@Override
+				public void onNext(BaseBean bean) {
+					mPresenter.postSuccess();
+				}
+			});
+		addSubscription(mDisposable);
+	}
 
-                    @Override
-                    public void onNext(BaseBean bean) {
-                        mPresenter.postSuccess();
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void deleteCard(int cardId) {
+		mDisposable = AppClient.getAPIService().deleteCard(cardId)
+			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
+			.compose(BaseRxJava.INSTANCE.handlePostResult())
+			.subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {
+
+				@Override
+				public void onNext(BaseBean bean) {
+					mPresenter.postSuccess();
+				}
+			});
+		addSubscription(mDisposable);
+	}
 }
 
 

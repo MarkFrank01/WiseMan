@@ -5,12 +5,12 @@ import com.zxcx.zhizhe.mvpBase.NullGetPostView;
 
 public interface RejectDetailsContract {
 
-    interface View extends NullGetPostView<RejectDetailsBean> {
+	interface View extends NullGetPostView<RejectDetailsBean> {
 
-    }
+	}
 
-    interface Presenter extends INullGetPostPresenter<RejectDetailsBean> {
+	interface Presenter extends INullGetPostPresenter<RejectDetailsBean> {
 
-    }
+	}
 }
 

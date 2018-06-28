@@ -7,31 +7,30 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
  * Created by anm on 2017/12/19.
  */
 
-public class MessageModeBean extends RetrofitBaen{
+public class MessageModeBean extends RetrofitBaen {
 
-    /**
-     * dynamicMessageSetting : true
-     * systemMessageSetting : true
-     */
+	/**
+	 * dynamicMessageSetting : true systemMessageSetting : true
+	 */
 
-    @SerializedName("dynamicMessageSetting")
-    private boolean dynamicMessageSetting;
-    @SerializedName("systemMessageSetting")
-    private boolean systemMessageSetting;
+	@SerializedName("dynamicMessageSetting")
+	private boolean dynamicMessageSetting;
+	@SerializedName("systemMessageSetting")
+	private boolean systemMessageSetting;
 
-    public boolean isDynamicMessageSetting() {
-        return dynamicMessageSetting;
-    }
+	public boolean isDynamicMessageSetting() {
+		return dynamicMessageSetting;
+	}
 
-    public void setDynamicMessageSetting(boolean dynamicMessageSetting) {
-        this.dynamicMessageSetting = dynamicMessageSetting;
-    }
+	public void setDynamicMessageSetting(boolean dynamicMessageSetting) {
+		this.dynamicMessageSetting = dynamicMessageSetting;
+	}
 
-    public boolean isSystemMessageSetting() {
-        return systemMessageSetting;
-    }
+	public boolean isSystemMessageSetting() {
+		return systemMessageSetting;
+	}
 
-    public void setSystemMessageSetting(boolean systemMessageSetting) {
-        this.systemMessageSetting = systemMessageSetting;
-    }
+	public void setSystemMessageSetting(boolean systemMessageSetting) {
+		this.systemMessageSetting = systemMessageSetting;
+	}
 }

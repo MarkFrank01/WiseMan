@@ -15,17 +15,17 @@ import com.zxcx.zhizhe.R;
  */
 
 public class StringUtils {
-
-    public static boolean isEmpty(String s){
-        if (s == null || s.isEmpty() || s.length() == 0 || "".equals(s)){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public static String getString(@StringRes int id){
-        return App.getContext().getString(id);
-    }
-
+	
+	public static boolean isEmpty(String s) {
+		if (s == null || s.isEmpty() || s.length() == 0 || "".equals(s)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static String getString(@StringRes int id) {
+		return App.getContext().getString(id);
+	}
+	
 }

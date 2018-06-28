@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_final"
-    tools:context="com.zxcx.zhizhe.ui.welcome.WelcomeActivity">
-
-    <ImageView
-        android:id="@+id/iv_welcome_ad"
-        android:layout_above="@+id/iv_welcome_icon"
-        android:scaleType="centerCrop"
-        android:src="@drawable/iv_welcome_ad"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <com.zxcx.zhizhe.widget.WelcomeSkipView
-        android:id="@+id/wsv_welcome_skip"
-        android:visibility="gone"
-        android:text="跳过"
-        android:textSize="12sp"
-        android:textColor="#FFFFFF"
-        android:gravity="center"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_width="35dp"
-        android:layout_height="35dp"/>
-
-    <ImageView
-        android:id="@+id/iv_welcome_icon"
-        android:src="@drawable/iv_welcome_icon"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:layout_alignParentBottom="true"
-        app:layout_heightPercent="18%"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white_final"
+	tools:context="com.zxcx.zhizhe.ui.welcome.WelcomeActivity">
+	
+	<ImageView
+		android:id="@+id/iv_welcome_ad"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_above="@+id/iv_welcome_icon"
+		android:scaleType="centerCrop"
+		android:src="@drawable/iv_welcome_ad"/>
+	
+	<com.zxcx.zhizhe.widget.WelcomeSkipView
+		android:id="@+id/wsv_welcome_skip"
+		android:layout_width="35dp"
+		android:layout_height="35dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_alignParentRight="true"
+		android:gravity="center"
+		android:text="跳过"
+		android:textColor="#FFFFFF"
+		android:textSize="12sp"
+		android:visibility="gone"/>
+	
+	<ImageView
+		android:id="@+id/iv_welcome_icon"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_alignParentBottom="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/iv_welcome_icon"
+		app:layout_heightPercent="18%"/>
 
 </android.support.percent.PercentRelativeLayout>

@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background">
-
-    <android.support.design.widget.AppBarLayout
-        style="@style/Widget.Design.AppBarLayout.NoElevation"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="18dp"
-            android:text="创作"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/text_size_title_1"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll"/>
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tl_creation"
-            android:layout_gravity="center_horizontal"
-            app:tabIndicatorColor="@color/translate"
-            app:tabSelectedTextColor="@color/translate"
-            app:tabBackground="@color/translate"
-            app:tabMode="fixed"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <FrameLayout
-        android:id="@+id/fl_creation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </FrameLayout>
-
-    <ImageView
-        android:id="@+id/iv_common_close"
-        android:layout_gravity="end"
-        android:src="@drawable/iv_common_close"
-        android:layout_marginEnd="10dp"
-        android:padding="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <ImageView
-        android:id="@+id/iv_add_new"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="25dp"
-        android:src="@drawable/iv_add_new"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	android:orientation="vertical">
+	
+	<android.support.design.widget.AppBarLayout
+		style="@style/Widget.Design.AppBarLayout.NoElevation"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/white">
+		
+		<TextView
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="40dp"
+			android:layout_marginBottom="18dp"
+			android:layout_marginStart="20dp"
+			android:text="创作"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_title_1"
+			app:layout_scrollFlags="scroll"/>
+		
+		<android.support.design.widget.TabLayout
+			android:id="@+id/tl_creation"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:layout_gravity="center_horizontal"
+			app:tabBackground="@color/translate"
+			app:tabIndicatorColor="@color/translate"
+			app:tabMode="fixed"
+			app:tabSelectedTextColor="@color/translate"/>
+	
+	</android.support.design.widget.AppBarLayout>
+	
+	<FrameLayout
+		android:id="@+id/fl_creation"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior">
+	
+	</FrameLayout>
+	
+	<ImageView
+		android:id="@+id/iv_common_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="10dp"
+		android:layout_gravity="end"
+		android:padding="10dp"
+		android:src="@drawable/iv_common_close"/>
+	
+	<ImageView
+		android:id="@+id/iv_add_new"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="25dp"
+		android:layout_marginEnd="25dp"
+		android:layout_gravity="end|bottom"
+		android:src="@drawable/iv_add_new"/>
 
 </android.support.design.widget.CoordinatorLayout>

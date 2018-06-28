@@ -22,4 +22,4 @@ data class MyTabBean(
 		@SerializedName("noteCount") var noteCount: Int,
 		@SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int,
 		@SerializedName("writerStatus") var writerStatus: Int
-): RetrofitBaen()
+) : RetrofitBaen()

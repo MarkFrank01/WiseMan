@@ -15,31 +15,31 @@ import android.widget.EditText
 /**
  * Created by anm on 2018/2/26.
  */
-fun <T> Context?.startActivity(clazz: Class<T>, action: (intent: Intent) -> Unit){
-    if (this == null) {
-        return
-    }
-    val intent = Intent(this, clazz)
-    action(intent)
-    this.startActivity(intent)
+fun <T> Context?.startActivity(clazz: Class<T>, action: (intent: Intent) -> Unit) {
+	if (this == null) {
+		return
+	}
+	val intent = Intent(this, clazz)
+	action(intent)
+	this.startActivity(intent)
 }
 
-fun Context.getColorForKotlin(@ColorRes resId: Int): Int{
-    return ContextCompat.getColor(this,resId)
+fun Context.getColorForKotlin(@ColorRes resId: Int): Int {
+	return ContextCompat.getColor(this, resId)
 }
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
+	this.addTextChangedListener(object : TextWatcher {
+		override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+		}
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
+		override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+		}
 
-        override fun afterTextChanged(editable: Editable?) {
-            afterTextChanged.invoke(editable.toString())
-        }
-    })
+		override fun afterTextChanged(editable: Editable?) {
+			afterTextChanged.invoke(editable.toString())
+		}
+	})
 }
 
 /**
@@ -53,22 +53,22 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
  */
 fun View.expandViewTouchDelegate(top: Int, bottom: Int, left: Int, right: Int) {
 
-    (this.parent as View).post {
-        val bounds = Rect()
-        this.isEnabled = true
-        this.getHitRect(bounds)
+	(this.parent as View).post {
+		val bounds = Rect()
+		this.isEnabled = true
+		this.getHitRect(bounds)
 
-        bounds.top -= top
-        bounds.bottom += bottom
-        bounds.left -= left
-        bounds.right += right
+		bounds.top -= top
+		bounds.bottom += bottom
+		bounds.left -= left
+		bounds.right += right
 
-        val touchDelegate = TouchDelegate(bounds, this)
+		val touchDelegate = TouchDelegate(bounds, this)
 
-        if (View::class.java.isInstance(this.parent)) {
-            (this.parent as View).touchDelegate = touchDelegate
-        }
-    }
+		if (View::class.java.isInstance(this.parent)) {
+			(this.parent as View).touchDelegate = touchDelegate
+		}
+	}
 }
 
 /**
@@ -77,24 +77,24 @@ fun View.expandViewTouchDelegate(top: Int, bottom: Int, left: Int, right: Int) {
  * @param view
  * @param size
  */
-fun View.expandViewTouchDelegate( size: Int) {
+fun View.expandViewTouchDelegate(size: Int) {
 
-    (this.parent as View).post {
-        val bounds = Rect()
-        this.isEnabled = true
-        this.getHitRect(bounds)
+	(this.parent as View).post {
+		val bounds = Rect()
+		this.isEnabled = true
+		this.getHitRect(bounds)
 
-        bounds.top -= top
-        bounds.bottom += bottom
-        bounds.left -= left
-        bounds.right += right
+		bounds.top -= top
+		bounds.bottom += bottom
+		bounds.left -= left
+		bounds.right += right
 
-        val touchDelegate = TouchDelegate(bounds, this)
+		val touchDelegate = TouchDelegate(bounds, this)
 
-        if (View::class.java.isInstance(this.parent)) {
-            (this.parent as View).touchDelegate = touchDelegate
-        }
-    }
+		if (View::class.java.isInstance(this.parent)) {
+			(this.parent as View).touchDelegate = touchDelegate
+		}
+	}
 }
 
 /**
@@ -104,13 +104,13 @@ fun View.expandViewTouchDelegate( size: Int) {
  */
 fun View.restoreViewTouchDelegate() {
 
-    (this.parent as View).post {
-        val bounds = Rect()
-        bounds.setEmpty()
-        val touchDelegate = TouchDelegate(bounds, this)
+	(this.parent as View).post {
+		val bounds = Rect()
+		bounds.setEmpty()
+		val touchDelegate = TouchDelegate(bounds, this)
 
-        if (View::class.java.isInstance(this.parent)) {
-            (this.parent as View).touchDelegate = touchDelegate
-        }
-    }
+		if (View::class.java.isInstance(this.parent)) {
+			(this.parent as View).touchDelegate = touchDelegate
+		}
+	}
 }

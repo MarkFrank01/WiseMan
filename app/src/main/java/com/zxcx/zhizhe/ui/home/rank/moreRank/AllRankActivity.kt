@@ -20,88 +20,88 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_all_rank.*
 
 class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
-        BaseQuickAdapter.RequestLoadMoreListener{
+		BaseQuickAdapter.RequestLoadMoreListener {
 
-    private lateinit var mAdapter : RankAdapter
-    private var page: Int = 0
+	private lateinit var mAdapter: RankAdapter
+	private var page: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_rank)
-        initRecyclerView()
-        loadService = LoadSir.getDefault().register(this, this)
-        onRefresh()
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_all_rank)
+		initRecyclerView()
+		loadService = LoadSir.getDefault().register(this, this)
+		onRefresh()
+	}
 
-    override fun createPresenter(): RankPresenter {
-        return RankPresenter(this)
-    }
+	override fun createPresenter(): RankPresenter {
+		return RankPresenter(this)
+	}
 
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        onRefresh()
-    }
+	override fun onRefresh(refreshLayout: RefreshLayout?) {
+		onRefresh()
+	}
 
-    override fun onReload(v: View?) {
-        onRefresh()
-    }
+	override fun onReload(v: View?) {
+		onRefresh()
+	}
 
-    private fun onRefresh(){
-        page = 0
-        mPresenter.getTopHundredRank(page,Constants.PAGE_SIZE)
-    }
+	private fun onRefresh() {
+		page = 0
+		mPresenter.getTopHundredRank(page, Constants.PAGE_SIZE)
+	}
 
-    override fun onLoadMoreRequested() {
-        mPresenter.getTopHundredRank(page,Constants.PAGE_SIZE)
-    }
+	override fun onLoadMoreRequested() {
+		mPresenter.getTopHundredRank(page, Constants.PAGE_SIZE)
+	}
 
-    override fun getDataSuccess(list: List<UserRankBean>) {
-        loadService.showSuccess()
-        mRefreshLayout.finishRefresh()
-        if (page == 0) {
-            mAdapter.setNewData(list)
-        } else {
-            mAdapter.addData(list)
-        }
-        page++
-        if (list.size < Constants.PAGE_SIZE) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
-    }
+	override fun getDataSuccess(list: List<UserRankBean>) {
+		loadService.showSuccess()
+		mRefreshLayout.finishRefresh()
+		if (page == 0) {
+			mAdapter.setNewData(list)
+		} else {
+			mAdapter.addData(list)
+		}
+		page++
+		if (list.size < Constants.PAGE_SIZE) {
+			mAdapter.loadMoreEnd(false)
+		} else {
+			mAdapter.loadMoreComplete()
+			mAdapter.setEnableLoadMore(false)
+			mAdapter.setEnableLoadMore(true)
+		}
+	}
 
-    override fun toastFail(msg: String?) {
-        if (page == 0){
-            loadService.showCallback(NetworkErrorCallback::class.java)
-        }
-        super.toastFail(msg)
-    }
+	override fun toastFail(msg: String?) {
+		if (page == 0) {
+			loadService.showCallback(NetworkErrorCallback::class.java)
+		}
+		super.toastFail(msg)
+	}
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as UserRankBean
-        val intent = Intent(mActivity, OtherUserActivity::class.java)
-        intent.putExtra("id", bean.id)
-        intent.putExtra("name", bean.name)
-        startActivity(intent)
-    }
+	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+		val bean = adapter.data[position] as UserRankBean
+		val intent = Intent(mActivity, OtherUserActivity::class.java)
+		intent.putExtra("id", bean.id)
+		intent.putExtra("name", bean.name)
+		startActivity(intent)
+	}
 
-    private fun initRecyclerView() {
-        mAdapter = RankAdapter(ArrayList())
-        mAdapter.onItemClickListener = this
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this, rv_rank_user)
-        val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-        title.findViewById<TextView>(R.id.tv_header_title).text = "本周智者榜单"
-        mAdapter.addHeaderView(title)
-        rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
-        rv_rank_user.adapter = mAdapter
-    }
+	private fun initRecyclerView() {
+		mAdapter = RankAdapter(ArrayList())
+		mAdapter.onItemClickListener = this
+		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setOnLoadMoreListener(this, rv_rank_user)
+		val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
+		title.findViewById<TextView>(R.id.tv_header_title).text = "本周智者榜单"
+		mAdapter.addHeaderView(title)
+		rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+		rv_rank_user.adapter = mAdapter
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
-    }
+	override fun setListener() {
+		iv_common_close.setOnClickListener {
+			onBackPressed()
+		}
+	}
 }

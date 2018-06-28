@@ -5,8 +5,8 @@ import com.zxcx.zhizhe.mvpBase.NullGetPostView
 
 interface NoteContract {
 
-    interface View : NullGetPostView<List<NoteBean>>
+	interface View : NullGetPostView<List<NoteBean>>
 
-    interface Presenter : INullGetPostPresenter<List<NoteBean>>
+	interface Presenter : INullGetPostPresenter<List<NoteBean>>
 }
 

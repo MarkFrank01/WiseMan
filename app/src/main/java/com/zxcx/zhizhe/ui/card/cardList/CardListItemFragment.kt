@@ -33,125 +33,125 @@ import org.greenrobot.eventbus.ThreadMode
 
 private const val ARG_ID = "categoryId"
 
-class CardListItemFragment : BaseFragment() , IGetPresenter<MutableList<CardBean>>,
-        BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,
-        OnRefreshListener{
+class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>>,
+		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
+		OnRefreshListener {
 
-    private lateinit var mAdapter: CardAdapter
-    private var mPage = 0
+	private lateinit var mAdapter: CardAdapter
+	private var mPage = 0
 
-    companion object {
-        @JvmStatic
-        fun newInstance(id: Int) =
-                CardListItemFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_ID, id)
-                    }
-                }
-    }
+	companion object {
+		@JvmStatic
+		fun newInstance(id: Int) =
+				CardListItemFragment().apply {
+					arguments = Bundle().apply {
+						putInt(ARG_ID, id)
+					}
+				}
+	}
 
-    private var categoryId: Int = 0
+	private var categoryId: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            categoryId = it.getInt(ARG_ID)
-        }
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		arguments?.let {
+			categoryId = it.getInt(ARG_ID)
+		}
+	}
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_card_list_item, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+	                          savedInstanceState: Bundle?): View? {
+		return inflater.inflate(R.layout.fragment_card_list_item, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initRecyclerView()
-        refresh_layout.setOnRefreshListener(this)
-        getCardListForCategory(categoryId,mPage)
-    }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		initRecyclerView()
+		refresh_layout.setOnRefreshListener(this)
+		getCardListForCategory(categoryId, mPage)
+	}
 
-    private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        mAdapter = CardAdapter(arrayListOf())
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
-        mAdapter.onItemClickListener = this
-        rv_card_list_item.layoutManager = layoutManager
-        rv_card_list_item.adapter = mAdapter
-    }
+	private fun initRecyclerView() {
+		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+		mAdapter = CardAdapter(arrayListOf())
+		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
+		mAdapter.onItemClickListener = this
+		rv_card_list_item.layoutManager = layoutManager
+		rv_card_list_item.adapter = mAdapter
+	}
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as CardBean
-        val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-        val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-        val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
-        val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
-        val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-                Pair.create(cardImg, cardImg.transitionName),
-                Pair.create(cardTitle, cardTitle.transitionName),
-                Pair.create(cardCategory, cardCategory.transitionName),
-                Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
-        val intent = Intent(mActivity, CardDetailsActivity::class.java)
-        intent.putExtra("list", mAdapter.data as ArrayList)
-        intent.putExtra("currentPosition", position)
-        intent.putExtra("sourceName",this::class.java.name)
-        mActivity.startActivity(intent, bundle)
-    }
+	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+		val bean = adapter.data[position] as CardBean
+		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+		val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+		val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+				Pair.create(cardImg, cardImg.transitionName),
+				Pair.create(cardTitle, cardTitle.transitionName),
+				Pair.create(cardCategory, cardCategory.transitionName),
+				Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
+		val intent = Intent(mActivity, CardDetailsActivity::class.java)
+		intent.putExtra("list", mAdapter.data as ArrayList)
+		intent.putExtra("currentPosition", position)
+		intent.putExtra("sourceName", this::class.java.name)
+		mActivity.startActivity(intent, bundle)
+	}
 
-    override fun onRefresh(refreshLayout: RefreshLayout?) {
-        mPage = 0
-        getCardListForCategory(categoryId,mPage)
-    }
+	override fun onRefresh(refreshLayout: RefreshLayout?) {
+		mPage = 0
+		getCardListForCategory(categoryId, mPage)
+	}
 
-    override fun onLoadMoreRequested() {
-        getCardListForCategory(categoryId,mPage)
-    }
+	override fun onLoadMoreRequested() {
+		getCardListForCategory(categoryId, mPage)
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UpdateCardListPositionEvent) {
-        if (this::class.java.name == event.sourceName) {
-            if (event.currentPosition == mAdapter.data.size-1) {
-                getCardListForCategory(categoryId,mPage)
-            }
-            rv_card_list_item.scrollToPosition(event.currentPosition)
-        }
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListPositionEvent) {
+		if (this::class.java.name == event.sourceName) {
+			if (event.currentPosition == mAdapter.data.size - 1) {
+				getCardListForCategory(categoryId, mPage)
+			}
+			rv_card_list_item.scrollToPosition(event.currentPosition)
+		}
+	}
 
-    override fun getDataSuccess(list: MutableList<CardBean>) {
-        if (mPage == 0) {
-            refresh_layout.finishRefresh()
-            mAdapter.setNewData(list)
-        } else {
-            mAdapter.addData(list)
-            val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
-            EventBus.getDefault().post(event)
-        }
-        mPage++
-        if (list.isEmpty()) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
-    }
+	override fun getDataSuccess(list: MutableList<CardBean>) {
+		if (mPage == 0) {
+			refresh_layout.finishRefresh()
+			mAdapter.setNewData(list)
+		} else {
+			mAdapter.addData(list)
+			val event = AddCardDetailsListEvent(this::class.java.name, list as ArrayList<CardBean>)
+			EventBus.getDefault().post(event)
+		}
+		mPage++
+		if (list.isEmpty()) {
+			mAdapter.loadMoreEnd(false)
+		} else {
+			mAdapter.loadMoreComplete()
+			mAdapter.setEnableLoadMore(false)
+			mAdapter.setEnableLoadMore(true)
+		}
+	}
 
-    override fun getDataFail(msg: String?) {
-        refresh_layout.finishRefresh()
-        mAdapter.loadMoreFail()
-        toastFail(msg)
-    }
+	override fun getDataFail(msg: String?) {
+		refresh_layout.finishRefresh()
+		mAdapter.loadMoreFail()
+		toastFail(msg)
+	}
 
-    private fun getCardListForCategory(cardCategoryId: Int, page: Int) {
-        mDisposable = AppClient.getAPIService().getCardListForCategory(cardCategoryId, page,Constants.PAGE_SIZE)
-                .compose(BaseRxJava.handleArrayResult())
-                .compose(BaseRxJava.io_main())
-                .subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(this) {
-                    override fun onNext(t: MutableList<CardBean>) {
-                        getDataSuccess(t)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	private fun getCardListForCategory(cardCategoryId: Int, page: Int) {
+		mDisposable = AppClient.getAPIService().getCardListForCategory(cardCategoryId, page, Constants.PAGE_SIZE)
+				.compose(BaseRxJava.handleArrayResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(this) {
+					override fun onNext(t: MutableList<CardBean>) {
+						getDataSuccess(t)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 }

@@ -14,21 +14,21 @@ import java.util.List;
  * Created by anm on 2017/11/30.
  */
 
-public class SearchPreAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class SearchPreAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    private String mKeyword;
+	private String mKeyword;
 
-    public SearchPreAdapter(@Nullable List<String> data) {
-        super(R.layout.item_search_pre,data);
-    }
+	public SearchPreAdapter(@Nullable List<String> data) {
+		super(R.layout.item_search_pre, data);
+	}
 
-    public void setKeyword(String keyword) {
-        mKeyword = keyword;
-    }
+	public void setKeyword(String keyword) {
+		mKeyword = keyword;
+	}
 
-    @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        TextView textView = helper.getView(R.id.tv_item_search_pre);
-        TextViewUtils.setTextViewColorBlack(textView,mKeyword,item);
-    }
+	@Override
+	protected void convert(BaseViewHolder helper, String item) {
+		TextView textView = helper.getView(R.id.tv_item_search_pre);
+		TextViewUtils.setTextViewColorBlack(textView, mKeyword, item);
+	}
 }

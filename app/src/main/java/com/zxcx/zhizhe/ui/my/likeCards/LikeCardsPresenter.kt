@@ -5,60 +5,60 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class LikeCardsPresenter(view: LikeCardsContract.View) : BasePresenter<LikeCardsContract.View>(), LikeCardsContract.Presenter {
 
-    private val mModel: LikeCardsModel
+	private val mModel: LikeCardsModel
 
-    init {
-        attachView(view)
-        mModel = LikeCardsModel(this)
-    }
+	init {
+		attachView(view)
+		mModel = LikeCardsModel(this)
+	}
 
-    fun getEmptyRecommendCard() {
-        mModel.getEmptyRecommendCard()
-    }
+	fun getEmptyRecommendCard() {
+		mModel.getEmptyRecommendCard()
+	}
 
-    fun getLikeCard(page: Int, pageSize: Int) {
-        mModel.getLikeCard(page, pageSize)
-    }
+	fun getLikeCard(page: Int, pageSize: Int) {
+		mModel.getLikeCard(page, pageSize)
+	}
 
-    fun deleteLikeCard(cardId: Int) {
-        mModel.deleteLikeCard(cardId)
-    }
+	fun deleteLikeCard(cardId: Int) {
+		mModel.deleteLikeCard(cardId)
+	}
 
-    override fun getEmptyRecommendCardSuccess(bean: CardBean) {
-        mView.getEmptyRecommendCardSuccess(bean)
-    }
+	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
+		mView.getEmptyRecommendCardSuccess(bean)
+	}
 
-    override fun getDataSuccess(list: List<MyCardsBean>) {
-        mView.getDataSuccess(list)
-    }
+	override fun getDataSuccess(list: List<MyCardsBean>) {
+		mView.getDataSuccess(list)
+	}
 
-    override fun getDataFail(msg: String) {
-        mView.toastFail(msg)
-    }
+	override fun getDataFail(msg: String) {
+		mView.toastFail(msg)
+	}
 
-    override fun postSuccess() {
-        mView.postSuccess()
-    }
+	override fun postSuccess() {
+		mView.postSuccess()
+	}
 
-    override fun postFail(msg: String?) {
-        mView.postFail(msg)
-    }
+	override fun postFail(msg: String?) {
+		mView.postFail(msg)
+	}
 
-    override fun showLoading() {
-        mView.showLoading()
-    }
+	override fun showLoading() {
+		mView.showLoading()
+	}
 
-    override fun hideLoading() {
-        mView.hideLoading()
-    }
+	override fun hideLoading() {
+		mView.hideLoading()
+	}
 
-    override fun startLogin() {
-        mView.startLogin()
-    }
+	override fun startLogin() {
+		mView.startLogin()
+	}
 
-    override fun detachView() {
-        super.detachView()
-        mModel.onDestroy()
-    }
+	override fun detachView() {
+		super.detachView()
+		mModel.onDestroy()
+	}
 }
 

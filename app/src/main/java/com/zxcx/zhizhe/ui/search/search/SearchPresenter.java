@@ -6,36 +6,37 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter;
 
 import java.util.List;
 
-public class SearchPresenter extends BasePresenter<SearchContract.View> implements SearchContract.Presenter {
+public class SearchPresenter extends BasePresenter<SearchContract.View> implements
+	SearchContract.Presenter {
 
-    private final SearchModel mModel;
+	private final SearchModel mModel;
 
-    public SearchPresenter(@NonNull SearchContract.View view) {
-        attachView(view);
-        mModel = new SearchModel(this);
-    }
+	public SearchPresenter(@NonNull SearchContract.View view) {
+		attachView(view);
+		mModel = new SearchModel(this);
+	}
 
-    public void getSearchBean(){
-        mModel.getSearchBean();
-    }
+	public void getSearchBean() {
+		mModel.getSearchBean();
+	}
 
-    public void deleteAllSearchHistory(){
-        mModel.deleteAllSearchHistory();
-    }
+	public void deleteAllSearchHistory() {
+		mModel.deleteAllSearchHistory();
+	}
 
-    public void getSearchPre(String keyword){
-        mModel.getSearchPre(keyword);
-    }
+	public void getSearchPre(String keyword) {
+		mModel.getSearchPre(keyword);
+	}
 
-    @Override
-    public void getDataSuccess(SearchBean bean) {
-        mView.getDataSuccess(bean);
-    }
+	@Override
+	public void getDataSuccess(SearchBean bean) {
+		mView.getDataSuccess(bean);
+	}
 
-    @Override
-    public void getSearchPreSuccess(List<String> list) {
-        mView.getSearchPreSuccess(list);
-    }
+	@Override
+	public void getSearchPreSuccess(List<String> list) {
+		mView.getSearchPreSuccess(list);
+	}
 
 	@Override
 	public void deleteHistorySuccess() {
@@ -43,28 +44,28 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 	}
 
 	@Override
-    public void getDataFail(String msg) {
-        mView.toastFail(msg);
-    }
+	public void getDataFail(String msg) {
+		mView.toastFail(msg);
+	}
 
-    @Override
-    public void showLoading() {
-        mView.showLoading();
-    }
+	@Override
+	public void showLoading() {
+		mView.showLoading();
+	}
 
-    @Override
-    public void hideLoading() {
-        mView.hideLoading();
-    }
+	@Override
+	public void hideLoading() {
+		mView.hideLoading();
+	}
 
-    @Override
-    public void startLogin() {
-        mView.startLogin();
-    }
+	@Override
+	public void startLogin() {
+		mView.startLogin();
+	}
 
-    public void detachView() {
-        super.detachView();
-        mModel.onDestroy();
-    }
+	public void detachView() {
+		super.detachView();
+		mModel.onDestroy();
+	}
 }
 

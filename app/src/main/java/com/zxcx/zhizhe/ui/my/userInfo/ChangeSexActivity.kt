@@ -19,48 +19,48 @@ import kotlinx.android.synthetic.main.activity_change_sex.*
 
 class ChangeSexActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 
-    private var sex: Int = 0
+	private var sex: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_sex)
-        ButterKnife.bind(this)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_change_sex)
+		ButterKnife.bind(this)
 
-        sex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1)
-        rb_change_sex_man.isChecked = sex == 1
-        rb_change_sex_woman.isChecked = sex == 0
-    }
+		sex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1)
+		rb_change_sex_man.isChecked = sex == 1
+		rb_change_sex_woman.isChecked = sex == 0
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
+	override fun setListener() {
+		iv_common_close.setOnClickListener {
+			onBackPressed()
+		}
 
-        tv_change_sex_save.setOnClickListener {
-            sex = if (rb_change_sex_man.isChecked) 1 else 0
-            changeSex(sex)
-        }
-    }
+		tv_change_sex_save.setOnClickListener {
+			sex = if (rb_change_sex_man.isChecked) 1 else 0
+			changeSex(sex)
+		}
+	}
 
-    private fun changeSex(sex: Int) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, null, sex, null, null)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleResult())
-                .subscribeWith(object : PostSubscriber<UserInfoBean>(this) {
-                    override fun onNext(bean: UserInfoBean) {
-                        postSuccess(bean)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	private fun changeSex(sex: Int) {
+		mDisposable = AppClient.getAPIService().changeUserInfo(null, null, sex, null, null)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleResult())
+				.subscribeWith(object : PostSubscriber<UserInfoBean>(this) {
+					override fun onNext(bean: UserInfoBean) {
+						postSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    override fun postSuccess(bean: UserInfoBean) {
-        ZhiZheUtils.saveUserInfo(bean)
-        toastShow(R.string.user_info_change)
-        onBackPressed()
-    }
+	override fun postSuccess(bean: UserInfoBean) {
+		ZhiZheUtils.saveUserInfo(bean)
+		toastShow(R.string.user_info_change)
+		onBackPressed()
+	}
 
-    override fun postFail(msg: String) {
-        toastShow(msg)
-    }
+	override fun postFail(msg: String) {
+		toastShow(msg)
+	}
 }

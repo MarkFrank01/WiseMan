@@ -8,21 +8,21 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 
 class SearchCardModel(presenter: SearchCardContract.Presenter) : BaseModel<SearchCardContract.Presenter>() {
-    init {
-        this.mPresenter = presenter
-    }
+	init {
+		this.mPresenter = presenter
+	}
 
-    fun searchCard(keyword: String, cardType: Int, page: Int) {
-        mDisposable = AppClient.getAPIService().searchCard(keyword, cardType, page, Constants.PAGE_SIZE)
-                .compose(BaseRxJava.io_main())
-                .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(mPresenter) {
-                    override fun onNext(list: MutableList<CardBean>) {
-                        mPresenter?.getDataSuccess(list)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	fun searchCard(keyword: String, cardType: Int, page: Int) {
+		mDisposable = AppClient.getAPIService().searchCard(keyword, cardType, page, Constants.PAGE_SIZE)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(mPresenter) {
+					override fun onNext(list: MutableList<CardBean>) {
+						mPresenter?.getDataSuccess(list)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 }
 
 

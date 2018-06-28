@@ -1,126 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
-
-        <RelativeLayout
-            android:id="@+id/ll_dynamic_message_follow"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_item_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_title_1"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:text="关注"
-                android:textStyle="bold"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_follow"
-                android:layout_below="@id/tv_dynamic_message_title_1"
-                android:layout_margin="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="50dp"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/tv_dynamic_message_no_data"
-                android:textColor="@color/text_color_3"
-                android:textSize="@dimen/text_size_text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/ll_dynamic_message_like"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_item_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_title_2"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:text="点赞"
-                android:textStyle="bold"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_like"
-                android:layout_below="@id/tv_dynamic_message_title_2"
-                android:layout_margin="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="50dp"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/tv_dynamic_message_no_data"
-                android:textColor="@color/text_color_3"
-                android:textSize="@dimen/text_size_text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/ll_dynamic_message_collect"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:background="@drawable/bg_item_note"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_title_3"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"
-                android:text="收藏"
-                android:textStyle="bold"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/tv_dynamic_message_collect"
-                android:layout_below="@id/tv_dynamic_message_title_3"
-                android:layout_margin="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="50dp"
-                android:lineSpacingExtra="10dp"
-                android:text="@string/tv_dynamic_message_no_data"
-                android:textColor="@color/text_color_3"
-                android:textSize="@dimen/text_size_text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <include layout="@layout/iv_right_into"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	app:layout_behavior="@string/appbar_scrolling_view_behavior">
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingStart="20dp"
+		android:paddingEnd="20dp"
+		android:orientation="vertical">
+		
+		<RelativeLayout
+			android:id="@+id/ll_dynamic_message_follow"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:background="@drawable/bg_item_note"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_title_1"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginStart="20dp"
+				android:text="关注"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"/>
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_follow"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginEnd="50dp"
+				android:layout_below="@id/tv_dynamic_message_title_1"
+				android:lineSpacingExtra="10dp"
+				android:text="@string/tv_dynamic_message_no_data"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_2"/>
+			
+			<include layout="@layout/iv_right_into"/>
+		
+		</RelativeLayout>
+		
+		<RelativeLayout
+			android:id="@+id/ll_dynamic_message_like"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:background="@drawable/bg_item_note"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_title_2"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginStart="20dp"
+				android:text="点赞"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"/>
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_like"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginEnd="50dp"
+				android:layout_below="@id/tv_dynamic_message_title_2"
+				android:lineSpacingExtra="10dp"
+				android:text="@string/tv_dynamic_message_no_data"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_2"/>
+			
+			<include layout="@layout/iv_right_into"/>
+		
+		</RelativeLayout>
+		
+		<RelativeLayout
+			android:id="@+id/ll_dynamic_message_collect"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:background="@drawable/bg_item_note"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_title_3"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginStart="20dp"
+				android:text="收藏"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"/>
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_collect"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="20dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginEnd="50dp"
+				android:layout_below="@id/tv_dynamic_message_title_3"
+				android:lineSpacingExtra="10dp"
+				android:text="@string/tv_dynamic_message_no_data"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_2"/>
+			
+			<include layout="@layout/iv_right_into"/>
+		
+		</RelativeLayout>
+	
+	</LinearLayout>
 </android.support.v4.widget.NestedScrollView>

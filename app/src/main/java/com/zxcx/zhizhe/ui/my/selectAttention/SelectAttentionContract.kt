@@ -6,8 +6,8 @@ import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 interface SelectAttentionContract {
 
-    interface View : NullGetPostView<MutableList<ClassifyBean>>
+	interface View : NullGetPostView<MutableList<ClassifyBean>>
 
-    interface Presenter : INullGetPostPresenter<MutableList<ClassifyBean>>
+	interface Presenter : INullGetPostPresenter<MutableList<ClassifyBean>>
 }
 

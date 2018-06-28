@@ -12,86 +12,105 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
 public class ADBean extends RetrofitBaen implements Parcelable {
 
-    /**
-     * adNum : 0
-     * behavior : 点击跳转地址
-     * content : 图片地址
-     * createTime : 2017-09-25T09:18:25.424Z
-     * description : 广告标题
-     * id : 0
-     * platformType : 0
-     */
+	public static final Parcelable.Creator<ADBean> CREATOR = new Parcelable.Creator<ADBean>() {
+		@Override
+		public ADBean createFromParcel(Parcel source) {
+			return new ADBean(source);
+		}
 
-    @SerializedName("adNum")
-    private int adNum;
-    @SerializedName("behavior")
-    private String behavior;
-    @SerializedName("content")
-    private String content;
-    @SerializedName("createTime")
-    private String createTime;
-    @SerializedName("description")
-    private String description;
-    @SerializedName("id")
-    private int id;
-    @SerializedName("platformType")
-    private int platformType;
+		@Override
+		public ADBean[] newArray(int size) {
+			return new ADBean[size];
+		}
+	};
+	/**
+	 * adNum : 0 behavior : 点击跳转地址 content : 图片地址 createTime : 2017-09-25T09:18:25.424Z description
+	 * : 广告标题 id : 0 platformType : 0
+	 */
 
-    public int getAdNum() {
-        return adNum;
-    }
+	@SerializedName("adNum")
+	private int adNum;
+	@SerializedName("behavior")
+	private String behavior;
+	@SerializedName("content")
+	private String content;
+	@SerializedName("createTime")
+	private String createTime;
+	@SerializedName("description")
+	private String description;
+	@SerializedName("id")
+	private int id;
+	@SerializedName("platformType")
+	private int platformType;
 
-    public void setAdNum(int adNum) {
-        this.adNum = adNum;
-    }
+	public ADBean() {
+	}
 
-    public String getBehavior() {
-        return behavior;
-    }
+	protected ADBean(Parcel in) {
+		this.adNum = in.readInt();
+		this.behavior = in.readString();
+		this.content = in.readString();
+		this.createTime = in.readString();
+		this.description = in.readString();
+		this.id = in.readInt();
+		this.platformType = in.readInt();
+	}
 
-    public void setBehavior(String behavior) {
-        this.behavior = behavior;
-    }
+	public int getAdNum() {
+		return adNum;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public void setAdNum(int adNum) {
+		this.adNum = adNum;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getBehavior() {
+		return behavior;
+	}
 
-    public String getCreateTime() {
-        return createTime;
-    }
+	public void setBehavior(String behavior) {
+		this.behavior = behavior;
+	}
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getCreateTime() {
+		return createTime;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public int getPlatformType() {
-        return platformType;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setPlatformType(int platformType) {
-        this.platformType = platformType;
-    }
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getPlatformType() {
+		return platformType;
+	}
+
+	public void setPlatformType(int platformType) {
+		this.platformType = platformType;
+	}
 
 	@Override
 	public int describeContents() {
@@ -108,29 +127,4 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 		dest.writeInt(this.id);
 		dest.writeInt(this.platformType);
 	}
-
-	public ADBean() {
-	}
-
-	protected ADBean(Parcel in) {
-		this.adNum = in.readInt();
-		this.behavior = in.readString();
-		this.content = in.readString();
-		this.createTime = in.readString();
-		this.description = in.readString();
-		this.id = in.readInt();
-		this.platformType = in.readInt();
-	}
-
-	public static final Parcelable.Creator<ADBean> CREATOR = new Parcelable.Creator<ADBean>() {
-		@Override
-		public ADBean createFromParcel(Parcel source) {
-			return new ADBean(source);
-		}
-
-		@Override
-		public ADBean[] newArray(int size) {
-			return new ADBean[size];
-		}
-	};
 }

@@ -13,18 +13,21 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 public class ClassifyItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int bottomSpace = ScreenUtils.dip2px(15f);
+	private int bottomSpace = ScreenUtils.dip2px(15f);
 
-    public ClassifyItemDecoration() {
-        super();
-    }
+	public ClassifyItemDecoration() {
+		super();
+	}
 
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int pos = parent.getChildAdapterPosition(view);
-        int spanCount = ((GridLayoutManager)parent.getLayoutManager()).getSpanCount();
-        int childCount = parent.getAdapter().getItemCount();
-        if (pos >= childCount - 1)// 如果是最后一个，则需要绘制底部
-            outRect.bottom = bottomSpace;
-    }
+	@Override
+	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+		RecyclerView.State state) {
+		int pos = parent.getChildAdapterPosition(view);
+		int spanCount = ((GridLayoutManager) parent.getLayoutManager()).getSpanCount();
+		int childCount = parent.getAdapter().getItemCount();
+		if (pos >= childCount - 1)// 如果是最后一个，则需要绘制底部
+		{
+			outRect.bottom = bottomSpace;
+		}
+	}
 }

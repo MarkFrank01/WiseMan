@@ -24,94 +24,94 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * 申请创作
  */
-class ApplyForCreation2Activity : BaseActivity() ,INullGetPostPresenter<UserInfoBean>{
+class ApplyForCreation2Activity : BaseActivity(), INullGetPostPresenter<UserInfoBean> {
 
-    private val oldNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
+	private val oldNickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_apply_for_creation_2)
-        ButterKnife.bind(this)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_apply_for_creation_2)
+		ButterKnife.bind(this)
 
-        val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
-        ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_afc2_head)
-        et_afc2_nick_name.setText(oldNickName)
-    }
+		val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
+		ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_afc2_head)
+		et_afc2_nick_name.setText(oldNickName)
+	}
 
-    public override fun onDestroy() {
-        SMSSDK.unregisterAllEventHandler()
-        EventBus.getDefault().unregister(this)
-        super.onDestroy()
-    }
+	public override fun onDestroy() {
+		SMSSDK.unregisterAllEventHandler()
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
+	}
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: UserInfoChangeSuccessEvent) {
-        val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
-        ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_afc2_head)
-    }
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UserInfoChangeSuccessEvent) {
+		val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
+		ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_afc2_head)
+	}
 
-    private fun changeNickName(name: String) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(this))
-                .subscribeWith(object : BaseSubscriber<UserInfoBean>(this) {
-                    override fun onNext(bean: UserInfoBean) {
-                        getDataSuccess(bean)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	private fun changeNickName(name: String) {
+		mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
+				.compose(BaseRxJava.handleResult())
+				.compose(BaseRxJava.io_main_loading(this))
+				.subscribeWith(object : BaseSubscriber<UserInfoBean>(this) {
+					override fun onNext(bean: UserInfoBean) {
+						getDataSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    private fun applyCreation() {
-        mDisposable = AppClient.getAPIService().applyCreation()
-                .compose(BaseRxJava.handlePostResult())
-                .compose(BaseRxJava.io_main())
-                .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(this) {
+	private fun applyCreation() {
+		mDisposable = AppClient.getAPIService().applyCreation()
+				.compose(BaseRxJava.handlePostResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(this) {
 
-                    override fun onNext(baseBean: BaseBean<*>) {
-                        postSuccess()
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+					override fun onNext(baseBean: BaseBean<*>) {
+						postSuccess()
+					}
+				})
+		addSubscription(mDisposable)
+	}
 
-    override fun getDataSuccess(bean: UserInfoBean?) {
-        ZhiZheUtils.saveUserInfo(bean)
-        applyCreation()
-    }
+	override fun getDataSuccess(bean: UserInfoBean?) {
+		ZhiZheUtils.saveUserInfo(bean)
+		applyCreation()
+	}
 
-    override fun getDataFail(msg: String?) {
-        toastError(msg)
-    }
+	override fun getDataFail(msg: String?) {
+		toastError(msg)
+	}
 
-    override fun postSuccess() {
-        SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writer_status_writer)
-        startActivity(CreationActivity::class.java,{})
-        finish()
-    }
+	override fun postSuccess() {
+		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writer_status_writer)
+		startActivity(CreationActivity::class.java, {})
+		finish()
+	}
 
-    override fun postFail(msg: String?) {
-        toastError(msg)
-    }
+	override fun postFail(msg: String?) {
+		toastError(msg)
+	}
 
-    override fun setListener() {
-        iv_afc2_close.setOnClickListener { onBackPressed() }
+	override fun setListener() {
+		iv_afc2_close.setOnClickListener { onBackPressed() }
 
-        iv_afc2_head.setOnClickListener {
-            mActivity.startActivity(ChangeHeadImageActivity::class.java,{})
-        }
+		iv_afc2_head.setOnClickListener {
+			mActivity.startActivity(ChangeHeadImageActivity::class.java, {})
+		}
 
-        et_afc2_nick_name.afterTextChanged {
-            tv_afc2_start.isEnabled = et_afc2_nick_name.length() > 0
-        }
+		et_afc2_nick_name.afterTextChanged {
+			tv_afc2_start.isEnabled = et_afc2_nick_name.length() > 0
+		}
 
-        tv_afc2_start.setOnClickListener {
-            if (et_afc2_nick_name.text.toString() != oldNickName) {
-                changeNickName(et_afc2_nick_name.text.toString())
-            }else{
-                //未改动昵称时，直接申请
-                applyCreation()
-            }
-        }
-    }
+		tv_afc2_start.setOnClickListener {
+			if (et_afc2_nick_name.text.toString() != oldNickName) {
+				changeNickName(et_afc2_nick_name.text.toString())
+			} else {
+				//未改动昵称时，直接申请
+				applyCreation()
+			}
+		}
+	}
 }

@@ -19,80 +19,80 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment() {
 
-    private val mHotFragment = HotCardFragment()
-    private val mAttentionFragment = AttentionFragment()
-    private val mListFragment = CardListFragment()
-    private var mCurrentFragment = Fragment()
+	private val mHotFragment = HotCardFragment()
+	private val mAttentionFragment = AttentionFragment()
+	private val mListFragment = CardListFragment()
+	private var mCurrentFragment = Fragment()
 
-    private val titles = arrayOf("推荐", "关注", "列表")
+	private val titles = arrayOf("推荐", "关注", "列表")
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+	                          savedInstanceState: Bundle?): View? {
+		return inflater.inflate(R.layout.fragment_home, container, false)
+	}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        for (i in titles.indices) {
-            val tab = tl_home.newTab()
-            tab.setCustomView(R.layout.tab_home)
-            val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_home)
-            textView?.text = titles[i]
-            tl_home.addTab(tab)
-        }
-        tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> {
-                        switchFragment(mHotFragment)
-                    }
-                    1 -> {
-                        switchFragment(mAttentionFragment)
-                    }
-                    2 -> {
-                        switchFragment(mListFragment)
-                    }
-                }
-            }
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		for (i in titles.indices) {
+			val tab = tl_home.newTab()
+			tab.setCustomView(R.layout.tab_home)
+			val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_home)
+			textView?.text = titles[i]
+			tl_home.addTab(tab)
+		}
+		tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+			override fun onTabSelected(tab: TabLayout.Tab) {
+				when (tab.position) {
+					0 -> {
+						switchFragment(mHotFragment)
+					}
+					1 -> {
+						switchFragment(mAttentionFragment)
+					}
+					2 -> {
+						switchFragment(mListFragment)
+					}
+				}
+			}
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
+			override fun onTabReselected(tab: TabLayout.Tab) {
 
-            }
-        })
+			}
+		})
 
-        val para = tl_home.layoutParams
-        val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
-        para.width = screenWidth * 1 / 2
-        tl_home.layoutParams = para
+		val para = tl_home.layoutParams
+		val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
+		para.width = screenWidth * 1 / 2
+		tl_home.layoutParams = para
 
-        tl_home.getTabAt(0)?.select()
-        switchFragment(mHotFragment)
-    }
+		tl_home.getTabAt(0)?.select()
+		switchFragment(mHotFragment)
+	}
 
-    override fun setListener() {
-        super.setListener()
-        iv_home_search.setOnClickListener {
-            mActivity.startActivity(SearchActivity::class.java,{})
-        }
-    }
+	override fun setListener() {
+		super.setListener()
+		iv_home_search.setOnClickListener {
+			mActivity.startActivity(SearchActivity::class.java, {})
+		}
+	}
 
-    private fun switchFragment(newFragment: Fragment) {
+	private fun switchFragment(newFragment: Fragment) {
 
-        val fm = childFragmentManager
-        val transaction = fm.beginTransaction()
+		val fm = childFragmentManager
+		val transaction = fm.beginTransaction()
 
-        if (newFragment.isAdded) {
-            //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
-            transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
-        } else {
-            transaction.hide(mCurrentFragment).add(R.id.fl_home, newFragment).commitAllowingStateLoss()
-        }
-        mCurrentFragment = newFragment
-    }
+		if (newFragment.isAdded) {
+			//.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
+			transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
+		} else {
+			transaction.hide(mCurrentFragment).add(R.id.fl_home, newFragment).commitAllowingStateLoss()
+		}
+		mCurrentFragment = newFragment
+	}
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
+	override fun onDestroyView() {
+		super.onDestroyView()
+	}
 }

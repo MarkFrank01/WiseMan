@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bg_details"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/rl_note_details"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view_line"
-            android:layout_above="@+id/ll_note_details_bottom"
-            style="@style/line"/>
-
-        <LinearLayout
-            android:id="@+id/ll_note_details_bottom"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <ImageView
-                android:id="@+id/iv_note_details_edit"
-                android:layout_marginStart="30dp"
-                android:src="@drawable/iv_note_details_edit"
-                android:gravity="center"
-                android:scaleType="center"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"/>
-
-            <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <ImageView
-                android:id="@+id/iv_note_details_share"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_width="40dp"
-                android:layout_height="match_parent"
-                android:scaleType="center"
-                android:src="@drawable/tv_card_details_share"/>
-
-        </LinearLayout>
-
-        <ScrollView
-            android:id="@+id/sv_note_details"
-            android:layout_above="@id/ll_note_details_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="40dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_note_details_title"
-                        tools:text="动圈和铁圈耳机的区别"
-                        android:maxLines="2"
-                        android:ellipsize="end"
-                        android:textColor="@color/text_color_1"
-                        android:textSize="@dimen/text_size_title_2"
-                        android:textStyle="bold"
-                        android:lineSpacingExtra="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardTitle"/>
-
-                    <TextView
-                        android:id="@+id/tv_note_details_info"
-                        tools:text="@string/tv_item_card_note_info"
-                        android:textColor="@color/text_color_3"
-                        android:textSize="@dimen/text_size_text_3"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginBottom="13dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:transitionName="cardInfo"/>
-
-                </LinearLayout>
-
-                <FrameLayout
-                    android:id="@+id/fl_note_details"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:layout_height="0dp">
-                </FrameLayout>
-
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_note_details_back"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/iv_common_close"
-        android:padding="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/bg_details">
+	
+	<RelativeLayout
+		android:id="@+id/rl_note_details"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<View
+			android:id="@+id/view_line"
+			style="@style/line"
+			android:layout_above="@+id/ll_note_details_bottom"/>
+		
+		<LinearLayout
+			android:id="@+id/ll_note_details_bottom"
+			android:layout_width="match_parent"
+			android:layout_height="50dp"
+			android:layout_alignParentBottom="true">
+			
+			<ImageView
+				android:id="@+id/iv_note_details_edit"
+				android:layout_width="40dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="30dp"
+				android:gravity="center"
+				android:scaleType="center"
+				android:src="@drawable/iv_note_details_edit"/>
+			
+			<View
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"/>
+			
+			<ImageView
+				android:id="@+id/iv_note_details_share"
+				android:layout_width="40dp"
+				android:layout_height="match_parent"
+				android:layout_marginStart="10dp"
+				android:layout_marginEnd="30dp"
+				android:scaleType="center"
+				android:src="@drawable/tv_card_details_share"/>
+		
+		</LinearLayout>
+		
+		<ScrollView
+			android:id="@+id/sv_note_details"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_above="@id/ll_note_details_bottom">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="40dp"
+					android:paddingStart="20dp"
+					android:paddingEnd="20dp"
+					android:orientation="vertical">
+					
+					<TextView
+						android:id="@+id/tv_note_details_title"
+						android:textStyle="bold"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:ellipsize="end"
+						android:lineSpacingExtra="4dp"
+						android:maxLines="2"
+						android:textColor="@color/text_color_1"
+						android:textSize="@dimen/text_size_title_2"
+						android:transitionName="cardTitle"
+						tools:text="动圈和铁圈耳机的区别"/>
+					
+					<TextView
+						android:id="@+id/tv_note_details_info"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="13dp"
+						android:layout_marginBottom="13dp"
+						android:textColor="@color/text_color_3"
+						android:textSize="@dimen/text_size_text_3"
+						android:transitionName="cardInfo"
+						tools:text="@string/tv_item_card_note_info"/>
+				
+				</LinearLayout>
+				
+				<FrameLayout
+					android:id="@+id/fl_note_details"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="1">
+				</FrameLayout>
+			
+			</LinearLayout>
+		</ScrollView>
+	</RelativeLayout>
+	
+	<ImageView
+		android:id="@+id/iv_note_details_back"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp"
+		android:layout_marginEnd="10dp"
+		android:layout_alignParentEnd="true"
+		android:padding="10dp"
+		android:src="@drawable/iv_common_close"/>
 </RelativeLayout>

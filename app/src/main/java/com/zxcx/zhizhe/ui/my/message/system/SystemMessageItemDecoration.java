@@ -12,17 +12,18 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 public class SystemMessageItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int defultSpace = ScreenUtils.dip2px(16f);
+	private int defultSpace = ScreenUtils.dip2px(16f);
 
-    public SystemMessageItemDecoration() {
-        super();
-    }
+	public SystemMessageItemDecoration() {
+		super();
+	}
 
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int position = parent.getChildAdapterPosition(view);
-        if (position == 0){
-            outRect.top = defultSpace;
-        }
-    }
+	@Override
+	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+		RecyclerView.State state) {
+		int position = parent.getChildAdapterPosition(view);
+		if (position == 0) {
+			outRect.top = defultSpace;
+		}
+	}
 }

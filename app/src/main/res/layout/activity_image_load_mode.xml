@@ -1,92 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/iv_common_close"
-        android:layout_gravity="end"
-        android:paddingTop="10dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/login_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:text="图片加载"
-        android:textColor="@color/text_color_1"
-        android:textSize="@dimen/text_size_title_1"
-        android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:id="@+id/ll_image_load_mode_wifi"
-        android:layout_marginTop="10dp"
-        android:background="@color/background"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_image_load_mode_wifi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:text="仅在Wi-Fi下加载高清图"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/text_size_text_1"/>
-
-        <CheckBox
-            android:id="@+id/cb_image_load_mode_wifi"
-            android:layout_width="42dp"
-            android:layout_height="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:button="@drawable/selector_check_box"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_marginLeft="20dp"
-        style="@style/line"/>
-
-    <LinearLayout
-        android:id="@+id/ll_image_load_mode_all"
-        android:background="@color/background"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_image_load_mode_all"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:text="所有网络均加载高清图"
-            android:textColor="@color/text_color_1"
-            android:textSize="@dimen/text_size_text_1"/>
-
-        <CheckBox
-            android:id="@+id/cb_image_load_mode_all"
-            android:layout_width="42dp"
-            android:layout_height="22dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="15dp"
-            android:button="@drawable/selector_check_box"/>
-
-    </LinearLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	android:orientation="vertical">
+	
+	<ImageView
+		android:id="@+id/iv_common_close"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="12dp"
+		android:layout_marginEnd="16dp"
+		android:layout_gravity="end"
+		android:paddingTop="10dp"
+		android:paddingStart="10dp"
+		android:paddingEnd="10dp"
+		android:src="@drawable/login_close"/>
+	
+	<TextView
+		android:textStyle="bold"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="4dp"
+		android:layout_marginStart="20dp"
+		android:text="图片加载"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_title_1"/>
+	
+	<LinearLayout
+		android:id="@+id/ll_image_load_mode_wifi"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_marginTop="10dp"
+		android:background="@color/background"
+		android:orientation="horizontal">
+		
+		<TextView
+			android:id="@+id/tv_image_load_mode_wifi"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="20dp"
+			android:layout_gravity="center_vertical"
+			android:text="仅在Wi-Fi下加载高清图"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"/>
+		
+		<CheckBox
+			android:id="@+id/cb_image_load_mode_wifi"
+			android:layout_width="42dp"
+			android:layout_height="22dp"
+			android:layout_marginRight="15dp"
+			android:layout_gravity="center_vertical"
+			android:button="@drawable/selector_check_box"/>
+	
+	</LinearLayout>
+	
+	<View
+		style="@style/line"
+		android:layout_marginLeft="20dp"/>
+	
+	<LinearLayout
+		android:id="@+id/ll_image_load_mode_all"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:background="@color/background"
+		android:orientation="horizontal">
+		
+		<TextView
+			android:id="@+id/tv_image_load_mode_all"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_marginLeft="20dp"
+			android:layout_gravity="center_vertical"
+			android:text="所有网络均加载高清图"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"/>
+		
+		<CheckBox
+			android:id="@+id/cb_image_load_mode_all"
+			android:layout_width="42dp"
+			android:layout_height="22dp"
+			android:layout_marginRight="15dp"
+			android:layout_gravity="center_vertical"
+			android:button="@drawable/selector_check_box"/>
+	
+	</LinearLayout>
 
 </LinearLayout>

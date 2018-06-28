@@ -19,76 +19,76 @@ import kotlinx.android.synthetic.main.activity_creation.*
  * Created by anm on 2017/12/14.
  */
 class CreationActivity : BaseActivity() {
-    private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")
+	private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")
 
-    private val passedFragment = CreationPassedFragment()
-    private val reviewFragment = CreationInReviewFragment()
-    private val rejectFragment = CreationRejectFragment()
-    private val draftsFragment = CreationDraftsFragment()
-    private var mCurrentFragment = Fragment()
+	private val passedFragment = CreationPassedFragment()
+	private val reviewFragment = CreationInReviewFragment()
+	private val rejectFragment = CreationRejectFragment()
+	private val draftsFragment = CreationDraftsFragment()
+	private var mCurrentFragment = Fragment()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_creation)
-        ButterKnife.bind(this)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_creation)
+		ButterKnife.bind(this)
 
-        initView()
-    }
+		initView()
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
+	override fun setListener() {
+		iv_common_close.setOnClickListener {
+			onBackPressed()
+		}
 
-        iv_add_new.setOnClickListener {
-            startActivity(CreationEditorActivity::class.java,{})
-        }
-        /*iv_toolbar_creation.setOnClickListener {
-            //进入新建卡片流程，修改标题题图页
-            startActivity(Intent(mActivity, CreationEditorActivity::class.java))
-        }*/
-    }
+		iv_add_new.setOnClickListener {
+			startActivity(CreationEditorActivity::class.java, {})
+		}
+		/*iv_toolbar_creation.setOnClickListener {
+			//进入新建卡片流程，修改标题题图页
+			startActivity(Intent(mActivity, CreationEditorActivity::class.java))
+		}*/
+	}
 
-    private fun initView() {
-        for (i in titles.indices) {
-            val tab = tl_creation.newTab()
-            tab.setCustomView(R.layout.tab_creation)
-            val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-            textView.text = titles[i]
-            tl_creation.addTab(tab)
-            //            tab.setText(titles[i]);
-        }
-        tl_creation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                when (tab.position) {
-                    0 -> switchFragment(passedFragment)
-                    1 -> switchFragment(reviewFragment)
-                    2 -> switchFragment(rejectFragment)
-                    3 -> switchFragment(draftsFragment)
-                }
-            }
+	private fun initView() {
+		for (i in titles.indices) {
+			val tab = tl_creation.newTab()
+			tab.setCustomView(R.layout.tab_creation)
+			val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+			textView.text = titles[i]
+			tl_creation.addTab(tab)
+			//            tab.setText(titles[i]);
+		}
+		tl_creation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+			override fun onTabSelected(tab: TabLayout.Tab) {
+				when (tab.position) {
+					0 -> switchFragment(passedFragment)
+					1 -> switchFragment(reviewFragment)
+					2 -> switchFragment(rejectFragment)
+					3 -> switchFragment(draftsFragment)
+				}
+			}
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
+			override fun onTabReselected(tab: TabLayout.Tab) {
 
-            }
-        })
-        tl_creation.getTabAt(0)?.select()
-        switchFragment(passedFragment)
-    }
+			}
+		})
+		tl_creation.getTabAt(0)?.select()
+		switchFragment(passedFragment)
+	}
 
-    private fun switchFragment(newFragment: Fragment) {
+	private fun switchFragment(newFragment: Fragment) {
 
-        val fm = supportFragmentManager
-        val transaction = fm.beginTransaction()
+		val fm = supportFragmentManager
+		val transaction = fm.beginTransaction()
 
-        if (newFragment.isAdded) {
-            //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
-            transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
-        } else {
-            transaction.hide(mCurrentFragment).add(R.id.fl_creation, newFragment).commitAllowingStateLoss()
-        }
-        mCurrentFragment = newFragment
-    }
+		if (newFragment.isAdded) {
+			//.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
+			transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
+		} else {
+			transaction.hide(mCurrentFragment).add(R.id.fl_creation, newFragment).commitAllowingStateLoss()
+		}
+		mCurrentFragment = newFragment
+	}
 }

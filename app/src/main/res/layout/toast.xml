@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_toast"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@color/button_blue"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_toast"
-        android:gravity="center_horizontal"
-        tools:text="6666"
-        android:textSize="@dimen/text_size_text_2"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="11dp"
-        android:textColor="@color/white_final"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/ll_toast"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/button_blue"
+	android:gravity="center"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_toast"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="11dp"
+		android:layout_marginBottom="11dp"
+		android:gravity="center_horizontal"
+		android:textColor="@color/white_final"
+		android:textSize="@dimen/text_size_text_2"
+		tools:text="6666"/>
 
 </LinearLayout>

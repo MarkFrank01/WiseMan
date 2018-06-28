@@ -6,12 +6,12 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface OtherUserContract {
 
-    interface View : GetView<OtherUserInfoBean>{
-        fun getOtherUserCreationSuccess(list: MutableList<CardBean>)
-    }
+	interface View : GetView<OtherUserInfoBean> {
+		fun getOtherUserCreationSuccess(list: MutableList<CardBean>)
+	}
 
-    interface Presenter : IGetPresenter<OtherUserInfoBean>{
-        fun getOtherUserCreationSuccess(list: MutableList<CardBean>)
-    }
+	interface Presenter : IGetPresenter<OtherUserInfoBean> {
+		fun getOtherUserCreationSuccess(list: MutableList<CardBean>)
+	}
 }
 

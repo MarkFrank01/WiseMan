@@ -24,5 +24,5 @@ data class SystemMessageBean(
 		@SerializedName("time") var time: Date?, //2017-12-20T03:28:06.284Z
 		@SerializedName("titleColor") var titleColor: String?, //string
 		@SerializedName("title") var title: String? //string
-): RetrofitBaen()
+) : RetrofitBaen()
 

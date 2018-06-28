@@ -6,10 +6,12 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 
 public interface ChannelRegisterContract {
 
-    interface View extends GetView<LoginBean> {
-    }
+	interface View extends GetView<LoginBean> {
 
-    interface Presenter extends IGetPresenter<LoginBean> {
-    }
+	}
+
+	interface Presenter extends IGetPresenter<LoginBean> {
+
+	}
 }
 

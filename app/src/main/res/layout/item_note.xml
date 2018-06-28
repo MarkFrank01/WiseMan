@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/es"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:background="@drawable/bg_item_note"
-    android:stateListAnimator="@animator/anim_home_card_press"
-    android:orientation="vertical"
-    app:contentView="@id/content_view"
-    app:rightMenuView="@id/right_view">
-
-
-    <LinearLayout
-        android:id="@+id/content_view"
-        android:paddingTop="20dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="16dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_item_note_name"
-            tools:text="打印纸的规格"
-            style="@style/tv_single"
-            android:textSize="@dimen/text_size_text_1"
-            android:textColor="@color/text_color_1"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_note_info"
-            tools:text="@string/tv_item_card_note_info"
-            style="@style/tv_single"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:textSize="@dimen/text_size_text_3"
-            android:textColor="@color/text_color_d2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_note_content"
-            tools:text="内陆河指的是河水河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流"
-            android:textColor="@color/text_color_3"
-            android:textSize="@dimen/text_size_text_2"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:layout_marginTop="13dp"
-            android:lineSpacingExtra="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/right_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/tv_cancel"
-            android:text="取消"
-            android:textColor="@color/white_final"
-            android:textSize="@dimen/text_size_text_1"
-            android:textStyle="bold"
-            android:background="@color/text_color_d2"
-            android:gravity="center"
-            android:paddingStart="23dp"
-            android:paddingEnd="23dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-        <TextView
-            android:id="@+id/tv_delete"
-            android:text="删除"
-            android:textColor="@color/white_final"
-            android:textSize="@dimen/text_size_text_1"
-            android:textStyle="bold"
-            android:background="@drawable/bg_tv_delete"
-            android:gravity="center"
-            android:paddingStart="23dp"
-            android:paddingEnd="23dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/es"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="30dp"
+	android:layout_marginStart="20dp"
+	android:layout_marginEnd="20dp"
+	android:background="@drawable/bg_item_note"
+	android:orientation="vertical"
+	android:stateListAnimator="@animator/anim_home_card_press"
+	app:contentView="@id/content_view"
+	app:rightMenuView="@id/right_view">
+	
+	
+	<LinearLayout
+		android:id="@+id/content_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="20dp"
+		android:paddingBottom="16dp"
+		android:paddingStart="20dp"
+		android:paddingEnd="20dp"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/tv_item_note_name"
+			style="@style/tv_single"
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"
+			tools:text="打印纸的规格"/>
+		
+		<TextView
+			android:id="@+id/tv_item_note_info"
+			style="@style/tv_single"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="13dp"
+			android:textColor="@color/text_color_d2"
+			android:textSize="@dimen/text_size_text_3"
+			tools:text="@string/tv_item_card_note_info"/>
+		
+		<TextView
+			android:id="@+id/tv_item_note_content"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="13dp"
+			android:ellipsize="end"
+			android:lineSpacingExtra="8dp"
+			android:maxLines="3"
+			android:textColor="@color/text_color_3"
+			android:textSize="@dimen/text_size_text_2"
+			tools:text="内陆河指的是河水河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流内陆河指的是河水不能流入海洋的河流"/>
+	
+	</LinearLayout>
+	
+	<LinearLayout
+		android:id="@+id/right_view"
+		android:layout_width="wrap_content"
+		android:layout_height="match_parent">
+		
+		<TextView
+			android:id="@+id/tv_cancel"
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:paddingStart="23dp"
+			android:paddingEnd="23dp"
+			android:background="@color/text_color_d2"
+			android:gravity="center"
+			android:text="取消"
+			android:textColor="@color/white_final"
+			android:textSize="@dimen/text_size_text_1"/>
+		
+		<TextView
+			android:id="@+id/tv_delete"
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:paddingStart="23dp"
+			android:paddingEnd="23dp"
+			android:background="@drawable/bg_tv_delete"
+			android:gravity="center"
+			android:text="删除"
+			android:textColor="@color/white_final"
+			android:textSize="@dimen/text_size_text_1"/>
+	
+	</LinearLayout>
 </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

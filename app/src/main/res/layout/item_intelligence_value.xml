@@ -1,91 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white_final"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/ll_item_intelligence_value_left"
-        android:layout_marginStart="20dp"
-        android:layout_alignParentStart="true"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_item_intelligence_value_title"
-            android:layout_marginTop="20dp"
-            android:text="注册智者"
-            android:textColor="#030303"
-            android:textSize="@dimen/text_size_text_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_intelligence_value_content"
-            android:visibility="gone"
-            android:layout_marginTop="6dp"
-            android:text="单张卡片阅读≥30s"
-            android:textColor="#CDD2D3"
-            android:textSize="@dimen/text_size_text_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:id="@+id/tv_item_intelligence_value_value"
-            android:background="@drawable/bg_item_tv_intelligence_value"
-            android:drawableStart="@drawable/tv_item_intelligence_value_value"
-            android:drawablePadding="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:text="奖励20智力值"
-            android:textColor="@color/button_blue"
-            android:textSize="10sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:gravity="center_horizontal"
-        android:layout_marginEnd="20dp"
-        android:layout_alignParentEnd="true"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/tv_item_intelligence_value_progress"
-            android:text="1/1"
-            android:textColor="#CDD2D3"
-            android:textSize="@dimen/text_size_text_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ProgressBar
-            android:id="@+id/pb_item_intelligence_value"
-            android:layout_marginTop="8dp"
-            android:max="100"
-            android:progress="90"
-            style="@style/progress_intelligence_value"
-            android:layout_width="50dp"
-            android:layout_height="12dp" />
-
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view_line"
-        android:layout_marginStart="20dp"
-        android:layout_below="@id/ll_item_intelligence_value_left"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#CDD2D3"/>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/white_final"
+	android:orientation="horizontal">
+	
+	<LinearLayout
+		android:id="@+id/ll_item_intelligence_value_left"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="20dp"
+		android:layout_alignParentStart="true"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/tv_item_intelligence_value_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:text="注册智者"
+			android:textColor="#030303"
+			android:textSize="@dimen/text_size_text_2"/>
+		
+		<TextView
+			android:id="@+id/tv_item_intelligence_value_content"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="6dp"
+			android:text="单张卡片阅读≥30s"
+			android:textColor="#CDD2D3"
+			android:textSize="@dimen/text_size_text_3"
+			android:visibility="gone"/>
+		
+		<TextView
+			android:id="@+id/tv_item_intelligence_value_value"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_marginBottom="20dp"
+			android:paddingTop="3dp"
+			android:paddingBottom="3dp"
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:background="@drawable/bg_item_tv_intelligence_value"
+			android:drawablePadding="8dp"
+			android:drawableStart="@drawable/tv_item_intelligence_value_value"
+			android:text="奖励20智力值"
+			android:textColor="@color/button_blue"
+			android:textSize="10sp"/>
+	</LinearLayout>
+	
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="20dp"
+		android:layout_alignParentEnd="true"
+		android:layout_centerVertical="true"
+		android:gravity="center_horizontal"
+		android:orientation="vertical">
+		
+		<TextView
+			android:id="@+id/tv_item_intelligence_value_progress"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="1/1"
+			android:textColor="#CDD2D3"
+			android:textSize="@dimen/text_size_text_2"/>
+		
+		<ProgressBar
+			android:id="@+id/pb_item_intelligence_value"
+			style="@style/progress_intelligence_value"
+			android:layout_width="50dp"
+			android:layout_height="12dp"
+			android:layout_marginTop="8dp"
+			android:max="100"
+			android:progress="90"/>
+	
+	</LinearLayout>
+	
+	<View
+		android:id="@+id/view_line"
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:layout_marginStart="20dp"
+		android:layout_below="@id/ll_item_intelligence_value_left"
+		android:background="#CDD2D3"/>
 
 </RelativeLayout>

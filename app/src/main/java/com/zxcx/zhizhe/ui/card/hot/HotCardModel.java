@@ -12,22 +12,22 @@ import java.util.List;
 
 public class HotCardModel extends BaseModel<HotCardContract.Presenter> {
 
-    public HotCardModel(@NonNull HotCardContract.Presenter present) {
-        this.mPresenter = present;
-    }
+	public HotCardModel(@NonNull HotCardContract.Presenter present) {
+		this.mPresenter = present;
+	}
 
-    public void getHotCard(String lastRefresh,int page){
-        mDisposable = AppClient.getAPIService().getHotCard(lastRefresh,page, Constants.PAGE_SIZE)
-                .compose(BaseRxJava.INSTANCE.handleArrayResult())
-                .compose(BaseRxJava.INSTANCE.io_main())
-                .subscribeWith(new BaseSubscriber<List<CardBean>>(mPresenter) {
-                    @Override
-                    public void onNext(List<CardBean> list) {
-                        mPresenter.getDataSuccess(list);
-                    }
-                });
-        addSubscription(mDisposable);
-    }
+	public void getHotCard(String lastRefresh, int page) {
+		mDisposable = AppClient.getAPIService().getHotCard(lastRefresh, page, Constants.PAGE_SIZE)
+			.compose(BaseRxJava.INSTANCE.handleArrayResult())
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.subscribeWith(new BaseSubscriber<List<CardBean>>(mPresenter) {
+				@Override
+				public void onNext(List<CardBean> list) {
+					mPresenter.getDataSuccess(list);
+				}
+			});
+		addSubscription(mDisposable);
+	}
 }
 
 

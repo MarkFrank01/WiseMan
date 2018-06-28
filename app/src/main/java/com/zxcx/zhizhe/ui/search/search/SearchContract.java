@@ -7,14 +7,18 @@ import java.util.List;
 
 public interface SearchContract {
 
-    interface View extends GetView<SearchBean> {
-        void getSearchPreSuccess(List<String> list);
-        void deleteHistorySuccess();
-    }
+	interface View extends GetView<SearchBean> {
 
-    interface Presenter extends IGetPresenter<SearchBean> {
-	    void getSearchPreSuccess(List<String> list);
-	    void deleteHistorySuccess();
-    }
+		void getSearchPreSuccess(List<String> list);
+
+		void deleteHistorySuccess();
+	}
+
+	interface Presenter extends IGetPresenter<SearchBean> {
+
+		void getSearchPreSuccess(List<String> list);
+
+		void deleteHistorySuccess();
+	}
 }
 

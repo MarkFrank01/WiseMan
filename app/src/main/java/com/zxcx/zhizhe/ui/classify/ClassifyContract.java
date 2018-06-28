@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface ClassifyContract {
 
-    interface View extends GetView<List<ClassifyBean>> {
+	interface View extends GetView<List<ClassifyBean>> {
 
-    }
+	}
 
-    interface Presenter extends IGetPresenter<List<ClassifyBean>> {
+	interface Presenter extends IGetPresenter<List<ClassifyBean>> {
 
-    }
+	}
 }
 

@@ -5,18 +5,18 @@ package com.zxcx.zhizhe.event;
  */
 
 public class ClearMessageEvent {
-
-    private int messageType;
-
-    public ClearMessageEvent(int messageType) {
-        this.messageType = messageType;
-    }
-
-    public int getMessageType() {
-        return messageType;
-    }
-
-    public void setMessageType(int id) {
-        this.messageType = id;
-    }
+	
+	private int messageType;
+	
+	public ClearMessageEvent(int messageType) {
+		this.messageType = messageType;
+	}
+	
+	public int getMessageType() {
+		return messageType;
+	}
+	
+	public void setMessageType(int id) {
+		this.messageType = id;
+	}
 }

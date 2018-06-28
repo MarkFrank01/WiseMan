@@ -18,69 +18,69 @@ import kotlinx.android.synthetic.main.activity_change_nick_name.*
 
 class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 
-    private var name: String? = null
+	private var name: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_change_nick_name)
-        ButterKnife.bind(this)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_change_nick_name)
+		ButterKnife.bind(this)
 
-        name = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
-        et_dialog_change_nick_name.setText(name)
-    }
+		name = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
+		et_dialog_change_nick_name.setText(name)
+	}
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Utils.closeInputMethod(et_dialog_change_nick_name)
-    }
+	override fun onBackPressed() {
+		super.onBackPressed()
+		Utils.closeInputMethod(et_dialog_change_nick_name)
+	}
 
-    override fun postSuccess(bean: UserInfoBean) {
-        ZhiZheUtils.saveUserInfo(bean)
-        toastShow(R.string.user_info_change)
-        onBackPressed()
-    }
+	override fun postSuccess(bean: UserInfoBean) {
+		ZhiZheUtils.saveUserInfo(bean)
+		toastShow(R.string.user_info_change)
+		onBackPressed()
+	}
 
-    override fun postFail(msg: String) {
-        toastFail(msg)
-    }
+	override fun postFail(msg: String) {
+		toastFail(msg)
+	}
 
-    override fun setListener() {
-        iv_common_close.setOnClickListener {
-            onBackPressed()
-        }
+	override fun setListener() {
+		iv_common_close.setOnClickListener {
+			onBackPressed()
+		}
 
-        tv_change_nick_name_save.setOnClickListener {
-            if (et_dialog_change_nick_name.length() < 2){
-                return@setOnClickListener
-            }
-            if (et_dialog_change_nick_name.text.toString() != name) {
-                changeNickName(et_dialog_change_nick_name.text.toString())
-            } else {
-                toastShow(R.string.user_info_change)
-                onBackPressed()
-            }
-        }
+		tv_change_nick_name_save.setOnClickListener {
+			if (et_dialog_change_nick_name.length() < 2) {
+				return@setOnClickListener
+			}
+			if (et_dialog_change_nick_name.text.toString() != name) {
+				changeNickName(et_dialog_change_nick_name.text.toString())
+			} else {
+				toastShow(R.string.user_info_change)
+				onBackPressed()
+			}
+		}
 
-        et_dialog_change_nick_name.afterTextChanged {
-            if (et_dialog_change_nick_name.length() == 1 || et_dialog_change_nick_name.length() == 10){
-                tv_change_nick_name_hint.visibility = View.VISIBLE
-                tv_change_nick_name_save.isEnabled = false
-            }else{
-                tv_change_nick_name_hint.visibility = View.GONE
-                tv_change_nick_name_save.isEnabled = true
-            }
-        }
-    }
+		et_dialog_change_nick_name.afterTextChanged {
+			if (et_dialog_change_nick_name.length() == 1 || et_dialog_change_nick_name.length() == 10) {
+				tv_change_nick_name_hint.visibility = View.VISIBLE
+				tv_change_nick_name_save.isEnabled = false
+			} else {
+				tv_change_nick_name_hint.visibility = View.GONE
+				tv_change_nick_name_save.isEnabled = true
+			}
+		}
+	}
 
-    private fun changeNickName(name: String) {
-        mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
-                .compose(BaseRxJava.handleResult())
-                .compose(BaseRxJava.io_main_loading(this))
-                .subscribeWith(object : PostSubscriber<UserInfoBean>(this) {
-                    override fun onNext(bean: UserInfoBean) {
-                        postSuccess(bean)
-                    }
-                })
-        addSubscription(mDisposable)
-    }
+	private fun changeNickName(name: String) {
+		mDisposable = AppClient.getAPIService().changeUserInfo(null, name, null, null, null)
+				.compose(BaseRxJava.handleResult())
+				.compose(BaseRxJava.io_main_loading(this))
+				.subscribeWith(object : PostSubscriber<UserInfoBean>(this) {
+					override fun onNext(bean: UserInfoBean) {
+						postSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 }

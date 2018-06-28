@@ -1,59 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.zxcx.zhizhe.ui.MainActivity">
-
-    <FrameLayout
-        android:id="@+id/home_fragment_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <View
-        style="@style/line"/>
-
-    <RadioGroup
-        android:id="@+id/rg_main"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingTop="8dp"
-        android:background="@color/background"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/home_tab_card"
-            style="@style/BottomTab"
-            android:text="@string/home_card"
-            android:drawableTop="@drawable/selector_home_home"/>
-
-        <RadioButton
-            android:id="@+id/home_tab_article"
-            style="@style/BottomTab"
-            android:text="@string/home_article"
-            android:drawableTop="@drawable/selector_home_classify" />
-
-        <ImageView
-            android:id="@+id/iv_home_creation"
-            style="@style/BottomTab"
-            android:src="@drawable/iv_add_new"/>
-
-        <RadioButton
-            android:id="@+id/home_tab_rank"
-            style="@style/BottomTab"
-            android:text="@string/home_rank"
-            android:drawableTop="@drawable/selector_home_classify" />
-
-        <RadioButton
-            android:id="@+id/home_tab_my"
-            style="@style/BottomTab"
-            android:text="@string/home_my"
-            android:drawableTop="@drawable/selector_home_my" />
-    </RadioGroup>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	android:orientation="vertical"
+	tools:context="com.zxcx.zhizhe.ui.MainActivity">
+	
+	<FrameLayout
+		android:id="@+id/home_fragment_content"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"/>
+	
+	<View
+		style="@style/line"/>
+	
+	<RadioGroup
+		android:id="@+id/rg_main"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:paddingTop="8dp"
+		android:background="@color/background"
+		android:orientation="horizontal">
+		
+		<RadioButton
+			android:id="@+id/home_tab_card"
+			style="@style/BottomTab"
+			android:drawableTop="@drawable/selector_home_home"
+			android:text="@string/home_card"/>
+		
+		<RadioButton
+			android:id="@+id/home_tab_article"
+			style="@style/BottomTab"
+			android:drawableTop="@drawable/selector_home_classify"
+			android:text="@string/home_article"/>
+		
+		<ImageView
+			android:id="@+id/iv_home_creation"
+			style="@style/BottomTab"
+			android:src="@drawable/iv_add_new"/>
+		
+		<RadioButton
+			android:id="@+id/home_tab_rank"
+			style="@style/BottomTab"
+			android:drawableTop="@drawable/selector_home_classify"
+			android:text="@string/home_rank"/>
+		
+		<RadioButton
+			android:id="@+id/home_tab_my"
+			style="@style/BottomTab"
+			android:drawableTop="@drawable/selector_home_my"
+			android:text="@string/home_my"/>
+	</RadioGroup>
 </LinearLayout>
 

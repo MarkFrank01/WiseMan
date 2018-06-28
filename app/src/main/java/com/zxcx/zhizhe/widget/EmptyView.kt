@@ -23,50 +23,50 @@ import kotlinx.android.synthetic.main.layout_no_data_and_card.view.*
  */
 
 object EmptyView {
-    @JvmStatic
-    fun getEmptyView(context: Context, str1: String, @DrawableRes imgRes: Int): View {
-        val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
-        emptyView.tv_no_data_1.text = str1
-        emptyView.iv_no_data.setImageResource(imgRes)
-        return emptyView
-    }
+	@JvmStatic
+	fun getEmptyView(context: Context, str1: String, @DrawableRes imgRes: Int): View {
+		val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
+		emptyView.tv_no_data_1.text = str1
+		emptyView.iv_no_data.setImageResource(imgRes)
+		return emptyView
+	}
 
-    @JvmStatic
-    fun getEmptyViewAndClick(context: Context, str1: String, str2: String, @DrawableRes imgRes: Int, listener: View.OnClickListener?): View {
-        val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
-        emptyView.tv_no_data_1.text = str1
-        emptyView.tv_no_data_2.visibility = View.VISIBLE
-        emptyView.tv_no_data_2.text = str2
-        emptyView.iv_no_data.setImageResource(imgRes)
-        emptyView.setOnClickListener(listener)
-        return emptyView
-    }
+	@JvmStatic
+	fun getEmptyViewAndClick(context: Context, str1: String, str2: String, @DrawableRes imgRes: Int, listener: View.OnClickListener?): View {
+		val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
+		emptyView.tv_no_data_1.text = str1
+		emptyView.tv_no_data_2.visibility = View.VISIBLE
+		emptyView.tv_no_data_2.text = str2
+		emptyView.iv_no_data.setImageResource(imgRes)
+		emptyView.setOnClickListener(listener)
+		return emptyView
+	}
 
-    @JvmStatic
-    fun getEmptyViewAndCard(activity: Activity, str1: String, @DrawableRes imgRes: Int, bean: CardBean): View {
-        val emptyView = LayoutInflater.from(activity).inflate(R.layout.layout_no_data_and_card, null)
-        emptyView.tv_no_data_and_card_1.text = str1
-        emptyView.iv_no_data_and_card.setImageResource(imgRes)
+	@JvmStatic
+	fun getEmptyViewAndCard(activity: Activity, str1: String, @DrawableRes imgRes: Int, bean: CardBean): View {
+		val emptyView = LayoutInflater.from(activity).inflate(R.layout.layout_no_data_and_card, null)
+		emptyView.tv_no_data_and_card_1.text = str1
+		emptyView.iv_no_data_and_card.setImageResource(imgRes)
 
-        val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
-        ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
-        emptyView.tv_item_card_title.text = bean.name
-        emptyView.tv_item_card_category.text = bean.cardCategoryName
+		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
+		ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
+		emptyView.tv_item_card_title.text = bean.name
+		emptyView.tv_item_card_category.text = bean.cardCategoryName
 
-        emptyView.fl_no_data_and_card_card.setOnClickListener {
-            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                    Pair.create(emptyView.iv_item_card_icon, "cardImage"),
-                    Pair.create(emptyView.tv_item_card_title, "cardTitle"),
-                    Pair.create(emptyView.tv_item_card_category, "cardBag")).toBundle()
-            val intent = Intent(activity, ArticleDetailsActivity::class.java)
-            intent.putExtra("id", bean.id)
-            intent.putExtra("name", bean.name)
-            intent.putExtra("imageUrl", bean.imageUrl)
-            intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-            intent.putExtra("authorName", bean.authorName)
-            activity.startActivity(intent, bundle)
-        }
+		emptyView.fl_no_data_and_card_card.setOnClickListener {
+			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+					Pair.create(emptyView.iv_item_card_icon, "cardImage"),
+					Pair.create(emptyView.tv_item_card_title, "cardTitle"),
+					Pair.create(emptyView.tv_item_card_category, "cardBag")).toBundle()
+			val intent = Intent(activity, ArticleDetailsActivity::class.java)
+			intent.putExtra("id", bean.id)
+			intent.putExtra("name", bean.name)
+			intent.putExtra("imageUrl", bean.imageUrl)
+			intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
+			intent.putExtra("authorName", bean.authorName)
+			activity.startActivity(intent, bundle)
+		}
 
-        return emptyView
-    }
+		return emptyView
+	}
 }
