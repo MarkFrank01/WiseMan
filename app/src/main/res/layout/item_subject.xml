@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.constraint.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginBottom="20dp"
-	android:layout_marginStart="20dp"
-	android:layout_marginEnd="20dp"
-	android:background="@drawable/bg_item_subject">
-	
-	<TextView
-		android:id="@+id/tv_item_card_type"
-		style="@style/tv_card_type"
-		android:text="专题"/>
+	android:paddingTop="20dp"
+	android:paddingBottom="20dp"
+	android:paddingStart="20dp"
+	android:paddingEnd="20dp"
+	android:background="@color/background">
 	
 	<TextView
 		android:id="@+id/tv_item_subject_name"
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="25dp"
-		android:layout_marginStart="20dp"
-		android:textColor="@color/text_color_3"
+		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_title_2"
 		tools:text="健康饮食"/>
 	
-	<com.zxcx.zhizhe.widget.WrapContentHeightViewPager
-		android:id="@+id/vp_item_subject"
+	<TextView
+		android:id="@+id/tv_item_subject_category"
+		style="@style/tv_card_category"
+		android:layout_marginTop="12dp"
+		app:layout_constraintTop_toBottomOf="@+id/tv_item_subject_name"
+		tools:text="数码产品"/>
+	
+	<TextView
+		android:id="@+id/tv_item_subject_label"
+		style="@style/tv_card_label"
+		android:paddingTop="12dp"
+		android:paddingStart="12dp"
+		android:paddingEnd="12dp"
+		app:layout_constraintStart_toEndOf="@+id/tv_item_subject_category"
+		app:layout_constraintTop_toBottomOf="@+id/tv_item_subject_name"
+		tools:text="#数码产品"/>
+	
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/rv_item_subject_article"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="62dp"
-		android:layout_marginBottom="15dp"/>
+		app:layout_constraintTop_toBottomOf="@id/tv_item_subject_category"
+		tools:listitem="@layout/item_subject_article"/>
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

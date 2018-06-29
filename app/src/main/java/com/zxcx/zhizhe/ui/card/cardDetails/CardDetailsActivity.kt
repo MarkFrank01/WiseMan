@@ -116,7 +116,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	}
 
 	override fun followSuccess(bean: CardBean) {
-		bean.followType = if (bean.followType == 0) 1 else 0
+		bean.isFollow = !bean.isFollow
 		postSuccess(bean)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}

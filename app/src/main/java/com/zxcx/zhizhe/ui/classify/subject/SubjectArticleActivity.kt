@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -19,14 +17,14 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_subject.*
 
-class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardContract.View,
+class SubjectArticleActivity : MvpActivity<SubjectArticlePresenter>(), SubjectArticleContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
 	var mPage = 0
 	var mId = 0
 	var mPageSize = Constants.PAGE_SIZE
 	var name = ""
-	lateinit var mCardAdapter: SubjectCardAdapter
+	lateinit var mAdapter: SubjectArticleAdapter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -39,25 +37,26 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
 	private fun initData() {
 		mId = intent.getIntExtra("id", 0)
 		name = intent.getStringExtra("name")
+		initToolBar(name)
 	}
 
-	override fun createPresenter(): SubjectCardPresenter {
-		return SubjectCardPresenter(this)
+	override fun createPresenter(): SubjectArticlePresenter {
+		return SubjectArticlePresenter(this)
 	}
 
 	override fun getDataSuccess(list: List<CardBean>) {
 		if (mPage == 0) {
-			mCardAdapter.setNewData(list)
+			mAdapter.setNewData(list)
 		} else {
-			mCardAdapter.addData(list)
+			mAdapter.addData(list)
 		}
 		mPage++
 		if (list.size < Constants.PAGE_SIZE) {
-			mCardAdapter.loadMoreEnd(false)
+			mAdapter.loadMoreEnd(false)
 		} else {
-			mCardAdapter.loadMoreComplete()
-			mCardAdapter.setEnableLoadMore(false)
-			mCardAdapter.setEnableLoadMore(true)
+			mAdapter.loadMoreComplete()
+			mAdapter.setEnableLoadMore(false)
+			mAdapter.setEnableLoadMore(true)
 		}
 	}
 
@@ -66,23 +65,17 @@ class SubjectCardActivity : MvpActivity<SubjectCardPresenter>(), SubjectCardCont
 	}
 
 	private fun initRecyclerView() {
-		mCardAdapter = SubjectCardAdapter(ArrayList())
-		mCardAdapter.setLoadMoreView(CustomLoadMoreView())
-		mCardAdapter.onItemClickListener = this
-		mCardAdapter.setOnLoadMoreListener(this, rv_subject)
+		mAdapter = SubjectArticleAdapter(ArrayList())
+		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.onItemClickListener = this
+		mAdapter.setOnLoadMoreListener(this, rv_subject)
 		rv_subject.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
-		rv_subject.adapter = mCardAdapter
+		rv_subject.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
-		mCardAdapter.emptyView = emptyView
-		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		header.findViewById<TextView>(R.id.tv_header_title).text = name
-		mCardAdapter.addHeaderView(header)
+		mAdapter.emptyView = emptyView
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

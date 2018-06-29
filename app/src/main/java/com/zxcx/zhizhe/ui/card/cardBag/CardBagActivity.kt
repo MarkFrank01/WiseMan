@@ -14,11 +14,11 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.article.attention.SubjectBean
+import com.zxcx.zhizhe.ui.article.attention.SubjectOnClickListener
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
-import com.zxcx.zhizhe.ui.search.result.SubjectBean
-import com.zxcx.zhizhe.ui.search.result.SubjectOnClickListener
+import com.zxcx.zhizhe.ui.classify.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -149,7 +149,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
 		}*/
 	}
 
-	override fun cardOnClick(bean: CardBean) {
+	override fun articleOnClick(bean: CardBean) {
 		val intent = Intent(this, ArticleDetailsActivity::class.java)
 		intent.putExtra("id", bean.id)
 		intent.putExtra("name", bean.name)
@@ -160,7 +160,7 @@ class CardBagActivity : RefreshMvpActivity<CardBagPresenter>(), CardBagContract.
 	}
 
 	override fun subjectOnClick(bean: SubjectBean) {
-		val intent = Intent(this, SubjectCardActivity::class.java)
+		val intent = Intent(this, SubjectArticleActivity::class.java)
 		intent.putExtra("id", bean.id)
 		intent.putExtra("name", bean.name)
 		startActivity(intent)

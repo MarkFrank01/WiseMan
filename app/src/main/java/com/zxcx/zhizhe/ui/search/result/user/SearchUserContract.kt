@@ -1,12 +1,16 @@
 package com.zxcx.zhizhe.ui.search.result.user
 
-import com.zxcx.zhizhe.mvpBase.GetView
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
+import com.zxcx.zhizhe.mvpBase.GetPostView
+import com.zxcx.zhizhe.mvpBase.IGetPostPresenter
 
 interface SearchUserContract {
 
-	interface View : GetView<List<SearchUserBean>>
+	interface View : GetPostView<List<SearchUserBean>, SearchUserBean> {
+		fun unFollowUserSuccess(bean: SearchUserBean)
+	}
 
-	interface Presenter : IGetPresenter<List<SearchUserBean>>
+	interface Presenter : IGetPostPresenter<List<SearchUserBean>, SearchUserBean> {
+		fun unFollowUserSuccess(bean: SearchUserBean)
+	}
 }
 

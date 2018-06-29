@@ -5,7 +5,7 @@ import com.zxcx.zhizhe.mvpBase.NullGetPostView
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
-interface AttentionContract {
+interface AttentionCardContract {
 
 	interface View : NullGetPostView<List<CardBean>> {
 		fun getClassifySuccess(list: List<ClassifyBean>)

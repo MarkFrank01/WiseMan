@@ -1,16 +1,15 @@
-package com.zxcx.zhizhe.ui.card.attention
+package com.zxcx.zhizhe.ui.article.attention
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
-class AttentionPresenter(view: AttentionContract.View) : BasePresenter<AttentionContract.View>(), AttentionContract.Presenter {
+class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePresenter<AttentionArticleContract.View>(), AttentionArticleContract.Presenter {
 
-	private val mModel: AttentionModel
+	private val mModel: AttentionArticleModel
 
 	init {
 		attachView(view)
-		mModel = AttentionModel(this)
+		mModel = AttentionArticleModel(this)
 	}
 
 	fun getAttentionCard(page: Int, pageSize: Int) {
@@ -21,7 +20,7 @@ class AttentionPresenter(view: AttentionContract.View) : BasePresenter<Attention
 		mModel.getClassify()
 	}
 
-	override fun getDataSuccess(list: List<CardBean>) {
+	override fun getDataSuccess(list: List<ArticleAndSubjectBean>) {
 		mView.getDataSuccess(list)
 	}
 

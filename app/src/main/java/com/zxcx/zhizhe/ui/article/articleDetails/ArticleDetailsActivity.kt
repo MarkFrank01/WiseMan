@@ -20,9 +20,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
-import com.zxcx.zhizhe.ui.classify.subject.SubjectCardActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -52,6 +50,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private var likeStatus = false
 	private var isUnLike = false
 	private var date: String? = null
+	private var category: String? = null
+	private var label: String? = null
 	private var author: String? = null
 	private var mActionMode: ActionMode? = null
 	private var mUrl: String? = null
@@ -64,11 +64,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		setContentView(R.layout.activity_article_details)
 		ButterKnife.bind(this)
 		EventBus.getDefault().register(this)
-
-		val para = iv_card_details.layoutParams
-		val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
-		para.height = screenWidth * 9 / 16
-		iv_card_details.layoutParams = para
 
 		initData()
 		initView()
@@ -149,15 +144,25 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		name = bean.name
 		imageUrl = bean.imageUrl
 		date = DateTimeUtils.getDateString(bean.date)
-		author = bean.authorName
-		tv_card_details_title.text = name
-		tv_card_details_info.text = getString(R.string.tv_card_info, date, author)
-		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details)
+		category = bean.categoryName
+		label = bean.labelName
+		tv_article_details_title.text = name
+		tv_article_details_date.text = date
+		tv_article_details_category.text = category
+		tv_article_details_label.text = label
+		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
+		tv_article_details_author.text = bean.authorName
+		tv_article_details_comment.text = bean.commentNum.toString()
+		tv_article_details_collect.text = bean.collectNum.toString()
+		tv_article_details_like.text = bean.likeNum.toString()
+		cb_article_details_follow.isChecked = bean.isFollow
+		cb_article_details_collect.isChecked = bean.isCollect
+		cb_article_details_like.isChecked = bean.isLike
 		val ad = bean.ad
 		if (ad != null) {
-			fl_card_details_ad.visibility = View.VISIBLE
-			ImageLoader.load(mActivity, ad.content, R.drawable.default_card, iv_card_details_ad)
-			fl_card_details_ad.setOnClickListener {
+			group_article_ad.visibility = View.VISIBLE
+			ImageLoader.load(mActivity, ad.content, R.drawable.default_card, iv_article_details_ad)
+			iv_article_details_ad.setOnClickListener {
 				startActivity(WebViewActivity::class.java) {
 					it.putExtra("title", ad.description)
 					it.putExtra("url", ad.behavior)
@@ -172,7 +177,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
 		goodView.setText((bean.likeNum - 1).toString() + " +1")
-		goodView.show(cb_card_details_like)
+		goodView.show(cb_article_details_like)
 	}
 
 	override fun collectSuccess(bean: ArticleDetailsBean) {
@@ -181,41 +186,25 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
 		goodView.setText((bean.collectNum - 1).toString() + " +1")
-		goodView.show(cb_card_details_collect)
+		goodView.show(cb_article_details_collect)
 	}
 
 	override fun postSuccess(bean: ArticleDetailsBean) {
-		isUnCollect = collectStatus != bean.isCollect() && !bean.isCollect()
-		isUnLike = likeStatus != bean.isLike() && !bean.isLike()
+		isUnCollect = collectStatus != bean.isCollect && !bean.isCollect
+		isUnLike = likeStatus != bean.isLike && !bean.isLike
 
-		val collectNum = bean.collectNum
-		val likeNum = bean.likeNum
-		val unLikeNum = bean.unLikeNum
-		cardBagName = bean.cardBagName
-		cardBagId = bean.cardBagId
-		subjectName = bean.subjectName
-		subjectId = bean.subjectId
-		tv_card_details_card_bag.text = if (subjectName.isNullOrEmpty()) cardBagName else subjectName
-		cb_card_details_collect.text = collectNum.toString()
-		cb_card_details_like.text = likeNum.toString()
-		cb_card_details_un_like.text = unLikeNum.toString()
-		cb_card_details_collect.isChecked = bean.isCollect
-		cb_card_details_like.isChecked = bean.isLike
-		cb_card_details_un_like.isChecked = bean.isUnLike
-		mAuthorId = bean.authorId
-		mCardType = bean.cardType
-		ImageLoader.load(mActivity, bean.authorIcon, R.drawable.default_header, iv_item_rank_user)
-		tv_item_rank_user_name.text = bean.authorName
-		tv_item_rank_user_card.text = bean.authorCardNum
-		tv_item_rank_user_fans.text = bean.authorFansNum
-		tv_item_rank_user_read.text = bean.authorReadNum
-		if (bean.followType == 0) {
-			cb_item_card_details_follow.text = "关注"
-			cb_item_card_details_follow.isChecked = false
-		} else {
-			cb_item_card_details_follow.text = "已关注"
-			cb_item_card_details_follow.isChecked = true
-		}
+		tv_article_details_title.text = name
+		tv_article_details_date.text = date
+		tv_article_details_category.text = category
+		tv_article_details_label.text = label
+		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
+		tv_article_details_author.text = bean.authorName
+		tv_article_details_comment.text = bean.commentNum.toString()
+		tv_article_details_collect.text = bean.collectNum.toString()
+		tv_article_details_like.text = bean.likeNum.toString()
+		cb_article_details_follow.isChecked = bean.isFollow
+		cb_article_details_collect.isChecked = bean.isCollect
+		cb_article_details_like.isChecked = bean.isLike
 	}
 
 	override fun postFail(msg: String) {
@@ -223,15 +212,13 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun followSuccess() {
-		if (cb_item_card_details_follow.isChecked) {
+		if (cb_article_details_follow.isChecked) {
 			//取消成功
-			cb_item_card_details_follow.text = "关注"
-			cb_item_card_details_follow.isChecked = false
+			cb_article_details_follow.isChecked = false
 		} else {
 			//关注成功
 			toastShow("关注成功")
-			cb_item_card_details_follow.text = "已关注"
-			cb_item_card_details_follow.isChecked = true
+			cb_article_details_follow.isChecked = true
 		}
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
@@ -249,24 +236,20 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun setListener() {
-		iv_card_details_back.setOnClickListener {
+		iv_article_details_back.setOnClickListener {
 			onBackPressed()
 		}
-		fl_card_details_card_bag.setOnClickListener {
-			if (subjectName.isNullOrEmpty()) {
-				startActivity(CardBagActivity::class.java, {
-					it.putExtra("name", cardBagName)
-					it.putExtra("id", cardBagId)
-				})
-			} else {
-				startActivity(SubjectCardActivity::class.java, {
-					it.putExtra("name", subjectName)
-					it.putExtra("id", cardBagId)
-				})
+		tv_article_details_label.setOnClickListener {
+			//todo 标签页
+		}
+		tv_article_details_author.setOnClickListener {
+			startActivity(OtherUserActivity::class.java) {
+				it.putExtra("name", author)
+				it.putExtra("id", mAuthorId)
 			}
 		}
-		cb_item_card_details_follow.setOnClickListener {
-			cb_item_card_details_follow.isChecked = !cb_item_card_details_follow.isChecked
+		cb_article_details_follow.setOnClickListener {
+			cb_article_details_follow.isChecked = !cb_article_details_follow.isChecked
 			if (!checkLogin()) {
 				return@setOnClickListener
 			}
@@ -274,7 +257,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				toastShow("无法关注自己")
 				return@setOnClickListener
 			}
-			if (!cb_item_card_details_follow.isChecked) {
+			if (!cb_article_details_follow.isChecked) {
 				//关注
 				mPresenter.setUserFollow(mAuthorId, 0)
 			} else {
@@ -286,38 +269,32 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				dialog.show(fragmentManager, "")
 			}
 		}
-		rl_card_details_bottom.setOnClickListener {
-			startActivity(OtherUserActivity::class.java) {
-				it.putExtra("name", author)
-				it.putExtra("id", mAuthorId)
-			}
+		iv_article_details_comment.setOnClickListener {
+			//todo 评论区
 		}
-		iv_card_details_share.setOnClickListener {
-			when (mCardType) {
-				1 -> gotoImageShare(mUrl, null)
-				2 -> gotoHtmlShare()
-			}
-
-		}
-		cb_card_details_un_like.setOnClickListener {
+		cb_article_details_collect.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
-			cb_card_details_un_like.isChecked = !cb_card_details_un_like.isChecked
-			if (!cb_card_details_un_like.isChecked) {
+			cb_article_details_collect.isChecked = !cb_article_details_collect.isChecked
+			if (mUserId == mAuthorId) {
+				toastShow("不能收藏自己哦")
+				return@setOnClickListener
+			}
+			if (!cb_article_details_collect.isChecked) {
 				if (checkLogin()) {
-					mPresenter.unLikeCard(cardId)
+					mPresenter.addCollectCard(cardId)
 				}
 			} else {
-				mPresenter.removeUnLikeCard(cardId)
+				mPresenter.removeCollectCard(cardId)
 			}
 		}
-		cb_card_details_like.setOnClickListener {
+		cb_article_details_like.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
-			cb_card_details_like.isChecked = !cb_card_details_like.isChecked
+			cb_article_details_like.isChecked = !cb_article_details_like.isChecked
 			if (mUserId == mAuthorId) {
 				toastShow("不能点赞自己哦")
 				return@setOnClickListener
 			}
-			if (!cb_card_details_like.isChecked) {
+			if (!cb_article_details_like.isChecked) {
 				if (checkLogin()) {
 					mPresenter.likeCard(cardId)
 				}
@@ -325,20 +302,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				mPresenter.removeLikeCard(cardId)
 			}
 		}
-		cb_card_details_collect.setOnClickListener {
-			//checkBox点击之后选中状态就已经更改了
-			cb_card_details_collect.isChecked = !cb_card_details_collect.isChecked
-			if (mUserId == mAuthorId) {
-				toastShow("不能收藏自己哦")
-				return@setOnClickListener
-			}
-			if (!cb_card_details_collect.isChecked) {
-				if (checkLogin()) {
-					mPresenter.addCollectCard(cardId)
-				}
-			} else {
-				mPresenter.removeCollectCard(cardId)
-			}
+		iv_article_details_share.setOnClickListener {
+			gotoHtmlShare()
 		}
 	}
 
@@ -347,19 +312,23 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		name = intent.getStringExtra("name")
 		imageUrl = intent.getStringExtra("imageUrl")
 		date = intent.getStringExtra("date")
-		author = intent.getStringExtra("authorName")
+		category = intent.getStringExtra("category")
+		label = intent.getStringExtra("label")
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	}
 
 	private fun initView() {
 		if (!StringUtils.isEmpty(name))
-			tv_card_details_title.text = name
-		if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
-			tv_card_details_info.text = getString(R.string.tv_card_info, date, author)
+			tv_article_details_title.text = name
+		if (!StringUtils.isEmpty(date))
+			tv_article_details_date.text = date
+		if (!StringUtils.isEmpty(category))
+			tv_article_details_category.text = category
+		if (!StringUtils.isEmpty(label))
+			tv_article_details_label.text = label
 		if (!StringUtils.isEmpty(imageUrl))
-			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details)
+			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		initWebView()
-
 		initLoadSir()
 	}
 
@@ -371,7 +340,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 
 		mWebView?.webViewClient = object : WebViewClient() {
 
-			internal var isError = false
+			var isError = false
 
 			override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
 				return true
@@ -389,9 +358,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				if (loadService2 != null) {
 					loadService2?.showSuccess()
 				}
-				ll_card_details_bottom.visibility = View.VISIBLE
-				rl_card_details_bottom.visibility = View.VISIBLE
-				view_line.visibility = View.VISIBLE
+				group_article_bottom.visibility = View.VISIBLE
 			}
 
 			override fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError) {
@@ -405,7 +372,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			}
 		}
 		mWebView?.isFocusable = false
-		fl_card_details.addView(mWebView)
+		fl_article_details.addView(mWebView)
 		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
 		mUrl = if (isNight) {
@@ -450,17 +417,14 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		}
 		bundle.putString("imageUrl", imageUrl)
 		bundle.putString("date", date)
-		bundle.putString("authorName", author)
 		bundle.putString("cardCategoryName", cardBagName)
 		bundle.putInt("cardBagId", cardBagId)
 		shareDialog.arguments = bundle
 		val fragmentManager = fragmentManager
 		val transaction = fragmentManager.beginTransaction()
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			transaction.addSharedElement(iv_card_details, "cardImage")
-			transaction.addSharedElement(tv_card_details_title, "cardTitle")
-			transaction.addSharedElement(tv_card_details_info, "cardInfo")
-			transaction.addSharedElement(tv_card_details_card_bag, "cardBag")
+			transaction.addSharedElement(iv_article_details, "cardImage")
+			transaction.addSharedElement(tv_article_details_title, "cardTitle")
 
 		}
 		shareDialog.show(transaction, "")

@@ -11,7 +11,7 @@
 	android:paddingEnd="20dp">
 	
 	<com.makeramen.roundedimageview.RoundedImageView
-		android:id="@+id/iv_item_rank_user"
+		android:id="@+id/iv_item_search_user"
 		android:layout_width="48dp"
 		android:layout_height="48dp"
 		android:scaleType="centerCrop"
@@ -19,7 +19,7 @@
 		tools:src="@drawable/logo"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_name"
+		android:id="@+id/tv_item_search_user_name"
 		style="@style/tv_single"
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
@@ -30,12 +30,12 @@
 		android:maxLength="8"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_text_1"
-		app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
-		app:layout_constraintTop_toTopOf="@id/iv_item_rank_user"
+		app:layout_constraintStart_toEndOf="@id/iv_item_search_user"
+		app:layout_constraintTop_toTopOf="@id/iv_item_search_user"
 		tools:text="打印纸的规格"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_level"
+		android:id="@+id/tv_item_search_user_level"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -50,13 +50,13 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_ff"
 		android:textSize="@dimen/text_size_text_3"
-		app:layout_constraintBottom_toBottomOf="@id/tv_item_rank_user_name"
-		app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_name"
-		app:layout_constraintTop_toTopOf="@id/tv_item_rank_user_name"
+		app:layout_constraintBottom_toBottomOf="@id/tv_item_search_user_name"
+		app:layout_constraintStart_toEndOf="@id/tv_item_search_user_name"
+		app:layout_constraintTop_toTopOf="@id/tv_item_search_user_name"
 		tools:text="1000"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_card"
+		android:id="@+id/tv_item_search_user_card"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -67,12 +67,12 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
-		app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+		app:layout_constraintStart_toEndOf="@id/iv_item_search_user"
 		tools:text="1000"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_fans"
+		android:id="@+id/tv_item_search_user_fans"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -83,12 +83,12 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
-		app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_card"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+		app:layout_constraintStart_toEndOf="@id/tv_item_search_user_card"
 		tools:text="1000"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_like"
+		android:id="@+id/tv_item_search_user_like"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -99,12 +99,12 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
-		app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_fans"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+		app:layout_constraintStart_toEndOf="@id/tv_item_search_user_fans"
 		tools:text="1000"/>
 	
 	<TextView
-		android:id="@+id/tv_item_rank_user_collect"
+		android:id="@+id/tv_item_search_user_collect"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -115,12 +115,12 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
-		app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_like"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+		app:layout_constraintStart_toEndOf="@id/tv_item_search_user_like"
 		tools:text="1000"/>
 	
 	<CheckBox
-		android:id="@+id/cb_item_card_details_follow"
+		android:id="@+id/cb_item_search_user_follow"
 		android:layout_width="24dp"
 		android:layout_height="24dp"
 		android:layout_marginStart="8dp"

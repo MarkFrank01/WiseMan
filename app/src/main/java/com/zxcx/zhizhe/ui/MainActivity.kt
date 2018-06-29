@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
-import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.HomeCardFragment
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.classify.ClassifyFragment
-import com.zxcx.zhizhe.ui.home.HomeFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
@@ -30,7 +30,8 @@ import org.greenrobot.eventbus.ThreadMode
 class MainActivity : BaseActivity() {
 
 	private var mCurrentFragment = Fragment()
-	private var mHomeFragment: HomeFragment? = HomeFragment()
+	private var mHomeCardFragment: HomeCardFragment? = HomeCardFragment()
+	private var mHomeArticleFragment: HomeArticleFragment? = HomeArticleFragment()
 	private var mClassifyFragment: ClassifyFragment? = ClassifyFragment()
 	private var mMyFragment: MyFragment? = MyFragment()
 
@@ -55,15 +56,6 @@ class MainActivity : BaseActivity() {
 	override fun recreate() {
 		val intent = Intent()
 		setIntent(intent)
-		val fm = supportFragmentManager
-		val transaction = fm.beginTransaction()
-		transaction.remove(mHomeFragment)
-				.remove(mClassifyFragment)
-				.remove(mMyFragment)
-				.commitAllowingStateLoss()
-		mHomeFragment = null
-		mClassifyFragment = null
-		mMyFragment = null
 		super.recreate()
 	}
 
@@ -88,8 +80,8 @@ class MainActivity : BaseActivity() {
 				}
 			}
 		}
-		home_tab_card.setOnClickListener { switchFragment(mHomeFragment) }
-		home_tab_article.setOnClickListener { switchFragment(mClassifyFragment) }
+		home_tab_card.setOnClickListener { switchFragment(mHomeCardFragment) }
+		home_tab_article.setOnClickListener { switchFragment(mHomeArticleFragment) }
 		home_tab_rank.setOnClickListener {
 			//todo 替换成榜单
 		}
@@ -107,10 +99,8 @@ class MainActivity : BaseActivity() {
 		val transaction = fm.beginTransaction()
 
 		if (mCurrentFragment === newFragment) {
-			if (newFragment === mHomeFragment) {
+			if (newFragment === mHomeCardFragment) {
 				EventBus.getDefault().post(HomeClickRefreshEvent())
-			} else if (newFragment === mClassifyFragment) {
-				EventBus.getDefault().post(ClassifyClickRefreshEvent())
 			}
 		} else {
 			if (newFragment!!.isAdded) {

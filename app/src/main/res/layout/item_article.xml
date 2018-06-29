@@ -5,32 +5,28 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginTop="20dp"
-	android:layout_marginStart="20dp"
-	android:layout_marginEnd="20dp"
 	android:layout_centerHorizontal="true"
-	android:background="@drawable/bg_background_6dp"
+	android:paddingTop="20dp"
+	android:paddingStart="20dp"
+	android:paddingEnd="20dp"
+	android:background="@color/background"
 	android:elevation="10dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press">
 	
-	<com.makeramen.roundedimageview.RoundedImageView
+	<ImageView
 		android:id="@+id/iv_item_card_icon"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:scaleType="centerCrop"
 		android:transitionName="cardImage"
-		app:layout_constraintDimensionRatio="4:3"
-		app:riv_corner_radius_top_left="6dp"
-		app:riv_corner_radius_top_right="6dp"
+		app:layout_constraintDimensionRatio="16:9"
 		tools:src="@drawable/iv_item_home_card_icon"/>
 	
 	<android.support.constraint.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_gravity="bottom"
-		android:paddingStart="20dp"
-		android:paddingEnd="20dp"
 		android:orientation="vertical"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"

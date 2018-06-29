@@ -3,10 +3,10 @@ package com.zxcx.zhizhe.ui.classify;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
-
+import java.io.Serializable;
 import java.util.List;
 
-public class ClassifyBean extends RetrofitBaen implements MultiItemEntity {
+public class ClassifyBean extends RetrofitBaen implements MultiItemEntity, Serializable {
 
 
 	/**

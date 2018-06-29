@@ -185,7 +185,7 @@
 		android:id="@+id/iv_item_card_details_share"
 		android:layout_width="18dp"
 		android:layout_height="18dp"
-		android:layout_marginEnd="10dp"
+		android:layout_marginEnd="20dp"
 		android:scaleType="center"
 		android:src="@drawable/tv_card_details_share"
 		app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"

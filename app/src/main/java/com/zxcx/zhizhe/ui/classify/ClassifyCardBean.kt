@@ -3,12 +3,13 @@ package com.zxcx.zhizhe.ui.classify
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import java.io.Serializable
 
 /**
  * Created by anm on 2017/8/30.
  */
 
-class ClassifyCardBean : RetrofitBaen(), MultiItemEntity {
+class ClassifyCardBean : RetrofitBaen(), MultiItemEntity, Serializable {
 
 	@SerializedName("interested")
 	var isChecked: Boolean = false

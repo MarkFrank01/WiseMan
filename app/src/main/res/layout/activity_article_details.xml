@@ -12,292 +12,225 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
 		
-		<LinearLayout
+		<android.support.constraint.ConstraintLayout
 			android:id="@+id/ll_card_details_top"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+			android:layout_height="wrap_content">
 			
-			<FrameLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-				
-				<com.zxcx.zhizhe.widget.CardImageView
-					android:id="@+id/iv_card_details"
-					android:layout_width="match_parent"
-					android:layout_height="212dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/default_card"
-					android:transitionName="cardImage"
-					app:hasShade="true"
-					app:heightWeight="9"
-					app:widthWeight="16"/>
-				
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="bottom"
-					android:paddingStart="20dp"
-					android:paddingEnd="20dp">
-					
-					<TextView
-						android:id="@+id/tv_card_details_title"
-						android:textStyle="bold"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:ellipsize="end"
-						android:lineSpacingExtra="4dp"
-						android:maxLines="2"
-						android:textColor="@color/white_final"
-						android:textSize="@dimen/text_size_title_2"
-						android:transitionName="cardTitle"
-						tools:text="动圈和铁圈耳机的区别"/>
-					
-					<LinearLayout
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="4dp"
-						android:layout_below="@id/tv_card_details_title"
-						android:gravity="center">
-						
-						<FrameLayout
-							android:id="@+id/fl_card_details_card_bag"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:paddingTop="8dp"
-							android:paddingBottom="8dp"
-							android:paddingStart="0dp"
-							android:paddingEnd="10dp">
-							
-							<TextView
-								android:id="@+id/tv_card_details_card_bag"
-								style="@style/tv_card_category"
-								tools:text="数码产品"/>
-						</FrameLayout>
-						
-						<TextView
-							android:id="@+id/tv_card_details_info"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:textColor="@color/text_color_ee"
-							android:textSize="@dimen/text_size_text_3"
-							android:transitionName="cardInfo"
-							tools:text="@string/tv_card_info"/>
-					</LinearLayout>
-				
-				</RelativeLayout>
-			</FrameLayout>
-			
-			<FrameLayout
-				android:id="@+id/fl_card_details"
+			<ImageView
+				android:id="@+id/iv_article_details"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
-				android:layout_weight="1">
-			</FrameLayout>
+				android:scaleType="centerCrop"
+				android:src="@drawable/default_card"
+				android:transitionName="@string/card_title_transition_name"
+				app:layout_constraintDimensionRatio="16:9"/>
 			
-			<FrameLayout
-				android:id="@+id/fl_card_details_ad"
+			<TextView
+				android:id="@+id/tv_article_details_title"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:visibility="gone">
-				
-				<com.zxcx.zhizhe.widget.CardImageView
-					android:id="@+id/iv_card_details_ad"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					app:hasShade="false"
-					app:heightWeight="9"
-					app:widthWeight="16"/>
-				
-				<ImageView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="10dp"
-					android:layout_marginStart="15dp"
-					android:layout_gravity="bottom"/>
-			
-			</FrameLayout>
-			
-			<RelativeLayout
-				android:id="@+id/rl_card_details_bottom"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="40dp"
-				android:layout_marginBottom="60dp"
+				android:layout_marginTop="15dp"
 				android:layout_marginStart="20dp"
 				android:layout_marginEnd="20dp"
-				android:visibility="gone">
-				
-				<com.makeramen.roundedimageview.RoundedImageView
-					android:id="@+id/iv_item_rank_user"
-					android:layout_width="48dp"
-					android:layout_height="48dp"
-					android:layout_marginEnd="10dp"
-					android:scaleType="centerCrop"
-					app:riv_oval="true"
-					tools:src="@drawable/logo"/>
-				
-				<RelativeLayout
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_centerVertical="true"
-					android:layout_toEndOf="@id/iv_item_rank_user"
-					android:orientation="vertical">
-					
-					<TextView
-						android:id="@+id/tv_item_rank_user_name"
-						style="@style/tv_single"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="8dp"
-						android:textColor="@color/text_color_1"
-						android:textSize="@dimen/text_size_text_1"
-						tools:text="打印纸的规格"/>
-					
-					<TextView
-						android:id="@+id/tv_item_rank_user_card"
-						style="@style/tv_single"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_below="@id/tv_item_rank_user_name"
-						android:drawablePadding="3dp"
-						android:drawableStart="@drawable/tv_item_rank_user_card"
-						android:textColor="@color/text_color_2"
-						android:textSize="@dimen/text_size_text_3"
-						tools:text="500"/>
-					
-					<TextView
-						android:id="@+id/tv_item_rank_user_fans"
-						style="@style/tv_single"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginStart="15dp"
-						android:layout_below="@id/tv_item_rank_user_name"
-						android:layout_toEndOf="@id/tv_item_rank_user_card"
-						android:drawablePadding="3dp"
-						android:drawableStart="@drawable/tv_item_rank_user_fans"
-						android:textColor="@color/text_color_2"
-						android:textSize="@dimen/text_size_text_3"
-						tools:text="500"/>
-					
-					<TextView
-						android:id="@+id/tv_item_rank_user_read"
-						style="@style/tv_single"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginStart="15dp"
-						android:layout_below="@id/tv_item_rank_user_name"
-						android:layout_toEndOf="@id/tv_item_rank_user_fans"
-						android:drawablePadding="3dp"
-						android:drawableStart="@drawable/tv_item_rank_user_intelligence"
-						android:textColor="@color/text_color_2"
-						android:textSize="@dimen/text_size_text_3"
-						tools:text="500"/>
-					
-					<CheckBox
-						android:id="@+id/cb_item_card_details_follow"
-						android:layout_width="72dp"
-						android:layout_height="32dp"
-						android:layout_marginEnd="5dp"
-						android:layout_alignParentEnd="true"
-						android:layout_centerVertical="true"
-						android:background="@drawable/selector_checkbox_bg_follow"
-						android:button="@null"
-						android:checked="false"
-						android:gravity="center"
-						android:text="关注"
-						android:textColor="@color/color_checkbox_text_follow"
-						android:textSize="14sp"/>
-				
-				</RelativeLayout>
+				android:lineSpacingExtra="6dp"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_title_2"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/iv_article_details"
+				tools:text="男士西装基本样式简介男士西装基本样式"/>
 			
-			</RelativeLayout>
+			<TextView
+				android:id="@+id/tv_article_details_category"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="20dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
+				tools:text="生活"/>
 			
-			<View
-				android:id="@+id/view_line"
-				style="@style/line"
-				android:visibility="gone"/>
+			<TextView
+				android:id="@+id/tv_article_details_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="12dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toEndOf="@id/tv_article_details_category"
+				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
+				tools:text="生活"/>
 			
-			<LinearLayout
-				android:id="@+id/ll_card_details_bottom"
+			<TextView
+				android:id="@+id/tv_article_details_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="12dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toEndOf="@id/tv_article_details_label"
+				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
+				tools:text="2018/12/20"/>
+			
+			<FrameLayout
+				android:id="@+id/fl_article_details"
 				android:layout_width="match_parent"
-				android:layout_height="50dp"
-				android:visibility="gone">
-				
-				<LinearLayout
-					android:id="@+id/ll_card_details_collect"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_marginStart="30dp"
-					android:gravity="center">
-					
-					<CheckBox
-						android:id="@+id/cb_card_details_collect"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:paddingStart="7.5dp"
-						android:button="@drawable/selector_cb_card_details_collect"
-						android:textColor="@color/color_checkbox_card_details"
-						android:textSize="12sp"
-						tools:text="200"/>
-				</LinearLayout>
-				
-				<LinearLayout
-					android:id="@+id/ll_card_details_like"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_marginStart="30dp"
-					android:gravity="center">
-					
-					<CheckBox
-						android:id="@+id/cb_card_details_like"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:paddingStart="7.5dp"
-						android:button="@drawable/selector_cb_card_details_like"
-						android:textColor="@color/color_checkbox_card_details"
-						android:textSize="12sp"
-						tools:text="200"/>
-				</LinearLayout>
-				
-				<LinearLayout
-					android:id="@+id/ll_card_details_un_like"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:gravity="center"
-					android:visibility="gone">
-					
-					<CheckBox
-						android:id="@+id/cb_card_details_un_like"
-						android:layout_width="wrap_content"
-						android:layout_height="match_parent"
-						android:paddingStart="7.5dp"
-						android:button="@drawable/selector_cb_card_details_un_like"
-						android:textColor="@color/color_checkbox_card_details"
-						android:textSize="12sp"
-						tools:text="200"/>
-				</LinearLayout>
-				
-				<View
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"/>
-				
-				<ImageView
-					android:id="@+id/iv_card_details_share"
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:paddingEnd="30dp"
-					android:scaleType="center"
-					android:src="@drawable/tv_card_details_share"/>
+				android:layout_height="0dp"
+				app:layout_constraintTop_toBottomOf="@id/tv_article_details_category">
+			</FrameLayout>
 			
-			</LinearLayout>
-		</LinearLayout>
+			<com.makeramen.roundedimageview.RoundedImageView
+				android:id="@+id/iv_article_details_ad"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_marginTop="34dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginEnd="20dp"
+				android:scaleType="centerCrop"
+				app:layout_constraintDimensionRatio="16:9"
+				app:layout_constraintTop_toBottomOf="@id/fl_article_details"
+				app:riv_corner_radius="6dp"
+				tools:src="@drawable/default_card"/>
+			
+			<ImageView
+				android:id="@+id/iv_ad_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/iv_ad_label_ad"
+				app:layout_constraintBottom_toBottomOf="@id/iv_article_details_ad"
+				app:layout_constraintStart_toStartOf="@id/iv_article_details_ad"/>
+			
+			<android.support.constraint.Group
+				android:id="@+id/group_article_ad"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				app:constraint_referenced_ids="iv_article_details_ad,iv_ad_label"/>
+			
+			<TextView
+				android:id="@+id/tv_article_details_author"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="50dp"
+				android:layout_marginBottom="8dp"
+				android:layout_marginStart="20dp"
+				android:paddingTop="10dp"
+				android:paddingBottom="10dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/iv_article_details_ad"
+				tools:text="66666666666"/>
+			
+			<CheckBox
+				android:id="@+id/cb_article_details_follow"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginStart="8dp"
+				android:background="@drawable/selector_card_details_follow"
+				android:button="@null"
+				android:checked="false"
+				app:layout_constraintBottom_toBottomOf="@+id/tv_article_details_author"
+				app:layout_constraintStart_toEndOf="@+id/tv_article_details_author"
+				app:layout_constraintTop_toTopOf="@+id/tv_article_details_author"/>
+			
+			<ImageView
+				android:id="@+id/iv_article_details_comment"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:scaleType="center"
+				android:src="@drawable/tv_card_details_share"
+				app:layout_constraintBottom_toBottomOf="@+id/tv_article_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/cb_article_details_collect"
+				app:layout_constraintTop_toTopOf="@+id/tv_article_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_article_details_comment"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/iv_article_details_comment"
+				app:layout_constraintStart_toEndOf="@+id/iv_article_details_comment"
+				app:layout_constraintTop_toTopOf="@+id/iv_article_details_comment"
+				tools:text="100"/>
+			
+			<CheckBox
+				android:id="@+id/cb_article_details_collect"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:background="@drawable/selector_cb_card_details_collect"
+				android:button="@null"
+				app:layout_constraintBottom_toBottomOf="@+id/tv_article_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/cb_article_details_like"
+				app:layout_constraintTop_toTopOf="@+id/tv_article_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_article_details_collect"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_checkbox_card_details"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/cb_article_details_collect"
+				app:layout_constraintStart_toEndOf="@+id/cb_article_details_collect"
+				app:layout_constraintTop_toTopOf="@+id/cb_article_details_collect"
+				tools:text="100"/>
+			
+			<CheckBox
+				android:id="@+id/cb_article_details_like"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:background="@drawable/selector_cb_card_details_like"
+				android:button="@null"
+				app:layout_constraintBottom_toBottomOf="@+id/tv_article_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/iv_article_details_share"
+				app:layout_constraintTop_toTopOf="@+id/tv_article_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_article_details_like"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_checkbox_card_details"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/cb_article_details_like"
+				app:layout_constraintStart_toEndOf="@+id/cb_article_details_like"
+				app:layout_constraintTop_toTopOf="@+id/cb_article_details_like"
+				tools:text="100"/>
+			
+			<ImageView
+				android:id="@+id/iv_article_details_share"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="20dp"
+				android:scaleType="center"
+				android:src="@drawable/tv_card_details_share"
+				app:layout_constraintBottom_toBottomOf="@+id/tv_article_details_author"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/tv_article_details_author"/>
+			
+			<android.support.constraint.Group
+				android:id="@+id/group_article_bottom"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				app:constraint_referenced_ids="tv_article_details_author,
+				cb_article_details_follow,iv_article_details_comment,
+				tv_article_details_comment,cb_article_details_collect,
+				tv_article_details_collect,cb_article_details_like,
+				tv_article_details_like,iv_article_details_share"/>
+		</android.support.constraint.ConstraintLayout>
 	</ScrollView>
 	
 	<ImageView
-		android:id="@+id/iv_card_details_back"
+		android:id="@+id/iv_article_details_back"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="10dp"

@@ -8,28 +8,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadSir;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.ClassifyClickRefreshEvent;
 import com.zxcx.zhizhe.loadCallback.ClassifyLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import org.greenrobot.eventbus.EventBus;
 
 public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements
 	ClassifyContract.View,
@@ -95,12 +88,6 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements
 	public void clearLeaks() {
 		loadService = null;
 		mAdapter = null;
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	public void onMessageEvent(ClassifyClickRefreshEvent event) {
-		mRvClassify.scrollToPosition(0);
-		onRefresh();
 	}
 
 	@Override

@@ -35,7 +35,7 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_search)
 		ButterKnife.bind(this)
-
+		et_search.setText(intent.getStringExtra("keyword"))
 		initRecyclerView()
 		mPresenter.getSearchBean()
 	}
@@ -157,7 +157,7 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 					override fun onComplete() {
 						Utils.closeInputMethod(et_search)
 						val intent = Intent(this@SearchActivity, SearchResultActivity::class.java)
-						intent.putExtra("mKeyword", keyword)
+						intent.putExtra("keyword", keyword)
 						startActivity(intent)
 						finish()
 					}

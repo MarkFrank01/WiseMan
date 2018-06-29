@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_follow_user.*
@@ -58,14 +59,14 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		mPresenter.unFollowUser(event.userId)
 	}
 
-	override fun getEmptyFollowUserSuccess(list: MutableList<FollowUserBean>) {
+	override fun getEmptyFollowUserSuccess(list: MutableList<SearchUserBean>) {
 		val emptyView = LayoutInflater.from(mActivity).inflate(R.layout.layout_no_data_and_user, null)
 		mAdapter.addHeaderView(emptyView)
 		mAdapter.setNewData(list)
 		mAdapter.loadMoreEnd(false)
 	}
 
-	override fun getDataSuccess(list: MutableList<FollowUserBean>) {
+	override fun getDataSuccess(list: MutableList<SearchUserBean>) {
 		if (list.isEmpty()) {
 			mPresenter.getEmptyFollowUser()
 			return
@@ -85,10 +86,9 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		}
 	}
 
-	override fun postSuccess(bean: FollowUserBean) {
+	override fun postSuccess(bean: SearchUserBean) {
 		//关注成功回调
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].followType = bean.followType
 		mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
 	}
 
@@ -96,8 +96,7 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		toastShow(msg)
 	}
 
-	override fun unFollowUserSuccess(bean: FollowUserBean) {
-		bean.id = bean.targetUserId
+	override fun unFollowUserSuccess(bean: SearchUserBean) {
 		mAdapter.remove(mAdapter.data.indexOf(bean))
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 		if (mAdapter.data.isEmpty()) {
@@ -106,7 +105,7 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-		val bean = adapter.data[position] as FollowUserBean
+		val bean = adapter.data[position] as SearchUserBean
 		val intent = Intent(mActivity, OtherUserActivity::class.java)
 		intent.putExtra("id", bean.id)
 		intent.putExtra("name", bean.name)
@@ -116,7 +115,7 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
 		val cb = view as CheckBox
 		cb.isChecked = !cb.isChecked
-		val bean = adapter.data[position] as FollowUserBean
+		val bean = adapter.data[position] as SearchUserBean
 		if (cb.isChecked) {
 			val bundle = Bundle()
 			bundle.putInt("userId", bean.id ?: 0)

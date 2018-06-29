@@ -11,6 +11,8 @@
 		android:id="@+id/rv_select_attention"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
+		android:paddingLeft="12.5dp"
+		android:paddingRight="12.5dp"
 		app:layout_constraintBottom_toTopOf="@id/tv_select_attention_complete"
 		app:layout_constraintTop_toTopOf="parent"/>
 	

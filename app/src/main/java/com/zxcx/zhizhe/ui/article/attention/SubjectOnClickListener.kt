@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.search.result
+package com.zxcx.zhizhe.ui.article.attention
 
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 
@@ -7,6 +7,6 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 
 interface SubjectOnClickListener {
-	fun cardOnClick(bean: CardBean)
+	fun articleOnClick(bean: CardBean)
 	fun subjectOnClick(bean: SubjectBean)
 }

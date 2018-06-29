@@ -7,7 +7,7 @@ import com.zxcx.zhizhe.retrofit.BaseArrayBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 
-class SubjectCardModel(presenter: SubjectCardContract.Presenter) : BaseModel<SubjectCardContract.Presenter>() {
+class SubjectArticleModel(presenter: SubjectArticleContract.Presenter) : BaseModel<SubjectArticleContract.Presenter>() {
 	init {
 		this.mPresenter = presenter
 	}

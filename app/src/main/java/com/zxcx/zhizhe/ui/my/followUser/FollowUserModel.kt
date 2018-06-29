@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.PostSubscriber
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 
 class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<FollowUserContract.Presenter>() {
 	init {
@@ -15,8 +16,8 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
 		mDisposable = AppClient.getAPIService().emptyFollowUser
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
-				.subscribeWith(object : BaseSubscriber<MutableList<FollowUserBean>>(mPresenter) {
-					override fun onNext(list: MutableList<FollowUserBean>) {
+				.subscribeWith(object : BaseSubscriber<MutableList<SearchUserBean>>(mPresenter) {
+					override fun onNext(list: MutableList<SearchUserBean>) {
 						mPresenter?.getEmptyFollowUserSuccess(list)
 					}
 				})
@@ -27,8 +28,8 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
 		mDisposable = AppClient.getAPIService().getFollowUser(followType, 0, page, pageSize)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
-				.subscribeWith(object : BaseSubscriber<MutableList<FollowUserBean>>(mPresenter) {
-					override fun onNext(list: MutableList<FollowUserBean>) {
+				.subscribeWith(object : BaseSubscriber<MutableList<SearchUserBean>>(mPresenter) {
+					override fun onNext(list: MutableList<SearchUserBean>) {
 						mPresenter?.getDataSuccess(list)
 					}
 				})
@@ -39,8 +40,8 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
 		mDisposable = AppClient.getAPIService().setUserFollow(authorId, 0)
 				.compose(BaseRxJava.handleResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : PostSubscriber<FollowUserBean>(mPresenter) {
-					override fun onNext(bean: FollowUserBean) {
+				.subscribeWith(object : PostSubscriber<SearchUserBean>(mPresenter) {
+					override fun onNext(bean: SearchUserBean) {
 						mPresenter?.postSuccess(bean)
 					}
 				})
@@ -51,8 +52,8 @@ class FollowUserModel(presenter: FollowUserContract.Presenter) : BaseModel<Follo
 		mDisposable = AppClient.getAPIService().setUserFollow(authorId, 1)
 				.compose(BaseRxJava.handleResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : PostSubscriber<FollowUserBean>(mPresenter) {
-					override fun onNext(bean: FollowUserBean) {
+				.subscribeWith(object : PostSubscriber<SearchUserBean>(mPresenter) {
+					override fun onNext(bean: SearchUserBean) {
 						mPresenter?.unFollowUserSuccess(bean)
 					}
 				})

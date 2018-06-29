@@ -3,13 +3,13 @@ package com.zxcx.zhizhe.ui.classify.subject
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 
-class SubjectCardPresenter(view: SubjectCardContract.View) : BasePresenter<SubjectCardContract.View>(), SubjectCardContract.Presenter {
+class SubjectArticlePresenter(view: SubjectArticleContract.View) : BasePresenter<SubjectArticleContract.View>(), SubjectArticleContract.Presenter {
 
-	private val mModel: SubjectCardModel
+	private val mModel: SubjectArticleModel
 
 	init {
 		attachView(view)
-		mModel = SubjectCardModel(this)
+		mModel = SubjectArticleModel(this)
 	}
 
 	fun getSubjectCardList(id: Int, page: Int, pageSize: Int) {

@@ -22,7 +22,7 @@ class SelectAttentionCallback(private val mList: List<ClassifyBean>) : Callback(
 	private lateinit var mContext: Context
 
 	override fun onCreateView(): Int {
-		return R.layout.view_attention_need_login
+		return R.layout.view_select_attention
 	}
 
 	override fun onAttach(context: Context, view: View) {
@@ -72,7 +72,9 @@ class SelectAttentionCallback(private val mList: List<ClassifyBean>) : Callback(
 	private fun initRecyclerView() {
 		mAdapter = SelectAttentionAdapter(arrayListOf())
 		mAdapter.onItemChildClickListener = this
-		val manager = GridLayoutManager(mContext, 3)
+		val manager = GridLayoutManager(mContext, 4)
+		mRvSelectAttention.layoutManager = manager
+		mRvSelectAttention.adapter = mAdapter
 		manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 			override fun getSpanSize(position: Int): Int {
 				return if (mAdapter.getItemViewType(position) == ClassifyCardBean.TYPE_CARD_BAG) {
@@ -82,7 +84,5 @@ class SelectAttentionCallback(private val mList: List<ClassifyBean>) : Callback(
 				}
 			}
 		}
-		mRvSelectAttention.layoutManager = manager
-		mRvSelectAttention.adapter = mAdapter
 	}
 }

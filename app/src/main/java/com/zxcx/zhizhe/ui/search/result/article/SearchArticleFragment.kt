@@ -15,7 +15,6 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_result.*
-import org.greenrobot.eventbus.EventBus
 
 class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
@@ -32,7 +31,6 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 		}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		EventBus.getDefault().register(this)
 		return inflater.inflate(R.layout.fragment_search_result, container, false)
 	}
 
@@ -40,11 +38,6 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 		super.onViewCreated(view, savedInstanceState)
 		initRecyclerView()
 		mPresenter?.searchCard(mKeyword, cardType, mPage)
-	}
-
-	override fun onDestroyView() {
-		EventBus.getDefault().unregister(this)
-		super.onDestroyView()
 	}
 
 	override fun createPresenter(): SearchCardPresenter {

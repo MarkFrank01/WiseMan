@@ -32,7 +32,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 		helper.setText(R.id.tv_item_card_details_comment, item.commentNum.toString())
 		helper.setText(R.id.tv_item_card_details_collect, item.collectNum.toString())
 		helper.setText(R.id.tv_item_card_details_like, item.likeNum.toString())
-		helper.setChecked(R.id.cb_item_card_details_follow, item.followType != 0)
+		helper.setChecked(R.id.cb_item_card_details_follow, item.isFollow)
 		helper.setChecked(R.id.cb_item_card_details_collect, item.isCollect)
 		helper.setChecked(R.id.cb_item_card_details_like, item.isLike)
 

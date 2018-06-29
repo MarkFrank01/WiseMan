@@ -2,11 +2,14 @@ package com.zxcx.zhizhe.ui.card.attention
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
-import com.zxcx.zhizhe.retrofit.*
+import com.zxcx.zhizhe.retrofit.AppClient
+import com.zxcx.zhizhe.retrofit.BaseBean
+import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.retrofit.NullPostSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
-class AttentionModel(present: AttentionContract.Presenter) : BaseModel<AttentionContract.Presenter>() {
+class AttentionCardModel(present: AttentionCardContract.Presenter) : BaseModel<AttentionCardContract.Presenter>() {
 
 	init {
 		this.mPresenter = present
@@ -14,7 +17,7 @@ class AttentionModel(present: AttentionContract.Presenter) : BaseModel<Attention
 
 	fun getAttentionCard(page: Int, pageSize: Int) {
 		mDisposable = AppClient.getAPIService().getAttentionCard(page, pageSize)
-				.compose(BaseRxJava.io_main<BaseArrayBean<CardBean>>())
+				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
 				.subscribeWith(object : BaseSubscriber<List<CardBean>>(mPresenter) {
 					override fun onNext(list: List<CardBean>) {

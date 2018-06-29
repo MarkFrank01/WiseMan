@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:background="@color/background"
 	android:orientation="vertical"
-	tools:context="com.zxcx.zhizhe.ui.home.HomeFragment">
+	tools:context="com.zxcx.zhizhe.ui.card.HomeCardFragment">
 	
 	<FrameLayout
 		android:id="@+id/ll_home_tab"

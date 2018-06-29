@@ -1,23 +1,18 @@
-package com.zxcx.zhizhe.ui.my.followUser
+package com.zxcx.zhizhe.ui.search.result.user
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 
-class FollowUserPresenter(view: FollowUserContract.View) : BasePresenter<FollowUserContract.View>(), FollowUserContract.Presenter {
+class SearchUserPresenter(view: SearchUserContract.View) : BasePresenter<SearchUserContract.View>(), SearchUserContract.Presenter {
 
-	private val mModel: FollowUserModel
+	private val mModel: SearchUserModel
 
 	init {
 		attachView(view)
-		mModel = FollowUserModel(this)
+		mModel = SearchUserModel(this)
 	}
 
-	fun getEmptyFollowUser() {
-		mModel.getEmptyFollowUser()
-	}
-
-	fun getFollowUser(followType: Int, page: Int, pageSize: Int) {
-		mModel.getFollowUser(followType, page, pageSize)
+	fun searchUser(keyword: String, page: Int) {
+		mModel.searchUser(keyword, page)
 	}
 
 	fun followUser(authorId: Int) {
@@ -28,11 +23,7 @@ class FollowUserPresenter(view: FollowUserContract.View) : BasePresenter<FollowU
 		mModel.unFollowUser(authorId)
 	}
 
-	override fun getEmptyFollowUserSuccess(list: MutableList<SearchUserBean>) {
-		mView.getEmptyFollowUserSuccess(list)
-	}
-
-	override fun getDataSuccess(bean: MutableList<SearchUserBean>) {
+	override fun getDataSuccess(bean: List<SearchUserBean>) {
 		mView.getDataSuccess(bean)
 	}
 
@@ -48,7 +39,7 @@ class FollowUserPresenter(view: FollowUserContract.View) : BasePresenter<FollowU
 		mView.unFollowUserSuccess(bean)
 	}
 
-	override fun postFail(msg: String?) {
+	override fun postFail(msg: String) {
 		mView.postFail(msg)
 	}
 

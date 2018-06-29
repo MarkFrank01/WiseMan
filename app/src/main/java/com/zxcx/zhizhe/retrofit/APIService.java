@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.retrofit;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsBean;
+import com.zxcx.zhizhe.ui.article.attention.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
@@ -12,7 +13,6 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.creation.fragment.CreationBean;
-import com.zxcx.zhizhe.ui.my.followUser.FollowUserBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
@@ -28,10 +28,8 @@ import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
-
-import java.util.List;
-
 import io.reactivex.Flowable;
+import java.util.List;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -140,10 +138,24 @@ public interface APIService {
 	Flowable<BaseArrayBean<CardCategoryBean>> getCardCategory();
 	
 	/**
+	 * 获取长文类别
+	 */
+	@POST("/article/getLongTextListTabClassifyList")
+	Flowable<BaseArrayBean<CardCategoryBean>> getArticleCategory();
+	
+	/**
 	 * 获取卡片类别下卡片列表
 	 */
 	@POST("/article/getCardListByClassifyId")
 	Flowable<BaseArrayBean<CardBean>> getCardListForCategory(
+		@Query("classifyId") int cardCategoryId, @Query("pageIndex") int page,
+		@Query("pageSize") int pageSize);
+	
+	/**
+	 * 获取长文类别下长文列表
+	 */
+	@POST("/article/getCardListByClassifyId")
+	Flowable<BaseArrayBean<ArticleAndSubjectBean>> getArticleListForCategory(
 		@Query("classifyId") int cardCategoryId, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
 	
@@ -179,9 +191,9 @@ public interface APIService {
 	Flowable<BaseArrayBean<String>> getSearchPre(@Query("keyword") String keyword);
 	
 	/**
-	 * 搜索卡片，长文，专题
+	 * 搜索卡片，长文
 	 */
-	@POST("/search/searchContent")
+	@POST("/search/searchArticle")
 	Flowable<BaseArrayBean<CardBean>> searchCard(
 		@Query("keyword") String keyword, @Query("cardType") int cardType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
@@ -189,15 +201,7 @@ public interface APIService {
 	/**
 	 * 搜索卡片，长文，专题
 	 */
-	@POST("/search/searchContent")
-	Flowable<BaseArrayBean<CardBean>> searchArticle(
-		@Query("keyword") String keyword, @Query("cardType") int cardType,
-		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
-	
-	/**
-	 * 搜索卡片，长文，专题
-	 */
-	@POST("/search/searchContent")
+	@POST("/search/searchUsers")
 	Flowable<BaseArrayBean<SearchUserBean>> searchUser(
 		@Query("keyword") String keyword, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
@@ -449,7 +453,7 @@ public interface APIService {
 	 * @param followType 0关注 1取消关注
 	 */
 	@POST("/user/setUserFollowUser")
-	Flowable<BaseBean<FollowUserBean>> setUserFollow(
+	Flowable<BaseBean<SearchUserBean>> setUserFollow(
 		@Query("userId") int userId, @Query("followType") int followType);
 	
 	/**
@@ -458,7 +462,7 @@ public interface APIService {
 	 * @param followType 0该用户关注的人 1该用户的粉丝
 	 */
 	@POST("/user/getFollowUserList")
-	Flowable<BaseArrayBean<FollowUserBean>> getFollowUser(
+	Flowable<BaseArrayBean<SearchUserBean>> getFollowUser(
 		@Query("followType") int followType, @Query("orderType") int sortType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	
@@ -466,7 +470,7 @@ public interface APIService {
 	 * 获取我关注的和关注我的
 	 */
 	@POST("/mytabinfo/getRecommendUserWhenNoContent")
-	Flowable<BaseArrayBean<FollowUserBean>> getEmptyFollowUser();
+	Flowable<BaseArrayBean<SearchUserBean>> getEmptyFollowUser();
 	
 	/**
 	 * 获取用户消息开关

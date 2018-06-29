@@ -29,7 +29,7 @@ class CardBean(
 		@SerializedName("like") var isLike: Boolean = false,
 		@SerializedName("disagree") var isUnLike: Boolean = false,
 		@SerializedName("collect") var isCollect: Boolean = false,
-		@SerializedName("userAurhorRelationshipType") var followType: Int = 0,//0为未关注，1为已关注，2为已相互关注&
+		@SerializedName("follow") var isFollow: Boolean = false,
 		@SerializedName("adUrl") var adUrl: String? = null
 ) : RetrofitBaen(), Parcelable {
 	override fun equals(other: Any?): Boolean {
@@ -69,7 +69,7 @@ class CardBean(
 			1 == source.readInt(),
 			1 == source.readInt(),
 			1 == source.readInt(),
-			source.readInt(),
+			1 == source.readInt(),
 			source.readString()
 	)
 
@@ -97,7 +97,7 @@ class CardBean(
 		writeInt((if (isLike) 1 else 0))
 		writeInt((if (isUnLike) 1 else 0))
 		writeInt((if (isCollect) 1 else 0))
-		writeInt(followType)
+		writeInt((if (isFollow) 1 else 0))
 		writeString(adUrl)
 	}
 

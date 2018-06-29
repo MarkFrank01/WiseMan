@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.zxcx.zhizhe"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.zxcx.zhizhe">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -21,26 +21,26 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".App"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:name">
         <provider
-            android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            android:name="android.support.v4.content.FileProvider">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
 
         <receiver
-            android:name=".receiver.OpenNotification"
-            android:enabled="true">
+            android:enabled="true"
+            android:name=".receiver.OpenNotification">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
 
@@ -49,8 +49,8 @@
         </receiver>
 
         <activity
-            android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:theme="@android:style/Theme.Translucent"/>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
@@ -71,14 +71,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"/>
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.loginAndRegister.login.LoginActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity
-            android:name=".ui.loginAndRegister.register.RegisterActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
@@ -108,11 +102,6 @@
             android:name=".ui.article.articleDetails.ArticleDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
-        <activity
-            android:name=".ui.loginAndRegister.forget.ForgetPasswordActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".ui.my.aboutUS.AboutUSActivity"
             android:screenOrientation="portrait"/>
@@ -206,8 +195,8 @@
             android:name=".ui.my.creation.ApplyReviewActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.message.MessageActivity"
             android:launchMode="singleTop"
+            android:name=".ui.my.message.MessageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.message.dynamic.dynamicList.DynamicMessageListActivity"
@@ -249,7 +238,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
-            android:name=".ui.classify.subject.SubjectCardActivity"
+            android:name=".ui.classify.subject.SubjectArticleActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.newCreation.CreationEditorActivity"

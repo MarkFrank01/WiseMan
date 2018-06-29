@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.home
+package com.zxcx.zhizhe.ui.card
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseFragment
-import com.zxcx.zhizhe.ui.card.attention.AttentionFragment
+import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
@@ -17,10 +17,10 @@ import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseFragment() {
+class HomeCardFragment : BaseFragment() {
 
 	private val mHotFragment = HotCardFragment()
-	private val mAttentionFragment = AttentionFragment()
+	private val mAttentionFragment = AttentionCardFragment()
 	private val mListFragment = CardListFragment()
 	private var mCurrentFragment = Fragment()
 
