@@ -11,12 +11,12 @@ import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
 import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
-import com.zxcx.zhizhe.ui.classify.ClassifyFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
+import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -30,9 +30,9 @@ import org.greenrobot.eventbus.ThreadMode
 class MainActivity : BaseActivity() {
 
 	private var mCurrentFragment = Fragment()
-	private var mHomeCardFragment: HomeCardFragment? = HomeCardFragment()
-	private var mHomeArticleFragment: HomeArticleFragment? = HomeArticleFragment()
-	private var mClassifyFragment: ClassifyFragment? = ClassifyFragment()
+	private var mHomeCardFragment = HomeCardFragment()
+	private var mHomeArticleFragment = HomeArticleFragment()
+	private var mRankFragment = RankFragment()
 	private var mMyFragment: MyFragment? = MyFragment()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +83,7 @@ class MainActivity : BaseActivity() {
 		home_tab_card.setOnClickListener { switchFragment(mHomeCardFragment) }
 		home_tab_article.setOnClickListener { switchFragment(mHomeArticleFragment) }
 		home_tab_rank.setOnClickListener {
-			//todo 替换成榜单
+			switchFragment(mRankFragment)
 		}
 		home_tab_my.setOnClickListener { switchFragment(mMyFragment) }
 	}

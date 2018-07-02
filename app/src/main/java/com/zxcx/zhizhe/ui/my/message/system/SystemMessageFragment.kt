@@ -10,12 +10,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
-import com.zxcx.zhizhe.ui.home.rank.RankActivity
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
 import com.zxcx.zhizhe.ui.my.writer_status_user
+import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -101,7 +101,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 				}
 			}
 			message_rank -> {
-				mActivity.startActivity(RankActivity::class.java, {})
+				mActivity.startActivity(RankFragment::class.java, {})
 				mActivity.finish()
 				return
 			}

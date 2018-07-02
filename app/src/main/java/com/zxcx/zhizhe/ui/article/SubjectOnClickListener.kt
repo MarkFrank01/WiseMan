@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.article.attention
+package com.zxcx.zhizhe.ui.article
 
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 

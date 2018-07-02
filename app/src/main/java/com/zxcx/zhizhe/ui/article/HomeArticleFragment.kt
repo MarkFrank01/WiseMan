@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.article.attention.AttentionArticleFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean
-import kotlinx.android.synthetic.main.fragment_card_list.*
+import kotlinx.android.synthetic.main.fragment_home_article.*
 
 class HomeArticleFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryBean>> {
 
@@ -28,17 +28,17 @@ class HomeArticleFragment : BaseFragment(), IGetPresenter<MutableList<CardCatego
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 	                          savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_card_list, container, false)
+		return inflater.inflate(R.layout.fragment_home_article, container, false)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		tl_card_list.setupWithViewPager(vp_card_list)
+		tl_card_list.setupWithViewPager(vp_article_list)
 		getArticleCategory()
 	}
 
 	override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
-		vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
+		vp_article_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
 		tl_card_list.removeAllTabs()
 		list.forEach {
 			val tab = tl_card_list.newTab()

@@ -9,6 +9,7 @@ class SearchUserBean(
 		@SerializedName("followerCount") var fansNum: Int = 0, //0
 		@SerializedName("id") var id: Int = 0, //0
 		@SerializedName("accountLevel") var level: Int = 0, //0
+		@SerializedName("intelligenceValue") var intelligence: Int?, //0
 		@SerializedName("likeArticleCount") var likeNum: Int = 0, //0
 		@SerializedName("collectedArticleCount") var collectNum: Int = 0, //0
 		@SerializedName("name") var name: String?,

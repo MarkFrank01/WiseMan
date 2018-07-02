@@ -43,6 +43,7 @@ class SelectAttentionCallback(private val mList: List<ClassifyBean>) : Callback(
 			}
 		}
 		mAdapter.notifyDataSetChanged()
+		mTvComplete.isEnabled = mCheckedList.isNotEmpty()
 		mTvComplete.setOnClickListener {
 			EventBus.getDefault().post(ChangeAttentionEvent(mCheckedList))
 		}

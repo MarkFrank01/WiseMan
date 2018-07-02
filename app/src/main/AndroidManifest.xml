@@ -123,7 +123,7 @@
             android:name=".ui.my.userInfo.userSafety.UserSafetyActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.home.rank.moreRank.AllRankActivity"
+	        android:name="com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.ChangeNickNameActivity"
@@ -136,7 +136,7 @@
             android:name=".ui.my.userInfo.ChangeBirthdayActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.my.userInfo.ChangeSigntureActivity"
+	        android:name=".ui.my.userInfo.ChangeSignatureActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.userInfo.userSafety.ChangePhoneActivity"
@@ -219,17 +219,6 @@
             android:name=".ui.my.setting.TextSizeChangeActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.loginAndRegister.passwordLogin.PasswordLoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity
-            android:name=".ui.loginAndRegister.initUserInfo.InitUserInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.home.rank.RankActivity"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".ui.my.userInfo.ImageCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
@@ -238,7 +227,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
-            android:name=".ui.classify.subject.SubjectArticleActivity"
+	        android:name="com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.newCreation.CreationEditorActivity"
@@ -248,6 +237,10 @@
             android:name=".ui.card.cardDetails.CardDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
+	    <activity
+		    android:name=".ui.card.cardDetails.SingleCardDetailsActivity"
+		    android:screenOrientation="portrait"
+		    android:theme="@style/AppTheme.FullScreen"/>
     </application>
 
 </manifest>

@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.welcome;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 
@@ -11,13 +10,13 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
  */
 
 public class ADBean extends RetrofitBaen implements Parcelable {
-
-	public static final Parcelable.Creator<ADBean> CREATOR = new Parcelable.Creator<ADBean>() {
+	
+	public static final Creator<ADBean> CREATOR = new Creator<ADBean>() {
 		@Override
 		public ADBean createFromParcel(Parcel source) {
 			return new ADBean(source);
 		}
-
+		
 		@Override
 		public ADBean[] newArray(int size) {
 			return new ADBean[size];
@@ -42,7 +41,7 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 	private int id;
 	@SerializedName("platformType")
 	private int platformType;
-
+	
 	public ADBean() {
 	}
 
@@ -103,20 +102,20 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public int getPlatformType() {
 		return platformType;
 	}
-
+	
 	public void setPlatformType(int platformType) {
 		this.platformType = platformType;
 	}
-
+	
 	@Override
 	public int describeContents() {
 		return 0;
 	}
-
+	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(this.adNum);

@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.classify.subject
+package com.zxcx.zhizhe.ui.article.subject
 
 import android.content.Intent
 import android.os.Bundle

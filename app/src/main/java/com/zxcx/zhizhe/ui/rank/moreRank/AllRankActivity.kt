@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.home.rank.moreRank
+package com.zxcx.zhizhe.ui.rank.moreRank
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,9 +12,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
-import com.zxcx.zhizhe.ui.home.rank.RankAdapter
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.rank.RankAdapter
+import com.zxcx.zhizhe.ui.rank.UserRankBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_all_rank.*

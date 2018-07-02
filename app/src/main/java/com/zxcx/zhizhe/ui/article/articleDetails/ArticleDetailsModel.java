@@ -1,14 +1,13 @@
 package com.zxcx.zhizhe.ui.article.articleDetails;
 
 import android.support.annotation.NonNull;
-
 import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.retrofit.PostSubscriber;
-
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import io.reactivex.subscribers.DisposableSubscriber;
 
 public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presenter> {
@@ -19,11 +18,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 
 	public void getCardDetails(int cardId) {
 		mDisposable = AppClient.getAPIService().getCardDetails(cardId)
-			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-			.subscribeWith(new BaseSubscriber<ArticleDetailsBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new BaseSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.getDataSuccess(bean);
 				}
 			});
@@ -53,11 +52,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 
 	public void likeCard(int cardId) {
 		mDisposable = AppClient.getAPIService().likeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.likeSuccess(bean);
 				}
 			});
@@ -66,11 +65,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 
 	public void removeLikeCard(int cardId) {
 		mDisposable = AppClient.getAPIService().removeLikeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.postSuccess(bean);
 				}
 			});
@@ -79,11 +78,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 
 	public void unLikeCard(int cardId) {
 		mDisposable = AppClient.getAPIService().unLikeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.postSuccess(bean);
 				}
 			});
@@ -92,11 +91,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 
 	public void removeUnLikeCard(int cardId) {
 		mDisposable = AppClient.getAPIService().removeUnLikeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.<BaseBean<ArticleDetailsBean>>io_main())
-			.compose(BaseRxJava.INSTANCE.<ArticleDetailsBean>handleResult())
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.postSuccess(bean);
 				}
 			});
@@ -107,9 +106,9 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 		mDisposable = AppClient.getAPIService().addCollectArticle(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
 			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.collectSuccess(bean);
 				}
 			});
@@ -120,9 +119,9 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 		mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
 			.compose(BaseRxJava.INSTANCE.io_main())
-			.subscribeWith(new PostSubscriber<ArticleDetailsBean>(mPresenter) {
+			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(ArticleDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.postSuccess(bean);
 				}
 			});

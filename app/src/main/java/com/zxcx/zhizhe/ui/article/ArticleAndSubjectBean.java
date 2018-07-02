@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.article.attention;
+package com.zxcx.zhizhe.ui.article;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 public class ArticleAndSubjectBean extends RetrofitBaen implements MultiItemEntity {
 	
-	public static final int TYPE_CARD = 1;
+	public static final int TYPE_ARTICLE = 1;
 	public static final int TYPE_SUBJECT = 2;
 	
 	@SerializedName("articleContent")
@@ -40,7 +40,7 @@ public class ArticleAndSubjectBean extends RetrofitBaen implements MultiItemEnti
 		if (mCardBean == null) {
 			return TYPE_SUBJECT;
 		} else {
-			return TYPE_CARD;
+			return TYPE_ARTICLE;
 		}
 	}
 }

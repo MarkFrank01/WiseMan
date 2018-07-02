@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.home.rank
+package com.zxcx.zhizhe.ui.rank
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava

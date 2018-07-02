@@ -51,7 +51,7 @@ object EmptyView {
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
 		emptyView.tv_item_card_title.text = bean.name
-		emptyView.tv_item_card_category.text = bean.cardCategoryName
+		emptyView.tv_item_card_category.text = bean.categoryName
 
 		emptyView.fl_no_data_and_card_card.setOnClickListener {
 			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,

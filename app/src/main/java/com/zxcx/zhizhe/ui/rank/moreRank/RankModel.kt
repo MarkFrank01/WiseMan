@@ -1,10 +1,10 @@
-package com.zxcx.zhizhe.ui.home.rank.moreRank
+package com.zxcx.zhizhe.ui.rank.moreRank
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean
+import com.zxcx.zhizhe.ui.rank.UserRankBean
 
 class RankModel(presenter: RankContract.Presenter) : BaseModel<RankContract.Presenter>() {
 	init {

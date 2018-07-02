@@ -13,12 +13,12 @@ import com.zxcx.zhizhe.loadCallback.LoadingCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.ui.article.SubjectBean
+import com.zxcx.zhizhe.ui.article.SubjectOnClickListener
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
-import com.zxcx.zhizhe.ui.article.attention.SubjectBean
-import com.zxcx.zhizhe.ui.article.attention.SubjectOnClickListener
+import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView

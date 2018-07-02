@@ -103,11 +103,14 @@ dependencies {
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    kapt 'com.github.bumptech.glide:compiler:4.6.1'
+	implementation 'com.github.bumptech.glide:glide:4.7.1'
+	kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
     //Glide使用okhttp3作为底层网络库
-    implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
+	implementation 'com.github.bumptech.glide:okhttp3-integration:4.7.1'
+
+	//Glide第三方变换库
+	implementation 'jp.wasabeef:glide-transformations:3.3.0'
 
     //Glide RecyclerView优化库
 
@@ -212,9 +215,9 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 
     //Room
-    implementation 'android.arch.persistence.room:runtime:1.1.0'
-    implementation 'android.arch.persistence.room:rxjava2:1.1.0'
-    kapt "android.arch.persistence.room:compiler:1.1.0"
+	implementation 'android.arch.persistence.room:runtime:1.1.1'
+	implementation 'android.arch.persistence.room:rxjava2:1.1.1'
+	kapt "android.arch.persistence.room:compiler:1.1.1"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
 
     //HTML转SpannableString

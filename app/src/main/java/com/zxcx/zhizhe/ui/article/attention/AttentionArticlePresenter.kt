@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.article.attention
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePresenter<AttentionArticleContract.View>(), AttentionArticleContract.Presenter {

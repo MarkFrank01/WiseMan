@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.load.MultiTransformation
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
@@ -23,9 +24,11 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.GoodView
-import jp.wasabeef.blurry.Blurry
+import jp.wasabeef.glide.transformations.BlurTransformation
+import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_card_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,9 +48,15 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_card_details)
+		EventBus.getDefault().register(this)
 		initShareElement()
 		initRecyclerView()
 		initData()
+	}
+
+	override fun onDestroy() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
 	}
 
 	override fun onResume() {
@@ -75,6 +84,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				return true
 			}
 		})
+		val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
+		refreshBackground(imageUrl)
 	}
 
 	override fun createPresenter(): CardDetailsPresenter {
@@ -152,17 +163,29 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 					val event = UpdateCardListPositionEvent(mCurrentPosition, mSourceName)
 					EventBus.getDefault().post(event)
 					val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
-					ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
+					refreshBackground(imageUrl)
+					/*ImageLoader.download(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
 					Blurry.with(mActivity)
 							.radius(10)
 							.sampling(2)
 							.color(Color.argb(216, 255, 255, 255))
 							.async()
 							.capture(iv_card_details_bg)
-							.into(iv_card_details_bg)
+							.into(iv_card_details_bg)*/
 				}
 			}
 		})
+	}
+
+	private fun refreshBackground(imageUrl: String?) {
+		val multi = MultiTransformation(
+				BlurTransformation(10),
+				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+		GlideApp
+				.with(mActivity)
+				.load(imageUrl)
+				.apply(bitmapTransform(multi))
+				.into(iv_card_details_bg)
 	}
 
 	override fun setListener() {
@@ -269,7 +292,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		bundle.putString("imageUrl", imageUrl)
 		bundle.putString("date", date)
 		bundle.putString("authorName", author)
-		bundle.putString("cardCategoryName", cardBagName)
+		bundle.putString("categoryName", cardBagName)
 		bundle.putInt("cardBagId", cardBagId)
 		shareDialog.arguments = bundle
 		val fragmentManager = fragmentManager

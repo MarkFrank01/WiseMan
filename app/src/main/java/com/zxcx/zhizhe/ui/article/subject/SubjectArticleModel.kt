@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.classify.subject
+package com.zxcx.zhizhe.ui.article.subject
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava

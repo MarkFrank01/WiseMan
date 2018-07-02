@@ -16,5 +16,6 @@ data class OtherUserInfoBean(
 		@SerializedName("authorFollowerCount") var fansNum: Int?, //0
 		@SerializedName("name") var name: String?, //string
 		@SerializedName("intelligenceValueLevel") var intelligenceValueLevel: String,
-		@SerializedName("sign") var signture: String? //0
+		@SerializedName("follow") var isFollow: Boolean = false,
+		@SerializedName("sign") var signature: String? //0
 ) : RetrofitBaen()

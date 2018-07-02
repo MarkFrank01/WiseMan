@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.TouchDelegate
 import android.view.View
 import android.widget.EditText
+import java.text.DecimalFormat
 
 
 /**
@@ -112,5 +113,19 @@ fun View.restoreViewTouchDelegate() {
 		if (View::class.java.isInstance(this.parent)) {
 			(this.parent as View).touchDelegate = touchDelegate
 		}
+	}
+}
+
+fun Int.getFormatNumber(): String {
+	if (this < 1000) {
+		return this.toString()
+	} else if (this < 10000) {
+		val dou = this / 1000.00
+		val df = DecimalFormat("#.#")
+		return df.format(dou) + "k"
+	} else {
+		val dou = this / 10000.00
+		val df = DecimalFormat("#.#")
+		return df.format(dou) + "w"
 	}
 }

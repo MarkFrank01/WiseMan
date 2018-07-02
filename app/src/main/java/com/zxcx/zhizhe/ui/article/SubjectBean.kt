@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.article.attention
+package com.zxcx.zhizhe.ui.article
 
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen

@@ -16,8 +16,12 @@ class OtherUserPresenter(view: OtherUserContract.View) : BasePresenter<OtherUser
 		mModel.getOtherUserInfo(id)
 	}
 
-	fun getOtherUserCreation(id: Int, sortType: Int, page: Int, pageSize: Int) {
-		mModel.getOtherUserCreation(id, sortType, page, pageSize)
+	fun getOtherUserCreation(id: Int, page: Int) {
+		mModel.getOtherUserCreation(id, page)
+	}
+
+	fun setUserFollow(authorId: Int, followType: Int) {
+		mModel.setUserFollow(authorId, followType)
 	}
 
 	override fun getDataSuccess(bean: OtherUserInfoBean) {
@@ -30,6 +34,14 @@ class OtherUserPresenter(view: OtherUserContract.View) : BasePresenter<OtherUser
 
 	override fun getDataFail(msg: String) {
 		mView.toastFail(msg)
+	}
+
+	override fun postSuccess() {
+		mView.postSuccess()
+	}
+
+	override fun postFail(msg: String?) {
+		mView.postFail(msg)
 	}
 
 	override fun showLoading() {

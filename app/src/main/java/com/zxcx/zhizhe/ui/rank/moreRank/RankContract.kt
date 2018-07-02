@@ -1,8 +1,8 @@
-package com.zxcx.zhizhe.ui.home.rank.moreRank
+package com.zxcx.zhizhe.ui.rank.moreRank
 
 import com.zxcx.zhizhe.mvpBase.GetView
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean
+import com.zxcx.zhizhe.ui.rank.UserRankBean
 
 interface RankContract {
 

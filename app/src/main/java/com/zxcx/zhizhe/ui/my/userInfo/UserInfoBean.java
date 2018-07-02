@@ -19,7 +19,7 @@ public class UserInfoBean extends RetrofitBaen {
 	@SerializedName("name")
 	private String name;
 	@SerializedName("sign")
-	private String signture;
+	private String signature;
 	@SerializedName("phoneNum")
 	private String phoneNum;
 	@SerializedName("gender")
@@ -64,13 +64,13 @@ public class UserInfoBean extends RetrofitBaen {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getSignture() {
-		return signture;
+	
+	public String getSignature() {
+		return signature;
 	}
-
-	public void setSignture(String signture) {
-		this.signture = signture;
+	
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	public String getPhoneNum() {

@@ -1,11 +1,13 @@
 package com.zxcx.zhizhe.utils;
 
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
@@ -13,14 +15,9 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.creation.ApplyReviewActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.text.DecimalFormat;
 import java.util.Date;
-
-import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
-import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
+import org.greenrobot.eventbus.EventBus;
 
 public class ZhiZheUtils {
 	
@@ -39,7 +36,7 @@ public class ZhiZheUtils {
 		SharedPreferencesUtil.saveData(SVTSConstants.userId, bean.getId());
 		SharedPreferencesUtil.saveData(SVTSConstants.nickName, bean.getName());
 		SharedPreferencesUtil.saveData(SVTSConstants.phone, bean.getPhoneNum());
-		SharedPreferencesUtil.saveData(SVTSConstants.signture, bean.getSignture());
+		SharedPreferencesUtil.saveData(SVTSConstants.signature, bean.getSignature());
 		SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
 		SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
 		SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, bean.getAvatar());
@@ -56,7 +53,7 @@ public class ZhiZheUtils {
 		SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
 		SharedPreferencesUtil.saveData(SVTSConstants.phone, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.signture, "");
+		SharedPreferencesUtil.saveData(SVTSConstants.signature, "");
 		SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
 		SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, "");

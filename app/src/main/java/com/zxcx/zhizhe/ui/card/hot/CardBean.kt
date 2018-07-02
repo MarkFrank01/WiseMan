@@ -5,6 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
 import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import java.util.*
 
 class CardBean(
@@ -20,9 +21,9 @@ class CardBean(
 		@SerializedName("authorName") var authorName: String? = null,
 		@SerializedName("authorId") var authorId: Int = 0,
 		@SerializedName("classifyId") var cardBagId: Int = 0,
-		@SerializedName("classifyTitle") var cardCategoryName: String? = null,
-		@SerializedName("collectionTitle") var cardLabelName: String? = null,
-		@SerializedName("collectionId") var cardLabelId: Int = 0,
+		@SerializedName("classifyTitle") var categoryName: String? = null,
+		@SerializedName("collectionTitle") var labelName: String? = null,
+		@SerializedName("collectionId") var labelId: Int = 0,
 		@SerializedName("topicName") var subjectName: String? = null,
 		@SerializedName("content") var content: String = "",
 		@SerializedName("matchContent") var searchContent: String = "",
@@ -30,7 +31,8 @@ class CardBean(
 		@SerializedName("disagree") var isUnLike: Boolean = false,
 		@SerializedName("collect") var isCollect: Boolean = false,
 		@SerializedName("follow") var isFollow: Boolean = false,
-		@SerializedName("adUrl") var adUrl: String? = null
+		@SerializedName("adUrl") var adUrl: String = "",
+		@SerializedName("adVO") var ad: ADBean? = null
 ) : RetrofitBaen(), Parcelable {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
@@ -88,9 +90,9 @@ class CardBean(
 		writeString(authorName)
 		writeInt(authorId)
 		writeInt(cardBagId)
-		writeString(cardCategoryName)
-		writeString(cardLabelName)
-		writeInt(cardLabelId)
+		writeString(categoryName)
+		writeString(labelName)
+		writeInt(labelId)
 		writeString(subjectName)
 		writeString(content)
 		writeString(searchContent)

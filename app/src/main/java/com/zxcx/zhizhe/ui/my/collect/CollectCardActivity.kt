@@ -114,7 +114,7 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
 		val bean = adapter.data[position] as CardBean
 		mActivity.startActivity(CardBagActivity::class.java, {
 			it.putExtra("id", bean.cardBagId)
-			it.putExtra("name", bean.cardCategoryName)
+			it.putExtra("name", bean.categoryName)
 		})
 	}
 

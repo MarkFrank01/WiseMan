@@ -5,10 +5,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
-
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zxcx.zhizhe.R;
-
 import java.io.File;
 
 public class ImageLoader {
@@ -114,12 +112,5 @@ public class ImageLoader {
 			.diskCacheStrategy(DiskCacheStrategy.NONE)
 			.skipMemoryCache(true)
 			.into(imageView);
-	}
-
-	public static void download(Activity activity, String url) {
-		GlideApp
-			.with(activity)
-			.load(url)
-			.getDownloadOnlyRequest();
 	}
 }

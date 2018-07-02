@@ -20,6 +20,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -35,27 +36,16 @@ import java.util.*
 class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View {
 
 	private var mWebView: WebView? = null
-	private var cardId: Int = 0
-	private var cardBagId: Int = 0
-	private var subjectId: Int = 0
 	private var mUserId: Int = 0
-	private var mAuthorId: Int = 0
-	private var mCardType: Int = 0
-	private var name: String? = null
-	private var cardBagName: String? = null
-	private var subjectName: String? = null
-	private var imageUrl: String? = null
+	private var mActionMode: ActionMode? = null
+	private var mUrl: String? = null
 	private var collectStatus = false
 	private var isUnCollect = false
 	private var likeStatus = false
 	private var isUnLike = false
-	private var date: String? = null
-	private var category: String? = null
-	private var label: String? = null
-	private var author: String? = null
-	private var mActionMode: ActionMode? = null
-	private var mUrl: String? = null
+	private lateinit var cardBean: CardBean
 	private lateinit var startDate: Date
+	private var date = ""
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
 
@@ -68,7 +58,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		initData()
 		initView()
 
-		mPresenter.getCardDetails(cardId)
+		mPresenter.getCardDetails(cardBean.id)
 		startDate = Date()
 	}
 
@@ -79,10 +69,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	override fun onBackPressed() {
 		super.onBackPressed()
 		if (isUnCollect) {
-			EventBus.getDefault().post(UnCollectEvent(cardId))
+			EventBus.getDefault().post(UnCollectEvent(cardBean.id))
 		}
 		if (isUnLike) {
-			EventBus.getDefault().post(UnLikeEvent(cardId))
+			EventBus.getDefault().post(UnLikeEvent(cardBean.id))
 		}
 	}
 
@@ -94,7 +84,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	override fun onDestroy() {
 		val endDate = Date()
 		if (endDate.time - startDate.time > 30000 && mUserId != 0) {
-			mPresenter.readArticle(cardId)
+			mPresenter.readArticle(cardBean.id)
 		}
 		if (mWebView != null) {
 			mWebView?.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
@@ -132,24 +122,20 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun onReload(v: View) {
-		mPresenter.getCardDetails(cardId)
+		mPresenter.getCardDetails(cardBean.id)
 		mWebView?.reload()
 	}
 
-	override fun getDataSuccess(bean: ArticleDetailsBean) {
+	override fun getDataSuccess(bean: CardBean) {
 		collectStatus = bean.isCollect
 		likeStatus = bean.isLike
 		postSuccess(bean)
 		//进入时只有id的时候，在这里初始化界面
-		name = bean.name
-		imageUrl = bean.imageUrl
-		date = DateTimeUtils.getDateString(bean.date)
-		category = bean.categoryName
-		label = bean.labelName
-		tv_article_details_title.text = name
+		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
-		tv_article_details_category.text = category
-		tv_article_details_label.text = label
+		tv_article_details_category.text = cardBean.categoryName
+		tv_article_details_label.text = cardBean.labelName
+		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
 		tv_article_details_comment.text = bean.commentNum.toString()
@@ -171,7 +157,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		}
 	}
 
-	override fun likeSuccess(bean: ArticleDetailsBean) {
+	override fun likeSuccess(bean: CardBean) {
 		toastShow("点赞成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
@@ -180,7 +166,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		goodView.show(cb_article_details_like)
 	}
 
-	override fun collectSuccess(bean: ArticleDetailsBean) {
+	override fun collectSuccess(bean: CardBean) {
 		toastShow("收藏成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
@@ -189,14 +175,15 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		goodView.show(cb_article_details_collect)
 	}
 
-	override fun postSuccess(bean: ArticleDetailsBean) {
+	override fun postSuccess(bean: CardBean) {
 		isUnCollect = collectStatus != bean.isCollect && !bean.isCollect
 		isUnLike = likeStatus != bean.isLike && !bean.isLike
 
-		tv_article_details_title.text = name
+		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
-		tv_article_details_category.text = category
-		tv_article_details_label.text = label
+		tv_article_details_category.text = cardBean.categoryName
+		tv_article_details_label.text = cardBean.labelName
+		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
 		tv_article_details_comment.text = bean.commentNum.toString()
@@ -226,7 +213,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: UnFollowConfirmEvent) {
 		//取消关注
-		mPresenter.setUserFollow(mAuthorId, 1)
+		mPresenter.setUserFollow(cardBean.authorId, 1)
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -244,8 +231,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		}
 		tv_article_details_author.setOnClickListener {
 			startActivity(OtherUserActivity::class.java) {
-				it.putExtra("name", author)
-				it.putExtra("id", mAuthorId)
+				it.putExtra("name", cardBean.authorName)
+				it.putExtra("id", cardBean.authorId)
 			}
 		}
 		cb_article_details_follow.setOnClickListener {
@@ -253,18 +240,18 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			if (!checkLogin()) {
 				return@setOnClickListener
 			}
-			if (mUserId == mAuthorId) {
+			if (mUserId == cardBean.authorId) {
 				toastShow("无法关注自己")
 				return@setOnClickListener
 			}
 			if (!cb_article_details_follow.isChecked) {
 				//关注
-				mPresenter.setUserFollow(mAuthorId, 0)
+				mPresenter.setUserFollow(cardBean.authorId, 0)
 			} else {
 				//取消关注弹窗
 				val dialog = UnFollowConfirmDialog()
 				val bundle = Bundle()
-				bundle.putInt("userId", mAuthorId)
+				bundle.putInt("userId", cardBean.authorId)
 				dialog.arguments = bundle
 				dialog.show(fragmentManager, "")
 			}
@@ -275,31 +262,31 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		cb_article_details_collect.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
 			cb_article_details_collect.isChecked = !cb_article_details_collect.isChecked
-			if (mUserId == mAuthorId) {
+			if (mUserId == cardBean.authorId) {
 				toastShow("不能收藏自己哦")
 				return@setOnClickListener
 			}
 			if (!cb_article_details_collect.isChecked) {
 				if (checkLogin()) {
-					mPresenter.addCollectCard(cardId)
+					mPresenter.addCollectCard(cardBean.id)
 				}
 			} else {
-				mPresenter.removeCollectCard(cardId)
+				mPresenter.removeCollectCard(cardBean.id)
 			}
 		}
 		cb_article_details_like.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
 			cb_article_details_like.isChecked = !cb_article_details_like.isChecked
-			if (mUserId == mAuthorId) {
+			if (mUserId == cardBean.authorId) {
 				toastShow("不能点赞自己哦")
 				return@setOnClickListener
 			}
 			if (!cb_article_details_like.isChecked) {
 				if (checkLogin()) {
-					mPresenter.likeCard(cardId)
+					mPresenter.likeCard(cardBean.id)
 				}
 			} else {
-				mPresenter.removeLikeCard(cardId)
+				mPresenter.removeLikeCard(cardBean.id)
 			}
 		}
 		iv_article_details_share.setOnClickListener {
@@ -308,26 +295,25 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	private fun initData() {
-		cardId = intent.getIntExtra("id", 0)
-		name = intent.getStringExtra("name")
-		imageUrl = intent.getStringExtra("imageUrl")
-		date = intent.getStringExtra("date")
-		category = intent.getStringExtra("category")
-		label = intent.getStringExtra("label")
+		cardBean = intent.getParcelableExtra("cardBean")
+		date = DateTimeUtils.getDateString(cardBean.date)
+		getDataSuccess(cardBean)
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	}
 
 	private fun initView() {
-		if (!StringUtils.isEmpty(name))
-			tv_article_details_title.text = name
+		if (!StringUtils.isEmpty(cardBean.name))
+			tv_article_details_title.text = cardBean.name
 		if (!StringUtils.isEmpty(date))
 			tv_article_details_date.text = date
-		if (!StringUtils.isEmpty(category))
-			tv_article_details_category.text = category
-		if (!StringUtils.isEmpty(label))
-			tv_article_details_label.text = label
-		if (!StringUtils.isEmpty(imageUrl))
+		if (!StringUtils.isEmpty(cardBean.categoryName))
+			tv_article_details_category.text = cardBean.categoryName
+		if (!StringUtils.isEmpty(cardBean.labelName))
+			tv_article_details_label.text = cardBean.labelName
+		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
+		}
 		initWebView()
 		initLoadSir()
 	}
@@ -376,9 +362,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
 		mUrl = if (isNight) {
-			APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize
+			APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardBean.id + "?fontSize=" + fontSize
 		} else {
-			APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize
+			APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardBean.id + "?fontSize=" + fontSize
 
 		}
 		mWebView?.loadUrl(mUrl)
@@ -399,9 +385,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val shareCardDialog = ShareDialog()
 		val bundle = Bundle()
 		bundle.putString("title", getString(R.string.app_name))
-		bundle.putString("text", name)
-		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardId.toString())
-		bundle.putString("imageUrl", imageUrl)
+		bundle.putString("text", cardBean.name)
+		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
+		bundle.putString("imageUrl", cardBean.imageUrl)
 		shareCardDialog.arguments = bundle
 		shareCardDialog.show(fragmentManager, "")
 	}
@@ -409,16 +395,16 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private fun gotoImageShare(url: String?, content: String?) {
 		val shareDialog = ShareCardDialog()
 		val bundle = Bundle()
-		bundle.putString("name", name)
+		bundle.putString("name", cardBean.name)
 		if (!StringUtils.isEmpty(content)) {
 			bundle.putString("content", content)
 		} else {
 			bundle.putString("url", url)
 		}
-		bundle.putString("imageUrl", imageUrl)
+		bundle.putString("imageUrl", cardBean.imageUrl)
 		bundle.putString("date", date)
-		bundle.putString("cardCategoryName", cardBagName)
-		bundle.putInt("cardBagId", cardBagId)
+		bundle.putString("categoryName", cardBean.categoryName)
+		bundle.putString("labelName", cardBean.labelName)
 		shareDialog.arguments = bundle
 		val fragmentManager = fragmentManager
 		val transaction = fragmentManager.beginTransaction()
@@ -441,9 +427,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 					MENU_ITEM_NOTE -> if (checkLogin()) {
 						val noteTitleDialog = NoteTitleDialog()
 						val bundle = Bundle()
-						bundle.putInt("withCardId", cardId)
-						bundle.putString("title", name)
-						bundle.putString("imageUrl", imageUrl)
+						bundle.putInt("withCardId", cardBean.id)
+						bundle.putString("title", cardBean.name)
+						bundle.putString("imageUrl", cardBean.imageUrl)
 						bundle.putString("content", content)
 						noteTitleDialog.arguments = bundle
 						noteTitleDialog.show(fragmentManager, "")

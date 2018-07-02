@@ -23,7 +23,7 @@
 				android:layout_height="0dp"
 				android:scaleType="centerCrop"
 				android:src="@drawable/default_card"
-				android:transitionName="@string/card_title_transition_name"
+				android:transitionName="@string/card_img_transition_name"
 				app:layout_constraintDimensionRatio="16:9"/>
 			
 			<TextView
@@ -36,6 +36,7 @@
 				android:lineSpacingExtra="6dp"
 				android:textColor="@color/text_color_1"
 				android:textSize="@dimen/text_size_title_2"
+				android:transitionName="@string/card_title_transition_name"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/iv_article_details"
@@ -49,6 +50,7 @@
 				android:layout_marginStart="20dp"
 				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_3"
+				android:transitionName="@string/card_category_transition_name"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
 				tools:text="生活"/>
@@ -61,6 +63,7 @@
 				android:layout_marginStart="12dp"
 				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_3"
+				android:transitionName="@string/card_label_transition_name"
 				app:layout_constraintStart_toEndOf="@id/tv_article_details_category"
 				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
 				tools:text="生活"/>

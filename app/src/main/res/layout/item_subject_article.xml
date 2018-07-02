@@ -7,7 +7,7 @@
 	android:layout_height="match_parent">
 	
 	<ImageView
-		android:id="@+id/iv_item_subject_article_1"
+		android:id="@+id/iv_item_subject_article"
 		android:layout_width="110dp"
 		android:layout_height="0dp"
 		android:layout_marginTop="20dp"
@@ -17,7 +17,7 @@
 		tools:src="@drawable/default_card"/>
 	
 	<TextView
-		android:id="@+id/tv_item_subject_article_title_1"
+		android:id="@+id/tv_item_subject_article_title"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="12dp"
@@ -25,12 +25,12 @@
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_1"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article_1"
-		app:layout_constraintTop_toTopOf="@id/iv_item_subject_article_1"
+		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article"
+		app:layout_constraintTop_toTopOf="@id/iv_item_subject_article"
 		tools:text="iphone6s和iphone7的区别在于可以防水"/>
 	
 	<TextView
-		android:id="@+id/tv_item_subject_article_read_1"
+		android:id="@+id/tv_item_subject_article_read"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -41,12 +41,12 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article_1"
-		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article_1"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article"
+		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article"
 		tools:text="1000"/>
 	
 	<TextView
-		android:id="@+id/tv_item_subject_article_comment_1"
+		android:id="@+id/tv_item_subject_article_comment"
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -57,8 +57,8 @@
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article_1"
-		app:layout_constraintStart_toEndOf="@id/tv_item_subject_article_read_1"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article"
+		app:layout_constraintStart_toEndOf="@id/tv_item_subject_article_read"
 		tools:text="1000"/>
 
 </android.support.constraint.ConstraintLayout>

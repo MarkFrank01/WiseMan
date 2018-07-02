@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background">
+	
+	<android.support.design.widget.AppBarLayout
+		style="@style/Widget.Design.AppBarLayout.NoElevation"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/background">
+		
+		<com.zxcx.zhizhe.ui.rank.ADBanner
+			android:id="@+id/banner_rank"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+			app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+			app:indicator_height="5dp"
+			app:indicator_margin="5dp"
+			app:indicator_width="5dp"
+			app:layout_scrollFlags="scroll"/>
+		
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_scrollFlags="scroll">
+			
+			<TextView
+				android:id="@+id/tv_my_rank"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="40dp"
+				android:layout_marginStart="20dp"
+				android:text="本周我的榜单"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_2"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+			
+			<ImageView
+				android:id="@+id/iv_rank_help"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="6dp"
+				android:src="@drawable/tv_home_rank"
+				app:layout_constraintBottom_toBottomOf="@id/tv_my_rank"
+				app:layout_constraintStart_toEndOf="@id/tv_my_rank"
+				app:layout_constraintTop_toTopOf="@id/tv_my_rank"/>
+			
+			<TextView
+				android:id="@+id/tv_my_rank_change"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="20dp"
+				android:drawablePadding="5dp"
+				android:drawableStart="@drawable/tv_home_rank"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintBottom_toBottomOf="@id/tv_my_rank"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@id/tv_my_rank"
+				tools:text="65"/>
+			
+			<android.support.constraint.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:paddingTop="20dp"
+				android:paddingBottom="20dp"
+				android:paddingStart="20dp"
+				android:paddingEnd="20dp"
+				app:layout_constraintTop_toBottomOf="@id/tv_my_rank">
+				
+				<com.makeramen.roundedimageview.RoundedImageView
+					android:id="@+id/iv_item_rank_user"
+					android:layout_width="48dp"
+					android:layout_height="48dp"
+					android:scaleType="centerCrop"
+					app:riv_oval="true"
+					tools:src="@drawable/logo"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_name"
+					style="@style/tv_single"
+					android:textStyle="bold"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="2dp"
+					android:layout_marginStart="12dp"
+					android:gravity="center"
+					android:maxLength="8"
+					android:textColor="@color/text_color_1"
+					android:textSize="@dimen/text_size_text_1"
+					app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+					app:layout_constraintTop_toTopOf="@id/iv_item_rank_user"
+					tools:text="打印纸的规格"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_level"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="10dp"
+					android:paddingTop="2dp"
+					android:paddingBottom="2dp"
+					android:paddingStart="6dp"
+					android:paddingEnd="6dp"
+					android:background="@drawable/bg_item_user_level"
+					android:drawablePadding="2dp"
+					android:drawableStart="@drawable/tv_item_rank_user_card"
+					android:gravity="center"
+					android:textColor="@color/text_color_ff"
+					android:textSize="@dimen/text_size_text_3"
+					app:layout_constraintBottom_toBottomOf="@id/tv_item_rank_user_name"
+					app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_name"
+					app:layout_constraintTop_toTopOf="@id/tv_item_rank_user_name"
+					tools:text="1000"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_card"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="2dp"
+					android:layout_marginStart="12dp"
+					android:drawablePadding="2dp"
+					android:drawableStart="@drawable/tv_item_rank_user_card"
+					android:gravity="center"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_4"
+					app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+					app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+					tools:text="1000"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_fans"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="2dp"
+					android:layout_marginStart="12dp"
+					android:drawablePadding="2dp"
+					android:drawableStart="@drawable/tv_item_rank_user_fans"
+					android:gravity="center"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_4"
+					app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+					app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_card"
+					tools:text="1000"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_like"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="2dp"
+					android:layout_marginStart="12dp"
+					android:drawablePadding="2dp"
+					android:drawableStart="@drawable/tv_item_rank_user_card"
+					android:gravity="center"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_4"
+					app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+					app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_fans"
+					tools:text="1000"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_collect"
+					style="@style/tv_single"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="2dp"
+					android:layout_marginStart="12dp"
+					android:drawablePadding="2dp"
+					android:drawableStart="@drawable/tv_item_rank_user_card"
+					android:gravity="center"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_4"
+					app:layout_constraintBottom_toBottomOf="@id/iv_item_rank_user"
+					app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_like"
+					tools:text="1000"/>
+				
+				<TextView
+					android:id="@+id/tv_item_rank_user_rank"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="8dp"
+					android:checked="false"
+					android:textColor="@color/text_color_d2"
+					android:textSize="@dimen/text_size_title_1"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					tools:text="20"/>
+			
+			</android.support.constraint.ConstraintLayout>
+		
+		</android.support.constraint.ConstraintLayout>
+		
+		<TextView
+			android:id="@+id/tv_rank_more_rank"
+			android:textStyle="bold"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginStart="20dp"
+			android:paddingTop="10dp"
+			android:paddingBottom="10dp"
+			android:drawableEnd="@drawable/tv_rank_more_rank"
+			android:drawablePadding="6dp"
+			android:text="本周智者榜单"
+			android:textColor="@color/text_color_3"
+			android:textSize="@dimen/text_size_text_2"
+			app:layout_scrollFlags="scroll"/>
+	
+	</android.support.design.widget.AppBarLayout>
+	
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/rv_rank"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/bg_item_note"
+		app:layout_behavior="@string/appbar_scrolling_view_behavior"
+		tools:listitem="@layout/item_rank_user"/>
+
+</android.support.design.widget.CoordinatorLayout>

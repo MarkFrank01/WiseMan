@@ -18,7 +18,7 @@ public class SVTSConstants {
 	public static final String token = "token";
 	public static final String phone = "phone";
 	public static final String nickName = "nick_name";
-	public static final String signture = "signture";
+	public static final String signature = "signature";
 	public static final String imgUrl = "img_url";
 	public static final String writerStatus = "writer_status";
 	public static final String hasDynamicMessage = "has_dynamic_message";

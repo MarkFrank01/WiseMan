@@ -2,12 +2,10 @@ package com.zxcx.zhizhe.retrofit;
 
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsBean;
-import com.zxcx.zhizhe.ui.article.attention.ArticleAndSubjectBean;
+import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
-import com.zxcx.zhizhe.ui.home.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
@@ -25,6 +23,7 @@ import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
+import com.zxcx.zhizhe.ui.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
@@ -154,7 +153,7 @@ public interface APIService {
 	/**
 	 * 获取长文类别下长文列表
 	 */
-	@POST("/article/getCardListByClassifyId")
+	@POST("/article/getLongTextListByClassifyId")
 	Flowable<BaseArrayBean<ArticleAndSubjectBean>> getArticleListForCategory(
 		@Query("classifyId") int cardCategoryId, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
@@ -209,7 +208,7 @@ public interface APIService {
 	/**
 	 * 获取专题内卡片列表
 	 */
-	@POST("/collection/getTopicArticleList")
+	@POST("/article/getLongTextListByTopicId")
 	Flowable<BaseArrayBean<CardBean>> getSubjectCardList(
 		@Query("topicId") int id, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
@@ -306,7 +305,7 @@ public interface APIService {
 	 * 获取卡片详情
 	 */
 	@POST("/article/getArticleBasicInfo")
-	Flowable<BaseBean<ArticleDetailsBean>> getCardDetails(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> getCardDetails(@Query("articleId") int cardId);
 	
 	/**
 	 * 卡片阅读30秒
@@ -325,37 +324,37 @@ public interface APIService {
 	 * 添加收藏卡片
 	 */
 	@POST("/favorite/collectArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> addCollectArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> addCollectArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消收藏卡片
 	 */
 	@POST("/favorite/uncollectSingleArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> removeCollectArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> removeCollectArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 点赞卡片
 	 */
 	@POST("/article/setLikeForArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> likeArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> likeArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消点赞卡片
 	 */
 	@POST("/article/unLikeForArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> removeLikeArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> removeLikeArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 不赞同卡片
 	 */
 	@POST("/article/setDisagreeForArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> unLikeArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> unLikeArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消不赞同卡片
 	 */
 	@POST("/article/unDisagreeForArticle")
-	Flowable<BaseBean<ArticleDetailsBean>> removeUnLikeArticle(@Query("articleId") int cardId);
+	Flowable<BaseBean<CardBean>> removeUnLikeArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 卡片阅读30秒
@@ -373,13 +372,13 @@ public interface APIService {
 	/**
 	 * 添加收藏卡片
 	 */
-	@POST("/favorite/collectArticle")
+	@POST("/article/collectArticle")
 	Flowable<BaseBean<CardBean>> addCollectCard(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消收藏卡片
 	 */
-	@POST("/favorite/uncollectSingleArticle")
+	@POST("/article/uncollectArticle")
 	Flowable<BaseBean<CardBean>> removeCollectCard(@Query("articleId") int cardId);
 	
 	/**

@@ -1,41 +1,46 @@
-package com.zxcx.zhizhe.ui.home.rank
+package com.zxcx.zhizhe.ui.rank
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadSir
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
-import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.home.rank.moreRank.AllRankActivity
+import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
-import kotlinx.android.synthetic.main.activity_rank.*
+import kotlinx.android.synthetic.main.fragment_rank.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener {
+class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener, Callback.OnReloadListener {
 
 	private var mAdList: MutableList<ADBean> = mutableListOf()
 	private val imageList: MutableList<String> = mutableListOf()
 	private var mUserId: Int = 0
 	private lateinit var mAdapter: RankAdapter
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_rank)
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		val root = inflater.inflate(R.layout.fragment_rank, container, false)
+		loadService = LoadSir.getDefault().register(root, this)
+		return loadService.loadLayout
+	}
+
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 		initRecyclerView()
 		initView()
-		loadService = LoadSir.getDefault().register(this, this)
 		onRefresh()
 	}
 
@@ -60,6 +65,10 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 		super.onDestroy()
 	}
 
+	override fun onReload(v: View?) {
+		onRefresh()
+	}
+
 	private fun onRefresh() {
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		if (mUserId != 0) {
@@ -71,20 +80,18 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 
 	override fun getMyRankSuccess(bean: UserRankBean) {
 		loadService.showSuccess()
-		tv_rank_user_name.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1))
-		tv_rank_card.visibility = View.VISIBLE
-		tv_rank_fans.visibility = View.VISIBLE
-		tv_rank_intelligence.visibility = View.VISIBLE
-		tv_rank_no_login.visibility = View.GONE
-		rl_rank.setOnClickListener(null)
 
-		tv_rank_user_name.text = bean.name
-		tv_rank_card.text = (bean.cardNum ?: 0).toString()
-		tv_rank_fans.text = (bean.fansNum ?: 0).toString()
-		tv_rank_intelligence.text = (bean.readNum ?: 0).toString()
+		tv_item_rank_user_name.text = bean.name
+		tv_item_rank_user_card.text = bean.cardNum.toString()
+		tv_item_rank_user_fans.text = bean.fansNum.toString()
+		tv_item_rank_user_like.text = bean.likeNum.toString()
+		tv_item_rank_user_collect.text = bean.collectNum.toString()
+		tv_item_rank_user_rank.text = bean.rankIndex.toString()
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
-		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_rank_header)
-		showRank(bean)
+		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
+
+		//todo 排名变化
+		tv_my_rank_change.text = bean.rankChange.toString()
 	}
 
 	override fun getDataSuccess(list: List<UserRankBean>) {
@@ -109,9 +116,7 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: LoginEvent) {
-		rl_my_rank.visibility = View.VISIBLE
-		iv_rank_header.visibility = View.VISIBLE
-		tv_rank_no_login.visibility = View.GONE
+		//todo 显示个人信息
 		onRefresh()
 	}
 
@@ -135,7 +140,6 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener { onBackPressed() }
 		tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
 
 	}
@@ -152,10 +156,8 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 	private fun initView() {
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		if (mUserId == 0) {
-			rl_my_rank.visibility = View.GONE
-			iv_rank_header.visibility = View.GONE
-			tv_rank_no_login.visibility = View.VISIBLE
-			rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+			//todo 未登录
+//			rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
 		}
 
 		banner_rank.setImageLoader(GlideBannerImageLoader())
@@ -163,10 +165,10 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 		banner_rank.setOnBannerListener {
 			val adUrl = mAdList[it].behavior
 			val adTitle = mAdList[it].description
-			startActivity(WebViewActivity::class.java, {
+			mActivity.startActivity(WebViewActivity::class.java) {
 				it.putExtra("title", adTitle)
 				it.putExtra("url", adUrl)
-			})
+			}
 		}
 		/*banner_rank.setPageTransformer(true,{ page: View, position: Float ->
 			if (position <= 0.0f) {
@@ -190,35 +192,5 @@ class RankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickA
 				page.translationX = -page.width * position
 			}
 		})*/
-	}
-
-	private fun showRank(bean: UserRankBean) {
-		when (bean.rankIndex) {
-			1 -> {
-				tv_rank_header_rank.visibility = View.GONE
-				tv_rank_no_rank.visibility = View.GONE
-				iv_rank_header_rank.setImageResource(R.drawable.rank_1)
-			}
-			2 -> {
-				tv_rank_header_rank.visibility = View.GONE
-				tv_rank_no_rank.visibility = View.GONE
-				iv_rank_header_rank.setImageResource(R.drawable.rank_2)
-			}
-			3 -> {
-				tv_rank_header_rank.visibility = View.GONE
-				tv_rank_no_rank.visibility = View.GONE
-				iv_rank_header_rank.setImageResource(R.drawable.rank_3)
-			}
-			in 4..99 -> {
-				tv_rank_no_rank.visibility = View.GONE
-				tv_rank_header_rank.visibility = View.VISIBLE
-				tv_rank_header_rank.text = bean.rankIndex.toString()
-				iv_rank_header_rank.setImageResource(R.drawable.rank_4)
-			}
-			else -> {
-				fl_rank_header_rank.visibility = View.GONE
-				tv_rank_no_rank.visibility = View.VISIBLE
-			}
-		}
 	}
 }

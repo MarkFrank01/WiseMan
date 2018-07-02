@@ -26,17 +26,19 @@
 				android:layout_marginTop="6dp"
 				android:layout_marginStart="20dp"
 				android:layout_marginEnd="2dp"
-				android:paddingStart="30dp"
-				android:paddingEnd="40dp"
+				android:paddingStart="6dp"
 				android:background="@drawable/bg_home_search"
+				android:drawablePadding="5dp"
+				android:drawableStart="@drawable/iv_home_search"
 				android:gravity="center_vertical"
 				android:maxLines="1"
 				android:singleLine="true"
-				android:textColor="@color/text_color_1"
+				android:textColor="@color/text_color_d2"
 				android:textSize="17sp"
 				app:layout_constraintEnd_toStartOf="@id/tv_search_result_cancel"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				app:layout_constraintTop_toTopOf="parent"
+				tools:text="6"/>
 			
 			<TextView
 				android:id="@+id/tv_search_result_cancel"
@@ -49,15 +51,6 @@
 				android:textSize="@dimen/text_size_text_1"
 				app:layout_constraintBottom_toBottomOf="@id/tv_search_result_search"
 				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="@id/tv_search_result_search"/>
-			
-			<ImageView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="6dp"
-				android:src="@drawable/iv_home_search"
-				app:layout_constraintBottom_toBottomOf="@id/tv_search_result_search"
-				app:layout_constraintStart_toStartOf="@id/tv_search_result_search"
 				app:layout_constraintTop_toTopOf="@id/tv_search_result_search"/>
 		
 		</android.support.constraint.ConstraintLayout>

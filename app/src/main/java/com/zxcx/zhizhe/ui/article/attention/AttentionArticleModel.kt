@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.article.attention
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.*
+import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 class AttentionArticleModel(present: AttentionArticleContract.Presenter) : BaseModel<AttentionArticleContract.Presenter>() {

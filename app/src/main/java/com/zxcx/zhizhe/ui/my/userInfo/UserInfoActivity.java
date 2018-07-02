@@ -3,7 +3,9 @@ package com.zxcx.zhizhe.ui.my.userInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LogoutEvent;
@@ -14,14 +16,9 @@ import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class UserInfoActivity extends BaseActivity {
 
@@ -51,12 +48,12 @@ public class UserInfoActivity extends BaseActivity {
 		String headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "");
 		ImageLoader.load(mActivity, headImg, R.drawable.default_header, mIvUserInfoHead);
 		String nickName = SharedPreferencesUtil.getString(SVTSConstants.nickName, "");
-		String signture = SharedPreferencesUtil.getString(SVTSConstants.signture, "");
+		String signature = SharedPreferencesUtil.getString(SVTSConstants.signature, "");
 		mTvUserInfoNickName.setText(nickName);
-		if (signture.length() > 10) {
-			mTvUserInfoSignature.setText(signture.substring(0, 10) + "...");
+		if (signature.length() > 10) {
+			mTvUserInfoSignature.setText(signature.substring(0, 10) + "...");
 		} else {
-			mTvUserInfoSignature.setText(signture);
+			mTvUserInfoSignature.setText(signature);
 		}
 		int sex = SharedPreferencesUtil.getInt(SVTSConstants.sex, 1);
 		if (sex == 1) {
@@ -120,7 +117,7 @@ public class UserInfoActivity extends BaseActivity {
 	@OnClick(R.id.ll_user_info_signature)
 	public void onMLlUserInfoSignatureClicked() {
 		//签名修改页面
-		Intent intent = new Intent(mActivity, ChangeSigntureActivity.class);
+		Intent intent = new Intent(mActivity, ChangeSignatureActivity.class);
 		startActivity(intent);
 	}
 

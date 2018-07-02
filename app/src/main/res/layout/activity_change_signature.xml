@@ -28,7 +28,7 @@
 		android:textSize="@dimen/text_size_title_1"/>
 	
 	<EditText
-		android:id="@+id/et_dialog_change_signture"
+		android:id="@+id/et_dialog_change_signature"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="193dp"
@@ -50,15 +50,15 @@
 		android:layout_height="1dp"
 		android:layout_marginStart="20dp"
 		android:layout_marginEnd="20dp"
-		android:layout_below="@id/et_dialog_change_signture"
+		android:layout_below="@id/et_dialog_change_signature"
 		android:background="@color/text_color_2"/>
 	
 	<TextView
-		android:id="@+id/tv_change_signture_hint"
+		android:id="@+id/tv_change_signature_hint"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="14dp"
-		android:layout_below="@id/et_dialog_change_signture"
+		android:layout_below="@id/et_dialog_change_signature"
 		android:layout_centerHorizontal="true"
 		android:text="签名为6-18个字符"
 		android:textColor="@color/red"
@@ -66,7 +66,7 @@
 		android:visibility="gone"/>
 	
 	<TextView
-		android:id="@+id/tv_change_signture_save"
+		android:id="@+id/tv_change_signature_save"
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

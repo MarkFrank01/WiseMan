@@ -21,12 +21,8 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
-import com.zxcx.zhizhe.ui.article.attention.ArticleAndSubjectBean
-import com.zxcx.zhizhe.ui.article.attention.SubjectBean
-import com.zxcx.zhizhe.ui.article.attention.SubjectOnClickListener
-import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.home.hot.ArticleAndSubjectAdapter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
@@ -87,20 +83,20 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as ArticleAndSubjectBean
-		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-		val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
-		val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-				Pair.create(cardImg, cardImg.transitionName),
-				Pair.create(cardTitle, cardTitle.transitionName),
-				Pair.create(cardCategory, cardCategory.transitionName),
-				Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
-		val intent = Intent(mActivity, CardDetailsActivity::class.java)
-		intent.putExtra("list", mAdapter.data as ArrayList)
-		intent.putExtra("currentPosition", position)
-		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivity(intent, bundle)
+		if (bean.itemType == ArticleAndSubjectBean.TYPE_ARTICLE) {
+			val articleImg = view.findViewById<ImageView>(R.id.iv_item_article_icon)
+			val articleTitle = view.findViewById<TextView>(R.id.tv_item_article_title)
+			val articleCategory = view.findViewById<TextView>(R.id.tv_item_article_category)
+			val articleLabel = view.findViewById<TextView>(R.id.tv_item_article_label)
+			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+					Pair.create(articleImg, articleImg.transitionName),
+					Pair.create(articleTitle, articleTitle.transitionName),
+					Pair.create(articleCategory, articleCategory.transitionName),
+					Pair.create(articleLabel, articleLabel.transitionName)).toBundle()
+			val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+			intent.putExtra("cardBean", bean.cardBean)
+			mActivity.startActivity(intent, bundle)
+		}
 	}
 
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
@@ -161,8 +157,8 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
 		intent.putExtra("id", bean.id)
 		intent.putExtra("name", bean.name)
-		intent.putExtra("category", bean.cardCategoryName)
-		intent.putExtra("label", bean.cardLabelName)
+		intent.putExtra("category", bean.categoryName)
+		intent.putExtra("label", bean.labelName)
 		intent.putExtra("imageUrl", bean.imageUrl)
 		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
 		mActivity.startActivity(intent)

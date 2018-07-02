@@ -1,8 +1,8 @@
 package com.zxcx.zhizhe.ui.article.articleDetails;
 
 import android.support.annotation.NonNull;
-
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContract.View> implements
 	ArticleDetailsContract.Presenter {
@@ -51,7 +51,7 @@ public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContrac
 	}
 
 	@Override
-	public void getDataSuccess(ArticleDetailsBean bean) {
+	public void getDataSuccess(CardBean bean) {
 		mView.getDataSuccess(bean);
 	}
 
@@ -81,7 +81,7 @@ public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContrac
 	}
 
 	@Override
-	public void postSuccess(ArticleDetailsBean bean) {
+	public void postSuccess(CardBean bean) {
 		mView.postSuccess(bean);
 	}
 
@@ -96,12 +96,12 @@ public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContrac
 	}
 
 	@Override
-	public void likeSuccess(ArticleDetailsBean bean) {
+	public void likeSuccess(CardBean bean) {
 		mView.likeSuccess(bean);
 	}
 
 	@Override
-	public void collectSuccess(ArticleDetailsBean bean) {
+	public void collectSuccess(CardBean bean) {
 		mView.collectSuccess(bean);
 	}
 }
