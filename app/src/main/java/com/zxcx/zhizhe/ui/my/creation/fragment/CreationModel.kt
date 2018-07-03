@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationContract.Presenter>() {
 	init {
@@ -14,8 +15,8 @@ class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationC
 		mDisposable = AppClient.getAPIService().getCreation(passType, 0, page, pageSize)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
-				.subscribeWith(object : BaseSubscriber<List<CreationBean>>(mPresenter) {
-					override fun onNext(list: List<CreationBean>) {
+				.subscribeWith(object : BaseSubscriber<List<CardBean>>(mPresenter) {
+					override fun onNext(list: List<CardBean>) {
 						mPresenter?.getDataSuccess(list)
 					}
 				})

@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.widget;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -20,22 +22,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.FileUtil;
-import com.zxcx.zhizhe.utils.ScreenUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import static android.app.Activity.RESULT_OK;
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.utils.FileUtil;
+import com.zxcx.zhizhe.utils.ScreenUtils;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by anm on 2017/5/27.
@@ -50,8 +47,8 @@ public class GetPicBottomDialog extends BaseDialog {
 	TextView mTvDialogCamera;
 	@BindView(R.id.tv_dialog_album)
 	TextView mTvDialogAlbum;
-	@BindView(R.id.tv_dialog_title)
-	TextView mTvDialogTitle;
+	@BindView(R.id.tv_dialog_cancel)
+	TextView mTvDialogCancel;
 	
 	private Unbinder mUnbinder;
 	private GetPicDialogListener mListener;
@@ -80,7 +77,6 @@ public class GetPicBottomDialog extends BaseDialog {
 		if (bundle != null) {
 			cutX = bundle.getInt("cutX", 1);
 			cutY = bundle.getInt("cutY", 1);
-			title = bundle.getString("title", "选择图片");
 		}
 		try {
 			String fileName = "zhizhe_head_image";
@@ -115,7 +111,6 @@ public class GetPicBottomDialog extends BaseDialog {
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		mTvDialogTitle.setText(title);
 	}
 	
 	@Override
@@ -165,6 +160,11 @@ public class GetPicBottomDialog extends BaseDialog {
 		intent.setType("image/*");
 		// 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
 		startActivityForResult(intent, REQUEST_CODE_USER_ALBUM);
+	}
+	
+	@OnClick(R.id.tv_dialog_cancel)
+	public void onMTvDialogCancelClicked() {
+		dismiss();
 	}
 	
 	@Override

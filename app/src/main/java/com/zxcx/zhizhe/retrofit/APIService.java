@@ -10,15 +10,12 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
-import com.zxcx.zhizhe.ui.my.creation.fragment.CreationBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
-import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
-import com.zxcx.zhizhe.ui.my.readCards.ReadCardsBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
@@ -227,7 +224,7 @@ public interface APIService {
 	 * @param passType 文章状态 0审核中 1未通过 2通过
 	 */
 	@POST("/article/getCreationList")
-	Flowable<BaseArrayBean<CreationBean>> getCreation(
+	Flowable<BaseArrayBean<CardBean>> getCreation(
 		@Query("stateType") int passType, @Query("orderType") int sortType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	
@@ -267,8 +264,8 @@ public interface APIService {
 	/**
 	 * 获取收藏卡片列表
 	 */
-	@POST("/favorite/getFavoriteArticleList")
-	Flowable<BaseArrayBean<MyCardsBean>> getCollectCard(
+	@POST("/article/getFavoriteArticleList")
+	Flowable<BaseArrayBean<CardBean>> getCollectCard(
 		@Query("orderType") int sortType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	
@@ -276,15 +273,15 @@ public interface APIService {
 	 * 获取点赞卡片列表
 	 */
 	@POST("/article/getLikeArticleList")
-	Flowable<BaseArrayBean<MyCardsBean>> getLikeCard(
+	Flowable<BaseArrayBean<CardBean>> getLikeCard(
 		@Query("orderType") int sortType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	
 	/**
 	 * 获取阅读卡片列表
 	 */
-	@POST("/user/getViewArticleList")
-	Flowable<BaseArrayBean<ReadCardsBean>> getReadCard(
+	@POST("/article/getViewArticleList")
+	Flowable<BaseArrayBean<CardBean>> getReadCard(
 		@Query("orderType") int sortType,
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	

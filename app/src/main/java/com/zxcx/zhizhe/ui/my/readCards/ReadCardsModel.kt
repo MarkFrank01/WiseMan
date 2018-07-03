@@ -13,8 +13,8 @@ class ReadCardsModel(presenter: ReadCardsContract.Presenter) : BaseModel<ReadCar
 		this.mPresenter = presenter
 	}
 
-	fun getEmptyRecommendCard() {
-		mDisposable = AppClient.getAPIService().getEmptyRecommendCard(1)
+	fun getEmptyRecommendCard(tabType: Int) {
+		mDisposable = AppClient.getAPIService().getEmptyRecommendCard(tabType)
 				.compose(BaseRxJava.io_main())
 				.compose<CardBean>(BaseRxJava.handleResult())
 				.subscribeWith(object : BaseSubscriber<CardBean>(mPresenter) {
@@ -25,12 +25,12 @@ class ReadCardsModel(presenter: ReadCardsContract.Presenter) : BaseModel<ReadCar
 		addSubscription(mDisposable)
 	}
 
-	fun getReadCard(page: Int, pageSize: Int) {
-		mDisposable = AppClient.getAPIService().getReadCard(0, page, pageSize)
+	fun getReadCard(sortType: Int, page: Int, pageSize: Int) {
+		mDisposable = AppClient.getAPIService().getReadCard(sortType, page, pageSize)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
-				.subscribeWith(object : BaseSubscriber<List<ReadCardsBean>>(mPresenter) {
-					override fun onNext(list: List<ReadCardsBean>) {
+				.subscribeWith(object : BaseSubscriber<List<CardBean>>(mPresenter) {
+					override fun onNext(list: List<CardBean>) {
 						mPresenter?.getDataSuccess(list)
 					}
 				})
@@ -39,6 +39,54 @@ class ReadCardsModel(presenter: ReadCardsContract.Presenter) : BaseModel<ReadCar
 
 	fun deleteReadCard(realId: Int, cardId: Int) {
 		mDisposable = AppClient.getAPIService().removeReadArticle(realId, cardId)
+				.compose(BaseRxJava.handlePostResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
+					override fun onNext(t: BaseBean<*>?) {
+						mPresenter?.postSuccess()
+					}
+				})
+		addSubscription(mDisposable)
+	}
+
+	fun getCollectCard(sortType: Int, page: Int, pageSize: Int) {
+		mDisposable = AppClient.getAPIService().getCollectCard(sortType, page, pageSize)
+				.compose(BaseRxJava.io_main())
+				.compose<List<CardBean>>(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<List<CardBean>>(mPresenter) {
+					override fun onNext(list: List<CardBean>) {
+						mPresenter?.getDataSuccess(list)
+					}
+				})
+		addSubscription(mDisposable)
+	}
+
+	fun deleteCollectCard(cardId: Int) {
+		mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
+				.compose(BaseRxJava.handlePostResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
+					override fun onNext(t: BaseBean<*>?) {
+						mPresenter?.postSuccess()
+					}
+				})
+		addSubscription(mDisposable)
+	}
+
+	fun getLikeCard(sortType: Int, page: Int, pageSize: Int) {
+		mDisposable = AppClient.getAPIService().getLikeCard(sortType, page, pageSize)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleArrayResult())
+				.subscribeWith(object : BaseSubscriber<List<CardBean>>(mPresenter) {
+					override fun onNext(list: List<CardBean>) {
+						mPresenter?.getDataSuccess(list)
+					}
+				})
+		addSubscription(mDisposable)
+	}
+
+	fun deleteLikeCard(cardId: Int) {
+		mDisposable = AppClient.getAPIService().removeLikeArticle(cardId)
 				.compose(BaseRxJava.handlePostResult())
 				.compose(BaseRxJava.io_main())
 				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {

@@ -4,12 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBaen
-import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import java.util.*
 
 class CardBean(
 		@SerializedName("id") var id: Int = 0,
+		@SerializedName("relationshipKeyId") var realId: Int = 0,//仅限阅读使用
 		@SerializedName("type") var cardType: Int = 0, //1卡片，2长文
 		@SerializedName("collectingCount") var collectNum: Int = 0,
 		@SerializedName("pv") var readNum: Int = 0,
@@ -38,7 +38,7 @@ class CardBean(
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false
 
-		other as MyCardsBean
+		other as CardBean
 
 		if (id != other.id) return false
 
@@ -50,6 +50,7 @@ class CardBean(
 	}
 
 	constructor(source: Parcel) : this(
+			source.readInt(),
 			source.readInt(),
 			source.readInt(),
 			source.readInt(),
@@ -72,13 +73,15 @@ class CardBean(
 			1 == source.readInt(),
 			1 == source.readInt(),
 			1 == source.readInt(),
-			source.readString()
+			source.readString(),
+			source.readParcelable<ADBean>(ADBean::class.java.classLoader)
 	)
 
 	override fun describeContents() = 0
 
 	override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
 		writeInt(id)
+		writeInt(realId)
 		writeInt(cardType)
 		writeInt(collectNum)
 		writeInt(readNum)
@@ -101,6 +104,7 @@ class CardBean(
 		writeInt((if (isCollect) 1 else 0))
 		writeInt((if (isFollow) 1 else 0))
 		writeString(adUrl)
+		writeParcelable(ad, 0)
 	}
 
 	companion object {

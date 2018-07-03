@@ -3,17 +3,14 @@ package com.zxcx.zhizhe.ui.my.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity;
-import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity;
-import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
-import com.zxcx.zhizhe.utils.DataCleanManager;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseActivity;
+import com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity;
+import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
+import com.zxcx.zhizhe.utils.DataCleanManager;
 
 /**
  * Created by anm on 2017/6/26.
@@ -29,6 +26,7 @@ public class CommonSettingActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_common_setting);
 		ButterKnife.bind(this);
+		initToolBar("设置");
 		updateCacheSize();
 	}
 
@@ -78,10 +76,5 @@ public class CommonSettingActivity extends BaseActivity {
 	@OnClick(R.id.ll_common_setting_versions)
 	public void onMLlCommonSettingVersionsClicked() {
 		startActivity(new Intent(mActivity, AboutUSActivity.class));
-	}
-
-	@OnClick(R.id.ll_common_setting_feedback)
-	public void onMLlCommonSettingFeedbackClicked() {
-		startActivity(new Intent(mActivity, FeedbackActivity.class));
 	}
 }

@@ -1,12 +1,15 @@
 package com.zxcx.zhizhe.ui.my.setting
 
 import android.os.Bundle
+import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.getColorForKotlin
 import com.zxcx.zhizhe.widget.CustomSeekbar
 import kotlinx.android.synthetic.main.activity_text_size_change.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
 
@@ -15,6 +18,10 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_text_size_change)
+		initToolBar()
+		tv_toolbar_right.visibility = View.VISIBLE
+		tv_toolbar_right.text = "完成"
+		tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
 
 		textSizeValue = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
 
@@ -59,11 +66,7 @@ class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
-
-		tv_size_change_save.setOnClickListener {
+		tv_toolbar_right.setOnClickListener {
 			SharedPreferencesUtil.saveData(SVTSConstants.textSizeValue, textSizeValue)
 			toastShow("保存成功")
 			onBackPressed()

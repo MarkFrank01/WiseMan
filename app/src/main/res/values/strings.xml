@@ -6,7 +6,7 @@
 
     <string name="tv_my_collect">收藏</string>
     <string name="tv_common_setting_clean_cache">清理缓存</string>
-    <string name="tv_common_setting_night_model">夜间模式</string>
+    <string name="tv_common_setting_night_model">夜间</string>
     <string name="tv_my_feedback">意见反馈</string>
     <string name="tv_user_info_head">头像</string>
     <string name="tv_user_info_nick_name">昵称</string>

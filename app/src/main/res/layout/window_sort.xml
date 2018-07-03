@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:paddingTop="20dp"
+	android:paddingBottom="10dp"
+	android:paddingStart="10dp"
+	android:paddingEnd="10dp"
+	android:background="@drawable/bg_window_sort"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_sort_default"
+		android:layout_width="130dp"
+		android:layout_height="50dp"
+		android:paddingStart="20dp"
+		android:paddingEnd="40dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|end"
+		android:text="默认"
+		android:textColor="@color/button_blue"
+		android:textSize="@dimen/text_size_text_1"/>
+	
+	<TextView
+		android:id="@+id/tv_sort_earliest"
+		android:layout_width="130dp"
+		android:layout_height="50dp"
+		android:paddingStart="20dp"
+		android:paddingEnd="40dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|end"
+		android:text="最早"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"/>
+
+</LinearLayout>

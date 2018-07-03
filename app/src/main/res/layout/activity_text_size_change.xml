@@ -8,27 +8,9 @@
 	android:background="@color/background"
 	tools:context="com.zxcx.zhizhe.ui.my.setting.TextSizeChangeActivity">
 	
-	<ImageView
-		android:id="@+id/iv_common_close"
-		android:layout_width="40dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="12dp"
-		android:layout_marginEnd="16dp"
-		android:padding="10dp"
-		android:src="@drawable/login_close"
+	<include
+		layout="@layout/toolbar"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
-	
-	<TextView
-		android:id="@+id/textView2"
-		android:textStyle="bold"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="40dp"
-		android:layout_marginStart="20dp"
-		android:text="字体设置"
-		android:textColor="@color/text_color_1"
-		android:textSize="@dimen/text_size_title_1"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 	
@@ -36,13 +18,13 @@
 		android:id="@+id/tv_text_size_change"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="147dp"
-		android:text="字号仅在卡片页面生效"
+		android:layout_marginTop="215dp"
+		android:text="智者，只看实用知识"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_text_1"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+		app:layout_constraintTop_toTopOf="parent"/>
 	
 	<com.zxcx.zhizhe.widget.CustomSeekbar
 		android:id="@+id/sb_text_size"
@@ -54,21 +36,6 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/tv_text_size_change"/>
-	
-	<TextView
-		android:id="@+id/tv_size_change_save"
-		android:textStyle="bold"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="72dp"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:text="保存"
-		android:textColor="@color/button_blue"
-		android:textSize="@dimen/text_size_title_1"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

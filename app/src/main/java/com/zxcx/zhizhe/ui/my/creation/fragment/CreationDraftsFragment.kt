@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
@@ -66,7 +67,7 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		mPresenter.getCreation(mPassType, mPage, mPageSize)
 	}
 
-	override fun getDataSuccess(list: List<CreationBean>) {
+	override fun getDataSuccess(list: List<CardBean>) {
 		mRefreshLayout.finishRefresh()
 		if (mPage == 0) {
 			mAdapter.setNewData(list)
@@ -93,7 +94,7 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val bean = adapter.data[position] as CreationBean
+		val bean = adapter.data[position] as CardBean
 		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
 				Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
 				Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
@@ -103,7 +104,7 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		intent.putExtra("name", bean.name)
 		intent.putExtra("imageUrl", bean.imageUrl)
 		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-		intent.putExtra("authorName", bean.author)
+		intent.putExtra("authorName", bean.authorName)
 		mActivity.startActivity(intent, bundle)
 	}
 

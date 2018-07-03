@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gyf.barlibrary.ImmersionBar;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
@@ -31,7 +30,6 @@ import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -172,12 +170,12 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 	}
 	
 	public Toolbar initToolBar() {
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar toolbar = findViewById(R.id.toolbar);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setTitle("");
-		ImageView ivBack = (ImageView) toolbar.findViewById(R.id.iv_toolbar_back);
+		ImageView ivBack = toolbar.findViewById(R.id.iv_toolbar_back);
 		ivBack.setOnClickListener(new BackListener());
 		return toolbar;
 	}

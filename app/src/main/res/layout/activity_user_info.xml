@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:background="@color/background"
+	android:orientation="vertical">
+	
+	<include layout="@layout/toolbar"/>
 	
 	<ScrollView
 		android:layout_width="match_parent"
@@ -15,18 +19,6 @@
 			android:layout_height="wrap_content"
 			android:background="@color/background"
 			android:orientation="vertical">
-			
-			<TextView
-				android:id="@+id/tv_header_title"
-				android:textStyle="bold"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="40dp"
-				android:layout_marginBottom="20dp"
-				android:layout_marginStart="20dp"
-				android:text="账户资料"
-				android:textColor="@color/text_color_1"
-				android:textSize="@dimen/text_size_title_1"/>
 			
 			<LinearLayout
 				android:id="@+id/ll_user_info_head"
@@ -199,11 +191,6 @@
 			
 			</LinearLayout>
 			
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="6dp"
-				android:background="@color/strip"/>
-			
 			<LinearLayout
 				android:id="@+id/ll_user_info_safety"
 				android:layout_width="match_parent"
@@ -245,23 +232,8 @@
 				<include layout="@layout/iv_right_into"/>
 			
 			</LinearLayout>
-			
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="40dp"
-				android:background="@color/strip"/>
 		
 		</LinearLayout>
 	</ScrollView>
-	
-	<ImageView
-		android:id="@+id/iv_common_close"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="2dp"
-		android:layout_marginEnd="10dp"
-		android:layout_gravity="end"
-		android:padding="10dp"
-		android:src="@drawable/login_close"/>
 
-</FrameLayout>
+</LinearLayout>

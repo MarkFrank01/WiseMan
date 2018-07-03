@@ -6,123 +6,133 @@
 	android:id="@+id/es"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginBottom="20dp"
-	android:layout_marginStart="20dp"
-	android:layout_marginEnd="20dp"
-	android:background="@drawable/bg_item_my_card"
+	android:layout_marginTop="10dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press"
 	app:contentView="@id/content_view"
 	app:rightMenuView="@id/right_view">
 	
-	<FrameLayout
+	<android.support.constraint.ConstraintLayout
 		android:id="@+id/content_view"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="10dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
+		android:background="@drawable/bg_background_6dp"
+		android:elevation="10dp">
 		
-		<com.zxcx.zhizhe.widget.CardRoundedImageView
+		<ImageView
 			android:id="@+id/iv_item_card_icon"
-			android:layout_width="match_parent"
-			android:layout_height="190dp"
+			android:layout_width="64dp"
+			android:layout_height="64dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginStart="20dp"
 			android:scaleType="centerCrop"
 			android:transitionName="cardImage"
-			app:hasShade="true"
-			app:heightWeight="9"
-			app:radius="6dp"
-			app:riv_corner_radius="6dp"
-			app:widthWeight="16"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
 			tools:src="@drawable/iv_item_home_card_icon"/>
 		
 		<TextView
-			android:id="@+id/tv_item_card_type"
-			style="@style/tv_card_type"
-			android:text="卡片"/>
-		
-		<LinearLayout
-			android:layout_width="match_parent"
+			android:id="@+id/tv_item_card_title"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_gravity="bottom"
-			android:paddingStart="15dp"
-			android:paddingEnd="15dp"
-			android:orientation="vertical">
-			
-			<TextView
-				android:id="@+id/tv_item_card_title"
-				style="@style/tv_card"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:transitionName="cardTitle"
-				tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:layout_marginBottom="10dp"
-				android:gravity="center_vertical">
-				
-				<TextView
-					android:id="@+id/tv_item_card_category"
-					style="@style/tv_card_category"
-					tools:text="数码产品"/>
-				
-				<TextView
-					android:id="@+id/tv_item_card_reade_num"
-					style="@style/tv_single"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="15dp"
-					android:drawablePadding="3dp"
-					android:drawableStart="@drawable/tv_item_rank_user_card"
-					android:textColor="@color/white_final"
-					android:textSize="@dimen/text_size_text_3"
-					tools:text="500"/>
-				
-				<TextView
-					android:id="@+id/tv_item_card_collect_num"
-					style="@style/tv_single"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="15dp"
-					android:drawablePadding="3dp"
-					android:drawableStart="@drawable/tv_item_rank_user_fans"
-					android:textColor="@color/white_final"
-					android:textSize="@dimen/text_size_text_3"
-					tools:text="500"/>
-			</LinearLayout>
-		</LinearLayout>
-	</FrameLayout>
+			android:layout_marginTop="15dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:lineSpacingExtra="5dp"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"
+			android:transitionName="cardTitle"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@id/iv_item_card_icon"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
+		
+		<TextView
+			android:id="@+id/tv_item_card_category"
+			style="@style/tv_card_category"
+			android:layout_marginTop="20dp"
+			android:layout_marginBottom="12dp"
+			android:layout_marginStart="20dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"
+			tools:text="数码产品"/>
+		
+		<TextView
+			android:id="@+id/tv_item_card_label"
+			style="@style/tv_card_label"
+			android:paddingTop="20dp"
+			android:paddingBottom="12dp"
+			android:paddingStart="12dp"
+			android:paddingEnd="12dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toEndOf="@+id/tv_item_card_category"
+			app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"
+			tools:text="#数码产品"/>
+		
+		<ImageView
+			android:id="@+id/iv_item_card_read"
+			android:layout_width="14dp"
+			android:layout_height="14dp"
+			android:src="@drawable/tv_item_rank_user_card"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>
+		
+		<TextView
+			android:id="@+id/tv_item_card_read"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="3dp"
+			android:layout_marginEnd="12dp"
+			android:textColor="@color/text_color_3"
+			android:textSize="@dimen/text_size_text_4"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
+			tools:text="100"/>
+		
+		<ImageView
+			android:id="@+id/iv_item_card_comment"
+			android:layout_width="14dp"
+			android:layout_height="14dp"
+			android:layout_marginStart="12dp"
+			android:src="@drawable/tv_item_rank_user_card"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>
+		
+		<TextView
+			android:id="@+id/tv_item_card_comment"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="3dp"
+			android:layout_marginEnd="20dp"
+			android:textColor="@color/text_color_3"
+			android:textSize="@dimen/text_size_text_4"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
+			tools:text="100"/>
+	</android.support.constraint.ConstraintLayout>
 	
-	<LinearLayout
+	<FrameLayout
 		android:id="@+id/right_view"
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent">
+		android:layout_width="68dp"
+		android:layout_height="match_parent"
+		android:layout_marginEnd="20dp">
 		
-		<TextView
-			android:id="@+id/tv_cancel"
-			android:textStyle="bold"
+		<ImageView
+			android:id="@+id/iv_delete"
 			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:paddingStart="23dp"
-			android:paddingEnd="23dp"
-			android:background="@color/text_color_d2"
-			android:gravity="center"
-			android:text="取消"
-			android:textColor="@color/white_final"
-			android:textSize="@dimen/text_size_text_1"/>
-		
-		<TextView
-			android:id="@+id/tv_delete"
-			android:textStyle="bold"
-			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:paddingStart="23dp"
-			android:paddingEnd="23dp"
-			android:background="@drawable/bg_tv_delete"
-			android:gravity="center"
-			android:text="删除"
-			android:textColor="@color/white_final"
-			android:textSize="@dimen/text_size_text_1"/>
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:padding="10dp"
+			android:src="@drawable/iv_ad_label_ad"/>
 	
-	</LinearLayout>
+	</FrameLayout>
 </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

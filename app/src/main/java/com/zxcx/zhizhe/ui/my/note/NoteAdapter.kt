@@ -40,7 +40,7 @@ class NoteAdapter(data: List<NoteBean>) : BaseQuickAdapter<NoteBean, BaseViewHol
 		helper.getView<TextView>(R.id.tv_cancel).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
 		}
-		helper.getView<TextView>(R.id.tv_delete).setOnClickListener {
+		helper.getView<TextView>(R.id.iv_delete).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
 			mListener.onDeleteClick(mData.indexOf(item))
 			remove(mData.indexOf(item))

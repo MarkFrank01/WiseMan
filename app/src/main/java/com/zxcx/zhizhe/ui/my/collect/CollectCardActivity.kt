@@ -1,71 +1,55 @@
 package com.zxcx.zhizhe.ui.my.collect
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.UnCollectEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.my.likeCards.MyCardsAdapter
-import com.zxcx.zhizhe.ui.my.likeCards.MyCardsBean
+import com.zxcx.zhizhe.ui.my.SortWindow
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.ui.my.readCards.MyCardsAdapter
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsContract
+import com.zxcx.zhizhe.ui.my.readCards.ReadCardsPresenter
 import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.activity_collect_card.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import kotlinx.android.synthetic.main.activity_read_cards.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.util.*
 
-class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardContract.View,
-		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener, BaseQuickAdapter.OnItemChildClickListener {
+class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
+		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener,
+		SortWindow.SortListener {
 
 	private var mPage = 0
+	private var mSortType = 0
+	private val mTabType = 3 //tabType 标签类型 0阅读 1点赞 3收藏
 	private var mPageSize = Constants.PAGE_SIZE
 	private lateinit var mAdapter: MyCardsAdapter
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_collect_card)
-		EventBus.getDefault().register(this)
+		setContentView(R.layout.activity_read_cards)
+		initToolBar("收藏")
 		initView()
 		initLoadSir()
-		mPresenter.getCollectCard(mPage, mPageSize)
-		mPresenter.getEmptyRecommendCard()
-	}
-
-	override fun onDestroy() {
-		EventBus.getDefault().unregister(this)
-		super.onDestroy()
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
+		mPresenter.getEmptyRecommendCard(mTabType)
 	}
 
 	private fun initLoadSir() {
-		loadService = LoadSir.getDefault().register(rv_collect_card, this)
+		loadService = LoadSir.getDefault().register(rv_read_card, this)
 	}
 
-	override fun createPresenter(): CollectCardPresenter {
-		return CollectCardPresenter(this)
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: UnCollectEvent) {
-		val bean = MyCardsBean()
-		bean.id = event.cardId
-		mAdapter.remove(mAdapter.data.indexOf(bean))
+	override fun createPresenter(): ReadCardsPresenter {
+		return ReadCardsPresenter(this)
 	}
 
 	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
@@ -73,7 +57,7 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
 		mAdapter.emptyView = emptyView
 	}
 
-	override fun getDataSuccess(list: List<MyCardsBean>) {
+	override fun getDataSuccess(list: List<CardBean>) {
 		if (mPage == 0) {
 			loadService.showSuccess()
 			mAdapter.setNewData(list)
@@ -107,30 +91,33 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
 	}
 
 	override fun onLoadMoreRequested() {
-		mPresenter.getCollectCard(mPage, mPageSize)
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
 	}
 
-	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val bean = adapter.data[position] as CardBean
-		mActivity.startActivity(CardBagActivity::class.java, {
-			it.putExtra("id", bean.cardBagId)
-			it.putExtra("name", bean.categoryName)
-		})
+	override fun defaultSort() {
+		mSortType = 0
+		mPage = 0
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
+	}
+
+	override fun earliestSort() {
+		mSortType = 1
+		mPage = 0
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
 	}
 
 	override fun onContentClick(position: Int) {
-		val bean = mAdapter.data[position] as MyCardsBean
-		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		intent.putExtra("imageUrl", bean.imageUrl)
-		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-		intent.putExtra("authorName", bean.author)
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-				Pair.create(mAdapter.getViewByPosition(position + mAdapter.headerLayoutCount, R.id.iv_item_card_icon), "cardImage"),
-				Pair.create(mAdapter.getViewByPosition(position + mAdapter.headerLayoutCount, R.id.tv_item_card_title), "cardTitle"),
-				Pair.create(mAdapter.getViewByPosition(position + mAdapter.headerLayoutCount, R.id.tv_item_card_category), "cardBag")).toBundle()
-		mActivity.startActivity(intent, bundle)
+		val bean = mAdapter.data[position] as CardBean
+		if (bean.cardType == 1) {
+			mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
+		} else {
+			mActivity.startActivity(ArticleDetailsActivity::class.java) {
+				it.putExtra("id", bean.id)
+				it.putExtra("name", bean.name)
+			}
+		}
 	}
 
 	override fun onDeleteClick(position: Int) {
@@ -138,21 +125,23 @@ class CollectCardActivity : MvpActivity<CollectCardPresenter>(), CollectCardCont
 	}
 
 	private fun initView() {
+		iv_toolbar_right.visibility = View.VISIBLE
+		iv_toolbar_right.setImageResource(R.drawable.tv_home_rank)
+
 		mAdapter = MyCardsAdapter(ArrayList())
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
-		mAdapter.setOnLoadMoreListener(this, rv_collect_card)
+		mAdapter.setOnLoadMoreListener(this, rv_read_card)
 		mAdapter.mListener = this
-		mAdapter.onItemChildClickListener = this
-		rv_collect_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
-		rv_collect_card.adapter = mAdapter
-		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
-		mAdapter.addHeaderView(header)
+		rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+		rv_read_card.adapter = mAdapter
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
+		iv_toolbar_right.setOnClickListener {
+			val sortWindow = SortWindow(mActivity)
+			sortWindow.mListener = this
+			sortWindow.sortType = mSortType
+			sortWindow.showAsDropDown(iv_toolbar_right)
 		}
 	}
 }

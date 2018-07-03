@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.my.setting
 
 import android.os.Bundle
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -23,16 +22,13 @@ class MessageModeActivity : BaseActivity(), INullGetPostPresenter<MessageModeBea
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_message_mode)
-		ButterKnife.bind(this)
+		initToolBar("消息提示")
 		cb_message_mode_system.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.systemMessageIsOpen, true)
 		cb_message_mode_dynamic.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.dynamicMessageIsOpen, true)
 		getMessageSetting()
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
 		ll_message_mode_system.setOnClickListener {
 			cb_message_mode_system.isChecked = !cb_message_mode_system.isChecked

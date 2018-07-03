@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.my
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatDelegate
 import android.view.LayoutInflater
 import android.view.View
@@ -47,7 +46,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	private var totalIntelligenceValue: Int = 0
 	private var readNum: Int = 0
 	private var creationNum: Int = 0
-	private var noteNum: Int = 0
+	private var fansNum: Int = 0
 	private var level: String = ""
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -115,7 +114,8 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 				mActivity.startActivity(UserInfoActivity::class.java, {})
 			}
 		}
-		ll_my_intelligence_value.setOnClickListener {
+		tv_my_lv.expandViewTouchDelegate(ScreenUtils.dip2px(5f))
+		tv_my_lv.setOnClickListener {
 			if (checkLogin()) {
 				mActivity.startActivity(IntelligenceValueActivity::class.java, {})
 			}
@@ -125,7 +125,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 				mActivity.startActivity(ReadCardsActivity::class.java, {})
 			}
 		}
-		ll_my_top_note.setOnClickListener {
+		ll_my_note.setOnClickListener {
 			if (checkLogin()) {
 				mActivity.startActivity(NoteActivity::class.java, {})
 			}
@@ -190,21 +190,18 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	private fun setViewLogout() {
 		iv_message_red_point.visibility = View.GONE
 		tv_my_nick_name.text = "注册/登录"
-		tv_my_nick_name.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue))
-		tv_my_info.text = "登录后收藏喜欢的知识"
-		tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_3))
+		tv_my_signature.text = "登录后收藏喜欢的知识"
+//		tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_3))
 		iv_my_head.setImageResource(R.drawable.iv_my_head_placeholder)
-		ll_my_fans.visibility = View.GONE
-		tv_my_lv.visibility = View.GONE
 		tv_my_top_read_num.text = "0"
-		tv_my_top_note_num.text = "0"
 		tv_my_top_creation_num.text = "0"
+		tv_my_top_fans_num.text = "0"
 	}
 
 	private fun setViewLogin() {
 		tv_my_lv.visibility = View.VISIBLE
 		tv_my_nick_name.text = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
-		tv_my_nick_name.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_1))
+		tv_my_signature.text = SharedPreferencesUtil.getString(SVTSConstants.signature, "")
 		val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
 		ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_my_head)
 		writerStatus = SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)
@@ -213,7 +210,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 		totalIntelligenceValue = SharedPreferencesUtil.getInt(SVTSConstants.totalIntelligenceValue, 0)
 		readNum = SharedPreferencesUtil.getInt(SVTSConstants.readNum, 0)
 		creationNum = SharedPreferencesUtil.getInt(SVTSConstants.creationNum, 0)
-		noteNum = SharedPreferencesUtil.getInt(SVTSConstants.noteNum, 0)
+		fansNum = SharedPreferencesUtil.getInt(SVTSConstants.fansNum, 0)
 		level = SharedPreferencesUtil.getString(SVTSConstants.level, "")
 		refreshRedPoint()
 	}
@@ -240,15 +237,15 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 		totalIntelligenceValue = bean.totalIntelligenceValue
 		readNum = bean.cardViewCount
 		creationNum = bean.cardCreationCount
-		noteNum = bean.noteCount
-		level = bean.intelligenceValueLevel
+		fansNum = bean.fansCount
+		level = bean.level
 		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writerStatus)
 		SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
 		SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, hasSystemMessage)
 		SharedPreferencesUtil.saveData(SVTSConstants.totalIntelligenceValue, totalIntelligenceValue)
 		SharedPreferencesUtil.saveData(SVTSConstants.readNum, readNum)
 		SharedPreferencesUtil.saveData(SVTSConstants.creationNum, creationNum)
-		SharedPreferencesUtil.saveData(SVTSConstants.noteNum, noteNum)
+		SharedPreferencesUtil.saveData(SVTSConstants.noteNum, fansNum)
 		SharedPreferencesUtil.saveData(SVTSConstants.level, level)
 		refreshRedPoint()
 	}
@@ -258,13 +255,10 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 			return
 		}
 		iv_message_red_point.visibility = if (hasSystemMessage || hasDynamicMessage) View.VISIBLE else View.GONE
-		ll_my_fans.visibility = if (writerStatus == writer_status_writer) View.VISIBLE else View.GONE
-		tv_my_info.text = getString(R.string.tv_other_user_info, ZhiZheUtils.getFormatNumber(totalIntelligenceValue))
-		tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.button_blue))
-		tv_my_lv.text = level
+		tv_my_lv.text = totalIntelligenceValue.getFormatNumber()
 		tv_my_top_read_num.text = readNum.toString()
 		tv_my_top_creation_num.text = creationNum.toString()
-		tv_my_top_note_num.text = noteNum.toString()
+		tv_my_top_fans_num.text = fansNum.toString()
 	}
 
 	override fun getDataFail(msg: String) {

@@ -3,15 +3,11 @@ package com.zxcx.zhizhe.ui.rank.moreRank
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.kingja.loadsir.core.LoadSir
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
-import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.rank.RankAdapter
 import com.zxcx.zhizhe.ui.rank.UserRankBean
@@ -19,7 +15,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_all_rank.*
 
-class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
+class AllRankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
 		BaseQuickAdapter.RequestLoadMoreListener {
 
 	private lateinit var mAdapter: RankAdapter
@@ -28,21 +24,13 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_all_rank)
+		initToolBar("本周智者榜单")
 		initRecyclerView()
-		loadService = LoadSir.getDefault().register(this, this)
 		onRefresh()
 	}
 
 	override fun createPresenter(): RankPresenter {
 		return RankPresenter(this)
-	}
-
-	override fun onRefresh(refreshLayout: RefreshLayout?) {
-		onRefresh()
-	}
-
-	override fun onReload(v: View?) {
-		onRefresh()
 	}
 
 	private fun onRefresh() {
@@ -55,8 +43,6 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
 	}
 
 	override fun getDataSuccess(list: List<UserRankBean>) {
-		loadService.showSuccess()
-		mRefreshLayout.finishRefresh()
 		if (page == 0) {
 			mAdapter.setNewData(list)
 		} else {
@@ -92,16 +78,7 @@ class AllRankActivity : RefreshMvpActivity<RankPresenter>(), RankContract.View, 
 		mAdapter.onItemClickListener = this
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_rank_user)
-		val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		title.findViewById<TextView>(R.id.tv_header_title).text = "本周智者榜单"
-		mAdapter.addHeaderView(title)
 		rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_rank_user.adapter = mAdapter
-	}
-
-	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 }

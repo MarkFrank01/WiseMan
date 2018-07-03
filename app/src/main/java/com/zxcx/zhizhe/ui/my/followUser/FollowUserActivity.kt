@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -34,15 +33,13 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_follow_user)
 		EventBus.getDefault().register(this)
+		initToolBar("关注")
 		initRecyclerView()
 		mPresenter.getFollowUser(mFollowType, mPage, mPageSize)
 		mDialog = UnFollowConfirmDialog()
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	override fun onDestroy() {
@@ -118,11 +115,11 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		val bean = adapter.data[position] as SearchUserBean
 		if (cb.isChecked) {
 			val bundle = Bundle()
-			bundle.putInt("userId", bean.id ?: 0)
+			bundle.putInt("userId", bean.id)
 			mDialog.arguments = bundle
 			mDialog.show(mActivity.fragmentManager, "")
 		} else {
-			mPresenter.followUser(bean.id ?: 0)
+			mPresenter.followUser(bean.id)
 		}
 	}
 
@@ -138,8 +135,5 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		mAdapter.setOnLoadMoreListener(this, rv_follow_user)
 		rv_follow_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_follow_user.adapter = mAdapter
-		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
-		mAdapter.addHeaderView(header)
 	}
 }

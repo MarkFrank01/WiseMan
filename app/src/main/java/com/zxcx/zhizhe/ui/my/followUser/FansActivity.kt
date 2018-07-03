@@ -3,10 +3,8 @@ package com.zxcx.zhizhe.ui.my.followUser
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -37,15 +35,13 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_follow_user)
 		EventBus.getDefault().register(this)
+		initToolBar("粉丝")
 		initRecyclerView()
 		mPresenter.getFollowUser(mFollowType, mPage, mPageSize)
 		mDialog = UnFollowConfirmDialog()
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	override fun onDestroy() {
@@ -112,11 +108,11 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		val bean = adapter.data[position] as SearchUserBean
 		if (cb.isChecked) {
 			val bundle = Bundle()
-			bundle.putInt("userId", bean.id ?: 0)
+			bundle.putInt("userId", bean.id)
 			mDialog.arguments = bundle
 			mDialog.show(mActivity.fragmentManager, "")
 		} else {
-			mPresenter.followUser(bean.id ?: 0)
+			mPresenter.followUser(bean.id)
 		}
 	}
 
@@ -139,8 +135,5 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 			}
 		})
 		mAdapter.emptyView = emptyView
-		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		header.findViewById<TextView>(R.id.tv_header_title).text = "粉丝"
-		mAdapter.addHeaderView(header)
 	}
 }

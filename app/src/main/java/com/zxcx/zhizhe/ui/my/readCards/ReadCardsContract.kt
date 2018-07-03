@@ -6,11 +6,11 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface ReadCardsContract {
 
-	interface View : NullGetPostView<List<ReadCardsBean>> {
+	interface View : NullGetPostView<List<CardBean>> {
 		fun getEmptyRecommendCardSuccess(bean: CardBean)
 	}
 
-	interface Presenter : INullGetPostPresenter<List<ReadCardsBean>> {
+	interface Presenter : INullGetPostPresenter<List<CardBean>> {
 		fun getEmptyRecommendCardSuccess(bean: CardBean)
 	}
 }

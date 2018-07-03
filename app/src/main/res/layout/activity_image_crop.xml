@@ -18,7 +18,8 @@
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true"
 		android:padding="10dp"
-		android:src="@drawable/iv_crop_rotate"/>
+		android:src="@drawable/iv_crop_rotate"
+		android:visibility="gone"/>
 	
 	<TextView
 		android:id="@+id/tv_crop_cancel"
@@ -41,7 +42,7 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentEnd="true"
 		android:padding="10dp"
-		android:text="确定"
+		android:text="选取"
 		android:textColor="@color/white_final"
 		android:textSize="@dimen/text_size_text_1"/>
 

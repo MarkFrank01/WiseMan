@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/background">
+	
+	<include
+		android:id="@+id/ll_toolbar"
+		layout="@layout/toolbar"/>
 	
 	<TextView
 		android:id="@+id/tv_iui_title"
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="60dp"
+		android:layout_marginTop="20dp"
 		android:layout_marginStart="20dp"
+		android:layout_below="@id/ll_toolbar"
 		android:text="选择你感兴趣的卡包"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_title_1"/>
@@ -29,16 +32,6 @@
 		android:text="花一点点时间让我们更好的了解你"
 		android:textColor="@color/text_color_d2"
 		android:textSize="@dimen/text_size_text_2"/>
-	
-	<ImageView
-		android:id="@+id/iv_select_attention_close"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="30dp"
-		android:layout_marginEnd="18dp"
-		android:layout_alignParentEnd="true"
-		android:padding="10dp"
-		android:src="@drawable/login_close"/>
 	
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/rv_select_attention"

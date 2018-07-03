@@ -18,8 +18,8 @@ data class MyTabBean(
 		@SerializedName("cardViewCount") var cardViewCount: Int,
 		@SerializedName("hasDynamicMessage") var hasDynamicMessage: Boolean,
 		@SerializedName("hasSystemMessage") var hasSystemMessage: Boolean,
-		@SerializedName("intelligenceValueLevel") var intelligenceValueLevel: String,
-		@SerializedName("noteCount") var noteCount: Int,
+		@SerializedName("accountLevel") var level: String,
+		@SerializedName("followerCount") var fansCount: Int,
 		@SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int,
 		@SerializedName("writerStatus") var writerStatus: Int
 ) : RetrofitBaen()

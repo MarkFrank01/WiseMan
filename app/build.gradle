@@ -37,7 +37,7 @@ android {
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "35de4b18f69d4c2d2f5799a7", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-defaultSort", //暂时填写默认值即可.
         ]
     }
     signingConfigs {
@@ -266,7 +266,7 @@ MobSDK {
             SinaWeibo {
                 appKey "2797113248"
                 appSecret "2a4ecc5a2aa05aca245e01c6aee3e6cb"
-                callbackUri "https://api.weibo.com/oauth2/default.html"
+                callbackUri "https://api.weibo.com/oauth2/defaultSort.html"
                 shareByAppClient true
             }
             Wechat {

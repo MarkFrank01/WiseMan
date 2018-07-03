@@ -30,6 +30,7 @@ abstract class BaseSubscriber<T>(private val mPresenter: IGetPresenter<*>?) : Di
 					mPresenter?.getDataFail(message)
 				}
 			} catch (e: NumberFormatException) {
+				LogCat.e(t.message, t)
 				mPresenter?.getDataFail(App.getContext().getString(R.string.network_error))
 			}
 

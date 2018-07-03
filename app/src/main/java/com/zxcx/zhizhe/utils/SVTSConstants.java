@@ -29,6 +29,7 @@ public class SVTSConstants {
 	public static final String readNum = "read_num";
 	public static final String creationNum = "creation_num";
 	public static final String noteNum = "note_num";
+	public static final String fansNum = "fans_num";
 	public static final String level = "level";
 	
 	public static final String openId = "open_id";

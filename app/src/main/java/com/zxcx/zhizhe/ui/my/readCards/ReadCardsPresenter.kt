@@ -12,23 +12,39 @@ class ReadCardsPresenter(view: ReadCardsContract.View) : BasePresenter<ReadCards
 		mModel = ReadCardsModel(this)
 	}
 
-	fun getEmptyRecommendCard() {
-		mModel.getEmptyRecommendCard()
+	fun getEmptyRecommendCard(tabType: Int) {
+		mModel.getEmptyRecommendCard(tabType)
 	}
 
-	fun getReadCard(page: Int, pageSize: Int) {
-		mModel.getReadCard(page, pageSize)
+	fun getReadCard(sortType: Int, page: Int, pageSize: Int) {
+		mModel.getReadCard(sortType, page, pageSize)
 	}
 
 	fun deleteReadCard(realId: Int, cardId: Int) {
 		mModel.deleteReadCard(realId, cardId)
 	}
 
+	fun getCollectCard(sortType: Int, page: Int, pageSize: Int) {
+		mModel.getCollectCard(sortType, page, pageSize)
+	}
+
+	fun deleteCollectCard(cardId: Int) {
+		mModel.deleteCollectCard(cardId)
+	}
+
+	fun getLikeCard(sortType: Int, page: Int, pageSize: Int) {
+		mModel.getLikeCard(sortType, page, pageSize)
+	}
+
+	fun deleteLikeCard(cardId: Int) {
+		mModel.deleteLikeCard(cardId)
+	}
+
 	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
 		mView.getEmptyRecommendCardSuccess(bean)
 	}
 
-	override fun getDataSuccess(list: List<ReadCardsBean>) {
+	override fun getDataSuccess(list: List<CardBean>) {
 		mView.getDataSuccess(list)
 	}
 

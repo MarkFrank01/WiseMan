@@ -91,7 +91,16 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
 
 		//todo 排名变化
-		tv_my_rank_change.text = bean.rankChange.toString()
+		if (bean.rankChange > 0) {
+			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+			tv_my_rank_change.text = bean.rankChange.toString()
+		} else if (bean.rankChange == 0) {
+			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+			tv_my_rank_change.text = bean.rankIndex.toString()
+		} else {
+			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+			tv_my_rank_change.text = Math.abs(bean.rankChange).toString()
+		}
 	}
 
 	override fun getDataSuccess(list: List<UserRankBean>) {
@@ -116,7 +125,6 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: LoginEvent) {
-		//todo 显示个人信息
 		onRefresh()
 	}
 
@@ -141,7 +149,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 
 	override fun setListener() {
 		tv_rank_more_rank.setOnClickListener { gotoMoreRank() }
-
+		tv_rank_need_login.setOnClickListener { mActivity.startActivity(LoginActivity::class.java) {} }
 	}
 
 	private fun initRecyclerView() {
@@ -156,8 +164,9 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	private fun initView() {
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		if (mUserId == 0) {
-			//todo 未登录
-//			rl_rank.setOnClickListener { startActivity(Intent(mActivity, LoginActivity::class.java)) }
+			tv_rank_need_login.visibility = View.VISIBLE
+		} else {
+			tv_rank_need_login.visibility = View.GONE
 		}
 
 		banner_rank.setImageLoader(GlideBannerImageLoader())
@@ -170,27 +179,5 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 				it.putExtra("url", adUrl)
 			}
 		}
-		/*banner_rank.setPageTransformer(true,{ page: View, position: Float ->
-			if (position <= 0.0f) {
-				page.alpha = 1.0f
-				Log.e("onTransform", "position <= 0.0f ==>$position")
-				page.translationY = 0f
-				//控制停止滑动切换的时候，只有最上面的一张卡片可以点击
-				page.isClickable = true
-			} else if (position <= 2.0f) {
-				Log.e("onTransform", "position <= 3.0f ==>$position")
-				val scale = (page.width - (ScreenUtils.dip2px(10f) * position)) / page.width.toFloat()
-				//控制下面卡片的可见度
-				page.alpha = 1.0f
-				//控制停止滑动切换的时候，只有最上面的一张卡片可以点击
-				page.isClickable = false
-				page.pivotX = page.width / 2f
-				page.pivotY = page.height / 2f
-				page.scaleX = scale
-				page.scaleY = scale
-				page.translationY = - page.height * 0.5f * (1 - scale) - ScreenUtils.dip2px(8f) * position
-				page.translationX = -page.width * position
-			}
-		})*/
 	}
 }

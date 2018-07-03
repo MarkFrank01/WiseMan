@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationContract.View>(), CreationContract.Presenter {
 
@@ -15,7 +16,7 @@ class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationCon
 		mModel.getCreation(passType, page, pageSize)
 	}
 
-	override fun getDataSuccess(bean: List<CreationBean>) {
+	override fun getDataSuccess(bean: List<CardBean>) {
 		mView.getDataSuccess(bean)
 	}
 

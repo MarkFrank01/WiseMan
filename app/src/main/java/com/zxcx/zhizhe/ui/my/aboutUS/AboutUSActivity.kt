@@ -3,11 +3,12 @@ package com.zxcx.zhizhe.ui.my.aboutUS
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity
 import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_about_us.*
 
 class AboutUSActivity : BaseActivity() {
@@ -15,15 +16,12 @@ class AboutUSActivity : BaseActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_about_us)
-		ButterKnife.bind(this)
+		initToolBar()
 
 		tv_about_us_versions_top.text = getString(R.string.tv_about_us_versions, Utils.getAppVersionName(this))
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
 		tv_about_us_evaluate.setOnClickListener {
 			try {
@@ -45,6 +43,10 @@ class AboutUSActivity : BaseActivity() {
 			bundle.putString("imageUrl", "http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon_1024.png")
 			shareCardDialog.arguments = bundle
 			shareCardDialog.show(fragmentManager, "")
+		}
+
+		tv_about_us_feedback.setOnClickListener {
+			mActivity.startActivity(FeedbackActivity::class.java) {}
 		}
 	}
 }

@@ -1,10 +1,9 @@
 package com.zxcx.zhizhe.ui.my.selectAttention
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import butterknife.ButterKnife
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
@@ -14,15 +13,14 @@ import com.zxcx.zhizhe.ui.classify.ClassifyBean
 import com.zxcx.zhizhe.ui.classify.ClassifyCardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyItemDecoration
 import kotlinx.android.synthetic.main.activity_select_attention.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
 class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectAttentionContract.View,
 		BaseQuickAdapter.OnItemChildClickListener {
 
 	private val mCheckedList = ArrayList<ClassifyCardBean>()
-	private lateinit var footer: View
 	private lateinit var mAdapter: SelectAttentionAdapter
-	private lateinit var mTvStart: TextView
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -34,14 +32,21 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 	}
 
 	private fun initView() {
-		val isInit = intent.getBooleanExtra("isInit", false)
-		if (!isInit) {
-			tv_select_attention_hint.text = "花一点点时间让我们更好的了解你"
-		}
+		initToolBar()
+		tv_toolbar_right.visibility = View.VISIBLE
+		tv_toolbar_right.text = "完成"
+		tv_toolbar_right.isEnabled = false
+		tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity, R.color.color_text_enable_blue))
 	}
 
-	override fun initStatusBar() {
-
+	override fun setListener() {
+		tv_toolbar_right.setOnClickListener {
+			val idList = mutableListOf<Int>()
+			mCheckedList.forEach {
+				idList.add(it.id)
+			}
+			mPresenter.changeAttentionList(idList)
+		}
 	}
 
 	override fun createPresenter(): SelectAttentionPresenter {
@@ -49,7 +54,6 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 	}
 
 	override fun getDataSuccess(list: MutableList<ClassifyBean>) {
-		footer.visibility = View.VISIBLE
 		for (bean in list) {
 			mAdapter.data.add(bean)
 			for (bagBean in bean.dataList) {
@@ -62,6 +66,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 			}
 		}
 		mAdapter.notifyDataSetChanged()
+		tv_toolbar_right.isEnabled = mCheckedList.isNotEmpty()
 	}
 
 	override fun postSuccess() {
@@ -88,29 +93,12 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 				mCheckedList.remove(bean)
 			}
 		}
-	}
-
-	override fun setListener() {
-		iv_select_attention_close.setOnClickListener {
-			onBackPressed()
-		}
+		tv_toolbar_right.isEnabled = mCheckedList.isNotEmpty()
 	}
 
 	private fun initRecyclerView() {
-		footer = LayoutInflater.from(mActivity).inflate(R.layout.layout_footer_select_attention, null)
-		mTvStart = footer.findViewById(R.id.tv_start)
-		mTvStart.setOnClickListener {
-			val idList = mutableListOf<Int>()
-			mCheckedList.forEach {
-				idList.add(it.id)
-			}
-			mPresenter.changeAttentionList(idList)
-		}
-
 		mAdapter = SelectAttentionAdapter(ArrayList())
 		mAdapter.onItemChildClickListener = this
-		footer.visibility = View.GONE
-		mAdapter.addFooterView(footer)
 		val manager = GridLayoutManager(mActivity, 4)
 		manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
 			override fun getSpanSize(position: Int): Int {

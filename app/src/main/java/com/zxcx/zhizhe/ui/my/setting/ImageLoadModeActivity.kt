@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.my.setting
 
 import android.os.Bundle
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -18,7 +17,7 @@ class ImageLoadModeActivity : BaseActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_image_load_mode)
-		ButterKnife.bind(this)
+		initToolBar("图片加载")
 
 		imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 1)
 		when (imageLoadMode) {
@@ -32,9 +31,6 @@ class ImageLoadModeActivity : BaseActivity() {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
 		ll_image_load_mode_wifi.setOnClickListener {
 			cb_image_load_mode_wifi.isChecked = !cb_image_load_mode_wifi.isChecked
