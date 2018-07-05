@@ -19,7 +19,7 @@ import com.zxcx.zhizhe.loadCallback.ClassifyLoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback;
 import com.zxcx.zhizhe.mvpBase.MvpFragment;
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity;
+import com.zxcx.zhizhe.ui.card.label.LabelActivity;
 import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
@@ -142,7 +142,7 @@ public class ClassifyFragment extends MvpFragment<ClassifyPresenter> implements
 		switch (view.getId()) {
 			case R.id.rl_item_classify:
 				ClassifyCardBean bean = (ClassifyCardBean) adapter.getData().get(position);
-				Intent intent = new Intent(mActivity, CardBagActivity.class);
+				Intent intent = new Intent(mActivity, LabelActivity.class);
 				intent.putExtra("id", bean.getId());
 				intent.putExtra("name", bean.getName());
 				startActivity(intent);

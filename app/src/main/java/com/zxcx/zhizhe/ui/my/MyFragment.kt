@@ -19,7 +19,6 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
-import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.followUser.FansActivity
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity
@@ -106,52 +105,43 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	override fun setListener() {
 		tv_my_nick_name.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(UserInfoActivity::class.java, {})
+				mActivity.startActivity(UserInfoActivity::class.java) {}
 			}
 		}
 		iv_my_head.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(UserInfoActivity::class.java, {})
+				mActivity.startActivity(UserInfoActivity::class.java) {}
 			}
 		}
 		tv_my_lv.expandViewTouchDelegate(ScreenUtils.dip2px(5f))
 		tv_my_lv.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(IntelligenceValueActivity::class.java, {})
+				mActivity.startActivity(IntelligenceValueActivity::class.java) {}
 			}
 		}
 		ll_my_top_read.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(ReadCardsActivity::class.java, {})
+				mActivity.startActivity(ReadCardsActivity::class.java) {}
 			}
 		}
 		ll_my_note.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(NoteActivity::class.java, {})
+				mActivity.startActivity(NoteActivity::class.java) {}
 			}
 		}
 		ll_my_top_creation.setOnClickListener {
 			if (checkLogin()) {
-				when (writerStatus) {
-					writer_status_writer -> {
-						//创作界面
-						mActivity.startActivity(CreationActivity::class.java, {})
-					}
-					else -> {
-						val dialog = CreationAgreementDialog()
-						dialog.show(mActivity.fragmentManager, "")
-					}
-				}
+				mActivity.startActivity(CreationActivity::class.java) {}
 			}
 		}
 		ll_my_message.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(MessageActivity::class.java, {})
+				mActivity.startActivity(MessageActivity::class.java) {}
 			}
 		}
 		ll_my_follow.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(FollowUserActivity::class.java, {})
+				mActivity.startActivity(FollowUserActivity::class.java) {}
 			}
 		}
 		ll_my_fans.setOnClickListener {

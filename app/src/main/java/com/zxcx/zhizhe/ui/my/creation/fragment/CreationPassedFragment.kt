@@ -1,9 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +13,7 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
@@ -71,14 +69,9 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-				Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
-				Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-				Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
-		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		startActivity(intent, bundle)
+		mActivity.startActivity(ArticleDetailsActivity::class.java) {
+			it.putExtra("cardBean", bean)
+		}
 	}
 
 	private fun initRecyclerView() {

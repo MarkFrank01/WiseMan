@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardContract
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardPresenter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_result.*
@@ -66,7 +68,10 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		//todo 长文详情
+		val bean = adapter.data[position] as CardBean
+		mActivity.startActivity(ArticleDetailsActivity::class.java) {
+			it.putExtra("cardBean", bean)
+		}
 	}
 
 	private fun initRecyclerView() {

@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
+import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.PostSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import io.reactivex.subscribers.DisposableSubscriber
@@ -11,6 +12,18 @@ import io.reactivex.subscribers.DisposableSubscriber
 class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<CardDetailsContract.Presenter>() {
 	init {
 		this.mPresenter = presenter
+	}
+
+	fun getCardDetails(cardId: Int) {
+		mDisposable = AppClient.getAPIService().getCardDetails(cardId)
+				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.handleResult())
+				.subscribeWith(object : BaseSubscriber<CardBean>(mPresenter) {
+					override fun onNext(bean: CardBean) {
+						mPresenter?.getDataSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
 	}
 
 	fun readCard(cardId: Int) {

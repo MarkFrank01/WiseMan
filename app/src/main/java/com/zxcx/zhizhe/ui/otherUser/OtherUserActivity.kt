@@ -117,8 +117,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 			}
 		} else {
 			mActivity.startActivity(ArticleDetailsActivity::class.java) {
-				it.putExtra("id", bean.id)
-				it.putExtra("name", bean.name)
+				it.putExtra("cardBean", bean)
 			}
 		}
 	}

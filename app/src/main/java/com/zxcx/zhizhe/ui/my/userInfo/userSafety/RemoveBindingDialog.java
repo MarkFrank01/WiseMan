@@ -7,18 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.event.RemoveBindingEvent;
-import com.zxcx.zhizhe.mvpBase.CommonDialog;
-import com.zxcx.zhizhe.utils.TextViewUtils;
-
-import org.greenrobot.eventbus.EventBus;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.RemoveBindingEvent;
+import com.zxcx.zhizhe.mvpBase.CommonDialog;
+import com.zxcx.zhizhe.utils.TextViewUtils;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by anm on 2017/7/6.
@@ -26,8 +23,6 @@ import butterknife.Unbinder;
 
 public class RemoveBindingDialog extends CommonDialog {
 
-	@BindView(R.id.tv_dialog_logout)
-	TextView mTvDialogLogout;
 	@BindView(R.id.tv_dialog_cancel)
 	TextView mTvDialogCancel;
 	@BindView(R.id.tv_dialog_confirm)
@@ -35,7 +30,8 @@ public class RemoveBindingDialog extends CommonDialog {
 	@BindView(R.id.tv_dialog_logout_title)
 	TextView mTvDialogLogoutTitle;
 	private Unbinder unbinder;
-
+	
+	//todo 待修改
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -52,7 +48,6 @@ public class RemoveBindingDialog extends CommonDialog {
 		String channel = getArguments().getString("channel");
 		TextViewUtils.setTextViewColorBlue(mTvDialogLogoutTitle, channel,
 			getString(R.string.channel_unbind_title, channel));
-		mTvDialogLogout.setText("解除绑定后你将无法通过该方式登录");
 	}
 
 	@Override

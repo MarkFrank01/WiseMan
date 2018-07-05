@@ -6,24 +6,26 @@
 	android:id="@+id/es"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginBottom="30dp"
-	android:layout_marginStart="20dp"
-	android:layout_marginEnd="20dp"
-	android:background="@drawable/bg_item_note"
+	android:layout_marginTop="10dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press"
 	app:contentView="@id/content_view"
 	app:rightMenuView="@id/right_view">
 	
-	
 	<LinearLayout
 		android:id="@+id/content_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="10dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
 		android:paddingTop="20dp"
 		android:paddingBottom="16dp"
 		android:paddingStart="20dp"
 		android:paddingEnd="20dp"
+		android:background="@drawable/bg_background_12dp"
+		android:elevation="10dp"
 		android:orientation="vertical">
 		
 		<TextView
@@ -41,8 +43,8 @@
 			style="@style/tv_single"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="10dp"
-			android:layout_marginBottom="13dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginBottom="15dp"
 			android:textColor="@color/text_color_d2"
 			android:textSize="@dimen/text_size_text_3"
 			tools:text="@string/tv_item_card_note_info"/>
@@ -51,7 +53,6 @@
 			android:id="@+id/tv_item_note_content"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="13dp"
 			android:ellipsize="end"
 			android:lineSpacingExtra="8dp"
 			android:maxLines="3"

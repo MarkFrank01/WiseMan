@@ -74,15 +74,16 @@
     <string name="tv_dialog_phone_un_registered">手机号&#160;%1$s&#160;未注册，请核对后重试</string>
     <string name="tv_item_message_value">智力值&#160;+%1$d</string>
     <string name="tv_dynamic_message_no_data">暂无消息</string>
-    <string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你，点击查看更多…</string>
-    <string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了，点击查看更多…</string>
-    <string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作，点击查看更多…</string>
+	<string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你</string>
+	<string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了</string>
+	<string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作</string>
+	<string name="dynamic_message_content">%1$s&#160;%2$s</string>
     <string name="tv_item_intelligence_value_progress">%1$d/%2$d</string>
     <string name="user_info_change">保存成功</string>
     <string name="card_details_dark_url">/view/articleDark/</string>
     <string name="card_details_light_url">/view/articleLight/</string>
     <string name="card_share_url">/articleView/</string>
-    <string name="note_editor_url">/view/NoteEditor</string>
+	<string name="note_editor_url">pages/note-editor.html</string>
     <string name="creation_editor_url">/view/mobile-editor</string>
     <string name="intelligence_url">/view/intelligence</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
@@ -93,8 +94,5 @@
     <string name="card_title_transition_name">cardTitle%1$d</string>
     <string name="card_category_transition_name">cardCategory%1$d</string>
     <string name="card_label_transition_name">cardLabel%1$d</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!--transitionNameEnd-->
+	<!--transitionNameEnd-->
 </resources>

@@ -2,19 +2,17 @@ package com.zxcx.zhizhe.widget
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.support.annotation.DrawableRes
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
-import kotlinx.android.synthetic.main.item_card.view.*
+import com.zxcx.zhizhe.utils.startActivity
+import kotlinx.android.synthetic.main.item_other_user_creation.view.*
 import kotlinx.android.synthetic.main.layout_no_data.view.*
 import kotlinx.android.synthetic.main.layout_no_data_and_card.view.*
 
@@ -52,19 +50,20 @@ object EmptyView {
 		ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
 		emptyView.tv_item_card_title.text = bean.name
 		emptyView.tv_item_card_category.text = bean.categoryName
+		emptyView.tv_item_card_label.text = bean.labelName
+		emptyView.tv_item_card_read.text = bean.readNum.toString()
+		emptyView.tv_item_card_comment.text = bean.commentNum.toString()
 
 		emptyView.fl_no_data_and_card_card.setOnClickListener {
-			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-					Pair.create(emptyView.iv_item_card_icon, "cardImage"),
-					Pair.create(emptyView.tv_item_card_title, "cardTitle"),
-					Pair.create(emptyView.tv_item_card_category, "cardBag")).toBundle()
-			val intent = Intent(activity, ArticleDetailsActivity::class.java)
-			intent.putExtra("id", bean.id)
-			intent.putExtra("name", bean.name)
-			intent.putExtra("imageUrl", bean.imageUrl)
-			intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-			intent.putExtra("authorName", bean.authorName)
-			activity.startActivity(intent, bundle)
+			if (bean.cardType == 1) {
+				activity.startActivity(SingleCardDetailsActivity::class.java) {
+					it.putExtra("cardBean", bean)
+				}
+			} else {
+				activity.startActivity(ArticleDetailsActivity::class.java) {
+					it.putExtra("cardBean", bean)
+				}
+			}
 		}
 
 		return emptyView

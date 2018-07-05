@@ -3,11 +3,13 @@ package com.zxcx.zhizhe.ui.card.hot
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.SharedElementCallback
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -36,6 +38,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	private var mPage = 0
 	private var mHidden = true
 	private var mLastDate = Date()
+	private var mCurrentPosition = 0
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_hot, container, false)
@@ -61,7 +64,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		super.onViewCreated(view, savedInstanceState)
 		EventBus.getDefault().register(this)
 		initRecyclerView()
-
+		initShareElement()
 		getHotCard()
 		mHidden = false
 	}
@@ -100,8 +103,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 			if (event.currentPosition == mAdapter.data.size - 1) {
 				getHotCard()
 			}
-			rv_hot_card.scrollToPosition(event.currentPosition)
-			rv_hot_card.invalidate()
+			mCurrentPosition = event.currentPosition
 		}
 	}
 
@@ -173,5 +175,40 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
 		mActivity.startActivity(intent, bundle)
+	}
+
+	public fun onActivityReenter() {
+		rv_hot_card.scrollToPosition(mCurrentPosition)
+		postponeEnterTransition()
+		rv_hot_card.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+			override fun onPreDraw(): Boolean {
+				rv_hot_card.viewTreeObserver.removeOnPreDrawListener(this)
+				rv_hot_card.requestLayout()
+				startPostponedEnterTransition()
+				return true
+			}
+		})
+	}
+
+	private fun initShareElement() {
+		postponeEnterTransition()
+		setEnterSharedElementCallback(mCallback)
+		setExitSharedElementCallback(mExitCallback)
+	}
+
+	private val mCallback = object : SharedElementCallback() {
+
+		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+			names.clear()
+			sharedElements.clear()
+		}
+	}
+
+	private val mExitCallback = object : SharedElementCallback() {
+
+		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+			names.clear()
+			sharedElements.clear()
+		}
 	}
 }

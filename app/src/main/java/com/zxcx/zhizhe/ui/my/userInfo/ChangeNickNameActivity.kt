@@ -1,8 +1,8 @@
 package com.zxcx.zhizhe.ui.my.userInfo
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.View
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.PostSubscriber
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_change_nick_name.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by anm on 2017/7/13.
@@ -23,7 +24,11 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_change_nick_name)
-		ButterKnife.bind(this)
+
+		initToolBar()
+		tv_toolbar_right.visibility = View.VISIBLE
+		tv_toolbar_right.text = "完成"
+		tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity, R.color.color_text_enable_blue))
 
 		name = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
 		et_dialog_change_nick_name.setText(name)
@@ -45,11 +50,8 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
-		tv_change_nick_name_save.setOnClickListener {
+		tv_toolbar_right.setOnClickListener {
 			if (et_dialog_change_nick_name.length() < 2) {
 				return@setOnClickListener
 			}
@@ -64,10 +66,10 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 		et_dialog_change_nick_name.afterTextChanged {
 			if (et_dialog_change_nick_name.length() == 1 || et_dialog_change_nick_name.length() == 10) {
 				tv_change_nick_name_hint.visibility = View.VISIBLE
-				tv_change_nick_name_save.isEnabled = false
+				tv_toolbar_right.isEnabled = false
 			} else {
 				tv_change_nick_name_hint.visibility = View.GONE
-				tv_change_nick_name_save.isEnabled = true
+				tv_toolbar_right.isEnabled = true
 			}
 		}
 	}

@@ -52,6 +52,12 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 		return ReadCardsPresenter(this)
 	}
 
+	override fun onReload(v: View?) {
+		super.onReload(v)
+		mPage = 0
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
+	}
+
 	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
 		val emptyView = EmptyView.getEmptyViewAndCard(mActivity, "涨知识 点点赞", R.drawable.no_data, bean)
 		mAdapter.emptyView = emptyView
@@ -114,8 +120,7 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 			}
 		} else {
 			mActivity.startActivity(ArticleDetailsActivity::class.java) {
-				it.putExtra("id", bean.id)
-				it.putExtra("name", bean.name)
+				it.putExtra("cardBean", bean)
 			}
 		}
 	}

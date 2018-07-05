@@ -89,7 +89,7 @@
             android:name=".ui.my.setting.CommonSettingActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.card.cardBag.CardBagActivity"
+            android:name=".ui.card.label.LabelActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.search.result.SearchResultActivity"
@@ -155,7 +155,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateHidden"/>
         <activity
-            android:name=".ui.my.note.noteDetails.CardNoteDetailsActivity"
+            android:name=".ui.my.note.noteDetails.ArticleNoteDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity

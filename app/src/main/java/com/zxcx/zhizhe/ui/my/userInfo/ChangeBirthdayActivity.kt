@@ -1,7 +1,8 @@
 package com.zxcx.zhizhe.ui.my.userInfo
 
 import android.os.Bundle
-import butterknife.ButterKnife
+import android.support.v4.content.ContextCompat
+import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -10,6 +11,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.PostSubscriber
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_change_birthday.*
+import kotlinx.android.synthetic.main.toolbar.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +27,11 @@ class ChangeBirthdayActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_change_birthday)
-		ButterKnife.bind(this)
+
+		initToolBar()
+		tv_toolbar_right.visibility = View.VISIBLE
+		tv_toolbar_right.text = "完成"
+		tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity, R.color.color_text_enable_blue))
 
 		mBirth = SharedPreferencesUtil.getString(SVTSConstants.birthday, "")
 		if (StringUtils.isEmpty(mBirth)) {
@@ -41,11 +47,8 @@ class ChangeBirthdayActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
-		tv_change_birthday_save.setOnClickListener {
+		tv_toolbar_right.setOnClickListener {
 			val date = dpl_date_picker.selectTime.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 			changeBirthday(date)
 		}

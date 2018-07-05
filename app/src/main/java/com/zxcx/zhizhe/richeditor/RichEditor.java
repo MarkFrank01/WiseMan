@@ -14,11 +14,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import com.zxcx.zhizhe.BuildConfig;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.utils.Constants;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -271,35 +269,20 @@ public class RichEditor extends WebView {
 	public void setBold() {
 		exec("setBold();");
 	}
-
-	public void setBold(boolean isBold) {
-		exec("setBold(" + isBold + ");");
+	
+	public void setCenter() {
+		exec("setCenter();");
 	}
-
-	public void setItalic() {
-		exec("setItalic();");
+	
+	public void rollback() {
+		exec("rollback();");
 	}
-
-	public void setSubscript() {
-		exec("setSubscript();");
+	
+	public void saveNote() {
+		exec("saveNote();");
 	}
-
-	public void setSuperscript() {
-		exec("setSuperscript();");
-	}
-
-	public void setStrikeThrough() {
-		exec("setStrikeThrough();");
-	}
-
-	public void setUnderline() {
-		exec("setUnderline();");
-	}
-
-	public void setIsEyeshield(boolean isEyeshield) {
-		exec("setIsEyeshield(" + isEyeshield + ");");
-	}
-
+	
+	
 	/**
 	 * 文章再编辑
 	 *
@@ -322,63 +305,6 @@ public class RichEditor extends WebView {
 
 		String hex = convertHexColorString(color);
 		exec("setTextColor('" + hex + "');");
-	}
-
-	public void setTextBackgroundColor(int color) {
-		exec("prepareInsert();");
-
-		String hex = convertHexColorString(color);
-		exec("setTextBackgroundColor('" + hex + "');");
-	}
-
-	public void setFontSize(int fontSize) {
-
-		exec("setFontSize('" + fontSize + "');");
-	}
-
-	public void removeFormat() {
-		exec("removeFormat();");
-	}
-
-	public void setHeading(int heading) {
-		exec("setHeading('" + heading + "');");
-	}
-
-	public void setIndent() {
-		exec("setIndent();");
-	}
-
-	public void setOutdent() {
-		exec("setOutdent();");
-	}
-
-	public void setAlignLeft() {
-		exec("setJustifyLeft();");
-	}
-
-	public void setAlignCenter() {
-		exec("setJustifyCenter();");
-	}
-
-	public void setAlignRight() {
-		exec("setJustifyRight();");
-	}
-
-	public void setBlockquote() {
-		exec("setBlockquote();");
-	}
-
-	public void setBullets() {
-		exec("setBullets();");
-	}
-
-	public void setNumbers() {
-		exec("setNumbers();");
-	}
-
-	public void insertImage(String url) {
-		exec("prepareInsert();");
-		exec("insertImage('" + url + "');");
 	}
 
 	public void setTitleImage(String url) {

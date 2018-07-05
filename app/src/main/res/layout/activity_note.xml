@@ -7,20 +7,14 @@
 	android:background="@color/background"
 	android:orientation="vertical">
 	
+	<include layout="@layout/toolbar"/>
+	
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/rv_note"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:listitem="@layout/item_search_card"/>
-	
-	<ImageView
-		android:id="@+id/iv_common_close"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="10dp"
-		android:layout_gravity="end"
-		android:padding="10dp"
-		android:src="@drawable/iv_common_close"/>
+		android:layout_marginTop="@dimen/toolbar_height"
+		tools:listitem="@layout/item_note"/>
 	
 	<ImageView
 		android:id="@+id/iv_add_new"

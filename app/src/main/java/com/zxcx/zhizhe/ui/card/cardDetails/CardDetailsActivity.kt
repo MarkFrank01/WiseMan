@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
+import android.app.Activity
 import android.app.SharedElementCallback
 import android.graphics.Color
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -19,20 +21,29 @@ import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.article.articleDetails.ShareCardDialog
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.card.label.LabelActivity
+import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.GoodView
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_card_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import top.zibin.luban.Luban
+import java.io.File
+import java.util.*
 
 class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
@@ -44,6 +55,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	private var mIsReturning = false
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	private var mSourceName = ""
+	private var startDate: Date = Date()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -55,6 +67,9 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	}
 
 	override fun onDestroy() {
+		if (Date().time - startDate.time > 30000 && mUserId != 0) {
+			mPresenter.readCard(mAdapter.data[mCurrentPosition].id)
+		}
 		EventBus.getDefault().unregister(this)
 		super.onDestroy()
 	}
@@ -65,11 +80,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	}
 
 	override fun initStatusBar() {}
-
-	private fun initShareElement() {
-		postponeEnterTransition()
-		setEnterSharedElementCallback(mCallback)
-	}
 
 	private fun initData() {
 		mList = intent.getParcelableArrayListExtra<CardBean>("list")
@@ -84,15 +94,13 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				return true
 			}
 		})
-		val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
-		refreshBackground(imageUrl)
 	}
 
 	override fun createPresenter(): CardDetailsPresenter {
 		return CardDetailsPresenter(this)
 	}
 
-	override fun getDataSuccess(list: MutableList<CardBean>) {
+	override fun getDataSuccess(bean: CardBean) {
 
 	}
 
@@ -159,6 +167,10 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				super.onScrolled(recyclerView, dx, dy)
 				val currentPosition = mLayoutManager.findFirstCompletelyVisibleItemPosition()
 				if (currentPosition != -1 && currentPosition < mAdapter.data.size && currentPosition != mCurrentPosition) {
+					if (Date().time - startDate.time > 30000 && mUserId != 0) {
+						mPresenter.readCard(mAdapter.data[mCurrentPosition].id)
+						startDate = Date()
+					}
 					mCurrentPosition = currentPosition
 					val event = UpdateCardListPositionEvent(mCurrentPosition, mSourceName)
 					EventBus.getDefault().post(event)
@@ -202,7 +214,10 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		val bean = mAdapter.data[position]
 		when (view.id) {
 			R.id.tv_item_card_details_label -> {
-				//todo 标签页
+				startActivity(LabelActivity::class.java) {
+					it.putExtra("id", bean.labelId)
+					it.putExtra("name", bean.labelName)
+				}
 			}
 			R.id.tv_item_card_details_author -> {
 				startActivity(OtherUserActivity::class.java) {
@@ -210,7 +225,12 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				}
 			}
 			R.id.tv_item_card_details_goto_ad -> {
-				//todo 广告
+				startActivity(WebViewActivity::class.java) {
+					it.putExtra("url", bean.adUrl)
+					it.putExtra("title", bean.name)
+					it.putExtra("imageUrl", bean.imageUrl)
+					it.putExtra("isAD", true)
+				}
 			}
 			R.id.cb_item_card_details_follow -> {
 				view as CheckBox
@@ -270,44 +290,88 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				}
 			}
 			R.id.iv_item_card_details_share -> {
-				//todo 分享
+				val viewGroup = mAdapter.getViewByPosition(position, R.id.cl_item_card_details_content) as ViewGroup
+				gotoImageShare(viewGroup)
 			}
 		}
 	}
 
 	override fun finishAfterTransition() {
 		mIsReturning = true
+		setResult(Activity.RESULT_OK)
 		super.finishAfterTransition()
 	}
 
-	private fun gotoImageShare(url: String?, content: String?) {
-		val shareDialog = ShareCardDialog()
-		val bundle = Bundle()
-		/*bundle.putString("name", name)
-		if (!StringUtils.isEmpty(content)) {
-			bundle.putString("content", content)
-		} else {
-			bundle.putString("url", url)
-		}
-		bundle.putString("imageUrl", imageUrl)
-		bundle.putString("date", date)
-		bundle.putString("authorName", author)
-		bundle.putString("categoryName", cardBagName)
-		bundle.putInt("cardBagId", cardBagId)
-		shareDialog.arguments = bundle
-		val fragmentManager = fragmentManager
-		val transaction = fragmentManager.beginTransaction()
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			transaction.addSharedElement(iv_card_details, "cardImage")
-			transaction.addSharedElement(tv_card_details_title, "cardTitle")
-			transaction.addSharedElement(tv_card_details_info, "cardInfo")
-			transaction.addSharedElement(tv_card_details_card_bag, "cardBag")
+	private fun gotoImageShare(viewGroup: ViewGroup) {
+		mDisposable = Flowable.just(viewGroup)
+				.subscribeOn(AndroidSchedulers.mainThread())
+				.doOnSubscribe { subscription -> showLoading() }
+				.observeOn(Schedulers.io())
+				.map { view ->
+					val bitmap = ScreenUtils.getBitmapAndQRByView(view)
+					val fileName = FileUtil.getRandomImageName()
+					FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName)
+					val path = FileUtil.PATH_BASE + fileName
+					Luban.with(mActivity)
+							.load(File(path))                     //传入要压缩的图片
+							.get()
+							.path//启动压缩
+					//                    return path;
+				}
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeWith(object : DisposableSubscriber<String>() {
 
-		}
-		shareDialog.show(transaction, "")*/
+					override fun onNext(s: String) {
+						// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+						//启动分享
+						hideLoading()
+						val shareCardDialog = ShareDialog()
+						val bundle = Bundle()
+						bundle.putString("imagePath", s)
+						shareCardDialog.arguments = bundle
+						shareCardDialog.show(fragmentManager, "")
+					}
+
+					override fun onError(t: Throwable) {
+						hideLoading()
+					}
+
+					override fun onComplete() {
+
+					}
+				})
+	}
+
+	private fun initShareElement() {
+		postponeEnterTransition()
+		setEnterSharedElementCallback(mCallback)
+		setExitSharedElementCallback(mExitCallback)
 	}
 
 	private val mCallback = object : SharedElementCallback() {
+
+		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+			if (mIsReturning) {
+				names.clear()
+				sharedElements.clear()
+				val view = mLayoutManager.findViewByPosition(mCurrentPosition)
+				val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_details_icon)
+				val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_details_title)
+				val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_details_category)
+				val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_details_label)
+				names.add(cardImg.transitionName)
+				sharedElements[cardImg.transitionName] = cardImg
+				names.add(cardTitle.transitionName)
+				sharedElements[cardTitle.transitionName] = cardTitle
+				names.add(cardCategory.transitionName)
+				sharedElements[cardCategory.transitionName] = cardCategory
+				names.add(cardLabel.transitionName)
+				sharedElements[cardLabel.transitionName] = cardLabel
+			}
+		}
+	}
+
+	private val mExitCallback = object : SharedElementCallback() {
 
 		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
 			if (mIsReturning) {

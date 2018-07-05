@@ -6,7 +6,7 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen;
 public class UserInfoBean extends RetrofitBaen {
 
 	/**
-	 * id : 8 birth : 2017-03-25 avatar : defaultSort name : zxst_82698 gender : 1 createTime :
+	 * id : 8 birth : 2017-03-25 avatar : default name : zxst_82698 gender : 1 createTime :
 	 * 1508142980000 bandingQQ : true bandingWeixin : false bandingWeibo : false
 	 */
 

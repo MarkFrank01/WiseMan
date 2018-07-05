@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
@@ -32,7 +33,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 	private lateinit var mAdapter: SystemMessageAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		return inflater?.inflate(R.layout.fragment_system_message, container, false)
+		return inflater.inflate(R.layout.fragment_system_message, container, false)
 	}
 
 	override fun createPresenter(): SystemMessagePresenter {
@@ -82,7 +83,9 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 		when (bean.messageType) {
 			message_card_pass -> {
 				intent.setClass(mActivity, ArticleDetailsActivity::class.java)
-				intent.putExtra("id", bean.relatedCardId)
+				val cardBean = CardBean()
+				cardBean.id = bean.relatedCardId ?: 0
+				intent.putExtra("cardBean", cardBean)
 			}
 			message_card_reject -> {
 				bean.relatedCardId?.let { mPresenter.getRejectDetails(it) }
@@ -101,13 +104,15 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 				}
 			}
 			message_rank -> {
-				mActivity.startActivity(RankFragment::class.java, {})
+				mActivity.startActivity(RankFragment::class.java) {}
 				mActivity.finish()
 				return
 			}
 			message_recommend -> {
 				intent.setClass(mActivity, ArticleDetailsActivity::class.java)
-				intent.putExtra("id", bean.relatedCardId)
+				val cardBean = CardBean()
+				cardBean.id = bean.relatedCardId ?: 0
+				intent.putExtra("cardBean", cardBean)
 			}
 		}
 		startActivity(intent)

@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,11 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
-import kotlinx.android.synthetic.main.activity_card_note_details.*
+import kotlinx.android.synthetic.main.activity_article_note_details.*
 
-class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetailsContract.View {
+class ArticleNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetailsContract.View {
 
 	private var mWebView: WebView? = null
 	private var noteId: Int = 0
@@ -35,7 +35,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_card_note_details)
+		setContentView(R.layout.activity_article_note_details)
 		ButterKnife.bind(this)
 
 		initData()
@@ -122,7 +122,7 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
 				isError = true
 				loadService.showSuccess()
 				if (loadService2 == null) {
-					loadService2 = loadSir2?.register(rl_note_details, this@CardNoteDetailsActivity)
+					loadService2 = loadSir2?.register(rl_note_details, this@ArticleNoteDetailsActivity)
 				}
 				loadService2?.showCallback(CardDetailsNetworkErrorCallback::class.java)
 			}
@@ -154,9 +154,11 @@ class CardNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetails
 			if (withCardId == 0) {
 				return@setOnClickListener
 			}
-			val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-			intent.putExtra("id", withCardId)
-			startActivity(intent)
+			val bean = CardBean()
+			bean.id = withCardId
+			startActivity(ArticleDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
 		}
 	}
 

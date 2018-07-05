@@ -9,24 +9,34 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.article.articleDetails.ShareCardDialog
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.card.label.LabelActivity
+import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.GoodView
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_single_card_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import top.zibin.luban.Luban
+import java.io.File
+import java.util.*
 
 class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
 	private lateinit var mCardBean: CardBean
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+	private var startDate: Date = Date()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -39,12 +49,22 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		super.onResume()
 	}
 
+	override fun onDestroy() {
+		if (Date().time - startDate.time > 30000 && mUserId != 0) {
+			mPresenter.readCard(mCardBean.id)
+		}
+		super.onDestroy()
+	}
+
 	override fun initStatusBar() {}
 
 	private fun initData() {
 		mCardBean = intent.getParcelableExtra("cardBean")
-
-		refreshView()
+		if (mCardBean.name == null) {
+			mPresenter.getCardDetails(mCardBean.id)
+		} else {
+			refreshView()
+		}
 	}
 
 	private fun refreshView() {
@@ -70,9 +90,9 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		iv_item_card_details_share.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 
 		//是否广告
-		tv_item_card_details_author.visibility = if (mCardBean.adUrl == null) View.VISIBLE else View.GONE
-		cb_item_card_details_follow.visibility = if (mCardBean.adUrl == null) View.VISIBLE else View.GONE
-		tv_item_card_details_goto_ad.visibility = if (mCardBean.adUrl != null) View.VISIBLE else View.GONE
+		tv_item_card_details_author.visibility = if (mCardBean.adUrl.isEmpty()) View.VISIBLE else View.GONE
+		cb_item_card_details_follow.visibility = if (mCardBean.adUrl.isEmpty()) View.VISIBLE else View.GONE
+		tv_item_card_details_goto_ad.visibility = if (mCardBean.adUrl.isNotEmpty()) View.VISIBLE else View.GONE
 
 		val multi = MultiTransformation(
 				BlurTransformation(10),
@@ -88,8 +108,9 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		return CardDetailsPresenter(this)
 	}
 
-	override fun getDataSuccess(list: MutableList<CardBean>) {
-
+	override fun getDataSuccess(bean: CardBean) {
+		mCardBean = bean
+		refreshView()
 	}
 
 	override fun likeSuccess(bean: CardBean) {
@@ -135,7 +156,10 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		super.setListener()
 		iv_card_details_back.setOnClickListener { onBackPressed() }
 		tv_item_card_details_label.setOnClickListener {
-			//todo 标签页
+			startActivity(LabelActivity::class.java) {
+				it.putExtra("id", mCardBean.labelId)
+				it.putExtra("name", mCardBean.labelName)
+			}
 		}
 		tv_item_card_details_author.setOnClickListener {
 			startActivity(OtherUserActivity::class.java) {
@@ -143,7 +167,12 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 			}
 		}
 		tv_item_card_details_goto_ad.setOnClickListener {
-			//todo 广告
+			startActivity(WebViewActivity::class.java) {
+				it.putExtra("url", mCardBean.adUrl)
+				it.putExtra("title", mCardBean.name)
+				it.putExtra("imageUrl", mCardBean.imageUrl)
+				it.putExtra("isAD", true)
+			}
 		}
 		cb_item_card_details_follow.setOnClickListener {
 			it as CheckBox
@@ -203,34 +232,47 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 			}
 		}
 		iv_item_card_details_share.setOnClickListener {
-			//todo 分享
+			gotoImageShare()
 		}
 	}
 
-	private fun gotoImageShare(url: String?, content: String?) {
-		val shareDialog = ShareCardDialog()
-		val bundle = Bundle()
-		/*bundle.putString("name", name)
-		if (!StringUtils.isEmpty(content)) {
-			bundle.putString("content", content)
-		} else {
-			bundle.putString("url", url)
-		}
-		bundle.putString("imageUrl", imageUrl)
-		bundle.putString("date", date)
-		bundle.putString("authorName", author)
-		bundle.putString("categoryName", cardBagName)
-		bundle.putInt("cardBagId", cardBagId)
-		shareDialog.arguments = bundle
-		val fragmentManager = fragmentManager
-		val transaction = fragmentManager.beginTransaction()
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-			transaction.addSharedElement(iv_card_details, "cardImage")
-			transaction.addSharedElement(tv_card_details_title, "cardTitle")
-			transaction.addSharedElement(tv_card_details_info, "cardInfo")
-			transaction.addSharedElement(tv_card_details_card_bag, "cardBag")
+	private fun gotoImageShare() {
+		mDisposable = Flowable.just(cl_item_card_details_content)
+				.subscribeOn(AndroidSchedulers.mainThread())
+				.doOnSubscribe { subscription -> showLoading() }
+				.observeOn(Schedulers.io())
+				.map { view ->
+					val bitmap = ScreenUtils.getBitmapAndQRByView(view)
+					val fileName = FileUtil.getRandomImageName()
+					FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName)
+					val path = FileUtil.PATH_BASE + fileName
+					Luban.with(mActivity)
+							.load(File(path))                     //传入要压缩的图片
+							.get()
+							.path//启动压缩
+					//                    return path;
+				}
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribeWith(object : DisposableSubscriber<String>() {
 
-		}
-		shareDialog.show(transaction, "")*/
+					override fun onNext(s: String) {
+						// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+						//启动分享
+						hideLoading()
+						val shareCardDialog = ShareDialog()
+						val bundle = Bundle()
+						bundle.putString("imagePath", s)
+						shareCardDialog.arguments = bundle
+						shareCardDialog.show(fragmentManager, "")
+					}
+
+					override fun onError(t: Throwable) {
+						hideLoading()
+					}
+
+					override fun onComplete() {
+
+					}
+				})
 	}
 }

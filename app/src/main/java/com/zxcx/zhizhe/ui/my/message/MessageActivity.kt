@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -33,7 +32,7 @@ class MessageActivity : BaseActivity(), IGetPresenter<MyTabBean> {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_message)
-		ButterKnife.bind(this)
+		initToolBar("消息")
 		initView()
 	}
 
@@ -45,9 +44,6 @@ class MessageActivity : BaseActivity(), IGetPresenter<MyTabBean> {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	private fun initView() {

@@ -58,7 +58,7 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
+		tv_toolbar_back.setOnClickListener {
 			onBackPressed()
 		}
 

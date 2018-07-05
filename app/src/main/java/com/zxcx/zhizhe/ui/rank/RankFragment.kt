@@ -91,15 +91,19 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
 
 		//todo 排名变化
-		if (bean.rankChange > 0) {
-			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
-			tv_my_rank_change.text = bean.rankChange.toString()
-		} else if (bean.rankChange == 0) {
-			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
-			tv_my_rank_change.text = bean.rankIndex.toString()
-		} else {
-			TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
-			tv_my_rank_change.text = Math.abs(bean.rankChange).toString()
+		when {
+			bean.rankChange > 0 -> {
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				tv_my_rank_change.text = bean.rankChange.toString()
+			}
+			bean.rankChange == 0 -> {
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				tv_my_rank_change.text = bean.rankIndex.toString()
+			}
+			else -> {
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				tv_my_rank_change.text = Math.abs(bean.rankChange).toString()
+			}
 		}
 	}
 

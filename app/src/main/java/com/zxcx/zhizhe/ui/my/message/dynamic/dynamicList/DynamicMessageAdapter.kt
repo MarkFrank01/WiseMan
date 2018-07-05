@@ -10,7 +10,6 @@ import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.TextViewUtils
 
 /**
  * Created by anm on 2017/5/23.
@@ -35,7 +34,6 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 				val imageView = helper.getView<RoundedImageView>(R.id.iv_item_dynamic_message)
 				ImageLoader.load(mContext, bean.relatedUserAvatar, R.drawable.default_header, imageView)
 				helper.setText(R.id.tv_item_dynamic_message_name, bean.relatedUserName)
-				helper.setText(R.id.tv_item_dynamic_message_time, bean.newTime)
 
 				if (helper.adapterPosition + 1 >= data.size || getItem(helper.adapterPosition + 1) is DynamicBean) {
 					helper.setGone(R.id.view_line, false)
@@ -46,13 +44,13 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 				val tvContent = helper.getView<TextView>(R.id.tv_item_dynamic_message_content)
 				when (bean.messageType) {
 					message_follow -> {
-						tvContent.text = bean.content
+						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "关注了你...")
 					}
 					message_like -> {
-						TextViewUtils.setTextViewColorBlue(tvContent, "《" + bean.relatedCardName + "》", bean.content)
+						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "点赞了你...")
 					}
 					message_collect -> {
-						TextViewUtils.setTextViewColorBlue(tvContent, "《" + bean.relatedCardName + "》", bean.content)
+						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "收藏了你...")
 					}
 				}
 			}

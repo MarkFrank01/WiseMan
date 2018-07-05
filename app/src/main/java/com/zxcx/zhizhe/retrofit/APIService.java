@@ -213,8 +213,8 @@ public interface APIService {
 	/**
 	 * 获取卡包内内容列表
 	 */
-	@POST("/article/getContentByCollectionId")
-	Flowable<BaseArrayBean<CardBean>> getCardBagCardList(
+	@POST("/classifyCollection/getContentByCollectionId")
+	Flowable<BaseArrayBean<ArticleAndSubjectBean>> getLabelList(
 		@Query("collectionId") int id, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
 	
@@ -247,7 +247,7 @@ public interface APIService {
 	/**
 	 * 获取笔记列表
 	 */
-	@POST("/note/getMemoList")
+	@POST("/article/getMemoList")
 	Flowable<BaseArrayBean<NoteBean>> getNoteList(
 		@Query("orderType") int sortType, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
@@ -471,7 +471,7 @@ public interface APIService {
 	/**
 	 * 获取用户消息开关
 	 */
-	@POST("/user/getMessageSetting")
+	@POST("/user/getNotificationSetting")
 	Flowable<BaseBean<MessageModeBean>> getMessageSetting();
 	
 	/**
@@ -480,7 +480,7 @@ public interface APIService {
 	 * @param systemMessageSetting 系统消息开关 0开 1关
 	 * @param dynamicMessageSetting 动态消息开关 0开 1关
 	 */
-	@POST("/user/messageSetting")
+	@POST("/user/notificationSetting")
 	Flowable<BaseBean<Object>> setMessageSetting(
 		@Query("systemMessageSetting") int systemMessageSetting,
 		@Query("dynamicMessageSetting") int dynamicMessageSetting);

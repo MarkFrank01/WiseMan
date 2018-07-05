@@ -2,13 +2,16 @@ package com.zxcx.zhizhe.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-
 import com.zxcx.zhizhe.App;
+import com.zxcx.zhizhe.R;
 
 /**
  * Created by anm on 2017/6/20.
@@ -132,6 +135,29 @@ public class ScreenUtils {
 			Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(bitmap);
 		viewGroup.draw(canvas);
+		return bitmap;
+	}
+	
+	/**
+	 * 截取控件的屏幕,底部加上二维码
+	 */
+	public static Bitmap getBitmapAndQRByView(ViewGroup viewGroup) {
+		float h = 0;
+		Bitmap bitmap = null;
+		Resources res = viewGroup.getContext().getResources();
+		Bitmap QRBitmap = BitmapFactory.decodeResource(res, R.drawable.iv_dialog_share_qr);
+		// 获取scrollview实际高度
+		for (int i = 0; i < viewGroup.getChildCount(); i++) {
+			h += viewGroup.getChildAt(i).getHeight();
+		}
+		h += QRBitmap.getHeight();
+		// 创建对应大小的bitmap
+		bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
+			Bitmap.Config.RGB_565);
+		Canvas canvas = new Canvas(bitmap);
+		viewGroup.draw(canvas);
+		canvas.drawBitmap(QRBitmap, 0, h - QRBitmap.getHeight(), new Paint());
+		QRBitmap.recycle();
 		return bitmap;
 	}
 }

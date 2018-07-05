@@ -1,9 +1,10 @@
 package com.zxcx.zhizhe.ui.my.feedback.feedback
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
-import butterknife.ButterKnife
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -12,13 +13,19 @@ import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.activity_feedback.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_feedback)
-		ButterKnife.bind(this)
+
+		initToolBar()
+		tv_toolbar_right.visibility = View.VISIBLE
+		tv_toolbar_right.text = "完成"
+		tv_toolbar_right.isEnabled = false
+		tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity, R.color.color_text_enable_blue))
 	}
 
 	override fun onDestroy() {
@@ -40,11 +47,8 @@ class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
-		tv_feedback_commit.setOnClickListener {
+		tv_toolbar_right.setOnClickListener {
 			val content = et_feedback_content.text.toString()
 			val appType = Constants.APP_TYPE
 			val appChannel = WalleChannelReader.getChannel(this)
@@ -53,7 +57,7 @@ class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View
 		}
 
 		et_feedback_content.afterTextChanged {
-			tv_feedback_commit.isEnabled = it.length >= 10
+			tv_toolbar_right.isEnabled = it.length >= 10
 			tv_feedback_residue.text = getString(R.string.tv_feedback_residue, it.length, 600 - it.length)
 			if (it.length == 600) {
 				tv_feedback_residue.setTextColor(mActivity.getColorForKotlin(R.color.red))

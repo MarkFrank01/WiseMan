@@ -10,16 +10,17 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingStart="20dp"
-		android:paddingEnd="20dp"
 		android:orientation="vertical">
 		
 		<RelativeLayout
 			android:id="@+id/ll_dynamic_message_follow"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:background="@drawable/bg_item_note"
+			android:layout_marginTop="20dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:background="@drawable/bg_background_12dp"
+			android:elevation="10dp"
 			android:orientation="vertical">
 			
 			<TextView
@@ -35,15 +36,17 @@
 			
 			<TextView
 				android:id="@+id/tv_dynamic_message_follow"
+				style="@style/tv_single"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="20dp"
-				android:layout_marginTop="15dp"
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginStart="20dp"
 				android:layout_marginEnd="50dp"
 				android:layout_below="@id/tv_dynamic_message_title_1"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_3"
+				android:textColor="@color/text_color_2"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>
@@ -55,7 +58,10 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dp"
-			android:background="@drawable/bg_item_note"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:background="@drawable/bg_background_12dp"
+			android:elevation="10dp"
 			android:orientation="vertical">
 			
 			<TextView
@@ -71,15 +77,17 @@
 			
 			<TextView
 				android:id="@+id/tv_dynamic_message_like"
+				style="@style/tv_single"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="20dp"
-				android:layout_marginTop="15dp"
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginStart="20dp"
 				android:layout_marginEnd="50dp"
 				android:layout_below="@id/tv_dynamic_message_title_2"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_3"
+				android:textColor="@color/text_color_2"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>
@@ -91,7 +99,11 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dp"
-			android:background="@drawable/bg_item_note"
+			android:layout_marginBottom="20dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:background="@drawable/bg_background_12dp"
+			android:elevation="10dp"
 			android:orientation="vertical">
 			
 			<TextView
@@ -107,15 +119,17 @@
 			
 			<TextView
 				android:id="@+id/tv_dynamic_message_collect"
+				style="@style/tv_single"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="20dp"
-				android:layout_marginTop="15dp"
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginStart="20dp"
 				android:layout_marginEnd="50dp"
 				android:layout_below="@id/tv_dynamic_message_title_3"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_3"
+				android:textColor="@color/text_color_2"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>

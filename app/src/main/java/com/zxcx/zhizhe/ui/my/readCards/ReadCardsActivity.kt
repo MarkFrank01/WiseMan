@@ -37,7 +37,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 		initView()
 		initLoadSir()
 		mPresenter.getReadCard(mSortType, mPage, mPageSize)
-		//mPresenter.getEmptyRecommendCard(mTabType)
+		mPresenter.getEmptyRecommendCard(mTabType)
 	}
 
 	private fun initLoadSir() {
@@ -46,6 +46,12 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
 	override fun createPresenter(): ReadCardsPresenter {
 		return ReadCardsPresenter(this)
+	}
+
+	override fun onReload(v: View?) {
+		super.onReload(v)
+		mPage = 0
+		mPresenter.getReadCard(mSortType, mPage, mPageSize)
 	}
 
 	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
@@ -110,8 +116,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 			}
 		} else {
 			mActivity.startActivity(ArticleDetailsActivity::class.java) {
-				it.putExtra("id", bean.id)
-				it.putExtra("name", bean.name)
+				it.putExtra("cardBean", bean)
 			}
 		}
 	}

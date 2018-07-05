@@ -5,61 +5,45 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@color/background"
 	android:orientation="vertical">
 	
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="15dp"
+		android:layout_marginTop="12dp"
 		android:layout_marginBottom="12dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
+		android:layout_marginStart="20dp"
+		android:layout_marginEnd="20dp"
 		android:gravity="center_vertical">
 		
 		<com.makeramen.roundedimageview.RoundedImageView
 			android:id="@+id/iv_item_dynamic_message"
-			android:layout_width="20dp"
-			android:layout_height="20dp"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
 			android:scaleType="centerCrop"
 			app:riv_oval="true"
 			tools:src="@drawable/iv_my_head_icon"/>
 		
 		<TextView
 			android:id="@+id/tv_item_dynamic_message_name"
+			android:textStyle="bold"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:layout_marginLeft="6dp"
+			android:layout_marginStart="8dp"
 			android:textColor="@color/text_color_1"
 			android:textSize="@dimen/text_size_text_2"
 			tools:text="浪得一笔雕凿"/>
 		
 		<TextView
-			android:id="@+id/tv_item_dynamic_message_time"
+			android:id="@+id/tv_item_dynamic_message_content"
+			style="@style/tv_single"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@color/text_color_3"
+			android:textColor="@color/text_color_d2"
 			android:textSize="@dimen/text_size_text_3"
-			tools:text="15:36"/>
+			tools:text="点赞了你..."/>
 	
 	</LinearLayout>
-	
-	<TextView
-		android:id="@+id/tv_item_dynamic_message_content"
-		style="@style/tv_single"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="15dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:textColor="@color/text_color_2"
-		android:textSize="@dimen/text_size_text_3"
-		tools:text="点赞了你的作品《hifi动铁耳机与动圈耳机区别hifi动铁耳机与动圈耳机区别》"/>
-	
-	<View
-		android:id="@+id/view_line"
-		style="@style/line"
-		android:layout_marginLeft="20dp"/>
 
 </LinearLayout>

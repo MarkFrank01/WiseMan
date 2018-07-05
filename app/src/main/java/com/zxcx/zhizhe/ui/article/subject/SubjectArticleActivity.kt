@@ -6,13 +6,14 @@ import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_subject.*
@@ -80,16 +81,17 @@ class SubjectArticleActivity : MvpActivity<SubjectArticlePresenter>(), SubjectAr
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-				Pair.create(view.findViewById(R.id.iv_item_card_icon), "cardImage"),
-				Pair.create(view.findViewById(R.id.tv_item_card_title), "cardTitle"),
-				Pair.create(view.findViewById(R.id.tv_item_card_category), "cardBag")).toBundle()
-		val intent = Intent(this, ArticleDetailsActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		intent.putExtra("imageUrl", bean.imageUrl)
-		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-		intent.putExtra("authorName", bean.authorName)
-		startActivity(intent, bundle)
+		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+		val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+		val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+				Pair.create(cardImg, cardImg.transitionName),
+				Pair.create(cardTitle, cardTitle.transitionName),
+				Pair.create(cardCategory, cardCategory.transitionName),
+				Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
+		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+		intent.putExtra("cardBean", bean)
+		mActivity.startActivity(intent, bundle)
 	}
 }

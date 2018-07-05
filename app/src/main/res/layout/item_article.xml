@@ -10,12 +10,11 @@
 	android:paddingStart="20dp"
 	android:paddingEnd="20dp"
 	android:background="@color/background"
-	android:elevation="10dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press">
 	
 	<ImageView
-		android:id="@+id/iv_item_article_icon"
+		android:id="@+id/iv_item_card_icon"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:scaleType="centerCrop"
@@ -30,10 +29,10 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/iv_item_article_icon">
+		app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon">
 		
 		<TextView
-			android:id="@+id/tv_item_article_title"
+			android:id="@+id/tv_item_card_title"
 			style="@style/tv_card"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -42,68 +41,68 @@
 			tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
 		
 		<TextView
-			android:id="@+id/tv_item_article_category"
+			android:id="@+id/tv_item_card_category"
 			style="@style/tv_card_category"
 			android:layout_marginTop="20dp"
 			android:layout_marginBottom="12dp"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/tv_item_article_title"
+			app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
 			tools:text="数码产品"/>
 		
 		<TextView
-			android:id="@+id/tv_item_article_label"
+			android:id="@+id/tv_item_card_label"
 			style="@style/tv_card_label"
 			android:paddingTop="20dp"
 			android:paddingBottom="12dp"
 			android:paddingStart="12dp"
 			android:paddingEnd="12dp"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/tv_item_article_category"
-			app:layout_constraintTop_toBottomOf="@+id/tv_item_article_title"
+			app:layout_constraintStart_toEndOf="@+id/tv_item_card_category"
+			app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
 			tools:text="#数码产品"/>
 		
 		<ImageView
-			android:id="@+id/iv_item_article_read"
+			android:id="@+id/iv_item_card_read"
 			android:layout_width="14dp"
 			android:layout_height="14dp"
 			android:src="@drawable/tv_item_rank_user_card"
-			app:layout_constraintBottom_toBottomOf="@+id/tv_item_article_category"
-			app:layout_constraintEnd_toStartOf="@+id/tv_item_article_read"
-			app:layout_constraintTop_toTopOf="@+id/tv_item_article_category"/>
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>
 		
 		<TextView
-			android:id="@+id/tv_item_article_read"
+			android:id="@+id/tv_item_card_read"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="3dp"
 			android:layout_marginEnd="12dp"
 			android:textColor="@color/text_color_3"
 			android:textSize="@dimen/text_size_text_4"
-			app:layout_constraintBottom_toBottomOf="@+id/tv_item_article_category"
-			app:layout_constraintEnd_toStartOf="@+id/iv_item_article_comment"
-			app:layout_constraintTop_toTopOf="@+id/tv_item_article_category"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
 			tools:text="100"/>
 		
 		<ImageView
-			android:id="@+id/iv_item_article_comment"
+			android:id="@+id/iv_item_card_comment"
 			android:layout_width="14dp"
 			android:layout_height="14dp"
 			android:layout_marginStart="12dp"
 			android:src="@drawable/tv_item_rank_user_card"
-			app:layout_constraintBottom_toBottomOf="@+id/tv_item_article_category"
-			app:layout_constraintEnd_toStartOf="@+id/tv_item_article_comment"
-			app:layout_constraintTop_toTopOf="@+id/tv_item_article_category"/>
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>
 		
 		<TextView
-			android:id="@+id/tv_item_article_comment"
+			android:id="@+id/tv_item_card_comment"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="3dp"
 			android:textColor="@color/text_color_3"
 			android:textSize="@dimen/text_size_text_4"
-			app:layout_constraintBottom_toBottomOf="@+id/tv_item_article_category"
+			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/tv_item_article_category"
+			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
 			tools:text="100"/>
 	
 	</android.support.constraint.ConstraintLayout>

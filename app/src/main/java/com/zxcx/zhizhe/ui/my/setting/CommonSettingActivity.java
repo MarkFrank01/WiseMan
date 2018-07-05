@@ -38,11 +38,6 @@ public class CommonSettingActivity extends BaseActivity {
 		}
 	}
 
-	@OnClick(R.id.iv_common_close)
-	public void onIvCloseClicked() {
-		onBackPressed();
-	}
-
 	@OnClick(R.id.ll_common_setting_clean_cache)
 	public void onMLlCommonSettingCleanCacheClicked() {
 		DataCleanManager.cleanApplicationData(this);

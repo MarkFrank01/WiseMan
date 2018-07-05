@@ -2,8 +2,7 @@ package com.zxcx.zhizhe.ui.my.note
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.widget.TextView
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
@@ -12,7 +11,7 @@ import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
-import com.zxcx.zhizhe.ui.my.note.noteDetails.CardNoteDetailsActivity
+import com.zxcx.zhizhe.ui.my.note.noteDetails.ArticleNoteDetailsActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.FreedomNoteDetailsActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
@@ -37,6 +36,9 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_note)
 		EventBus.getDefault().register(this)
+
+		initToolBar("笔记")
+
 		initView()
 		initLoadSir()
 		mPresenter.getNoteList(mPage, mPageSize)
@@ -53,6 +55,12 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 	override fun onDestroy() {
 		EventBus.getDefault().unregister(this)
 		super.onDestroy()
+	}
+
+	override fun onReload(v: View?) {
+		super.onReload(v)
+		mPage = 0
+		mPresenter.getNoteList(mPage, mPageSize)
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -102,18 +110,18 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 		val bean = mAdapter.data[position] as NoteBean
 		when (bean.noteType) {
 			0 -> {
-				startActivity(FreedomNoteDetailsActivity::class.java, {
+				startActivity(FreedomNoteDetailsActivity::class.java) {
 					it.putExtra("id", bean.id)
 					it.putExtra("name", bean.name)
 					it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))
-				})
+				}
 			}
 			1 -> {
-				startActivity(CardNoteDetailsActivity::class.java, {
+				startActivity(ArticleNoteDetailsActivity::class.java) {
 					it.putExtra("id", bean.id)
 					it.putExtra("name", bean.name)
 					it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))
-				})
+				}
 			}
 		}
 	}
@@ -131,15 +139,9 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 		rv_note.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
-		val title = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		title.findViewById<TextView>(R.id.tv_header_title).text = "笔记"
-		mAdapter.addHeaderView(title)
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 
 		iv_add_new.setOnClickListener {
 			mActivity.startActivity(NoteEditorActivity::class.java, {})

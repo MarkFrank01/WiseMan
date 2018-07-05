@@ -7,15 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.CommonDialog;
-import com.zxcx.zhizhe.utils.ZhiZheUtils;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.CommonDialog;
+import com.zxcx.zhizhe.utils.ZhiZheUtils;
 
 /**
  * Created by anm on 2017/7/6.
@@ -23,8 +21,6 @@ import butterknife.Unbinder;
 
 public class LogoutDialog extends CommonDialog {
 
-	@BindView(R.id.tv_dialog_logout)
-	TextView mTvDialogLogout;
 	@BindView(R.id.tv_dialog_cancel)
 	TextView mTvDialogCancel;
 	@BindView(R.id.tv_dialog_confirm)

@@ -44,7 +44,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private var likeStatus = false
 	private var isUnLike = false
 	private lateinit var cardBean: CardBean
-	private lateinit var startDate: Date
+	private var startDate: Date = Date()
 	private var date = ""
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
@@ -59,7 +59,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		initView()
 
 		mPresenter.getCardDetails(cardBean.id)
-		startDate = Date()
 	}
 
 	override fun initStatusBar() {
@@ -82,8 +81,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun onDestroy() {
-		val endDate = Date()
-		if (endDate.time - startDate.time > 30000 && mUserId != 0) {
+		if (Date().time - startDate.time > 30000 && mUserId != 0) {
 			mPresenter.readArticle(cardBean.id)
 		}
 		if (mWebView != null) {
@@ -297,7 +295,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private fun initData() {
 		cardBean = intent.getParcelableExtra("cardBean")
 		date = DateTimeUtils.getDateString(cardBean.date)
-		getDataSuccess(cardBean)
+		if (cardBean.name != null) {
+			getDataSuccess(cardBean)
+		}
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	}
 
@@ -393,7 +393,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	private fun gotoImageShare(url: String?, content: String?) {
-		val shareDialog = ShareCardDialog()
+		val shareDialog = ShareSelectionDialog()
 		val bundle = Bundle()
 		bundle.putString("name", cardBean.name)
 		if (!StringUtils.isEmpty(content)) {

@@ -10,7 +10,7 @@
 	android:orientation="vertical">
 	
 	<include
-		android:id="@+id/ll_toolbar"
+		android:id="@+id/toolbar"
 		layout="@layout/toolbar"/>
 	
 	<android.support.constraint.Guideline

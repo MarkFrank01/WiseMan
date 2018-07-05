@@ -54,69 +54,57 @@
 			android:layout_height="match_parent"
 			android:layout_above="@id/ll_note_details_bottom">
 			
-			<LinearLayout
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/ll_card_details_top"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="vertical">
+				android:layout_height="wrap_content">
 				
-				<FrameLayout
+				<ImageView
+					android:id="@+id/iv_note_details"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-					
-					<com.zxcx.zhizhe.widget.CardImageView
-						android:id="@+id/iv_note_details"
-						android:layout_width="match_parent"
-						android:layout_height="212dp"
-						android:scaleType="centerCrop"
-						android:src="@drawable/default_card"
-						android:transitionName="cardImage"
-						app:hasShade="true"
-						app:heightWeight="9"
-						app:widthWeight="16"/>
-					
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_gravity="bottom"
-						android:paddingStart="20dp"
-						android:paddingEnd="20dp"
-						android:orientation="vertical">
-						
-						<TextView
-							android:id="@+id/tv_note_details_title"
-							android:textStyle="bold"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:ellipsize="end"
-							android:lineSpacingExtra="4dp"
-							android:maxLines="2"
-							android:textColor="@color/white_final"
-							android:textSize="@dimen/text_size_title_2"
-							android:transitionName="cardTitle"
-							tools:text="动圈和铁圈耳机的区别"/>
-						
-						<TextView
-							android:id="@+id/tv_note_details_info"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginTop="13dp"
-							android:layout_marginBottom="13dp"
-							android:textColor="@color/text_color_ee"
-							android:textSize="@dimen/text_size_text_3"
-							android:transitionName="cardInfo"
-							tools:text="@string/tv_card_info"/>
-					
-					</LinearLayout>
-				</FrameLayout>
+					android:layout_height="0dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/default_card"
+					android:transitionName="@string/card_img_transition_name"
+					app:layout_constraintDimensionRatio="16:9"/>
+				
+				<TextView
+					android:id="@+id/tv_note_details_title"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="15dp"
+					android:layout_marginStart="20dp"
+					android:layout_marginEnd="20dp"
+					android:lineSpacingExtra="6dp"
+					android:textColor="@color/text_color_1"
+					android:textSize="@dimen/text_size_title_2"
+					android:transitionName="@string/card_title_transition_name"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/iv_note_details"
+					tools:text="男士西装基本样式简介男士西装基本样式"/>
+				
+				<TextView
+					android:id="@+id/tv_note_details_info"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="7dp"
+					android:layout_marginStart="20dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					android:transitionName="@string/card_category_transition_name"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/tv_note_details_title"
+					tools:text="生活"/>
 				
 				<FrameLayout
 					android:id="@+id/fl_note_details"
 					android:layout_width="match_parent"
 					android:layout_height="0dp"
-					android:layout_weight="1">
+					app:layout_constraintTop_toBottomOf="@id/tv_note_details_info">
 				</FrameLayout>
 			
-			</LinearLayout>
+			</android.support.constraint.ConstraintLayout>
 		</ScrollView>
 	</RelativeLayout>
 	

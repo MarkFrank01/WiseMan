@@ -95,4 +95,8 @@ class HomeCardFragment : BaseFragment() {
 	override fun onDestroyView() {
 		super.onDestroyView()
 	}
+
+	public fun onActivityReenter() {
+		mHotFragment.onActivityReenter()
+	}
 }

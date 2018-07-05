@@ -6,13 +6,13 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 interface CardDetailsContract {
 
-	interface View : GetPostView<MutableList<CardBean>, CardBean> {
+	interface View : GetPostView<CardBean, CardBean> {
 		fun followSuccess(bean: CardBean)
 		fun likeSuccess(bean: CardBean)
 		fun collectSuccess(bean: CardBean)
 	}
 
-	interface Presenter : IGetPostPresenter<MutableList<CardBean>, CardBean> {
+	interface Presenter : IGetPostPresenter<CardBean, CardBean> {
 		fun followSuccess(bean: CardBean)
 		fun likeSuccess(bean: CardBean)
 		fun collectSuccess(bean: CardBean)

@@ -6,7 +6,7 @@
 	android:background="@color/background">
 	
 	<include
-		android:id="@+id/ll_toolbar"
+		android:id="@+id/toolbar"
 		layout="@layout/toolbar"/>
 	
 	<TextView
@@ -16,7 +16,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"
 		android:layout_marginStart="20dp"
-		android:layout_below="@id/ll_toolbar"
+		android:layout_below="@id/toolbar"
 		android:text="选择你感兴趣的卡包"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_title_1"/>

@@ -9,7 +9,7 @@
 	tools:context="com.zxcx.zhizhe.ui.my.feedback.help.HelpActivity">
 	
 	<include
-		android:id="@+id/ll_toolbar"
+		android:id="@+id/toolbar"
 		layout="@layout/toolbar"/>
 	
 	<ScrollView

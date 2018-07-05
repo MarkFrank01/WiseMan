@@ -12,6 +12,10 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 		mModel = CardDetailsModel(this)
 	}
 
+	fun getCardDetails(cardId: Int) {
+		mModel.getCardDetails(cardId)
+	}
+
 	fun readCard(cardId: Int) {
 		mModel.readCard(cardId)
 	}
@@ -44,8 +48,8 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 		mModel.setUserFollow(authorId, followType, bean)
 	}
 
-	override fun getDataSuccess(list: MutableList<CardBean>) {
-		mView.getDataSuccess(list)
+	override fun getDataSuccess(bean: CardBean) {
+		mView.getDataSuccess(bean)
 	}
 
 	override fun getDataFail(msg: String) {

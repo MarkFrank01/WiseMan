@@ -10,7 +10,7 @@
 		android:layout_marginBottom="20dp"
 		android:layout_marginStart="20dp"
 		android:layout_marginEnd="20dp"
-		android:background="@drawable/bg_item_note"
+		android:background="@drawable/bg_background_12dp"
 		android:gravity="center"
 		android:orientation="vertical">
 		

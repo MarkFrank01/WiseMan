@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.my.userInfo.userSafety
 
 import android.content.Intent
 import android.os.Bundle
-import butterknife.ButterKnife
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import cn.sharesdk.framework.ShareSDK
@@ -35,8 +34,9 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_user_safety)
-		ButterKnife.bind(this)
 		EventBus.getDefault().register(this)
+
+		initToolBar("绑定")
 
 		isBindingPhone = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingPhone, false)
 		isBindingWechat = SharedPreferencesUtil.getBoolean(SVTSConstants.isBindingWX, false)
@@ -77,9 +77,6 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 		ll_user_safety_phone_bind.setOnClickListener {
 			//更换手机界面
 			val intent = Intent(this, ChangePhoneActivity::class.java)

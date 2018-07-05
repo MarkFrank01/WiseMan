@@ -23,12 +23,13 @@ class MessageModeActivity : BaseActivity(), INullGetPostPresenter<MessageModeBea
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_message_mode)
 		initToolBar("消息提示")
-		cb_message_mode_system.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.systemMessageIsOpen, true)
-		cb_message_mode_dynamic.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.dynamicMessageIsOpen, true)
 		getMessageSetting()
 	}
 
 	override fun setListener() {
+
+		cb_message_mode_system.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.systemMessageIsOpen, true)
+		cb_message_mode_dynamic.isChecked = SharedPreferencesUtil.getBoolean(SVTSConstants.dynamicMessageIsOpen, true)
 
 		ll_message_mode_system.setOnClickListener {
 			cb_message_mode_system.isChecked = !cb_message_mode_system.isChecked

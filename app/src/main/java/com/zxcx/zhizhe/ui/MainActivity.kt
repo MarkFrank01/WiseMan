@@ -8,9 +8,7 @@ import com.zxcx.zhizhe.event.ChangeNightModeEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
-import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
-import com.zxcx.zhizhe.ui.card.cardBag.CardBagActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
@@ -18,7 +16,6 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -46,7 +43,6 @@ class MainActivity : BaseActivity() {
 		//判断是否点击了广告或通知
 		gotoLoginActivity(intent)
 		gotoADActivity(intent)
-		gotoNotificationActivity(intent)
 	}
 
 	override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -129,19 +125,8 @@ class MainActivity : BaseActivity() {
 		}
 	}
 
-	private fun gotoNotificationActivity(intent: Intent) {
-		val bundle = intent.getBundleExtra("push")
-		if (bundle != null) {
-			val type = bundle.getString("type")
-			val detailIntent = Intent()
-
-			when (type) {
-				Constants.PUSH_TYPE_CARD_BAG -> detailIntent.setClass(this, CardBagActivity::class.java)
-				Constants.PUSH_TYPE_CARD -> detailIntent.setClass(this, ArticleDetailsActivity::class.java)
-				Constants.PUSH_TYPE_AD -> detailIntent.setClass(this, WebViewActivity::class.java)
-			}
-			detailIntent.putExtras(bundle)
-			startActivity(detailIntent)
-		}
+	override fun onActivityReenter(resultCode: Int, data: Intent?) {
+		super.onActivityReenter(resultCode, data)
+		mHomeCardFragment.onActivityReenter()
 	}
 }

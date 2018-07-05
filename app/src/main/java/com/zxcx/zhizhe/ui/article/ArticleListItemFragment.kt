@@ -23,9 +23,8 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.home.hot.ArticleAndSubjectAdapter
 import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.DateTimeUtils
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
 import org.greenrobot.eventbus.Subscribe
@@ -84,10 +83,10 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as ArticleAndSubjectBean
 		if (bean.itemType == ArticleAndSubjectBean.TYPE_ARTICLE) {
-			val articleImg = view.findViewById<ImageView>(R.id.iv_item_article_icon)
-			val articleTitle = view.findViewById<TextView>(R.id.tv_item_article_title)
-			val articleCategory = view.findViewById<TextView>(R.id.tv_item_article_category)
-			val articleLabel = view.findViewById<TextView>(R.id.tv_item_article_label)
+			val articleImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+			val articleTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+			val articleCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+			val articleLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
 			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
 					Pair.create(articleImg, articleImg.transitionName),
 					Pair.create(articleTitle, articleTitle.transitionName),
@@ -154,14 +153,9 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 	}
 
 	override fun articleOnClick(bean: CardBean) {
-		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		intent.putExtra("category", bean.categoryName)
-		intent.putExtra("label", bean.labelName)
-		intent.putExtra("imageUrl", bean.imageUrl)
-		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-		mActivity.startActivity(intent)
+		mActivity.startActivity(ArticleDetailsActivity::class.java) {
+			it.putExtra("cardBean", bean)
+		}
 	}
 
 	override fun subjectOnClick(bean: SubjectBean) {

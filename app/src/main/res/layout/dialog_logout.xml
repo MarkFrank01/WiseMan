@@ -11,28 +11,18 @@
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="28dp"
+		android:layout_marginTop="35dp"
 		android:layout_marginStart="20dp"
-		android:text="退出登录"
+		android:layout_centerHorizontal="true"
+		android:text="是否退出登录"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_1"/>
-	
-	<TextView
-		android:id="@+id/tv_dialog_logout"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="6dp"
-		android:layout_marginStart="20dp"
-		android:layout_marginEnd="20dp"
-		android:layout_below="@id/tv_dialog_logout_title"
-		android:text="退出后将无法实时查看动态和榜单信息"
-		android:textColor="@color/text_color_3"
-		android:textSize="@dimen/text_size_text_2"/>
 	
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/tv_dialog_logout">
+		android:layout_marginTop="25dp"
+		android:layout_below="@id/tv_dialog_logout_title">
 		
 		<TextView
 			android:id="@+id/tv_dialog_cancel"
@@ -40,8 +30,8 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:paddingTop="20dp"
-			android:paddingBottom="18dp"
-			android:paddingStart="20dp"
+			android:paddingBottom="12dp"
+			android:paddingStart="16dp"
 			android:gravity="start|center_vertical"
 			android:text="@string/common_cancel"
 			android:textColor="@color/text_color_1"
@@ -52,8 +42,8 @@
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:paddingTop="20dp"
-			android:paddingBottom="18dp"
+			android:paddingTop="16dp"
+			android:paddingBottom="12dp"
 			android:paddingEnd="20dp"
 			android:gravity="center_vertical|end"
 			android:text="@string/common_confirm"

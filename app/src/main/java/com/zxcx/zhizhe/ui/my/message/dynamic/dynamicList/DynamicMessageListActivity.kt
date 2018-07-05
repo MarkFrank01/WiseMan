@@ -1,21 +1,20 @@
 package com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ClearMessageEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import io.reactivex.Flowable
@@ -43,6 +42,18 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_follow_message)
 		mMessageType = intent.getIntExtra("messageType", 0)
+		when (mMessageType) {
+			message_follow -> {
+				initToolBar("关注")
+			}
+			message_like -> {
+				initToolBar("点赞")
+			}
+			message_collect -> {
+				initToolBar("收藏")
+			}
+		}
+
 		initRecyclerView()
 		mPresenter.getDynamicMessageList(mMessageType, mPage, mPageSize)
 	}
@@ -103,17 +114,16 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		if (mAdapter.data[position].itemType == dynamic_content) {
 			val bean = mAdapter.data[position] as DynamicMessageListBean
 			if (bean.messageType != message_follow) {
-				val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-				intent.putExtra("id", bean.relatedCardId)
-				startActivity(intent)
+				val cardBean = CardBean()
+				cardBean.id = bean.relatedCardId ?: 0
+				startActivity(ArticleDetailsActivity::class.java) {
+					it.putExtra("cardBean", cardBean)
+				}
 			}
 		}
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	private fun initRecyclerView() {
@@ -125,19 +135,6 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		rv_follow_message.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无消息", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
-		val header = LayoutInflater.from(mActivity).inflate(R.layout.layout_header_title, null)
-		when (mMessageType) {
-			message_follow -> {
-				header.findViewById<TextView>(R.id.tv_header_title).text = "关注"
-			}
-			message_like -> {
-				header.findViewById<TextView>(R.id.tv_header_title).text = "点赞"
-			}
-			message_collect -> {
-				header.findViewById<TextView>(R.id.tv_header_title).text = "收藏"
-			}
-		}
-		mAdapter.addHeaderView(header)
 	}
 
 	class PackData(private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>>) : Function<List<DynamicMessageListBean>, List<DynamicBean>> {

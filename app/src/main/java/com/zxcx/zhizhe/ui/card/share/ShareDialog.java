@@ -14,13 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.ScreenUtils;
-
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,6 +27,10 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.utils.ScreenUtils;
+import java.util.HashMap;
 
 /**
  * Created by anm on 2017/5/27.
@@ -133,7 +130,9 @@ public class ShareDialog extends BaseDialog {
 		ClipboardManager clipboardManager = (ClipboardManager) getActivity()
 			.getSystemService(Context.CLIPBOARD_SERVICE);
 		ClipData clip = ClipData.newPlainText(title, title + "\n" + url);
-		clipboardManager.setPrimaryClip(clip);
+		if (clipboardManager != null) {
+			clipboardManager.setPrimaryClip(clip);
+		}
 	}
 
 	private void showShare(String platform) {

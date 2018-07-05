@@ -20,6 +20,7 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.SelectAttentionCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
+import com.zxcx.zhizhe.ui.article.ArticleAndSubjectAdapter
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
 import com.zxcx.zhizhe.ui.article.SubjectBean
 import com.zxcx.zhizhe.ui.article.SubjectOnClickListener
@@ -27,7 +28,6 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.classify.ClassifyBean
-import com.zxcx.zhizhe.ui.home.hot.ArticleAndSubjectAdapter
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -226,14 +226,9 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 	}
 
 	override fun articleOnClick(bean: CardBean) {
-		val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		intent.putExtra("category", bean.categoryName)
-		intent.putExtra("label", bean.labelName)
-		intent.putExtra("imageUrl", bean.imageUrl)
-		intent.putExtra("date", DateTimeUtils.getDateString(bean.date))
-		mActivity.startActivity(intent)
+		mActivity.startActivity(ArticleDetailsActivity::class.java) {
+			it.putExtra("cardBean", bean)
+		}
 	}
 
 	override fun subjectOnClick(bean: SubjectBean) {

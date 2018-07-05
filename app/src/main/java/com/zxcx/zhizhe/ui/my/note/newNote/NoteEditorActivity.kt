@@ -31,9 +31,12 @@ class NoteEditorActivity : BaseActivity(),
 
 	private lateinit var mOSSDialog: OSSDialog
 
-	private var mAction = 0 //0选择标题图，1选择内容图
+	private var mAction = 1 //0选择标题图，1选择内容图
 	private var mActionMode: ActionMode? = null
 	private var noteId = 0
+
+	private var isBold = false
+	private var isCenter = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -46,8 +49,8 @@ class NoteEditorActivity : BaseActivity(),
 	}
 
 	private fun initEditor() {
-		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
-//        val url = "http://192.168.1.153:8043/view/NoteEditor"
+//		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+		val url = "http://192.168.1.153:8043/pages/note-editor.html"
 		editor.url = url
 		noteId = intent.getIntExtra("noteId", 0)
 		val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
@@ -56,15 +59,6 @@ class NoteEditorActivity : BaseActivity(),
 		} else {
 			editor.setTimeStampAndToken(token)
 		}
-	}
-
-	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
-
-		//添加方法给js调用
-		editor.addJavascriptInterface(this, "native")
 	}
 
 	override fun initStatusBar() {
@@ -86,8 +80,36 @@ class NoteEditorActivity : BaseActivity(),
 		mImmersionBar.init()
 	}
 
-	@JavascriptInterface
-	fun getContentImage() {
+	override fun setListener() {
+		tv_toolbar_back.setOnClickListener {
+			onBackPressed()
+		}
+
+		iv_creation_editor_add_image.setOnClickListener {
+			getContentImage()
+		}
+
+		iv_creation_editor_bold.setOnClickListener {
+			editor.setBold()
+		}
+
+		iv_creation_editor_center.setOnClickListener {
+			editor.setCenter()
+		}
+
+		iv_creation_editor_revocation.setOnClickListener {
+			editor.rollback()
+		}
+
+		tv_toolbar_right.setOnClickListener {
+			editor.saveNote()
+		}
+
+		//添加方法给js调用
+		editor.addJavascriptInterface(this, "native")
+	}
+
+	private fun getContentImage() {
 		mAction = 1
 		val rxPermissions = RxPermissions(this)
 		rxPermissions
@@ -122,8 +144,43 @@ class NoteEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
+	fun hiddenToolBar() {
+		//todo 按钮变灰，不可点击
+		iv_creation_editor_add_image.isClickable = false
+		iv_creation_editor_bold.isClickable = false
+		iv_creation_editor_center.isClickable = false
+		iv_creation_editor_revocation.isClickable = false
+	}
+
+	@JavascriptInterface
+	fun showToolBar() {
+		//todo 按钮变亮，可点击
+		iv_creation_editor_add_image.isClickable = true
+		iv_creation_editor_bold.isClickable = true
+		iv_creation_editor_center.isClickable = true
+		iv_creation_editor_revocation.isClickable = true
+	}
+
+	@JavascriptInterface
 	fun saveFail() {
 		toastError("保存失败")
+	}
+
+	@JavascriptInterface
+	fun judgeJustify(isCenter: Boolean) {
+		//todo 是否居中
+		this.isCenter = isCenter
+	}
+
+	@JavascriptInterface
+	fun judgeBold(isBold: Boolean) {
+		//todo 是否加粗
+		this.isBold = isBold
+	}
+
+	@JavascriptInterface
+	fun submitDisabled(isEnable: Boolean) {
+		tv_toolbar_right.isEnabled = isEnable
 	}
 
 	@JavascriptInterface
@@ -202,7 +259,7 @@ class NoteEditorActivity : BaseActivity(),
 			val menu = mode.menu
 			menu.clear()
 			val menuItemClickListener = MenuItemClickListener()
-			menu.add(0, 0, 0, "保存笔记").setOnMenuItemClickListener(menuItemClickListener)
+			menu.add(0, 0, 0, "加粗").setOnMenuItemClickListener(menuItemClickListener)
 		}
 	}
 

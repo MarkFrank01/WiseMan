@@ -7,26 +7,6 @@
 	android:background="@color/background"
 	android:orientation="vertical">
 	
-	<ImageView
-		android:id="@+id/iv_common_close"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="12dp"
-		android:layout_marginEnd="10dp"
-		android:layout_alignParentEnd="true"
-		android:padding="10dp"
-		android:src="@drawable/login_close"/>
-	
-	<TextView
-		android:textStyle="bold"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="40dp"
-		android:layout_marginStart="20dp"
-		android:text="修改签名"
-		android:textColor="@color/text_color_1"
-		android:textSize="@dimen/text_size_title_1"/>
-	
 	<EditText
 		android:id="@+id/et_dialog_change_signature"
 		android:layout_width="match_parent"
@@ -64,18 +44,5 @@
 		android:textColor="@color/red"
 		android:textSize="@dimen/text_size_text_3"
 		android:visibility="gone"/>
-	
-	<TextView
-		android:id="@+id/tv_change_signature_save"
-		android:textStyle="bold"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="72dp"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:enabled="false"
-		android:text="保存"
-		android:textColor="@color/color_text_enable_blue"
-		android:textSize="@dimen/text_size_title_1"/>
 
 </RelativeLayout>
