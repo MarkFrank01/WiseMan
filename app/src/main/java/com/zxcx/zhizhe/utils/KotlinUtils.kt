@@ -85,10 +85,10 @@ fun View.expandViewTouchDelegate(size: Int) {
 		this.isEnabled = true
 		this.getHitRect(bounds)
 
-		bounds.top -= top
-		bounds.bottom += bottom
-		bounds.left -= left
-		bounds.right += right
+		bounds.top -= size
+		bounds.bottom += size
+		bounds.left -= size
+		bounds.right += size
 
 		val touchDelegate = TouchDelegate(bounds, this)
 

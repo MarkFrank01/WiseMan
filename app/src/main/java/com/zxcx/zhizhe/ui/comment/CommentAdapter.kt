@@ -10,7 +10,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.*
 
 
-class CommentAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
+class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
 
 	var userId = 0
 

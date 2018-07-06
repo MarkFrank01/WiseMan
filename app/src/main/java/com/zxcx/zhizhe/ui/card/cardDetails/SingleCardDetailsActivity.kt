@@ -2,9 +2,11 @@ package com.zxcx.zhizhe.ui.card.cardDetails
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.CheckBox
 import com.bumptech.glide.load.MultiTransformation
+import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
@@ -12,6 +14,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -35,10 +38,12 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 
 	private lateinit var mCardBean: CardBean
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+	private var commentFragment: CommentFragment? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_single_card_details)
+		EventBus.getDefault().register(this)
 		initData()
 	}
 
@@ -47,8 +52,19 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		super.onResume()
 	}
 
+	override fun onBackPressed() {
+		if (commentFragment?.isAdded == true) {
+			val transaction = supportFragmentManager.beginTransaction()
+			transaction.remove(commentFragment).commitAllowingStateLoss()
+			commentFragment = null
+		} else {
+			super.onBackPressed()
+		}
+	}
+
 	override fun onDestroy() {
 		mPresenter.readCard(mCardBean.id)
+		EventBus.getDefault().unregister(this)
 		super.onDestroy()
 	}
 
@@ -98,6 +114,11 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 				.load(imageUrl)
 				.apply(bitmapTransform(multi))
 				.into(iv_card_details_bg)
+
+
+		val fromHtml = HtmlCompat.fromHtml(mActivity, mCardBean.content, 0)
+		tv_item_card_details_content.movementMethod = LinkMovementMethod.getInstance()
+		tv_item_card_details_content.text = fromHtml
 	}
 
 	override fun createPresenter(): CardDetailsPresenter {
@@ -194,6 +215,13 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		}
 		iv_item_card_details_comment.setOnClickListener {
 			//todo 评论
+			commentFragment = CommentFragment()
+			val bundle = Bundle()
+			bundle.putInt("cardId", mCardBean.id)
+			commentFragment?.arguments = bundle
+
+			val transaction = supportFragmentManager.beginTransaction()
+			transaction.add(R.id.cl_card_details, commentFragment).commitAllowingStateLoss()
 		}
 		cb_item_card_details_collect.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了

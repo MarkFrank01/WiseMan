@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.classify.ClassifyBean;
+import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
@@ -154,6 +155,36 @@ public interface APIService {
 	Flowable<BaseArrayBean<ArticleAndSubjectBean>> getArticleListForCategory(
 		@Query("classifyId") int cardCategoryId, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
+	
+	/**
+	 * 获取评论
+	 */
+	@POST("/article/getArticleComment")
+	Flowable<BaseArrayBean<CommentBean>> getComment(
+		@Query("articleId") int articleId, @Query("pageIndex") int page,
+		@Query("pageSize") int pageSize);
+	
+	/**
+	 * 发表评论
+	 */
+	@POST("/article/commentArticle")
+	Flowable<BaseBean<Object>> sendComment(
+		@Query("articleId") int articleId, @Query("parentCommentId") Integer parentCommentId,
+		@Query("commentContent") String content);
+	
+	/**
+	 * 点赞评论
+	 */
+	@POST("/article/likeComment")
+	Flowable<BaseBean<Object>> likeComment(
+		@Query("articleId") int articleId);
+	
+	/**
+	 * 点赞评论
+	 */
+	@POST("/article/unlikeComment")
+	Flowable<BaseBean<Object>> unlikeComment(
+		@Query("articleId") int articleId);
 	
 	/**
 	 * 获取我的榜单信息

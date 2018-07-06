@@ -27,4 +27,25 @@ class CommentBean(
 	override fun getItemType(): Int {
 		return TYPE_LEVEL_0
 	}
+
+	public fun addAll() {
+		childCommentList.forEach {
+			addSubItem(it)
+		}
+	}
+
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (javaClass != other?.javaClass) return false
+
+		other as CommentBean
+
+		if (id != other.id) return false
+
+		return true
+	}
+
+	override fun hashCode(): Int {
+		return id
+	}
 }

@@ -1,223 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/cl_card_details"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 	
-	<ImageView
-		android:id="@+id/iv_card_details_bg"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:scaleType="centerCrop"/>
-	
 	<android.support.constraint.ConstraintLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_margin="10dp"
-		android:layout_centerHorizontal="true"
-		android:background="@drawable/bg_background_12dp"
-		android:elevation="10dp"
-		android:orientation="vertical"
-		android:stateListAnimator="@animator/anim_home_card_press">
+		android:layout_height="match_parent">
+		
+		<ImageView
+			android:id="@+id/iv_card_details_bg"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="centerCrop"/>
 		
 		<android.support.constraint.ConstraintLayout
-			android:id="@+id/cl_item_card_details_content"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="match_parent"
+			android:layout_margin="10dp"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/bg_background_12dp"
+			android:elevation="10dp"
+			android:orientation="vertical"
+			android:stateListAnimator="@animator/anim_home_card_press">
 			
-			<com.makeramen.roundedimageview.RoundedImageView
-				android:id="@+id/iv_item_card_details_icon"
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/cl_item_card_details_content"
 				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:scaleType="centerCrop"
-				android:transitionName="cardImage"
-				app:layout_constraintDimensionRatio="4:3"
-				app:riv_corner_radius="6dp"
-				tools:src="@drawable/iv_item_home_card_icon"/>
+				android:layout_height="wrap_content">
+				
+				<com.makeramen.roundedimageview.RoundedImageView
+					android:id="@+id/iv_item_card_details_icon"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:scaleType="centerCrop"
+					android:transitionName="cardImage"
+					app:layout_constraintDimensionRatio="4:3"
+					app:riv_corner_radius="6dp"
+					tools:src="@drawable/iv_item_home_card_icon"/>
+				
+				<TextView
+					android:id="@+id/tv_item_card_details_title"
+					style="@style/tv_card"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:layout_marginStart="20dp"
+					android:layout_marginEnd="20dp"
+					android:transitionName="cardTitle"
+					app:layout_constraintTop_toBottomOf="@id/iv_item_card_details_icon"
+					tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
+				
+				<TextView
+					android:id="@+id/tv_item_card_details_category"
+					style="@style/tv_card_category"
+					android:layout_marginTop="12dp"
+					android:layout_marginBottom="12dp"
+					android:layout_marginStart="20dp"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
+					tools:text="数码产品"/>
+				
+				<TextView
+					android:id="@+id/tv_item_card_details_label"
+					style="@style/tv_card_label"
+					android:paddingTop="12dp"
+					android:paddingBottom="12dp"
+					android:paddingStart="12dp"
+					android:paddingEnd="12dp"
+					app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_category"
+					app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
+					tools:text="#数码产品"/>
+				
+				<android.support.v7.widget.AppCompatTextView
+					android:id="@+id/tv_item_card_details_content"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="8dp"
+					android:layout_marginBottom="57dp"
+					android:layout_marginStart="20dp"
+					android:layout_marginEnd="20dp"
+					android:lineSpacingExtra="6dp"
+					android:textColor="@color/text_color_2"
+					android:textSize="15sp"
+					app:autoSizeMaxTextSize="15sp"
+					app:autoSizeMinTextSize="5sp"
+					app:autoSizeStepGranularity="1px"
+					app:autoSizeTextType="uniform"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_category"/>
+			</android.support.constraint.ConstraintLayout>
 			
-			<TextView
-				android:id="@+id/tv_item_card_details_title"
-				style="@style/tv_card"
-				android:layout_width="match_parent"
+			<FrameLayout
+				android:id="@+id/fl_item_card_details_author"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="20dp"
-				android:layout_marginStart="20dp"
-				android:layout_marginEnd="20dp"
-				android:transitionName="cardTitle"
-				app:layout_constraintTop_toBottomOf="@id/iv_item_card_details_icon"
-				tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
-			
-			<TextView
-				android:id="@+id/tv_item_card_details_category"
-				style="@style/tv_card_category"
-				android:layout_marginTop="12dp"
-				android:layout_marginBottom="12dp"
-				android:layout_marginStart="20dp"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
-				tools:text="数码产品"/>
-			
-			<TextView
-				android:id="@+id/tv_item_card_details_label"
-				style="@style/tv_card_label"
-				android:paddingTop="12dp"
-				android:paddingBottom="12dp"
-				android:paddingStart="12dp"
-				android:paddingEnd="12dp"
-				app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_category"
-				app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
-				tools:text="#数码产品"/>
-			
-			<android.support.v7.widget.AppCompatTextView
-				android:id="@+id/tv_item_card_details_content"
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginBottom="57dp"
-				android:layout_marginStart="20dp"
-				android:layout_marginEnd="20dp"
-				android:lineSpacingExtra="6dp"
-				android:textColor="@color/text_color_2"
-				android:textSize="15sp"
-				app:autoSizeMaxTextSize="15sp"
-				app:autoSizeMinTextSize="5sp"
-				app:autoSizeStepGranularity="1px"
-				app:autoSizeTextType="uniform"
 				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_category"/>
+				app:layout_constraintStart_toStartOf="parent">
+				
+				<TextView
+					android:id="@+id/tv_item_card_details_author"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:paddingTop="15dp"
+					android:paddingBottom="15dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="66666666666"/>
+				
+				<TextView
+					android:id="@+id/tv_item_card_details_goto_ad"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="20dp"
+					android:paddingTop="15dp"
+					android:paddingBottom="15dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					tools:text="66666666666"/>
+			</FrameLayout>
+			
+			<CheckBox
+				android:id="@+id/cb_item_card_details_follow"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginStart="8dp"
+				android:background="@drawable/selector_card_details_follow"
+				android:button="@null"
+				android:checked="false"
+				app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+				app:layout_constraintStart_toEndOf="@+id/fl_item_card_details_author"
+				app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+			
+			<ImageView
+				android:id="@+id/iv_item_card_details_comment"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:scaleType="center"
+				android:src="@drawable/tv_card_details_share"
+				app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_collect"
+				app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_item_card_details_comment"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/iv_item_card_details_comment"
+				app:layout_constraintStart_toEndOf="@+id/iv_item_card_details_comment"
+				app:layout_constraintTop_toTopOf="@+id/iv_item_card_details_comment"
+				tools:text="100"/>
+			
+			<CheckBox
+				android:id="@+id/cb_item_card_details_collect"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:background="@drawable/selector_cb_card_details_collect"
+				android:button="@null"
+				app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_like"
+				app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_item_card_details_collect"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_checkbox_card_details"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_collect"
+				app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_collect"
+				app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_collect"
+				tools:text="100"/>
+			
+			<CheckBox
+				android:id="@+id/cb_item_card_details_like"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="30dp"
+				android:background="@drawable/selector_cb_card_details_like"
+				android:button="@null"
+				app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+				app:layout_constraintEnd_toStartOf="@+id/iv_item_card_details_share"
+				app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+			
+			<TextView
+				android:id="@+id/tv_item_card_details_like"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_checkbox_card_details"
+				android:textSize="@dimen/text_size_text_4"
+				app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_like"
+				app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_like"
+				app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_like"
+				tools:text="100"/>
+			
+			<ImageView
+				android:id="@+id/iv_item_card_details_share"
+				android:layout_width="18dp"
+				android:layout_height="18dp"
+				android:layout_marginEnd="20dp"
+				android:scaleType="center"
+				android:src="@drawable/tv_card_details_share"
+				app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+		
 		</android.support.constraint.ConstraintLayout>
 		
-		<FrameLayout
-			android:id="@+id/fl_item_card_details_author"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toStartOf="parent">
-			
-			<TextView
-				android:id="@+id/tv_item_card_details_author"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="20dp"
-				android:paddingTop="15dp"
-				android:paddingBottom="15dp"
-				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"
-				tools:text="66666666666"/>
-			
-			<TextView
-				android:id="@+id/tv_item_card_details_goto_ad"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="20dp"
-				android:paddingTop="15dp"
-				android:paddingBottom="15dp"
-				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"
-				tools:text="66666666666"/>
-		</FrameLayout>
-		
-		<CheckBox
-			android:id="@+id/cb_item_card_details_follow"
-			android:layout_width="18dp"
-			android:layout_height="18dp"
-			android:layout_marginStart="8dp"
-			android:background="@drawable/selector_card_details_follow"
-			android:button="@null"
-			android:checked="false"
-			app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
-			app:layout_constraintStart_toEndOf="@+id/fl_item_card_details_author"
-			app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
-		
 		<ImageView
-			android:id="@+id/iv_item_card_details_comment"
-			android:layout_width="18dp"
-			android:layout_height="18dp"
-			android:layout_marginEnd="30dp"
-			android:scaleType="center"
-			android:src="@drawable/tv_card_details_share"
-			app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
-			app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_collect"
-			app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
-		
-		<TextView
-			android:id="@+id/tv_item_card_details_comment"
+			android:id="@+id/iv_card_details_back"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:textColor="@color/text_color_2"
-			android:textSize="@dimen/text_size_text_4"
-			app:layout_constraintBottom_toTopOf="@+id/iv_item_card_details_comment"
-			app:layout_constraintStart_toEndOf="@+id/iv_item_card_details_comment"
-			app:layout_constraintTop_toTopOf="@+id/iv_item_card_details_comment"
-			tools:text="100"/>
-		
-		<CheckBox
-			android:id="@+id/cb_item_card_details_collect"
-			android:layout_width="18dp"
-			android:layout_height="18dp"
-			android:layout_marginEnd="30dp"
-			android:background="@drawable/selector_cb_card_details_collect"
-			android:button="@null"
-			app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
-			app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_like"
-			app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
-		
-		<TextView
-			android:id="@+id/tv_item_card_details_collect"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/color_checkbox_card_details"
-			android:textSize="@dimen/text_size_text_4"
-			app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_collect"
-			app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_collect"
-			app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_collect"
-			tools:text="100"/>
-		
-		<CheckBox
-			android:id="@+id/cb_item_card_details_like"
-			android:layout_width="18dp"
-			android:layout_height="18dp"
-			android:layout_marginEnd="30dp"
-			android:background="@drawable/selector_cb_card_details_like"
-			android:button="@null"
-			app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
-			app:layout_constraintEnd_toStartOf="@+id/iv_item_card_details_share"
-			app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
-		
-		<TextView
-			android:id="@+id/tv_item_card_details_like"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textColor="@color/color_checkbox_card_details"
-			android:textSize="@dimen/text_size_text_4"
-			app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_like"
-			app:layout_constraintStart_toEndOf="@+id/cb_item_card_details_like"
-			app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_like"
-			tools:text="100"/>
-		
-		<ImageView
-			android:id="@+id/iv_item_card_details_share"
-			android:layout_width="18dp"
-			android:layout_height="18dp"
-			android:layout_marginEnd="20dp"
-			android:scaleType="center"
-			android:src="@drawable/tv_card_details_share"
-			app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
+			android:layout_marginTop="15dp"
+			android:layout_marginEnd="15dp"
+			android:padding="10dp"
+			android:src="@drawable/iv_common_close"
+			app:layout_constraintEnd_toEndOf="parent"/>
 	
 	</android.support.constraint.ConstraintLayout>
-	
-	<ImageView
-		android:id="@+id/iv_card_details_back"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="15dp"
-		android:layout_marginEnd="15dp"
-		android:padding="10dp"
-		android:src="@drawable/iv_common_close"
-		app:layout_constraintEnd_toEndOf="parent"/>
-
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>

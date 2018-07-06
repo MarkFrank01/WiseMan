@@ -14,8 +14,8 @@ const val writer_status_review = 2
 const val writer_status_writer = 3
 
 data class MyTabBean(
-		@SerializedName("cardCreationCount") var cardCreationCount: Int,
-		@SerializedName("cardViewCount") var cardViewCount: Int,
+		@SerializedName("creationCount") var cardCreationCount: Int,
+		@SerializedName("viewArticleCount") var cardViewCount: Int,
 		@SerializedName("hasDynamicMessage") var hasDynamicMessage: Boolean,
 		@SerializedName("hasSystemMessage") var hasSystemMessage: Boolean,
 		@SerializedName("accountLevel") var level: String,

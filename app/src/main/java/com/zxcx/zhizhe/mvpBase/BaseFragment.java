@@ -1,11 +1,11 @@
 package com.zxcx.zhizhe.mvpBase;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.kingja.loadsir.core.LoadService;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
@@ -24,7 +23,6 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -33,7 +31,7 @@ import io.reactivex.disposables.Disposable;
  */
 public class BaseFragment extends Fragment implements BaseView {
 	
-	public Activity mActivity;
+	public FragmentActivity mActivity;
 	public LoadService loadService;
 	protected Disposable mDisposable;
 	private LoadingDialog mLoadingDialog;

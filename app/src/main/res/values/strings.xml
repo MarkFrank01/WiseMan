@@ -94,5 +94,6 @@
     <string name="card_title_transition_name">cardTitle%1$d</string>
     <string name="card_category_transition_name">cardCategory%1$d</string>
     <string name="card_label_transition_name">cardLabel%1$d</string>
+    <string name="et_comment_hint">回复&#160;%1$s</string>
 	<!--transitionNameEnd-->
 </resources>

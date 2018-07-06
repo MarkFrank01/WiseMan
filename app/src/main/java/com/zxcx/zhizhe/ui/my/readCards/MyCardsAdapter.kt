@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.my.readCards
 
-import android.widget.FrameLayout
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -39,12 +39,12 @@ class MyCardsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseView
 				R.string.card_label_transition_name)
 
 		val easySwipeMenuLayout = helper.getView<EasySwipeMenuLayout>(R.id.es)
-		helper.getView<TextView>(R.id.iv_delete).setOnClickListener {
+		helper.getView<View>(R.id.iv_delete).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
 			mListener.onDeleteClick(mData.indexOf(item))
 			remove(mData.indexOf(item))
 		}
-		helper.getView<FrameLayout>(R.id.content_view).setOnClickListener {
+		helper.getView<View>(R.id.content_view).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
 			mListener.onContentClick(mData.indexOf(item))
 		}
