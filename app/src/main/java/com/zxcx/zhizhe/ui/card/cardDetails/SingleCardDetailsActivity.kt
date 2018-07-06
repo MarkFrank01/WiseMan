@@ -30,13 +30,11 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import top.zibin.luban.Luban
 import java.io.File
-import java.util.*
 
 class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
 	private lateinit var mCardBean: CardBean
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-	private var startDate: Date = Date()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -50,9 +48,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 	}
 
 	override fun onDestroy() {
-		if (Date().time - startDate.time > 30000 && mUserId != 0) {
-			mPresenter.readCard(mCardBean.id)
-		}
+		mPresenter.readCard(mCardBean.id)
 		super.onDestroy()
 	}
 

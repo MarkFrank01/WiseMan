@@ -43,7 +43,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import top.zibin.luban.Luban
 import java.io.File
-import java.util.*
 
 class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
@@ -55,7 +54,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	private var mIsReturning = false
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	private var mSourceName = ""
-	private var startDate: Date = Date()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -67,9 +65,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	}
 
 	override fun onDestroy() {
-		if (Date().time - startDate.time > 30000 && mUserId != 0) {
-			mPresenter.readCard(mAdapter.data[mCurrentPosition].id)
-		}
 		EventBus.getDefault().unregister(this)
 		super.onDestroy()
 	}
@@ -167,10 +162,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				super.onScrolled(recyclerView, dx, dy)
 				val currentPosition = mLayoutManager.findFirstCompletelyVisibleItemPosition()
 				if (currentPosition != -1 && currentPosition < mAdapter.data.size && currentPosition != mCurrentPosition) {
-					if (Date().time - startDate.time > 30000 && mUserId != 0) {
-						mPresenter.readCard(mAdapter.data[mCurrentPosition].id)
-						startDate = Date()
-					}
+					mPresenter.readCard(mAdapter.data[mCurrentPosition].id)
 					mCurrentPosition = currentPosition
 					val event = UpdateCardListPositionEvent(mCurrentPosition, mSourceName)
 					EventBus.getDefault().post(event)

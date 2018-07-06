@@ -10,7 +10,7 @@ import java.util.*
 class CardBean(
 		@SerializedName("id") var id: Int = 0,
 		@SerializedName("relationshipKeyId") var realId: Int = 0,//仅限阅读使用
-		@SerializedName("type") var cardType: Int = 0, //1卡片，2长文
+		@SerializedName("styleType") var cardType: Int = 0, //1卡片，2长文
 		@SerializedName("collectingCount") var collectNum: Int = 0,
 		@SerializedName("pv") var readNum: Int = 0,
 		@SerializedName("likedUsersCount") var likeNum: Int = 0,

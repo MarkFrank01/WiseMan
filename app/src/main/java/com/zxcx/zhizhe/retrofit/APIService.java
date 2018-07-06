@@ -170,7 +170,7 @@ public interface APIService {
 	/**
 	 * 获取前百榜单用户
 	 */
-	@POST("/getTopHundredRank")
+	@POST("/getThirtyRank")
 	Flowable<BaseArrayBean<UserRankBean>> getTopHundredRank(
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	

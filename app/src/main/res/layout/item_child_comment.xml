@@ -68,7 +68,7 @@
 		android:textColor="@color/color_checkbox_card_details"
 		android:textSize="@dimen/text_size_text_4"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/iv_item_comment_like"
+		app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"
 		tools:text="6"/>
 	
 	<TextView

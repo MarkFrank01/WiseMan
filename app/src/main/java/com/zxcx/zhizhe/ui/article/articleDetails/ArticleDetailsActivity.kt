@@ -31,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_article_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View {
 
@@ -44,7 +43,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private var likeStatus = false
 	private var isUnLike = false
 	private lateinit var cardBean: CardBean
-	private var startDate: Date = Date()
 	private var date = ""
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
@@ -81,9 +79,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun onDestroy() {
-		if (Date().time - startDate.time > 30000 && mUserId != 0) {
-			mPresenter.readArticle(cardBean.id)
-		}
+		mPresenter.readArticle(cardBean.id)
 		if (mWebView != null) {
 			mWebView?.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
 			mWebView?.clearHistory()

@@ -1,14 +1,13 @@
 package com.zxcx.zhizhe.ui.comment
 
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.TextViewUtils
-import com.zxcx.zhizhe.utils.ZhiZheUtils
+import com.zxcx.zhizhe.utils.*
 
 
 class CommentAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
@@ -36,6 +35,8 @@ class CommentAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<Mu
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
+		helper.addOnClickListener(R.id.cb_item_comment_like)
+		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {
 			item.articleAuthor -> {
 				helper.setVisible(R.id.tv_item_comment_flag, true)
@@ -55,6 +56,7 @@ class CommentAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<Mu
 		} else {
 			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_into, tvExpand)
 		}
+		tvExpand.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		tvExpand.setOnClickListener {
 			val pos = helper.adapterPosition
 			if (item.isExpanded) {
@@ -74,6 +76,8 @@ class CommentAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<Mu
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
+		helper.addOnClickListener(R.id.cb_item_comment_like)
+		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {
 			item.articleAuthor -> {
 				helper.setVisible(R.id.tv_item_comment_flag, true)
