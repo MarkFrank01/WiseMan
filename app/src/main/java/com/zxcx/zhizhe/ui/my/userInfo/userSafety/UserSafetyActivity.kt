@@ -91,7 +91,7 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 				val bundle = Bundle()
 				bundle.putString("channel", "微信")
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			} else {
 				//绑定微信
 				channelType = 2
@@ -109,7 +109,7 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 				val bundle = Bundle()
 				bundle.putString("channel", "QQ")
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			} else {
 				//绑定QQ
 				channelType = 1
@@ -127,7 +127,7 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 				val bundle = Bundle()
 				bundle.putString("channel", "微博")
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			} else {
 				//绑定微博
 				channelType = 3

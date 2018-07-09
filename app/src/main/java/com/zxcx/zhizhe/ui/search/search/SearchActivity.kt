@@ -12,18 +12,23 @@ import android.view.inputmethod.EditorInfo
 import android.widget.FrameLayout
 import android.widget.TextView
 import butterknife.ButterKnife
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
 import com.zxcx.zhizhe.ui.search.result.SearchResultActivity
-import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.StringUtils
+import com.zxcx.zhizhe.utils.Utils
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View.OnClickListener {
 
@@ -96,11 +101,19 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 		iv_search_clear_history.setOnClickListener {
 			mPresenter.deleteAllSearchHistory()
 		}
-		et_search.afterTextChanged {
-			iv_search_input_clear.visibility = if (it.isNotEmpty()) View.VISIBLE else View.GONE
-			rv_search_pre.visibility = View.GONE
-			mPresenter.getSearchPre(it)
-		}
+		RxTextView.afterTextChangeEvents(et_search)
+				.debounce(400, TimeUnit.MILLISECONDS)
+				.map {
+					it.editable()?.toString()
+				}
+				.filter {
+					iv_search_input_clear.visibility = if (it.isNotEmpty()) View.VISIBLE else View.GONE
+					rv_search_pre.visibility = View.GONE
+					it.isNotEmpty()
+				}
+				.subscribe {
+					mPresenter.getSearchPre(it)
+				}
 		et_search.setOnEditorActionListener(SearchListener())
 		iv_search_input_clear.setOnClickListener {
 			et_search.setText("")

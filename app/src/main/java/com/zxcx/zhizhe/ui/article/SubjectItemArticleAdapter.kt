@@ -25,7 +25,7 @@ class SubjectItemArticleAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBea
 		helper.setText(R.id.tv_item_subject_article_comment, item.commentNum.toString())
 
 		imageView.transitionName = mContext.getString(R.string.card_img_transition_name)
-		helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
+		helper.getView<TextView>(R.id.tv_item_subject_article_title).transitionName = mContext.getString(
 				R.string.card_title_transition_name)
 	}
 }

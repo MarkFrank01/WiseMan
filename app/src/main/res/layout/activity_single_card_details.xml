@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/cl_card_details"
+	android:id="@+id/fl_card_details"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-	
+	android:layout_height="match_parent"
+	android:background="@color/background">
 	<android.support.constraint.ConstraintLayout
+		android:id="@+id/cl_card_details"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:background="@color/background">
 		
 		<ImageView
 			android:id="@+id/iv_card_details_bg"
@@ -30,7 +32,11 @@
 			<android.support.constraint.ConstraintLayout
 				android:id="@+id/cl_item_card_details_content"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+				android:layout_height="0dp"
+				android:layout_marginBottom="57dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0">
 				
 				<com.makeramen.roundedimageview.RoundedImageView
 					android:id="@+id/iv_item_card_details_icon"
@@ -39,7 +45,8 @@
 					android:scaleType="centerCrop"
 					android:transitionName="cardImage"
 					app:layout_constraintDimensionRatio="4:3"
-					app:riv_corner_radius="6dp"
+					app:riv_corner_radius_top_left="6dp"
+					app:riv_corner_radius_top_right="6dp"
 					tools:src="@drawable/iv_item_home_card_icon"/>
 				
 				<TextView
@@ -78,9 +85,7 @@
 				<android.support.v7.widget.AppCompatTextView
 					android:id="@+id/tv_item_card_details_content"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="8dp"
-					android:layout_marginBottom="57dp"
+					android:layout_height="0dp"
 					android:layout_marginStart="20dp"
 					android:layout_marginEnd="20dp"
 					android:lineSpacingExtra="6dp"
@@ -91,7 +96,7 @@
 					app:autoSizeStepGranularity="1px"
 					app:autoSizeTextType="uniform"
 					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_category"/>
+					app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_label"/>
 			</android.support.constraint.ConstraintLayout>
 			
 			<FrameLayout
@@ -226,4 +231,4 @@
 			app:layout_constraintEnd_toEndOf="parent"/>
 	
 	</android.support.constraint.ConstraintLayout>
-</android.support.design.widget.CoordinatorLayout>
+</FrameLayout>

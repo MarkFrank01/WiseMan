@@ -149,7 +149,7 @@ public class BaseFragment extends Fragment implements BaseView {
 	@Override
 	public void showLoading() {
 		if (mLoadingDialog != null && !mLoadingDialog.isAdded()) {
-			mLoadingDialog.show(mActivity.getFragmentManager(), "");
+			mLoadingDialog.show(mActivity.getSupportFragmentManager(), "");
 		}
 	}
 	

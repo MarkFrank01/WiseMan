@@ -4,7 +4,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
+	android:layout_height="wrap_content"
 	android:paddingBottom="20dp">
 	
 	<com.makeramen.roundedimageview.RoundedImageView
@@ -66,7 +66,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="8dp"
 		android:layout_marginEnd="20dp"
-		android:textColor="@color/color_checkbox_card_details"
+		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_4"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"

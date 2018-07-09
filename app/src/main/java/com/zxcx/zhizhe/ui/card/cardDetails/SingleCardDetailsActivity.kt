@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.CheckBox
 import com.bumptech.glide.load.MultiTransformation
+import com.gyf.barlibrary.ImmersionBar
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -68,7 +69,11 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		super.onDestroy()
 	}
 
-	override fun initStatusBar() {}
+	override fun initStatusBar() {
+		mImmersionBar = ImmersionBar.with(this)
+		mImmersionBar.keyboardEnable(true)
+		mImmersionBar.init()
+	}
 
 	private fun initData() {
 		mCardBean = intent.getParcelableExtra("cardBean")
@@ -210,18 +215,17 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 				val bundle = Bundle()
 				bundle.putInt("userId", mCardBean.authorId)
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			}
 		}
 		iv_item_card_details_comment.setOnClickListener {
-			//todo 评论
 			commentFragment = CommentFragment()
 			val bundle = Bundle()
 			bundle.putInt("cardId", mCardBean.id)
 			commentFragment?.arguments = bundle
 
 			val transaction = supportFragmentManager.beginTransaction()
-			transaction.add(R.id.cl_card_details, commentFragment).commitAllowingStateLoss()
+			transaction.add(R.id.fl_card_details, commentFragment).commitAllowingStateLoss()
 		}
 		cb_item_card_details_collect.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
@@ -287,7 +291,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 						val bundle = Bundle()
 						bundle.putString("imagePath", s)
 						shareCardDialog.arguments = bundle
-						shareCardDialog.show(fragmentManager, "")
+						shareCardDialog.show(supportFragmentManager, "")
 					}
 
 					override fun onError(t: Throwable) {

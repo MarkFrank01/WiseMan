@@ -1,14 +1,10 @@
 package com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList
 
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.makeramen.roundedimageview.RoundedImageView
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.my.message.system.message_collect
-import com.zxcx.zhizhe.ui.my.message.system.message_follow
-import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.utils.ImageLoader
 
 /**
@@ -34,25 +30,16 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 				val imageView = helper.getView<RoundedImageView>(R.id.iv_item_dynamic_message)
 				ImageLoader.load(mContext, bean.relatedUserAvatar, R.drawable.default_header, imageView)
 				helper.setText(R.id.tv_item_dynamic_message_name, bean.relatedUserName)
+				helper.setText(R.id.tv_item_dynamic_message_date, bean.newTime)
+				helper.setText(R.id.tv_item_dynamic_message_content, bean.content)
+				helper.setText(R.id.tv_item_dynamic_message_card, bean.relatedCardName)
+				helper.setVisible(R.id.tv_item_dynamic_message_content, bean.content.isNotEmpty())
+				helper.setVisible(R.id.tv_item_dynamic_message_card, bean.relatedCardName.isNotEmpty())
 
-				if (helper.adapterPosition + 1 >= data.size || getItem(helper.adapterPosition + 1) is DynamicBean) {
-					helper.setGone(R.id.view_line, false)
-				} else {
-					helper.setGone(R.id.view_line, true)
-				}
-
-				val tvContent = helper.getView<TextView>(R.id.tv_item_dynamic_message_content)
-				when (bean.messageType) {
-					message_follow -> {
-						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "关注了你...")
-					}
-					message_like -> {
-						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "点赞了你...")
-					}
-					message_collect -> {
-						tvContent.text = mContext.getString(R.string.dynamic_message_content, bean.newTime, "收藏了你...")
-					}
-				}
+				helper.addOnClickListener(R.id.iv_item_dynamic_message)
+				helper.addOnClickListener(R.id.tv_item_dynamic_message_name)
+				helper.addOnClickListener(R.id.tv_item_dynamic_message_content)
+				helper.addOnClickListener(R.id.tv_item_dynamic_message_card)
 			}
 		}
 	}

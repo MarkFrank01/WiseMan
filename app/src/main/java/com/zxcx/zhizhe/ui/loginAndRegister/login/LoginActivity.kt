@@ -16,6 +16,7 @@ import cn.sharesdk.wechat.utils.WechatClientNotExistException
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.google.gson.JsonParser
+import com.jakewharton.rxbinding2.view.RxView
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
@@ -168,7 +169,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 			val bundle = Bundle()
 			bundle.putString("phone", et_login_phone.text.toString())
 			confirmDialog.arguments = bundle
-			confirmDialog.show(mActivity.fragmentManager, "")
+			confirmDialog.show(mActivity.supportFragmentManager, "")
 		}
 
 		tv_login_resend_code.setOnClickListener {
@@ -180,21 +181,21 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 			Utils.showInputMethod(et_login_phone)
 		}
 
-		iv_login_qq.setOnClickListener {
+		RxView.clicks(iv_login_qq).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
 			channelType = 1
 			val qq = ShareSDK.getPlatform(QQ.NAME)
 			qq.platformActionListener = mChannelLoginListener
 			qq.showUser(null)
 		}
 
-		iv_login_wechat.setOnClickListener {
+		RxView.clicks(iv_login_wechat).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
 			channelType = 2
 			val wechat = ShareSDK.getPlatform(Wechat.NAME)
 			wechat.platformActionListener = mChannelLoginListener
 			wechat.showUser(null)
 		}
 
-		iv_login_weibo.setOnClickListener {
+		RxView.clicks(iv_login_weibo).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
 			channelType = 3
 			val weibo = ShareSDK.getPlatform(SinaWeibo.NAME)
 			weibo.platformActionListener = mChannelLoginListener

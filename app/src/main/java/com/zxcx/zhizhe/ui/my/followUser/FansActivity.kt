@@ -110,7 +110,7 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 			val bundle = Bundle()
 			bundle.putInt("userId", bean.id)
 			mDialog.arguments = bundle
-			mDialog.show(mActivity.fragmentManager, "")
+			mDialog.show(mActivity.supportFragmentManager, "")
 		} else {
 			mPresenter.followUser(bean.id)
 		}

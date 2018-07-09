@@ -136,6 +136,6 @@ public class UserInfoActivity extends BaseActivity {
 	public void onMLlUserInfoLogoutClicked() {
 		//退出登录弹窗
 		LogoutDialog dialog = new LogoutDialog();
-		dialog.show(getFragmentManager(), "");
+		dialog.show(getSupportFragmentManager(), "");
 	}
 }

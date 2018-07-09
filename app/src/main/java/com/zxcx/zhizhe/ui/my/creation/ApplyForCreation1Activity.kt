@@ -89,7 +89,7 @@ class ApplyForCreation1Activity : BaseActivity() {
 			val bundle = Bundle()
 			bundle.putString("phone", et_afc_phone.text.toString())
 			confirmDialog.arguments = bundle
-			confirmDialog.show(mActivity.fragmentManager, "")
+			confirmDialog.show(mActivity.supportFragmentManager, "")
 		}
 
 		tv_afc_resend_code.setOnClickListener {

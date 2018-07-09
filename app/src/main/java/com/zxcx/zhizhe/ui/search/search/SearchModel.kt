@@ -12,7 +12,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
-import java.util.concurrent.TimeUnit
 
 class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.Presenter>() {
 	init {
@@ -44,13 +43,8 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
 	}
 
 	fun getSearchPre(keyword: String) {
-		mDisposable = Flowable.just(keyword)
-				.debounce(400, TimeUnit.MILLISECONDS)
-				.filter { s -> s.isNotEmpty() }
-				.switchMap {
-					AppClient.getAPIService().getSearchPre(keyword)
-							.compose<MutableList<String>>(BaseRxJava.handleArrayResult())
-				}
+		mDisposable = AppClient.getAPIService().getSearchPre(keyword)
+				.compose<MutableList<String>>(BaseRxJava.handleArrayResult())
 				.compose(BaseRxJava.io_main())
 				.subscribeWith(object : BaseSubscriber<MutableList<String>>(mPresenter) {
 					override fun onNext(list: MutableList<String>) {

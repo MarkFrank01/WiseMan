@@ -83,7 +83,7 @@ class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<Sys
 		val startIndex = item.content?.indexOf("第")
 		val endIndex = item.content?.indexOf("名")
 		if (startIndex != null && endIndex != null) {
-			val rank = item.content?.substring(startIndex + 1, endIndex)
+			val rank = item.content?.substring(startIndex, endIndex + 1)
 			val tv = helper.getView<TextView>(R.id.tv_item_system_message_content)
 			TextViewUtils.setTextViewColorBlue(tv, rank, item.content)
 		}

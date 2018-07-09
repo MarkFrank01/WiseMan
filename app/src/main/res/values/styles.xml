@@ -45,8 +45,14 @@
     <style name="Widget.Design.AppBarLayout.NoElevation" parent="Widget.Design.AppBarLayout">
         <item name="elevation">0dp</item>
     </style>
-
-    <style name="tv_card">
+	
+	<style name="animate_dialog">
+		<item name="android:windowEnterAnimation">@anim/slide_bottom_in</item>
+		<item name="android:windowExitAnimation">@anim/slide_bottom_out</item>
+	</style>
+	
+	
+	<style name="tv_card">
         <item name="android:maxLines">1</item>
         <item name="android:maxLength">18</item>
         <item name="android:singleLine">true</item>

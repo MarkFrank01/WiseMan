@@ -171,6 +171,6 @@ class FreedomNoteDetailsActivity : BaseActivity() {
 		bundle.putString("url", url)
 		bundle.putString("date", date)
 		shareDialog.arguments = bundle
-		shareDialog.show(fragmentManager, "")
+		shareDialog.show(supportFragmentManager, "")
 	}
 }

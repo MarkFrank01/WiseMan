@@ -177,14 +177,14 @@ public interface APIService {
 	 */
 	@POST("/article/likeComment")
 	Flowable<BaseBean<Object>> likeComment(
-		@Query("articleId") int articleId);
+		@Query("commentId") int articleId);
 	
 	/**
-	 * 点赞评论
+	 * 取消点赞评论
 	 */
 	@POST("/article/unlikeComment")
 	Flowable<BaseBean<Object>> unlikeComment(
-		@Query("articleId") int articleId);
+		@Query("commentId") int articleId);
 	
 	/**
 	 * 获取我的榜单信息

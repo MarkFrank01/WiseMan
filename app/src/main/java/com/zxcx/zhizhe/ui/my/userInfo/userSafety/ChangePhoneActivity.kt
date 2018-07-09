@@ -134,7 +134,7 @@ class ChangePhoneActivity : MvpActivity<ChannelRegisterPresenter>(), ChannelRegi
 				val bundle = Bundle()
 				bundle.putString("phone", et_change_phone_phone.text.toString())
 				confirmDialog.arguments = bundle
-				confirmDialog.show(mActivity.fragmentManager, "")
+				confirmDialog.show(mActivity.supportFragmentManager, "")
 			}
 		}
 

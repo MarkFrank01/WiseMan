@@ -130,7 +130,7 @@ class NoteEditorActivity : BaseActivity(),
 							// Denied permission with ask never again
 							// Need to go to the settings
 							val permissionDialog = PermissionDialog()
-							permissionDialog.show(fragmentManager, "")
+							permissionDialog.show(supportFragmentManager, "")
 						}
 					}
 				}
@@ -234,7 +234,7 @@ class NoteEditorActivity : BaseActivity(),
 		bundle.putInt("OSSAction", 1)
 		bundle.putString("filePath", path)
 		mOSSDialog.arguments = bundle
-		mOSSDialog.show(fragmentManager, "")
+		mOSSDialog.show(supportFragmentManager, "")
 	}
 
 	override fun uploadSuccess(url: String) {

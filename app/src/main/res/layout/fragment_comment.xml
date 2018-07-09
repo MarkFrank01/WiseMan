@@ -5,86 +5,96 @@
 	android:id="@+id/fl_fragment_comment"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/opacity_40"
-	app:layout_behavior="@string/bottom_sheet_behavior">
-	
-	<android.support.constraint.ConstraintLayout
+	android:background="@color/opacity_40">
+	<android.support.design.widget.CoordinatorLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="107dp"
-		android:background="@drawable/bg_fragment_comment">
+		android:layout_marginTop="107dp">
 		
-		<TextView
-			android:id="@+id/tv_comment_title"
-			android:textStyle="bold"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="15dp"
-			android:layout_marginStart="20dp"
-			android:text="智友评论"
-			android:textColor="@color/text_color_1"
-			android:textSize="@dimen/text_size_text_1"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
-		
-		<ImageView
-			android:id="@+id/iv_comment_close"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="10dp"
-			android:padding="10dp"
-			android:src="@drawable/iv_common_close"
-			app:layout_constraintBottom_toBottomOf="@id/tv_comment_title"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toTopOf="@id/tv_comment_title"/>
-		
-		<android.support.v7.widget.RecyclerView
-			android:id="@+id/rv_comment"
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/cl_fragment_comment"
 			android:layout_width="match_parent"
-			android:layout_height="0dp"
-			android:layout_marginTop="15dp"
-			app:layout_constraintBottom_toTopOf="@id/ll_comment_input"
-			app:layout_constraintTop_toBottomOf="@id/tv_comment_title"/>
-		
-		<LinearLayout
-			android:id="@+id/ll_comment_input"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center_vertical"
-			app:layout_constraintBottom_toBottomOf="parent">
-			
-			<EditText
-				android:id="@+id/et_comment"
-				android:layout_width="0dp"
-				android:layout_height="32dp"
-				android:layout_weight="1"
-				android:layout_marginStart="20dp"
-				android:paddingStart="10dp"
-				android:paddingEnd="10dp"
-				android:background="@drawable/bg_home_search"
-				android:gravity="center_vertical"
-				android:hint="表达是智慧的体现"
-				android:inputType="text"
-				android:maxLines="1"
-				android:singleLine="true"
-				android:textColor="@color/text_color_1"
-				android:textColorHint="@color/text_color_d2"
-				android:textCursorDrawable="@drawable/bg_edit_cursor"
-				android:textSize="@dimen/text_size_text_2"/>
+			android:layout_height="match_parent"
+			android:background="@drawable/bg_fragment_comment"
+			app:behavior_hideable="true"
+			app:behavior_peekHeight="0dp"
+			app:behavior_skipCollapsed="true"
+			app:layout_behavior="@string/bottom_sheet_behavior">
 			
 			<TextView
-				android:id="@+id/tv_comment_send"
+				android:id="@+id/tv_comment_title"
 				android:textStyle="bold"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="10dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginStart="20dp"
+				android:text="智友评论"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+			
+			<ImageView
+				android:id="@+id/iv_comment_close"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="10dp"
 				android:padding="10dp"
-				android:enabled="false"
-				android:text="确定"
-				android:textColor="@color/color_text_enable_blue"/>
+				android:src="@drawable/iv_common_close"
+				app:layout_constraintBottom_toBottomOf="@id/tv_comment_title"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@id/tv_comment_title"/>
+			
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/rv_comment"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginBottom="56dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_comment_title"/>
+			
+			<LinearLayout
+				android:id="@+id/ll_comment_input"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center_vertical"
+				app:layout_constraintBottom_toBottomOf="parent">
+				
+				<EditText
+					android:id="@+id/et_comment"
+					android:layout_width="0dp"
+					android:layout_height="32dp"
+					android:layout_weight="1"
+					android:layout_marginStart="20dp"
+					android:paddingStart="10dp"
+					android:paddingEnd="10dp"
+					android:background="@drawable/bg_home_search"
+					android:gravity="center_vertical"
+					android:hint="表达是智慧的体现"
+					android:inputType="text"
+					android:maxLines="1"
+					android:singleLine="true"
+					android:textColor="@color/text_color_1"
+					android:textColorHint="@color/text_color_d2"
+					android:textCursorDrawable="@drawable/bg_edit_cursor"
+					android:textSize="@dimen/text_size_text_2"/>
+				
+				<TextView
+					android:id="@+id/tv_comment_send"
+					android:textStyle="bold"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="10dp"
+					android:padding="10dp"
+					android:enabled="false"
+					android:text="确定"
+					android:textColor="@color/color_text_enable_blue"
+					android:textSize="@dimen/text_size_text_2"/>
+			
+			</LinearLayout>
 		
-		</LinearLayout>
+		</android.support.constraint.ConstraintLayout>
 	
-	</android.support.constraint.ConstraintLayout>
-
+	</android.support.design.widget.CoordinatorLayout>
 </FrameLayout>

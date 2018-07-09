@@ -183,7 +183,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		rv_hot_card.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 			override fun onPreDraw(): Boolean {
 				rv_hot_card.viewTreeObserver.removeOnPreDrawListener(this)
-				rv_hot_card.requestLayout()
 				startPostponedEnterTransition()
 				return true
 			}

@@ -40,10 +40,9 @@ class NoteTitleDialog : CommonDialog(), INullPostPresenter {
 		initData()
 		et_dialog_note_title.setText(title)
 		et_dialog_note_title.setSelection(et_dialog_note_title.length())
-		setListener()
 	}
 
-	fun setListener() {
+	override fun setListener() {
 		tv_dialog_cancel.setOnClickListener {
 			this.dismiss()
 		}
@@ -58,10 +57,12 @@ class NoteTitleDialog : CommonDialog(), INullPostPresenter {
 
 	private fun initData() {
 		val bundle = arguments
-		withCardId = bundle.getInt("withCardId", 0)
-		title = bundle.getString("title")
-		imageUrl = bundle.getString("imageUrl")
-		content = bundle.getString("content")
+		if (bundle != null) {
+			withCardId = bundle.getInt("withCardId", 0)
+			title = bundle.getString("title")
+			imageUrl = bundle.getString("imageUrl")
+			content = bundle.getString("content")
+		}
 	}
 
 	private fun saveCardNode(title: String, imageUrl: String?, withCardId: Int, content: String?) {

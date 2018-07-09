@@ -88,7 +88,7 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 
 	override fun onBackPressed() {
 		val stopRegisteredDialog = StopRegisteredDialog()
-		stopRegisteredDialog.show(mActivity.fragmentManager, "")
+		stopRegisteredDialog.show(mActivity.supportFragmentManager, "")
 	}
 
 	public override fun onDestroy() {
@@ -143,7 +143,11 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 			val bundle = Bundle()
 			bundle.putString("phone", et_forget_phone.text.toString())
 			confirmDialog.arguments = bundle
-			confirmDialog.show(mActivity.fragmentManager, "")
+			confirmDialog.show(mActivity.supportFragmentManager, "")
+		}
+
+		tv_forget_resend_code.setOnClickListener {
+			SMSSDK.getVerificationCode("86", et_forget_phone.text.toString())
 		}
 
 		et_forget_phone.afterTextChanged {

@@ -9,10 +9,12 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ClearMessageEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
+import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -30,7 +32,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), DynamicMessageListContract.View,
-		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
 
 	private var mMessageType = 0
 	private var mPage = 0
@@ -110,14 +112,37 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		mPresenter.getDynamicMessageList(mMessageType, mPage, mPageSize)
 	}
 
-	override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
 		if (mAdapter.data[position].itemType == dynamic_content) {
 			val bean = mAdapter.data[position] as DynamicMessageListBean
-			if (bean.messageType != message_follow) {
-				val cardBean = CardBean()
-				cardBean.id = bean.relatedCardId ?: 0
-				startActivity(ArticleDetailsActivity::class.java) {
-					it.putExtra("cardBean", cardBean)
+			when (view?.id) {
+				R.id.iv_item_dynamic_message -> {
+					startActivity(OtherUserActivity::class.java) {
+						it.putExtra("id", bean.relatedUserId)
+						it.putExtra("name", bean.relatedUserName)
+					}
+				}
+				R.id.tv_item_dynamic_message_name -> {
+					startActivity(OtherUserActivity::class.java) {
+						it.putExtra("id", bean.relatedUserId)
+						it.putExtra("name", bean.relatedUserName)
+					}
+				}
+				R.id.tv_item_dynamic_message_content -> {
+					//todo 评论区
+				}
+				R.id.tv_item_dynamic_message_card -> {
+					val cardBean = CardBean()
+					cardBean.id = bean.relatedCardId
+					if (bean.relatedCardType == 1) {
+						mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+							it.putExtra("cardBean", cardBean)
+						}
+					} else {
+						mActivity.startActivity(ArticleDetailsActivity::class.java) {
+							it.putExtra("cardBean", cardBean)
+						}
+					}
 				}
 			}
 		}
@@ -128,7 +153,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 
 	private fun initRecyclerView() {
 		mAdapter = DynamicMessageAdapter(ArrayList())
-		mAdapter.onItemClickListener = this
+		mAdapter.onItemChildClickListener = this
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_follow_message)
 		rv_follow_message.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)

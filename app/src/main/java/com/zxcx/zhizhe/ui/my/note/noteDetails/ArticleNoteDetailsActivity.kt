@@ -181,6 +181,6 @@ class ArticleNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDeta
 		bundle.putString("imageUrl", imageUrl)
 		bundle.putString("date", date)
 		shareDialog.arguments = bundle
-		shareDialog.show(fragmentManager, "")
+		shareDialog.show(supportFragmentManager, "")
 	}
 }

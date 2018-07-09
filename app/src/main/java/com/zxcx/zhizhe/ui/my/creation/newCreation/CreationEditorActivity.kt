@@ -101,7 +101,7 @@ class CreationEditorActivity : BaseActivity(),
 							getPicBottomDialog.arguments = bundle
 							getPicBottomDialog.setListener(this)
 							getPicBottomDialog.setNoCrop(true)
-							getPicBottomDialog.show(fragmentManager, "UserInfo")
+							getPicBottomDialog.show(supportFragmentManager, "UserInfo")
 						}
 						permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
 							toastShow("权限已被拒绝！无法进行操作")
@@ -109,7 +109,7 @@ class CreationEditorActivity : BaseActivity(),
 							// Denied permission with ask never again
 							// Need to go to the settings
 							val permissionDialog = PermissionDialog()
-							permissionDialog.show(fragmentManager, "")
+							permissionDialog.show(supportFragmentManager, "")
 						}
 					}
 				}
@@ -137,7 +137,7 @@ class CreationEditorActivity : BaseActivity(),
 							// Denied permission with ask never again
 							// Need to go to the settings
 							val permissionDialog = PermissionDialog()
-							permissionDialog.show(fragmentManager, "")
+							permissionDialog.show(supportFragmentManager, "")
 						}
 					}
 				}
@@ -218,7 +218,7 @@ class CreationEditorActivity : BaseActivity(),
 		bundle.putInt("OSSAction", 1)
 		bundle.putString("filePath", path)
 		mOSSDialog.arguments = bundle
-		mOSSDialog.show(fragmentManager, "")
+		mOSSDialog.show(supportFragmentManager, "")
 	}
 
 	override fun uploadSuccess(url: String) {

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
@@ -40,12 +41,11 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		cardId = arguments?.getInt("cardId") ?: 0
 		initRecyclerView()
 		initBottomSheet()
+		mPresenter.getComment(cardId, mPage)
 	}
 
 	private fun initBottomSheet() {
-		behavior = BottomSheetBehavior.from(fl_fragment_comment)
-		behavior.state = BottomSheetBehavior.STATE_EXPANDED
-		behavior.skipCollapsed = true
+		behavior = BottomSheetBehavior.from(cl_fragment_comment)
 		behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
 			override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
@@ -54,10 +54,12 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 			override fun onStateChanged(bottomSheet: View, newState: Int) {
 				if (newState == BottomSheetBehavior.STATE_HIDDEN) {
 					mActivity.onBackPressed()
+				} else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+					behavior.state = BottomSheetBehavior.STATE_EXPANDED
 				}
 			}
-
 		})
+		behavior.state = BottomSheetBehavior.STATE_EXPANDED
 	}
 
 	override fun getDataSuccess(list: MutableList<CommentBean>) {
@@ -80,6 +82,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	override fun postSuccess() {
 		mPage = 0
 		mPresenter.getComment(cardId, mPage)
+		et_comment.setText("")
 	}
 
 	override fun postFail(msg: String?) {
@@ -122,8 +125,12 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		if (view.id == R.id.cb_item_comment_like) {
 			val checkBox = view as CheckBox
 			if (checkBox.isChecked) {
+				val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+				tvLikeNm.text = (tvLikeNm.text.toString().toInt() + 1).toString()
 				mPresenter.likeComment(commentId)
 			} else {
+				val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+				tvLikeNm.text = (tvLikeNm.text.toString().toInt() - 1).toString()
 				mPresenter.unlikeComment(commentId)
 			}
 		}
@@ -139,6 +146,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		}
 		tv_comment_send.setOnClickListener {
 			mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
+			Utils.closeInputMethod(et_comment)
 		}
 		fl_fragment_comment.setOnClickListener {
 			parentCommentId = null
@@ -152,6 +160,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_comment)
 		mAdapter.onItemClickListener = this
+		mAdapter.onItemChildClickListener = this
 		rv_comment.layoutManager = layoutManager
 		rv_comment.adapter = mAdapter
 	}

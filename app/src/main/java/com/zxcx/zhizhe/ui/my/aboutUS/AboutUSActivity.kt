@@ -42,7 +42,7 @@ class AboutUSActivity : BaseActivity() {
 			bundle.putString("url", "http://a.app.qq.com/o/simple.jsp?pkgname=com.zxcx.zhizhe")
 			bundle.putString("imageUrl", "http://zhizhe-prod.oss-cn-shenzhen.aliyuncs.com/Icon_1024.png")
 			shareCardDialog.arguments = bundle
-			shareCardDialog.show(fragmentManager, "")
+			shareCardDialog.show(supportFragmentManager, "")
 		}
 
 		tv_about_us_feedback.setOnClickListener {

@@ -12,6 +12,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import butterknife.ButterKnife
+import com.gyf.barlibrary.ImmersionBar
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
@@ -21,7 +22,9 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.card.label.LabelActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -46,6 +49,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private var date = ""
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
+	private var commentFragment: CommentFragment? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -60,16 +64,24 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun initStatusBar() {
-
+		mImmersionBar = ImmersionBar.with(this)
+		mImmersionBar.keyboardEnable(true)
+		mImmersionBar.init()
 	}
 
 	override fun onBackPressed() {
-		super.onBackPressed()
-		if (isUnCollect) {
-			EventBus.getDefault().post(UnCollectEvent(cardBean.id))
-		}
-		if (isUnLike) {
-			EventBus.getDefault().post(UnLikeEvent(cardBean.id))
+		if (commentFragment?.isAdded == true) {
+			val transaction = supportFragmentManager.beginTransaction()
+			transaction.remove(commentFragment).commitAllowingStateLoss()
+			commentFragment = null
+		} else {
+			super.onBackPressed()
+			if (isUnCollect) {
+				EventBus.getDefault().post(UnCollectEvent(cardBean.id))
+			}
+			if (isUnLike) {
+				EventBus.getDefault().post(UnLikeEvent(cardBean.id))
+			}
 		}
 	}
 
@@ -221,7 +233,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			onBackPressed()
 		}
 		tv_article_details_label.setOnClickListener {
-			//todo 标签页
+			startActivity(LabelActivity::class.java) {
+				it.putExtra("id", cardBean.labelId)
+				it.putExtra("name", cardBean.labelName)
+			}
 		}
 		tv_article_details_author.setOnClickListener {
 			startActivity(OtherUserActivity::class.java) {
@@ -247,11 +262,17 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				val bundle = Bundle()
 				bundle.putInt("userId", cardBean.authorId)
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			}
 		}
 		iv_article_details_comment.setOnClickListener {
-			//todo 评论区
+			commentFragment = CommentFragment()
+			val bundle = Bundle()
+			bundle.putInt("cardId", cardBean.id)
+			commentFragment?.arguments = bundle
+
+			val transaction = supportFragmentManager.beginTransaction()
+			transaction.add(R.id.fl_card_details, commentFragment).commitAllowingStateLoss()
 		}
 		cb_article_details_collect.setOnClickListener {
 			//checkBox点击之后选中状态就已经更改了
@@ -385,7 +406,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
 		bundle.putString("imageUrl", cardBean.imageUrl)
 		shareCardDialog.arguments = bundle
-		shareCardDialog.show(fragmentManager, "")
+		shareCardDialog.show(supportFragmentManager, "")
 	}
 
 	private fun gotoImageShare(url: String?, content: String?) {
@@ -402,7 +423,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		bundle.putString("categoryName", cardBean.categoryName)
 		bundle.putString("labelName", cardBean.labelName)
 		shareDialog.arguments = bundle
-		val fragmentManager = fragmentManager
+		val fragmentManager = supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 			transaction.addSharedElement(iv_article_details, "cardImage")
@@ -428,7 +449,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 						bundle.putString("imageUrl", cardBean.imageUrl)
 						bundle.putString("content", content)
 						noteTitleDialog.arguments = bundle
-						noteTitleDialog.show(fragmentManager, "")
+						noteTitleDialog.show(supportFragmentManager, "")
 					}
 					MENU_ITEM_SHARE -> gotoImageShare(mUrl, content)
 				}

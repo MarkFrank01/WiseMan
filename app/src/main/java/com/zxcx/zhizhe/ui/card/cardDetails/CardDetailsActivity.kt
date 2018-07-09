@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.MultiTransformation
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -24,6 +25,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -54,6 +56,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	private var mIsReturning = false
 	private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	private var mSourceName = ""
+	private var commentFragment: CommentFragment? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -62,6 +65,16 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		initShareElement()
 		initRecyclerView()
 		initData()
+	}
+
+	override fun onBackPressed() {
+		if (commentFragment?.isAdded == true) {
+			val transaction = supportFragmentManager.beginTransaction()
+			transaction.remove(commentFragment).commitAllowingStateLoss()
+			commentFragment = null
+		} else {
+			super.onBackPressed()
+		}
 	}
 
 	override fun onDestroy() {
@@ -74,7 +87,11 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		super.onResume()
 	}
 
-	override fun initStatusBar() {}
+	override fun initStatusBar() {
+		mImmersionBar = ImmersionBar.with(this)
+		mImmersionBar.keyboardEnable(true)
+		mImmersionBar.init()
+	}
 
 	private fun initData() {
 		mList = intent.getParcelableArrayListExtra<CardBean>("list")
@@ -243,11 +260,17 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 					val bundle = Bundle()
 					bundle.putInt("userId", bean.authorId)
 					dialog.arguments = bundle
-					dialog.show(fragmentManager, "")
+					dialog.show(supportFragmentManager, "")
 				}
 			}
 			R.id.iv_item_card_details_comment -> {
-				//todo 评论
+				commentFragment = CommentFragment()
+				val bundle = Bundle()
+				bundle.putInt("cardId", bean.id)
+				commentFragment?.arguments = bundle
+
+				val transaction = supportFragmentManager.beginTransaction()
+				transaction.add(R.id.fl_card_details, commentFragment).commitAllowingStateLoss()
 			}
 			R.id.cb_item_card_details_collect -> {
 				//checkBox点击之后选中状态就已经更改了
@@ -321,7 +344,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 						val bundle = Bundle()
 						bundle.putString("imagePath", s)
 						shareCardDialog.arguments = bundle
-						shareCardDialog.show(fragmentManager, "")
+						shareCardDialog.show(supportFragmentManager, "")
 					}
 
 					override fun onError(t: Throwable) {

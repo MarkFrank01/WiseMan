@@ -160,7 +160,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 				val bundle = Bundle()
 				bundle.putInt("userId", id)
 				dialog.arguments = bundle
-				dialog.show(fragmentManager, "")
+				dialog.show(supportFragmentManager, "")
 			}
 		}
 	}

@@ -35,7 +35,7 @@ class CommentModel(presenter: CommentContract.Presenter) : BaseModel<CommentCont
 	fun sendComment(articleId: Int, parentCommentId: Int?, content: String) {
 		mDisposable = AppClient.getAPIService().sendComment(articleId, parentCommentId, content)
 				.compose(BaseRxJava.handlePostResult())
-				.compose(BaseRxJava.io_main())
+				.compose(BaseRxJava.io_main_loading(mPresenter))
 				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
 					override fun onNext(bean: BaseBean<*>) {
 						mPresenter?.postSuccess()

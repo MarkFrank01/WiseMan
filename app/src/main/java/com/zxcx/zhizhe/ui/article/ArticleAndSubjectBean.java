@@ -16,7 +16,7 @@ public class ArticleAndSubjectBean extends RetrofitBaen implements MultiItemEnti
 	
 	@SerializedName("articleContent")
 	private CardBean mCardBean;
-	@SerializedName("collectionContent")
+	@SerializedName("topicVO")
 	private SubjectBean mSubjectBean;
 	
 	public CardBean getCardBean() {

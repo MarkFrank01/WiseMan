@@ -3,11 +3,11 @@ package com.zxcx.zhizhe.utils;
 import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
 import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.FragmentActivity;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
@@ -107,7 +107,7 @@ public class ZhiZheUtils {
 	/**
 	 * 判断是否有写手权限
 	 */
-	public static boolean isWriter(Activity activity) {
+	public static boolean isWriter(FragmentActivity activity) {
 		int writerStatus = SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0);
 		switch (writerStatus) {
 			case writer_status_writer:
@@ -119,7 +119,7 @@ public class ZhiZheUtils {
 				break;
 			default:
 				CreationAgreementDialog dialog = new CreationAgreementDialog();
-				dialog.show(activity.getFragmentManager(), "");
+				dialog.show(activity.getSupportFragmentManager(), "");
 				break;
 			
 		}

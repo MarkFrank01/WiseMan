@@ -112,7 +112,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 			val bundle = Bundle()
 			bundle.putInt("userId", bean.id ?: 0)
 			mDialog.arguments = bundle
-			mDialog.show(mActivity.fragmentManager, "")
+			mDialog.show(mActivity.supportFragmentManager, "")
 		} else {
 			mPresenter.followUser(bean.id ?: 0)
 		}

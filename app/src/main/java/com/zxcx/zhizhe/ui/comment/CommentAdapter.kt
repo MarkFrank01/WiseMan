@@ -50,6 +50,7 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 				helper.setVisible(R.id.tv_item_comment_flag, false)
 			}
 		}
+		helper.setVisible(R.id.tv_item_comment_expand, item.childCommentList.isNotEmpty())
 		val tvExpand = helper.getView<TextView>(R.id.tv_item_comment_expand)
 		if (item.isExpanded) {
 			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_into, tvExpand)

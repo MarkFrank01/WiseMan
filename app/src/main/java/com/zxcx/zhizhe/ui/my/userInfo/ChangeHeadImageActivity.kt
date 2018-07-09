@@ -69,7 +69,7 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 								getPicBottomDialog.arguments = bundle
 								getPicBottomDialog.setListener(this@ChangeHeadImageActivity)
 								getPicBottomDialog.setNoCrop(true)
-								getPicBottomDialog.show(fragmentManager, "UserInfo")
+								getPicBottomDialog.show(supportFragmentManager, "UserInfo")
 							}
 							permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
 								toastShow("权限已被拒绝！无法进行操作")
@@ -77,7 +77,7 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 								// Denied permission with ask never again
 								// Need to go to the settings
 								val permissionDialog = PermissionDialog()
-								permissionDialog.show(fragmentManager, "")
+								permissionDialog.show(supportFragmentManager, "")
 							}
 						}
 					}
@@ -113,7 +113,7 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		bundle.putInt("OSSAction", 1)
 		bundle.putString("filePath", path)
 		mOSSDialog.arguments = bundle
-		mOSSDialog.show(fragmentManager, "")
+		mOSSDialog.show(supportFragmentManager, "")
 	}
 
 	override fun uploadSuccess(url: String) {
@@ -151,7 +151,7 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		bundle.putInt("OSSAction", 2)
 		bundle.putString("url", oldImageUrl)
 		mOSSDialog.arguments = bundle
-		mOSSDialog.show(fragmentManager, "")
+		mOSSDialog.show(supportFragmentManager, "")
 	}
 
 	override fun deleteSuccess() {

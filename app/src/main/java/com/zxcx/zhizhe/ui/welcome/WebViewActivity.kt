@@ -81,6 +81,6 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		bundle.putString("url", url)
 		bundle.putString("imageUrl", imageUrl)
 		shareDialog.arguments = bundle
-		shareDialog.show(fragmentManager, "")
+		shareDialog.show(supportFragmentManager, "")
 	}
 }
