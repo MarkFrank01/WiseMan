@@ -16,7 +16,7 @@
 		android:paddingTop="22dp"
 		android:paddingBottom="22dp"
 		android:background="@null"
-		android:text="笔记标题"
+		android:text="编辑自定义标签"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_text_1"/>
 	
@@ -33,8 +33,8 @@
 		android:paddingLeft="10dp"
 		android:paddingRight="10dp"
 		android:background="@drawable/bg_dialog_note_title_edit_text"
-		android:hint="请输入笔记标题"
-		android:maxLength="20"
+		android:hint="请输入2-8个字符"
+		android:maxLength="8"
 		android:maxLines="1"
 		android:singleLine="true"
 		android:textColor="@color/text_color_1"
@@ -70,7 +70,7 @@
 			android:paddingEnd="16dp"
 			android:gravity="center_vertical|end"
 			android:text="@string/common_confirm"
-			android:textColor="@color/color_text_enable_blue"
+			android:textColor="@color/button_blue"
 			android:textSize="17sp"/>
 	
 	</LinearLayout>

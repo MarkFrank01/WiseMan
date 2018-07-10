@@ -1,10 +1,9 @@
-package com.zxcx.zhizhe.ui.classify;
+package com.zxcx.zhizhe.ui.my.selectAttention;
 
 import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**

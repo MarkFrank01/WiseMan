@@ -42,7 +42,7 @@ class LabelAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: Su
 
 		helper.setText(R.id.tv_item_card_title, item.name)
 		helper.setText(R.id.tv_item_card_category, item.categoryName)
-		helper.setText(R.id.tv_item_card_label, item.labelName)
+		helper.setText(R.id.tv_item_card_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
 		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 	}
@@ -51,7 +51,7 @@ class LabelAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: Su
 		val subjectBean = bean.subjectBean
 		helper.setText(R.id.tv_item_subject_name, subjectBean.name)
 		helper.setText(R.id.tv_item_subject_category, subjectBean.categoryName)
-		helper.setText(R.id.tv_item_subject_label, subjectBean.labelName)
+		helper.setText(R.id.tv_item_subject_label, subjectBean.getLabelName())
 		helper.itemView.setOnClickListener {
 			mListener.subjectOnClick(subjectBean)
 		}

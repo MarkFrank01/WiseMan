@@ -12,6 +12,7 @@
     <color name="opacity_40">#66000000</color>
     <color name="opacity_45">#72000000</color>
     <color name="opacity_70">#B2000000</color>
+    <color name="opacity_95">#F2000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#F61616</color>
     <color name="bg_details">#FFFFFF</color>

@@ -6,8 +6,6 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
-import com.zxcx.zhizhe.ui.classify.ClassifyCardBean
 import com.zxcx.zhizhe.utils.ScreenUtils
 
 
@@ -36,7 +34,7 @@ class SelectAttentionAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAd
 				helper.addOnClickListener(R.id.fl_item_select_card_bag)
 				val para = helper.itemView.layoutParams
 				val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
-				para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 3
+				para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 4
 				helper.itemView.layoutParams = para
 
 				val cardBean = item as ClassifyCardBean

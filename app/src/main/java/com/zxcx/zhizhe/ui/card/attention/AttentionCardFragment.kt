@@ -23,8 +23,8 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil

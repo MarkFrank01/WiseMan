@@ -40,26 +40,18 @@ public class ZhiZheUtils {
 		SharedPreferencesUtil.saveData(SVTSConstants.sex, bean.getGender());
 		SharedPreferencesUtil.saveData(SVTSConstants.birthday, bean.getBirth());
 		SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, bean.getAvatar());
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, bean.isBandingWeixin());
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, bean.isBandingQQ());
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, bean.isBandingWeibo());
+		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, bean.getBandingWeixin());
+		SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, bean.getBandingQQ());
+		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, bean.getBandingWeibo());
 		EventBus.getDefault().post(new UserInfoChangeSuccessEvent());
 	}
 	
 	public static void logout() {
-		SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
-		SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
+		SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, 0);
+		SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.token, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.userId, 0);
-		SharedPreferencesUtil.saveData(SVTSConstants.nickName, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.phone, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.signature, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.birthday, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.sex, 0);
-		SharedPreferencesUtil.saveData(SVTSConstants.imgUrl, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWX, false);
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingQQ, false);
-		SharedPreferencesUtil.saveData(SVTSConstants.isBindingWB, false);
+		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, "");
+		saveUserInfo(new UserInfoBean());
 		EventBus.getDefault().post(new LogoutEvent());
 	}
 	

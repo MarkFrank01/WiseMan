@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
 import com.zxcx.zhizhe.ui.my.writer_status_user
-import com.zxcx.zhizhe.ui.rank.RankFragment
+import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -104,7 +104,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 				}
 			}
 			message_rank -> {
-				mActivity.startActivity(RankFragment::class.java) {}
+				mActivity.startActivity(AllRankActivity::class.java) {}
 				mActivity.finish()
 				return
 			}

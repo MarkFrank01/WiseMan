@@ -22,7 +22,7 @@ class CardBean(
 		@SerializedName("authorId") var authorId: Int = 0,
 		@SerializedName("classifyId") var cardBagId: Int = 0,
 		@SerializedName("classifyTitle") var categoryName: String? = null,
-		@SerializedName("collectionTitle") var labelName: String? = null,
+		@SerializedName("collectionTitle") @JvmField var labelName: String = "",
 		@SerializedName("collectionId") var labelId: Int = 0,
 		@SerializedName("topicName") var subjectName: String? = null,
 		@SerializedName("content") var content: String = "",
@@ -34,6 +34,15 @@ class CardBean(
 		@SerializedName("adUrl") var adUrl: String = "",
 		@SerializedName("adVO") var ad: ADBean? = null
 ) : RetrofitBaen(), Parcelable {
+
+	fun getLabelName(): String {
+		return "#$labelName"
+	}
+
+	fun setLabelName(string: String) {
+		labelName = string
+	}
+
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false

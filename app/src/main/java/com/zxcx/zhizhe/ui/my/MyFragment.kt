@@ -180,8 +180,9 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	private fun setViewLogout() {
 		iv_message_red_point.visibility = View.GONE
 		tv_my_nick_name.text = "注册/登录"
-		tv_my_signature.text = "登录后收藏喜欢的知识"
-//		tv_my_info.setTextColor(ContextCompat.getColor(mActivity, R.color.text_color_3))
+		tv_my_nick_name.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+		tv_my_lv.visibility = View.GONE
+		tv_my_signature.text = ""
 		iv_my_head.setImageResource(R.drawable.iv_my_head_placeholder)
 		tv_my_top_read_num.text = "0"
 		tv_my_top_creation_num.text = "0"
@@ -191,6 +192,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	private fun setViewLogin() {
 		tv_my_lv.visibility = View.VISIBLE
 		tv_my_nick_name.text = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
+		tv_my_nick_name.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
 		tv_my_signature.text = SharedPreferencesUtil.getString(SVTSConstants.signature, "")
 		val headImg = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
 		ImageLoader.load(mActivity, headImg, R.drawable.default_header, iv_my_head)

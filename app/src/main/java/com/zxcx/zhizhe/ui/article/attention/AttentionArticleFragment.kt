@@ -27,8 +27,8 @@ import com.zxcx.zhizhe.ui.article.SubjectOnClickListener
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_attention.*
@@ -204,7 +204,7 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 	}
 
 	private fun getAttentionCard() {
-		mPresenter.getAttentionCard(page, Constants.PAGE_SIZE)
+		mPresenter.getAttentionCard(page)
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

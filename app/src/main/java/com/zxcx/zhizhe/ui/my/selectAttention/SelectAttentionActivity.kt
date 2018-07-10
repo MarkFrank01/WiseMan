@@ -9,9 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SelectAttentionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
-import com.zxcx.zhizhe.ui.classify.ClassifyCardBean
-import com.zxcx.zhizhe.ui.classify.ClassifyItemDecoration
 import kotlinx.android.synthetic.main.activity_select_attention.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus

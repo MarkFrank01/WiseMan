@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:paddingTop="10dp"
+	android:paddingBottom="20dp"
+	android:paddingStart="10dp"
+	android:paddingEnd="10dp"
+	android:background="@drawable/window_creation"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_creation_preview"
+		android:layout_width="180dp"
+		android:layout_height="50dp"
+		android:paddingStart="22dp"
+		android:drawablePadding="16dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|start"
+		android:text="预览"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"/>
+	
+	<TextView
+		android:id="@+id/tv_creation_save"
+		android:layout_width="180dp"
+		android:layout_height="50dp"
+		android:paddingStart="22dp"
+		android:drawablePadding="16dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|start"
+		android:text="存为草稿"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"/>
+	
+	<TextView
+		android:id="@+id/tv_creation_type"
+		android:layout_width="180dp"
+		android:layout_height="50dp"
+		android:paddingStart="22dp"
+		android:drawablePadding="16dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|start"
+		android:text="切换长文"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"/>
+	
+	<TextView
+		android:id="@+id/tv_creation_delete"
+		android:layout_width="180dp"
+		android:layout_height="50dp"
+		android:paddingStart="22dp"
+		android:drawablePadding="16dp"
+		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:gravity="center_vertical|start"
+		android:text="删除"
+		android:textColor="@color/text_color_1"
+		android:textSize="@dimen/text_size_text_1"/>
+
+</LinearLayout>

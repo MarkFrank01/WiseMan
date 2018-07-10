@@ -5,7 +5,6 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
-import com.zxcx.zhizhe.ui.classify.ClassifyBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
@@ -17,6 +16,7 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
@@ -587,10 +587,11 @@ public interface APIService {
 	 * 提交卡片笔记
 	 */
 	@FormUrlEncoded
-	@POST("/note/submitCardNode")
+	@POST("/article/uploadArticle")
 	Flowable<BaseBean<Object>> saveCardNode(
-		@Query("articleId") Integer cardId, @Query("title") String title,
+		@Query("title") String title,
 		@Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
+		@Query("styleType") Integer styleType, @Query("submitType") Integer submitType,
 		@Field("content") String content);
 	
 	/**

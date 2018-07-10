@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.event;
 
-import com.zxcx.zhizhe.ui.classify.ClassifyCardBean;
-
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean;
 import java.util.List;
 
 /**

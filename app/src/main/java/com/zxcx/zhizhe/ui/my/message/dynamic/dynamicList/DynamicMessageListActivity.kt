@@ -129,7 +129,19 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 					}
 				}
 				R.id.tv_item_dynamic_message_content -> {
-					//todo 评论区
+					val cardBean = CardBean()
+					cardBean.id = bean.relatedCardId
+					if (bean.relatedCardType == 1) {
+						mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+							it.putExtra("cardBean", cardBean)
+							it.putExtra("gotoComment", true)
+						}
+					} else {
+						mActivity.startActivity(ArticleDetailsActivity::class.java) {
+							it.putExtra("cardBean", cardBean)
+							it.putExtra("gotoComment", true)
+						}
+					}
 				}
 				R.id.tv_item_dynamic_message_card -> {
 					val cardBean = CardBean()

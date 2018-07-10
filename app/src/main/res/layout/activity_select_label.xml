@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/background">
+	
+	<include
+		android:id="@+id/toolbar"
+		layout="@layout/toolbar"/>
+	
+	<android.support.v4.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/toolbar">
+		
+		<android.support.constraint.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<TextView
+				android:id="@+id/tv_select_label_title"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginStart="20dp"
+				android:text="选择分类和标签"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"/>
+			
+			<TextView
+				android:id="@+id/tv_select_label_hint"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginStart="20dp"
+				android:text="合适的分类或标签能让你的作品更容易获得阅读和推荐"
+				android:textColor="@color/text_color_d2"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_title"/>
+			
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/rv_select_classify"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:paddingLeft="12.5dp"
+				android:paddingRight="12.5dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"
+				tools:layout_height="150dp"
+				tools:listitem="@layout/item_select_card_bag"/>
+			
+			<TextView
+				android:id="@+id/tv_select_label_2"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="40dp"
+				android:layout_marginStart="20dp"
+				android:text="选择标签"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_2"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/rv_select_classify"/>
+			
+			<android.support.v7.widget.RecyclerView
+				android:id="@+id/rv_select_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="8dp"
+				android:paddingLeft="12.5dp"
+				android:paddingRight="12.5dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_2"
+				tools:layout_height="50dp"
+				tools:listitem="@layout/item_select_card_bag"/>
+			
+			<TextView
+				android:id="@+id/tv_select_label_3"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="40dp"
+				android:layout_marginStart="20dp"
+				android:text="自定义标签"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_2"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/rv_select_label"/>
+			
+			<ImageView
+				android:id="@+id/iv_select_label_new_label"
+				android:layout_width="72dp"
+				android:layout_height="36dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginStart="20dp"
+				android:src="@drawable/bg_checkbox_select_attention"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+			
+			<CheckBox
+				android:id="@+id/cb_item_select_label_new_label"
+				android:layout_width="0dp"
+				android:layout_height="36dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginStart="20dp"
+				android:paddingStart="20dp"
+				android:paddingEnd="20dp"
+				android:background="@drawable/bg_checkbox_select_attention"
+				android:button="@null"
+				android:checked="true"
+				android:gravity="center"
+				android:text="生活常识"
+				android:textColor="@color/color_checkbox_text_select_attention"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+			
+			<ImageView
+				android:id="@+id/iv_select_label_new_label_delete"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="10dp"
+				android:padding="10dp"
+				android:src="@drawable/common_delete"
+				app:layout_constraintBottom_toBottomOf="@id/cb_item_select_label_new_label"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@id/cb_item_select_label_new_label"/>
+			
+			<android.support.constraint.Group
+				android:id="@+id/group_select_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:visibility="gone"
+				app:constraint_referenced_ids="tv_select_label_2,
+				rv_select_label,tv_select_label_3,iv_select_label_new_label,
+				cb_item_select_label_new_label,iv_select_label_new_label_delete"/>
+		
+		</android.support.constraint.ConstraintLayout>
+	</android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

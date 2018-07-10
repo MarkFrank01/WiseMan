@@ -50,7 +50,7 @@ object EmptyView {
 		ImageLoader.load(activity, imageUrl, R.drawable.default_card, emptyView.iv_item_card_icon)
 		emptyView.tv_item_card_title.text = bean.name
 		emptyView.tv_item_card_category.text = bean.categoryName
-		emptyView.tv_item_card_label.text = bean.labelName
+		emptyView.tv_item_card_label.text = bean.getLabelName()
 		emptyView.tv_item_card_read.text = bean.readNum.toString()
 		emptyView.tv_item_card_comment.text = bean.commentNum.toString()
 

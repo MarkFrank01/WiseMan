@@ -140,7 +140,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
 		tv_article_details_category.text = cardBean.categoryName
-		tv_article_details_label.text = cardBean.labelName
+		tv_article_details_label.text = cardBean.getLabelName()
 		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
@@ -188,7 +188,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
 		tv_article_details_category.text = cardBean.categoryName
-		tv_article_details_label.text = cardBean.labelName
+		tv_article_details_label.text = cardBean.getLabelName()
 		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
@@ -315,6 +315,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		if (cardBean.name != null) {
 			getDataSuccess(cardBean)
 		}
+		if (intent.getBooleanExtra("gotoComment", false)) {
+			iv_article_details_comment.performClick()
+		}
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 	}
 
@@ -325,8 +328,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			tv_article_details_date.text = date
 		if (!StringUtils.isEmpty(cardBean.categoryName))
 			tv_article_details_category.text = cardBean.categoryName
-		if (!StringUtils.isEmpty(cardBean.labelName))
-			tv_article_details_label.text = cardBean.labelName
+		if (!StringUtils.isEmpty(cardBean.getLabelName()))
+			tv_article_details_label.text = cardBean.getLabelName()
 		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
 			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
@@ -421,7 +424,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		bundle.putString("imageUrl", cardBean.imageUrl)
 		bundle.putString("date", date)
 		bundle.putString("categoryName", cardBean.categoryName)
-		bundle.putString("labelName", cardBean.labelName)
+		bundle.putString("labelName", cardBean.getLabelName())
 		shareDialog.arguments = bundle
 		val fragmentManager = supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()
@@ -444,9 +447,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 					MENU_ITEM_NOTE -> if (checkLogin()) {
 						val noteTitleDialog = NoteTitleDialog()
 						val bundle = Bundle()
-						bundle.putInt("withCardId", cardBean.id)
-						bundle.putString("title", cardBean.name)
-						bundle.putString("imageUrl", cardBean.imageUrl)
+						bundle.putParcelable("cardBean", cardBean)
 						bundle.putString("content", content)
 						noteTitleDialog.arguments = bundle
 						noteTitleDialog.show(supportFragmentManager, "")

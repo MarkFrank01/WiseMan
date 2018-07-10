@@ -82,6 +82,9 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		} else {
 			refreshView()
 		}
+		if (intent.getBooleanExtra("gotoComment", false)) {
+			iv_item_card_details_comment.performClick()
+		}
 	}
 
 	private fun refreshView() {
@@ -89,7 +92,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_item_card_details_icon)
 		tv_item_card_details_title.text = mCardBean.name
 		tv_item_card_details_category.text = mCardBean.categoryName
-		tv_item_card_details_label.text = mCardBean.labelName
+		tv_item_card_details_label.text = mCardBean.getLabelName()
 		tv_item_card_details_author.text = mCardBean.authorName
 		tv_item_card_details_goto_ad.text = mCardBean.authorName
 		tv_item_card_details_comment.text = mCardBean.commentNum.toString()

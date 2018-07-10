@@ -6,7 +6,6 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 class SelectAttentionModel(present: SelectAttentionContract.Presenter) : BaseModel<SelectAttentionContract.Presenter>() {
 

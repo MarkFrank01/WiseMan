@@ -7,7 +7,7 @@
 	android:orientation="vertical">
 	
 	<TextView
-		android:id="@+id/tv_dialog_logout_title"
+		android:id="@+id/tv_dialog_title"
 		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="25dp"
-		android:layout_below="@id/tv_dialog_logout_title">
+		android:layout_below="@id/tv_dialog_title">
 		
 		<TextView
 			android:id="@+id/tv_dialog_cancel"
@@ -34,7 +34,7 @@
 			android:paddingStart="16dp"
 			android:gravity="start|center_vertical"
 			android:text="@string/common_cancel"
-			android:textColor="@color/text_color_1"
+			android:textColor="@color/button_blue"
 			android:textSize="17sp"/>
 		
 		<TextView
@@ -47,7 +47,7 @@
 			android:paddingEnd="20dp"
 			android:gravity="center_vertical|end"
 			android:text="@string/common_confirm"
-			android:textColor="@color/text_color_1"
+			android:textColor="@color/button_blue"
 			android:textSize="17sp"/>
 	
 	</LinearLayout>

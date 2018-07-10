@@ -24,7 +24,7 @@ class HomeCardFragment : BaseFragment() {
 	private val mListFragment = CardListFragment()
 	private var mCurrentFragment = Fragment()
 
-	private val titles = arrayOf("推荐", "关注", "列表")
+	private val titles = arrayOf("关注", "推荐", "列表")
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 	                          savedInstanceState: Bundle?): View? {
@@ -44,10 +44,10 @@ class HomeCardFragment : BaseFragment() {
 			override fun onTabSelected(tab: TabLayout.Tab) {
 				when (tab.position) {
 					0 -> {
-						switchFragment(mHotFragment)
+						switchFragment(mAttentionFragment)
 					}
 					1 -> {
-						switchFragment(mAttentionFragment)
+						switchFragment(mHotFragment)
 					}
 					2 -> {
 						switchFragment(mListFragment)
@@ -67,8 +67,7 @@ class HomeCardFragment : BaseFragment() {
 		para.width = screenWidth * 1 / 2
 		tl_home.layoutParams = para
 
-		tl_home.getTabAt(0)?.select()
-		switchFragment(mHotFragment)
+		tl_home.getTabAt(1)?.select()
 	}
 
 	override fun setListener() {

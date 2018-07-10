@@ -9,8 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.callback.Callback
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeAttentionEvent
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
-import com.zxcx.zhizhe.ui.classify.ClassifyCardBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionAdapter
 import org.greenrobot.eventbus.EventBus
 

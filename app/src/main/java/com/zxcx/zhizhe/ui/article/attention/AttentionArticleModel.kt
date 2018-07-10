@@ -4,7 +4,8 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.*
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
+import com.zxcx.zhizhe.utils.Constants
 
 class AttentionArticleModel(present: AttentionArticleContract.Presenter) : BaseModel<AttentionArticleContract.Presenter>() {
 
@@ -12,8 +13,8 @@ class AttentionArticleModel(present: AttentionArticleContract.Presenter) : BaseM
 		this.mPresenter = present
 	}
 
-	fun getAttentionCard(page: Int, pageSize: Int) {
-		mDisposable = AppClient.getAPIService().getArticleListForCategory(-1, page, pageSize)
+	fun getAttentionCard(page: Int) {
+		mDisposable = AppClient.getAPIService().getArticleListForCategory(-1, page, Constants.PAGE_SIZE)
 				.compose(BaseRxJava.io_main<BaseArrayBean<ArticleAndSubjectBean>>())
 				.compose(BaseRxJava.handleArrayResult())
 				.subscribeWith(object : BaseSubscriber<List<ArticleAndSubjectBean>>(mPresenter) {

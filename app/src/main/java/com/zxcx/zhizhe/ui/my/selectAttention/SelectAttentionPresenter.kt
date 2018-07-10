@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.my.selectAttention
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
 
 class SelectAttentionPresenter(view: SelectAttentionContract.View) : BasePresenter<SelectAttentionContract.View>(), SelectAttentionContract.Presenter {
 

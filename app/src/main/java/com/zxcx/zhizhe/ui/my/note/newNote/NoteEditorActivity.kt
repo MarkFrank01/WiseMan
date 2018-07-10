@@ -85,6 +85,10 @@ class NoteEditorActivity : BaseActivity(),
 			onBackPressed()
 		}
 
+		tv_toolbar_right.setOnClickListener {
+			editor.saveNote()
+		}
+
 		iv_creation_editor_add_image.setOnClickListener {
 			getContentImage()
 		}

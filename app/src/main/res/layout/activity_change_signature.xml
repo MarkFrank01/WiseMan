@@ -7,6 +7,8 @@
 	android:background="@color/background"
 	android:orientation="vertical">
 	
+	<include layout="@layout/toolbar"/>
+	
 	<EditText
 		android:id="@+id/et_dialog_change_signature"
 		android:layout_width="match_parent"

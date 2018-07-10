@@ -26,7 +26,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 		ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 		helper.setText(R.id.tv_item_card_details_title, item.name)
 		helper.setText(R.id.tv_item_card_details_category, item.categoryName)
-		helper.setText(R.id.tv_item_card_details_label, item.labelName)
+		helper.setText(R.id.tv_item_card_details_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_details_author, item.authorName)
 		helper.setText(R.id.tv_item_card_details_goto_ad, item.authorName)
 		helper.setText(R.id.tv_item_card_details_comment, item.commentNum.toString())

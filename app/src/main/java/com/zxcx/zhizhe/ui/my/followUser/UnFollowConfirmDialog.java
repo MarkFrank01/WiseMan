@@ -35,7 +35,7 @@ public class UnFollowConfirmDialog extends CommonDialog {
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 		Bundle savedInstanceState) {
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-		View view = inflater.inflate(R.layout.dialog_logout, container);
+		View view = inflater.inflate(R.layout.dialog_single, container);
 		unbinder = ButterKnife.bind(this, view);
 		return view;
 	}

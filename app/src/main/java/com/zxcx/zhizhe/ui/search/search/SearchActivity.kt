@@ -102,7 +102,7 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 			mPresenter.deleteAllSearchHistory()
 		}
 		RxTextView.afterTextChangeEvents(et_search)
-				.debounce(400, TimeUnit.MILLISECONDS)
+				.debounce(400, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
 				.map {
 					it.editable()?.toString()
 				}

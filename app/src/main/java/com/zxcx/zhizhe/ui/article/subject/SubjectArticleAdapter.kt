@@ -27,7 +27,7 @@ class SubjectArticleAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, B
 
 		helper.setText(R.id.tv_item_card_title, item.name)
 		helper.setText(R.id.tv_item_card_category, item.categoryName)
-		helper.setText(R.id.tv_item_card_label, item.labelName)
+		helper.setText(R.id.tv_item_card_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
 		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 

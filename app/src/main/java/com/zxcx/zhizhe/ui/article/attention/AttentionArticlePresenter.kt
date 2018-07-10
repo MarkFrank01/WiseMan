@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.article.attention
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 
 class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePresenter<AttentionArticleContract.View>(), AttentionArticleContract.Presenter {
 
@@ -13,8 +13,8 @@ class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePrese
 		mModel = AttentionArticleModel(this)
 	}
 
-	fun getAttentionCard(page: Int, pageSize: Int) {
-		mModel.getAttentionCard(page, pageSize)
+	fun getAttentionCard(page: Int) {
+		mModel.getAttentionCard(page)
 	}
 
 	fun getClassify() {

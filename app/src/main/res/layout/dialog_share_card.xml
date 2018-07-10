@@ -96,87 +96,80 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 			
-			<LinearLayout
+			<android.support.constraint.ConstraintLayout
+				android:id="@+id/ll_card_details_top"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@drawable/bg_dialog"
-				android:orientation="vertical">
+				android:background="@color/background">
 				
-				<FrameLayout
+				<ImageView
+					android:id="@+id/iv_dialog_share"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content">
-					
-					<com.zxcx.zhizhe.widget.CardImageView
-						android:id="@+id/iv_dialog_share"
-						android:layout_width="match_parent"
-						android:layout_height="212dp"
-						android:scaleType="centerCrop"
-						android:src="@drawable/default_card"
-						android:transitionName="cardImage"
-						app:hasShade="true"
-						app:heightWeight="9"
-						app:widthWeight="16"/>
-					
-					<RelativeLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:layout_gravity="bottom"
-						android:paddingStart="20dp"
-						android:paddingEnd="20dp">
-						
-						<TextView
-							android:id="@+id/tv_dialog_share_title"
-							android:textStyle="bold"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:ellipsize="end"
-							android:lineSpacingExtra="4dp"
-							android:maxLines="2"
-							android:textColor="@color/white_final"
-							android:textSize="@dimen/text_size_title_2"
-							android:transitionName="cardTitle"
-							tools:text="动圈和铁圈耳机的区别"/>
-						
-						<LinearLayout
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:layout_marginBottom="4dp"
-							android:layout_below="@id/tv_dialog_share_title"
-							android:gravity="center">
-							
-							<FrameLayout
-								android:id="@+id/fl_dialog_share_card_bag"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:paddingTop="8dp"
-								android:paddingBottom="8dp"
-								android:paddingStart="0dp"
-								android:paddingEnd="10dp">
-								
-								<TextView
-									android:id="@+id/tv_dialog_share_card_bag"
-									style="@style/tv_card_category"
-									tools:text="数码产品"/>
-							</FrameLayout>
-							
-							<TextView
-								android:id="@+id/tv_dialog_share_info"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"
-								android:textColor="@color/text_color_ee"
-								android:textSize="@dimen/text_size_text_3"
-								android:transitionName="cardInfo"
-								tools:text="@string/tv_card_info"/>
-						</LinearLayout>
-					
-					</RelativeLayout>
-				</FrameLayout>
+					android:layout_height="0dp"
+					android:scaleType="centerCrop"
+					android:src="@drawable/default_card"
+					android:transitionName="@string/card_img_transition_name"
+					app:layout_constraintDimensionRatio="16:9"/>
+				
+				<TextView
+					android:id="@+id/tv_dialog_share_title"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="15dp"
+					android:layout_marginStart="20dp"
+					android:layout_marginEnd="20dp"
+					android:lineSpacingExtra="6dp"
+					android:textColor="@color/text_color_1"
+					android:textSize="@dimen/text_size_title_2"
+					android:transitionName="@string/card_title_transition_name"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/iv_dialog_share"
+					tools:text="男士西装基本样式简介男士西装基本样式"/>
+				
+				<TextView
+					android:id="@+id/tv_dialog_share_category"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="7dp"
+					android:layout_marginStart="20dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					android:transitionName="@string/card_category_transition_name"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/tv_dialog_share_title"
+					tools:text="生活"/>
+				
+				<TextView
+					android:id="@+id/tv_dialog_share_label"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="7dp"
+					android:layout_marginStart="12dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					android:transitionName="@string/card_label_transition_name"
+					app:layout_constraintStart_toEndOf="@id/tv_dialog_share_category"
+					app:layout_constraintTop_toBottomOf="@id/tv_dialog_share_title"
+					tools:text="生活"/>
+				
+				<TextView
+					android:id="@+id/tv_dialog_share_date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="7dp"
+					android:layout_marginStart="12dp"
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"
+					app:layout_constraintStart_toEndOf="@id/tv_dialog_share_label"
+					app:layout_constraintTop_toBottomOf="@id/tv_dialog_share_title"
+					tools:text="2018/12/20"/>
 				
 				<FrameLayout
 					android:id="@+id/fl_dialog_share"
 					android:layout_width="match_parent"
 					android:layout_height="0dp"
-					android:layout_weight="1">
+					app:layout_constraintTop_toBottomOf="@id/tv_dialog_share_category">
 				</FrameLayout>
 				
 				<ImageView
@@ -185,8 +178,9 @@
 					android:layout_height="146dp"
 					android:scaleType="centerCrop"
 					android:src="@drawable/iv_dialog_share_qr"
-					android:visibility="gone"/>
-			</LinearLayout>
+					android:visibility="gone"
+					app:layout_constraintTop_toBottomOf="@id/fl_dialog_share"/>
+			</android.support.constraint.ConstraintLayout>
 		</ScrollView>
 	</com.zxcx.zhizhe.widget.RoundedFrameLayout>
 	
@@ -194,8 +188,8 @@
 		android:id="@+id/iv_dialog_share_back"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_marginEnd="10dp"
+		android:layout_marginTop="15dp"
+		android:layout_marginEnd="15dp"
 		android:layout_alignParentEnd="true"
 		android:padding="10dp"
 		android:src="@drawable/iv_common_close"/>

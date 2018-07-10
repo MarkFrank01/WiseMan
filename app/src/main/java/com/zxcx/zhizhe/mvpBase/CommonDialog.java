@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
@@ -25,7 +24,7 @@ public class CommonDialog extends BaseDialog {
 			Window window = getDialog().getWindow();
 			window.setBackgroundDrawableResource(R.color.translate);
 			window.getDecorView()
-				.setPadding(ScreenUtils.dip2px(20f), 0, ScreenUtils.dip2px(20f), 0);
+				.setPadding(ScreenUtils.dip2px(52f), 0, ScreenUtils.dip2px(52f), 0);
 			WindowManager.LayoutParams lp = window.getAttributes();
 			lp.gravity = Gravity.CENTER;
 			lp.width = WindowManager.LayoutParams.MATCH_PARENT;

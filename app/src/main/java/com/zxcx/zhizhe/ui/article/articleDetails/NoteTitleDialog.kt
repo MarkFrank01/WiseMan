@@ -66,7 +66,7 @@ class NoteTitleDialog : CommonDialog(), INullPostPresenter {
 	}
 
 	private fun saveCardNode(title: String, imageUrl: String?, withCardId: Int, content: String?) {
-		mDisposable = AppClient.getAPIService().saveCardNode(null, title, imageUrl, withCardId, content)
+		mDisposable = AppClient.getAPIService().saveCardNode(title, imageUrl, withCardId, 3, 0, content)
 				.compose(BaseRxJava.handlePostResult())
 				.compose(BaseRxJava.io_main_loading(this))
 				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(this) {

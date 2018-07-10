@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.card.attention
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 
 class AttentionCardPresenter(view: AttentionCardContract.View) : BasePresenter<AttentionCardContract.View>(), AttentionCardContract.Presenter {
 

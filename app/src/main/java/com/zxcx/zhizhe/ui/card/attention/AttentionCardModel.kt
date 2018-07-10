@@ -7,7 +7,7 @@ import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.classify.ClassifyBean
+import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 
 class AttentionCardModel(present: AttentionCardContract.Presenter) : BaseModel<AttentionCardContract.Presenter>() {
 

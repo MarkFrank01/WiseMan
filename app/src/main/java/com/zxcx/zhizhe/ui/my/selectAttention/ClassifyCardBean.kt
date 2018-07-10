@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.classify
+package com.zxcx.zhizhe.ui.my.selectAttention
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
