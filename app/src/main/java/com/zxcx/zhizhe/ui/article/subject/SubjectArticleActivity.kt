@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.article.ArticleItemDecoration
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
@@ -72,6 +73,7 @@ class SubjectArticleActivity : MvpActivity<SubjectArticlePresenter>(), SubjectAr
 		mAdapter.setOnLoadMoreListener(this, rv_subject)
 		rv_subject.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_subject.adapter = mAdapter
+		rv_subject.addItemDecoration(ArticleItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
 	}

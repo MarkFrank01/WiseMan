@@ -37,22 +37,44 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 	private String createTime;
 	@SerializedName("description")
 	private String description;
+	@SerializedName("titleImage")
+	private String titleImage;
 	@SerializedName("id")
 	private int id;
+	@SerializedName("styleType") //广告类型 0广告 1公告 2 活动
+	private int styleType;
 	@SerializedName("platformType")
 	private int platformType;
 	
 	public ADBean() {
 	}
-
+	
 	protected ADBean(Parcel in) {
 		this.adNum = in.readInt();
 		this.behavior = in.readString();
 		this.content = in.readString();
 		this.createTime = in.readString();
 		this.description = in.readString();
+		this.titleImage = in.readString();
 		this.id = in.readInt();
+		this.styleType = in.readInt();
 		this.platformType = in.readInt();
+	}
+	
+	public String getTitleImage() {
+		return titleImage;
+	}
+	
+	public void setTitleImage(String titleImage) {
+		this.titleImage = titleImage;
+	}
+	
+	public int getStyleType() {
+		return styleType;
+	}
+	
+	public void setStyleType(int styleType) {
+		this.styleType = styleType;
 	}
 
 	public int getAdNum() {
@@ -94,11 +116,11 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -123,7 +145,9 @@ public class ADBean extends RetrofitBaen implements Parcelable {
 		dest.writeString(this.content);
 		dest.writeString(this.createTime);
 		dest.writeString(this.description);
+		dest.writeString(this.titleImage);
 		dest.writeInt(this.id);
+		dest.writeInt(this.styleType);
 		dest.writeInt(this.platformType);
 	}
 }

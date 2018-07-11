@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.ui.my.readCards.MyCardsAdapter
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsContract
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsPresenter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -131,7 +132,7 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 
 	private fun initView() {
 		iv_toolbar_right.visibility = View.VISIBLE
-		iv_toolbar_right.setImageResource(R.drawable.tv_home_rank)
+		iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 
 		mAdapter = MyCardsAdapter(ArrayList())
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
@@ -146,7 +147,7 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 			val sortWindow = SortWindow(mActivity)
 			sortWindow.mListener = this
 			sortWindow.sortType = mSortType
-			sortWindow.showAsDropDown(iv_toolbar_right)
+			sortWindow.showAsDropDown(iv_toolbar_right, 0, -ScreenUtils.dip2px(20f))
 		}
 	}
 }

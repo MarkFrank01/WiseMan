@@ -74,6 +74,18 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
 
 		addSubscription(mDisposable)
 	}
+
+	fun getSearchDefaultKeyword() {
+		mDisposable = AppClient.getAPIService().searchDefaultKeyword
+				.compose(BaseRxJava.handleResult())
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : BaseSubscriber<HotSearchBean>(mPresenter) {
+					override fun onNext(t: HotSearchBean) {
+						mPresenter?.getSearchDefaultKeywordSuccess(t)
+					}
+				})
+		addSubscription(mDisposable)
+	}
 }
 
 

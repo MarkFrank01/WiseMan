@@ -8,6 +8,7 @@ import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.WebViewUtils
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -17,7 +18,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	internal var mWebView: WebView? = null
 	private var title = ""
 	private var url = ""
-	private var imageUrl = ""
+	private var imageUrl: String? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -41,10 +42,11 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		val isAD = intent.getBooleanExtra("isAD", false)
 		initToolBar(title)
 		iv_toolbar_right.visibility = if (isAD) View.VISIBLE else View.GONE
-		iv_toolbar_right.setImageResource(R.drawable.tv_home_rank)
+		iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 		iv_toolbar_right.setOnClickListener {
 			val adMoreWindow = ADMoreWindow(mActivity)
 			adMoreWindow.mListener = this
+			adMoreWindow.showAsDropDown(iv_toolbar_right, 0, -ScreenUtils.dip2px(20f))
 		}
 
 		mWebView?.loadUrl(url)

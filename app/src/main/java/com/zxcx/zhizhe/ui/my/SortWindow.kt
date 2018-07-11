@@ -24,15 +24,15 @@ class SortWindow(val context: Context) : PopupWindow(context) {
 			when (value) {
 				0 -> {
 					contentView.tv_sort_default.setTextColor(context.getColorForKotlin(R.color.button_blue))
-					TextViewUtils.setTextLeftDrawable(context, R.drawable.bg_checkbox_follow_checked, contentView.tv_sort_default)
+					TextViewUtils.setTextLeftDrawable(context, R.drawable.tv_sort_default_checked, contentView.tv_sort_default)
 					contentView.tv_sort_earliest.setTextColor(context.getColorForKotlin(R.color.text_color_1))
-					TextViewUtils.setTextLeftDrawable(context, R.drawable.bg_checkbox_follow_checked, contentView.tv_sort_earliest)
+					TextViewUtils.setTextLeftDrawable(context, R.drawable.tv_sort_earliest, contentView.tv_sort_earliest)
 				}
 				1 -> {
 					contentView.tv_sort_earliest.setTextColor(context.getColorForKotlin(R.color.button_blue))
-					TextViewUtils.setTextLeftDrawable(context, R.drawable.bg_checkbox_follow_checked, contentView.tv_sort_earliest)
+					TextViewUtils.setTextLeftDrawable(context, R.drawable.tv_sort_default, contentView.tv_sort_earliest)
 					contentView.tv_sort_default.setTextColor(context.getColorForKotlin(R.color.text_color_1))
-					TextViewUtils.setTextLeftDrawable(context, R.drawable.bg_checkbox_follow_checked, contentView.tv_sort_default)
+					TextViewUtils.setTextLeftDrawable(context, R.drawable.tv_sort_earliest_checked, contentView.tv_sort_default)
 				}
 			}
 		}

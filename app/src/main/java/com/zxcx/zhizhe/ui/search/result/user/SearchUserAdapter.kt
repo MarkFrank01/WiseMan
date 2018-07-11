@@ -25,7 +25,7 @@ class SearchUserAdapter(data: List<SearchUserBean>) : BaseQuickAdapter<SearchUse
 		helper.setText(R.id.tv_item_search_user_fans, item.fansNum.toString())
 		helper.setText(R.id.tv_item_search_user_like, item.likeNum.toString())
 		helper.setText(R.id.tv_item_search_user_collect, item.collectNum.toString())
-		helper.setText(R.id.tv_item_search_user_level, item.intelligence.toString())
+		helper.setText(R.id.tv_item_search_user_level, item.intelligence.getFormatNumber())
 		helper.setChecked(R.id.cb_item_search_user_follow, item.isFollow)
 		helper.getView<View>(R.id.cb_item_search_user_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		helper.addOnClickListener(R.id.cb_item_search_user_follow)

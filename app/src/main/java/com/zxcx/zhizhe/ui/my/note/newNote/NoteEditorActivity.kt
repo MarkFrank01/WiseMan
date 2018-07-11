@@ -15,7 +15,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.FileUtil
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -34,9 +33,6 @@ class NoteEditorActivity : BaseActivity(),
 	private var mAction = 1 //0选择标题图，1选择内容图
 	private var mActionMode: ActionMode? = null
 	private var noteId = 0
-
-	private var isBold = false
-	private var isCenter = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -149,20 +145,26 @@ class NoteEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun hiddenToolBar() {
-		//todo 按钮变灰，不可点击
 		iv_creation_editor_add_image.isClickable = false
 		iv_creation_editor_bold.isClickable = false
 		iv_creation_editor_center.isClickable = false
 		iv_creation_editor_revocation.isClickable = false
+		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_no_clickable)
+		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_clickable)
+		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_clickable)
+		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_no_clickable)
 	}
 
 	@JavascriptInterface
 	fun showToolBar() {
-		//todo 按钮变亮，可点击
 		iv_creation_editor_add_image.isClickable = true
 		iv_creation_editor_bold.isClickable = true
 		iv_creation_editor_center.isClickable = true
 		iv_creation_editor_revocation.isClickable = true
+		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_clickable)
+		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_checked)
+		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_checked)
+		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_clickable)
 	}
 
 	@JavascriptInterface
@@ -172,18 +174,16 @@ class NoteEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun judgeJustify(isCenter: Boolean) {
-		//todo 是否居中
-		this.isCenter = isCenter
+		iv_creation_editor_bold.setImageResource(if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked)
 	}
 
 	@JavascriptInterface
 	fun judgeBold(isBold: Boolean) {
-		//todo 是否加粗
-		this.isBold = isBold
+		iv_creation_editor_bold.setImageResource(if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked)
 	}
 
 	@JavascriptInterface
-	fun submitDisabled(isEnable: Boolean) {
+	fun judgeSubmit(isEnable: Boolean) {
 		tv_toolbar_right.isEnabled = isEnable
 	}
 
@@ -197,21 +197,13 @@ class NoteEditorActivity : BaseActivity(),
 		if (path == null) {
 			path = imagePath
 		}
-		val intent = Intent(mActivity, ClipImageActivity::class.java)
-		intent.putExtra("path", path)
-		intent.putExtra("aspectX", 16)
-		intent.putExtra("aspectY", 9)
-		startActivityForResult(intent, Constants.CLIP_IMAGE)
+		uploadImageToOSS(path)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		if (resultCode == Activity.RESULT_OK && data != null) {
-			if (requestCode == Constants.CLIP_IMAGE) {
-				//图片裁剪完成
-				val path = data.getStringExtra("path")
-				uploadImageToOSS(path)
-			} else {
+			if (requestCode == 1) {
 				//图片选择完成
 				var photoUri = data.data
 				var imagePath: String = ""

@@ -2,27 +2,21 @@ package com.zxcx.zhizhe.ui.article
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 
 class ArticleAndSubjectAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: SubjectOnClickListener) :
-		BaseMultiItemQuickAdapter<ArticleAndSubjectBean, BaseViewHolder>(data), BaseQuickAdapter.OnItemClickListener {
-
-	var layoutManager: LinearLayoutManager
+		BaseMultiItemQuickAdapter<ArticleAndSubjectBean, BaseViewHolder>(data) {
 
 	init {
 		addItemType(ArticleAndSubjectBean.TYPE_ARTICLE, R.layout.item_article)
 	    addItemType(ArticleAndSubjectBean.TYPE_SUBJECT, R.layout.item_subject)
-		layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
     }
 
 	override fun convert(helper: BaseViewHolder, item: ArticleAndSubjectBean) {
@@ -65,13 +59,14 @@ class ArticleAndSubjectAdapter(data: List<ArticleAndSubjectBean>?, private val m
 		if (cardList == null || cardList.isEmpty()) return
 		if (cardList.size > 3) cardList = cardList.subList(0, 3)
 		val recyclerView = helper.getView<RecyclerView>(R.id.rv_item_subject_article)
-		recyclerView.layoutManager = layoutManager
+		if (recyclerView.layoutManager == null) {
+			val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+			recyclerView.layoutManager = layoutManager
+		}
 		val adapter = SubjectItemArticleAdapter(cardList)
-		adapter.onItemClickListener = this
+		adapter.setOnItemClickListener { adapter, view, position ->
+			mListener.subjectOnClick(subjectBean)
+		}
 		recyclerView.adapter = adapter
-	}
-
-	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
-		mListener.articleOnClick(adapter.data[position] as CardBean)
 	}
 }

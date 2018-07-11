@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -42,6 +44,13 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		initRecyclerView()
 		initBottomSheet()
 		mPresenter.getComment(cardId, mPage)
+	}
+
+	override fun onResume() {
+		super.onResume()
+		val userId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+		mAdapter.userId = userId
+		mAdapter.notifyDataSetChanged()
 	}
 
 	private fun initBottomSheet() {

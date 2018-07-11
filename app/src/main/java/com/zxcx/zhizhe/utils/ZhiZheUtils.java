@@ -47,8 +47,8 @@ public class ZhiZheUtils {
 	}
 	
 	public static void logout() {
-		SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, 0);
-		SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, 0);
+		SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
+		SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.token, "");
 		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, "");
 		saveUserInfo(new UserInfoBean());

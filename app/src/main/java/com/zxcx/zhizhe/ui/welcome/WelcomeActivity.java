@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
@@ -19,12 +21,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.WelcomeSkipView;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<ADBean>>,
 	WelcomeSkipView.onFinishListener {
@@ -79,7 +76,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 	}
 
 	private void getImage() {
-		getAD("101");
+		getAD("100");
 	}
 
 	/**

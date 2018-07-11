@@ -75,6 +75,7 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
 		mAdapter.onItemClickListener = this
+		rv_card_list_item.setBackgroundResource(R.color.strip)
 		rv_card_list_item.layoutManager = layoutManager
 		rv_card_list_item.adapter = mAdapter
 		rv_card_list_item.addItemDecoration(ArticleItemDecoration())

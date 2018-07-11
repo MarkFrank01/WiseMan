@@ -132,7 +132,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:padding="10dp"
-			android:src="@drawable/iv_ad_label_ad"/>
+			android:src="@drawable/iv_my_card_delete"/>
 	
 	</FrameLayout>
 </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

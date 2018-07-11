@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
+import android.Manifest
 import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -8,13 +9,13 @@ import android.widget.CheckBox
 import com.bumptech.glide.load.MultiTransformation
 import com.gyf.barlibrary.ImmersionBar
 import com.pixplicity.htmlcompat.HtmlCompat
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
-import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -22,6 +23,7 @@ import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.GoodView
+import com.zxcx.zhizhe.widget.PermissionDialog
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -263,7 +265,25 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 			}
 		}
 		iv_item_card_details_share.setOnClickListener {
-			gotoImageShare()
+			val rxPermissions = RxPermissions(this)
+			rxPermissions
+					.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+					.subscribe { permission ->
+						when {
+							permission.granted -> {
+								// `permission.name` is granted !
+								gotoImageShare()
+							}
+							permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+								toastShow("权限已被拒绝！无法进行操作")
+							else -> {
+								// Denied permission with ask never again
+								// Need to go to the settings
+								val permissionDialog = PermissionDialog()
+								permissionDialog.show(supportFragmentManager, "")
+							}
+						}
+					}
 		}
 	}
 
@@ -290,7 +310,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 						// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 						//启动分享
 						hideLoading()
-						val shareCardDialog = ShareDialog()
+						val shareCardDialog = ShareCardDialog()
 						val bundle = Bundle()
 						bundle.putString("imagePath", s)
 						shareCardDialog.arguments = bundle

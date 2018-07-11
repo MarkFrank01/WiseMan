@@ -43,6 +43,7 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 		et_search.setText(intent.getStringExtra("keyword"))
 		initRecyclerView()
 		mPresenter.getSearchBean()
+		mPresenter.getSearchDefaultKeyword()
 	}
 
 	override fun onBackPressed() {
@@ -86,6 +87,10 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 		rv_search_pre.visibility = View.VISIBLE
 		mSearchPreAdapter?.setKeyword(et_search.text.toString())
 		mSearchPreAdapter?.setNewData(list)
+	}
+
+	override fun getSearchDefaultKeywordSuccess(bean: HotSearchBean?) {
+		et_search.hint = bean?.conent
 	}
 
 	override fun deleteHistorySuccess() {
@@ -197,8 +202,13 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 					|| event != null && KeyEvent.KEYCODE_ENTER == event.keyCode && KeyEvent.ACTION_DOWN == event.action) {
 
 				if (StringUtils.isEmpty(v.text.toString())) {
-					toastShow("搜索内容不能为空！")
-					return true
+					if (v.hint.isEmpty()) {
+						toastShow("搜索内容不能为空！")
+						return true
+					} else {
+						gotoSearchResult(v.hint.toString())
+						return true
+					}
 				}
 
 				gotoSearchResult(v.text.toString())

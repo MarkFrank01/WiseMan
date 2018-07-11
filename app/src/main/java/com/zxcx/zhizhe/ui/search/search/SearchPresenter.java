@@ -1,9 +1,7 @@
 package com.zxcx.zhizhe.ui.search.search;
 
 import android.support.annotation.NonNull;
-
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
-
 import java.util.List;
 
 public class SearchPresenter extends BasePresenter<SearchContract.View> implements
@@ -18,6 +16,10 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
 	public void getSearchBean() {
 		mModel.getSearchBean();
+	}
+	
+	public void getSearchDefaultKeyword() {
+		mModel.getSearchDefaultKeyword();
 	}
 
 	public void deleteAllSearchHistory() {
@@ -37,7 +39,12 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 	public void getSearchPreSuccess(List<String> list) {
 		mView.getSearchPreSuccess(list);
 	}
-
+	
+	@Override
+	public void getSearchDefaultKeywordSuccess(HotSearchBean bean) {
+		mView.getSearchDefaultKeywordSuccess(bean);
+	}
+	
 	@Override
 	public void deleteHistorySuccess() {
 		mView.deleteHistorySuccess();

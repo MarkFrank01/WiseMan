@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.my.collect.CollectCardActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.followUser.FansActivity
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity
@@ -131,7 +132,19 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 		}
 		ll_my_top_creation.setOnClickListener {
 			if (checkLogin()) {
-				mActivity.startActivity(CreationActivity::class.java) {}
+				when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+					writer_status_writer -> {
+						//创作界面
+						mActivity.startActivity(CreationActivity::class.java) {}
+					}
+					else -> {
+						val dialog = CreationAgreementDialog()
+						dialog.mListener = {
+							mActivity.startActivity(CreationActivity::class.java) {}
+						}
+						dialog.show(mActivity.supportFragmentManager, "")
+					}
+				}
 			}
 		}
 		ll_my_message.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
+import android.Manifest
 import android.app.Activity
 import android.app.SharedElementCallback
 import android.graphics.Color
@@ -16,6 +17,7 @@ import android.widget.TextView
 import com.bumptech.glide.load.MultiTransformation
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -24,7 +26,6 @@ import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
-import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -33,6 +34,7 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.GoodView
+import com.zxcx.zhizhe.widget.PermissionDialog
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -123,7 +125,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
 		goodView.setText((bean.likeNum - 1).toString() + " +1")
-		goodView.show(rv_card_details.getChildAt(position).findViewById(R.id.cb_item_card_details_like))
+		goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_like))
 	}
 
 	override fun collectSuccess(bean: CardBean) {
@@ -133,13 +135,15 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
 		goodView.setText((bean.collectNum - 1).toString() + " +1")
-		goodView.show(rv_card_details.getChildAt(position).findViewById(R.id.cb_item_card_details_collect))
+		goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_collect))
 	}
 
 	override fun postSuccess(bean: CardBean) {
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position] = bean
-		mAdapter.notifyItemChanged(position)
+		if (position != -1) {
+			mAdapter.data[position] = bean
+			mAdapter.notifyItemChanged(position)
+		}
 	}
 
 	override fun postFail(msg: String) {
@@ -306,7 +310,26 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 			}
 			R.id.iv_item_card_details_share -> {
 				val viewGroup = mAdapter.getViewByPosition(position, R.id.cl_item_card_details_content) as ViewGroup
-				gotoImageShare(viewGroup)
+
+				val rxPermissions = RxPermissions(this)
+				rxPermissions
+						.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+						.subscribe { permission ->
+							when {
+								permission.granted -> {
+									// `permission.name` is granted !
+									gotoImageShare(viewGroup)
+								}
+								permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+									toastShow("权限已被拒绝！无法进行操作")
+								else -> {
+									// Denied permission with ask never again
+									// Need to go to the settings
+									val permissionDialog = PermissionDialog()
+									permissionDialog.show(supportFragmentManager, "")
+								}
+							}
+						}
 			}
 		}
 	}
@@ -340,7 +363,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 						// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
 						//启动分享
 						hideLoading()
-						val shareCardDialog = ShareDialog()
+						val shareCardDialog = ShareCardDialog()
 						val bundle = Bundle()
 						bundle.putString("imagePath", s)
 						shareCardDialog.arguments = bundle

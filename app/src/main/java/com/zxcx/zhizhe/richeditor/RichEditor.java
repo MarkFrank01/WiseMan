@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -282,6 +283,34 @@ public class RichEditor extends WebView {
 		exec("saveNote();");
 	}
 	
+	public void submitDraft() {
+		exec("submitDraft();");
+	}
+	
+	public void editPreview() {
+		exec("editPreview();");
+	}
+	
+	public void saveDraft() {
+		exec("saveDraft();");
+	}
+	
+	public void checkEditType(int type) {
+		exec("checkEditType(" + type + ");");
+	}
+	
+	public void deleteEdit() {
+		exec("deleteEdit();");
+	}
+	
+	public void confirmSave(ValueCallback<String> resultCallback) {
+		exec("confirmSave();", resultCallback);
+	}
+	
+	public void setLabel(String labelName, int classifyId) {
+		exec("setTitleImage('" + labelName + "'," + classifyId + ");");
+	}
+	
 	
 	/**
 	 * 文章再编辑
@@ -350,10 +379,31 @@ public class RichEditor extends WebView {
 			}, 100);
 		}
 	}
+	
+	protected void exec(final String trigger, ValueCallback<String> resultCallback) {
+		if (isReady) {
+			load(trigger, resultCallback);
+		} else {
+			postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					exec(trigger);
+				}
+			}, 100);
+		}
+	}
 
 	private void load(String trigger) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			evaluateJavascript(trigger, null);
+		} else {
+			loadUrl(trigger);
+		}
+	}
+	
+	private void load(String trigger, ValueCallback<String> resultCallback) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			evaluateJavascript(trigger, resultCallback);
 		} else {
 			loadUrl(trigger);
 		}

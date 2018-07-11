@@ -1,15 +1,10 @@
 package com.zxcx.zhizhe.ui.search.result.card
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
@@ -18,6 +13,7 @@ import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_result.*
@@ -93,16 +89,11 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-				Pair<View, String>(cardImg, cardImg.transitionName),
-				Pair<View, String>(cardTitle, cardTitle.transitionName)).toBundle()
-		val intent = Intent(mActivity, CardDetailsActivity::class.java)
-		intent.putExtra("list", mAdapter.data as ArrayList)
-		intent.putExtra("currentPosition", position)
-		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivity(intent, bundle)
+		mActivity.startActivity(CardDetailsActivity::class.java) {
+			it.putExtra("list", mAdapter.data as ArrayList)
+			it.putExtra("currentPosition", position)
+			it.putExtra("sourceName", this::class.java.name)
+		}
 	}
 
 	private fun initRecyclerView() {

@@ -87,6 +87,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		tv_item_rank_user_like.text = bean.likeNum.toString()
 		tv_item_rank_user_collect.text = bean.collectNum.toString()
 		tv_item_rank_user_rank.text = bean.rankIndex.toString()
+		tv_item_rank_user_level.text = bean.intelligence.getFormatNumber()
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
 

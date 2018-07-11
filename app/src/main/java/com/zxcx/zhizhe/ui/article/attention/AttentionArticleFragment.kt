@@ -20,10 +20,7 @@ import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.SelectAttentionCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.article.ArticleAndSubjectAdapter
-import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean
-import com.zxcx.zhizhe.ui.article.SubjectBean
-import com.zxcx.zhizhe.ui.article.SubjectOnClickListener
+import com.zxcx.zhizhe.ui.article.*
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -194,8 +191,10 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_attention_card)
 		mAdapter.onItemClickListener = this
+		rv_attention_card.setBackgroundResource(R.color.strip)
 		rv_attention_card.layoutManager = layoutManager
 		rv_attention_card.adapter = mAdapter
+		rv_attention_card.addItemDecoration(ArticleItemDecoration())
 		if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
 			onRefresh()
 		} else {

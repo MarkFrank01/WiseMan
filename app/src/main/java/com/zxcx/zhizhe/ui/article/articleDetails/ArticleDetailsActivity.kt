@@ -153,11 +153,22 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val ad = bean.ad
 		if (ad != null) {
 			group_article_ad.visibility = View.VISIBLE
-			ImageLoader.load(mActivity, ad.content, R.drawable.default_card, iv_article_details_ad)
+			ImageLoader.load(mActivity, ad.titleImage, R.drawable.default_card, iv_article_details_ad)
 			iv_article_details_ad.setOnClickListener {
 				startActivity(WebViewActivity::class.java) {
 					it.putExtra("title", ad.description)
 					it.putExtra("url", ad.behavior)
+				}
+			}
+			when (ad.styleType) {
+				0 -> {
+					//todo 广告
+				}
+				1 -> {
+					//todo 公告
+				}
+				2 -> {
+					//todo 活动
 				}
 			}
 		}

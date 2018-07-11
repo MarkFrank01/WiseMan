@@ -71,6 +71,9 @@ class MainActivity : BaseActivity() {
 					}
 					else -> {
 						val dialog = CreationAgreementDialog()
+						dialog.mListener = {
+							mActivity.startActivity(CreationEditorActivity::class.java) {}
+						}
 						dialog.show(mActivity.supportFragmentManager, "")
 					}
 				}

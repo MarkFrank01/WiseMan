@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
@@ -67,7 +69,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
 	override fun setListener() {
 		tv_toolbar_right.setOnClickListener {
-			//TODO 返回标签
+			val intent = Intent()
+			intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
+			intent.putExtra("classifyId", mSelectedClassify?.id)
+			setResult(Activity.RESULT_OK, intent)
+			finish()
 		}
 		iv_select_label_new_label_delete.setOnClickListener {
 			val dialog = DeleteNewLabelDialog()

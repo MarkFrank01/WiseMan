@@ -206,6 +206,12 @@ public interface APIService {
 		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
 	
 	/**
+	 * 获取搜索默认关键词
+	 */
+	@POST("/search/getSearchKeywordInInputBox")
+	Flowable<BaseBean<HotSearchBean>> getSearchDefaultKeyword();
+	
+	/**
 	 * 获取热门搜索关键词
 	 */
 	@POST("/search/getSearchKeyword")

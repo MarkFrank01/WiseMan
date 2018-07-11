@@ -47,10 +47,10 @@
     <string name="login_timeout">登录超时，请重新登录</string>
     <string name="tv_login_count_down">%1$d&#160;s</string>
     <string name="agreement">智者用户协议</string>
-    <string name="agreement_url">/user-protocol.html</string>
-    <string name="agreement_dark_url">/user-protocol-dark.html</string>
-    <string name="creation_agreement_url">/create-protocol.html</string>
-    <string name="creation_agreement_dark_url">/create-protocol-dark.html</string>
+    <string name="agreement_url">/pages/user-protocol.html</string>
+    <string name="agreement_dark_url">/pages/user-protocol.html</string>
+    <string name="creation_agreement_url">/pages/create-protocol.html</string>
+    <string name="creation_agreement_dark_url">/pages/create-protocol.html</string>
     <string name="intelligence_value_help_url">/help.html</string>
     <string name="intelligence_value_help_dark_url">/help-dark.html</string>
     <string name="help_1_url">/help/help1.html</string>
@@ -84,8 +84,8 @@
     <string name="card_details_light_url">/p/Light/</string>
     <string name="card_share_url">/articleView/</string>
 	<string name="note_editor_url">pages/note-editor.html</string>
-    <string name="creation_editor_url">/view/mobile-editor</string>
-    <string name="intelligence_url">/view/intelligence</string>
+    <string name="creation_editor_url">/pages/card-editor.html</string>
+    <string name="intelligence_url">/pages/intelligence.html</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
     <!--common-end-->
 

@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -14,11 +15,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.FileUtil
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
@@ -32,15 +29,43 @@ class CreationEditorActivity : BaseActivity(),
 
 	private var mAction = 0 //0选择标题图，1选择内容图
 	private var cardId = 0
+	private var isCard = true
+
+	companion object {
+		const val CODE_SELECT_LABEL = 110
+	}
+
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_creation_editor)
 
 		initEditor()
+		iv_creation_editor_more.visibility = View.VISIBLE
 
 		mOSSDialog = OSSDialog()
 		mOSSDialog.setUploadListener(this)
+	}
+
+	override fun onBackPressed() {
+		if (editor.canGoBack()) {
+			editor.goBack()
+		} else {
+			editor.confirmSave {
+				if (it == "true") {
+					val dialog = NeedSaveDialog()
+					dialog.mCancelListener = {
+						super.onBackPressed()
+					}
+					dialog.mConfirmListener = {
+						editor.saveDraft()
+					}
+					dialog.show(supportFragmentManager, "")
+				} else {
+					super.onBackPressed()
+				}
+			}
+		}
 	}
 
 	private fun initEditor() {
@@ -60,6 +85,59 @@ class CreationEditorActivity : BaseActivity(),
 	override fun setListener() {
 		tv_toolbar_back.setOnClickListener {
 			onBackPressed()
+		}
+
+		tv_toolbar_right.setOnClickListener {
+			editor.saveNote()
+		}
+
+		iv_creation_editor_add_image.setOnClickListener {
+			getContentImage()
+		}
+
+		iv_creation_editor_bold.setOnClickListener {
+			editor.setBold()
+		}
+
+		iv_creation_editor_center.setOnClickListener {
+			editor.setCenter()
+		}
+
+		iv_creation_editor_revocation.setOnClickListener {
+			editor.rollback()
+		}
+
+		tv_toolbar_right.setOnClickListener {
+			editor.submitDraft()
+		}
+
+		iv_creation_editor_more.setOnClickListener {
+			val window = CreationMoreWindow(mActivity, isCard)
+			window.mPreviewListener = {
+				editor.editPreview()
+			}
+			window.mSaveListener = {
+				editor.saveDraft()
+			}
+			window.mTypeListener = {
+				if (!isCard) {
+					val dialog = ChangeToCardDialog()
+					dialog.mListener = {
+						editor.checkEditType(0)
+					}
+					dialog.show(supportFragmentManager, "")
+				} else {
+					editor.checkEditType(1)
+				}
+			}
+			window.mDeleteListener = {
+				val dialog = DeleteCreationDialog()
+				dialog.mListener = {
+					editor.deleteEdit()
+				}
+				dialog.show(supportFragmentManager, "")
+			}
+			window.showAsDropDown(iv_creation_editor_more, 0, ScreenUtils.dip2px(20f))
 		}
 
 		//添加方法给js调用
@@ -115,7 +193,6 @@ class CreationEditorActivity : BaseActivity(),
 				}
 	}
 
-	@JavascriptInterface
 	fun getContentImage() {
 		mAction = 1
 		val rxPermissions = RxPermissions(this)
@@ -144,6 +221,30 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
+	fun hiddenToolBar() {
+		iv_creation_editor_add_image.isClickable = false
+		iv_creation_editor_bold.isClickable = false
+		iv_creation_editor_center.isClickable = false
+		iv_creation_editor_revocation.isClickable = false
+		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_no_clickable)
+		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_clickable)
+		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_clickable)
+		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_no_clickable)
+	}
+
+	@JavascriptInterface
+	fun showToolBar() {
+		iv_creation_editor_add_image.isClickable = true
+		iv_creation_editor_bold.isClickable = true
+		iv_creation_editor_center.isClickable = true
+		iv_creation_editor_revocation.isClickable = true
+		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_clickable)
+		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_checked)
+		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_checked)
+		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_clickable)
+	}
+
+	@JavascriptInterface
 	fun saveSuccess() {
 		toastShow("保存草稿成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
@@ -168,6 +269,27 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
+	fun getLabel() {
+		val intent = Intent(this, SelectLabelActivity::class.java)
+		startActivityForResult(intent, CODE_SELECT_LABEL)
+	}
+
+	@JavascriptInterface
+	fun judgeJustify(isCenter: Boolean) {
+		iv_creation_editor_bold.setImageResource(if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked)
+	}
+
+	@JavascriptInterface
+	fun judgeBold(isBold: Boolean) {
+		iv_creation_editor_bold.setImageResource(if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked)
+	}
+
+	@JavascriptInterface
+	fun judgeSubmit(isEnable: Boolean) {
+		tv_toolbar_right.isEnabled = isEnable
+	}
+
+	@JavascriptInterface
 	fun lack(string: String) {
 		toastError(string)
 	}
@@ -177,24 +299,16 @@ class CreationEditorActivity : BaseActivity(),
 		if (path == null) {
 			path = imagePath
 		}
-		val intent = Intent(mActivity, ClipImageActivity::class.java)
-		intent.putExtra("path", path)
-		intent.putExtra("aspectX", 16)
-		intent.putExtra("aspectY", 9)
-		startActivityForResult(intent, Constants.CLIP_IMAGE)
+		uploadImageToOSS(path)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		if (resultCode == Activity.RESULT_OK && data != null) {
-			if (requestCode == Constants.CLIP_IMAGE) {
-				//图片裁剪完成
-				val path = data.getStringExtra("path")
-				uploadImageToOSS(path)
-			} else {
+			if (requestCode == 1) {
 				//图片选择完成
 				var photoUri = data.data
-				var imagePath: String = ""
+				var imagePath = ""
 				if (photoUri != null) {
 					imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
 				} else {
@@ -209,6 +323,10 @@ class CreationEditorActivity : BaseActivity(),
 					}
 				}
 				uploadImageToOSS(imagePath)
+			} else if (requestCode == CODE_SELECT_LABEL) {
+				val labelName = data.getStringExtra("labelName")
+				val classifyId = data.getIntExtra("classifyId", 0)
+				editor.setLabel(labelName, classifyId)
 			}
 		}
 	}
