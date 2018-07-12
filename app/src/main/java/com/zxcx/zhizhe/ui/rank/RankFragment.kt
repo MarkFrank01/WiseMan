@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.rank
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -91,18 +92,17 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
 
-		//todo 排名变化
 		when {
 			bean.rankChange > 0 -> {
-				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_rank_up, tv_my_rank_change)
 				tv_my_rank_change.text = bean.rankChange.toString()
 			}
 			bean.rankChange == 0 -> {
-				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_rank_invariability, tv_my_rank_change)
 				tv_my_rank_change.text = bean.rankIndex.toString()
 			}
 			else -> {
-				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_home_rank, tv_my_rank_change)
+				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_rank_down, tv_my_rank_change)
 				tv_my_rank_change.text = Math.abs(bean.rankChange).toString()
 			}
 		}
@@ -119,10 +119,11 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		if (list.size > 0) {
 			mAdList = list
 			mAdList.forEach {
-				imageList.add(it.content)
+				imageList.add(it.titleImage)
 			}
+			fl_banner_rank.visibility = View.VISIBLE
 		} else {
-			banner_rank.visibility = View.GONE
+			fl_banner_rank.visibility = View.GONE
 		}
 		banner_rank.setImages(imageList)
 		banner_rank.start()
@@ -170,12 +171,14 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		if (mUserId == 0) {
 			tv_rank_need_login.visibility = View.VISIBLE
+			tv_my_rank_change.visibility = View.GONE
 		} else {
 			tv_rank_need_login.visibility = View.GONE
+			tv_my_rank_change.visibility = View.VISIBLE
 		}
 
 		banner_rank.setImageLoader(GlideBannerImageLoader())
-		banner_rank.setIndicatorGravity(BannerConfig.CENTER)
+		banner_rank.setIndicatorGravity(BannerConfig.RIGHT)
 		banner_rank.setOnBannerListener {
 			val adUrl = mAdList[it].behavior
 			val adTitle = mAdList[it].description
@@ -184,5 +187,30 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 				it.putExtra("url", adUrl)
 			}
 		}
+		banner_rank.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+			override fun onPageScrollStateChanged(state: Int) {
+
+			}
+
+			override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+			}
+
+			override fun onPageSelected(position: Int) {
+				val ad = mAdList[position]
+				when (ad.styleType) {
+					0 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
+					}
+					1 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
+					}
+					2 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
+					}
+				}
+			}
+
+		})
 	}
 }

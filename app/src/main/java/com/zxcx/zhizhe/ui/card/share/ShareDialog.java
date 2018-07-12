@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -91,7 +93,7 @@ public class ShareDialog extends BaseDialog {
 	}
 
 	@OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone,
-		R.id.ll_share_weibo, R.id.ll_share_copy, R.id.tv_dialog_cancel})
+		R.id.ll_share_weibo, R.id.ll_share_copy, R.id.ll_share_more, R.id.tv_dialog_cancel})
 	public void onViewClicked(View view) {
 		Platform plat;
 		switch (view.getId()) {
@@ -118,6 +120,10 @@ public class ShareDialog extends BaseDialog {
 			case R.id.ll_share_copy:
 				copy();
 				this.dismiss();
+				break;
+			case R.id.ll_share_more:
+				Uri uri = Uri.parse(url);
+				startActivity(new Intent(Intent.ACTION_VIEW, uri));
 				break;
 			case R.id.tv_dialog_cancel:
 				this.dismiss();

@@ -162,13 +162,13 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			}
 			when (ad.styleType) {
 				0 -> {
-					//todo 广告
+					iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
 				}
 				1 -> {
-					//todo 公告
+					iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
 				}
 				2 -> {
-					//todo 活动
+					iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
 				}
 			}
 		}
@@ -345,6 +345,11 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		}
+		cb_article_details_follow.expandViewTouchDelegate(ScreenUtils.dip2px(8f))
+		iv_article_details_comment.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+		cb_article_details_collect.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+		cb_article_details_like.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+		iv_article_details_share.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		initWebView()
 		initLoadSir()
 	}
@@ -417,6 +422,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		val bundle = Bundle()
 		bundle.putString("title", getString(R.string.app_name))
 		bundle.putString("text", cardBean.name)
+//		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
 		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
 		bundle.putString("imageUrl", cardBean.imageUrl)
 		shareCardDialog.arguments = bundle

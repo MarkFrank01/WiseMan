@@ -27,6 +27,7 @@ class CardBean(
 		@SerializedName("topicName") var subjectName: String? = null,
 		@SerializedName("content") var content: String = "",
 		@SerializedName("matchContent") var searchContent: String = "",
+		@SerializedName("unpassReason") var rejectReason: String = "",
 		@SerializedName("like") var isLike: Boolean = false,
 		@SerializedName("disagree") var isUnLike: Boolean = false,
 		@SerializedName("collect") var isCollect: Boolean = false,
@@ -34,7 +35,6 @@ class CardBean(
 		@SerializedName("adUrl") var adUrl: String = "",
 		@SerializedName("adVO") var ad: ADBean? = null
 ) : RetrofitBaen(), Parcelable {
-
 	fun getLabelName(): String {
 		return "#$labelName"
 	}
@@ -78,6 +78,7 @@ class CardBean(
 			source.readString(),
 			source.readString(),
 			source.readString(),
+			source.readString(),
 			1 == source.readInt(),
 			1 == source.readInt(),
 			1 == source.readInt(),
@@ -108,6 +109,7 @@ class CardBean(
 		writeString(subjectName)
 		writeString(content)
 		writeString(searchContent)
+		writeString(rejectReason)
 		writeInt((if (isLike) 1 else 0))
 		writeInt((if (isUnLike) 1 else 0))
 		writeInt((if (isCollect) 1 else 0))

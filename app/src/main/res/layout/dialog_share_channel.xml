@@ -183,10 +183,28 @@
 			
 			</LinearLayout>
 			
-			<View
+			<LinearLayout
+				android:id="@+id/ll_share_more"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"/>
+				android:layout_weight="1"
+				android:gravity="center"
+				android:orientation="vertical">
+				
+				<ImageView
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:src="@drawable/share_more"/>
+				
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="9dp"
+					android:text="@string/copy"
+					android:textColor="@color/text_color_2"
+					android:textSize="@dimen/text_size_text_3"/>
+			
+			</LinearLayout>
 			
 			<View
 				android:layout_width="0dp"

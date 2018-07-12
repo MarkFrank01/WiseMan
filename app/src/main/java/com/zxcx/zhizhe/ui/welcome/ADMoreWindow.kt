@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.getColorForKotlin
-import kotlinx.android.synthetic.main.window_sort.view.*
+import kotlinx.android.synthetic.main.window_ad_more.view.*
 
 class ADMoreWindow(val context: Context) : PopupWindow(context) {
 
@@ -25,11 +25,11 @@ class ADMoreWindow(val context: Context) : PopupWindow(context) {
 		height = ViewGroup.LayoutParams.WRAP_CONTENT
 		setBackgroundDrawable(ColorDrawable(context.getColorForKotlin(R.color.translate)))
 		isOutsideTouchable = true
-		view.tv_sort_default.setOnClickListener {
+		view.tv_ad_refresh.setOnClickListener {
 			mListener?.refresh()
 			dismiss()
 		}
-		view.tv_sort_earliest.setOnClickListener {
+		view.tv_ad_share.setOnClickListener {
 			mListener?.share()
 			dismiss()
 		}

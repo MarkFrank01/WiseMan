@@ -11,24 +11,24 @@
 	android:orientation="vertical">
 	
 	<TextView
-		android:id="@+id/tv_sort_default"
+		android:id="@+id/tv_ad_refresh"
 		android:layout_width="130dp"
 		android:layout_height="50dp"
 		android:paddingStart="22dp"
 		android:drawablePadding="16dp"
-		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:drawableStart="@drawable/tv_ad_refresh"
 		android:gravity="center_vertical|start"
 		android:text="刷新"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_text_1"/>
 	
 	<TextView
-		android:id="@+id/tv_sort_earliest"
+		android:id="@+id/tv_ad_share"
 		android:layout_width="130dp"
 		android:layout_height="50dp"
 		android:paddingStart="22dp"
 		android:drawablePadding="16dp"
-		android:drawableStart="@drawable/selector_cb_card_details_collect"
+		android:drawableStart="@drawable/tv_ad_share"
 		android:gravity="center_vertical|start"
 		android:text="分享"
 		android:textColor="@color/text_color_1"

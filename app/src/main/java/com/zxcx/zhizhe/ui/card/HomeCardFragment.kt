@@ -15,7 +15,7 @@ import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home_card.*
 
 class HomeCardFragment : BaseFragment() {
 
@@ -28,7 +28,7 @@ class HomeCardFragment : BaseFragment() {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 	                          savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_home, container, false)
+		return inflater.inflate(R.layout.fragment_home_card, container, false)
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

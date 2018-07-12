@@ -21,31 +21,32 @@
 		android:id="@+id/rg_main"
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
-		android:paddingTop="8dp"
+		android:paddingTop="5dp"
 		android:background="@color/background"
 		android:orientation="horizontal">
 		
 		<RadioButton
 			android:id="@+id/home_tab_card"
 			style="@style/BottomTab"
-			android:drawableTop="@drawable/selector_home_home"
+			android:drawableTop="@drawable/selector_home_card"
 			android:text="@string/home_card"/>
 		
 		<RadioButton
 			android:id="@+id/home_tab_article"
 			style="@style/BottomTab"
-			android:drawableTop="@drawable/selector_home_classify"
+			android:drawableTop="@drawable/selector_home_article"
 			android:text="@string/home_article"/>
 		
 		<ImageView
 			android:id="@+id/iv_home_creation"
 			style="@style/BottomTab"
-			android:src="@drawable/iv_add_new"/>
+			android:paddingBottom="5dp"
+			android:src="@drawable/iv_home_creation"/>
 		
 		<RadioButton
 			android:id="@+id/home_tab_rank"
 			style="@style/BottomTab"
-			android:drawableTop="@drawable/selector_home_classify"
+			android:drawableTop="@drawable/selector_home_article"
 			android:text="@string/home_rank"/>
 		
 		<RadioButton

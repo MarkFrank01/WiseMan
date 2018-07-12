@@ -15,10 +15,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.SaveFreedomNoteSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.FileUtil
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
@@ -145,26 +142,30 @@ class NoteEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun hiddenToolBar() {
-		iv_creation_editor_add_image.isClickable = false
-		iv_creation_editor_bold.isClickable = false
-		iv_creation_editor_center.isClickable = false
-		iv_creation_editor_revocation.isClickable = false
-		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_no_clickable)
-		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_clickable)
-		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_clickable)
-		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_no_clickable)
+		runOnUiThread {
+			iv_creation_editor_add_image.isClickable = false
+			iv_creation_editor_bold.isClickable = false
+			iv_creation_editor_center.isClickable = false
+			iv_creation_editor_revocation.isClickable = false
+			ImageLoader.load(mActivity, R.drawable.iv_add_image_no_clickable, iv_creation_editor_add_image)
+			ImageLoader.load(mActivity, R.drawable.iv_bold_no_clickable, iv_creation_editor_bold)
+			ImageLoader.load(mActivity, R.drawable.iv_center_no_clickable, iv_creation_editor_center)
+			ImageLoader.load(mActivity, R.drawable.iv_revocation_no_clickable, iv_creation_editor_revocation)
+		}
 	}
 
 	@JavascriptInterface
 	fun showToolBar() {
-		iv_creation_editor_add_image.isClickable = true
-		iv_creation_editor_bold.isClickable = true
-		iv_creation_editor_center.isClickable = true
-		iv_creation_editor_revocation.isClickable = true
-		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_clickable)
-		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_checked)
-		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_checked)
-		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_clickable)
+		runOnUiThread {
+			iv_creation_editor_add_image.isClickable = true
+			iv_creation_editor_bold.isClickable = true
+			iv_creation_editor_center.isClickable = true
+			iv_creation_editor_revocation.isClickable = true
+			ImageLoader.load(mActivity, R.drawable.iv_add_image_clickable, iv_creation_editor_add_image)
+			ImageLoader.load(mActivity, R.drawable.iv_bold_no_checked, iv_creation_editor_bold)
+			ImageLoader.load(mActivity, R.drawable.iv_center_no_checked, iv_creation_editor_center)
+			ImageLoader.load(mActivity, R.drawable.iv_revocation_clickable, iv_creation_editor_revocation)
+		}
 	}
 
 	@JavascriptInterface
@@ -174,17 +175,25 @@ class NoteEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun judgeJustify(isCenter: Boolean) {
-		iv_creation_editor_bold.setImageResource(if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked)
+		runOnUiThread {
+			ImageLoader.load(mActivity, if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked,
+					iv_creation_editor_center)
+		}
 	}
 
 	@JavascriptInterface
 	fun judgeBold(isBold: Boolean) {
-		iv_creation_editor_bold.setImageResource(if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked)
+		runOnUiThread {
+			ImageLoader.load(mActivity, if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked,
+					iv_creation_editor_bold)
+		}
 	}
 
 	@JavascriptInterface
 	fun judgeSubmit(isEnable: Boolean) {
-		tv_toolbar_right.isEnabled = isEnable
+		runOnUiThread {
+			tv_toolbar_right.isEnabled = isEnable
+		}
 	}
 
 	@JavascriptInterface

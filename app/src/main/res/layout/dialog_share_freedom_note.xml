@@ -84,24 +84,26 @@
 			android:layout_height="match_parent">
 			
 			<LinearLayout
+				android:id="@+id/ll_freedom_dialog_share"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@drawable/bg_dialog"
 				android:orientation="vertical">
 				
-				<RelativeLayout
+				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="40dp"
+					android:paddingStart="20dp"
 					android:paddingEnd="20dp"
-					android:paddingLeft="20dp">
+					android:orientation="vertical">
 					
 					<TextView
 						android:id="@+id/tv_dialog_share_title"
 						android:textStyle="bold"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="25dp"
 						android:ellipsize="end"
+						android:lineSpacingExtra="4dp"
 						android:maxLines="2"
 						android:textColor="@color/text_color_1"
 						android:textSize="@dimen/text_size_title_2"
@@ -113,13 +115,13 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="12dp"
-						android:layout_below="@id/tv_dialog_share_title"
+						android:layout_marginBottom="13dp"
 						android:textColor="@color/text_color_3"
 						android:textSize="@dimen/text_size_text_3"
 						android:transitionName="cardInfo"
 						tools:text="@string/tv_item_card_note_info"/>
 				
-				</RelativeLayout>
+				</LinearLayout>
 				
 				<FrameLayout
 					android:id="@+id/fl_dialog_share"
@@ -133,7 +135,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="165dp"
 					android:scaleType="centerCrop"
-					android:src="@drawable/iv_dialog_share_note_qr"/>
+					android:src="@drawable/iv_dialog_share_qr"/>
 			</LinearLayout>
 		</ScrollView>
 	</com.zxcx.zhizhe.widget.RoundedFrameLayout>

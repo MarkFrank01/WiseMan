@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_draft_details.*
@@ -28,15 +29,10 @@ import org.greenrobot.eventbus.ThreadMode
 class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
 	private var mWebView: WebView? = null
-	private var cardId: Int = 0
-	private var cardBagId: Int = 0
-	private var name: String? = null
-	private var author: String? = null
-	private var imageUrl: String? = null
-	private var date: String? = null
 	private var mUrl: String? = null
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
+	private lateinit var cardBean: CardBean
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setContentView(R.layout.activity_draft_details)
@@ -47,7 +43,7 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 		initData()
 		initView()
 
-		mPresenter.getDraftDetails(cardId)
+		mPresenter.getDraftDetails(cardBean.id)
 	}
 
 	override fun initStatusBar() {
@@ -72,20 +68,19 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 	}
 
 	override fun onReload(v: View?) {
-		mPresenter.getDraftDetails(cardId)
+		mPresenter.getDraftDetails(cardBean.id)
 		mWebView?.reload()
 	}
 
-	override fun getDataSuccess(bean: RejectDetailsBean) {
+	override fun getDataSuccess(bean: CardBean) {
 		//进入时只有id的时候，在这里初始化界面
-		name = bean.name
-		imageUrl = bean.imageUrl
-		date = DateTimeUtils.getDateString(bean.date)
-		author = bean.authorName
-		cardBagId = bean.cardBagId
-		tv_draft_details_title?.text = name
-		tv_draft_details_info?.text = getString(R.string.tv_card_info, date, author)
-		tv_draft_details_card_bag?.text = bean.cardBagName
+		cardBean = bean
+
+		tv_draft_details_title.text = bean.name
+		tv_draft_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		tv_draft_details_category.text = bean.categoryName
+		tv_draft_details_label.text = bean.getLabelName()
+		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
 	}
 
@@ -110,21 +105,29 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 	}
 
 	private fun initData() {
-		cardId = intent.getIntExtra("id", 0)
-		name = intent.getStringExtra("name")
-		imageUrl = intent.getStringExtra("imageUrl")
-		date = intent.getStringExtra("date")
-		author = intent.getStringExtra("authorName")
+		cardBean = intent.getParcelableExtra("cardBean")
 	}
 
 	private fun initView() {
-		if (!StringUtils.isEmpty(name))
-			tv_draft_details_title?.text = name
-		if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
-			tv_draft_details_info?.text = getString(R.string.tv_card_info, date, author)
-		if (!StringUtils.isEmpty(imageUrl))
+		if (!StringUtils.isEmpty(cardBean.name))
+			tv_draft_details_title.text = cardBean.name
+		if (!StringUtils.isEmpty(DateTimeUtils.getDateString(cardBean.date)))
+			tv_draft_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		if (!StringUtils.isEmpty(cardBean.categoryName))
+			tv_draft_details_category.text = cardBean.categoryName
+		if (!StringUtils.isEmpty(cardBean.getLabelName()))
+			tv_draft_details_label.text = cardBean.getLabelName()
+		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
+		}
 
+		initWebView()
+
+		initLoadSir()
+	}
+
+	private fun initWebView() {
 		//获取WebView，并将WebView高度设为WRAP_CONTENT
 		mWebView = WebViewUtils.getWebView(this)
 		val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -166,14 +169,12 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
 		if (isNight) {
-			mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize
+			mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardBean.id + "?fontSize=" + fontSize
 		} else {
-			mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize
+			mUrl = APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardBean.id + "?fontSize=" + fontSize
 
 		}
 		mWebView?.loadUrl(mUrl)
-
-		initLoadSir()
 	}
 
 	override fun setListener() {
@@ -182,14 +183,14 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 		}
 
 		iv_note_details_edit.setOnClickListener {
-			startActivity(CreationEditorActivity::class.java, {
-				it.putExtra("cardId", cardId)
+			startActivity(CreationEditorActivity::class.java) {
+				it.putExtra("cardId", cardBean.id)
 				it.putExtra("type", 3)
-			})
+			}
 		}
 
 		iv_note_details_commit.setOnClickListener {
-			mPresenter.submitReview(cardId)
+			mPresenter.submitReview(cardBean.id)
 		}
 	}
 

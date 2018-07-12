@@ -58,7 +58,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:clickable="false"
-			android:scaleType="center"
+			android:scaleType="centerInside"
 			android:src="@drawable/iv_add_image_no_clickable"/>
 		
 		<ImageView
@@ -67,7 +67,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:clickable="false"
-			android:scaleType="center"
+			android:scaleType="centerInside"
 			android:src="@drawable/iv_bold_no_clickable"/>
 		
 		<ImageView
@@ -76,7 +76,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:clickable="false"
-			android:scaleType="center"
+			android:scaleType="centerInside"
 			android:src="@drawable/iv_center_no_clickable"/>
 		
 		<ImageView
@@ -85,7 +85,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:clickable="false"
-			android:scaleType="center"
+			android:scaleType="centerInside"
 			android:src="@drawable/iv_revocation_no_clickable"/>
 		
 		<ImageView
@@ -94,7 +94,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:clickable="false"
-			android:scaleType="center"
+			android:scaleType="centerInside"
 			android:src="@drawable/iv_toolbar_more"
 			android:visibility="gone"/>
 	</LinearLayout>

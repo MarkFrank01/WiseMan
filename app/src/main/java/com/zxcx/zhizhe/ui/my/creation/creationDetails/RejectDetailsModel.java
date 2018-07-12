@@ -1,13 +1,13 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import android.support.annotation.NonNull;
-
 import com.zxcx.zhizhe.mvpBase.BaseModel;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
 import com.zxcx.zhizhe.retrofit.AppClient;
 import com.zxcx.zhizhe.retrofit.BaseBean;
 import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presenter> {
 
@@ -16,12 +16,12 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 	}
 
 	public void getRejectDetails(int RejectId) {
-		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 2)
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId)
 			.compose(BaseRxJava.INSTANCE.io_main())
 			.compose(BaseRxJava.INSTANCE.handleResult())
-			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+			.subscribeWith(new BaseSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(RejectDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.getDataSuccess(bean);
 				}
 			});
@@ -29,12 +29,12 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 	}
 
 	public void getReviewDetails(int RejectId) {
-		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 1)
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId)
 			.compose(BaseRxJava.INSTANCE.io_main())
 			.compose(BaseRxJava.INSTANCE.handleResult())
-			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+			.subscribeWith(new BaseSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(RejectDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.getDataSuccess(bean);
 				}
 			});
@@ -42,12 +42,12 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 	}
 
 	public void getDraftDetails(int RejectId) {
-		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId, 3)
+		mDisposable = AppClient.getAPIService().getRejectDetails(RejectId)
 			.compose(BaseRxJava.INSTANCE.io_main())
 			.compose(BaseRxJava.INSTANCE.handleResult())
-			.subscribeWith(new BaseSubscriber<RejectDetailsBean>(mPresenter) {
+			.subscribeWith(new BaseSubscriber<CardBean>(mPresenter) {
 				@Override
-				public void onNext(RejectDetailsBean bean) {
+				public void onNext(CardBean bean) {
 					mPresenter.getDataSuccess(bean);
 				}
 			});

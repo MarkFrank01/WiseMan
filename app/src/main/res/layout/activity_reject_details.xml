@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/bg_details">
+	android:background="@color/background">
 	
 	<LinearLayout
 		android:id="@+id/ll_reject_details_bottom"
@@ -44,107 +44,48 @@
 		android:layout_height="match_parent"
 		android:layout_above="@id/ll_reject_details_bottom">
 		
-		<LinearLayout
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/ll_card_details_top"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
+			android:layout_height="wrap_content">
 			
-			<FrameLayout
+			<ImageView
+				android:id="@+id/iv_reject_details"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-				
-				<com.zxcx.zhizhe.widget.CardImageView
-					android:id="@+id/iv_reject_details"
-					android:layout_width="match_parent"
-					android:layout_height="212dp"
-					android:scaleType="centerCrop"
-					android:src="@drawable/default_card"
-					android:transitionName="cardImage"
-					app:hasShade="true"
-					app:heightWeight="9"
-					app:widthWeight="16"/>
-				
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_gravity="bottom"
-					android:paddingStart="20dp"
-					android:paddingEnd="20dp">
-					
-					<TextView
-						android:id="@+id/tv_reject_details_title"
-						android:textStyle="bold"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:ellipsize="end"
-						android:lineSpacingExtra="4dp"
-						android:maxLines="2"
-						android:textColor="@color/white_final"
-						android:textSize="@dimen/text_size_title_2"
-						android:transitionName="cardTitle"
-						tools:text="动圈和铁圈耳机的区别"/>
-					
-					<LinearLayout
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginBottom="4dp"
-						android:layout_below="@id/tv_reject_details_title"
-						android:gravity="center">
-						
-						<FrameLayout
-							android:id="@+id/fl_reject_details_card_bag"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:paddingTop="8dp"
-							android:paddingBottom="8dp"
-							android:paddingStart="0dp"
-							android:paddingEnd="10dp">
-							
-							<TextView
-								android:id="@+id/tv_reject_details_card_bag"
-								style="@style/tv_card_category"
-								tools:text="数码产品"/>
-						</FrameLayout>
-						
-						<TextView
-							android:id="@+id/tv_reject_details_info"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:textColor="@color/text_color_ee"
-							android:textSize="@dimen/text_size_text_3"
-							android:transitionName="cardInfo"
-							tools:text="@string/tv_card_info"/>
-					</LinearLayout>
-				
-				</RelativeLayout>
-			</FrameLayout>
+				android:layout_height="0dp"
+				android:scaleType="centerCrop"
+				android:src="@drawable/default_card"
+				android:transitionName="@string/card_img_transition_name"
+				app:layout_constraintDimensionRatio="16:9"/>
 			
 			<LinearLayout
+				android:id="@+id/ll_reject_details_reason"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="40dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginRight="20dp"
+				android:layout_marginTop="30dp"
+				android:layout_marginLeft="30dp"
+				android:layout_marginRight="30dp"
 				android:paddingTop="15dp"
 				android:paddingLeft="20dp"
 				android:paddingRight="20dp"
 				android:background="@drawable/bg_reject_reason"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				app:layout_constraintTop_toBottomOf="@id/iv_reject_details">
 				
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="未通过原因"
-					android:textColor="@color/red"
-					android:textSize="@dimen/text_size_text_2"/>
+					android:textColor="@color/text_color_3"
+					android:textSize="@dimen/text_size_text_3"/>
 				
 				<TextView
 					android:id="@+id/tv_reject_reason"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="12dp"
-					android:lineSpacingExtra="6dp"
-					android:textColor="@color/text_color_1"
+					android:layout_marginTop="16dp"
+					android:lineSpacingExtra="3dp"
+					android:textColor="@color/text_color_2"
 					android:textSize="@dimen/text_size_text_2"
 					tools:text="标题、内容不符合平台定位，内容不够详实、偏离主题。"/>
 				
@@ -152,8 +93,8 @@
 					android:id="@+id/tv_reject_agreement"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:paddingTop="20dp"
-					android:paddingBottom="10dp"
+					android:paddingTop="16dp"
+					android:paddingBottom="12dp"
 					android:lineSpacingExtra="6dp"
 					android:textColor="@color/text_color_1"
 					android:textSize="@dimen/text_size_text_3"
@@ -161,13 +102,67 @@
 			
 			</LinearLayout>
 			
+			<TextView
+				android:id="@+id/tv_reject_details_title"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="30dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginEnd="20dp"
+				android:lineSpacingExtra="6dp"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_title_2"
+				android:transitionName="@string/card_title_transition_name"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/ll_reject_details_reason"
+				tools:text="男士西装基本样式简介男士西装基本样式"/>
+			
+			<TextView
+				android:id="@+id/tv_reject_details_category"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="20dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				android:transitionName="@string/card_category_transition_name"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@id/tv_reject_details_title"
+				tools:text="生活"/>
+			
+			<TextView
+				android:id="@+id/tv_reject_details_label"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="12dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				android:transitionName="@string/card_label_transition_name"
+				app:layout_constraintStart_toEndOf="@id/tv_reject_details_category"
+				app:layout_constraintTop_toBottomOf="@id/tv_reject_details_title"
+				tools:text="生活"/>
+			
+			<TextView
+				android:id="@+id/tv_reject_details_date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="7dp"
+				android:layout_marginStart="12dp"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"
+				app:layout_constraintStart_toEndOf="@id/tv_reject_details_label"
+				app:layout_constraintTop_toBottomOf="@id/tv_reject_details_title"
+				tools:text="2018/12/20"/>
+			
 			<FrameLayout
 				android:id="@+id/fl_reject_details"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
-				android:layout_weight="1">
+				app:layout_constraintTop_toBottomOf="@id/tv_reject_details_category">
 			</FrameLayout>
-		</LinearLayout>
+		</android.support.constraint.ConstraintLayout>
 	</ScrollView>
 	
 	<ImageView

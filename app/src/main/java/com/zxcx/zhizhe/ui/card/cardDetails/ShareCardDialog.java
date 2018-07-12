@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -30,6 +32,7 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -50,7 +53,7 @@ public class ShareCardDialog extends BaseDialog {
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 		Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.dialog_share_channel, container);
+		View view = inflater.inflate(R.layout.dialog_share_card_image, container);
 		mUnbinder = ButterKnife.bind(this, view);
 		imagePath = getArguments().getString("imagePath");
 		return view;
@@ -88,7 +91,7 @@ public class ShareCardDialog extends BaseDialog {
 	}
 	
 	@OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone,
-		R.id.ll_share_weibo, R.id.ll_share_copy, R.id.tv_dialog_cancel})
+		R.id.ll_share_weibo, R.id.ll_share_more, R.id.tv_dialog_cancel})
 	public void onViewClicked(View view) {
 		Platform plat;
 		switch (view.getId()) {
@@ -112,9 +115,13 @@ public class ShareCardDialog extends BaseDialog {
 				plat = ShareSDK.getPlatform(SinaWeibo.NAME);
 				showShare(plat.getName());
 				break;
-			case R.id.ll_share_copy:
-				copy();
-				this.dismiss();
+			case R.id.ll_share_more:
+				Uri imageUri = Uri.fromFile(new File(imagePath));
+				Intent shareIntent = new Intent();
+				shareIntent.setAction(Intent.ACTION_SEND);
+				shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+				shareIntent.setType("image/*");
+				startActivity(Intent.createChooser(shareIntent, "分享到"));
 				break;
 			case R.id.tv_dialog_cancel:
 				this.dismiss();

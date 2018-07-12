@@ -31,7 +31,7 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 
 	private var mPage = 0
 	private var mSortType = 0
-	private val mTabType = 3 //tabType 标签类型 0阅读 1点赞 3收藏
+	private val mTabType = 2 //tabType 标签类型 0阅读 1点赞 3收藏
 	private var mPageSize = Constants.PAGE_SIZE
 	private lateinit var mAdapter: MyCardsAdapter
 

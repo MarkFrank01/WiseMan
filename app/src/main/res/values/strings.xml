@@ -82,7 +82,7 @@
     <string name="user_info_change">保存成功</string>
     <string name="card_details_dark_url">/p/Dark/</string>
     <string name="card_details_light_url">/p/Light/</string>
-    <string name="card_share_url">/articleView/</string>
+    <string name="card_share_url">/pages/long-share.html#id=</string>
 	<string name="note_editor_url">pages/note-editor.html</string>
     <string name="creation_editor_url">/pages/card-editor.html</string>
     <string name="intelligence_url">/pages/intelligence.html</string>

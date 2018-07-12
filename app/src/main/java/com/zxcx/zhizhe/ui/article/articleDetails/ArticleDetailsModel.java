@@ -103,7 +103,7 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 	}
 
 	public void addCollectCard(int cardId) {
-		mDisposable = AppClient.getAPIService().addCollectArticle(cardId)
+		mDisposable = AppClient.getAPIService().addCollectCard(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
 			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
 			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
@@ -116,7 +116,7 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 	}
 
 	public void removeCollectCard(int cardId) {
-		mDisposable = AppClient.getAPIService().removeCollectArticle(cardId)
+		mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
 			.compose(BaseRxJava.INSTANCE.io_main())
 			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {

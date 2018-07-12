@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
@@ -30,12 +31,7 @@ import org.greenrobot.eventbus.ThreadMode
 class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
 	private var mWebView: WebView? = null
-	private var cardId: Int = 0
-	private var cardBagId: Int = 0
-	private var name: String? = null
-	private var author: String? = null
-	private var imageUrl: String? = null
-	private var date: String? = null
+	private lateinit var cardBean: CardBean
 	private var mUrl: String? = null
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
@@ -49,7 +45,7 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		initData()
 		initView()
 
-		mPresenter.getRejectDetails(cardId)
+		mPresenter.getRejectDetails(cardBean.id)
 	}
 
 	override fun initStatusBar() {
@@ -79,23 +75,23 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	}
 
 	override fun onReload(v: View?) {
-		mPresenter.getRejectDetails(cardId)
+		mPresenter.getRejectDetails(cardBean.id)
 		mWebView?.reload()
 	}
 
-	override fun getDataSuccess(bean: RejectDetailsBean) {
+	override fun getDataSuccess(bean: CardBean) {
 		//进入时只有id的时候，在这里初始化界面
-		name = bean.name
-		imageUrl = bean.imageUrl
-		date = DateTimeUtils.getDateString(bean.date)
-		author = bean.authorName
-		cardBagId = bean.cardBagId
+		cardBean = bean
+
+		tv_reject_details_title.text = bean.name
+		tv_reject_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		tv_reject_details_category.text = bean.categoryName
+		tv_reject_details_label.text = bean.getLabelName()
+		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
+		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
+
 		val rejectReason = bean.rejectReason
 		tv_reject_reason?.text = rejectReason
-		tv_reject_details_title?.text = name
-		tv_reject_details_info?.text = getString(R.string.tv_card_info, date, author)
-		tv_reject_details_card_bag?.text = bean.cardBagName
-		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
 	}
 
 	override fun postSuccess() {
@@ -108,11 +104,7 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	}
 
 	private fun initData() {
-		cardId = intent.getIntExtra("id", 0)
-		name = intent.getStringExtra("name")
-		imageUrl = intent.getStringExtra("imageUrl")
-		date = intent.getStringExtra("date")
-		author = intent.getStringExtra("authorName")
+		cardBean = intent.getParcelableExtra("cardBean")
 	}
 
 	private fun initView() {
@@ -121,13 +113,25 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		} else {
 			tv_reject_agreement?.text = Html.fromHtml("详情请阅读<font color='#0088AA'>智者创作协议</font>")
 		}
-		if (!StringUtils.isEmpty(name))
-			tv_reject_details_title?.text = name
-		if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
-			tv_reject_details_info?.text = getString(R.string.tv_card_info, date, author)
-		if (!StringUtils.isEmpty(imageUrl))
+		if (!StringUtils.isEmpty(cardBean.name))
+			tv_reject_details_title.text = cardBean.name
+		if (!StringUtils.isEmpty(DateTimeUtils.getDateString(cardBean.date)))
+			tv_reject_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		if (!StringUtils.isEmpty(cardBean.categoryName))
+			tv_reject_details_category.text = cardBean.categoryName
+		if (!StringUtils.isEmpty(cardBean.getLabelName()))
+			tv_reject_details_label.text = cardBean.getLabelName()
+		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
+		}
 
+		initWebView()
+
+		initLoadSir()
+	}
+
+	private fun initWebView() {
 		//获取WebView，并将WebView高度设为WRAP_CONTENT
 		mWebView = WebViewUtils.getWebView(this)
 		val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -169,14 +173,12 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
 		mUrl = if (isNight) {
-			APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardId + "?fontSize=" + fontSize
+			APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardBean.id + "?fontSize=" + fontSize
 		} else {
-			APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardId + "?fontSize=" + fontSize
+			APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardBean.id + "?fontSize=" + fontSize
 
 		}
 		mWebView?.loadUrl(mUrl)
-
-		initLoadSir()
 	}
 
 	override fun setListener() {
@@ -186,25 +188,25 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 
 		tv_reject_agreement.setOnClickListener {
 
-			startActivity(WebViewActivity::class.java, {
+			startActivity(WebViewActivity::class.java) {
 				it.putExtra("title", "智者创作协议")
 				if (Constants.IS_NIGHT) {
 					it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url))
 				} else {
 					it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_url))
 				}
-			})
+			}
 		}
 
 		iv_reject_details_edit.setOnClickListener {
-			startActivity(CreationEditorActivity::class.java, {
-				it.putExtra("cardId", cardId)
+			startActivity(CreationEditorActivity::class.java) {
+				it.putExtra("cardId", cardBean.id)
 				it.putExtra("type", 2)
-			})
+			}
 		}
 
 		iv_reject_details_delete.setOnClickListener {
-			mPresenter.deleteCard(cardId)
+			mPresenter.deleteCard(cardBean.id)
 		}
 	}
 

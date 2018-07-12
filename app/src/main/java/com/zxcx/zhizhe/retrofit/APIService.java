@@ -9,7 +9,6 @@ import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
-import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsBean;
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
@@ -269,8 +268,8 @@ public interface APIService {
 	 * 获取被拒卡片详情
 	 */
 	@POST("/article/getArticleBasicInfo")
-	Flowable<BaseBean<RejectDetailsBean>> getRejectDetails(
-		@Query("articleId") int cardId, @Query("viewType") int passType);
+	Flowable<BaseBean<CardBean>> getRejectDetails(
+		@Query("articleId") int cardId);
 	
 	/**
 	 * 获取笔记详情
@@ -353,18 +352,6 @@ public interface APIService {
 	@POST("/article/deleteRead")
 	Flowable<BaseBean<Object>> removeReadArticle(
 		@Query("relationshipKeyId") int realId, @Query("articleId") int cardId);
-	
-	/**
-	 * 添加收藏卡片
-	 */
-	@POST("/favorite/collectArticle")
-	Flowable<BaseBean<CardBean>> addCollectArticle(@Query("articleId") int cardId);
-	
-	/**
-	 * 取消收藏卡片
-	 */
-	@POST("/favorite/uncollectSingleArticle")
-	Flowable<BaseBean<CardBean>> removeCollectArticle(@Query("articleId") int cardId);
 	
 	/**
 	 * 点赞卡片

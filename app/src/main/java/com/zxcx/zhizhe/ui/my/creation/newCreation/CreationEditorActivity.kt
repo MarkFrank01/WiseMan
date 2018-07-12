@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
@@ -69,8 +70,8 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	private fun initEditor() {
-		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
-//        val url = "http://192.168.1.153:8043/view/mobile-editor"
+//		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
+		val url = "http://192.168.1.153:8043/pages/card-editor.html"
 		editor.url = url
 		cardId = intent.getIntExtra("cardId", 0)
 		val type = intent.getIntExtra("type", 0)
@@ -221,34 +222,18 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
-	fun hiddenToolBar() {
-		iv_creation_editor_add_image.isClickable = false
-		iv_creation_editor_bold.isClickable = false
-		iv_creation_editor_center.isClickable = false
-		iv_creation_editor_revocation.isClickable = false
-		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_no_clickable)
-		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_clickable)
-		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_clickable)
-		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_no_clickable)
-	}
-
-	@JavascriptInterface
-	fun showToolBar() {
-		iv_creation_editor_add_image.isClickable = true
-		iv_creation_editor_bold.isClickable = true
-		iv_creation_editor_center.isClickable = true
-		iv_creation_editor_revocation.isClickable = true
-		iv_creation_editor_add_image.setImageResource(R.drawable.iv_add_image_clickable)
-		iv_creation_editor_bold.setImageResource(R.drawable.iv_bold_no_checked)
-		iv_creation_editor_center.setImageResource(R.drawable.iv_center_no_checked)
-		iv_creation_editor_revocation.setImageResource(R.drawable.iv_revocation_clickable)
-	}
-
-	@JavascriptInterface
 	fun saveSuccess() {
 		toastShow("保存草稿成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
+		startActivity(CreationActivity::class.java) {
+			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+		}
 		finish()
+	}
+
+	@JavascriptInterface
+	fun saveFail() {
+		toastError("保存草稿失败")
 	}
 
 	@JavascriptInterface
@@ -256,11 +241,6 @@ class CreationEditorActivity : BaseActivity(),
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
 		finish()
-	}
-
-	@JavascriptInterface
-	fun saveFail() {
-		toastError("保存草稿失败")
 	}
 
 	@JavascriptInterface
@@ -275,18 +255,54 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
+	fun hiddenToolBar() {
+		runOnUiThread {
+			iv_creation_editor_add_image.isClickable = false
+			iv_creation_editor_bold.isClickable = false
+			iv_creation_editor_center.isClickable = false
+			iv_creation_editor_revocation.isClickable = false
+			ImageLoader.load(mActivity, R.drawable.iv_add_image_no_clickable, iv_creation_editor_add_image)
+			ImageLoader.load(mActivity, R.drawable.iv_bold_no_clickable, iv_creation_editor_bold)
+			ImageLoader.load(mActivity, R.drawable.iv_center_no_clickable, iv_creation_editor_center)
+			ImageLoader.load(mActivity, R.drawable.iv_revocation_no_clickable, iv_creation_editor_revocation)
+		}
+	}
+
+	@JavascriptInterface
+	fun showToolBar() {
+		runOnUiThread {
+			iv_creation_editor_add_image.isClickable = true
+			iv_creation_editor_bold.isClickable = true
+			iv_creation_editor_center.isClickable = true
+			iv_creation_editor_revocation.isClickable = true
+			ImageLoader.load(mActivity, R.drawable.iv_add_image_clickable, iv_creation_editor_add_image)
+			ImageLoader.load(mActivity, R.drawable.iv_bold_no_checked, iv_creation_editor_bold)
+			ImageLoader.load(mActivity, R.drawable.iv_center_no_checked, iv_creation_editor_center)
+			ImageLoader.load(mActivity, R.drawable.iv_revocation_clickable, iv_creation_editor_revocation)
+		}
+	}
+
+	@JavascriptInterface
 	fun judgeJustify(isCenter: Boolean) {
-		iv_creation_editor_bold.setImageResource(if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked)
+		runOnUiThread {
+			ImageLoader.load(mActivity, if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked,
+					iv_creation_editor_center)
+		}
 	}
 
 	@JavascriptInterface
 	fun judgeBold(isBold: Boolean) {
-		iv_creation_editor_bold.setImageResource(if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked)
+		runOnUiThread {
+			ImageLoader.load(mActivity, if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked,
+					iv_creation_editor_bold)
+		}
 	}
 
 	@JavascriptInterface
 	fun judgeSubmit(isEnable: Boolean) {
-		tv_toolbar_right.isEnabled = isEnable
+		runOnUiThread {
+			tv_toolbar_right.isEnabled = isEnable
+		}
 	}
 
 	@JavascriptInterface

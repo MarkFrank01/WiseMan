@@ -125,6 +125,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	private fun initView() {
 		val name = intent.getStringExtra("name")
 		tv_other_user_nick_name.text = name
+		cb_other_user_follow.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 
 		mAdapter = OtherUserCardsAdapter(ArrayList())
 		mAdapter.onItemClickListener = this

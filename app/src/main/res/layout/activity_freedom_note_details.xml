@@ -54,6 +54,7 @@
 			android:layout_above="@id/ll_note_details_bottom">
 			
 			<LinearLayout
+				android:id="@+id/ll_freedom_note_details"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical">

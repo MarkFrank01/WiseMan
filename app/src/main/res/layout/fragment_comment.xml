@@ -40,7 +40,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginEnd="10dp"
 				android:padding="10dp"
-				android:src="@drawable/iv_common_close"
+				android:src="@drawable/login_close"
 				app:layout_constraintBottom_toBottomOf="@id/tv_comment_title"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintTop_toTopOf="@id/tv_comment_title"/>

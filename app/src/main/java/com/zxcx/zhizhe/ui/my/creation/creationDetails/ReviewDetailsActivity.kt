@@ -15,20 +15,16 @@ import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_review_card_details.*
 
 class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
 	private var mWebView: WebView? = null
-	private var cardId: Int = 0
-	private var cardBagId: Int = 0
-	private var name: String? = null
-	private var author: String? = null
-	private var imageUrl: String? = null
-	private var date: String? = null
 	private var loadService2: LoadService<*>? = null
 	private var loadSir2: LoadSir? = null
+	private lateinit var cardBean: CardBean
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setContentView(R.layout.activity_review_card_details)
@@ -37,7 +33,7 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		initData()
 		initView()
 
-		mPresenter.getReviewDetails(cardId)
+		mPresenter.getReviewDetails(cardBean.id)
 	}
 
 	override fun initStatusBar() {
@@ -61,20 +57,19 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	}
 
 	override fun onReload(v: View) {
-		mPresenter.getReviewDetails(cardId)
+		mPresenter.getReviewDetails(cardBean.id)
 		mWebView?.reload()
 	}
 
-	override fun getDataSuccess(bean: RejectDetailsBean) {
+	override fun getDataSuccess(bean: CardBean) {
 		//进入时只有id的时候，在这里初始化界面
-		name = bean.name
-		imageUrl = bean.imageUrl
-		date = DateTimeUtils.getDateString(bean.date)
-		author = bean.authorName
-		cardBagId = bean.cardBagId
-		tv_review_details_title.text = name
-		tv_review_details_info.text = getString(R.string.tv_card_info, date, author)
-		tv_review_details_card_bag.text = bean.cardBagName
+		cardBean = bean
+
+		tv_review_details_title.text = bean.name
+		tv_review_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		tv_review_details_category.text = bean.categoryName
+		tv_review_details_label.text = bean.getLabelName()
+		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
 	}
 
@@ -95,20 +90,23 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	}
 
 	private fun initData() {
-		cardId = intent.getIntExtra("id", 0)
-		name = intent.getStringExtra("name")
-		imageUrl = intent.getStringExtra("imageUrl")
-		date = intent.getStringExtra("date")
-		author = intent.getStringExtra("authorName")
+		cardBean = intent.getParcelableExtra("cardBean")
 	}
 
 	private fun initView() {
-		if (!StringUtils.isEmpty(name))
-			tv_review_details_title.text = name
-		if (!StringUtils.isEmpty(author) && !StringUtils.isEmpty(date))
-			tv_review_details_info.text = getString(R.string.tv_card_info, date, author)
-		if (!StringUtils.isEmpty(imageUrl))
+		if (!StringUtils.isEmpty(cardBean.name))
+			tv_review_details_title.text = cardBean.name
+		if (!StringUtils.isEmpty(DateTimeUtils.getDateString(cardBean.date)))
+			tv_review_details_date.text = DateTimeUtils.getDateString(cardBean.date)
+		if (!StringUtils.isEmpty(cardBean.categoryName))
+			tv_review_details_category.text = cardBean.categoryName
+		if (!StringUtils.isEmpty(cardBean.getLabelName()))
+			tv_review_details_label.text = cardBean.getLabelName()
+		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
+		}
+
 		initWebView()
 
 		initLoadSir()
@@ -156,9 +154,9 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val url: String
 		if (isNight) {
-			url = APIService.API_SERVER_URL + "/view/articleDark/" + cardId
+			url = APIService.API_SERVER_URL + "/view/articleDark/" + cardBean.id
 		} else {
-			url = APIService.API_SERVER_URL + "/view/articleLight/" + cardId
+			url = APIService.API_SERVER_URL + "/view/articleLight/" + cardBean.id
 			//            mUrl = "http://192.168.1.149/articleView/192";
 
 		}

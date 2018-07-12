@@ -163,7 +163,7 @@
 					android:layout_width="40dp"
 					android:layout_height="40dp"
 					android:layout_marginEnd="25dp"
-					android:src="@drawable/qq"/>
+					android:src="@drawable/login_qq"/>
 				
 				<ImageView
 					android:id="@+id/iv_login_wechat"
@@ -171,14 +171,14 @@
 					android:layout_height="40dp"
 					android:layout_marginStart="25dp"
 					android:layout_marginEnd="25dp"
-					android:src="@drawable/wechat"/>
+					android:src="@drawable/login_wechat"/>
 				
 				<ImageView
 					android:id="@+id/iv_login_weibo"
 					android:layout_width="37dp"
 					android:layout_height="37dp"
 					android:layout_marginStart="25dp"
-					android:src="@drawable/weibo"/>
+					android:src="@drawable/login_weibo"/>
 			</LinearLayout>
 		
 		</android.support.percent.PercentRelativeLayout>

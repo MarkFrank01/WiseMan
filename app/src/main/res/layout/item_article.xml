@@ -65,7 +65,7 @@
 			android:id="@+id/iv_item_card_read"
 			android:layout_width="14dp"
 			android:layout_height="14dp"
-			android:src="@drawable/tv_item_rank_user_card"
+			android:src="@drawable/iv_item_card_read"
 			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
 			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read"
 			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>
@@ -88,7 +88,7 @@
 			android:layout_width="14dp"
 			android:layout_height="14dp"
 			android:layout_marginStart="12dp"
-			android:src="@drawable/tv_item_rank_user_card"
+			android:src="@drawable/iv_item_card_comment"
 			app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
 			app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment"
 			app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"/>

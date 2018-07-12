@@ -1,8 +1,8 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails;
 
 import android.support.annotation.NonNull;
-
 import com.zxcx.zhizhe.mvpBase.BasePresenter;
+import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.View> implements
 	RejectDetailsContract.Presenter {
@@ -35,7 +35,7 @@ public class RejectDetailsPresenter extends BasePresenter<RejectDetailsContract.
 	}
 
 	@Override
-	public void getDataSuccess(RejectDetailsBean bean) {
+	public void getDataSuccess(CardBean bean) {
 		mView.getDataSuccess(bean);
 	}
 
