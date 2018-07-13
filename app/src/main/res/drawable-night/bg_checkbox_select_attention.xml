@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stroke
-        android:color="@color/color_text_enable_blue"
+        android:color="@color/color_checkbox_bg_select_attention"
         android:width="0.5dp"/>
 
     <corners android:radius="6dp"/>

@@ -17,7 +17,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
-import kotlinx.android.synthetic.main.activity_review_card_details.*
+import kotlinx.android.synthetic.main.activity_review_details.*
 
 class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
@@ -27,7 +27,7 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	private lateinit var cardBean: CardBean
 
 	override fun onCreate(savedInstanceState: Bundle?) {
-		setContentView(R.layout.activity_review_card_details)
+		setContentView(R.layout.activity_review_details)
 		super.onCreate(savedInstanceState)
 
 		initData()

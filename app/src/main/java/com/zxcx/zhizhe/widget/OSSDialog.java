@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -37,10 +39,6 @@ import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by anm on 2017/5/27.
@@ -118,8 +116,8 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 	
 	public void getOSS(String uuid) {
 		mDisposable = AppClient.getAPIService().getOSS(uuid)
-			.compose(BaseRxJava.INSTANCE.<OSSTokenBean>handleResult())
-			.compose(BaseRxJava.INSTANCE.<OSSTokenBean>io_main())
+			.compose(BaseRxJava.INSTANCE.handleResult())
+			.compose(BaseRxJava.INSTANCE.io_main())
 			.subscribeWith(new BaseSubscriber<OSSTokenBean>(this) {
 				@Override
 				public void onNext(OSSTokenBean bean) {

@@ -181,7 +181,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 
 	override fun setListener() {
 		super.setListener()
-		iv_card_details_back.setOnClickListener { onBackPressed() }
+		iv_common_close.setOnClickListener { onBackPressed() }
 		tv_item_card_details_label.setOnClickListener {
 			startActivity(LabelActivity::class.java) {
 				it.putExtra("id", mCardBean.labelId)

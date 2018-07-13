@@ -6,10 +6,10 @@ import java.util.*
 
 data class NoteBean(
 		@SerializedName("id") var id: Int = 0,
-		@SerializedName("noteType") var noteType: Int = 0,
+		@SerializedName("noteType") var noteType: Int = 0, //1摘要 2记录
 		@SerializedName("title") var name: String?,
 		@SerializedName("modifyTime") var date: Date = Date(),
-		@SerializedName("body") var content: String?
+		@SerializedName("summary") var content: String?
 ) : RetrofitBaen() {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true

@@ -25,7 +25,7 @@
 		android:paddingStart="20dp"
 		android:paddingEnd="20dp"
 		android:background="@drawable/bg_background_12dp"
-		android:elevation="10dp"
+		android:elevation="5dp"
 		android:orientation="vertical">
 		
 		<TextView

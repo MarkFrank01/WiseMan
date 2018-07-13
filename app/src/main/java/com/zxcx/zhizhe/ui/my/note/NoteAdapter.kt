@@ -24,15 +24,15 @@ class NoteAdapter(data: List<NoteBean>) : BaseQuickAdapter<NoteBean, BaseViewHol
 		helper.setText(R.id.tv_item_note_name, item.name)
 		helper.setText(R.id.tv_item_note_content, item.content)
 		when (item.noteType) {
-			0 -> {
-				//自由笔记
-				helper.setText(R.id.tv_item_note_info, mContext.getString(R.string.tv_item_card_note_info,
-						DateTimeUtils.getDateTimeString(item.date), "记录"))
-			}
 			1 -> {
 				//卡片笔记
 				helper.setText(R.id.tv_item_note_info, mContext.getString(R.string.tv_item_card_note_info,
 						DateTimeUtils.getDateTimeString(item.date), "摘录"))
+			}
+			2 -> {
+				//自由笔记
+				helper.setText(R.id.tv_item_note_info, mContext.getString(R.string.tv_item_card_note_info,
+						DateTimeUtils.getDateTimeString(item.date), "记录"))
 			}
 		}
 

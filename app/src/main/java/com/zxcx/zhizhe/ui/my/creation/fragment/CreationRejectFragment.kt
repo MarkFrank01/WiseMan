@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.DeleteRejectSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
@@ -92,8 +93,14 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		mActivity.startActivity(RejectDetailsActivity::class.java) {
-			it.putExtra("cardBean", bean)
+		if (bean.cardType == 1) {
+			mActivity.startActivity(RejectCardDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
+		} else {
+			mActivity.startActivity(RejectDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
 		}
 	}
 

@@ -83,7 +83,7 @@
     <string name="card_details_dark_url">/p/Dark/</string>
     <string name="card_details_light_url">/p/Light/</string>
     <string name="card_share_url">/pages/long-share.html#id=</string>
-	<string name="note_editor_url">pages/note-editor.html</string>
+    <string name="note_editor_url">/pages/note-editor.html</string>
     <string name="creation_editor_url">/pages/card-editor.html</string>
     <string name="intelligence_url">/pages/intelligence.html</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>

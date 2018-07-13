@@ -104,7 +104,10 @@
 				android:layout_height="36dp"
 				android:layout_marginTop="15dp"
 				android:layout_marginStart="20dp"
-				android:src="@drawable/bg_checkbox_select_attention"
+				android:background="@drawable/bg_checkbox_select_attention"
+				android:scaleType="center"
+				android:src="@drawable/iv_select_label_new_label"
+				android:visibility="gone"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
 			
@@ -118,11 +121,11 @@
 				android:paddingEnd="20dp"
 				android:background="@drawable/bg_checkbox_select_attention"
 				android:button="@null"
-				android:checked="true"
+				android:checked="false"
 				android:gravity="center"
-				android:text="生活常识"
 				android:textColor="@color/color_checkbox_text_select_attention"
 				android:textSize="@dimen/text_size_text_3"
+				android:visibility="gone"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
 			
@@ -133,6 +136,7 @@
 				android:layout_marginEnd="10dp"
 				android:padding="10dp"
 				android:src="@drawable/common_delete"
+				android:visibility="gone"
 				app:layout_constraintBottom_toBottomOf="@id/cb_item_select_label_new_label"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintTop_toTopOf="@id/cb_item_select_label_new_label"/>
@@ -143,8 +147,7 @@
 				android:layout_height="wrap_content"
 				android:visibility="gone"
 				app:constraint_referenced_ids="tv_select_label_2,
-				rv_select_label,tv_select_label_3,iv_select_label_new_label,
-				cb_item_select_label_new_label,iv_select_label_new_label_delete"/>
+				rv_select_label,tv_select_label_3"/>
 		
 		</android.support.constraint.ConstraintLayout>
 	</android.support.v4.widget.NestedScrollView>

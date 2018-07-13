@@ -47,7 +47,8 @@
 		<android.support.constraint.ConstraintLayout
 			android:id="@+id/ll_card_details_top"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:background="@color/background">
 			
 			<ImageView
 				android:id="@+id/iv_reject_details"

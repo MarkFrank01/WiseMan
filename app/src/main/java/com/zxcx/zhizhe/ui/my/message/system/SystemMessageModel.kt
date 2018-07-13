@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
 
@@ -27,11 +28,11 @@ class SystemMessageModel(presenter: SystemMessageContract.Presenter) : BaseModel
 	}
 
 	fun getRejectDetails(cardId: Int) {
-		mDisposable = AppClient.getAPIService().getRejectDetails(cardId, 2)
+		mDisposable = AppClient.getAPIService().getRejectDetails(cardId)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleResult())
-				.subscribeWith(object : BaseSubscriber<RejectDetailsBean>(mPresenter) {
-					override fun onNext(bean: RejectDetailsBean) {
+				.subscribeWith(object : BaseSubscriber<CardBean>(mPresenter) {
+					override fun onNext(bean: CardBean) {
 						mPresenter?.getCardSuccess(bean.id)
 					}
 

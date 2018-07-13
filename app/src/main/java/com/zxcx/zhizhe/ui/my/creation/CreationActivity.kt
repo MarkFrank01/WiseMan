@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_creation.*
  */
 class CreationActivity : BaseActivity() {
 	private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")
-
+	private var goto: Int = 0 //0已通过，1待审核，2未通过，3草稿箱
 	private val passedFragment = CreationPassedFragment()
 	private val reviewFragment = CreationInReviewFragment()
 	private val rejectFragment = CreationRejectFragment()
@@ -74,8 +74,14 @@ class CreationActivity : BaseActivity() {
 
 			}
 		})
-		tl_creation.getTabAt(0)?.select()
-		switchFragment(passedFragment)
+		goto = intent.getIntExtra("goto", 0)
+		tl_creation.getTabAt(goto)?.select()
+		when (goto) {
+			0 -> switchFragment(passedFragment)
+			1 -> switchFragment(reviewFragment)
+			2 -> switchFragment(rejectFragment)
+			3 -> switchFragment(draftsFragment)
+		}
 	}
 
 	private fun switchFragment(newFragment: Fragment) {

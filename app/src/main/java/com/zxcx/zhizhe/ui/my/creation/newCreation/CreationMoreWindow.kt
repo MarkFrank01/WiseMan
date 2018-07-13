@@ -28,15 +28,19 @@ class CreationMoreWindow(val context: Context, val isCard: Boolean) : PopupWindo
 
 		view.tv_creation_preview.setOnClickListener {
 			mPreviewListener.invoke()
+			dismiss()
 		}
 		view.tv_creation_save.setOnClickListener {
 			mSaveListener.invoke()
+			dismiss()
 		}
 		view.tv_creation_type.setOnClickListener {
 			mTypeListener.invoke()
+			dismiss()
 		}
 		view.tv_creation_delete.setOnClickListener {
 			mDeleteListener.invoke()
+			dismiss()
 		}
 	}
 

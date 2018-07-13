@@ -19,7 +19,8 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dp"
 			android:layout_marginStart="20dp"
-			android:layout_marginEnd="20dp">
+			android:layout_marginEnd="20dp"
+			app:layout_scrollFlags="scroll">
 			
 			<com.zxcx.zhizhe.ui.rank.ADBanner
 				android:id="@+id/banner_rank"

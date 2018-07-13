@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.Window
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.CommonDialog
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import kotlinx.android.synthetic.main.dialog_note_title.*
 
@@ -34,6 +35,7 @@ class NewLabelDialog : CommonDialog() {
 		}
 		tv_dialog_confirm.setOnClickListener {
 			mListener.invoke(et_dialog_note_title.text.toString())
+			Utils.closeInputMethod(et_dialog_note_title)
 			dismiss()
 		}
 		et_dialog_note_title.afterTextChanged {

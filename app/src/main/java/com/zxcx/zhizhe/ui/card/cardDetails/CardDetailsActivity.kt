@@ -215,7 +215,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	override fun setListener() {
 		super.setListener()
-		iv_card_details_back.setOnClickListener { onBackPressed() }
+		iv_common_close.setOnClickListener { onBackPressed() }
 	}
 
 	override fun onLoadMoreRequested() {

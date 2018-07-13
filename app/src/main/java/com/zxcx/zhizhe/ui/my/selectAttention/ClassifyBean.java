@@ -20,7 +20,7 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity, Seria
 	@SerializedName("title")
 	private String title;
 	@SerializedName("id")
-	private String id;
+	private int id;
 	@SerializedName("collectionData")
 	private List<ClassifyCardBean> dataList;
 	
@@ -65,11 +65,11 @@ public class ClassifyBean extends RetrofitBaen implements MultiItemEntity, Seria
 		this.dataList = dataList;
 	}
 	
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	

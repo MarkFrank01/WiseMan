@@ -429,7 +429,7 @@ public interface APIService {
 	/**
 	 * 删除笔记
 	 */
-	@POST("/note/deleteNode")
+	@POST("/article/deleteArticle")
 	Flowable<BaseBean<Object>> removeNote(@Query("articleId") int noteId);
 	
 	/**

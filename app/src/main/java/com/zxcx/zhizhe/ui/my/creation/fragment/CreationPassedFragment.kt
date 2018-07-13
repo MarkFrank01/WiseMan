@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
@@ -69,8 +70,14 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		mActivity.startActivity(ArticleDetailsActivity::class.java) {
-			it.putExtra("cardBean", bean)
+		if (bean.cardType == 1) {
+			mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
+		} else {
+			mActivity.startActivity(ArticleDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
 		}
 	}
 

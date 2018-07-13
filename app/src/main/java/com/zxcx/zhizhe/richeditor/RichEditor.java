@@ -308,7 +308,7 @@ public class RichEditor extends WebView {
 	}
 	
 	public void setLabel(String labelName, int classifyId) {
-		exec("setTitleImage('" + labelName + "'," + classifyId + ");");
+		exec("setLabel('" + labelName + "'," + classifyId + ");");
 	}
 	
 	

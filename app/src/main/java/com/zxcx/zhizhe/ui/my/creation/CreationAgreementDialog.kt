@@ -98,7 +98,7 @@ class CreationAgreementDialog : BaseDialog(), INullPostPresenter {
 		tv_dialog_cancel.setOnClickListener {
 			dismiss()
 		}
-		tv_dialog_cancel.setOnClickListener {
+		tv_dialog_confirm.setOnClickListener {
 			applyCreation()
 		}
 	}

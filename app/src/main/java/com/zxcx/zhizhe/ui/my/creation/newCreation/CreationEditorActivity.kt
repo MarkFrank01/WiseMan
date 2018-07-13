@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Gravity
 import android.view.View
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
@@ -16,6 +17,7 @@ import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
+import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
@@ -70,8 +72,8 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	private fun initEditor() {
-//		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
-		val url = "http://192.168.1.153:8043/pages/card-editor.html"
+		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
+//		val url = "http://192.168.1.153:8043/pages/card-editor.html"
 		editor.url = url
 		cardId = intent.getIntExtra("cardId", 0)
 		val type = intent.getIntExtra("type", 0)
@@ -113,6 +115,7 @@ class CreationEditorActivity : BaseActivity(),
 		}
 
 		iv_creation_editor_more.setOnClickListener {
+			Utils.closeInputMethod(mActivity)
 			val window = CreationMoreWindow(mActivity, isCard)
 			window.mPreviewListener = {
 				editor.editPreview()
@@ -125,20 +128,26 @@ class CreationEditorActivity : BaseActivity(),
 					val dialog = ChangeToCardDialog()
 					dialog.mListener = {
 						editor.checkEditType(0)
+						isCard = !isCard
+						iv_creation_editor_add_image.visibility = View.GONE
 					}
 					dialog.show(supportFragmentManager, "")
 				} else {
 					editor.checkEditType(1)
+					isCard = !isCard
+					iv_creation_editor_add_image.visibility = View.VISIBLE
 				}
 			}
 			window.mDeleteListener = {
 				val dialog = DeleteCreationDialog()
 				dialog.mListener = {
-					editor.deleteEdit()
+					//					editor.deleteEdit()
+					finish()
 				}
 				dialog.show(supportFragmentManager, "")
 			}
-			window.showAsDropDown(iv_creation_editor_more, 0, ScreenUtils.dip2px(20f))
+			window.showAtLocation(iv_creation_editor_more, Gravity.BOTTOM or Gravity.RIGHT,
+					0, ScreenUtils.dip2px(24f))
 		}
 
 		//添加方法给js调用
@@ -226,7 +235,9 @@ class CreationEditorActivity : BaseActivity(),
 		toastShow("保存草稿成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		startActivity(CreationActivity::class.java) {
+			it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			it.putExtra("goto", 3)
 		}
 		finish()
 	}
@@ -240,6 +251,10 @@ class CreationEditorActivity : BaseActivity(),
 	fun commitSuccess() {
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
+		startActivity(CreationActivity::class.java) {
+			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			it.putExtra("goto", 1)
+		}
 		finish()
 	}
 
@@ -315,7 +330,12 @@ class CreationEditorActivity : BaseActivity(),
 		if (path == null) {
 			path = imagePath
 		}
-		uploadImageToOSS(path)
+
+		val intent = Intent(mActivity, ClipImageActivity::class.java)
+		intent.putExtra("path", path)
+		intent.putExtra("aspectX", if (isCard) 4 else 16)
+		intent.putExtra("aspectY", if (isCard) 3 else 9)
+		startActivityForResult(intent, Constants.CLIP_IMAGE)
 	}
 
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -343,6 +363,10 @@ class CreationEditorActivity : BaseActivity(),
 				val labelName = data.getStringExtra("labelName")
 				val classifyId = data.getIntExtra("classifyId", 0)
 				editor.setLabel(labelName, classifyId)
+			} else if (requestCode == Constants.CLIP_IMAGE) {
+				//图片裁剪完成
+				val path = data.getStringExtra("path")
+				uploadImageToOSS(path)
 			}
 		}
 	}

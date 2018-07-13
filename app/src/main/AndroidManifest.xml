@@ -245,6 +245,15 @@
 		<activity
 			android:name=".ui.my.creation.newCreation.SelectLabelActivity"
 			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".ui.my.creation.creationDetails.RejectCardDetailsActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".ui.my.creation.creationDetails.DraftCardDetailsActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
+			android:screenOrientation="portrait"/>
 	</application>
 
 </manifest>

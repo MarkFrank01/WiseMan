@@ -12,6 +12,7 @@
     <color name="opacity_40">#66000000</color>
     <color name="opacity_45">#72000000</color>
     <color name="opacity_70">#B2000000</color>
+    <color name="opacity_80">#CC000000</color>
     <color name="opacity_95">#F2000000</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#F61616</color>
@@ -20,7 +21,7 @@
     <color name="bg_home_search">#F6F7F9</color>
     <color name="bg_item_user_level">#F6F7F9</color>
     <color name="bg_checkbox_follow">#EEEEEE</color>
-    <color name="dialog_background">#FFFFFF</color>
+    <color name="dialog_background">#F2FFFFFF</color>
     <color name="white_final">#FFFFFF</color>
     <color name="text_card_type">#B2FFFFFF</color>
     <color name="black">#000000</color>

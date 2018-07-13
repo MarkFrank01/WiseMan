@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogListener, IPostPresenter<UserInfoBean>, OSSDialog.OSSUploadListener, OSSDialog.OSSDeleteListener {
 
-	private lateinit var mOSSDialog: OSSDialog
 	private var isChanged = false
 	private var path: String? = null
 
@@ -36,14 +35,10 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		initToolBar("修改头像")
 
 		iv_toolbar_right.visibility = View.VISIBLE
-		iv_toolbar_right.setImageResource(R.drawable.tv_home_rank)
+		iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 
 		val imageUrl = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
 		ImageLoader.load(this, imageUrl, R.drawable.iv_my_head_placeholder, iv_head_image)
-
-		mOSSDialog = OSSDialog()
-		mOSSDialog.setUploadListener(this)
-		mOSSDialog.setDeleteListener(this)
 	}
 
 	override fun onBackPressed() {
@@ -112,6 +107,9 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		val bundle = Bundle()
 		bundle.putInt("OSSAction", 1)
 		bundle.putString("filePath", path)
+		val mOSSDialog = OSSDialog()
+		mOSSDialog.setUploadListener(this)
+		mOSSDialog.setDeleteListener(this)
 		mOSSDialog.arguments = bundle
 		mOSSDialog.show(supportFragmentManager, "")
 	}
@@ -124,7 +122,7 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		toastError(message)
 	}
 
-	fun changeImageUrl(imageUrl: String) {
+	private fun changeImageUrl(imageUrl: String) {
 		mDisposable = AppClient.getAPIService().changeUserInfo(imageUrl, null, null, null, null)
 				.compose(BaseRxJava.handleResult())
 				.compose(BaseRxJava.io_main_loading(this))
@@ -150,6 +148,9 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 		val bundle = Bundle()
 		bundle.putInt("OSSAction", 2)
 		bundle.putString("url", oldImageUrl)
+		val mOSSDialog = OSSDialog()
+		mOSSDialog.setUploadListener(this)
+		mOSSDialog.setDeleteListener(this)
 		mOSSDialog.arguments = bundle
 		mOSSDialog.show(supportFragmentManager, "")
 	}

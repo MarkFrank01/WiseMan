@@ -19,7 +19,6 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.SVTSConstants;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.ZhiZheUtils;
 import com.zxcx.zhizhe.widget.LoadingDialog;
@@ -96,14 +95,11 @@ public class BaseFragment extends Fragment implements BaseView {
 		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
 			.inflate(R.layout.toast, null);
 		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-		params.width = ScreenUtils.getDisplayWidth();
-		tvToast.setLayoutParams(params);
 		Toast toast = new Toast(mActivity);
 		toast.setView(linearLayout);
 		tvToast.setText(text);
 		toast.setDuration(Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
@@ -113,20 +109,7 @@ public class BaseFragment extends Fragment implements BaseView {
 	}
 	
 	public void toastError(String text) {
-//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
-		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
-			.inflate(R.layout.toast, null);
-		linearLayout.setBackgroundResource(R.color.red);
-		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-		params.width = ScreenUtils.getDisplayWidth();
-		tvToast.setLayoutParams(params);
-		Toast toast = new Toast(mActivity);
-		toast.setView(linearLayout);
-		tvToast.setText(text);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-		toast.show();
+		toastShow(text);
 	}
 	
 	public void clearLeaks() {

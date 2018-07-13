@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
@@ -92,10 +93,15 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		mActivity.startActivity(DraftDetailsActivity::class.java) {
-			it.putExtra("cardBean", bean)
+		if (bean.cardType == 1) {
+			mActivity.startActivity(DraftCardDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
+		} else {
+			mActivity.startActivity(DraftDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
 		}
-		//todo 卡片详情
 	}
 
 	private fun initRecyclerView() {

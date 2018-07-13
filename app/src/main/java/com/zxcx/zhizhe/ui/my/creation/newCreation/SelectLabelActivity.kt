@@ -23,7 +23,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 	private var mSelectedClassify: ClassifyBean? = null
 	private var mSelectedLabel: ClassifyCardBean? = null
 	private var mNewLabelSelect: Boolean = false
-	private lateinit var mNewLabelName: String
+	private var mNewLabelName: String = ""
 	private lateinit var mClassifyAdapter: SelectClassifyAdapter
 	private lateinit var mLabelAdapter: SelectLabelAdapter
 
@@ -78,10 +78,12 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 		iv_select_label_new_label_delete.setOnClickListener {
 			val dialog = DeleteNewLabelDialog()
 			dialog.mListener = {
+				mNewLabelName = ""
 				iv_select_label_new_label.visibility = View.VISIBLE
 				iv_select_label_new_label_delete.visibility = View.GONE
 				cb_item_select_label_new_label.visibility = View.GONE
-				mNewLabelSelect = false
+				cb_item_select_label_new_label.text = ""
+				cb_item_select_label_new_label.isChecked = false
 			}
 			dialog.show(supportFragmentManager, "")
 		}
@@ -89,6 +91,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 			val dialog = NewLabelDialog()
 			dialog.mListener = {
 				mNewLabelName = it
+				iv_select_label_new_label.visibility = View.GONE
+				iv_select_label_new_label_delete.visibility = View.VISIBLE
+				cb_item_select_label_new_label.visibility = View.VISIBLE
 				cb_item_select_label_new_label.text = it
 				cb_item_select_label_new_label.isChecked = true
 			}
@@ -96,16 +101,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 		}
 		cb_item_select_label_new_label.setOnCheckedChangeListener { buttonView, isChecked ->
 			if (isChecked) {
-				mNewLabelSelect = true
 				mSelectedLabel = null
 				mLabelAdapter.data.forEach {
 					it as ClassifyCardBean
 					it.isChecked = false
 				}
 				mLabelAdapter.notifyDataSetChanged()
-			} else {
-				mNewLabelSelect = false
 			}
+			mNewLabelSelect = isChecked
 			tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 		}
 	}
@@ -114,10 +117,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 		mClassifyAdapter = SelectClassifyAdapter(ArrayList())
 		mLabelAdapter = SelectLabelAdapter(ArrayList())
 		val manager = GridLayoutManager(mActivity, 4)
+		val manager1 = GridLayoutManager(mActivity, 4)
 		rv_select_classify.adapter = mClassifyAdapter
 		rv_select_classify.layoutManager = manager
 		rv_select_label.adapter = mLabelAdapter
-		rv_select_label.layoutManager = manager
+		rv_select_label.layoutManager = manager1
 		mClassifyAdapter.setOnItemChildClickListener { adapter, view, position ->
 			val bean = adapter.data[position] as ClassifyBean
 			val isChecked = !bean.isChecked
@@ -131,10 +135,22 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 			if (bean.isChecked) {
 				mSelectedClassify = bean
 				group_select_label.visibility = View.VISIBLE
+				if (mNewLabelName.isEmpty()) {
+					cb_item_select_label_new_label.visibility = View.GONE
+					iv_select_label_new_label_delete.visibility = View.GONE
+					iv_select_label_new_label.visibility = View.VISIBLE
+				} else {
+					cb_item_select_label_new_label.visibility = View.VISIBLE
+					iv_select_label_new_label_delete.visibility = View.VISIBLE
+					iv_select_label_new_label.visibility = View.GONE
+				}
 				mLabelAdapter.setNewData(bean.dataList)
 			} else {
 				mSelectedClassify = null
 				group_select_label.visibility = View.GONE
+				cb_item_select_label_new_label.visibility = View.GONE
+				iv_select_label_new_label_delete.visibility = View.GONE
+				iv_select_label_new_label.visibility = View.GONE
 			}
 			tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 		}
@@ -151,6 +167,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 			if (bean.isChecked) {
 				mSelectedLabel = bean
 				mNewLabelSelect = false
+				if (mNewLabelName.isNotEmpty()) {
+					cb_item_select_label_new_label.isChecked = false
+				}
 			} else {
 				mSelectedLabel = null
 			}

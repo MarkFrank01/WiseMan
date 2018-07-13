@@ -109,15 +109,15 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 	override fun onContentClick(position: Int) {
 		val bean = mAdapter.data[position] as NoteBean
 		when (bean.noteType) {
-			0 -> {
-				startActivity(FreedomNoteDetailsActivity::class.java) {
+			1 -> {
+				startActivity(ArticleNoteDetailsActivity::class.java) {
 					it.putExtra("id", bean.id)
 					it.putExtra("name", bean.name)
 					it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))
 				}
 			}
-			1 -> {
-				startActivity(ArticleNoteDetailsActivity::class.java) {
+			2 -> {
+				startActivity(FreedomNoteDetailsActivity::class.java) {
 					it.putExtra("id", bean.id)
 					it.putExtra("name", bean.name)
 					it.putExtra("date", DateTimeUtils.getDateTimeString(bean.date))

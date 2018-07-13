@@ -24,7 +24,6 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.SVTSConstants;
-import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
@@ -190,14 +189,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
 			.inflate(R.layout.toast, null);
 		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-		params.width = ScreenUtils.getDisplayWidth();
-		tvToast.setLayoutParams(params);
 		Toast toast = new Toast(this);
 		toast.setView(linearLayout);
 		tvToast.setText(text);
 		toast.setDuration(Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
 	
@@ -207,20 +203,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 	}
 	
 	public void toastError(String text) {
-//        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
-		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
-			.inflate(R.layout.toast, null);
-		linearLayout.setBackgroundResource(R.color.red);
-		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
-		ViewGroup.LayoutParams params = tvToast.getLayoutParams();
-		params.width = ScreenUtils.getDisplayWidth();
-		tvToast.setLayoutParams(params);
-		Toast toast = new Toast(this);
-		toast.setView(linearLayout);
-		tvToast.setText(text);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
-		toast.show();
+		toastShow(text);
 	}
 	
 	@Override

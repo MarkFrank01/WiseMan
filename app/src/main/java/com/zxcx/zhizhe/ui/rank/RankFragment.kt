@@ -13,6 +13,7 @@ import com.kingja.loadsir.core.LoadSir
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
+import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -35,6 +36,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_rank, container, false)
 		loadService = LoadSir.getDefault().register(root, this)
+		EventBus.getDefault().register(this)
 		return loadService.loadLayout
 	}
 
@@ -131,7 +133,13 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: LoginEvent) {
+		refreshView()
 		onRefresh()
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: LogoutEvent) {
+		refreshView()
 	}
 
 	private fun gotoMoreRank() {
@@ -168,14 +176,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	}
 
 	private fun initView() {
-		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-		if (mUserId == 0) {
-			tv_rank_need_login.visibility = View.VISIBLE
-			tv_my_rank_change.visibility = View.GONE
-		} else {
-			tv_rank_need_login.visibility = View.GONE
-			tv_my_rank_change.visibility = View.VISIBLE
-		}
+		refreshView()
 
 		banner_rank.setImageLoader(GlideBannerImageLoader())
 		banner_rank.setIndicatorGravity(BannerConfig.RIGHT)
@@ -197,7 +198,8 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 			}
 
 			override fun onPageSelected(position: Int) {
-				val ad = mAdList[position]
+				val newPosition = position % 3
+				val ad = mAdList[newPosition]
 				when (ad.styleType) {
 					0 -> {
 						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
@@ -212,5 +214,16 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 			}
 
 		})
+	}
+
+	private fun refreshView() {
+		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+		if (mUserId == 0) {
+			tv_rank_need_login.visibility = View.VISIBLE
+			tv_my_rank_change.visibility = View.GONE
+		} else {
+			tv_rank_need_login.visibility = View.GONE
+			tv_my_rank_change.visibility = View.VISIBLE
+		}
 	}
 }

@@ -42,8 +42,8 @@ class NoteEditorActivity : BaseActivity(),
 	}
 
 	private fun initEditor() {
-//		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
-		val url = "http://192.168.1.153:8043/pages/note-editor.html"
+		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.note_editor_url)
+//		val url = "http://192.168.1.153:8043/pages/note-editor.html"
 		editor.url = url
 		noteId = intent.getIntExtra("noteId", 0)
 		val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
@@ -96,10 +96,6 @@ class NoteEditorActivity : BaseActivity(),
 
 		iv_creation_editor_revocation.setOnClickListener {
 			editor.rollback()
-		}
-
-		tv_toolbar_right.setOnClickListener {
-			editor.saveNote()
 		}
 
 		//添加方法给js调用
