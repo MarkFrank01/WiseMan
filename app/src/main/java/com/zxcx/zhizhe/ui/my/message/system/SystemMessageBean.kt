@@ -14,6 +14,7 @@ const val message_recommend = 106
 const val message_follow = 201
 const val message_like = 202
 const val message_collect = 203
+const val message_comment = 204
 
 data class SystemMessageBean(
 		@SerializedName("content") var content: String?, //string

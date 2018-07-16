@@ -39,6 +39,12 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 			intent.putExtra("messageType", message_follow)
 			startActivity(intent)
 		}
+		ll_dynamic_message_comment.setOnClickListener {
+			//进入评论消息列表
+			val intent = Intent(mActivity, DynamicMessageListActivity::class.java)
+			intent.putExtra("messageType", message_like)
+			startActivity(intent)
+		}
 		ll_dynamic_message_like.setOnClickListener {
 			//进入点赞消息列表
 			val intent = Intent(mActivity, DynamicMessageListActivity::class.java)

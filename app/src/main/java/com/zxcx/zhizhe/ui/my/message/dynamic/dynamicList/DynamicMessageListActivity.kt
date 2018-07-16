@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
+import com.zxcx.zhizhe.ui.my.message.system.message_comment
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -47,6 +48,9 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		when (mMessageType) {
 			message_follow -> {
 				initToolBar("关注")
+			}
+			message_comment -> {
+				initToolBar("评论")
 			}
 			message_like -> {
 				initToolBar("点赞")

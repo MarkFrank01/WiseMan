@@ -54,7 +54,7 @@
 		</RelativeLayout>
 		
 		<RelativeLayout
-			android:id="@+id/ll_dynamic_message_like"
+			android:id="@+id/ll_dynamic_message_comment"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="20dp"
@@ -76,7 +76,7 @@
 				android:textSize="@dimen/text_size_text_1"/>
 			
 			<TextView
-				android:id="@+id/tv_dynamic_message_like"
+				android:id="@+id/tv_dynamic_message_comment"
 				style="@style/tv_single"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -85,6 +85,47 @@
 				android:layout_marginStart="20dp"
 				android:layout_marginEnd="50dp"
 				android:layout_below="@id/tv_dynamic_message_title_2"
+				android:lineSpacingExtra="10dp"
+				android:text="@string/tv_dynamic_message_no_data"
+				android:textColor="@color/text_color_2"
+				android:textSize="@dimen/text_size_text_2"/>
+			
+			<include layout="@layout/iv_right_into"/>
+		
+		</RelativeLayout>
+		
+		<RelativeLayout
+			android:id="@+id/ll_dynamic_message_like"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="20dp"
+			android:layout_marginStart="20dp"
+			android:layout_marginEnd="20dp"
+			android:background="@drawable/bg_background_12dp"
+			android:elevation="10dp"
+			android:orientation="vertical">
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_title_3"
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="20dp"
+				android:layout_marginStart="20dp"
+				android:text="点赞"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"/>
+			
+			<TextView
+				android:id="@+id/tv_dynamic_message_like"
+				style="@style/tv_single"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="30dp"
+				android:layout_marginBottom="20dp"
+				android:layout_marginStart="20dp"
+				android:layout_marginEnd="50dp"
+				android:layout_below="@id/tv_dynamic_message_title_3"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
 				android:textColor="@color/text_color_2"
@@ -107,7 +148,7 @@
 			android:orientation="vertical">
 			
 			<TextView
-				android:id="@+id/tv_dynamic_message_title_3"
+				android:id="@+id/tv_dynamic_message_title_4"
 				android:textStyle="bold"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
@@ -126,7 +167,7 @@
 				android:layout_marginBottom="20dp"
 				android:layout_marginStart="20dp"
 				android:layout_marginEnd="50dp"
-				android:layout_below="@id/tv_dynamic_message_title_3"
+				android:layout_below="@id/tv_dynamic_message_title_4"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
 				android:textColor="@color/text_color_2"
