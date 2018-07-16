@@ -53,9 +53,9 @@ public class RejectDetailsModel extends BaseModel<RejectDetailsContract.Presente
 			});
 		addSubscription(mDisposable);
 	}
-
-	public void submitReview(int noteId) {
-		mDisposable = AppClient.getAPIService().saveFreeNode(noteId, null, null, null, null, 1)
+	
+	public void submitReview(int noteId, int styleType) {
+		mDisposable = AppClient.getAPIService().saveFreeNode(noteId, styleType, 1)
 			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
 			.compose(BaseRxJava.INSTANCE.handlePostResult())
 			.subscribeWith(new NullPostSubscriber<BaseBean>(mPresenter) {

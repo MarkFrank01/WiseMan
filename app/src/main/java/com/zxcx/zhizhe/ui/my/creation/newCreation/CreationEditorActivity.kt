@@ -14,6 +14,7 @@ import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
@@ -24,6 +25,8 @@ import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class CreationEditorActivity : BaseActivity(),
 		OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
@@ -51,24 +54,7 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	override fun onBackPressed() {
-		if (editor.canGoBack()) {
-			editor.goBack()
-		} else {
-			editor.confirmSave {
-				if (it == "true") {
-					val dialog = NeedSaveDialog()
-					dialog.mCancelListener = {
-						super.onBackPressed()
-					}
-					dialog.mConfirmListener = {
-						editor.saveDraft()
-					}
-					dialog.show(supportFragmentManager, "")
-				} else {
-					super.onBackPressed()
-				}
-			}
-		}
+		editor.exitEdit()
 	}
 
 	private fun initEditor() {
@@ -79,10 +65,15 @@ class CreationEditorActivity : BaseActivity(),
 		val type = intent.getIntExtra("type", 0)
 		val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
 		if (cardId != 0) {
-			editor.articleReedit(cardId, token, type)
+			editor.articleReedit(cardId, token)
 		} else {
 			editor.setTimeStampAndToken(token)
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: CommitCardReviewEvent) {
+		finish()
 	}
 
 	override fun setListener() {
@@ -91,7 +82,7 @@ class CreationEditorActivity : BaseActivity(),
 		}
 
 		tv_toolbar_right.setOnClickListener {
-			editor.saveNote()
+			editor.submitDraft()
 		}
 
 		iv_creation_editor_add_image.setOnClickListener {
@@ -141,8 +132,7 @@ class CreationEditorActivity : BaseActivity(),
 			window.mDeleteListener = {
 				val dialog = DeleteCreationDialog()
 				dialog.mListener = {
-					//					editor.deleteEdit()
-					finish()
+					editor.deleteEdit()
 				}
 				dialog.show(supportFragmentManager, "")
 			}
@@ -203,7 +193,7 @@ class CreationEditorActivity : BaseActivity(),
 				}
 	}
 
-	fun getContentImage() {
+	private fun getContentImage() {
 		mAction = 1
 		val rxPermissions = RxPermissions(this)
 		rxPermissions
@@ -236,7 +226,6 @@ class CreationEditorActivity : BaseActivity(),
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		startActivity(CreationActivity::class.java) {
 			it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			it.putExtra("goto", 3)
 		}
 		finish()
@@ -248,19 +237,38 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
-	fun commitSuccess() {
+	fun submitSuccess() {
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
 		startActivity(CreationActivity::class.java) {
-			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+			it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 			it.putExtra("goto", 1)
 		}
 		finish()
 	}
 
 	@JavascriptInterface
-	fun commitFail() {
+	fun submitFail() {
 		toastError("提交审核失败")
+	}
+
+	@JavascriptInterface
+	fun deleteSuccess() {
+		toastShow("删除成功")
+		EventBus.getDefault().post(DeleteCreationEvent())
+		finish()
+	}
+
+	@JavascriptInterface
+	fun deleteFail() {
+		toastError("删除失败")
+	}
+
+	@JavascriptInterface
+	fun preview(previewId: String) {
+		startActivity(CreationPreviewActivity::class.java) {
+			it.putExtra("id", previewId)
+		}
 	}
 
 	@JavascriptInterface
@@ -321,7 +329,23 @@ class CreationEditorActivity : BaseActivity(),
 	}
 
 	@JavascriptInterface
-	fun lack(string: String) {
+	fun confirmSave(isNeedSave: Boolean) {
+		if (isNeedSave) {
+			val dialog = NeedSaveDialog()
+			dialog.mCancelListener = {
+				finish()
+			}
+			dialog.mConfirmListener = {
+				editor.saveDraft()
+			}
+			dialog.show(supportFragmentManager, "")
+		} else {
+			finish()
+		}
+	}
+
+	@JavascriptInterface
+	fun lackSomething(string: String) {
 		toastError(string)
 	}
 
@@ -341,32 +365,36 @@ class CreationEditorActivity : BaseActivity(),
 	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 		super.onActivityResult(requestCode, resultCode, data)
 		if (resultCode == Activity.RESULT_OK && data != null) {
-			if (requestCode == 1) {
-				//图片选择完成
-				var photoUri = data.data
-				var imagePath = ""
-				if (photoUri != null) {
-					imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
-				} else {
-					val extras = data.extras
-					if (extras != null) {
-						val imageBitmap = extras.get("data") as Bitmap
-						photoUri = Uri
-								.parse(MediaStore.Images.Media.insertImage(
-										mActivity.contentResolver, imageBitmap, null, null))
-
+			when (requestCode) {
+				1 -> {
+					//图片选择完成
+					var photoUri = data.data
+					var imagePath = ""
+					if (photoUri != null) {
 						imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+					} else {
+						val extras = data.extras
+						if (extras != null) {
+							val imageBitmap = extras.get("data") as Bitmap
+							photoUri = Uri
+									.parse(MediaStore.Images.Media.insertImage(
+											mActivity.contentResolver, imageBitmap, null, null))
+
+							imagePath = FileUtil.getRealFilePathFromUri(mActivity, photoUri)
+						}
 					}
+					uploadImageToOSS(imagePath)
 				}
-				uploadImageToOSS(imagePath)
-			} else if (requestCode == CODE_SELECT_LABEL) {
-				val labelName = data.getStringExtra("labelName")
-				val classifyId = data.getIntExtra("classifyId", 0)
-				editor.setLabel(labelName, classifyId)
-			} else if (requestCode == Constants.CLIP_IMAGE) {
-				//图片裁剪完成
-				val path = data.getStringExtra("path")
-				uploadImageToOSS(path)
+				CODE_SELECT_LABEL -> {
+					val labelName = data.getStringExtra("labelName")
+					val classifyId = data.getIntExtra("classifyId", 0)
+					editor.setLabel(labelName, classifyId)
+				}
+				Constants.CLIP_IMAGE -> {
+					//图片裁剪完成
+					val path = data.getStringExtra("path")
+					uploadImageToOSS(path)
+				}
 			}
 		}
 	}

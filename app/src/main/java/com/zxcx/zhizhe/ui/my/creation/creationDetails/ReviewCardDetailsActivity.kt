@@ -4,20 +4,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
-import butterknife.ButterKnife
 import com.bumptech.glide.load.MultiTransformation
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_review_card_details.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
@@ -26,8 +21,6 @@ class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 	override fun onCreate(savedInstanceState: Bundle?) {
 		setContentView(R.layout.activity_review_card_details)
 		super.onCreate(savedInstanceState)
-		ButterKnife.bind(this)
-		EventBus.getDefault().register(this)
 
 		initData()
 		initView()
@@ -40,17 +33,11 @@ class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 	}
 
 	override fun onDestroy() {
-		EventBus.getDefault().unregister(this)
 		super.onDestroy()
 	}
 
 	override fun createPresenter(): RejectDetailsPresenter {
 		return RejectDetailsPresenter(this)
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: SaveDraftSuccessEvent) {
-		onReload(null)
 	}
 
 	override fun onReload(v: View?) {

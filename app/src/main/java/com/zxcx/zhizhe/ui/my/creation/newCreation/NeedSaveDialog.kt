@@ -26,7 +26,7 @@ class NeedSaveDialog : CommonDialog() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		tv_dialog_title.text = "创作删除后将无法恢复"
+		tv_dialog_title.text = "有未编辑完内容，是否存为草稿"
 	}
 
 	override fun setListener() {

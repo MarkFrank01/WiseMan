@@ -14,6 +14,8 @@ import butterknife.ButterKnife
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
@@ -70,8 +72,18 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: CommitCardReviewEvent) {
+		finish()
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: DeleteCreationEvent) {
+		finish()
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: SaveDraftSuccessEvent) {
-		onReload(null)
+		finish()
 	}
 
 	override fun onReload(v: View?) {

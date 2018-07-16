@@ -303,8 +303,8 @@ public class RichEditor extends WebView {
 		exec("deleteEdit();");
 	}
 	
-	public void confirmSave(ValueCallback<String> resultCallback) {
-		exec("confirmSave();", resultCallback);
+	public void exitEdit() {
+		exec("exitEdit();");
 	}
 	
 	public void setLabel(String labelName, int classifyId) {
@@ -314,11 +314,9 @@ public class RichEditor extends WebView {
 	
 	/**
 	 * 文章再编辑
-	 *
-	 * @param viewType 审核未通过2，草稿箱3
 	 */
-	public void articleReedit(Integer cardId, String token, Integer viewType) {
-		exec("articleReedit(" + cardId + ",'" + token + "'," + viewType + ");");
+	public void articleReedit(Integer cardId, String token) {
+		exec("articleReedit(" + cardId + ",'" + token + "');");
 	}
 
 	public void noteReedit(Integer cardId, String token) {

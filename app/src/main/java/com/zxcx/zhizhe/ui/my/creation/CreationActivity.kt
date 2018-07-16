@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -33,6 +34,12 @@ class CreationActivity : BaseActivity() {
 		ButterKnife.bind(this)
 
 		initView()
+	}
+
+	override fun onNewIntent(intent: Intent) {
+		super.onNewIntent(intent)
+		goto = intent.getIntExtra("goto", 0)
+		tl_creation.getTabAt(goto)?.select()
 	}
 
 	override fun setListener() {

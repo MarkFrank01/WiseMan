@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.DeleteRejectSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -55,6 +56,12 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: DeleteRejectSuccessEvent) {
+		mPage = 0
+		mPresenter.getCreation(mPassType, mPage, mPageSize)
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: DeleteCreationEvent) {
 		mPage = 0
 		mPresenter.getCreation(mPassType, mPage, mPageSize)
 	}

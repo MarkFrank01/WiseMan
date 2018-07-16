@@ -13,6 +13,7 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.loadCallback.CardDetailsLoadingCallback
 import com.zxcx.zhizhe.loadCallback.CardDetailsNetworkErrorCallback
@@ -96,7 +97,12 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: CommitCardReviewEvent) {
-		onBackPressed()
+		finish()
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: DeleteCreationEvent) {
+		finish()
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -190,7 +196,7 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 		}
 
 		iv_note_details_commit.setOnClickListener {
-			mPresenter.submitReview(cardBean.id)
+			mPresenter.submitReview(cardBean.id, 1)
 		}
 	}
 

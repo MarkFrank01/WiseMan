@@ -556,16 +556,13 @@ public interface APIService {
 	Flowable<BaseBean<Object>> deleteCard(@Query("articleId") int cardId);
 	
 	/**
-	 * 提交自由笔记或审核
+	 * 提交审核
 	 *
-	 * @param submitType 提交类型 0保存笔记 1提交审核
 	 */
-	@FormUrlEncoded
-	@POST("/note/submitFreeNode")
+	@POST("/article/uploadArticle")
 	Flowable<BaseBean<Object>> saveFreeNode(
-		@Query("articleId") Integer cardId, @Query("title") String title,
-		@Query("titleImage") String imageUrl, @Query("collectionId") Integer classifyId,
-		@Field("content") String content, @Query("submitType") Integer submitType);
+		@Query("articleId") Integer cardId, @Query("styleType") Integer styleType,
+		@Query("submitType") Integer submitType);
 	
 	/**
 	 * 保存笔记

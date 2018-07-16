@@ -8,6 +8,8 @@ import butterknife.ButterKnife
 import com.bumptech.glide.load.MultiTransformation
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -47,6 +49,16 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
 
 	override fun createPresenter(): RejectDetailsPresenter {
 		return RejectDetailsPresenter(this)
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: CommitCardReviewEvent) {
+		finish()
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: DeleteCreationEvent) {
+		finish()
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -125,7 +137,7 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
 		}
 
 		iv_draft_details_commit.setOnClickListener {
-			mPresenter.submitReview(cardBean.id)
+			mPresenter.submitReview(cardBean.id, 0)
 		}
 	}
 }

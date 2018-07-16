@@ -151,6 +151,7 @@
 			android:name=".ui.my.note.NoteActivity"
 			android:screenOrientation="portrait"/>
 		<activity
+			android:launchMode="singleTask"
 			android:name=".ui.my.creation.CreationActivity"
 			android:screenOrientation="portrait"
 			android:windowSoftInputMode="adjustNothing|stateHidden"/>
@@ -247,12 +248,18 @@
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".ui.my.creation.creationDetails.RejectCardDetailsActivity"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.FullScreen"/>
 		<activity
 			android:name=".ui.my.creation.creationDetails.DraftCardDetailsActivity"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.FullScreen"/>
 		<activity
 			android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.FullScreen"/>
+		<activity
+			android:name=".ui.my.creation.newCreation.CreationPreviewActivity"
 			android:screenOrientation="portrait"/>
 	</application>
 
