@@ -25,6 +25,7 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -119,6 +120,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	override fun getDataSuccess(list: MutableList<CardBean>) {
 		loadService.showSuccess()
 		if (mPage == 0) {
+			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setText(
+					getString(R.string.tv_refresh_text, list.size))
 			mRefreshLayout.finishRefresh()
 			mAdapter.setNewData(list)
 			rv_hot_card.scrollToPosition(0)
