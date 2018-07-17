@@ -7,7 +7,6 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity
-import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_about_us.*
 
@@ -17,8 +16,10 @@ class AboutUSActivity : BaseActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_about_us)
 		initToolBar()
+	}
 
-		tv_about_us_versions_top.text = getString(R.string.tv_about_us_versions, Utils.getAppVersionName(this))
+	override fun initStatusBar() {
+
 	}
 
 	override fun setListener() {
