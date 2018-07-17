@@ -47,6 +47,7 @@ class CreationEditorActivity : BaseActivity(),
 		setContentView(R.layout.activity_creation_editor)
 
 		initEditor()
+		iv_creation_editor_add_image.visibility = View.GONE
 		iv_creation_editor_more.visibility = View.VISIBLE
 
 		mOSSDialog = OSSDialog()
@@ -120,13 +121,11 @@ class CreationEditorActivity : BaseActivity(),
 					dialog.mListener = {
 						editor.checkEditType(0)
 						isCard = !isCard
-						iv_creation_editor_add_image.visibility = View.GONE
 					}
 					dialog.show(supportFragmentManager, "")
 				} else {
 					editor.checkEditType(1)
 					isCard = !isCard
-					iv_creation_editor_add_image.visibility = View.VISIBLE
 				}
 			}
 			window.mDeleteListener = {
@@ -325,6 +324,14 @@ class CreationEditorActivity : BaseActivity(),
 	fun judgeSubmit(isEnable: Boolean) {
 		runOnUiThread {
 			tv_toolbar_right.isEnabled = isEnable
+		}
+	}
+
+	@JavascriptInterface
+	fun judgeIsCard(isCard: Boolean) {
+		this.isCard = isCard
+		runOnUiThread {
+			iv_creation_editor_add_image.visibility = if (isCard) View.GONE else View.VISIBLE
 		}
 	}
 

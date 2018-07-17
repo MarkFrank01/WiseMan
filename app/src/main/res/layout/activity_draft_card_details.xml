@@ -132,7 +132,8 @@
 			android:padding="10dp"
 			android:src="@drawable/iv_common_close"
 			android:translationZ="11dp"
-			app:layout_constraintEnd_toEndOf="parent"/>
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
 	
 	</android.support.constraint.ConstraintLayout>
 </FrameLayout>

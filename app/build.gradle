@@ -223,6 +223,9 @@ dependencies {
     //HTML转SpannableString
     implementation 'com.pixplicity.htmlcompat:library:1.1.1'
 
+    //Lottie
+    implementation 'com.airbnb.android:lottie:2.5.5'
+
     /*//Android工具类
         compile 'com.blankj:utilcode:1.9.12'*/
 }

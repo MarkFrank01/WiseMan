@@ -23,6 +23,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 动态消息
+ */
+
 class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean> {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

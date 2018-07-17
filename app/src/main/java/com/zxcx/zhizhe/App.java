@@ -4,7 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
-
+import cn.jiguang.analytics.android.api.JAnalyticsInterface;
+import cn.jpush.android.api.JPushInterface;
 import com.kingja.loadsir.core.LoadSir;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
@@ -23,9 +24,6 @@ import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader;
 
-import cn.jiguang.analytics.android.api.JAnalyticsInterface;
-import cn.jpush.android.api.JPushInterface;
-
 
 public class App extends Application {
 	
@@ -35,7 +33,9 @@ public class App extends Application {
 	static {
 		//设置全局的Header构建器
 		SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
-			layout.setHeaderHeight(45);
+			
+			layout.setEnableHeaderTranslationContent(false);
+			layout.setHeaderHeight(80);
 			return new DefaultRefreshHeader(
 				context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
 		});

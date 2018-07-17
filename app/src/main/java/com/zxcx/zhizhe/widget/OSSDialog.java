@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.widget;
 
 import android.app.Dialog;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -70,7 +69,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
 		Bundle savedInstanceState) {
 		getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-		View view = inflater.inflate(R.layout.layout_empty_loading, container);
+		View view = inflater.inflate(R.layout.layout_oss_loading, container);
 		unbinder = ButterKnife.bind(this, view);
 		return view;
 	}
@@ -78,7 +77,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		((AnimationDrawable) mIvLoading.getDrawable()).start();
+//		((AnimationDrawable) mIvLoading.getDrawable()).start();
 		setCancelable(false);
 		
 		mOSSAction = getArguments().getInt("OSSAction");
@@ -101,15 +100,15 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			window.setBackgroundDrawableResource(R.color.translate);
 			WindowManager.LayoutParams lp = window.getAttributes();
 			lp.dimAmount = 0.0f;
-			lp.width = ScreenUtils.dip2px(80);
-			lp.height = ScreenUtils.dip2px(80);
+			lp.width = ScreenUtils.dip2px(120);
+			lp.height = ScreenUtils.dip2px(120);
 			window.setAttributes(lp);
 		}
 	}
 	
 	@Override
 	public void onDestroyView() {
-		((AnimationDrawable) mIvLoading.getDrawable()).stop();
+//		((AnimationDrawable) mIvLoading.getDrawable()).stop();
 		super.onDestroyView();
 		unbinder.unbind();
 	}
@@ -164,7 +163,6 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 					final String imageUrl =
 						"http://" + bucketName + ".oss-cn-shenzhen.aliyuncs.com/" + fileName;
 					if (mUploadListener != null) {
-						dismiss();
 						getActivity().runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
@@ -172,6 +170,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 							}
 						});
 					}
+					dismiss();
 				}
 				
 				@Override
@@ -189,7 +188,6 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 						message = serviceException.getMessage();
 					}
 					if (mUploadListener != null) {
-						dismiss();
 						String finalMessage = message;
 						getActivity().runOnUiThread(new Runnable() {
 							@Override
@@ -198,6 +196,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 							}
 						});
 					}
+					dismiss();
 				}
 			});
 	}
