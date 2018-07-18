@@ -37,12 +37,15 @@ class MainActivity : BaseActivity() {
 		setContentView(R.layout.activity_main)
 		EventBus.getDefault().register(this)
 
-		home_tab_card.performClick()
-
 		val intent = intent
 		//判断是否点击了广告或通知
 		gotoLoginActivity(intent)
 		gotoADActivity(intent)
+		if (intent.getBooleanExtra("isNight", false)) {
+			home_tab_my.performClick()
+		} else {
+			home_tab_card.performClick()
+		}
 	}
 
 	override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -51,6 +54,7 @@ class MainActivity : BaseActivity() {
 
 	override fun recreate() {
 		val intent = Intent()
+		intent.putExtra("isNight", true)
 		setIntent(intent)
 		super.recreate()
 	}

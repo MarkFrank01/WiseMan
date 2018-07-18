@@ -36,7 +36,6 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		EventBus.getDefault().register(this)
-		getDynamicMessage()
 		ll_dynamic_message_follow.setOnClickListener {
 			//进入关注消息列表
 			val intent = Intent(mActivity, DynamicMessageListActivity::class.java)
@@ -61,6 +60,11 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 			intent.putExtra("messageType", message_collect)
 			startActivity(intent)
 		}
+	}
+
+	override fun onResume() {
+		super.onResume()
+		getDynamicMessage()
 	}
 
 	override fun onDestroyView() {

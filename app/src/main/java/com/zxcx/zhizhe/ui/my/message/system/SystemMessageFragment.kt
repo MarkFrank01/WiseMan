@@ -44,6 +44,10 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 		super.onViewCreated(view, savedInstanceState)
 		SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, true)
 		initRecyclerView()
+	}
+
+	override fun onResume() {
+		super.onResume()
 		mPresenter.getSystemMessage(mPage, mPageSize)
 	}
 

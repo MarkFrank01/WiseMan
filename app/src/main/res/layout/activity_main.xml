@@ -21,7 +21,7 @@
 		android:id="@+id/rg_main"
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
-		android:paddingTop="5dp"
+		android:paddingTop="7dp"
 		android:background="@color/background"
 		android:orientation="horizontal">
 		
