@@ -25,7 +25,7 @@
 			<com.zxcx.zhizhe.ui.rank.ADBanner
 				android:id="@+id/banner_rank"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="0dp"
 				app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
 				app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
 				app:indicator_height="5dp"
@@ -89,8 +89,8 @@
 					android:layout_width="48dp"
 					android:layout_height="48dp"
 					android:scaleType="centerCrop"
-					app:riv_oval="true"
-					tools:src="@drawable/logo"/>
+					android:src="@drawable/default_header"
+					app:riv_oval="true"/>
 				
 				<TextView
 					android:id="@+id/tv_item_rank_user_name"

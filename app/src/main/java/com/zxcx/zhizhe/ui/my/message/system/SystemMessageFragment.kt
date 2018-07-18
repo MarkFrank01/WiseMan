@@ -59,6 +59,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 		}
 		mPage++
 		if (list.size < Constants.PAGE_SIZE) {
+			mAdapter.isUseEmpty(true)
 			mAdapter.loadMoreEnd(false)
 		} else {
 			mAdapter.loadMoreComplete()
@@ -132,5 +133,6 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 		rv_system_message.addItemDecoration(SystemMessageItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
+		mAdapter.isUseEmpty(false)
 	}
 }

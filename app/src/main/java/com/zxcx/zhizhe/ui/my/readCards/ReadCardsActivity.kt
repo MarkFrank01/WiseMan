@@ -136,6 +136,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 		mAdapter.mListener = this
 		rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_read_card.adapter = mAdapter
+		rv_read_card.addItemDecoration(MyCardItemDecoration())
 	}
 
 	override fun setListener() {

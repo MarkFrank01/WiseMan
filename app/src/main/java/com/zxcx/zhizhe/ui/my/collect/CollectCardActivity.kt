@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.SortWindow
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.ui.my.readCards.MyCardsAdapter
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsContract
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsPresenter
@@ -140,6 +141,7 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 		mAdapter.mListener = this
 		rv_read_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_read_card.adapter = mAdapter
+		rv_read_card.addItemDecoration(MyCardItemDecoration())
 	}
 
 	override fun setListener() {

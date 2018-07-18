@@ -82,6 +82,7 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		mPage++
 		if (list.size < Constants.PAGE_SIZE) {
 			mAdapter.loadMoreEnd(false)
+			mAdapter.isUseEmpty(true)
 		} else {
 			mAdapter.loadMoreComplete()
 			mAdapter.setEnableLoadMore(false)
@@ -121,5 +122,6 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		rv_creation.addItemDecoration(FansItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
+		mAdapter.isUseEmpty(false)
 	}
 }

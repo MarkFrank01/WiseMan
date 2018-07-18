@@ -95,6 +95,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 						mPage++
 						if (list.size < mPageSize) {
 							mAdapter.loadMoreEnd(false)
+							mAdapter.isUseEmpty(true)
 						} else {
 							mAdapter.loadMoreComplete()
 							mAdapter.setEnableLoadMore(false)
@@ -180,6 +181,7 @@ class DynamicMessageListActivity : MvpActivity<DynamicMessageListPresenter>(), D
 		rv_follow_message.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无消息", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
+		mAdapter.isUseEmpty(false)
 	}
 
 	class PackData(private val map: ArrayMap<String, ArrayList<DynamicMessageListBean>>) : Function<List<DynamicMessageListBean>, List<DynamicBean>> {
