@@ -27,7 +27,8 @@ class SelectAttentionAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAd
 				val title = helper.getView<TextView>(R.id.tv_item_classify_classify)
 				title.text = bean.title
 				val lp = title.layoutParams as LinearLayout.LayoutParams
-				lp.setMargins(0, ScreenUtils.dip2px(if (helper.adapterPosition == 0) 16f else 40f), 0, 0)
+				lp.setMargins(0, ScreenUtils.dip2px(if (helper.adapterPosition == 0) 30f else 15f),
+						0, ScreenUtils.dip2px(15f))
 				title.layoutParams = lp
 			}
 			ClassifyCardBean.TYPE_CARD_BAG -> {

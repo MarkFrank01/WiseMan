@@ -108,6 +108,5 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 		}
 		rv_select_attention.adapter = mAdapter
 		rv_select_attention.layoutManager = manager
-		rv_select_attention.addItemDecoration(ClassifyItemDecoration())
 	}
 }

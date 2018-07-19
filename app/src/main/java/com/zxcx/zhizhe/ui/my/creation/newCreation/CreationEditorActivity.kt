@@ -36,6 +36,8 @@ class CreationEditorActivity : BaseActivity(),
 	private var mAction = 0 //0选择标题图，1选择内容图
 	private var cardId = 0
 	private var isCard = true
+	private var isBold = false
+	private var isCenter = false
 
 	companion object {
 		const val CODE_SELECT_LABEL = 110
@@ -298,14 +300,17 @@ class CreationEditorActivity : BaseActivity(),
 			iv_creation_editor_center.isClickable = true
 			iv_creation_editor_revocation.isClickable = true
 			ImageLoader.load(mActivity, R.drawable.iv_add_image_clickable, iv_creation_editor_add_image)
-			ImageLoader.load(mActivity, R.drawable.iv_bold_no_checked, iv_creation_editor_bold)
-			ImageLoader.load(mActivity, R.drawable.iv_center_no_checked, iv_creation_editor_center)
+			ImageLoader.load(mActivity, if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked,
+					iv_creation_editor_bold)
+			ImageLoader.load(mActivity, if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked,
+					iv_creation_editor_center)
 			ImageLoader.load(mActivity, R.drawable.iv_revocation_clickable, iv_creation_editor_revocation)
 		}
 	}
 
 	@JavascriptInterface
 	fun judgeJustify(isCenter: Boolean) {
+		this.isCenter = isCenter
 		runOnUiThread {
 			ImageLoader.load(mActivity, if (isCenter) R.drawable.iv_center_checked else R.drawable.iv_center_no_checked,
 					iv_creation_editor_center)
@@ -314,6 +319,7 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun judgeBold(isBold: Boolean) {
+		this.isBold = isBold
 		runOnUiThread {
 			ImageLoader.load(mActivity, if (isBold) R.drawable.iv_bold_checked else R.drawable.iv_bold_no_checked,
 					iv_creation_editor_bold)

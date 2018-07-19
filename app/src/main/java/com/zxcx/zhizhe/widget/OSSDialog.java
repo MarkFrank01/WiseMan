@@ -88,7 +88,11 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			mFolderName = "user/";
 		}
 		mUrl = getArguments().getString("url");
-		getOSS(MD5Utils.md5(String.valueOf(DateTimeUtils.getNowTimestamp())));
+		if (mOSSTokenBean == null) {
+			getOSS(MD5Utils.md5(String.valueOf(DateTimeUtils.getNowTimestamp())));
+		} else {
+			getDataSuccess(mOSSTokenBean);
+		}
 	}
 	
 	@Override
