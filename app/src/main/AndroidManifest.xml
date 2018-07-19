@@ -111,8 +111,7 @@
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".ui.my.selectAttention.SelectAttentionActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
+			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".ui.my.feedback.help.HelpActivity"
 			android:screenOrientation="portrait"/>

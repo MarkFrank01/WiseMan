@@ -23,7 +23,7 @@
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
 			android:background="@drawable/bg_background_12dp"
-			android:elevation="10dp"
+			android:elevation="5dp"
 			app:layout_constraintTop_toTopOf="parent"
 			app:layout_constraintVertical_bias="0">
 			

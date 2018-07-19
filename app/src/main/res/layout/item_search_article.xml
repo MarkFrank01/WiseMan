@@ -10,7 +10,7 @@
 	android:paddingStart="20dp"
 	android:paddingEnd="20dp"
 	android:background="@color/background"
-	android:elevation="10dp"
+	android:elevation="5dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press">
 	

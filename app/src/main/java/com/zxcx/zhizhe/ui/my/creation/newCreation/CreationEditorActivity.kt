@@ -224,7 +224,7 @@ class CreationEditorActivity : BaseActivity(),
 		toastShow("保存草稿成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		startActivity(CreationActivity::class.java) {
-			it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			it.putExtra("goto", 3)
 		}
 		finish()
@@ -240,7 +240,7 @@ class CreationEditorActivity : BaseActivity(),
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
 		startActivity(CreationActivity::class.java) {
-			it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 			it.putExtra("goto", 1)
 		}
 		finish()

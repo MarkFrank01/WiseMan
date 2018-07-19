@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.widget;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,8 +101,9 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			window.setBackgroundDrawableResource(R.color.translate);
 			WindowManager.LayoutParams lp = window.getAttributes();
 			lp.dimAmount = 0.0f;
-			lp.width = ScreenUtils.dip2px(120);
-			lp.height = ScreenUtils.dip2px(120);
+			lp.width = ScreenUtils.dip2px(140);
+			lp.height = ScreenUtils.dip2px(140);
+			lp.gravity = Gravity.CENTER;
 			window.setAttributes(lp);
 		}
 	}

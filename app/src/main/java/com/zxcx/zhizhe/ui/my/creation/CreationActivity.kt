@@ -81,14 +81,9 @@ class CreationActivity : BaseActivity() {
 
 			}
 		})
+		switchFragment(passedFragment)
 		goto = intent.getIntExtra("goto", 0)
 		tl_creation.getTabAt(goto)?.select()
-		when (goto) {
-			0 -> switchFragment(passedFragment)
-			1 -> switchFragment(reviewFragment)
-			2 -> switchFragment(rejectFragment)
-			3 -> switchFragment(draftsFragment)
-		}
 	}
 
 	private fun switchFragment(newFragment: Fragment) {
