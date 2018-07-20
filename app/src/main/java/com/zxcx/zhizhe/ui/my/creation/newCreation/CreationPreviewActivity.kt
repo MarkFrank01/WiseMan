@@ -44,7 +44,7 @@ class CreationPreviewActivity : BaseActivity() {
 		}
 
 		tv_toolbar_right.setOnClickListener {
-			editor.saveNote()
+			editor.submitDraft()
 		}
 
 		//添加方法给js调用
@@ -71,7 +71,7 @@ class CreationPreviewActivity : BaseActivity() {
 	}
 
 	@JavascriptInterface
-	fun commitSuccess() {
+	fun submitSuccess() {
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
 		startActivity(CreationActivity::class.java) {
@@ -82,7 +82,7 @@ class CreationPreviewActivity : BaseActivity() {
 	}
 
 	@JavascriptInterface
-	fun commitFail() {
+	fun submitFail() {
 		toastError("提交审核失败")
 	}
 }

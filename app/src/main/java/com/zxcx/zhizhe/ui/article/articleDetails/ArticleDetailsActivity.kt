@@ -150,6 +150,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		cb_article_details_follow.isChecked = bean.isFollow
 		cb_article_details_collect.isChecked = bean.isCollect
 		cb_article_details_like.isChecked = bean.isLike
+		tv_article_details_collect.isEnabled = bean.isCollect
+		tv_article_details_like.isEnabled = bean.isLike
 		val ad = bean.ad
 		if (ad != null) {
 			group_article_ad.visibility = View.VISIBLE

@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.card.hot
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.SharedElementCallback
 import android.support.v4.util.Pair
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -39,6 +38,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	private var mPage = 0
 	private var mHidden = true
 	private var mLastDate = Date()
+	private var mIsReturning = false
 	private var mCurrentPosition = 0
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,7 +65,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		super.onViewCreated(view, savedInstanceState)
 		EventBus.getDefault().register(this)
 		initRecyclerView()
-		initShareElement()
 		getHotCard()
 		mHidden = false
 	}
@@ -105,6 +104,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 				getHotCard()
 			}
 			mCurrentPosition = event.currentPosition
+			rv_hot_card.scrollToPosition(event.currentPosition)
 		}
 	}
 
@@ -181,36 +181,15 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	}
 
 	public fun onActivityReenter() {
-		rv_hot_card.scrollToPosition(mCurrentPosition)
+		mIsReturning = true
 		postponeEnterTransition()
 		rv_hot_card.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 			override fun onPreDraw(): Boolean {
 				rv_hot_card.viewTreeObserver.removeOnPreDrawListener(this)
+				rv_hot_card.requestLayout()
 				startPostponedEnterTransition()
 				return true
 			}
 		})
-	}
-
-	private fun initShareElement() {
-		postponeEnterTransition()
-		setEnterSharedElementCallback(mCallback)
-		setExitSharedElementCallback(mExitCallback)
-	}
-
-	private val mCallback = object : SharedElementCallback() {
-
-		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
-			names.clear()
-			sharedElements.clear()
-		}
-	}
-
-	private val mExitCallback = object : SharedElementCallback() {
-
-		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
-			names.clear()
-			sharedElements.clear()
-		}
 	}
 }

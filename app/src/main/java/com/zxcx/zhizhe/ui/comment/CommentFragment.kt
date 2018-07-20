@@ -62,6 +62,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 
 			override fun onStateChanged(bottomSheet: View, newState: Int) {
 				if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+					Utils.closeInputMethod(et_comment)
 					mActivity.onBackPressed()
 				} else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
 					behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -148,6 +149,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	override fun setListener() {
 		super.setListener()
 		iv_comment_close.setOnClickListener {
+			Utils.closeInputMethod(et_comment)
 			mActivity.onBackPressed()
 		}
 		et_comment.afterTextChanged {

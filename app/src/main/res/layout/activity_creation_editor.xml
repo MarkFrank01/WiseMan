@@ -36,7 +36,7 @@
 			android:paddingEnd="10dp"
 			android:enabled="false"
 			android:gravity="center"
-			android:text="保存"
+			android:text="发布"
 			android:textColor="@color/color_text_enable_blue"
 			android:textSize="@dimen/text_size_text_1"/>
 	

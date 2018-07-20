@@ -39,23 +39,23 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {
 			item.articleAuthor -> {
-				helper.setVisible(R.id.tv_item_comment_flag, true)
+				helper.setGone(R.id.tv_item_comment_flag, true)
 				helper.setText(R.id.tv_item_comment_flag, "作者")
 			}
 			item.userId == userId -> {
-				helper.setVisible(R.id.tv_item_comment_flag, true)
+				helper.setGone(R.id.tv_item_comment_flag, true)
 				helper.setText(R.id.tv_item_comment_flag, "自己")
 			}
 			else -> {
-				helper.setVisible(R.id.tv_item_comment_flag, false)
+				helper.setGone(R.id.tv_item_comment_flag, false)
 			}
 		}
-		helper.setVisible(R.id.tv_item_comment_expand, item.childCommentList.isNotEmpty())
+		helper.setGone(R.id.tv_item_comment_expand, item.childCommentList.isNotEmpty())
 		val tvExpand = helper.getView<TextView>(R.id.tv_item_comment_expand)
 		if (item.isExpanded) {
-			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_into, tvExpand)
+			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_collapse, tvExpand)
 		} else {
-			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_into, tvExpand)
+			TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_expand, tvExpand)
 		}
 		tvExpand.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		tvExpand.setOnClickListener {
@@ -81,15 +81,15 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {
 			item.articleAuthor -> {
-				helper.setVisible(R.id.tv_item_comment_flag, true)
+				helper.setGone(R.id.tv_item_comment_flag, true)
 				helper.setText(R.id.tv_item_comment_flag, "作者")
 			}
 			item.userId == userId -> {
-				helper.setVisible(R.id.tv_item_comment_flag, true)
+				helper.setGone(R.id.tv_item_comment_flag, true)
 				helper.setText(R.id.tv_item_comment_flag, "自己")
 			}
 			else -> {
-				helper.setVisible(R.id.tv_item_comment_flag, false)
+				helper.setGone(R.id.tv_item_comment_flag, false)
 			}
 		}
 	}

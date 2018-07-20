@@ -103,6 +103,8 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		cb_item_card_details_follow.isChecked = mCardBean.isFollow
 		cb_item_card_details_collect.isChecked = mCardBean.isCollect
 		cb_item_card_details_like.isChecked = mCardBean.isLike
+		tv_item_card_details_collect.isEnabled = mCardBean.isCollect
+		tv_item_card_details_like.isEnabled = mCardBean.isLike
 
 		//扩大10dp点击区域
 		cb_item_card_details_follow.expandViewTouchDelegate(ScreenUtils.dip2px(8f))

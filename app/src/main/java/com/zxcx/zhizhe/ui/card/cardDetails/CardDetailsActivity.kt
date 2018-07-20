@@ -383,7 +383,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	private fun initShareElement() {
 		postponeEnterTransition()
 		setEnterSharedElementCallback(mCallback)
-		setExitSharedElementCallback(mExitCallback)
+//		setExitSharedElementCallback(mExitCallback)
 	}
 
 	private val mCallback = object : SharedElementCallback() {

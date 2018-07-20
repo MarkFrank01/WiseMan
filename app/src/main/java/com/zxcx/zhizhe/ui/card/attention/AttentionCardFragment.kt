@@ -134,7 +134,6 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 				getAttentionCard()
 			}
 			rv_attention_card.scrollToPosition(event.currentPosition)
-			rv_attention_card.invalidate()
 		}
 	}
 
@@ -241,6 +240,6 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 		intent.putExtra("list", mAdapter.data as ArrayList)
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivity(intent, bundle)
+		mActivity.startActivityFromFragment(this, intent, 0, bundle)
 	}
 }

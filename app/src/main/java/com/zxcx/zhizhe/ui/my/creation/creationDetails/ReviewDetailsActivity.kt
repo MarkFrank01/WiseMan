@@ -151,13 +151,13 @@ class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		}
 		mWebView?.isFocusable = false
 		fl_review_details.addView(mWebView)
-		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
 		val url: String
-		if (isNight) {
-			url = APIService.API_SERVER_URL + "/view/articleDark/" + cardBean.id
+		val isNight = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false)
+		val fontSize = SharedPreferencesUtil.getInt(SVTSConstants.textSizeValue, 1)
+		url = if (isNight) {
+			APIService.API_SERVER_URL + getString(R.string.card_details_dark_url) + cardBean.id + "?fontSize=" + fontSize
 		} else {
-			url = APIService.API_SERVER_URL + "/view/articleLight/" + cardBean.id
-			//            mUrl = "http://192.168.1.149/articleView/192";
+			APIService.API_SERVER_URL + getString(R.string.card_details_light_url) + cardBean.id + "?fontSize=" + fontSize
 
 		}
 		mWebView?.loadUrl(url)

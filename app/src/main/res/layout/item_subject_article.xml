@@ -24,9 +24,11 @@
 		android:lineSpacingExtra="5dp"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_1"
+		app:layout_constraintBottom_toTopOf="@id/tv_item_subject_article_read"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article"
 		app:layout_constraintTop_toTopOf="@id/iv_item_subject_article"
+		app:layout_constraintVertical_chainStyle="packed"
 		tools:text="iphone6s和iphone7的区别在于可以防水"/>
 	
 	<TextView
@@ -34,15 +36,17 @@
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="2dp"
+		android:layout_marginTop="22dp"
 		android:layout_marginStart="12dp"
 		android:drawablePadding="3dp"
 		android:drawableStart="@drawable/iv_item_card_read"
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/tv_item_subject_article_comment"
 		app:layout_constraintStart_toEndOf="@id/iv_item_subject_article"
+		app:layout_constraintTop_toBottomOf="@id/tv_item_subject_article_title"
 		tools:text="1000"/>
 	
 	<TextView
@@ -50,15 +54,15 @@
 		style="@style/tv_single"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="2dp"
 		android:layout_marginStart="12dp"
 		android:drawablePadding="3dp"
 		android:drawableStart="@drawable/iv_item_card_comment"
 		android:gravity="center"
 		android:textColor="@color/text_color_2"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_subject_article"
+		app:layout_constraintBottom_toBottomOf="@id/tv_item_subject_article_read"
 		app:layout_constraintStart_toEndOf="@id/tv_item_subject_article_read"
+		app:layout_constraintTop_toTopOf="@id/tv_item_subject_article_read"
 		tools:text="1000"/>
 
 </android.support.constraint.ConstraintLayout>

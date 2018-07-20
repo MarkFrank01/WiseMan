@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
@@ -27,8 +26,6 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<ArticleAndSubjectBean>>,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
@@ -106,16 +103,6 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 
 	override fun onLoadMoreRequested() {
 		getArticleListForCategory(categoryId, mPage)
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: UpdateCardListPositionEvent) {
-		if (this::class.java.name == event.sourceName) {
-			if (event.currentPosition == mAdapter.data.size - 1) {
-				getArticleListForCategory(categoryId, mPage)
-			}
-			rv_card_list_item.scrollToPosition(event.currentPosition)
-		}
 	}
 
 	override fun getDataSuccess(list: MutableList<ArticleAndSubjectBean>) {

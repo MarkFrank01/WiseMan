@@ -33,8 +33,8 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 				helper.setText(R.id.tv_item_dynamic_message_date, bean.newTime)
 				helper.setText(R.id.tv_item_dynamic_message_content, bean.content)
 				helper.setText(R.id.tv_item_dynamic_message_card, bean.relatedCardName)
-				helper.setVisible(R.id.tv_item_dynamic_message_content, bean.content.isNotEmpty())
-				helper.setVisible(R.id.tv_item_dynamic_message_card, bean.relatedCardName.isNotEmpty())
+				helper.setGone(R.id.tv_item_dynamic_message_content, bean.content.isNotEmpty())
+				helper.setGone(R.id.tv_item_dynamic_message_card, bean.relatedCardName.isNotEmpty())
 
 				helper.addOnClickListener(R.id.iv_item_dynamic_message)
 				helper.addOnClickListener(R.id.tv_item_dynamic_message_name)

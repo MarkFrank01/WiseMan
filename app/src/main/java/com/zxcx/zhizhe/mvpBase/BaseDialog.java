@@ -151,6 +151,7 @@ public class BaseDialog extends DialogFragment implements IBasePresenter {
 		if (loadService != null) {
 			loadService.showCallback(LoginTimeoutCallback.class);
 		}
+		dismiss();
 	}
 	
 	public boolean checkLogin() {

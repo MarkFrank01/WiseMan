@@ -35,6 +35,8 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 		helper.setChecked(R.id.cb_item_card_details_follow, item.isFollow)
 		helper.setChecked(R.id.cb_item_card_details_collect, item.isCollect)
 		helper.setChecked(R.id.cb_item_card_details_like, item.isLike)
+		helper.getView<TextView>(R.id.tv_item_card_details_collect).isEnabled = item.isCollect
+		helper.getView<TextView>(R.id.tv_item_card_details_like).isEnabled = item.isLike
 
 		try {
 			val fromHtml = HtmlCompat.fromHtml(mContext, item.content, 0)
@@ -72,8 +74,8 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 		helper.addOnClickListener(R.id.iv_item_card_details_share)
 
 		//是否广告
-		helper.setVisible(R.id.tv_item_card_details_author, item.adUrl.isEmpty())
-		helper.setVisible(R.id.cb_item_card_details_follow, item.adUrl.isEmpty())
-		helper.setVisible(R.id.tv_item_card_details_goto_ad, item.adUrl.isNotEmpty())
+		helper.setGone(R.id.tv_item_card_details_author, item.adUrl.isEmpty())
+		helper.setGone(R.id.cb_item_card_details_follow, item.adUrl.isEmpty())
+		helper.setGone(R.id.tv_item_card_details_goto_ad, item.adUrl.isNotEmpty())
 	}
 }

@@ -7,6 +7,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@color/background">
+	
 	<android.support.constraint.ConstraintLayout
 		android:id="@+id/cl_card_details"
 		android:layout_width="match_parent"
@@ -33,7 +34,7 @@
 				android:id="@+id/cl_item_card_details_content"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
-				android:layout_marginBottom="57dp"
+				android:layout_marginBottom="52dp"
 				android:background="@color/background"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
@@ -65,8 +66,7 @@
 				<TextView
 					android:id="@+id/tv_item_card_details_category"
 					style="@style/tv_card_category"
-					android:layout_marginTop="12dp"
-					android:layout_marginBottom="12dp"
+					android:layout_marginTop="6dp"
 					android:layout_marginStart="20dp"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
@@ -75,7 +75,7 @@
 				<TextView
 					android:id="@+id/tv_item_card_details_label"
 					style="@style/tv_card_label"
-					android:paddingTop="12dp"
+					android:paddingTop="6dp"
 					android:paddingBottom="12dp"
 					android:paddingStart="12dp"
 					android:paddingEnd="12dp"
@@ -87,9 +87,10 @@
 					android:id="@+id/tv_item_card_details_content"
 					android:layout_width="match_parent"
 					android:layout_height="0dp"
+					android:layout_marginTop="12dp"
 					android:layout_marginStart="20dp"
 					android:layout_marginEnd="20dp"
-					android:lineSpacingExtra="6dp"
+					android:lineSpacingExtra="9dp"
 					android:textColor="@color/text_color_2"
 					android:textSize="15sp"
 					app:autoSizeMaxTextSize="15sp"
@@ -179,6 +180,7 @@
 				android:id="@+id/tv_item_card_details_collect"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:enabled="false"
 				android:textColor="@color/color_checkbox_card_details"
 				android:textSize="@dimen/text_size_text_4"
 				app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_collect"
@@ -201,6 +203,7 @@
 				android:id="@+id/tv_item_card_details_like"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:enabled="false"
 				android:textColor="@color/color_checkbox_card_details"
 				android:textSize="@dimen/text_size_text_4"
 				app:layout_constraintBottom_toTopOf="@+id/cb_item_card_details_like"

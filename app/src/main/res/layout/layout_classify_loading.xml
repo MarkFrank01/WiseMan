@@ -8,10 +8,12 @@
 	android:gravity="center"
 	android:orientation="vertical">
 	
-	<ImageView
+	<com.airbnb.lottie.LottieAnimationView
 		android:id="@+id/iv_loading"
-		android:layout_width="80dp"
-		android:layout_height="80dp"
-		android:src="@drawable/animation_loading"/>
+		android:layout_width="45dp"
+		android:layout_height="45dp"
+		app:lottie_autoPlay="true"
+		app:lottie_fileName="loading.json"
+		app:lottie_loop="true"/>
 
 </com.zxcx.zhizhe.widget.LoadingLayout>
