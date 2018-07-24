@@ -62,9 +62,14 @@ class SearchResultActivity : BaseActivity() {
 						switchFragment(userFragment)
 					}
 				}
+				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+				textView.paint.isFakeBoldText = true
 			}
 
-			override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {
+				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+				textView.paint.isFakeBoldText = false
+			}
 
 			override fun onTabReselected(tab: TabLayout.Tab) {
 
@@ -76,8 +81,10 @@ class SearchResultActivity : BaseActivity() {
 		para.width = screenWidth * 1 / 2
 		tl_search_result.layoutParams = para
 
-		tl_search_result.getTabAt(0)?.select()
 		switchFragment(cardFragment)
+		tl_search_result.getTabAt(0)?.select()
+		val textView = tl_search_result.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_home) as TextView
+		textView.paint.isFakeBoldText = true
 	}
 
 	override fun setListener() {

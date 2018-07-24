@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.ui.my.note.newNote.NoteEditorActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.ArticleNoteDetailsActivity
 import com.zxcx.zhizhe.ui.my.note.noteDetails.FreedomNoteDetailsActivity
+import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.DateTimeUtils
 import com.zxcx.zhizhe.utils.startActivity
@@ -137,6 +138,7 @@ class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 		mAdapter.mListener = this
 		rv_note.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_note.adapter = mAdapter
+		rv_note.addItemDecoration(MyCardItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
 	}

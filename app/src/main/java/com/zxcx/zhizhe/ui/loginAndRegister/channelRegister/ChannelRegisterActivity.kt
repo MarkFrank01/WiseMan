@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import butterknife.ButterKnife
+import cn.jiguang.analytics.android.api.JAnalyticsInterface
 import cn.jpush.android.api.JPushInterface
 import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.google.gson.JsonParser
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -102,7 +105,19 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	}
 
 	override fun getDataSuccess(bean: LoginBean) {
+		if (SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLogin, true)) {
+			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
+			startActivity(SelectAttentionActivity::class.java) {}
+		}
 		ZhiZheUtils.saveLoginData(bean)
+		//极光统计
+		val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)
+		lEvent.addKeyValue("appChannel", WalleChannelReader.getChannel(mActivity)).addKeyValue("appVersion", Utils.getAppVersionName(mActivity))
+		JAnalyticsInterface.onEvent(mActivity, lEvent)
+		//登录成功通知
+		EventBus.getDefault().post(LoginEvent())
+		Utils.closeInputMethod(mActivity)
+		toastShow("欢迎来到智者")
 		finish()
 	}
 

@@ -32,6 +32,7 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 
 		name = SharedPreferencesUtil.getString(SVTSConstants.nickName, "")
 		et_dialog_change_nick_name.setText(name)
+		et_dialog_change_nick_name.setSelection(name?.length ?: 0)
 	}
 
 	override fun onBackPressed() {

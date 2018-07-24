@@ -30,6 +30,7 @@ class ChangeSignatureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 
 		val signature = SharedPreferencesUtil.getString(SVTSConstants.signature, "")
 		et_dialog_change_signature.setText(signature)
+		et_dialog_change_signature.setSelection(signature.length)
 	}
 
 	override fun onBackPressed() {

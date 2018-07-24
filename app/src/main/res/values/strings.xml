@@ -59,7 +59,7 @@
     <string name="tv_feedback_residue">%1$d/%2$d</string>
     <string name="tv_refresh_text">已为你刷新%1$d张卡片</string>
     <string name="tv_dialog_phone_confirm_title">是否以手机号%1$s接收验证码?</string>
-    <string name="tv_item_message_value">智力值&#160;+%1$d</string>
+    <string name="tv_item_message_value">+%1$d</string>
     <string name="tv_dynamic_message_no_data">暂无消息</string>
 	<string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你</string>
 	<string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了</string>

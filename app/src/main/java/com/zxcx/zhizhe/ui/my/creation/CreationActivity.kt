@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.widget.TextView
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.fragment.CreationDraftsFragment
@@ -31,7 +30,7 @@ class CreationActivity : BaseActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_creation)
-		ButterKnife.bind(this)
+		initToolBar("作品")
 
 		initView()
 	}
@@ -43,10 +42,6 @@ class CreationActivity : BaseActivity() {
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
-
 		iv_add_new.setOnClickListener {
 			startActivity(CreationEditorActivity::class.java, {})
 		}
@@ -68,14 +63,27 @@ class CreationActivity : BaseActivity() {
 		tl_creation.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 			override fun onTabSelected(tab: TabLayout.Tab) {
 				when (tab.position) {
-					0 -> switchFragment(passedFragment)
-					1 -> switchFragment(reviewFragment)
-					2 -> switchFragment(rejectFragment)
-					3 -> switchFragment(draftsFragment)
+					0 -> {
+						switchFragment(passedFragment)
+					}
+					1 -> {
+						switchFragment(reviewFragment)
+					}
+					2 -> {
+						switchFragment(rejectFragment)
+					}
+					3 -> {
+						switchFragment(draftsFragment)
+					}
 				}
+				val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+				textView.paint.isFakeBoldText = true
 			}
 
-			override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {
+				val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+				textView.paint.isFakeBoldText = false
+			}
 
 			override fun onTabReselected(tab: TabLayout.Tab) {
 
@@ -84,6 +92,8 @@ class CreationActivity : BaseActivity() {
 		switchFragment(passedFragment)
 		goto = intent.getIntExtra("goto", 0)
 		tl_creation.getTabAt(goto)?.select()
+		val textView = tl_creation.getTabAt(goto)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
+		textView.paint.isFakeBoldText = true
 	}
 
 	private fun switchFragment(newFragment: Fragment) {

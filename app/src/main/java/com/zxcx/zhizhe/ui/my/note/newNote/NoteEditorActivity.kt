@@ -132,6 +132,7 @@ class NoteEditorActivity : BaseActivity(),
 	@JavascriptInterface
 	fun saveSuccess() {
 		toastShow("保存成功")
+		Utils.closeInputMethod(mActivity)
 		EventBus.getDefault().post(SaveFreedomNoteSuccessEvent())
 		finish()
 	}

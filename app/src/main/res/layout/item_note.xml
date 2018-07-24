@@ -6,7 +6,6 @@
 	android:id="@+id/es"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_marginTop="10dp"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press"
 	app:contentView="@id/content_view"
@@ -16,8 +15,8 @@
 		android:id="@+id/content_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_marginBottom="10dp"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="15dp"
 		android:layout_marginStart="20dp"
 		android:layout_marginEnd="20dp"
 		android:paddingTop="20dp"
@@ -65,7 +64,10 @@
 	<LinearLayout
 		android:id="@+id/right_view"
 		android:layout_width="wrap_content"
-		android:layout_height="match_parent">
+		android:layout_height="match_parent"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="15dp"
+		android:paddingEnd="20dp">
 		
 		<TextView
 			android:id="@+id/tv_cancel"

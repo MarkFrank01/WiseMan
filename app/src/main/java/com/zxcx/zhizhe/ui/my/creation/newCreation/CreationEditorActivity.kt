@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
+import com.zxcx.zhizhe.widget.UploadingDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -32,6 +33,7 @@ class CreationEditorActivity : BaseActivity(),
 		OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
 
 	private lateinit var mOSSDialog: OSSDialog
+	private lateinit var mUploadingDialog: UploadingDialog
 
 	private var mAction = 0 //0选择标题图，1选择内容图
 	private var cardId = 0
@@ -54,6 +56,7 @@ class CreationEditorActivity : BaseActivity(),
 
 		mOSSDialog = OSSDialog()
 		mOSSDialog.setUploadListener(this)
+		mUploadingDialog = UploadingDialog()
 	}
 
 	override fun onBackPressed() {
@@ -85,6 +88,9 @@ class CreationEditorActivity : BaseActivity(),
 		}
 
 		tv_toolbar_right.setOnClickListener {
+			mUploadingDialog.uploadingText = "正在提交"
+			mUploadingDialog.successText = "审核中"
+			mUploadingDialog.failText = "提交失败"
 			editor.submitDraft()
 		}
 
@@ -115,6 +121,9 @@ class CreationEditorActivity : BaseActivity(),
 				editor.editPreview()
 			}
 			window.mSaveListener = {
+				mUploadingDialog.uploadingText = "正在保存草稿"
+				mUploadingDialog.successText = "保存成功"
+				mUploadingDialog.failText = "保存失败"
 				editor.saveDraft()
 			}
 			window.mTypeListener = {
@@ -223,6 +232,7 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun saveSuccess() {
+		mUploadingDialog.setSuccess(true)
 		toastShow("保存草稿成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		startActivity(CreationActivity::class.java) {
@@ -234,11 +244,13 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun saveFail() {
+		mUploadingDialog.setSuccess(false)
 		toastError("保存草稿失败")
 	}
 
 	@JavascriptInterface
 	fun submitSuccess() {
+		mUploadingDialog.setSuccess(true)
 		toastShow("提交审核成功")
 		EventBus.getDefault().post(CommitCardReviewEvent())
 		startActivity(CreationActivity::class.java) {
@@ -250,6 +262,7 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun submitFail() {
+		mUploadingDialog.setSuccess(false)
 		toastError("提交审核失败")
 	}
 

@@ -53,9 +53,14 @@ class HomeCardFragment : BaseFragment() {
 						switchFragment(mListFragment)
 					}
 				}
+				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+				textView.paint.isFakeBoldText = true
 			}
 
-			override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {
+				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+				textView.paint.isFakeBoldText = false
+			}
 
 			override fun onTabReselected(tab: TabLayout.Tab) {
 

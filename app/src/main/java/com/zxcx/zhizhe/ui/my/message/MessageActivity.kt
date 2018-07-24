@@ -66,9 +66,14 @@ class MessageActivity : BaseActivity(), IGetPresenter<MyTabBean> {
 						refreshRedPoint()
 					}
 				}
+				val textView = tab.customView?.findViewById(R.id.tv_tab_message) as TextView
+				textView.paint.isFakeBoldText = true
 			}
 
-			override fun onTabUnselected(tab: TabLayout.Tab) {}
+			override fun onTabUnselected(tab: TabLayout.Tab) {
+				val textView = tab.customView?.findViewById(R.id.tv_tab_message) as TextView
+				textView.paint.isFakeBoldText = false
+			}
 
 			override fun onTabReselected(tab: TabLayout.Tab) {
 
@@ -79,8 +84,10 @@ class MessageActivity : BaseActivity(), IGetPresenter<MyTabBean> {
 		val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
 		para.width = screenWidth * 2 / 3
 		tl_message.layoutParams = para
-		tl_message.getTabAt(0)?.select()
 		switchFragment(systemMessageFragment)
+		tl_message.getTabAt(0)?.select()
+		val textView = tl_message.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_message) as TextView
+		textView.paint.isFakeBoldText = true
 
 		hasDynamicMessage = SharedPreferencesUtil.getBoolean(SVTSConstants.hasDynamicMessage, false)
 		refreshRedPoint()

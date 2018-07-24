@@ -35,6 +35,7 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
+		helper.getView<TextView>(R.id.tv_item_comment_like_num).isEnabled = item.hasLike
 		helper.addOnClickListener(R.id.cb_item_comment_like)
 		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {
@@ -77,6 +78,7 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
+		helper.getView<TextView>(R.id.tv_item_comment_like_num).isEnabled = item.hasLike
 		helper.addOnClickListener(R.id.cb_item_comment_like)
 		helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		when {

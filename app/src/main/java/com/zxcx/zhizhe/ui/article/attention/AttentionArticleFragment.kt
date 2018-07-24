@@ -133,16 +133,16 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 
 	override fun getDataSuccess(list: List<ArticleAndSubjectBean>) {
 		loadService.showSuccess()
-		if (list.isEmpty() && page == 0) {
-			mPresenter.getClassify()
-			return
-		}
 		if (page == 0) {
 			mRefreshLayout.finishRefresh()
 			mAdapter.setNewData(list)
 			rv_attention_card.scrollToPosition(0)
 		} else {
 			mAdapter.addData(list)
+		}
+		if (list.isEmpty() && page == 0) {
+			mPresenter.getClassify()
+			return
 		}
 		page++
 		if (list.size < Constants.PAGE_SIZE) {

@@ -20,7 +20,6 @@
 	
 	<TextView
 		android:id="@+id/tv_item_comment_name"
-		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="8dp"
@@ -32,12 +31,9 @@
 	
 	<TextView
 		android:id="@+id/tv_item_comment_flag"
-		android:textStyle="bold"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="6dp"
-		android:paddingTop="1dp"
-		android:paddingBottom="1dp"
 		android:paddingStart="6dp"
 		android:paddingEnd="6dp"
 		android:background="@drawable/bg_item_comment_flag"
@@ -65,7 +61,8 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="8dp"
 		android:layout_marginEnd="20dp"
-		android:textColor="@color/text_color_3"
+		android:enabled="false"
+		android:textColor="@color/color_checkbox_card_details"
 		android:textSize="@dimen/text_size_text_4"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"

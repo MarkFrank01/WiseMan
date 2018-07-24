@@ -109,7 +109,10 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 	}
 
 	override fun getDataSuccess(bean: LoginBean) {
-		startActivity(SelectAttentionActivity::class.java) {}
+		if (SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLogin, true)) {
+			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
+			startActivity(SelectAttentionActivity::class.java) {}
+		}
 		ZhiZheUtils.saveLoginData(bean)
 		//极光统计
 		val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)

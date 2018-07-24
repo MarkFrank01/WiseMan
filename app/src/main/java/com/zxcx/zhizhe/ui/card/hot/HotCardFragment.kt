@@ -122,6 +122,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		if (mPage == 0) {
 			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setText(
 					getString(R.string.tv_refresh_text, list.size))
+			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
 			mRefreshLayout.finishRefresh()
 			mAdapter.setNewData(list)
 			rv_hot_card.scrollToPosition(0)
@@ -144,6 +145,9 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		super.toastFail(msg)
 		mAdapter.loadMoreFail()
 		if (mPage == 0) {
+			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setText("刷新失败")
+			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(false)
+			mRefreshLayout.finishRefresh()
 			loadService.showCallback(HomeNetworkErrorCallback::class.java)
 		}
 	}

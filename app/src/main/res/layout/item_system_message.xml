@@ -58,13 +58,15 @@
 		android:layout_height="0dp"
 		android:layout_marginTop="1dp"
 		android:layout_marginStart="20dp"
+		android:drawablePadding="2dp"
+		android:drawableStart="@drawable/tv_item_rank_user_level"
 		android:gravity="center"
 		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_3"
 		app:layout_constraintBottom_toBottomOf="@id/tv_item_system_message_action"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="@id/tv_item_system_message_action"
-		tools:text="智力值 +100"/>
+		tools:text="+100"/>
 	
 	<TextView
 		android:id="@+id/tv_item_system_message_action"

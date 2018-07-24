@@ -158,7 +158,7 @@
 				android:id="@+id/tv_item_card_details_comment"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textColor="@color/text_color_2"
+				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_4"
 				app:layout_constraintBottom_toTopOf="@+id/iv_item_card_details_comment"
 				app:layout_constraintStart_toEndOf="@+id/iv_item_card_details_comment"

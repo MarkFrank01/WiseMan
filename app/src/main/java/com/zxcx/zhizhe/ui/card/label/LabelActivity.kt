@@ -24,7 +24,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
-import kotlinx.android.synthetic.main.activity_card_bag.*
+import kotlinx.android.synthetic.main.activity_label.*
 import java.util.*
 
 class LabelActivity : RefreshMvpActivity<LabelPresenter>(), LabelContract.View,
@@ -38,7 +38,7 @@ class LabelActivity : RefreshMvpActivity<LabelPresenter>(), LabelContract.View,
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_card_bag)
+		setContentView(R.layout.activity_label)
 		ButterKnife.bind(this)
 		initData()
 		initView()

@@ -22,6 +22,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	private TextView mTvRefreshHeader;
 	private LottieAnimationView mIvRefreshHeader;
 	private String text;
+	private boolean isSuccess = true;
 	private View header;
 	private boolean mFinished;
 	
@@ -42,6 +43,10 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
 	}
 	
 	protected void initViews() {
@@ -96,7 +101,11 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
 //		((AnimationDrawable) mIvRefreshHeader.getDrawable()).stop();
 		mIvRefreshHeader.setRepeatCount(0);
-		mIvRefreshHeader.setAnimation("load_complete.json");
+		if (isSuccess) {
+			mIvRefreshHeader.setAnimation("load_complete.json");
+		} else {
+			mIvRefreshHeader.setAnimation("load_fail.json");
+		}
 		mIvRefreshHeader.playAnimation();
 		mFinished = true;
 		postDelayed(() -> {
