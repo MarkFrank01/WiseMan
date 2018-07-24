@@ -177,7 +177,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		intent.putExtra("list", mAdapter.data as ArrayList)
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivity(intent, bundle)
+		mActivity.startActivityFromFragment(this, intent, 0, bundle)
 	}
 
 	public fun onActivityReenter() {

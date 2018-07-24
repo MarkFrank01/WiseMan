@@ -156,7 +156,9 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 			tv_comment_send.isEnabled = it.isNotEmpty()
 		}
 		tv_comment_send.setOnClickListener {
-			mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
+			if (checkLogin()) {
+				mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
+			}
 			Utils.closeInputMethod(et_comment)
 		}
 		fl_fragment_comment.setOnClickListener {

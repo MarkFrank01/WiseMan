@@ -434,16 +434,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private fun gotoImageShare(url: String?, content: String?) {
 		val shareDialog = ShareSelectionDialog()
 		val bundle = Bundle()
-		bundle.putString("name", cardBean.name)
+		bundle.putParcelable("cardBean", cardBean)
 		if (!StringUtils.isEmpty(content)) {
 			bundle.putString("content", content)
-		} else {
-			bundle.putString("url", url)
 		}
-		bundle.putString("imageUrl", cardBean.imageUrl)
-		bundle.putString("date", date)
-		bundle.putString("categoryName", cardBean.categoryName)
-		bundle.putString("labelName", cardBean.getLabelName())
 		shareDialog.arguments = bundle
 		val fragmentManager = supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()

@@ -8,7 +8,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
-import butterknife.OnClick
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import cn.sharesdk.framework.ShareSDK
@@ -138,45 +137,37 @@ open class ShareSelectionDialog : BaseDialog() {
 		}
 		fl_dialog_share.addView(mWebView)
 		if (!StringUtils.isEmpty(content)) {
-			mWebView?.loadUrl(SETUP_HTML)
-			if (!StringUtils.isEmpty(content)) {
-				try {
-					exec("javascript:RE.setBody('" + URLEncoder.encode(content, "UTF-8") + "');")
-				} catch (e: UnsupportedEncodingException) {
-					// No handling
-				}
-
+			try {
+				mWebView?.loadUrl(SETUP_HTML)
+				exec("javascript:RE.setBody('" + URLEncoder.encode(content, "UTF-8") + "');")
+			} catch (e: UnsupportedEncodingException) {
+				// No handling
 			}
+
 		}
 	}
 
-	@OnClick(R.id.iv_dialog_share_wechat)
-	fun onMIvDialogShareWechatClicked() {
-		plat = ShareSDK.getPlatform(Wechat.NAME)
-		checkPermission(plat.name)
-	}
-
-	@OnClick(R.id.iv_dialog_share_moments)
-	fun onMIvDialogShareMomentsClicked() {
-		plat = ShareSDK.getPlatform(WechatMoments.NAME)
-		checkPermission(plat.name)
-	}
-
-	@OnClick(R.id.iv_dialog_share_qq)
-	fun onMIvDialogShareQqClicked() {
-		plat = ShareSDK.getPlatform(QQ.NAME)
-		checkPermission(plat.name)
-	}
-
-	@OnClick(R.id.iv_dialog_share_weibo)
-	fun onMIvDialogShareWeiboClicked() {
-		plat = ShareSDK.getPlatform(SinaWeibo.NAME)
-		checkPermission(plat.name)
-	}
-
-	@OnClick(R.id.iv_dialog_share_back)
-	fun onMIvDialogShareBackClicked() {
-		dismiss()
+	override fun setListener() {
+		super.setListener()
+		iv_dialog_share_wechat.setOnClickListener {
+			plat = ShareSDK.getPlatform(Wechat.NAME)
+			checkPermission(plat.name)
+		}
+		iv_dialog_share_moments.setOnClickListener {
+			plat = ShareSDK.getPlatform(WechatMoments.NAME)
+			checkPermission(plat.name)
+		}
+		iv_dialog_share_qq.setOnClickListener {
+			plat = ShareSDK.getPlatform(QQ.NAME)
+			checkPermission(plat.name)
+		}
+		iv_dialog_share_weibo.setOnClickListener {
+			plat = ShareSDK.getPlatform(SinaWeibo.NAME)
+			checkPermission(plat.name)
+		}
+		iv_dialog_share_back.setOnClickListener {
+			dismiss()
+		}
 	}
 
 	private fun exec(trigger: String) {

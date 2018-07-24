@@ -1,86 +1,19 @@
-<#assign base = request.contextPath />
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <title>${tabArticleTitle!""}</title>
+    <title>智者</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <base id="base" href="${base}">
     <meta itemprop="name" content="智者文库"/>
+    <meta itemprop="image"
+          content="http://www.uimaker.com/uploads/allimg/110301/1_110301085003_9_lit.png"/>
     <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="description" itemprop="description" content="有好东西，快点进来看吧！"/>
     <!-- css -->
-    <link href="${base}/css/articlePreviewLight.css" rel="stylesheet" />
-    <!-- js -->
-    <script src="${base}/js/jQuery-2.2.0.min.js"></script>
-    <script src="${base}/js/bootstrap.js"></script>
-    <script src="${base}/js/article_template.js"></script>
-
-
+    <link rel="stylesheet" type="text/css" href="preview_light.css">
 </head>
 <body>
-<#--<div class="titlce">${articleTitle!""}</div>-->
-<#--<div class="articleInfo">${articleCreateTime}  阅读 ${articlePv} </div>-->
-<div class="mainbodys">${content!""}</div>
-<div style="display: none" id="fontSize">${fontSize}</div>
-
-<#--<div class="author-right">© 著作权归作者所有</div>-->
-
-<#--<div class="author-container">-->
-    <#--<img class="author-avatar" src="${authorAvatar}">-->
-    <#--<div class="author-info-end">-->
-        <#--<div class="author-name">${authorName}</div>-->
-        <#--<div class="atuhor-sign">发布了 ${articleCount} 篇卡片，获得 ${likeCount} 个认同</div>-->
-        <#--&lt;#&ndash;<div class="author-name">${authorName}</div>&ndash;&gt;-->
-        <#--&lt;#&ndash;<div class="atuhor-sign">${authorSight}</div>&ndash;&gt;-->
-    <#--</div>-->
-
-<#--</div>-->
-<script>
-        //截取文章内容
-        function getValue(){
-    //    window.getSelection().getRangeAt(0).cloneContents()
-            var range = window.getSelection().getRangeAt(0);
-            var container = document.createElement('div');
-            var content = range.cloneContents();
-            container.appendChild(content.cloneNode(true));
-            var str = container.innerHTML;
-            //console.log(str);
-            if(str.substr(0,3) != '<p>'){
-    //            var para = document.createElement('p');
-    //            para.innerHTML = str
-                //console.log(para)
-                str = '<p>' + str + '</p>'
-            }
-            return str;
-        }
-
-//        $(function () {
-//            $('strong').parent().css({'margin':'20px 0 0'});
-//        });
-
-
-    //设置字体大小
-    window.onload = function () {
-        var n = document.getElementById('fontSize').innerText;
-        switch (n) {
-            case "1":
-                $("p").css("font-size", "17px");
-                $("p#imagetitle").css({"font-size": "14px"});
-                break;
-            case "2":
-                $("p").css({"font-size": "20px", "line-height": "32px"});
-                $("p#imagetitle").css({"font-size": "14px"});
-                break;
-            case "3":
-                $("p").css({"font-size": "24px", "line-height": "38px"});
-                $("p#imagetitle").css({"font-size": "14px"});
-                break;
-            default:
-                $("p").css("font-size", "17px");
-                $("p#imagetitle").css({"font-size": "14px"});
-        }
-    }
-    //    getValue();
-</script>
-
+<div id="body"></div>
+<script type="text/javascript" src="preview.js"></script>
 </body>
 </html>
