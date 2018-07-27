@@ -46,7 +46,7 @@
 				android:layout_below="@id/tv_dynamic_message_title_1"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_2"
+				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>
@@ -87,7 +87,7 @@
 				android:layout_below="@id/tv_dynamic_message_title_2"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_2"
+				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>
@@ -128,7 +128,7 @@
 				android:layout_below="@id/tv_dynamic_message_title_3"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_2"
+				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>
@@ -170,7 +170,7 @@
 				android:layout_below="@id/tv_dynamic_message_title_4"
 				android:lineSpacingExtra="10dp"
 				android:text="@string/tv_dynamic_message_no_data"
-				android:textColor="@color/text_color_2"
+				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_2"/>
 			
 			<include layout="@layout/iv_right_into"/>

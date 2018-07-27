@@ -59,6 +59,18 @@ class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		}
 	}
 
+	override fun getDataFail(msg: String?) {
+		toastError(msg)
+	}
+
+	override fun postSuccess() {
+		//删除成功
+	}
+
+	override fun postFail(msg: String?) {
+		toastError(msg)
+	}
+
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
 		mPage = 0
 		mPresenter.getCreation(mPassType, mPage, mPageSize)

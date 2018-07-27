@@ -37,6 +37,7 @@ class HomeArticleFragment : BaseFragment(), IGetPresenter<MutableList<CardCatego
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		tl_card_list.setupWithViewPager(vp_article_list)
+		tl_card_list.getTabAt(1)?.select()
 		getArticleCategory()
 	}
 

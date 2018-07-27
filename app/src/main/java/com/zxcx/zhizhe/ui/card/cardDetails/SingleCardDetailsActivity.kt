@@ -290,12 +290,17 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 	}
 
 	private fun gotoImageShare() {
-		mDisposable = Flowable.just(cl_item_card_details_content)
+		mDisposable = Flowable.just(fl_card_details)
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.doOnSubscribe { subscription -> showLoading() }
+				.map {
+					iv_share_qr.visibility = View.VISIBLE
+					iv_common_close.visibility = View.GONE
+					it
+				}
 				.observeOn(Schedulers.io())
 				.map { view ->
-					val bitmap = ScreenUtils.getBitmapAndQRByView(view)
+					val bitmap = ScreenUtils.getBitmapByView(view)
 					val fileName = FileUtil.getRandomImageName()
 					FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName)
 					val path = FileUtil.PATH_BASE + fileName
@@ -306,6 +311,11 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 					//                    return path;
 				}
 				.observeOn(AndroidSchedulers.mainThread())
+				.map {
+					iv_share_qr.visibility = View.GONE
+					iv_common_close.visibility = View.VISIBLE
+					it
+				}
 				.subscribeWith(object : DisposableSubscriber<String>() {
 
 					override fun onNext(s: String) {

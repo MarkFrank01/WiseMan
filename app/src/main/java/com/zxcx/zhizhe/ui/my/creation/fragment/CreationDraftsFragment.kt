@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
+import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -26,12 +27,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
-		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {
 
 	private var mPage = 0
 	private val mPassType = 3
 	private val mPageSize = Constants.PAGE_SIZE
-	private lateinit var mAdapter: ReviewCreationAdapter
+	private lateinit var mAdapter: DeleteCreationAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_creation, container, false)
@@ -90,6 +91,18 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		}
 	}
 
+	override fun getDataFail(msg: String?) {
+		toastError(msg)
+	}
+
+	override fun postSuccess() {
+		//删除成功
+	}
+
+	override fun postFail(msg: String?) {
+		toastError(msg)
+	}
+
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
 		mPage = 0
 		mPresenter.getCreation(mPassType, mPage, mPageSize)
@@ -99,8 +112,8 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		mPresenter.getCreation(mPassType, mPage, mPageSize)
 	}
 
-	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val bean = adapter.data[position] as CardBean
+	override fun onContentClick(position: Int) {
+		val bean = mAdapter.data[position] as CardBean
 		if (bean.cardType == 1) {
 			mActivity.startActivity(DraftCardDetailsActivity::class.java) {
 				it.putExtra("cardBean", bean)
@@ -112,9 +125,13 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 		}
 	}
 
+	override fun onDeleteClick(position: Int) {
+		mPresenter.deleteCard(mAdapter.data[position].id)
+	}
+
 	private fun initRecyclerView() {
-		mAdapter = ReviewCreationAdapter(ArrayList())
-		mAdapter.onItemClickListener = this
+		mAdapter = DeleteCreationAdapter(ArrayList())
+		mAdapter.mListener = this
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_creation)
 		rv_creation.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -39,6 +40,7 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 
 	private lateinit var mAdapter: CardAdapter
 	private var mPage = 0
+	private var mCurrentPosition = 0
 
 	companion object {
 		@JvmStatic
@@ -71,6 +73,19 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 		getCardListForCategory(categoryId, mPage)
 	}
 
+	override fun onDestroyView() {
+		super.onDestroyView()
+	}
+
+	override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+		super.setUserVisibleHint(isVisibleToUser)
+		if (isVisibleToUser) {
+			EventBus.getDefault().register(this)
+		} else {
+			EventBus.getDefault().unregister(this)
+		}
+	}
+
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 		mAdapter = CardAdapter(arrayListOf())
@@ -97,6 +112,7 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
 		mActivity.startActivity(intent, bundle)
+		mCurrentPosition = position
 	}
 
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
@@ -114,6 +130,7 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 			if (event.currentPosition == mAdapter.data.size - 1) {
 				getCardListForCategory(categoryId, mPage)
 			}
+			mCurrentPosition = event.currentPosition
 			rv_card_list_item.scrollToPosition(event.currentPosition)
 		}
 	}
@@ -153,5 +170,29 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 					}
 				})
 		addSubscription(mDisposable)
+	}
+
+	public fun onActivityReenter() {
+		rv_card_list_item.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+			override fun onPreDraw(): Boolean {
+				rv_card_list_item.viewTreeObserver.removeOnPreDrawListener(this)
+				rv_card_list_item.requestLayout()
+				mActivity.startPostponedEnterTransition()
+				return true
+			}
+		})
+	}
+
+	fun getSharedView(names: MutableList<String>): MutableMap<String, View> {
+		val sharedElements = mutableMapOf<String, View>()
+		val cardImg = mAdapter.getViewByPosition(mCurrentPosition, R.id.iv_item_card_icon)
+		val cardTitle = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_title)
+		val cardCategory = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_category)
+		val cardLabel = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_label)
+		cardImg?.let { sharedElements[cardImg.transitionName] = it }
+		cardTitle?.let { sharedElements[cardTitle.transitionName] = it }
+		cardCategory?.let { sharedElements[cardCategory.transitionName] = it }
+		cardLabel?.let { sharedElements[cardLabel.transitionName] = it }
+		return sharedElements
 	}
 }

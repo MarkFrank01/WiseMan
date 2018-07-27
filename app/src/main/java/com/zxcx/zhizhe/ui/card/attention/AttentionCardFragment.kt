@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -42,6 +43,7 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 	private lateinit var mAdapter: CardAdapter
 	private var page = 0
 	private var mHidden = true
+	private var mCurrentPosition = 0
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_attention, container, false)
@@ -133,6 +135,7 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 			if (event.currentPosition == mAdapter.data.size - 1) {
 				getAttentionCard()
 			}
+			mCurrentPosition = event.currentPosition
 			rv_attention_card.scrollToPosition(event.currentPosition)
 		}
 	}
@@ -241,5 +244,30 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
 		mActivity.startActivityFromFragment(this, intent, 0, bundle)
+		mCurrentPosition = position
+	}
+
+	fun onActivityReenter() {
+		rv_attention_card.requestLayout()
+		rv_attention_card.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+			override fun onPreDraw(): Boolean {
+				rv_attention_card.viewTreeObserver.removeOnPreDrawListener(this)
+				mActivity.startPostponedEnterTransition()
+				return true
+			}
+		})
+	}
+
+	fun getSharedView(names: MutableList<String>): MutableMap<String, View> {
+		val sharedElements = mutableMapOf<String, View>()
+		val cardImg = mAdapter.getViewByPosition(mCurrentPosition, R.id.iv_item_card_icon)
+		val cardTitle = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_title)
+		val cardCategory = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_category)
+		val cardLabel = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_label)
+		cardImg?.let { sharedElements[cardImg.transitionName] = it }
+		cardTitle?.let { sharedElements[cardTitle.transitionName] = it }
+		cardCategory?.let { sharedElements[cardCategory.transitionName] = it }
+		cardLabel?.let { sharedElements[cardLabel.transitionName] = it }
+		return sharedElements
 	}
 }

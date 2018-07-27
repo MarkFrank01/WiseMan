@@ -38,7 +38,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	private var mPage = 0
 	private var mHidden = true
 	private var mLastDate = Date()
-	private var mIsReturning = false
 	private var mCurrentPosition = 0
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -181,19 +180,31 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		intent.putExtra("list", mAdapter.data as ArrayList)
 		intent.putExtra("currentPosition", position)
 		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivityFromFragment(this, intent, 0, bundle)
+		mActivity.startActivity(intent, bundle)
+		mCurrentPosition = position
 	}
 
-	public fun onActivityReenter() {
-		mIsReturning = true
-		postponeEnterTransition()
+	fun onActivityReenter() {
 		rv_hot_card.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
 			override fun onPreDraw(): Boolean {
 				rv_hot_card.viewTreeObserver.removeOnPreDrawListener(this)
 				rv_hot_card.requestLayout()
-				startPostponedEnterTransition()
+				mActivity.startPostponedEnterTransition()
 				return true
 			}
 		})
+	}
+
+	fun getSharedView(names: MutableList<String>): MutableMap<String, View> {
+		val sharedElements = mutableMapOf<String, View>()
+		val cardImg = mAdapter.getViewByPosition(mCurrentPosition, R.id.iv_item_card_icon)
+		val cardTitle = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_title)
+		val cardCategory = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_category)
+		val cardLabel = mAdapter.getViewByPosition(mCurrentPosition, R.id.tv_item_card_label)
+		cardImg?.let { sharedElements[cardImg.transitionName] = it }
+		cardTitle?.let { sharedElements[cardTitle.transitionName] = it }
+		cardCategory?.let { sharedElements[cardCategory.transitionName] = it }
+		cardLabel?.let { sharedElements[cardLabel.transitionName] = it }
+		return sharedElements
 	}
 }

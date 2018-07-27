@@ -29,7 +29,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 	private var mPage = 0
 	private val mPassType = 0
 	private val mPageSize = Constants.PAGE_SIZE
-	private lateinit var mAdapter: ReviewCreationAdapter
+	private lateinit var mAdapter: CreationAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		return inflater.inflate(R.layout.fragment_creation, container, false)
@@ -75,6 +75,18 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 		}
 	}
 
+	override fun getDataFail(msg: String?) {
+		toastError(msg)
+	}
+
+	override fun postSuccess() {
+		//删除成功
+	}
+
+	override fun postFail(msg: String?) {
+		toastError(msg)
+	}
+
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
 		mPage = 0
 		mPresenter.getCreation(mPassType, mPage, mPageSize)
@@ -98,7 +110,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 	}
 
 	private fun initRecyclerView() {
-		mAdapter = ReviewCreationAdapter(ArrayList())
+		mAdapter = CreationAdapter(ArrayList())
 		mAdapter.onItemClickListener = this
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_creation)

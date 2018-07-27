@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -146,15 +148,19 @@ public class ScreenUtils {
 		Bitmap bitmap = null;
 		Resources res = viewGroup.getContext().getResources();
 		Bitmap QRBitmap = BitmapFactory.decodeResource(res, R.drawable.iv_dialog_share_qr);
+		Paint paint = new Paint();
+		paint.setColor(ContextCompat.getColor(viewGroup.getContext(), R.color.background));
 		// 获取scrollview实际高度
 		for (int i = 0; i < viewGroup.getChildCount(); i++) {
 			h += viewGroup.getChildAt(i).getHeight();
 		}
 		h += QRBitmap.getHeight();
 		// 创建对应大小的bitmap
+		RectF rectF = new RectF(0, 0, viewGroup.getWidth(), h);
 		bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,
 			Bitmap.Config.RGB_565);
 		Canvas canvas = new Canvas(bitmap);
+		canvas.drawRoundRect(rectF, ScreenUtils.dip2px(12), ScreenUtils.dip2px(12), paint);
 		viewGroup.draw(canvas);
 		canvas.drawBitmap(QRBitmap, 0, h - QRBitmap.getHeight(), new Paint());
 		QRBitmap.recycle();

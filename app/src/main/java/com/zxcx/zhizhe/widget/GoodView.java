@@ -249,13 +249,17 @@ public class GoodView extends PopupWindow {
 	 */
 	public void show(View v) {
 		if (!isShowing()) {
-			int offsetY = -v.getHeight() - getHeight();
-			showAsDropDown(v, v.getWidth() / 2 - getWidth() / 2, offsetY);
-			if (mAnimationSet == null || mChanged) {
-				mAnimationSet = createAnimation();
-				mChanged = false;
+			try {
+				int offsetY = -v.getHeight() - getHeight();
+				showAsDropDown(v, v.getWidth() / 2 - getWidth() / 2, offsetY);
+				if (mAnimationSet == null || mChanged) {
+					mAnimationSet = createAnimation();
+					mChanged = false;
+				}
+				mGood.startAnimation(mAnimationSet);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			mGood.startAnimation(mAnimationSet);
 		}
 	}
 

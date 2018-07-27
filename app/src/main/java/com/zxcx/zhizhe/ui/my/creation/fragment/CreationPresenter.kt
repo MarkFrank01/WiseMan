@@ -16,12 +16,24 @@ class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationCon
 		mModel.getCreation(passType, page, pageSize)
 	}
 
+	fun deleteCard(cardId: Int) {
+		mModel.deleteCard(cardId)
+	}
+
 	override fun getDataSuccess(bean: List<CardBean>) {
 		mView.getDataSuccess(bean)
 	}
 
 	override fun getDataFail(msg: String) {
-		mView.toastFail(msg)
+		mView.getDataFail(msg)
+	}
+
+	override fun postSuccess() {
+		mView.postSuccess()
+	}
+
+	override fun postFail(msg: String?) {
+		mView.postFail(msg)
 	}
 
 	override fun showLoading() {

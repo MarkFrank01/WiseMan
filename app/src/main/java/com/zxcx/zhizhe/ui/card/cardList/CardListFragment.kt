@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,10 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import kotlinx.android.synthetic.main.fragment_card_list.*
 
+
 class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryBean>> {
 
+	private var mAdapter: CardListViewPagerAdapter? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -36,7 +39,8 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 	}
 
 	override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
-		vp_card_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
+		mAdapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
+		vp_card_list.adapter = mAdapter
 		tl_card_list.removeAllTabs()
 		list.forEach {
 			val tab = tl_card_list.newTab()
@@ -64,12 +68,39 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 	}
 
 	class CardListViewPagerAdapter(val list: MutableList<CardCategoryBean>, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
+		private val fragments: SparseArray<CardListItemFragment> = SparseArray(count)
+
 		override fun getItem(position: Int): Fragment {
 			return CardListItemFragment.newInstance(list[position].id)
+		}
+
+		override fun instantiateItem(container: ViewGroup, position: Int): Any {
+			val fragment = super.instantiateItem(container, position) as CardListItemFragment
+			fragments.put(position, fragment)
+			return fragment
+		}
+
+		override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+			super.destroyItem(container, position, `object`)
+			fragments.remove(position)
 		}
 
 		override fun getCount(): Int {
 			return list.size
 		}
+
+		fun getPositionFragment(position: Int): CardListItemFragment? {
+			return fragments[position]
+		}
+
+	}
+
+	public fun onActivityReenter() {
+		mAdapter?.getPositionFragment(vp_card_list.currentItem)?.onActivityReenter()
+	}
+
+	public fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
+		return mAdapter?.getPositionFragment(vp_card_list.currentItem)?.getSharedView(names)
 	}
 }

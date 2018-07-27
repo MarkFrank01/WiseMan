@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -105,6 +104,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 			override fun onPreDraw(): Boolean {
 				rv_card_details.viewTreeObserver.removeOnPreDrawListener(this)
 				startPostponedEnterTransition()
+				val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
+				refreshBackground(imageUrl)
 				return true
 			}
 		})
@@ -309,7 +310,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				}
 			}
 			R.id.iv_item_card_details_share -> {
-				val viewGroup = mAdapter.getViewByPosition(position, R.id.cl_item_card_details_content) as ViewGroup
 
 				val rxPermissions = RxPermissions(this)
 				rxPermissions
@@ -318,7 +318,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 							when {
 								permission.granted -> {
 									// `permission.name` is granted !
-									gotoImageShare(viewGroup)
+									gotoImageShare()
 								}
 								permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
 									toastShow("权限已被拒绝！无法进行操作")
@@ -340,13 +340,18 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 		super.finishAfterTransition()
 	}
 
-	private fun gotoImageShare(viewGroup: ViewGroup) {
-		mDisposable = Flowable.just(viewGroup)
+	private fun gotoImageShare() {
+		mDisposable = Flowable.just(fl_card_details)
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.doOnSubscribe { subscription -> showLoading() }
+				.map {
+					iv_share_qr.visibility = View.VISIBLE
+					iv_common_close.visibility = View.GONE
+					it
+				}
 				.observeOn(Schedulers.io())
 				.map { view ->
-					val bitmap = ScreenUtils.getBitmapAndQRByView(view)
+					val bitmap = ScreenUtils.getBitmapByView(view)
 					val fileName = FileUtil.getRandomImageName()
 					FileUtil.saveBitmapToSDCard(bitmap, FileUtil.PATH_BASE, fileName)
 					val path = FileUtil.PATH_BASE + fileName
@@ -357,6 +362,11 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 					//                    return path;
 				}
 				.observeOn(AndroidSchedulers.mainThread())
+				.map {
+					iv_share_qr.visibility = View.GONE
+					iv_common_close.visibility = View.VISIBLE
+					it
+				}
 				.subscribeWith(object : DisposableSubscriber<String>() {
 
 					override fun onNext(s: String) {

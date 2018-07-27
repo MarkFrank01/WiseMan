@@ -10,8 +10,8 @@
 		style="@style/tv_single"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="9dp"
-		android:paddingBottom="9dp"
+		android:paddingTop="12dp"
+		android:paddingBottom="12dp"
 		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_2"
 		tools:text="绝地吃鸡屁股"/>

@@ -101,6 +101,19 @@ class HomeCardFragment : BaseFragment() {
 	}
 
 	public fun onActivityReenter() {
-		mHotFragment.onActivityReenter()
+		when (mCurrentFragment) {
+			mHotFragment -> mHotFragment.onActivityReenter()
+			mAttentionFragment -> mAttentionFragment.onActivityReenter()
+			mListFragment -> mListFragment.onActivityReenter()
+		}
+	}
+
+	fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
+		return when (mCurrentFragment) {
+			mHotFragment -> mHotFragment.getSharedView(names)
+			mAttentionFragment -> mAttentionFragment.getSharedView(names)
+			mListFragment -> mListFragment.getSharedView(names)
+			else -> mListFragment.getSharedView(names)
+		}
 	}
 }

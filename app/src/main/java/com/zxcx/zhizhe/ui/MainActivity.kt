@@ -1,8 +1,10 @@
 package com.zxcx.zhizhe.ui
 
+import android.app.SharedElementCallback
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
@@ -31,12 +33,13 @@ class MainActivity : BaseActivity() {
 	private var mHomeArticleFragment = HomeArticleFragment()
 	private var mRankFragment = RankFragment()
 	private var mMyFragment: MyFragment? = MyFragment()
+	private var mIsReenter = false
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 		EventBus.getDefault().register(this)
-
+		initShareElement()
 		val intent = intent
 		//判断是否点击了广告或通知
 		gotoLoginActivity(intent)
@@ -134,6 +137,34 @@ class MainActivity : BaseActivity() {
 
 	override fun onActivityReenter(resultCode: Int, data: Intent?) {
 		super.onActivityReenter(resultCode, data)
-		mHomeCardFragment.onActivityReenter()
+		mIsReenter = true
+		if (mCurrentFragment == mHomeCardFragment) {
+			postponeEnterTransition()
+			mHomeCardFragment.onActivityReenter()
+		}
+	}
+
+	fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
+		return if (mCurrentFragment == mHomeCardFragment) {
+			postponeEnterTransition()
+			mHomeCardFragment.getSharedView(names)
+		} else {
+			null
+		}
+	}
+
+	private fun initShareElement() {
+		setExitSharedElementCallback(mExitCallback)
+	}
+
+	private val mExitCallback = object : SharedElementCallback() {
+
+		override fun onMapSharedElements(names: MutableList<String>, sharedElements: MutableMap<String, View>) {
+			if (mIsReenter) {
+				sharedElements.clear()
+				sharedElements.putAll(getSharedView(names) ?: mutableMapOf())
+				mIsReenter = false
+			}
+		}
 	}
 }

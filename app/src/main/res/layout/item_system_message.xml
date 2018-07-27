@@ -79,7 +79,7 @@
 		android:paddingEnd="20dp"
 		android:drawableEnd="@drawable/tv_item_system_message_action"
 		android:gravity="center_vertical|end"
-		android:textColor="@color/text_color_1"
+		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_3"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/tv_item_system_message_content"

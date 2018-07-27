@@ -6,9 +6,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -63,6 +65,17 @@ class CreationEditorActivity : BaseActivity(),
 		editor.exitEdit()
 	}
 
+	override fun onDestroy() {
+		if (editor != null) {
+			editor.loadDataWithBaseURL(null, "", "text/html", "utf-8", null)
+			editor.clearHistory()
+
+			(editor.parent as ViewGroup).removeView(editor)
+			editor.destroy()
+		}
+		super.onDestroy()
+	}
+
 	private fun initEditor() {
 		val url = mActivity.getString(R.string.base_url) + mActivity.getString(R.string.creation_editor_url)
 //		val url = "http://192.168.1.153:8043/pages/card-editor.html"
@@ -79,6 +92,7 @@ class CreationEditorActivity : BaseActivity(),
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: CommitCardReviewEvent) {
+		Utils.closeInputMethod(mActivity)
 		finish()
 	}
 
@@ -88,10 +102,15 @@ class CreationEditorActivity : BaseActivity(),
 		}
 
 		tv_toolbar_right.setOnClickListener {
-			mUploadingDialog.uploadingText = "正在提交"
-			mUploadingDialog.successText = "审核中"
-			mUploadingDialog.failText = "提交失败"
-			editor.submitDraft()
+			val bundle = Bundle()
+			bundle.putString("uploadingText", "正在提交")
+			bundle.putString("successText", "审核中")
+			bundle.putString("failText", "提交失败")
+			mUploadingDialog.arguments = bundle
+			mUploadingDialog.show(supportFragmentManager, "")
+			Handler().postDelayed({
+				editor.submitDraft()
+			}, 500)
 		}
 
 		iv_creation_editor_add_image.setOnClickListener {
@@ -110,10 +129,6 @@ class CreationEditorActivity : BaseActivity(),
 			editor.rollback()
 		}
 
-		tv_toolbar_right.setOnClickListener {
-			editor.submitDraft()
-		}
-
 		iv_creation_editor_more.setOnClickListener {
 			Utils.closeInputMethod(mActivity)
 			val window = CreationMoreWindow(mActivity, isCard)
@@ -121,10 +136,15 @@ class CreationEditorActivity : BaseActivity(),
 				editor.editPreview()
 			}
 			window.mSaveListener = {
-				mUploadingDialog.uploadingText = "正在保存草稿"
-				mUploadingDialog.successText = "保存成功"
-				mUploadingDialog.failText = "保存失败"
-				editor.saveDraft()
+				val bundle = Bundle()
+				bundle.putString("uploadingText", "正在保存草稿")
+				bundle.putString("successText", "保存成功")
+				bundle.putString("failText", "保存失败")
+				mUploadingDialog.arguments = bundle
+				mUploadingDialog.show(supportFragmentManager, "")
+				Handler().postDelayed({
+					editor.saveDraft()
+				}, 500)
 			}
 			window.mTypeListener = {
 				if (!isCard) {
@@ -175,32 +195,34 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun getTitleImage() {
-		mAction = 0
-		val rxPermissions = RxPermissions(this)
-		rxPermissions
-				.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-				.subscribe { permission ->
-					when {
-						permission.granted -> {
-							// `permission.name` is granted !
-							val getPicBottomDialog = GetPicBottomDialog()
-							val bundle = Bundle()
-							bundle.putString("title", "添加封面图")
-							getPicBottomDialog.arguments = bundle
-							getPicBottomDialog.setListener(this)
-							getPicBottomDialog.setNoCrop(true)
-							getPicBottomDialog.show(supportFragmentManager, "UserInfo")
-						}
-						permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
-							toastShow("权限已被拒绝！无法进行操作")
-						else -> {
-							// Denied permission with ask never again
-							// Need to go to the settings
-							val permissionDialog = PermissionDialog()
-							permissionDialog.show(supportFragmentManager, "")
+		runOnUiThread {
+			mAction = 0
+			val rxPermissions = RxPermissions(this)
+			rxPermissions
+					.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+					.subscribe { permission ->
+						when {
+							permission.granted -> {
+								// `permission.name` is granted !
+								val getPicBottomDialog = GetPicBottomDialog()
+								val bundle = Bundle()
+								bundle.putString("title", "添加封面图")
+								getPicBottomDialog.arguments = bundle
+								getPicBottomDialog.setListener(this)
+								getPicBottomDialog.setNoCrop(true)
+								getPicBottomDialog.show(supportFragmentManager, "UserInfo")
+							}
+							permission.shouldShowRequestPermissionRationale -> // Denied permission without ask never again
+								toastShow("权限已被拒绝！无法进行操作")
+							else -> {
+								// Denied permission with ask never again
+								// Need to go to the settings
+								val permissionDialog = PermissionDialog()
+								permissionDialog.show(supportFragmentManager, "")
+							}
 						}
 					}
-				}
+		}
 	}
 
 	private fun getContentImage() {
@@ -232,44 +254,55 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun saveSuccess() {
-		mUploadingDialog.setSuccess(true)
-		toastShow("保存草稿成功")
-		EventBus.getDefault().post(SaveDraftSuccessEvent())
-		startActivity(CreationActivity::class.java) {
-			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-			it.putExtra("goto", 3)
+		runOnUiThread {
+			mUploadingDialog.setSuccess(true)
 		}
-		finish()
+		Handler().postDelayed({
+			EventBus.getDefault().post(SaveDraftSuccessEvent())
+			startActivity(CreationActivity::class.java) {
+				it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+				it.putExtra("goto", 3)
+			}
+			Utils.closeInputMethod(mActivity)
+			finish()
+		}, 1000)
 	}
 
 	@JavascriptInterface
 	fun saveFail() {
-		mUploadingDialog.setSuccess(false)
-		toastError("保存草稿失败")
+		runOnUiThread {
+			mUploadingDialog.setSuccess(false)
+		}
 	}
 
 	@JavascriptInterface
 	fun submitSuccess() {
-		mUploadingDialog.setSuccess(true)
-		toastShow("提交审核成功")
-		EventBus.getDefault().post(CommitCardReviewEvent())
-		startActivity(CreationActivity::class.java) {
-			it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-			it.putExtra("goto", 1)
+		runOnUiThread {
+			mUploadingDialog.setSuccess(true)
 		}
-		finish()
+		Handler().postDelayed({
+			EventBus.getDefault().post(CommitCardReviewEvent())
+			startActivity(CreationActivity::class.java) {
+				it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+				it.putExtra("goto", 1)
+			}
+			Utils.closeInputMethod(mActivity)
+			finish()
+		}, 1000)
 	}
 
 	@JavascriptInterface
 	fun submitFail() {
-		mUploadingDialog.setSuccess(false)
-		toastError("提交审核失败")
+		runOnUiThread {
+			mUploadingDialog.setSuccess(false)
+		}
 	}
 
 	@JavascriptInterface
 	fun deleteSuccess() {
 		toastShow("删除成功")
 		EventBus.getDefault().post(DeleteCreationEvent())
+		Utils.closeInputMethod(mActivity)
 		finish()
 	}
 
@@ -359,6 +392,7 @@ class CreationEditorActivity : BaseActivity(),
 		if (isNeedSave) {
 			val dialog = NeedSaveDialog()
 			dialog.mCancelListener = {
+				Utils.closeInputMethod(mActivity)
 				finish()
 			}
 			dialog.mConfirmListener = {
@@ -366,12 +400,16 @@ class CreationEditorActivity : BaseActivity(),
 			}
 			dialog.show(supportFragmentManager, "")
 		} else {
+			Utils.closeInputMethod(mActivity)
 			finish()
 		}
 	}
 
 	@JavascriptInterface
 	fun lackSomething(string: String) {
+		runOnUiThread {
+			mUploadingDialog.setSuccess(false)
+		}
 		toastError(string)
 	}
 

@@ -152,6 +152,19 @@ class ArticleNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDeta
 
 		iv_note_details_source.setOnClickListener {
 			if (withCardId == 0) {
+				toastShow("原文章已失效")
+				return@setOnClickListener
+			}
+			val bean = CardBean()
+			bean.id = withCardId
+			startActivity(ArticleDetailsActivity::class.java) {
+				it.putExtra("cardBean", bean)
+			}
+		}
+
+		tv_note_details_source.setOnClickListener {
+			if (withCardId == 0) {
+				toastShow("原文章已失效")
 				return@setOnClickListener
 			}
 			val bean = CardBean()

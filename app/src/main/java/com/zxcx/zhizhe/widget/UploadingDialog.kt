@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import com.airbnb.lottie.LottieDrawable
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseDialog
 import com.zxcx.zhizhe.utils.ScreenUtils
@@ -24,13 +25,19 @@ class UploadingDialog : BaseDialog() {
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 	                          savedInstanceState: Bundle?): View? {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+		isCancelable = false
 		val view = inflater.inflate(R.layout.layout_uploading, container)
 		return view
 	}
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		//		((AnimationDrawable) mIvLoading.getDrawable()).start();
+		uploadingText = arguments?.getString("uploadingText") ?: ""
+		successText = arguments?.getString("successText") ?: ""
+		failText = arguments?.getString("failText") ?: ""
+		iv_loading.setAnimation("loading.json")
+		iv_loading.repeatCount = LottieDrawable.INFINITE
+		tv_uploading.text = uploadingText
 	}
 
 	fun setSuccess(isSuccess: Boolean) {
@@ -43,8 +50,9 @@ class UploadingDialog : BaseDialog() {
 		tv_uploading.text = if (isSuccess) successText else failText
 		iv_loading.playAnimation()
 		Handler().postDelayed({
+			iv_loading.setAnimation("loading.json")
 			dismiss()
-		}, 1500)
+		}, 1000)
 	}
 
 	override fun onStart() {

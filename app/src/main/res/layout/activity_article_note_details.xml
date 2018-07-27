@@ -20,17 +20,27 @@
 		<LinearLayout
 			android:id="@+id/ll_note_details_bottom"
 			android:layout_width="match_parent"
-			android:layout_height="50dp"
+			android:layout_height="48dp"
 			android:layout_alignParentBottom="true">
 			
 			<ImageView
 				android:id="@+id/iv_note_details_source"
-				android:layout_width="40dp"
+				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:layout_marginStart="30dp"
 				android:gravity="center"
 				android:scaleType="center"
 				android:src="@drawable/iv_note_details_source"/>
+			
+			<TextView
+				android:id="@+id/tv_note_details_source"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_marginStart="2dp"
+				android:gravity="center"
+				android:text="查看原文"
+				android:textColor="@color/text_color_3"
+				android:textSize="@dimen/text_size_text_3"/>
 			
 			<View
 				android:layout_width="0dp"
@@ -39,10 +49,11 @@
 			
 			<ImageView
 				android:id="@+id/iv_note_details_share"
-				android:layout_width="40dp"
+				android:layout_width="38dp"
 				android:layout_height="match_parent"
 				android:layout_marginStart="10dp"
 				android:layout_marginEnd="30dp"
+				android:padding="10dp"
 				android:scaleType="center"
 				android:src="@drawable/iv_note_details_share"/>
 		
