@@ -67,7 +67,12 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 	public void initStatusBar() {
 		//覆盖父类修改状态栏方法
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		//该页面不允许退出
+	}
+	
 	@Override
 	protected void onDestroy() {
 		mRunnable = null;
@@ -145,9 +150,9 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 		if (list.size() > 0) {
 			ADBean bean = list.get(0);
 			if (!this.isDestroyed()) {
-				ImageLoader.load(this, bean.getContent(), R.color.white_final, mIvWelcomeAd);
+				ImageLoader.load(this, bean.getTitleImage(), R.color.white_final, mIvWelcomeAd);
 			}
-			SharedPreferencesUtil.saveData(SVTSConstants.adImageUrl, bean.getContent());
+			SharedPreferencesUtil.saveData(SVTSConstants.adImageUrl, bean.getTitleImage());
 			SharedPreferencesUtil.saveData(SVTSConstants.adUrl, bean.getBehavior());
 			SharedPreferencesUtil.saveData(SVTSConstants.adTitle, bean.getDescription());
 		} else {

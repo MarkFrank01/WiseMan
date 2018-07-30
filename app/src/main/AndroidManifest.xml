@@ -53,15 +53,19 @@
 			android:name="com.tencent.bugly.beta.ui.BetaActivity"
 			android:theme="@android:style/Theme.Translucent"/>
 		<activity
-			android:name=".ui.welcome.WelcomeActivity"
+			android:name=".ui.welcome.SplashActivity"
 			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen">
+			android:theme="@style/AppTheme.Splash">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				
 				<category android:name="android.intent.category.LAUNCHER"/>
 			</intent-filter>
 		</activity>
+		<activity
+			android:name=".ui.welcome.WelcomeActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.FullScreen"/>
 		<activity
 			android:name=".ui.welcome.GuidePageActivity"
 			android:screenOrientation="portrait"

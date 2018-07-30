@@ -11,6 +11,12 @@
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
     </style>
+	
+	<style name="AppTheme.Splash" parent="AppTheme">
+		<item name="android:windowBackground">@drawable/splash</item>
+		<item name="windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+	</style>
 
     <style name="AppTheme.FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>

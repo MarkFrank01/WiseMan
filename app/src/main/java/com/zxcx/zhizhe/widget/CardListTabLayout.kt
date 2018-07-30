@@ -46,7 +46,7 @@ class CardListTabLayout : TabLayout {
 		mNormalTextColor = a.getColor(R.styleable.CardListTabLayout_minTextColor, DEFAULT_NORMAL_TEXT_COLOR)
 		mSelectTextColor = a.getDimensionPixelSize(R.styleable.CardListTabLayout_maxTextColor, DEFAULT_SELECT_TEXT_COLOR)
 		a.recycle()
-		addOnTabSelectedListener(TabSelectListener(this))
+		//addOnTabSelectedListener(TabSelectListener(this))
 		//整体前后加边距
 //		val child = getChildAt(0)
 //		val lp = child.layoutParams as FrameLayout.LayoutParams
