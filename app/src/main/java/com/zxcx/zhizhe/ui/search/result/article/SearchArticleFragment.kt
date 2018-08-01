@@ -79,6 +79,7 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 		mAdapter.onItemClickListener = this
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_search_result)
+		rv_search_result.setBackgroundResource(R.color.strip)
 		rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_search_result.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无搜索长文", "换个关键词试试", R.drawable.search_no_data, View.OnClickListener {
