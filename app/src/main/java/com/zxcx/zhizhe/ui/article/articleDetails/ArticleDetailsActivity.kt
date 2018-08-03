@@ -158,6 +158,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			ImageLoader.load(mActivity, ad.titleImage, R.drawable.default_card, iv_article_details_ad)
 			iv_article_details_ad.setOnClickListener {
 				startActivity(WebViewActivity::class.java) {
+					it.putExtra("isAD", true)
 					it.putExtra("title", ad.description)
 					it.putExtra("url", ad.behavior)
 				}
@@ -177,7 +178,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun likeSuccess(bean: CardBean) {
-		toastShow("点赞成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
@@ -186,7 +186,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun collectSuccess(bean: CardBean) {
-		toastShow("收藏成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
@@ -422,8 +421,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	private fun gotoHtmlShare() {
 		val shareCardDialog = ShareDialog()
 		val bundle = Bundle()
-		bundle.putString("title", getString(R.string.app_name))
-		bundle.putString("text", cardBean.name)
+		bundle.putString("title", cardBean.name)
+		bundle.putString("text", cardBean.summary)
 //		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
 		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
 		bundle.putString("imageUrl", cardBean.imageUrl)

@@ -5,7 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.retrofit.NullPostSubscriber
+import com.zxcx.zhizhe.retrofit.PostSubscriber
 import com.zxcx.zhizhe.utils.Constants
 
 class CommentModel(presenter: CommentContract.Presenter) : BaseModel<CommentContract.Presenter>() {
@@ -34,11 +34,11 @@ class CommentModel(presenter: CommentContract.Presenter) : BaseModel<CommentCont
 
 	fun sendComment(articleId: Int, parentCommentId: Int?, content: String) {
 		mDisposable = AppClient.getAPIService().sendComment(articleId, parentCommentId, content)
-				.compose(BaseRxJava.handlePostResult())
+				.compose(BaseRxJava.handleResult())
 				.compose(BaseRxJava.io_main_loading(mPresenter))
-				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
-					override fun onNext(bean: BaseBean<*>) {
-						mPresenter?.postSuccess()
+				.subscribeWith(object : PostSubscriber<CommentBean>(mPresenter) {
+					override fun onNext(bean: CommentBean) {
+						mPresenter?.postSuccess(bean)
 					}
 				})
 		addSubscription(mDisposable)
@@ -48,7 +48,7 @@ class CommentModel(presenter: CommentContract.Presenter) : BaseModel<CommentCont
 		mDisposable = AppClient.getAPIService().likeComment(commentId)
 				.compose(BaseRxJava.handlePostResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
+				.subscribeWith(object : PostSubscriber<BaseBean<*>>(mPresenter) {
 					override fun onNext(bean: BaseBean<*>) {
 						mPresenter?.likeSuccess()
 					}
@@ -60,7 +60,7 @@ class CommentModel(presenter: CommentContract.Presenter) : BaseModel<CommentCont
 		mDisposable = AppClient.getAPIService().unlikeComment(commentId)
 				.compose(BaseRxJava.handlePostResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
+				.subscribeWith(object : PostSubscriber<BaseBean<*>>(mPresenter) {
 					override fun onNext(bean: BaseBean<*>) {
 						mPresenter?.unlikeSuccess()
 					}

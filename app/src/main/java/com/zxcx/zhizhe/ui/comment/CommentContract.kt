@@ -1,16 +1,16 @@
 package com.zxcx.zhizhe.ui.comment
 
-import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter
-import com.zxcx.zhizhe.mvpBase.NullGetPostView
+import com.zxcx.zhizhe.mvpBase.GetPostView
+import com.zxcx.zhizhe.mvpBase.IGetPostPresenter
 
 interface CommentContract {
 
-	interface View : NullGetPostView<MutableList<CommentBean>> {
+	interface View : GetPostView<MutableList<CommentBean>, CommentBean> {
 		fun likeSuccess()
 		fun unlikeSuccess()
 	}
 
-	interface Presenter : INullGetPostPresenter<MutableList<CommentBean>> {
+	interface Presenter : IGetPostPresenter<MutableList<CommentBean>, CommentBean> {
 		fun likeSuccess()
 		fun unlikeSuccess()
 	}

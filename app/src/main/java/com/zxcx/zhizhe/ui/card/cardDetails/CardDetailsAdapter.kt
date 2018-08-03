@@ -28,7 +28,6 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 		helper.setText(R.id.tv_item_card_details_category, item.categoryName)
 		helper.setText(R.id.tv_item_card_details_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_details_author, item.authorName)
-		helper.setText(R.id.tv_item_card_details_goto_ad, item.authorName)
 		helper.setText(R.id.tv_item_card_details_comment, item.commentNum.toString())
 		helper.setText(R.id.tv_item_card_details_collect, item.collectNum.toString())
 		helper.setText(R.id.tv_item_card_details_like, item.likeNum.toString())

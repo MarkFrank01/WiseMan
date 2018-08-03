@@ -13,9 +13,8 @@ import com.zxcx.zhizhe.mvpBase.INullPostPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseBean
 import com.zxcx.zhizhe.retrofit.NullPostSubscriber
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.WebViewUtils
+import com.zxcx.zhizhe.ui.my.writer_status_writer
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.dialog_creation_agreement.*
 
 class CreationAgreementDialog : BaseDialog(), INullPostPresenter {
@@ -104,6 +103,7 @@ class CreationAgreementDialog : BaseDialog(), INullPostPresenter {
 	}
 
 	override fun postSuccess() {
+		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writer_status_writer)
 		mListener.invoke()
 		dismiss()
 	}

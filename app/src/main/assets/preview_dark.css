@@ -15,11 +15,11 @@ html{
 
 
 p{
-    font-size: 14px;
+    font-size: 17px;
     color: #666666;
     letter-spacing: 0;
     text-align: justify;
-    margin: 18px 0;
+    margin: 22px 0;
     line-height: 28px;
     word-break: break-word;
 }
@@ -36,7 +36,6 @@ p{
 
 
 img {
-    margin: 20px 0 40px 0;
     width: 100%!important;
     display: block;
     padding: 0;
@@ -163,4 +162,38 @@ ul{
 
 ul li{
     color: #666666;
+}
+
+ol{
+    padding: 0 25px;
+}
+
+ol li{
+    color: #666666;
+}
+
+img + figcaption:empty{
+    display: none;
+}
+
+.img-content,figure{
+    text-align: center;
+    margin: 28px 0 25px auto;
+    display: block;
+    width: 100%;
+    outline: none;
+    font-size: 0;
+}
+
+img + figcaption{
+    outline:none;
+    max-width: 90%;
+    margin: 0 auto 0;
+    color: #999;
+    font-size: 14px;
+    min-height: 22px;
+    line-height: 1.5;
+    padding: 5px 5px 0;
+    cursor: text;
+    display: inline-block;
 }

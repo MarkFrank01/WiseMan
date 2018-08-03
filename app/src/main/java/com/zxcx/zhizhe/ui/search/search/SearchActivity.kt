@@ -68,9 +68,13 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 		return SearchPresenter(this)
 	}
 
-	override fun getDataSuccess(bean: SearchBean) {
-		mHotList = bean.hotSearchList
-		mHistoryList = bean.searchHistoryList
+	override fun getDataSuccess(list: MutableList<String>) {
+		mHotList = list
+		addHotLabel(mHotList)
+	}
+
+	override fun getSearchHistorySuccess(list: MutableList<String>) {
+		mHistoryList = list
 
 		tv_search_history.visibility = if (mHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
 		iv_search_clear_history.visibility = if (mHistoryList.isNotEmpty()) View.VISIBLE else View.GONE
@@ -80,7 +84,6 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 			addHistoryLabel(mHistoryList)
 		}
 
-		addHotLabel(mHotList)
 	}
 
 	override fun getSearchPreSuccess(list: MutableList<String>) {

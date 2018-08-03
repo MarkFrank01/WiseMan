@@ -96,7 +96,7 @@
 				android:layout_marginStart="20dp"
 				android:layout_marginEnd="20dp"
 				android:scaleType="centerCrop"
-				app:layout_constraintDimensionRatio="16:9"
+				app:layout_constraintDimensionRatio="335:125"
 				app:layout_constraintTop_toBottomOf="@id/fl_article_details"
 				app:riv_corner_radius="6dp"
 				tools:src="@drawable/default_card"/>

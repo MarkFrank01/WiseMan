@@ -31,10 +31,15 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 	}
 
 	@Override
-	public void getDataSuccess(SearchBean bean) {
-		mView.getDataSuccess(bean);
+	public void getDataSuccess(List<String> list) {
+		mView.getDataSuccess(list);
 	}
-
+	
+	@Override
+	public void getSearchHistorySuccess(List<String> list) {
+		mView.getSearchHistorySuccess(list);
+	}
+	
 	@Override
 	public void getSearchPreSuccess(List<String> list) {
 		mView.getSearchPreSuccess(list);

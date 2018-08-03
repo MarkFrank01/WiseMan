@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
@@ -16,6 +17,9 @@ import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_card.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class HomeCardFragment : BaseFragment() {
 
@@ -33,6 +37,7 @@ class HomeCardFragment : BaseFragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+		EventBus.getDefault().register(this)
 		for (i in titles.indices) {
 			val tab = tl_home.newTab()
 			tab.setCustomView(R.layout.tab_home)
@@ -97,6 +102,7 @@ class HomeCardFragment : BaseFragment() {
 	}
 
 	override fun onDestroyView() {
+		EventBus.getDefault().unregister(this)
 		super.onDestroyView()
 	}
 
@@ -115,5 +121,11 @@ class HomeCardFragment : BaseFragment() {
 			mListFragment -> mListFragment.getSharedView(names)
 			else -> mListFragment.getSharedView(names)
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: GotoCardListEvent) {
+		//去往卡片列表页
+		tl_home.getTabAt(2)?.select()
 	}
 }

@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListActivity
 import com.zxcx.zhizhe.ui.my.message.system.message_collect
+import com.zxcx.zhizhe.ui.my.message.system.message_comment
 import com.zxcx.zhizhe.ui.my.message.system.message_follow
 import com.zxcx.zhizhe.ui.my.message.system.message_like
 import com.zxcx.zhizhe.utils.StringUtils
@@ -45,7 +46,7 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 		ll_dynamic_message_comment.setOnClickListener {
 			//进入评论消息列表
 			val intent = Intent(mActivity, DynamicMessageListActivity::class.java)
-			intent.putExtra("messageType", message_like)
+			intent.putExtra("messageType", message_comment)
 			startActivity(intent)
 		}
 		ll_dynamic_message_like.setOnClickListener {
@@ -110,6 +111,12 @@ class DynamicMessageFragment : BaseFragment(), IGetPresenter<DynamicMessageBean>
 			if (!StringUtils.isEmpty(bean.likeUserStr)) {
 				val str = getString(R.string.tv_dynamic_message_like, it)
 				TextViewUtils.setTextViewColorBlue(tv_dynamic_message_like, bean.likeUserStr, str)
+			}
+		}
+		bean.commentUserStr?.let {
+			if (!StringUtils.isEmpty(bean.commentUserStr)) {
+				val str = getString(R.string.tv_dynamic_message_comment, it)
+				TextViewUtils.setTextViewColorBlue(tv_dynamic_message_comment, bean.commentUserStr, str)
 			}
 		}
 		bean.collectedUserStr?.let {

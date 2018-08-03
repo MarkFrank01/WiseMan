@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
@@ -19,12 +18,14 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	private var title = ""
 	private var url = ""
 	private var imageUrl: String? = null
+	private lateinit var adMoreWindow: ADMoreWindow
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_web_view)
-		ButterKnife.bind(this)
 
+		adMoreWindow = ADMoreWindow(mActivity)
+		adMoreWindow.mListener = this
 		initWebView()
 		getIntentData()
 	}
@@ -44,8 +45,6 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		iv_toolbar_right.visibility = if (isAD) View.VISIBLE else View.GONE
 		iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 		iv_toolbar_right.setOnClickListener {
-			val adMoreWindow = ADMoreWindow(mActivity)
-			adMoreWindow.mListener = this
 			adMoreWindow.showAsDropDown(iv_toolbar_right, 0, -ScreenUtils.dip2px(20f))
 		}
 
@@ -53,6 +52,9 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	}
 
 	override fun onBackPressed() {
+		if (adMoreWindow.isShowing) {
+			adMoreWindow.dismiss()
+		}
 		if (mWebView?.canGoBack() == true) {
 			mWebView?.goBack()
 		} else {

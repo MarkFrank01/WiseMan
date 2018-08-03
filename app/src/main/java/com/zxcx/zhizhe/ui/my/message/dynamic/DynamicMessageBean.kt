@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.retrofit.RetrofitBaen
 
 data class DynamicMessageBean(
 		@SerializedName("collectedUserStr") var collectedUserStr: String?, //string
+		@SerializedName("commentUserStr") var commentUserStr: String?, //string
 		@SerializedName("followerUserStr") var followerUserStr: String?, //string
 		@SerializedName("likeUserStr") var likeUserStr: String? //string
 ) : RetrofitBaen()

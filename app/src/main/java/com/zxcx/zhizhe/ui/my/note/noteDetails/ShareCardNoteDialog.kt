@@ -176,7 +176,7 @@ class ShareCardNoteDialog : BaseDialog() {
 			}
 		}
 
-		mDisposable = Flowable.just<ViewGroup>(ll_card_details_top)
+		mDisposable = Flowable.just<ViewGroup>(sv_dialog_share)
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.doOnSubscribe { subscription -> showLoading() }
 				.observeOn(Schedulers.io())

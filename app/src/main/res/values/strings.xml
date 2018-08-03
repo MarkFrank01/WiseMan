@@ -61,9 +61,10 @@
     <string name="tv_dialog_phone_confirm_title">是否以手机号%1$s接收验证码?</string>
     <string name="tv_item_message_value">+%1$d</string>
     <string name="tv_dynamic_message_no_data">暂无消息</string>
-	<string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你</string>
-	<string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了</string>
-	<string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作</string>
+    <string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你&#8230;</string>
+    <string name="tv_dynamic_message_comment">%1$s&#160;等人最近评论了你&#8230;</string>
+    <string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了&#8230;</string>
+    <string name="tv_dynamic_message_collect">%1$s&#160;等人最近收藏了你的创作&#8230;</string>
     <string name="tv_item_intelligence_value_progress">%1$d/%2$d</string>
     <string name="user_info_change">保存成功</string>
     <string name="card_details_dark_url">/p/Dark/</string>

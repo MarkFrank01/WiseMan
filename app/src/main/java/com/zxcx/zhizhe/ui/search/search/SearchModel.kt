@@ -5,11 +5,9 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.room.AppDatabase
-import com.zxcx.zhizhe.room.SearchHistory
 import com.zxcx.zhizhe.utils.LogCat
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
 
@@ -19,24 +17,34 @@ class SearchModel(present: SearchContract.Presenter) : BaseModel<SearchContract.
 	}
 
 	fun getSearchBean() {
-		mDisposable = Flowable.zip(
-				AppClient.getAPIService().searchHot.compose<MutableList<HotSearchBean>>(BaseRxJava.handleArrayResult()),
-				AppDatabase.getInstance().mSearchHistoryDao().flowableAll,
-				BiFunction<MutableList<HotSearchBean>, MutableList<SearchHistory>, SearchBean> { t1, t2 ->
+		mDisposable = AppClient.getAPIService().searchHot
+				.compose(BaseRxJava.handleArrayResult())
+				.map {
 					val hotSearchList: MutableList<String> = mutableListOf()
-					val searchHistoryList: MutableList<String> = mutableListOf()
-					t1.forEach {
+					it.forEach {
 						hotSearchList.add(it.conent)
 					}
-					(if (t2.size > 20) t2.subList(0, 20) else t2).forEach {
+					hotSearchList
+				}
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : BaseSubscriber<MutableList<String>>(mPresenter) {
+					override fun onNext(bean: MutableList<String>) {
+						mPresenter?.getDataSuccess(bean)
+					}
+				})
+		addSubscription(mDisposable)
+		mDisposable = AppDatabase.getInstance().mSearchHistoryDao().flowableAll
+				.map {
+					val searchHistoryList: MutableList<String> = mutableListOf()
+					(if (it.size > 20) it.subList(0, 20) else it).forEach {
 						searchHistoryList.add(it.keyword)
 					}
-					SearchBean(hotSearchList, searchHistoryList)
-				})
+					searchHistoryList
+				}
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : BaseSubscriber<SearchBean>(mPresenter) {
-					override fun onNext(bean: SearchBean) {
-						mPresenter?.getDataSuccess(bean)
+				.subscribeWith(object : BaseSubscriber<MutableList<String>>(mPresenter) {
+					override fun onNext(bean: MutableList<String>) {
+						mPresenter?.getSearchHistorySuccess(bean)
 					}
 				})
 		addSubscription(mDisposable)

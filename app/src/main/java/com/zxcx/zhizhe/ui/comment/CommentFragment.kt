@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.CommentLoadMoreView
 import kotlinx.android.synthetic.main.fragment_comment.*
 
 class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
@@ -89,10 +89,17 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		}
 	}
 
-	override fun postSuccess() {
-		mPage = 0
-		mPresenter.getComment(cardId, mPage)
-		et_comment.setText("")
+	override fun postSuccess(bean: CommentBean) {
+		if (parentCommentId == null) {
+			mAdapter.addData(bean)
+		} else {
+			var parentBean = CommentBean()
+			parentBean.id = parentCommentId ?: 0
+			val position = mAdapter.data.indexOf(parentBean)
+			parentBean = mAdapter.data[position] as CommentBean
+			parentBean.childCommentList.add(bean.toChildCommentBean())
+			mAdapter.notifyItemChanged(position)
+		}
 	}
 
 	override fun postFail(msg: String?) {
@@ -114,6 +121,9 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		var bean = adapter.getItem(position) as MultiItemEntity
 		if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
+			if (!checkLogin()) {
+				return
+			}
 			bean = bean as CommentBean
 			Utils.showInputMethod(et_comment)
 			rv_comment.scrollToPosition(position)
@@ -123,6 +133,9 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	}
 
 	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+		if (!checkLogin()) {
+			return
+		}
 		var bean = adapter.getItem(position) as MultiItemEntity
 		val commentId: Int
 		if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
@@ -155,6 +168,11 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		et_comment.afterTextChanged {
 			tv_comment_send.isEnabled = it.isNotEmpty()
 		}
+		et_comment.setOnClickListener {
+			if (!checkLogin()) {
+				Utils.closeInputMethod(et_comment)
+			}
+		}
 		tv_comment_send.setOnClickListener {
 			if (checkLogin()) {
 				mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
@@ -170,7 +188,7 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 		mAdapter = CommentAdapter(arrayListOf())
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setLoadMoreView(CommentLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_comment)
 		mAdapter.onItemClickListener = this
 		mAdapter.onItemChildClickListener = this

@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.DeleteCreationEvent
 import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.*
@@ -42,6 +43,8 @@ class CreationEditorActivity : BaseActivity(),
 	private var isCard = true
 	private var isBold = false
 	private var isCenter = false
+	private var labelName = ""
+	private var classifyId = 0
 
 	companion object {
 		const val CODE_SELECT_LABEL = 110
@@ -313,14 +316,18 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun preview(previewId: String) {
-		startActivity(CreationPreviewActivity::class.java) {
-			it.putExtra("id", previewId)
+		startActivity(PreviewCardDetailsActivity::class.java) {
+			val cardBean = CardBean()
+			cardBean.id = previewId.toInt()
+			it.putExtra("cardBean", cardBean)
 		}
 	}
 
 	@JavascriptInterface
 	fun getLabel() {
 		val intent = Intent(this, SelectLabelActivity::class.java)
+		intent.putExtra("labelName", labelName)
+		intent.putExtra("classifyId", classifyId)
 		startActivityForResult(intent, CODE_SELECT_LABEL)
 	}
 
@@ -396,7 +403,15 @@ class CreationEditorActivity : BaseActivity(),
 				finish()
 			}
 			dialog.mConfirmListener = {
-				editor.saveDraft()
+				val bundle = Bundle()
+				bundle.putString("uploadingText", "正在保存草稿")
+				bundle.putString("successText", "保存成功")
+				bundle.putString("failText", "保存失败")
+				mUploadingDialog.arguments = bundle
+				mUploadingDialog.show(supportFragmentManager, "")
+				Handler().postDelayed({
+					editor.saveDraft()
+				}, 500)
 			}
 			dialog.show(supportFragmentManager, "")
 		} else {
@@ -450,8 +465,8 @@ class CreationEditorActivity : BaseActivity(),
 					uploadImageToOSS(imagePath)
 				}
 				CODE_SELECT_LABEL -> {
-					val labelName = data.getStringExtra("labelName")
-					val classifyId = data.getIntExtra("classifyId", 0)
+					labelName = data.getStringExtra("labelName")
+					classifyId = data.getIntExtra("classifyId", 0)
 					editor.setLabel(labelName, classifyId)
 				}
 				Constants.CLIP_IMAGE -> {

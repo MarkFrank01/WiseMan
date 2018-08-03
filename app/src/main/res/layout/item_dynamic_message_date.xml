@@ -18,7 +18,7 @@
 		android:paddingLeft="9dp"
 		android:paddingRight="9dp"
 		android:background="@color/bg_home_search"
-		android:textColor="@color/text_color_ff"
+		android:textColor="@color/text_color_d2"
 		android:textSize="@dimen/text_size_text_3"
 		tools:text="2017/12/13"/>
 </LinearLayout>

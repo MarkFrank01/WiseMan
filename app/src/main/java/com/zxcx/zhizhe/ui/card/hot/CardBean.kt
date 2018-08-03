@@ -33,6 +33,7 @@ class CardBean(
 		@SerializedName("collect") var isCollect: Boolean = false,
 		@SerializedName("follow") var isFollow: Boolean = false,
 		@SerializedName("adUrl") var adUrl: String = "",
+		@SerializedName("summary") var summary: String = "",
 		@SerializedName("adVO") var ad: ADBean? = null
 ) : RetrofitBaen(), Parcelable {
 	fun getLabelName(): String {
@@ -84,6 +85,7 @@ class CardBean(
 			1 == source.readInt(),
 			1 == source.readInt(),
 			source.readString(),
+			source.readString(),
 			source.readParcelable<ADBean>(ADBean::class.java.classLoader)
 	)
 
@@ -115,6 +117,7 @@ class CardBean(
 		writeInt((if (isCollect) 1 else 0))
 		writeInt((if (isFollow) 1 else 0))
 		writeString(adUrl)
+		writeString(summary)
 		writeParcelable(ad, 0)
 	}
 

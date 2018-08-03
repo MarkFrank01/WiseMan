@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.DeleteCreationDialog
 import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.Constants
@@ -126,7 +127,12 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 	}
 
 	override fun onDeleteClick(position: Int) {
-		mPresenter.deleteCard(mAdapter.data[position].id)
+		val dialog = DeleteCreationDialog()
+		dialog.mListener = {
+			mAdapter.remove(position)
+			mPresenter.deleteCard(mAdapter.data[position].id)
+		}
+		dialog.show(fragmentManager, "")
 	}
 
 	private fun initRecyclerView() {

@@ -48,4 +48,17 @@ class CommentBean(
 	override fun hashCode(): Int {
 		return id
 	}
+
+	fun toChildCommentBean(): ChildCommentBean {
+		var bean = ChildCommentBean()
+		bean.articleAuthor = articleAuthor
+		bean.userImageUrl = userImageUrl
+		bean.userId = userId
+		bean.userName = userName
+		bean.content = content
+		bean.hasLike = hasLike
+		bean.id = id
+		bean.likeCount = likeCount
+		return bean
+	}
 }

@@ -56,7 +56,7 @@ class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 	}
 
 	override fun getEmptyRecommendCardSuccess(bean: CardBean) {
-		val emptyView = EmptyView.getEmptyViewAndCard(mActivity, "涨知识 点点赞", R.drawable.no_data, bean)
+		val emptyView = EmptyView.getEmptyViewAndCard(mActivity, "暂无内容", R.drawable.no_data, bean)
 		mAdapter.emptyView = emptyView
 	}
 

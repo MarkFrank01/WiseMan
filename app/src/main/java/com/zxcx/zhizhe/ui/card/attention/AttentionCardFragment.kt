@@ -30,7 +30,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.ZhiZheUtils
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.AttentionLoadMoreView
 import kotlinx.android.synthetic.main.fragment_attention.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -212,7 +212,12 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 	private fun initView() {
 		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 		mAdapter = CardAdapter(ArrayList())
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		val attentionLoadMoreView = AttentionLoadMoreView()
+		attentionLoadMoreView.mListener = {
+			//点击跳转列表
+			EventBus.getDefault().post(GotoCardListEvent())
+		}
+		mAdapter.setLoadMoreView(attentionLoadMoreView)
 		mAdapter.setOnLoadMoreListener(this, rv_attention_card)
 		mAdapter.onItemClickListener = this
 		rv_attention_card.layoutManager = layoutManager

@@ -175,8 +175,8 @@
 				<ImageView
 					android:id="@+id/iv_dialog_share_qr"
 					android:layout_width="match_parent"
-					android:layout_height="146dp"
-					android:scaleType="centerCrop"
+					android:layout_height="wrap_content"
+					android:scaleType="fitXY"
 					android:src="@drawable/iv_dialog_share_qr"
 					android:visibility="gone"
 					app:layout_constraintTop_toBottomOf="@id/fl_dialog_share"/>

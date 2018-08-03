@@ -38,7 +38,6 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
-import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_card_details.*
 import org.greenrobot.eventbus.EventBus
@@ -121,7 +120,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	override fun likeSuccess(bean: CardBean) {
 		val position = mAdapter.data.indexOf(bean)
-		toastShow("点赞成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
@@ -131,7 +129,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	override fun collectSuccess(bean: CardBean) {
 		val position = mAdapter.data.indexOf(bean)
-		toastShow("收藏成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
@@ -205,8 +202,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	private fun refreshBackground(imageUrl: String?) {
 		val multi = MultiTransformation(
-				BlurTransformation(10),
-				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+				ColorFilterTransformation(Color.argb(229, 255, 255, 255)))
 		GlideApp
 				.with(mActivity)
 				.load(imageUrl)

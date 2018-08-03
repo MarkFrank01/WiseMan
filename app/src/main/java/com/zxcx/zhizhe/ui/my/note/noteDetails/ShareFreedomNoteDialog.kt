@@ -170,7 +170,7 @@ class ShareFreedomNoteDialog : BaseDialog() {
 			}
 		}
 
-		mDisposable = Flowable.just<ViewGroup>(ll_freedom_dialog_share)
+		mDisposable = Flowable.just<ViewGroup>(sv_dialog_share)
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.doOnSubscribe { subscription -> showLoading() }
 				.observeOn(Schedulers.io())

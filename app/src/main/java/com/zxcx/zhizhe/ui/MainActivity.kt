@@ -74,7 +74,7 @@ class MainActivity : BaseActivity() {
 				when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
 					writer_status_writer -> {
 						//创作界面
-						mActivity.startActivity(CreationEditorActivity::class.java, {})
+						mActivity.startActivity(CreationEditorActivity::class.java) {}
 					}
 					else -> {
 						val dialog = CreationAgreementDialog()

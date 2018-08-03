@@ -15,7 +15,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.utils.*
-import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_draft_card_details.*
 import org.greenrobot.eventbus.EventBus
@@ -108,7 +107,6 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
 		}
 
 		val multi = MultiTransformation(
-				BlurTransformation(10),
 				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
 		GlideApp
 				.with(mActivity)
@@ -138,7 +136,11 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
 		}
 
 		iv_draft_details_commit.setOnClickListener {
-			mPresenter.submitReview(cardBean.id, 0)
+			val dialog = SubmitCreationDialog()
+			dialog.mListener = {
+				mPresenter.submitReview(cardBean.id, 0)
+			}
+			dialog.show(supportFragmentManager, "")
 		}
 	}
 }

@@ -28,7 +28,6 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.DisposableSubscriber
-import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_single_card_details.*
 import org.greenrobot.eventbus.EventBus
@@ -119,7 +118,6 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		tv_item_card_details_goto_ad.visibility = if (mCardBean.adUrl.isNotEmpty()) View.VISIBLE else View.GONE
 
 		val multi = MultiTransformation(
-				BlurTransformation(10),
 				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
 		GlideApp
 				.with(mActivity)
@@ -143,7 +141,6 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 	}
 
 	override fun likeSuccess(bean: CardBean) {
-		toastShow("点赞成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
@@ -152,7 +149,6 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 	}
 
 	override fun collectSuccess(bean: CardBean) {
-		toastShow("收藏成功")
 		postSuccess(bean)
 		val goodView = GoodView(this)
 		goodView.setTextColor(getColorForKotlin(R.color.button_blue))

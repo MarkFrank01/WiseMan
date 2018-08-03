@@ -10,28 +10,56 @@
 	android:background="@drawable/bg_window_sort"
 	android:orientation="vertical">
 	
-	<TextView
-		android:id="@+id/tv_sort_default"
+	<LinearLayout
+		android:id="@+id/ll_sort_default"
 		android:layout_width="130dp"
 		android:layout_height="50dp"
 		android:paddingStart="22dp"
-		android:drawablePadding="16dp"
-		android:drawableStart="@drawable/selector_cb_card_details_collect"
-		android:gravity="center_vertical|start"
-		android:text="默认"
-		android:textColor="@color/button_blue"
-		android:textSize="@dimen/text_size_text_1"/>
+		android:orientation="horizontal">
+		
+		<ImageView
+			android:id="@+id/iv_sort_default"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:layout_gravity="center_vertical"
+			android:src="@drawable/tv_sort_default_checked"/>
+		
+		<TextView
+			android:id="@+id/tv_sort_default"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:text="默认"
+			android:textColor="@color/button_blue"
+			android:textSize="@dimen/text_size_text_1"/>
 	
-	<TextView
-		android:id="@+id/tv_sort_earliest"
+	</LinearLayout>
+	
+	<LinearLayout
+		android:id="@+id/ll_sort_earliest"
 		android:layout_width="130dp"
 		android:layout_height="50dp"
 		android:paddingStart="22dp"
-		android:drawablePadding="16dp"
-		android:drawableStart="@drawable/selector_cb_card_details_collect"
-		android:gravity="center_vertical|start"
-		android:text="最早"
-		android:textColor="@color/text_color_1"
-		android:textSize="@dimen/text_size_text_1"/>
+		android:orientation="horizontal">
+		
+		<ImageView
+			android:id="@+id/iv_sort_earliest"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:layout_gravity="center_vertical"
+			android:src="@drawable/selector_cb_card_details_collect"/>
+		
+		<TextView
+			android:id="@+id/tv_sort_earliest"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:text="最早"
+			android:textColor="@color/text_color_1"
+			android:textSize="@dimen/text_size_text_1"/>
+	
+	</LinearLayout>
 
 </LinearLayout>

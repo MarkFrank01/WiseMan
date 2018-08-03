@@ -35,8 +35,8 @@ class CommentPresenter(view: CommentContract.View) : BasePresenter<CommentContra
 		mView.toastFail(msg)
 	}
 
-	override fun postSuccess() {
-		mView.postSuccess()
+	override fun postSuccess(bean: CommentBean) {
+		mView.postSuccess(bean)
 	}
 
 	override fun postFail(msg: String?) {

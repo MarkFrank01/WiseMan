@@ -50,7 +50,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	}
 	
 	protected void initViews() {
-		text = getContext().getString(R.string.common_refresh_complete);
+		text = "";
 		
 		header = LayoutInflater.from(getContext())
 			.inflate(R.layout.layout_refresh_header, this);

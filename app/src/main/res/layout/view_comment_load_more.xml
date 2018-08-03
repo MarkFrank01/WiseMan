@@ -61,8 +61,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:paddingTop="24dp"
-			android:paddingBottom="24dp"
+			android:paddingTop="8dp"
+			android:paddingBottom="28dp"
 			android:text="暂无更多内容"
 			android:textColor="@color/text_color_d2"
 			android:textSize="@dimen/text_size_text_3"/>

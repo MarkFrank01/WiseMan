@@ -26,14 +26,25 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 	private var mNewLabelName: String = ""
 	private lateinit var mClassifyAdapter: SelectClassifyAdapter
 	private lateinit var mLabelAdapter: SelectLabelAdapter
+	private var labelName = ""
+	private var classifyId = 0
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_select_label)
 		ButterKnife.bind(this)
 		initRecyclerView()
+		initData()
 		initView()
 		mPresenter.getClassify()
+	}
+
+	private fun initData() {
+		labelName = intent.getStringExtra("labelName")
+		classifyId = intent.getIntExtra("classifyId", 0)
+		if (labelName.isNotEmpty()) {
+			tv_toolbar_right.isEnabled = true
+		}
 	}
 
 	override fun createPresenter(): SelectAttentionPresenter {
@@ -41,12 +52,34 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 	}
 
 	override fun getDataSuccess(list: MutableList<ClassifyBean>) {
+		var isNewLabel = true
 		list.forEach {
 			it.dataList.forEach {
-				it.isChecked = false
+				if (it.name == labelName) {
+					it.isChecked = true
+					mSelectedLabel = it
+					mNewLabelSelect = false
+					isNewLabel = false
+				} else {
+					it.isChecked = false
+				}
+			}
+			if (it.id == classifyId) {
+				it.isChecked = true
+				mSelectedClassify = it
+				group_select_label.visibility = View.VISIBLE
+				mLabelAdapter.setNewData(it.dataList)
 			}
 		}
 		mClassifyAdapter.setNewData(list)
+		if (isNewLabel && labelName.isNotEmpty()) {
+			mNewLabelName = labelName
+			iv_select_label_new_label.visibility = View.GONE
+			iv_select_label_new_label_delete.visibility = View.VISIBLE
+			cb_item_select_label_new_label.visibility = View.VISIBLE
+			cb_item_select_label_new_label.text = labelName
+			cb_item_select_label_new_label.isChecked = true
+		}
 	}
 
 	override fun postSuccess() {
@@ -143,6 +176,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 					cb_item_select_label_new_label.visibility = View.VISIBLE
 					iv_select_label_new_label_delete.visibility = View.VISIBLE
 					iv_select_label_new_label.visibility = View.GONE
+				}
+				bean.dataList.forEach {
+					it.isChecked = false
 				}
 				mLabelAdapter.setNewData(bean.dataList)
 			} else {

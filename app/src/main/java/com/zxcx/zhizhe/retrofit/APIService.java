@@ -167,7 +167,7 @@ public interface APIService {
 	 * 发表评论
 	 */
 	@POST("/article/commentArticle")
-	Flowable<BaseBean<Object>> sendComment(
+	Flowable<BaseBean<CommentBean>> sendComment(
 		@Query("articleId") int articleId, @Query("parentCommentId") Integer parentCommentId,
 		@Query("commentContent") String content);
 	

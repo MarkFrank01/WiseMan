@@ -58,12 +58,15 @@
 		android:visibility="gone">
 		
 		<TextView
+			android:id="@+id/tv_load_more_end"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:paddingTop="24dp"
-			android:paddingBottom="24dp"
-			android:text="暂无更多内容"
+			android:paddingTop="8dp"
+			android:paddingBottom="28dp"
+			android:drawableEnd="@drawable/tv_load_more_end_into"
+			android:drawablePadding="2dp"
+			android:text="去列表看看有没有感兴趣的"
 			android:textColor="@color/text_color_d2"
 			android:textSize="@dimen/text_size_text_3"/>
 	</FrameLayout>

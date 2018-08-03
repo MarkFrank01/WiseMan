@@ -79,7 +79,7 @@
 					android:paddingTop="16dp"
 					android:paddingBottom="12dp"
 					android:lineSpacingExtra="6dp"
-					android:textColor="@color/text_color_1"
+					android:textColor="@color/text_color_3"
 					android:textSize="@dimen/text_size_text_3"
 					tools:text="标题、内容不符合平台定位"/>
 			

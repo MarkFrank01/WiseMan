@@ -42,7 +42,6 @@ class DeleteCreationAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, B
 		helper.getView<View>(R.id.iv_delete).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
 			mListener.onDeleteClick(mData.indexOf(item))
-			remove(mData.indexOf(item))
 		}
 		helper.getView<View>(R.id.content_view).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()
