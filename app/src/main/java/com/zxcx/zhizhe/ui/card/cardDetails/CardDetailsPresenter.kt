@@ -28,14 +28,6 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 		mModel.removeLikeCard(cardId)
 	}
 
-	fun unLikeCard(cardId: Int) {
-		mModel.unLikeCard(cardId)
-	}
-
-	fun removeUnLikeCard(cardId: Int) {
-		mModel.removeUnLikeCard(cardId)
-	}
-
 	fun addCollectCard(cardId: Int) {
 		mModel.addCollectCard(cardId)
 	}
@@ -58,14 +50,6 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 
 	override fun followSuccess(bean: CardBean) {
 		mView.followSuccess(bean)
-	}
-
-	override fun likeSuccess(bean: CardBean) {
-		mView.likeSuccess(bean)
-	}
-
-	override fun collectSuccess(bean: CardBean) {
-		mView.collectSuccess(bean)
 	}
 
 	override fun postSuccess(bean: CardBean?) {

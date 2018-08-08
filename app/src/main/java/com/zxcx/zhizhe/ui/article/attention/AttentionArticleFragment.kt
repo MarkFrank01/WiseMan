@@ -220,7 +220,7 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 					Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
 			val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
 			intent.putExtra("cardBean", bean.cardBean)
-			mActivity.startActivity(intent, bundle)
+			mActivity.startActivityFromFragment(this, intent, 0, bundle)
 		}
 	}
 

@@ -137,8 +137,8 @@ class MainActivity : BaseActivity() {
 
 	override fun onActivityReenter(resultCode: Int, data: Intent?) {
 		super.onActivityReenter(resultCode, data)
-		mIsReenter = true
 		if (mCurrentFragment == mHomeCardFragment) {
+			mIsReenter = true
 			postponeEnterTransition()
 			mHomeCardFragment.onActivityReenter()
 		}
@@ -146,7 +146,6 @@ class MainActivity : BaseActivity() {
 
 	fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
 		return if (mCurrentFragment == mHomeCardFragment) {
-			postponeEnterTransition()
 			mHomeCardFragment.getSharedView(names)
 		} else {
 			null

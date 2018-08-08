@@ -16,11 +16,11 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.DraftDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.DeleteCreationDialog
-import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
+import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.CommentLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
 import org.greenrobot.eventbus.EventBus
@@ -138,11 +138,11 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 	private fun initRecyclerView() {
 		mAdapter = DeleteCreationAdapter(ArrayList())
 		mAdapter.mListener = this
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setLoadMoreView(CommentLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_creation)
 		rv_creation.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_creation.adapter = mAdapter
-		rv_creation.addItemDecoration(FansItemDecoration())
+		rv_creation.addItemDecoration(MyCardItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
 		mAdapter.isUseEmpty(false)

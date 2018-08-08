@@ -81,7 +81,6 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
 	}
 
 	override fun postSuccess() {
-		toastShow("提交成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		onBackPressed()
 	}

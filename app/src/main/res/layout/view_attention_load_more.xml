@@ -62,7 +62,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:paddingTop="8dp"
+			android:paddingTop="28dp"
 			android:paddingBottom="28dp"
 			android:drawableEnd="@drawable/tv_load_more_end_into"
 			android:drawablePadding="2dp"

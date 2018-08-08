@@ -35,7 +35,7 @@ class UnFollowConfirmDialog : CommonDialog() {
 			this.dismiss()
 		}
 		tv_dialog_confirm.setOnClickListener {
-			EventBus.getDefault().post(UnFollowConfirmEvent(arguments!!.getInt("userId")))
+			EventBus.getDefault().post(arguments?.getInt("userId")?.let { it1 -> UnFollowConfirmEvent(it1) })
 			this.dismiss()
 		}
 	}

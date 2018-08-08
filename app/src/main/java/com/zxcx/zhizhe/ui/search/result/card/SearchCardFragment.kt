@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
+import com.zxcx.zhizhe.event.UpdateCardListEvent
 import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
@@ -63,6 +64,12 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
 			}
 			rv_search_result.scrollToPosition(event.currentPosition)
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListEvent) {
+		mAdapter.data[event.currentPosition] = event.cardBean
+		mAdapter.notifyItemChanged(event.currentPosition)
 	}
 
 	override fun getDataSuccess(list: MutableList<CardBean>) {

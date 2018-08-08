@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
+import com.zxcx.zhizhe.event.UpdateCardListEvent
 import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.loadCallback.HomeLoadingCallback
 import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
@@ -105,6 +106,12 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 			mCurrentPosition = event.currentPosition
 			rv_hot_card.scrollToPosition(event.currentPosition)
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListEvent) {
+		mAdapter.data[event.currentPosition] = event.cardBean
+		mAdapter.notifyItemChanged(event.currentPosition)
 	}
 
 	override fun onRefresh(refreshLayout: RefreshLayout?) {

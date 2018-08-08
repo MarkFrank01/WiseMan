@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_preview_card_details.*
-import org.greenrobot.eventbus.EventBus
 
 class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
@@ -26,7 +25,6 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_preview_card_details)
-		EventBus.getDefault().register(this)
 		initData()
 	}
 
@@ -73,12 +71,6 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
 	override fun getDataSuccess(bean: CardBean) {
 		mCardBean = bean
 		refreshView()
-	}
-
-	override fun likeSuccess(bean: CardBean) {
-	}
-
-	override fun collectSuccess(bean: CardBean) {
 	}
 
 	override fun postSuccess(bean: CardBean) {

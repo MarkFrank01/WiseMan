@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
+import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
@@ -18,6 +19,8 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_other_user.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.View,
 		BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -30,6 +33,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_other_user)
+		EventBus.getDefault().register(this)
 		id = intent.getIntExtra("id", 0)
 		initView()
 		initLoadSir()
@@ -40,6 +44,11 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	override fun onResume() {
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		super.onResume()
+	}
+
+	override fun onDestroy() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
 	}
 
 	private fun initLoadSir() {
@@ -53,6 +62,11 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 
 	override fun createPresenter(): OtherUserPresenter {
 		return OtherUserPresenter(this)
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UnFollowConfirmEvent) {
+		mPresenter.setUserFollow(event.userId, 1)
 	}
 
 	override fun getDataSuccess(bean: OtherUserInfoBean?) {

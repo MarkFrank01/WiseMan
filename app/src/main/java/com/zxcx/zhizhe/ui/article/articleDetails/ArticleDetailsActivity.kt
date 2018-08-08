@@ -10,6 +10,7 @@ import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import butterknife.ButterKnife
 import com.gyf.barlibrary.ImmersionBar
@@ -75,13 +76,13 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			transaction.remove(commentFragment).commitAllowingStateLoss()
 			commentFragment = null
 		} else {
-			super.onBackPressed()
 			if (isUnCollect) {
 				EventBus.getDefault().post(UnCollectEvent(cardBean.id))
 			}
 			if (isUnLike) {
 				EventBus.getDefault().post(UnLikeEvent(cardBean.id))
 			}
+			super.onBackPressed()
 		}
 	}
 
@@ -177,22 +178,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		}
 	}
 
-	override fun likeSuccess(bean: CardBean) {
-		postSuccess(bean)
-		val goodView = GoodView(this)
-		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-		goodView.setText((bean.likeNum - 1).toString() + " +1")
-		goodView.show(cb_article_details_like)
-	}
-
-	override fun collectSuccess(bean: CardBean) {
-		postSuccess(bean)
-		val goodView = GoodView(this)
-		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-		goodView.setText((bean.collectNum - 1).toString() + " +1")
-		goodView.show(cb_article_details_collect)
-	}
-
 	override fun postSuccess(bean: CardBean) {
 		isUnCollect = collectStatus != bean.isCollect && !bean.isCollect
 		isUnLike = likeStatus != bean.isLike && !bean.isLike
@@ -217,14 +202,6 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun followSuccess() {
-		if (cb_article_details_follow.isChecked) {
-			//取消成功
-			cb_article_details_follow.isChecked = false
-		} else {
-			//关注成功
-			toastShow("关注成功")
-			cb_article_details_follow.isChecked = true
-		}
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
 
@@ -257,25 +234,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			}
 		}
 		cb_article_details_follow.setOnClickListener {
-			cb_article_details_follow.isChecked = !cb_article_details_follow.isChecked
-			if (!checkLogin()) {
-				return@setOnClickListener
-			}
-			if (mUserId == cardBean.authorId) {
-				toastShow("无法关注自己")
-				return@setOnClickListener
-			}
-			if (!cb_article_details_follow.isChecked) {
-				//关注
-				mPresenter.setUserFollow(cardBean.authorId, 0)
-			} else {
-				//取消关注弹窗
-				val dialog = UnFollowConfirmDialog()
-				val bundle = Bundle()
-				bundle.putInt("userId", cardBean.authorId)
-				dialog.arguments = bundle
-				dialog.show(supportFragmentManager, "")
-			}
+			setFollow(it, cardBean)
 		}
 		iv_article_details_comment.setOnClickListener {
 			commentFragment = CommentFragment()
@@ -287,37 +246,93 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			transaction.add(R.id.fl_card_details, commentFragment).commitAllowingStateLoss()
 		}
 		cb_article_details_collect.setOnClickListener {
-			//checkBox点击之后选中状态就已经更改了
-			cb_article_details_collect.isChecked = !cb_article_details_collect.isChecked
-			if (mUserId == cardBean.authorId) {
-				toastShow("不能收藏自己哦")
-				return@setOnClickListener
-			}
-			if (!cb_article_details_collect.isChecked) {
-				if (checkLogin()) {
-					mPresenter.addCollectCard(cardBean.id)
-				}
-			} else {
-				mPresenter.removeCollectCard(cardBean.id)
-			}
+			setCollect(it, cardBean)
 		}
 		cb_article_details_like.setOnClickListener {
-			//checkBox点击之后选中状态就已经更改了
-			cb_article_details_like.isChecked = !cb_article_details_like.isChecked
-			if (mUserId == cardBean.authorId) {
-				toastShow("不能点赞自己哦")
-				return@setOnClickListener
-			}
-			if (!cb_article_details_like.isChecked) {
-				if (checkLogin()) {
-					mPresenter.likeCard(cardBean.id)
-				}
-			} else {
-				mPresenter.removeLikeCard(cardBean.id)
-			}
+			setLike(it, cardBean)
 		}
 		iv_article_details_share.setOnClickListener {
 			gotoHtmlShare()
+		}
+	}
+
+	private fun setLike(view: View, bean: CardBean) {
+		view as CheckBox
+		if (mUserId == bean.authorId) {
+			toastShow("不能点赞自己哦")
+			view.isChecked = !view.isChecked
+			return
+		}
+		if (checkLogin()) {
+			bean.isLike = !bean.isLike
+			if (view.isChecked) {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText(bean.likeNum.toString() + " +1")
+				goodView.show(cb_article_details_like)
+				bean.likeNum += 1
+				tv_article_details_like.text = bean.likeNum.toString()
+				tv_article_details_like.isEnabled = bean.isLike
+				mPresenter.likeCard(bean.id)
+			} else {
+				bean.likeNum -= 1
+				tv_article_details_like.text = bean.likeNum.toString()
+				mPresenter.removeLikeCard(bean.id)
+			}
+		} else {
+			view.isChecked = !view.isChecked
+		}
+	}
+
+	private fun setCollect(view: View, bean: CardBean) {
+		view as CheckBox
+		if (mUserId == bean.authorId) {
+			toastShow("不能收藏自己哦")
+			view.isChecked = !view.isChecked
+			return
+		}
+		if (checkLogin()) {
+			bean.isCollect = !bean.isCollect
+			if (view.isChecked) {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText(bean.collectNum.toString() + " +1")
+				goodView.show(view)
+				bean.collectNum += 1
+				tv_article_details_collect.text = bean.collectNum.toString()
+				tv_article_details_collect.isEnabled = bean.isCollect
+				mPresenter.addCollectCard(bean.id)
+			} else {
+				bean.collectNum -= 1
+				tv_article_details_collect.text = bean.collectNum.toString()
+				mPresenter.removeCollectCard(bean.id)
+			}
+		} else {
+			view.isChecked = !view.isChecked
+		}
+	}
+
+	private fun setFollow(view: View, bean: CardBean) {
+		view as CheckBox
+		view.isChecked = !view.isChecked
+		if (!checkLogin()) {
+			return
+		}
+		if (mUserId == bean.authorId) {
+			toastShow("无法关注自己")
+			return
+		}
+		if (!view.isChecked) {
+			//关注
+			view.isChecked = true
+			mPresenter.setUserFollow(bean.authorId, 0)
+		} else {
+			//取消关注弹窗
+			val dialog = UnFollowConfirmDialog()
+			val bundle = Bundle()
+			bundle.putInt("userId", bean.authorId)
+			dialog.arguments = bundle
+			dialog.show(supportFragmentManager, "")
 		}
 	}
 

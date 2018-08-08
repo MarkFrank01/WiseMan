@@ -18,10 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.AddCardDetailsListEvent
-import com.zxcx.zhizhe.event.FollowUserRefreshEvent
-import com.zxcx.zhizhe.event.UnFollowConfirmEvent
-import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
+import com.zxcx.zhizhe.event.*
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
@@ -118,24 +115,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	}
 
-	override fun likeSuccess(bean: CardBean) {
-		val position = mAdapter.data.indexOf(bean)
-		postSuccess(bean)
-		val goodView = GoodView(this)
-		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-		goodView.setText((bean.likeNum - 1).toString() + " +1")
-		goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_like))
-	}
-
-	override fun collectSuccess(bean: CardBean) {
-		val position = mAdapter.data.indexOf(bean)
-		postSuccess(bean)
-		val goodView = GoodView(this)
-		goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-		goodView.setText((bean.collectNum - 1).toString() + " +1")
-		goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_collect))
-	}
-
 	override fun postSuccess(bean: CardBean) {
 		val position = mAdapter.data.indexOf(bean)
 		if (position != -1) {
@@ -150,13 +129,15 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	override fun followSuccess(bean: CardBean) {
 		bean.isFollow = !bean.isFollow
-		postSuccess(bean)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: UnFollowConfirmEvent) {
 		//取消关注
+		val event = UpdateCardListEvent(mCurrentPosition, mSourceName, mAdapter.data[mCurrentPosition])
+		EventBus.getDefault().post(event)
+		(mAdapter.getViewByPosition(mCurrentPosition, R.id.cb_item_card_details_follow) as CheckBox).isChecked = false
 		mPresenter.setUserFollow(mAdapter.data[mCurrentPosition].authorId, 1, mAdapter.data[mCurrentPosition])
 	}
 
@@ -187,14 +168,6 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 					EventBus.getDefault().post(event)
 					val imageUrl = ZhiZheUtils.getHDImageUrl(mAdapter.data[mCurrentPosition].imageUrl)
 					refreshBackground(imageUrl)
-					/*ImageLoader.download(mActivity, imageUrl, R.drawable.default_card, iv_card_details_bg)
-					Blurry.with(mActivity)
-							.radius(10)
-							.sampling(2)
-							.color(Color.argb(216, 255, 255, 255))
-							.async()
-							.capture(iv_card_details_bg)
-							.into(iv_card_details_bg)*/
 				}
 			}
 		})
@@ -243,26 +216,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				}
 			}
 			R.id.cb_item_card_details_follow -> {
-				view as CheckBox
-				view.isChecked = !view.isChecked
-				if (!checkLogin()) {
-					return
-				}
-				if (mUserId == bean.authorId) {
-					toastShow("无法关注自己")
-					return
-				}
-				if (!view.isChecked) {
-					//关注
-					mPresenter.setUserFollow(bean.authorId, 0, bean)
-				} else {
-					//取消关注弹窗
-					val dialog = UnFollowConfirmDialog()
-					val bundle = Bundle()
-					bundle.putInt("userId", bean.authorId)
-					dialog.arguments = bundle
-					dialog.show(supportFragmentManager, "")
-				}
+				setFollow(view, bean, position)
 			}
 			R.id.iv_item_card_details_comment -> {
 				commentFragment = CommentFragment()
@@ -274,36 +228,11 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 				transaction.add(R.id.fl_card_details, commentFragment).commitAllowingStateLoss()
 			}
 			R.id.cb_item_card_details_collect -> {
-				//checkBox点击之后选中状态就已经更改了
-				view as CheckBox
-				view.isChecked = !view.isChecked
-				if (mUserId == bean.authorId) {
-					toastShow("不能收藏自己哦")
-					return
-				}
-				if (!view.isChecked) {
-					if (checkLogin()) {
-						mPresenter.addCollectCard(bean.id)
-					}
-				} else {
-					mPresenter.removeCollectCard(bean.id)
-				}
+				setCollect(view, bean, position)
 			}
 			R.id.cb_item_card_details_like -> {
 				//checkBox点击之后选中状态就已经更改了
-				view as CheckBox
-				view.isChecked = !view.isChecked
-				if (mUserId == bean.authorId) {
-					toastShow("不能点赞自己哦")
-					return
-				}
-				if (!view.isChecked) {
-					if (checkLogin()) {
-						mPresenter.likeCard(bean.id)
-					}
-				} else {
-					mPresenter.removeLikeCard(bean.id)
-				}
+				setLike(view, bean, position)
 			}
 			R.id.iv_item_card_details_share -> {
 
@@ -327,6 +256,98 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 							}
 						}
 			}
+		}
+	}
+
+	private fun setLike(view: View, bean: CardBean, position: Int) {
+		view as CheckBox
+		if (mUserId == bean.authorId) {
+			toastShow("不能点赞自己哦")
+			view.isChecked = !view.isChecked
+			return
+		}
+		if (checkLogin()) {
+			bean.isLike = !bean.isLike
+			(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_like) as TextView)
+					.isEnabled = bean.isLike
+			if (view.isChecked) {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText(bean.likeNum.toString() + " +1")
+				goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_like))
+				bean.likeNum += 1
+				(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_like) as TextView)
+						.text = bean.likeNum.toString()
+				mPresenter.likeCard(bean.id)
+			} else {
+				bean.likeNum -= 1
+				(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_like) as TextView)
+						.text = bean.likeNum.toString()
+				mPresenter.removeLikeCard(bean.id)
+			}
+			val event = UpdateCardListEvent(mCurrentPosition, mSourceName, bean)
+			EventBus.getDefault().post(event)
+		} else {
+			view.isChecked = !view.isChecked
+		}
+	}
+
+	private fun setCollect(view: View, bean: CardBean, position: Int) {
+		view as CheckBox
+		if (mUserId == bean.authorId) {
+			toastShow("不能收藏自己哦")
+			view.isChecked = !view.isChecked
+			return
+		}
+		if (checkLogin()) {
+			bean.isCollect = !bean.isCollect
+			(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_collect) as TextView)
+					.isEnabled = bean.isCollect
+			if (view.isChecked) {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText(bean.collectNum.toString() + " +1")
+				goodView.show(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_collect))
+				bean.collectNum += 1
+				(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_collect) as TextView)
+						.text = bean.collectNum.toString()
+				mPresenter.addCollectCard(bean.id)
+			} else {
+				bean.collectNum -= 1
+				(mAdapter.getViewByPosition(position, R.id.tv_item_card_details_collect) as TextView)
+						.text = bean.collectNum.toString()
+				mPresenter.removeCollectCard(bean.id)
+			}
+			val event = UpdateCardListEvent(mCurrentPosition, mSourceName, bean)
+			EventBus.getDefault().post(event)
+		} else {
+			view.isChecked = !view.isChecked
+		}
+	}
+
+	private fun setFollow(view: View, bean: CardBean, position: Int) {
+		view as CheckBox
+		view.isChecked = !view.isChecked
+		if (!checkLogin()) {
+			return
+		}
+		if (mUserId == bean.authorId) {
+			toastShow("无法关注自己")
+			return
+		}
+		if (!view.isChecked) {
+			//关注
+			(mAdapter.getViewByPosition(position, R.id.cb_item_card_details_follow) as CheckBox).isChecked = true
+			mPresenter.setUserFollow(bean.authorId, 0, bean)
+			val event = UpdateCardListEvent(mCurrentPosition, mSourceName, bean)
+			EventBus.getDefault().post(event)
+		} else {
+			//取消关注弹窗
+			val dialog = UnFollowConfirmDialog()
+			val bundle = Bundle()
+			bundle.putInt("userId", bean.authorId)
+			dialog.arguments = bundle
+			dialog.show(supportFragmentManager, "")
 		}
 	}
 

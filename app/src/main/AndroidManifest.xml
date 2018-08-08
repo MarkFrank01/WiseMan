@@ -267,7 +267,8 @@
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".ui.my.creation.newCreation.PreviewCardDetailsActivity"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.FullScreen"/>
 	</application>
 
 </manifest>

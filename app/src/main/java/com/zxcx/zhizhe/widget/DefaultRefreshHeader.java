@@ -23,6 +23,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	private LottieAnimationView mIvRefreshHeader;
 	private String text;
 	private boolean isSuccess = true;
+	private boolean hasText = false;
 	private View header;
 	private boolean mFinished;
 	
@@ -43,6 +44,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	
 	public void setText(String text) {
 		this.text = text;
+		hasText = true;
 	}
 	
 	public void setSuccess(boolean isSuccess) {
@@ -63,6 +65,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	}
 	
 	private void resetView() {
+		hasText = false;
 		mIvRefreshHeader.setAnimation("loading.json");
 		mIvRefreshHeader.setRepeatCount(LottieDrawable.INFINITE);
 		mTvRefreshHeader.setVisibility(GONE);
@@ -108,10 +111,12 @@ public class DefaultRefreshHeader extends FrameLayout implements
 		}
 		mIvRefreshHeader.playAnimation();
 		mFinished = true;
-		postDelayed(() -> {
-			mTvRefreshHeader.setVisibility(VISIBLE);
-			mTvRefreshHeader.setText(text);
-		}, 500);
+		if (hasText) {
+			postDelayed(() -> {
+				mTvRefreshHeader.setVisibility(VISIBLE);
+				mTvRefreshHeader.setText(text);
+			}, 500);
+		}
 		postDelayed(() -> {
 			header.animate().translationY(0);
 		}, 1500);

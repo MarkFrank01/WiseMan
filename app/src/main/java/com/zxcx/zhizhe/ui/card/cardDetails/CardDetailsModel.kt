@@ -45,9 +45,9 @@ class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<Car
 		mDisposable = AppClient.getAPIService().likeCard(cardId)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleResult())
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.likeSuccess(bean)
+				.subscribeWith(object : PostSubscriber<Any>(mPresenter) {
+					override fun onNext(bean: Any) {
+						//保持为空，不需要返回结果
 					}
 				})
 		addSubscription(mDisposable)
@@ -57,33 +57,9 @@ class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<Car
 		mDisposable = AppClient.getAPIService().removeLikeCard(cardId)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleResult())
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.postSuccess(bean)
-					}
-				})
-		addSubscription(mDisposable)
-	}
-
-	fun unLikeCard(cardId: Int) {
-		mDisposable = AppClient.getAPIService().unLikeCard(cardId)
-				.compose(BaseRxJava.io_main())
-				.compose(BaseRxJava.handleResult())
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.postSuccess(bean)
-					}
-				})
-		addSubscription(mDisposable)
-	}
-
-	fun removeUnLikeCard(cardId: Int) {
-		mDisposable = AppClient.getAPIService().removeUnLikeCard(cardId)
-				.compose(BaseRxJava.io_main())
-				.compose(BaseRxJava.handleResult())
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.postSuccess(bean)
+				.subscribeWith(object : PostSubscriber<Any>(mPresenter) {
+					override fun onNext(bean: Any) {
+						//保持为空，不需要返回结果
 					}
 				})
 		addSubscription(mDisposable)
@@ -92,10 +68,10 @@ class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<Car
 	fun addCollectCard(cardId: Int) {
 		mDisposable = AppClient.getAPIService().addCollectCard(cardId)
 				.compose(BaseRxJava.handleResult())
-				.compose(BaseRxJava.io_main_loading(mPresenter))
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.collectSuccess(bean)
+				.compose(BaseRxJava.io_main())
+				.subscribeWith(object : PostSubscriber<Any>(mPresenter) {
+					override fun onNext(bean: Any) {
+						//保持为空，不需要返回结果
 					}
 				})
 		addSubscription(mDisposable)
@@ -105,9 +81,9 @@ class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<Car
 		mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
 				.compose(BaseRxJava.handleResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : PostSubscriber<CardBean>(mPresenter) {
-					override fun onNext(bean: CardBean) {
-						mPresenter?.postSuccess(bean)
+				.subscribeWith(object : PostSubscriber<Any>(mPresenter) {
+					override fun onNext(bean: Any) {
+						//保持为空，不需要返回结果
 					}
 				})
 		addSubscription(mDisposable)

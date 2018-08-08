@@ -30,14 +30,6 @@ public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContrac
 		mModel.removeLikeCard(cardId);
 	}
 
-	public void unLikeCard(int cardId) {
-		mModel.unLikeCard(cardId);
-	}
-
-	public void removeUnLikeCard(int cardId) {
-		mModel.removeUnLikeCard(cardId);
-	}
-
 	public void addCollectCard(int cardId) {
 		mModel.addCollectCard(cardId);
 	}
@@ -93,16 +85,6 @@ public class ArticleDetailsPresenter extends BasePresenter<ArticleDetailsContrac
 	@Override
 	public void followSuccess() {
 		mView.followSuccess();
-	}
-
-	@Override
-	public void likeSuccess(CardBean bean) {
-		mView.likeSuccess(bean);
-	}
-
-	@Override
-	public void collectSuccess(CardBean bean) {
-		mView.collectSuccess(bean);
 	}
 }
 

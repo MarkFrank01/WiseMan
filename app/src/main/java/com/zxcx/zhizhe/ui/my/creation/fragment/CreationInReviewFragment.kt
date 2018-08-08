@@ -13,7 +13,6 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
-import com.zxcx.zhizhe.ui.my.followUser.FansItemDecoration
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -116,7 +115,6 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 		mAdapter.setOnLoadMoreListener(this, rv_creation)
 		rv_creation.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_creation.adapter = mAdapter
-		rv_creation.addItemDecoration(FansItemDecoration())
 		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
 		mAdapter.emptyView = emptyView
 	}

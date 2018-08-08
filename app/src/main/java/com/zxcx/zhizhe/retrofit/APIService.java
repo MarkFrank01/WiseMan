@@ -366,18 +366,6 @@ public interface APIService {
 	Flowable<BaseBean<CardBean>> removeLikeArticle(@Query("articleId") int cardId);
 	
 	/**
-	 * 不赞同卡片
-	 */
-	@POST("/article/setDisagreeForArticle")
-	Flowable<BaseBean<CardBean>> unLikeArticle(@Query("articleId") int cardId);
-	
-	/**
-	 * 取消不赞同卡片
-	 */
-	@POST("/article/unDisagreeForArticle")
-	Flowable<BaseBean<CardBean>> removeUnLikeArticle(@Query("articleId") int cardId);
-	
-	/**
 	 * 卡片阅读30秒
 	 */
 	@POST("/article/readArticle")
@@ -394,37 +382,25 @@ public interface APIService {
 	 * 添加收藏卡片
 	 */
 	@POST("/article/collectArticle")
-	Flowable<BaseBean<CardBean>> addCollectCard(@Query("articleId") int cardId);
+	Flowable<BaseBean<Object>> addCollectCard(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消收藏卡片
 	 */
 	@POST("/article/uncollectArticle")
-	Flowable<BaseBean<CardBean>> removeCollectCard(@Query("articleId") int cardId);
+	Flowable<BaseBean<Object>> removeCollectCard(@Query("articleId") int cardId);
 	
 	/**
 	 * 点赞卡片
 	 */
 	@POST("/article/setLikeForArticle")
-	Flowable<BaseBean<CardBean>> likeCard(@Query("articleId") int cardId);
+	Flowable<BaseBean<Object>> likeCard(@Query("articleId") int cardId);
 	
 	/**
 	 * 取消点赞卡片
 	 */
 	@POST("/article/unLikeForArticle")
-	Flowable<BaseBean<CardBean>> removeLikeCard(@Query("articleId") int cardId);
-	
-	/**
-	 * 不赞同卡片
-	 */
-	@POST("/article/setDisagreeForArticle")
-	Flowable<BaseBean<CardBean>> unLikeCard(@Query("articleId") int cardId);
-	
-	/**
-	 * 取消不赞同卡片
-	 */
-	@POST("/article/unDisagreeForArticle")
-	Flowable<BaseBean<CardBean>> removeUnLikeCard(@Query("articleId") int cardId);
+	Flowable<BaseBean<Object>> removeLikeCard(@Query("articleId") int cardId);
 	
 	/**
 	 * 删除笔记

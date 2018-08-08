@@ -9,19 +9,11 @@ public interface ArticleDetailsContract {
 	interface View extends GetPostView<CardBean, CardBean> {
 
 		void followSuccess();
-		
-		void likeSuccess(CardBean bean);
-		
-		void collectSuccess(CardBean bean);
 	}
 	
 	interface Presenter extends IGetPostPresenter<CardBean, CardBean> {
 
 		void followSuccess();
-		
-		void likeSuccess(CardBean bean);
-		
-		void collectSuccess(CardBean bean);
 	}
 }
 

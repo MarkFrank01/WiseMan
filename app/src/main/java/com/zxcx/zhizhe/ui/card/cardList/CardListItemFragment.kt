@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
+import com.zxcx.zhizhe.event.UpdateCardListEvent
 import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
@@ -133,6 +134,12 @@ class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>
 			mCurrentPosition = event.currentPosition
 			rv_card_list_item.scrollToPosition(event.currentPosition)
 		}
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListEvent) {
+		mAdapter.data[event.currentPosition] = event.cardBean
+		mAdapter.notifyItemChanged(event.currentPosition)
 	}
 
 	override fun getDataSuccess(list: MutableList<CardBean>) {

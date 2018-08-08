@@ -57,7 +57,7 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
 				public void onNext(CardBean bean) {
-					mPresenter.likeSuccess(bean);
+					//保持为空，不需要返回结果
 				}
 			});
 		addSubscription(mDisposable);
@@ -70,33 +70,7 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
 				@Override
 				public void onNext(CardBean bean) {
-					mPresenter.postSuccess(bean);
-				}
-			});
-		addSubscription(mDisposable);
-	}
-
-	public void unLikeCard(int cardId) {
-		mDisposable = AppClient.getAPIService().unLikeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.io_main())
-			.compose(BaseRxJava.INSTANCE.handleResult())
-			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
-				@Override
-				public void onNext(CardBean bean) {
-					mPresenter.postSuccess(bean);
-				}
-			});
-		addSubscription(mDisposable);
-	}
-
-	public void removeUnLikeCard(int cardId) {
-		mDisposable = AppClient.getAPIService().removeUnLikeArticle(cardId)
-			.compose(BaseRxJava.INSTANCE.io_main())
-			.compose(BaseRxJava.INSTANCE.handleResult())
-			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
-				@Override
-				public void onNext(CardBean bean) {
-					mPresenter.postSuccess(bean);
+					//保持为空，不需要返回结果
 				}
 			});
 		addSubscription(mDisposable);
@@ -105,11 +79,11 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 	public void addCollectCard(int cardId) {
 		mDisposable = AppClient.getAPIService().addCollectCard(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
-			.compose(BaseRxJava.INSTANCE.io_main_loading(mPresenter))
-			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
+			.compose(BaseRxJava.INSTANCE.io_main())
+			.subscribeWith(new PostSubscriber<Object>(mPresenter) {
 				@Override
-				public void onNext(CardBean bean) {
-					mPresenter.collectSuccess(bean);
+				public void onNext(Object bean) {
+					//保持为空，不需要返回结果
 				}
 			});
 		addSubscription(mDisposable);
@@ -119,10 +93,10 @@ public class ArticleDetailsModel extends BaseModel<ArticleDetailsContract.Presen
 		mDisposable = AppClient.getAPIService().removeCollectCard(cardId)
 			.compose(BaseRxJava.INSTANCE.handleResult())
 			.compose(BaseRxJava.INSTANCE.io_main())
-			.subscribeWith(new PostSubscriber<CardBean>(mPresenter) {
+			.subscribeWith(new PostSubscriber<Object>(mPresenter) {
 				@Override
-				public void onNext(CardBean bean) {
-					mPresenter.postSuccess(bean);
+				public void onNext(Object bean) {
+					//保持为空，不需要返回结果
 				}
 			});
 		addSubscription(mDisposable);

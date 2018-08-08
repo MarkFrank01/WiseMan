@@ -140,6 +140,12 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 		}
 	}
 
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UpdateCardListEvent) {
+		mAdapter.data[event.currentPosition] = event.cardBean
+		mAdapter.notifyItemChanged(event.currentPosition)
+	}
+
 	override fun onRefresh(refreshLayout: RefreshLayout?) {
 		onRefresh()
 	}

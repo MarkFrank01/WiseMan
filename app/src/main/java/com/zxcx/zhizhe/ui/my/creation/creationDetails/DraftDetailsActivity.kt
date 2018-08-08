@@ -86,13 +86,12 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 	}
 
 	override fun postSuccess() {
-		toastShow("提交成功")
 		EventBus.getDefault().post(SaveDraftSuccessEvent())
 		onBackPressed()
 	}
 
 	override fun postFail(msg: String?) {
-		toastError("提交失败")
+		toastError(msg)
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
