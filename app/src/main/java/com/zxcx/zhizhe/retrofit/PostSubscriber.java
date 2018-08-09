@@ -5,11 +5,11 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.IPostPresenter;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.LogCat;
-
 import io.reactivex.subscribers.DisposableSubscriber;
 
 /**
  * Created by anm on 2017/7/24.
+ * Post功能错误预处理
  */
 
 public abstract class PostSubscriber<T> extends DisposableSubscriber<T> {

@@ -1,8 +1,11 @@
 package com.zxcx.zhizhe.event;
 
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
-
 import java.util.ArrayList;
+
+/**
+ * 外部卡片列表加载更多数据事件，通知卡片详情列表更新
+ */
 
 public class AddCardDetailsListEvent {
 	

@@ -1,9 +1,9 @@
 package com.zxcx.zhizhe.ui.search.search;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
-public class HotSearchBean extends RetrofitBaen {
+public class HotSearchBean extends RetrofitBean {
 
 
 	/**

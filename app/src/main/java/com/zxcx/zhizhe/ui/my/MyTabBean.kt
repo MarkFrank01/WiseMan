@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 
 /**
  * Created by anm on 2017/12/21.
@@ -18,8 +18,8 @@ data class MyTabBean(
 		@SerializedName("viewArticleCount") var cardViewCount: Int,
 		@SerializedName("hasDynamicMessage") var hasDynamicMessage: Boolean,
 		@SerializedName("hasSystemMessage") var hasSystemMessage: Boolean,
-		@SerializedName("accountLevel") var level: String,
+		@SerializedName("accountLevel") var level: Int,
 		@SerializedName("followerCount") var fansCount: Int,
 		@SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int,
 		@SerializedName("writerStatus") var writerStatus: Int
-) : RetrofitBaen()
+) : RetrofitBean()

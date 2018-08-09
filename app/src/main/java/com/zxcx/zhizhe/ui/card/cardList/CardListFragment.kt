@@ -17,6 +17,9 @@ import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import kotlinx.android.synthetic.main.fragment_card_list.*
 
+/**
+ * 首页-卡片-列表页面
+ */
 
 class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryBean>> {
 

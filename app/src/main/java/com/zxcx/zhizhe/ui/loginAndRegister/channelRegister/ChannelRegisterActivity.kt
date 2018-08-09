@@ -28,6 +28,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
+/**
+ * 第三方登录注册页面
+ */
+
 class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), ChannelRegisterContract.View {
 
 	private var phoneRules = "^1\\d{10}$"

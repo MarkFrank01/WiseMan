@@ -1,13 +1,13 @@
 package com.zxcx.zhizhe.ui.my.userInfo;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
 /**
  * Created by anm on 2017/9/18.
  */
 
-public class OSSTokenBean extends RetrofitBaen {
+public class OSSTokenBean extends RetrofitBean {
 	
 	/**
 	 * accessKeyId : string accessKeySecret : string expiration : string securityToken : string

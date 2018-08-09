@@ -15,6 +15,10 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_all_rank.*
 
+/**
+ * 本周智者榜单页面
+ */
+
 class AllRankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener,
 		BaseQuickAdapter.RequestLoadMoreListener {
 

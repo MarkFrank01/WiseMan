@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.note
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import java.util.*
 
 data class NoteBean(
@@ -10,7 +10,7 @@ data class NoteBean(
 		@SerializedName("title") var name: String?,
 		@SerializedName("modifyTime") var date: Date = Date(),
 		@SerializedName("summary") var content: String?
-) : RetrofitBaen() {
+) : RetrofitBean() {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false

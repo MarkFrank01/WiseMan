@@ -6,6 +6,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.UnCollectEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
@@ -24,7 +25,14 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_read_cards.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
+
+/**
+ * 收藏卡片页面
+ */
 
 class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener,
@@ -39,11 +47,17 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_read_cards)
+		EventBus.getDefault().register(this)
 		initToolBar("收藏")
 		initView()
 		initLoadSir()
 		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
 		mPresenter.getEmptyRecommendCard(mTabType)
+	}
+
+	override fun onDestroy() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
 	}
 
 	private fun initLoadSir() {
@@ -52,6 +66,12 @@ class CollectCardActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract
 
 	override fun createPresenter(): ReadCardsPresenter {
 		return ReadCardsPresenter(this)
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UnCollectEvent) {
+		mPage = 0
+		mPresenter.getCollectCard(mSortType, mPage, mPageSize)
 	}
 
 	override fun onReload(v: View?) {

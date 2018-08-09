@@ -27,6 +27,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 作品-草稿箱列表
+ */
+
 class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {
 

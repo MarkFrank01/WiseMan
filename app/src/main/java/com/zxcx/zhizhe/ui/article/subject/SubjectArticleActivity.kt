@@ -19,6 +19,10 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_subject.*
 
+/**
+ * 专题页面
+ */
+
 class SubjectArticleActivity : MvpActivity<SubjectArticlePresenter>(), SubjectArticleContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 

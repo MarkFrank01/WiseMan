@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by anm on 2017/7/21.
+ * 确认验证码接收手机弹窗
  */
 
 class PhoneConfirmDialog : CommonDialog() {

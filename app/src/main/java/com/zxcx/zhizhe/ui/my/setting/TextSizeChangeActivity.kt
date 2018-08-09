@@ -7,11 +7,15 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
-import com.zxcx.zhizhe.widget.CustomSeekbar
+import com.zxcx.zhizhe.widget.CustomSeekBar
 import kotlinx.android.synthetic.main.activity_text_size_change.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class TextSizeChangeActivity : BaseActivity(), CustomSeekbar.ResponseOnTouch {
+/**
+ * 修改文章字号页面
+ */
+
+class TextSizeChangeActivity : BaseActivity(), CustomSeekBar.ResponseOnTouch {
 
 	private var textSizeValue = 0
 

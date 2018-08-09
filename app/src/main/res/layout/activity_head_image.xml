@@ -10,7 +10,7 @@
 	
 	<include layout="@layout/toolbar"/>
 	
-	<com.zxcx.zhizhe.widget.CircleImageView
+	<com.makeramen.roundedimageview.RoundedImageView
 		android:id="@+id/iv_head_image"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"

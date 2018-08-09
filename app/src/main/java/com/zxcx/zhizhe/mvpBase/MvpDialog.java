@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 
 /**
+ * MVP封装的Dialog
  * A simple {@link Fragment} subclass.
  */
 public abstract class MvpDialog<P extends BasePresenter> extends BaseDialog {

@@ -1,13 +1,13 @@
 package com.zxcx.zhizhe.ui.my.setting;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
 /**
  * Created by anm on 2017/12/19.
  */
 
-public class MessageModeBean extends RetrofitBaen {
+public class MessageModeBean extends RetrofitBean {
 
 	/**
 	 * dynamicMessageSetting : true systemMessageSetting : true

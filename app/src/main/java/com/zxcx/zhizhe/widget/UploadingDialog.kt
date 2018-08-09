@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.layout_uploading.*
 
 /**
  * Created by anm on 2017/5/27.
+ * 提交审核，保存笔记弹窗
  */
 
 class UploadingDialog : BaseDialog() {

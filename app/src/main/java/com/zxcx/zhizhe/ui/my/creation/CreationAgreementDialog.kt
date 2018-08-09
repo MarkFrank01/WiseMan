@@ -17,6 +17,10 @@ import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.dialog_creation_agreement.*
 
+/**
+ * 申请创作权限弹窗
+ */
+
 class CreationAgreementDialog : BaseDialog(), INullPostPresenter {
 
 	private var mWebView: WebView? = null

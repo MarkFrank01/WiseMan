@@ -30,6 +30,10 @@ import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+/**
+ * 搜索页面
+ */
+
 class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View.OnClickListener {
 
 	private var mHistoryList: MutableList<String> = mutableListOf()

@@ -1,5 +1,9 @@
 package com.zxcx.zhizhe.utils;
 
+/**
+ * SP保存字段
+ */
+
 public class SVTSConstants {
 	
 	public static final String isFirstLaunchApp = "is_first_launch_app";

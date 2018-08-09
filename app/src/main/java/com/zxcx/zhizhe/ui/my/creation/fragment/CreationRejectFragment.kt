@@ -10,7 +10,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.DeleteCreationEvent
-import com.zxcx.zhizhe.event.DeleteRejectSuccessEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectCardDetailsActivity
@@ -54,12 +53,6 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 
 	override fun createPresenter(): CreationPresenter {
 		return CreationPresenter(this)
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: DeleteRejectSuccessEvent) {
-		mPage = 0
-		mPresenter.getCreation(mPassType, mPage, mPageSize)
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)

@@ -20,6 +20,10 @@ import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_message.*
 
+/**
+ * 我的-消息
+ */
+
 class MessageActivity : BaseActivity(), IGetPresenter<MyTabBean> {
 	private val titles = arrayOf("系统", "动态")
 

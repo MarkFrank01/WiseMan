@@ -18,6 +18,7 @@ import java.util.*
 
 /**
  * Created by anm on 2017/7/6.
+ * 修改生日页面
  */
 
 class ChangeBirthdayActivity : BaseActivity(), IPostPresenter<UserInfoBean> {

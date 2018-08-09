@@ -6,11 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 
 /**
  * Created by anm on 2017/7/21.
+ * 权限被禁止弹窗
  */
 
 public class PermissionDialog extends BaseDialog {

@@ -31,6 +31,10 @@ import top.zibin.luban.Luban
 import java.io.File
 import java.util.*
 
+/**
+ * 分享摘录笔记弹窗
+ */
+
 class ShareCardNoteDialog : BaseDialog() {
 
 	private var mWebView: WebView? = null

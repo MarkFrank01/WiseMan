@@ -2,19 +2,22 @@ package com.zxcx.zhizhe.utils;
 
 import android.content.Context;
 import android.os.Environment;
-
 import java.io.File;
 import java.math.BigDecimal;
 
-public class DataCleanManager {
+/**
+ * 清除本地缓存
+ */
 
+public class DataCleanManager {
+	
 	/**
 	 * (/data/data/com.xxx.xxx/cache) * * @param context
 	 */
 	public static void cleanInternalCache(Context context) {
 		deleteFilesByDirectory(context.getCacheDir());
 	}
-
+	
 	/**
 	 * (/data/data/com.xxx.xxx/databases) * * @param context
 	 */
@@ -22,7 +25,7 @@ public class DataCleanManager {
 		deleteFilesByDirectory(new File("/data/data/"
 			+ context.getPackageName() + "/databases"));
 	}
-
+	
 	/**
 	 * * SharedPreference(/data/data/com.xxx.xxx/shared_prefs) * * @param context
 	 */
@@ -30,21 +33,21 @@ public class DataCleanManager {
 		deleteFilesByDirectory(new File("/data/data/"
 			+ context.getPackageName() + "/shared_prefs"));
 	}
-
+	
 	/**
 	 * @param context * @param dbName
 	 */
 	public static void cleanDatabaseByName(Context context, String dbName) {
 		context.deleteDatabase(dbName);
 	}
-
+	
 	/**
 	 * /data/data/com.xxx.xxx/files* * @param context
 	 */
 	public static void cleanFiles(Context context) {
 		deleteFilesByDirectory(context.getFilesDir());
 	}
-
+	
 	/**
 	 * * (/mnt/sdcard/android/data/com.xxx.xxx/cache) * * @param context
 	 */
@@ -54,12 +57,12 @@ public class DataCleanManager {
 			deleteFilesByDirectory(context.getExternalCacheDir());
 		}
 	}
-
+	
 	/** @param filePath */
 	public static void cleanCustomCache(String filePath) {
 		deleteFilesByDirectory(new File(filePath));
 	}
-
+	
 	/**
 	 * @param context * @param filepath
 	 */
@@ -69,7 +72,7 @@ public class DataCleanManager {
 		cleanFiles(context);
 		FileUtil.deleteFile(FileUtil.PATH_BASE);
 	}
-
+	
 	/** @param directory */
 	private static void deleteFilesByDirectory(File directory) {
 		if (directory != null) {
@@ -77,14 +80,14 @@ public class DataCleanManager {
 				directory.delete();
 				return;
 			}
-
+			
 			if (directory.isDirectory()) {
 				File[] childFiles = directory.listFiles();
 				if (childFiles == null || childFiles.length == 0) {
 					directory.delete();
 					return;
 				}
-
+				
 				for (int i = 0; i < childFiles.length; i++) {
 					deleteFilesByDirectory(childFiles[i]);
 				}
@@ -92,7 +95,7 @@ public class DataCleanManager {
 			}
 		}
 	}
-
+	
 	public static String getTotalCacheSize(Context context) throws Exception {
 		long cacheSize = getFolderSize(context.getCacheDir());
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -101,7 +104,7 @@ public class DataCleanManager {
 		cacheSize += getFolderSize(context.getFilesDir());
 		return getFormatSize(cacheSize);
 	}
-
+	
 	// 计算某个文件的大小
 	private static long getFolderSize(File file) throws Exception {
 		long size = 0;
@@ -122,7 +125,7 @@ public class DataCleanManager {
 		}
 		return size;
 	}
-
+	
 	/**
 	 * 格式化单位
 	 */
@@ -131,21 +134,21 @@ public class DataCleanManager {
 		if (kiloByte < 1) {
 			return "0K";
 		}
-
+		
 		double megaByte = kiloByte / 1024;
 		if (megaByte < 1) {
 			BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
 			return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
 				.toPlainString() + "K";
 		}
-
+		
 		double gigaByte = megaByte / 1024;
 		if (gigaByte < 1) {
 			BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
 			return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
 				.toPlainString() + "M";
 		}
-
+		
 		double teraBytes = gigaByte / 1024;
 		if (teraBytes < 1) {
 			BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));

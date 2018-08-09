@@ -42,9 +42,9 @@
     <string name="tv_login_count_down">%1$d&#160;s</string>
     <string name="agreement">智者用户协议</string>
     <string name="agreement_url">/pages/user-protocol.html</string>
-    <string name="agreement_dark_url">/pages/user-protocol.html</string>
+    <string name="agreement_dark_url">/pages/user-protocol-dark.html</string>
     <string name="creation_agreement_url">/pages/create-protocol.html</string>
-    <string name="creation_agreement_dark_url">/pages/create-protocol.html</string>
+    <string name="creation_agreement_dark_url">/pages/create-protocol-dark.html</string>
     <string name="help_1_url">/help/help1.html</string>
     <string name="help_2_url">/help/help2.html</string>
     <string name="help_3_url">/help/help3.html</string>
@@ -83,5 +83,6 @@
     <string name="card_category_transition_name">cardCategory%1$d</string>
     <string name="card_label_transition_name">cardLabel%1$d</string>
     <string name="et_comment_hint">回复&#160;%1$s</string>
+    <string name="tv_level">Lv.%1$d</string>
 	<!--transitionNameEnd-->
 </resources>

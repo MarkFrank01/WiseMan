@@ -36,6 +36,7 @@ import java.util.HashMap;
 
 /**
  * Created by anm on 2017/5/27.
+ * 常规分享弹窗
  */
 
 public class ShareDialog extends BaseDialog {

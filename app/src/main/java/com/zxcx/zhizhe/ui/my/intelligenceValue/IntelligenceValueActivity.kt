@@ -11,6 +11,10 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.WebViewUtils
 import kotlinx.android.synthetic.main.activity_intelligence_value.*
 
+/**
+ * 我的-智力值页面
+ */
+
 class IntelligenceValueActivity : BaseActivity() {
 
 	private var mWebView: WebView? = null
@@ -18,13 +22,11 @@ class IntelligenceValueActivity : BaseActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_intelligence_value)
+		initToolBar("智力值")
 		initWebView()
 	}
 
 	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
 	}
 
 	private fun initWebView() {

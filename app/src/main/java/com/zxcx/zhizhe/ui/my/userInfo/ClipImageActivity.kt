@@ -17,6 +17,10 @@ import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
+/**
+ * 创作图片裁剪页面
+ */
+
 class ClipImageActivity : BaseActivity() {
 
 

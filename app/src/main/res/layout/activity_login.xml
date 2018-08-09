@@ -54,7 +54,7 @@
 					android:inputType="phone"
 					android:maxLength="11"
 					android:textColor="@color/text_color_1"
-					android:textColorHint="@color/text_color_ee"
+					android:textColorHint="@color/text_color_hint"
 					android:textCursorDrawable="@drawable/bg_edit_cursor"
 					android:textSize="@dimen/text_size_title_2"/>
 				
@@ -163,7 +163,7 @@
 					android:layout_width="40dp"
 					android:layout_height="40dp"
 					android:layout_marginEnd="25dp"
-					android:src="@drawable/login_qq"/>
+					android:src="@drawable/qq"/>
 				
 				<ImageView
 					android:id="@+id/iv_login_wechat"
@@ -171,14 +171,14 @@
 					android:layout_height="40dp"
 					android:layout_marginStart="25dp"
 					android:layout_marginEnd="25dp"
-					android:src="@drawable/login_wechat"/>
+					android:src="@drawable/wechat"/>
 				
 				<ImageView
 					android:id="@+id/iv_login_weibo"
 					android:layout_width="37dp"
 					android:layout_height="37dp"
 					android:layout_marginStart="25dp"
-					android:src="@drawable/login_weibo"/>
+					android:src="@drawable/weibo"/>
 			</LinearLayout>
 		
 		</android.support.percent.PercentRelativeLayout>

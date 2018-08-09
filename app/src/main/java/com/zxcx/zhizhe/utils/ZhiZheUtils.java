@@ -19,6 +19,10 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import org.greenrobot.eventbus.EventBus;
 
+/**
+ * 项目相关操作封装
+ */
+
 public class ZhiZheUtils {
 	
 	private static final double EARTH_RADIUS = 6378137.0;

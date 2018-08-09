@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.utils;
 
+import static com.zxcx.zhizhe.utils.StringUtils.isEmpty;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,11 +15,7 @@ import android.text.TextPaint;
 import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import android.widget.TextView;
-
-import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.R;
-
-import static com.zxcx.zhizhe.utils.StringUtils.isEmpty;
 
 /**
  * Created by chenf on 2016/9/1.
@@ -161,7 +159,7 @@ public class TextViewUtils {
 			if (index >= 0) {
 				while (index < value.length() && index >= 0) {
 					style.setSpan(new ForegroundColorSpan(
-							ContextCompat.getColor(App.getContext(), R.color.button_blue)), index,
+							ContextCompat.getColor(textView.getContext(), R.color.button_blue)), index,
 						index + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.setText(style);
 					index = value.indexOf(key, index + key.length());
@@ -185,7 +183,7 @@ public class TextViewUtils {
 			if (index >= 0) {
 				while (index < value.length() && index >= 0) {
 					style.setSpan(new ForegroundColorSpan(
-							ContextCompat.getColor(App.getContext(), R.color.text_color_1)), index,
+							ContextCompat.getColor(textView.getContext(), R.color.text_color_1)), index,
 						index + key.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.setText(style);
 					index = value.indexOf(key, index + key.length());

@@ -2,6 +2,10 @@ package com.zxcx.zhizhe.event;
 
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
+/**
+ * 卡片详情页更改点赞，收藏等数据时，通知外部列表数据修改
+ */
+
 public class UpdateCardListEvent {
 	
 	private int currentPosition;

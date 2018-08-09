@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.message.system
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import java.util.*
 
 const val message_card_pass = 101
@@ -25,5 +25,5 @@ data class SystemMessageBean(
 		@SerializedName("time") var time: Date?, //2017-12-20T03:28:06.284Z
 		@SerializedName("titleColor") var titleColor: String?, //string
 		@SerializedName("title") var title: String? //string
-) : RetrofitBaen()
+) : RetrofitBean()
 

@@ -21,6 +21,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 首页-卡片Fragment
+ */
+
 class HomeCardFragment : BaseFragment() {
 
 	private val mHotFragment = HotCardFragment()

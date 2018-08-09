@@ -9,6 +9,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils
 
 /**
  * Created by anm on 2017/5/23.
+ * 选择标签页面，标签Adapter
  */
 
 class SelectLabelAdapter(data: List<ClassifyCardBean>) : BaseQuickAdapter<ClassifyCardBean, BaseViewHolder>(R.layout.item_select_card_bag, data) {

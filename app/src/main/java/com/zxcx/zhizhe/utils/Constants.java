@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.utils;
 
 /**
  * Created by anm on 2017/6/2.
+ * 保存本地时的字段
  */
 
 public class Constants {

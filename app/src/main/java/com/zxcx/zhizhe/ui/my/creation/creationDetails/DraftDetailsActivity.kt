@@ -27,6 +27,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 草稿箱长文详情
+ */
+
 class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
 	private var mWebView: WebView? = null

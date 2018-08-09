@@ -4,6 +4,10 @@ package com.zxcx.zhizhe.widget;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.zxcx.zhizhe.R;
 
+/**
+ * 常规底部加载控件
+ */
+
 public final class CustomLoadMoreView extends LoadMoreView {
 	
 	@Override

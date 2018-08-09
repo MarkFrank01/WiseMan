@@ -26,7 +26,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 	
-	<com.zxcx.zhizhe.widget.CustomSeekbar
+	<com.zxcx.zhizhe.widget.CustomSeekBar
 		android:id="@+id/sb_text_size"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"

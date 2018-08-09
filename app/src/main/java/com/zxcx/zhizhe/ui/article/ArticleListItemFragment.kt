@@ -27,6 +27,10 @@ import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
 
+/**
+ * 首页-长文-其他Tab的Fragment
+ */
+
 class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<ArticleAndSubjectBean>>,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
 		OnRefreshListener, SubjectOnClickListener {

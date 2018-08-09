@@ -13,6 +13,10 @@ import kotlinx.android.synthetic.main.activity_select_attention.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 选择兴趣，关注标签页面
+ */
+
 class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectAttentionContract.View,
 		BaseQuickAdapter.OnItemChildClickListener {
 

@@ -33,6 +33,10 @@ import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.util.*
 
+/**
+ * 分享选中文本弹窗
+ */
+
 open class ShareSelectionDialog : BaseDialog() {
 
 	private var mWebView: WebView? = null

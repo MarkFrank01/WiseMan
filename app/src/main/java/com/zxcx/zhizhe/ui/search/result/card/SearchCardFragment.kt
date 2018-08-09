@@ -22,6 +22,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 搜索卡片结果页面
+ */
+
 class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 

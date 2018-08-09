@@ -32,6 +32,10 @@ import com.zxcx.zhizhe.widget.LoadingDialog;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * Activity基类
+ */
+
 public class BaseActivity extends AppCompatActivity implements BaseView, Callback.OnReloadListener {
 	
 	public FragmentActivity mActivity;

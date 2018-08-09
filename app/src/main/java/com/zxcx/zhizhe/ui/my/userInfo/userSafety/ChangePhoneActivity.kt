@@ -25,6 +25,10 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
+/**
+ * 修改手机号页面
+ */
+
 class ChangePhoneActivity : MvpActivity<ChannelRegisterPresenter>(), ChannelRegisterContract.View {
 
 	internal var phoneRules = "^1\\d{10}$"

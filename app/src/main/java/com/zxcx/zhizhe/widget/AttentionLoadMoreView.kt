@@ -6,6 +6,10 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.loadmore.LoadMoreView
 import com.zxcx.zhizhe.R
 
+/**
+ * 卡片关注页面底部加载控件
+ */
+
 class AttentionLoadMoreView : LoadMoreView() {
 
 	lateinit var mListener: () -> Unit

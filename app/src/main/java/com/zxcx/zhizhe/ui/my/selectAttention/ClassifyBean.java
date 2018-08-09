@@ -2,12 +2,12 @@ package com.zxcx.zhizhe.ui.my.selectAttention;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class ClassifyBean extends RetrofitBaen implements MultiItemEntity, Serializable {
+public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Serializable {
 
 
 	/**

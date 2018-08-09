@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.dialog_single.*
 
 /**
  * Created by anm on 2017/7/21.
+ * 创作退出时需要保存弹窗
  */
 
 class NeedSaveDialog : CommonDialog() {

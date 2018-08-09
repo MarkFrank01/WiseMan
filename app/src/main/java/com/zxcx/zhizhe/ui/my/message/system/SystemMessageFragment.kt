@@ -25,6 +25,10 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
 
+/**
+ * 系统消息
+ */
+
 class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessageContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
 

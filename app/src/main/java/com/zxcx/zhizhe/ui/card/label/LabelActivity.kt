@@ -27,6 +27,10 @@ import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_label.*
 import java.util.*
 
+/**
+ * 标签内文章列表页面
+ */
+
 class LabelActivity : RefreshMvpActivity<LabelPresenter>(), LabelContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
 		SubjectOnClickListener {

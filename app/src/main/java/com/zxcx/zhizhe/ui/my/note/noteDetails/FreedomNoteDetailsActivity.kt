@@ -27,6 +27,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 自由笔记详情界面
+ */
+
 class FreedomNoteDetailsActivity : BaseActivity() {
 
 	private var mWebView: WebView? = null

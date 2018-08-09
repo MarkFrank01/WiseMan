@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_message_mode.*
 
 /**
  * Created by anm on 2017/12/13.
+ * 消息提示页面
  */
 
 class MessageModeActivity : BaseActivity(), INullGetPostPresenter<MessageModeBean> {

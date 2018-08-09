@@ -14,6 +14,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by anm on 2017/7/6.
+ * 解除绑定弹窗
  */
 
 class RemoveBindingDialog : CommonDialog() {

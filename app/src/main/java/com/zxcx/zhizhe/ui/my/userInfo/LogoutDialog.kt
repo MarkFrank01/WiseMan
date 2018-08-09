@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.dialog_single.*
 
 /**
  * Created by anm on 2017/7/6.
+ * 退出登录弹窗
  */
 
 class LogoutDialog : CommonDialog() {

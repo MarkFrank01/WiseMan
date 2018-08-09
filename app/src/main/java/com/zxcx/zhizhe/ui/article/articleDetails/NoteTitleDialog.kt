@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by anm on 2017/7/21.
+ * 摘录笔记时编辑笔记标题弹窗
  */
 
 class NoteTitleDialog : CommonDialog(), INullPostPresenter {

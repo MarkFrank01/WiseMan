@@ -18,14 +18,16 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<ImageView
+			<com.zxcx.zhizhe.widget.CardImageView
 				android:id="@+id/iv_article_details"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:scaleType="centerCrop"
 				android:src="@drawable/default_card"
 				android:transitionName="@string/card_img_transition_name"
-				app:layout_constraintDimensionRatio="16:9"/>
+				app:hasShade="true"
+				app:layout_constraintDimensionRatio="16:9"
+				app:shade="@color/shade"/>
 			
 			<TextView
 				android:id="@+id/tv_article_details_title"

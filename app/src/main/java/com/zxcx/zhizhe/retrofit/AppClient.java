@@ -15,11 +15,9 @@ import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.TimeStampMD5andKL;
 import com.zxcx.zhizhe.utils.Utils;
-
 import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Date;
-
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.HttpUrl;
@@ -31,20 +29,23 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Retrofit及Okhttp配置
+ */
 
 public class AppClient {
-
+	
 	/**
 	 * 给所有请求加上token和timeStamp
 	 */
 	public static Interceptor interceptor = chain -> {
-
+		
 		long localTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.localTimeStamp, 0);
 		long serverTimeStamp = SharedPreferencesUtil.getLong(SVTSConstants.serverTimeStamp, 0);
 		String token = SharedPreferencesUtil.getString(SVTSConstants.token, "");
 		int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
 		String timeStamp = TimeStampMD5andKL.JiamiByMiYue(localTimeStamp, serverTimeStamp);
-
+		
 		Request request = chain.request();
 		if (!Utils.isNetworkReachable(App.getContext())) {
 			request = request.newBuilder()
@@ -52,7 +53,7 @@ public class AppClient {
 				.build();
 //                LogCat.i("no network");
 		}
-
+		
 		// 添加新的参数
 		HttpUrl.Builder urlBuilder = request.url()
 			.newBuilder();
@@ -63,40 +64,40 @@ public class AppClient {
 				.addQueryParameter("timeStamp", timeStamp)
 				.addQueryParameter("token", token);
 		}
-
+		
 		// 新的请求
 		Request newRequest = request.newBuilder()
 			.method(request.method(), request.body())
 			.url(urlBuilder.build())
 			.build();
-
+		
 		return chain.proceed(newRequest);
 	};
 	private static APIService sAPIService;
-
+	
 	public static APIService getAPIService() {
 		if (sAPIService == null) {
-
+			
 			//设置缓存 10M
 			File httpCacheDirectory = new File(FileUtil.getAvailableCacheDir(), "responses");
 			Cache cache = new Cache(httpCacheDirectory, 20 * 1024 * 1024);
-
+			
 			// Log信息拦截器
 			HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
 				new HttpLogger());
 			loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
+			
 			OkHttpClient okHttpClient = new OkHttpClient.Builder()
 				.addInterceptor(loggingInterceptor)
 				.addInterceptor(interceptor)
 				.addInterceptor(new ChuckInterceptor(App.getContext()))
 				.cache(cache)
 				.build();
-
+			
 			//Gson Date类型支持
 			// Creates the json object which will manage the information received
 			GsonBuilder builder = new GsonBuilder();
-
+			
 			// Register an adapter to manage the date types as long values
 			builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
 				public Date deserialize(JsonElement json, Type typeOfT,
@@ -105,9 +106,9 @@ public class AppClient {
 					return new Date(json.getAsJsonPrimitive().getAsLong());
 				}
 			});
-
+			
 			Gson gson = builder.create();
-
+			
 			Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(APIService.API_SERVER_URL)
 				.addConverterFactory(GsonConverterFactory.create(gson))
@@ -118,12 +119,12 @@ public class AppClient {
 		}
 		return sAPIService;
 	}
-
+	
 	private static class HttpLogger implements HttpLoggingInterceptor.Logger {
-
+		
 		private StringBuilder mHeaderMessage = new StringBuilder();
 		private StringBuilder mBodyMessage = new StringBuilder();
-
+		
 		@Override
 		public void log(String message) {
 			// 请求或者响应开始
@@ -148,5 +149,5 @@ public class AppClient {
 			}
 		}
 	}
-
+	
 }

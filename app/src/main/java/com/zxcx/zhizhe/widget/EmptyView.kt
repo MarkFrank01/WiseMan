@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.layout_no_data_and_card.view.*
 
 /**
  * Created by anm on 2017/12/15.
+ * 获取空白占位页
  */
 
 object EmptyView {

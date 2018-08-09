@@ -6,6 +6,10 @@ import android.view.View
 import com.youth.banner.Banner
 import com.zxcx.zhizhe.utils.ScreenUtils
 
+/**
+ * 广告轮播控件，固定宽高2:1
+ */
+
 class ADBanner(context: Context, attrs: AttributeSet) : Banner(context, attrs) {
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

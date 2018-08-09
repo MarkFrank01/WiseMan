@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.article
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class SubjectBean(
@@ -10,7 +10,7 @@ class SubjectBean(
 		@SerializedName("classifyTitle") var categoryName: String? = null,
 		@SerializedName("collectionTitle") @JvmField var labelName: String? = null,
 		@SerializedName("articleList") var cardList: List<CardBean>? = null
-) : RetrofitBaen() {
+) : RetrofitBean() {
 
 	fun getLabelName(): String {
 		return "#$labelName"

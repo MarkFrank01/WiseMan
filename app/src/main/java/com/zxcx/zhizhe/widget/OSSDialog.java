@@ -42,6 +42,7 @@ import com.zxcx.zhizhe.utils.StringUtils;
 
 /**
  * Created by anm on 2017/5/27.
+ * OSS图片上传弹窗封装
  */
 
 public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean> {

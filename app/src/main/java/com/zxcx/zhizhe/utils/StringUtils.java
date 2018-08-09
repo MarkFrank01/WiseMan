@@ -1,14 +1,7 @@
 package com.zxcx.zhizhe.utils;
 
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.widget.TextView;
-
 import com.zxcx.zhizhe.App;
-import com.zxcx.zhizhe.R;
 
 /**
  * Created by anm on 2017/6/12.

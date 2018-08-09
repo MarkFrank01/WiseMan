@@ -15,6 +15,7 @@ import java.text.DecimalFormat
 
 /**
  * Created by anm on 2018/2/26.
+ * Kotlin拓展函数工具
  */
 fun <T> Context?.startActivity(clazz: Class<T>, action: (intent: Intent) -> Unit) {
 	if (this == null) {

@@ -36,6 +36,7 @@ import java.util.List;
 
 /**
  * Created by anm on 2017/5/27.
+ * 选择相机/相册弹窗
  */
 
 public class GetPicBottomDialog extends BaseDialog {

@@ -26,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by anm on 2017/12/14.
+ * 我的-笔记页面
  */
 class NoteActivity : MvpActivity<NotePresenter>(), NoteContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener {

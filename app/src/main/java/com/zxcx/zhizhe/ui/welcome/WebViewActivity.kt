@@ -12,6 +12,10 @@ import com.zxcx.zhizhe.utils.WebViewUtils
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
+/**
+ * 通用网页加载页面
+ */
+
 class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 
 	internal var mWebView: WebView? = null

@@ -26,6 +26,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 首页
+ */
+
 class MainActivity : BaseActivity() {
 
 	private var mCurrentFragment = Fragment()
@@ -63,8 +67,8 @@ class MainActivity : BaseActivity() {
 	}
 
 	override fun onDestroy() {
-		super.onDestroy()
 		EventBus.getDefault().unregister(this)
+		super.onDestroy()
 	}
 
 	override fun setListener() {

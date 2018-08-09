@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by anm on 2017/12/13.
+ * 修改头像页面
  */
 
 class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogListener, IPostPresenter<UserInfoBean>, OSSDialog.OSSUploadListener, OSSDialog.OSSDeleteListener {

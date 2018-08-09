@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.SelectAttentionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
@@ -16,7 +15,10 @@ import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionContract
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionPresenter
 import kotlinx.android.synthetic.main.activity_select_label.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
+
+/**
+ * 创作-选择标签页面
+ */
 
 class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAttentionContract.View {
 
@@ -83,13 +85,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 	}
 
 	override fun postSuccess() {
-		EventBus.getDefault().post(SelectAttentionEvent())
-		toastShow(R.string.user_info_change)
-		finish()
 	}
 
 	override fun postFail(msg: String) {
-		toastShow(msg)
 	}
 
 	private fun initView() {

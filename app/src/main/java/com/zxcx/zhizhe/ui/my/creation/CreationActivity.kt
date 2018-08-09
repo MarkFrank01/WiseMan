@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_creation.*
 
 /**
  * Created by anm on 2017/12/14.
+ * 我的-作品页面
  */
 class CreationActivity : BaseActivity() {
 	private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")

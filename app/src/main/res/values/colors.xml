@@ -28,5 +28,8 @@
     <color name="text_color_2">#666666</color>
     <color name="text_color_3">#999999</color>
     <color name="text_color_d2">#D2D2D2</color>
+	<color name="text_color_hint">#EEEEEE</color>
     <color name="text_color_ee">#EEEEEE</color>
+	<color name="shade">#00000000</color>
+	<color name="bg_card_details">#E5FFFFFF</color>
 </resources>

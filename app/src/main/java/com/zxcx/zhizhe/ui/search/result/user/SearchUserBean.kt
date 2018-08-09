@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.user
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 
 class SearchUserBean(
 		@SerializedName("avatar") var imageUrl: String?, //string
@@ -15,7 +15,7 @@ class SearchUserBean(
 		@SerializedName("name") var name: String?,
 		@SerializedName("follow") var isFollow: Boolean = false
 
-) : RetrofitBaen() {
+) : RetrofitBean() {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false

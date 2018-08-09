@@ -2,7 +2,11 @@ package com.zxcx.zhizhe.retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
-public class BaseBean<T> extends RetrofitBaen {
+/**
+ * 普通数据封装
+ */
+
+public class BaseBean<T> extends RetrofitBean {
 	
 	@SerializedName("data")
 	private T data;

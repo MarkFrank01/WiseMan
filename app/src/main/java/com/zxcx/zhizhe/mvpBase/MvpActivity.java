@@ -2,6 +2,9 @@ package com.zxcx.zhizhe.mvpBase;
 
 import android.os.Bundle;
 
+/**
+ * MVP封装的Activity
+ */
 
 public abstract class MvpActivity<P extends BasePresenter> extends BaseActivity {
 	

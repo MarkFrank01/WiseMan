@@ -8,12 +8,14 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.TextView
-import com.zxcx.zhizhe.App
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import java.lang.ref.WeakReference
 
+/**
+ * 卡片，长文列表TabLayout
+ */
 
 class CardListTabLayout : TabLayout {
 
@@ -24,9 +26,9 @@ class CardListTabLayout : TabLayout {
 	private val DEFAULT_SELECT_TEXT_SIZE_SP = ScreenUtils.dip2px(22f)
 	private var mSelectTextSize = DEFAULT_SELECT_TEXT_SIZE_SP
 	//字体颜色
-	private val DEFAULT_NORMAL_TEXT_COLOR = App.getContext().getColorForKotlin(R.color.text_color_3)
+	private val DEFAULT_NORMAL_TEXT_COLOR = context.getColorForKotlin(R.color.text_color_3)
 	private var mNormalTextColor = DEFAULT_NORMAL_TEXT_COLOR
-	private val DEFAULT_SELECT_TEXT_COLOR = App.getContext().getColorForKotlin(R.color.text_color_1)
+	private val DEFAULT_SELECT_TEXT_COLOR = context.getColorForKotlin(R.color.text_color_1)
 	private var mSelectTextColor = DEFAULT_SELECT_TEXT_COLOR
 	//利用估值器实现渐变
 	private val argbEvaluator = ArgbEvaluator()

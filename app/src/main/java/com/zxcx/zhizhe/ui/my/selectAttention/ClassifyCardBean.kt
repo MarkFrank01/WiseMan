@@ -2,14 +2,14 @@ package com.zxcx.zhizhe.ui.my.selectAttention
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import java.io.Serializable
 
 /**
  * Created by anm on 2017/8/30.
  */
 
-class ClassifyCardBean : RetrofitBaen(), MultiItemEntity, Serializable {
+class ClassifyCardBean : RetrofitBean(), MultiItemEntity, Serializable {
 
 	@SerializedName("interested")
 	var isChecked: Boolean = false

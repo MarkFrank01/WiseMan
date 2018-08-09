@@ -37,6 +37,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
+/**
+ * 首页-卡片-关注Fragment
+ */
+
 class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), AttentionCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
@@ -92,6 +96,7 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 	fun onMessageEvent(event: HomeClickRefreshEvent) {
 		if (!mHidden) {
 			rv_attention_card.scrollToPosition(0)
+			onRefresh()
 		}
 	}
 

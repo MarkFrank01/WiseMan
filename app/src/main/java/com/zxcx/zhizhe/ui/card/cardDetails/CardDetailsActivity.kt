@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.card.cardDetails
 import android.Manifest
 import android.app.Activity
 import android.app.SharedElementCallback
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
@@ -42,6 +41,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import top.zibin.luban.Luban
 import java.io.File
+
+/**
+ * 卡片详情列表页面
+ */
 
 class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
@@ -175,7 +178,9 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
 	private fun refreshBackground(imageUrl: String?) {
 		val multi = MultiTransformation(
-				ColorFilterTransformation(Color.argb(229, 255, 255, 255)))
+				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
+		/*val multi = MultiTransformation(
+				ColorFilterTransformation(Color.argb(229, 255, 255, 255)))*/
 		GlideApp
 				.with(mActivity)
 				.load(imageUrl)

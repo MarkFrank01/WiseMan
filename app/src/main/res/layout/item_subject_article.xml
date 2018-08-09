@@ -6,14 +6,16 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 	
-	<ImageView
+	<com.zxcx.zhizhe.widget.CardImageView
 		android:id="@+id/iv_item_subject_article"
 		android:layout_width="110dp"
 		android:layout_height="0dp"
 		android:layout_marginTop="20dp"
 		android:scaleType="centerCrop"
+		app:hasShade="true"
 		app:layout_constraintDimensionRatio="4:3"
 		app:layout_constraintTop_toTopOf="parent"
+		app:shade="@color/shade"
 		tools:src="@drawable/default_card"/>
 	
 	<TextView

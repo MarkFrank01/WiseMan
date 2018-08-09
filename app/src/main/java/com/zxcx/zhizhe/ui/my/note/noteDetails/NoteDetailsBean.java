@@ -1,11 +1,10 @@
 package com.zxcx.zhizhe.ui.my.note.noteDetails;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
-
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 import java.util.Date;
 
-public class NoteDetailsBean extends RetrofitBaen {
+public class NoteDetailsBean extends RetrofitBean {
 	
 	@SerializedName("id")
 	private int id;

@@ -9,12 +9,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zxcx.zhizhe.R;
 import java.io.File;
 
-public class ImageLoader {
+/**
+ * 图片加载封装
+ */
 
+public class ImageLoader {
+	
 	public static void load(Activity activity, String url, ImageView imageView) {
 		load(activity, url, R.color.background, imageView);
 	}
-
+	
 	public static void load(Context context, String url, int defaultImage, ImageView imageView) {
 		if (TextUtils.isEmpty(url)) {
 			imageView.setImageResource(defaultImage);
@@ -27,7 +31,7 @@ public class ImageLoader {
 				.into(imageView);
 		}
 	}
-
+	
 	public static void load(Context context, int resInt, int defaultImage, ImageView imageView) {
 		GlideApp
 			.with(context)
@@ -43,12 +47,12 @@ public class ImageLoader {
 			.load(resInt)
 			.into(imageView);
 	}
-
+	
 	public static void load(Activity activity, String url, int defaultImage, ImageView imageView) {
 		if (TextUtils.isEmpty(url)) {
 			imageView.setImageResource(defaultImage);
 		} else {
-
+			
 			GlideApp
 				.with(activity)
 				.load(url)
@@ -57,7 +61,7 @@ public class ImageLoader {
 				.into(imageView);
 		}
 	}
-
+	
 	public static void load(Activity activity, Uri uri, int defaultImage, ImageView imageView) {
 		GlideApp
 			.with(activity)
@@ -66,7 +70,7 @@ public class ImageLoader {
 			.error(defaultImage)
 			.into(imageView);
 	}
-
+	
 	public static void load(Activity activity, File file, int defaultImage, ImageView imageView) {
 		GlideApp
 			.with(activity)
@@ -75,7 +79,7 @@ public class ImageLoader {
 			.error(defaultImage)
 			.into(imageView);
 	}
-
+	
 	public static void load(Context context, File file, int defaultImage, ImageView imageView) {
 		GlideApp
 			.with(context)
@@ -84,7 +88,7 @@ public class ImageLoader {
 			.error(defaultImage)
 			.into(imageView);
 	}
-
+	
 	public static void loadWithClear(Activity activity, Uri uri, int defaultImage,
 		ImageView imageView) {
 		GlideApp
@@ -96,7 +100,7 @@ public class ImageLoader {
 			.skipMemoryCache(true)
 			.into(imageView);
 	}
-
+	
 	public static void loadWithClear(Activity activity, String url, int defaultImage,
 		ImageView imageView) {
 		GlideApp
@@ -108,7 +112,7 @@ public class ImageLoader {
 			.skipMemoryCache(true)
 			.into(imageView);
 	}
-
+	
 	public static void loadWithClear(Activity activity, File file, int defaultImage,
 		ImageView imageView) {
 		GlideApp

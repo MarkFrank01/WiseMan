@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.R;
 
 /**
  * Created by anm on 2017/6/20.
+ * 屏幕尺寸工具
  */
 
 public class ScreenUtils {

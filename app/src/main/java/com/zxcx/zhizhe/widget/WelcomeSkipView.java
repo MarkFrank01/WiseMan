@@ -13,12 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.animation.LinearInterpolator;
-
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**
  * Created by anm on 2017/11/6.
+ * 启动广告右上角跳过控件
  */
 
 public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView {

@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
  * Created by anm on 2017/12/1.
+ * 不可删除作品Adapter
  */
 class CreationAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_other_user_creation, data) {
 

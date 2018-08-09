@@ -8,8 +8,12 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.BuildConfig;
 
-public class LogCat {
+/**
+ * 日志输出
+ */
 
+public class LogCat {
+	
 	/**
 	 * 初始化log工具，在app入口处调用
 	 */
@@ -22,7 +26,7 @@ public class LogCat {
 			.tag(App.getContext()
 				.getPackageName())   // (Optional) Global tag for every log. Default PRETTY_LOGGER
 			.build();
-
+		
 		Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
 			@Override
 			public boolean isLoggable(int priority, String tag) {
@@ -30,51 +34,51 @@ public class LogCat {
 			}
 		});
 	}
-
+	
 	public static void v(String msg) {
 		Logger.v(msg);
 	}
-
+	
 	public static void v(String msg, Throwable tr) {
 		Logger.v(msg, tr);
 	}
-
+	
 	public static void d(String msg) {
 		Logger.d(msg);
 	}
-
+	
 	public static void d(String msg, Throwable tr) {
 		Logger.d(msg, tr);
 	}
-
+	
 	public static void i(String msg) {
 		Logger.i(msg);
 	}
-
+	
 	public static void i(String msg, Throwable tr) {
 		Logger.i(msg, tr);
 	}
-
+	
 	public static void w(String msg) {
 		Logger.w(msg);
 	}
-
+	
 	public static void w(String msg, Throwable tr) {
 		Logger.w(msg, tr);
 	}
-
+	
 	public static void e(String msg) {
 		Logger.e(msg);
 	}
-
+	
 	public static void e(String msg, Throwable tr) {
 		Logger.e(msg, tr);
 	}
-
+	
 	public static void json(String msg) {
 		Logger.json(msg);
 	}
-
+	
 	public static void xml(String msg) {
 		Logger.xml(msg);
 	}

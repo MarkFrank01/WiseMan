@@ -23,16 +23,20 @@ import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.WelcomeSkipView;
 import java.util.List;
 
+/**
+ * 启动广告页
+ */
+
 public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<ADBean>>,
 	WelcomeSkipView.onFinishListener {
-
+	
 	@BindView(R.id.iv_welcome_ad)
 	ImageView mIvWelcomeAd;
 	@BindView(R.id.wsv_welcome_skip)
 	WelcomeSkipView mWsvWelcomeSkip;
 	private Handler mHandler = new Handler();
 	private int mCount = 3;
-
+	
 	Runnable mRunnable = new Runnable() {
 		@Override
 		public void run() {
@@ -44,15 +48,15 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 			}
 		}
 	};
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_welcome);
 		ButterKnife.bind(this);
-
+		
 		mWsvWelcomeSkip.setListener(this);
-
+		
 		getImage();
 		String adImageUrl = SharedPreferencesUtil.getString(SVTSConstants.adImageUrl, "");
 		if (!StringUtils.isEmpty(adImageUrl)) {
@@ -62,7 +66,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 			mHandler.post(mRunnable);
 		}
 	}
-
+	
 	@Override
 	public void initStatusBar() {
 		//覆盖父类修改状态栏方法
@@ -79,11 +83,11 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 		mHandler = null;
 		super.onDestroy();
 	}
-
+	
 	private void getImage() {
 		getAD("100");
 	}
-
+	
 	/**
 	 * 判断是否是第一次启动App
 	 *
@@ -92,7 +96,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 	private boolean isFirstLaunchApp() {
 		return Utils.getIsFirstLaunchApp();
 	}
-
+	
 	@OnClick(R.id.iv_welcome_ad)
 	public void onMIvWelcomeAdClicked() {
 		String adImageUrl = SharedPreferencesUtil.getString(SVTSConstants.adImageUrl, "");
@@ -109,14 +113,14 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 			finish();
 		}
 	}
-
+	
 	@OnClick(R.id.wsv_welcome_skip)
 	public void onMTvWelcomeSkipClicked() {
 		//提前结束动画
 		mWsvWelcomeSkip.stop();
 		gotoMainActivity();
 	}
-
+	
 	private void gotoMainActivity() {
 		if (isFirstLaunchApp()) {
 			Intent intent = new Intent(this, GuidePageActivity.class);
@@ -132,7 +136,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 		mHandler.removeCallbacks(mRunnable);
 		finish();
 	}
-
+	
 	public void getAD(String adNum) {
 		mDisposable = AppClient.getAPIService().getAD(adNum)
 			.compose(BaseRxJava.INSTANCE.io_main())
@@ -144,7 +148,7 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 				}
 			});
 	}
-
+	
 	@Override
 	public void getDataSuccess(List<ADBean> list) {
 		if (list.size() > 0) {
@@ -161,12 +165,12 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 			SharedPreferencesUtil.saveData(SVTSConstants.adTitle, "");
 		}
 	}
-
+	
 	@Override
 	public void getDataFail(String msg) {
 		toastShow(msg);
 	}
-
+	
 	@Override
 	public void onAnimationFinish() {
 		gotoMainActivity();

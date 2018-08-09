@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.dialog_note_title.*
 
 /**
  * Created by anm on 2017/7/21.
+ * 新增自定义标签弹窗
  */
 
 class NewLabelDialog : CommonDialog() {

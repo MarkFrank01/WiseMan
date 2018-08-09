@@ -19,6 +19,10 @@ import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
 import kotlinx.android.synthetic.main.fragment_comment.*
 
+/**
+ * 评论页面
+ */
+
 class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
 		BaseQuickAdapter.OnItemChildClickListener {

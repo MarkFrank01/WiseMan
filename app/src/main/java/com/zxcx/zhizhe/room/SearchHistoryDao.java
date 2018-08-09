@@ -5,13 +5,12 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-
-import java.util.List;
-
 import io.reactivex.Flowable;
+import java.util.List;
 
 /**
  * Created by anm on 2017/11/30.
+ * 操作搜索历史接口
  */
 
 @Dao

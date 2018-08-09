@@ -37,6 +37,7 @@ import java.util.HashMap;
 
 /**
  * Created by anm on 2017/5/27.
+ * 卡片分享弹窗
  */
 
 public class ShareCardDialog extends BaseDialog {

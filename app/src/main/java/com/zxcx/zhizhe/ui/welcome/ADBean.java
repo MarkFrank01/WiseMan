@@ -3,13 +3,13 @@ package com.zxcx.zhizhe.ui.welcome;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
 /**
  * Created by anm on 2017/9/25.
  */
 
-public class ADBean extends RetrofitBaen implements Parcelable {
+public class ADBean extends RetrofitBean implements Parcelable {
 	
 	public static final Creator<ADBean> CREATOR = new Creator<ADBean>() {
 		@Override

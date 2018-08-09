@@ -14,6 +14,10 @@ import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionAdapter
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 选择关注占位页
+ */
+
 class SelectAttentionCallback(private val mList: List<ClassifyBean>) : Callback(), BaseQuickAdapter.OnItemChildClickListener {
 	private lateinit var mAdapter: SelectAttentionAdapter
 	private val mCheckedList = ArrayList<ClassifyCardBean>()

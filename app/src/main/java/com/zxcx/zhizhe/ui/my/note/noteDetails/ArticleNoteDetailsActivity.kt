@@ -21,6 +21,10 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_article_note_details.*
 
+/**
+ * 文章摘录笔记详情页面
+ */
+
 class ArticleNoteDetailsActivity : MvpActivity<NoteDetailsPresenter>(), NoteDetailsContract.View {
 
 	private var mWebView: WebView? = null

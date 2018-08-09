@@ -2,11 +2,11 @@ package com.zxcx.zhizhe.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-
 import com.google.android.flexbox.FlexboxLayout;
 
 /**
  * Created by anm on 2017/11/20.
+ * 两行标签控件
  */
 
 public class TwoLineFlexboxLayout extends FlexboxLayout {

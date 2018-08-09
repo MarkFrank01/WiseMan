@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.dialog_single.*
 
 /**
  * Created by anm on 2017/7/21.
+ * 长文切换至卡片弹窗
  */
 
 class ChangeToCardDialog : CommonDialog() {

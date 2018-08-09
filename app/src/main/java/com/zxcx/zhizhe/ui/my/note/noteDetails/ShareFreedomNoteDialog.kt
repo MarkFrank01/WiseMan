@@ -31,6 +31,10 @@ import top.zibin.luban.Luban
 import java.io.File
 import java.util.*
 
+/**
+ * 分享自由笔记弹窗
+ */
+
 class ShareFreedomNoteDialog : BaseDialog() {
 
 	private var mWebView: WebView? = null

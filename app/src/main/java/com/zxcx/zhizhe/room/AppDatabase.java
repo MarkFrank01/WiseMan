@@ -3,11 +3,11 @@ package com.zxcx.zhizhe.room;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-
 import com.zxcx.zhizhe.App;
 
 /**
  * Created by anm on 2017/11/30.
+ * Room全局对象
  */
 
 @Database(entities = {SearchHistory.class}, version = 1)

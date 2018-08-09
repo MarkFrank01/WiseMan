@@ -8,7 +8,6 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.TextViewUtils
 import com.zxcx.zhizhe.utils.ZhiZheUtils
-import com.zxcx.zhizhe.utils.getFormatNumber
 
 /**
  * Created by anm on 2017/12/1.
@@ -31,7 +30,7 @@ class RankAdapter(data: List<UserRankBean>) : BaseQuickAdapter<UserRankBean, Bas
 		helper.setText(R.id.tv_item_rank_user_fans, item.fansNum.toString())
 		helper.setText(R.id.tv_item_rank_user_like, item.likeNum.toString())
 		helper.setText(R.id.tv_item_rank_user_collect, item.collectNum.toString())
-		helper.setText(R.id.tv_item_rank_user_level, item.intelligence.getFormatNumber())
+		helper.setText(R.id.tv_item_rank_user_level, mContext.getString(R.string.tv_level, item.level))
 		helper.setText(R.id.tv_item_rank_user_rank, item.rankIndex.toString())
 	}
 

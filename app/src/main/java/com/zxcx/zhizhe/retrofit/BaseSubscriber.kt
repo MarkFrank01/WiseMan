@@ -10,6 +10,7 @@ import io.reactivex.subscribers.DisposableSubscriber
 
 /**
  * Created by anm on 2017/7/24.
+ * Get功能错误预处理
  */
 
 abstract class BaseSubscriber<T>(private val mPresenter: IGetPresenter<*>?) : DisposableSubscriber<T>() {

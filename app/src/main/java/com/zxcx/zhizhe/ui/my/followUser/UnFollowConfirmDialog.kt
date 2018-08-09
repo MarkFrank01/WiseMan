@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by anm on 2017/7/21.
+ * 取消关注弹窗
  */
 
 class UnFollowConfirmDialog : CommonDialog() {

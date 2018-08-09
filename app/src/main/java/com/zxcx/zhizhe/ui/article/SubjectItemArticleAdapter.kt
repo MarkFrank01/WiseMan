@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
  * Created by anm on 2017/6/26.
+ * 长文与专题列表混杂时，专题内长文Adapter
  */
 
 class SubjectItemArticleAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_subject_article, data) {

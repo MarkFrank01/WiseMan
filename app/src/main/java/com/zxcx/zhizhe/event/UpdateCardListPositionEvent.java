@@ -1,5 +1,9 @@
 package com.zxcx.zhizhe.event;
 
+/**
+ * 卡片详情页通知外部列表当前位置更新事件
+ */
+
 public class UpdateCardListPositionEvent {
 	
 	private int currentPosition;

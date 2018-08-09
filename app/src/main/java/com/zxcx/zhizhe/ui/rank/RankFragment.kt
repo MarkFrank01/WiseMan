@@ -26,6 +26,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 首页-榜单页面
+ */
+
 class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener, Callback.OnReloadListener {
 
 	private var mAdList: MutableList<ADBean> = mutableListOf()
@@ -90,7 +94,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		tv_item_rank_user_like.text = bean.likeNum.toString()
 		tv_item_rank_user_collect.text = bean.collectNum.toString()
 		tv_item_rank_user_rank.text = bean.rankIndex.toString()
-		tv_item_rank_user_level.text = bean.intelligence.getFormatNumber()
+		tv_item_rank_user_level.text = getString(R.string.tv_level, bean.level)
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_header, iv_item_rank_user)
 

@@ -17,9 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-
 import com.zxcx.zhizhe.App;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,41 +27,45 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class FileUtil {
+/**
+ * 文件创建保存工具
+ */
 
+public class FileUtil {
+	
 	/**
 	 * 缓存路径，没有设为常量，在应用初始化的时候，根据具体应用做相应的目录变更
 	 */
 	public static String PATH_CACHE = Environment.getExternalStorageDirectory()
 		.getPath() + "/%s/cache/";
-
+	
 	/**
 	 * 下载路径，没有设为常量，在应用初始化的时候，根据具体应用做相应的目录变更
 	 */
 	public static String PATH_DOWNLOAD = Environment
 		.getExternalStorageDirectory().getPath() + "/%s/DOWNLOAD/";
-
+	
 	public static String SDCard_PATH_BASE =
 		Environment.getExternalStorageDirectory().getPath() + "/";
-
+	
 	public static String PATH_BASE = Environment.getExternalStorageDirectory()
 		.getPath() + "/智者/";
 	/**
 	 * 拍照路径
 	 */
-
+	
 	public static String PATH_PHOTOGRAPH = PATH_BASE + "Photograph/";
 	/**
 	 * 相册路径
 	 */
 	public static String PATH_ALBUM = PATH_BASE + "/Album/";
 	public static String PATH_RECORD = PATH_BASE + "/Record/";
-
+	
 	private static boolean isExternalStorageWritable() {
 		String state = Environment.getExternalStorageState();
 		return Environment.MEDIA_MOUNTED.equals(state);
 	}
-
+	
 	public static File getAvailableCacheDir() {
 		if (isExternalStorageWritable()) {
 			return App.getContext().getExternalCacheDir();
@@ -71,7 +73,7 @@ public class FileUtil {
 			return App.getContext().getCacheDir();
 		}
 	}
-
+	
 	/**
 	 * 路径初始化
 	 */
@@ -79,7 +81,7 @@ public class FileUtil {
 		PATH_CACHE = String.format(PATH_CACHE, path);
 		PATH_DOWNLOAD = String.format(PATH_DOWNLOAD, path);
 	}
-
+	
 	/**
 	 * 由指定的路径和文件名创建文件
 	 */
@@ -94,7 +96,7 @@ public class FileUtil {
 		}
 		return file;
 	}
-
+	
 	/**
 	 * 根据指定的路径创建文件
 	 */
@@ -104,7 +106,7 @@ public class FileUtil {
 		String name = filepath.substring(last_seperate);
 		return createFile(path, name);
 	}
-
+	
 	/**
 	 * 获取随机图片名
 	 */
@@ -115,7 +117,7 @@ public class FileUtil {
 		String strDate = sdf.format(cruDate);
 		return strDate + ".png";
 	}
-
+	
 	/**
 	 * 获取随机图片名
 	 */
@@ -127,7 +129,7 @@ public class FileUtil {
 		String strDate = sdf.format(cruDate);
 		return strDate + ".png";
 	}
-
+	
 	/**
 	 * 图片基础路径
 	 */
@@ -142,9 +144,9 @@ public class FileUtil {
 		} else {
 			return null;
 		}
-
+		
 	}
-
+	
 	public static String saveFile(Intent data, String filePath) {
 		Bundle extras = data.getExtras();
 		if (extras != null) {
@@ -156,12 +158,12 @@ public class FileUtil {
 					bitmap.recycle();
 				}
 			} else {
-
+			
 			}
 		}
 		return SDCard_PATH_BASE + filePath + getRandomImageName();
 	}
-
+	
 	/**
 	 * 转换图片成圆形
 	 *
@@ -196,28 +198,28 @@ public class FileUtil {
 			dst_right = height;
 			dst_bottom = height;
 		}
-
+		
 		Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
-
+		
 		final int color = 0xff424242;
 		final Paint paint = new Paint();
 		final Rect src = new Rect((int) left, (int) top, (int) right, (int) bottom);
 		final Rect dst = new Rect((int) dst_left, (int) dst_top, (int) dst_right, (int) dst_bottom);
 		final RectF rectF = new RectF(dst);
-
+		
 		paint.setAntiAlias(true);
-
+		
 		canvas.drawARGB(0, 0, 0, 0);
 		paint.setColor(color);
 		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
+		
 		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(bitmap, src, dst, paint);
 		return output;
 	}
-
-
+	
+	
 	/**
 	 * 删除指定文件
 	 */
@@ -228,7 +230,7 @@ public class FileUtil {
 		File file = new File(path + name);
 		file.delete();
 	}
-
+	
 	/**
 	 * 删除指定文件
 	 */
@@ -239,7 +241,7 @@ public class FileUtil {
 		File file = new File(path);
 		file.delete();
 	}
-
+	
 	/**
 	 * 判断文件是否存在
 	 */
@@ -250,7 +252,7 @@ public class FileUtil {
 		}
 		return false;
 	}
-
+	
 	/**
 	 * 判断文件是否存在
 	 */
@@ -261,8 +263,8 @@ public class FileUtil {
 		}
 		return false;
 	}
-
-
+	
+	
 	/**
 	 * SD卡是否可用（挂载）
 	 */
@@ -281,7 +283,7 @@ public class FileUtil {
 		}
 		return false;
 	}
-
+	
 	@SuppressLint("NewApi")
 	public static long calculateFilePathSize(String filePath) {
 		File file = new File(filePath);
@@ -291,7 +293,7 @@ public class FileUtil {
 		}
 		return file.getTotalSpace();
 	}
-
+	
 	/**
 	 * 删除路径
 	 */
@@ -315,15 +317,15 @@ public class FileUtil {
 			}
 		}
 	}
-
-
+	
+	
 	/**
 	 * Check the SD card
 	 */
 	public static boolean checkSDCardAvailable() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
-
+	
 	/**
 	 * Save image to the SD card
 	 */
@@ -333,7 +335,7 @@ public class FileUtil {
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-
+			
 			File photoFile = new File(path, photoName);
 			FileOutputStream fileOutputStream = null;
 			try {
@@ -354,14 +356,14 @@ public class FileUtil {
 			} finally {
 				try {
 					fileOutputStream.close();
-
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 	}
-
+	
 	/**
 	 * 根据Uri返回文件绝对路径 兼容了file:///开头的 和 content://开头的情况
 	 */

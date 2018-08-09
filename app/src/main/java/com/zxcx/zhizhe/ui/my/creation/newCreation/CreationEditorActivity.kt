@@ -32,6 +32,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 创作-编辑器页面
+ */
+
 class CreationEditorActivity : BaseActivity(),
 		OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
 

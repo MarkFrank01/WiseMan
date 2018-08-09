@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
  * Created by anm on 2017/6/26.
+ * 通用卡片Adapter
  */
 
 class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_card, data) {

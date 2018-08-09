@@ -14,18 +14,20 @@
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press">
 	
-	<ImageView
+	<com.zxcx.zhizhe.widget.CardImageView
 		android:id="@+id/iv_item_search_card_icon"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:scaleType="centerCrop"
 		android:transitionName="cardImage"
+		app:hasShade="true"
 		app:layout_constraintDimensionRatio="16:9"
+		app:shade="@color/shade"
 		tools:src="@drawable/iv_item_home_card_icon"/>
 	
 	<TextView
 		android:id="@+id/tv_item_search_card_title"
-		style="@style/tv_card"
+		style="@style/tv_article"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="20dp"

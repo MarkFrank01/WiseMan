@@ -21,6 +21,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
+/**
+ * 用户第三方账号绑定页面
+ */
 
 class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContract.View {
 

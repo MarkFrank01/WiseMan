@@ -22,6 +22,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 其他用户主页页面
+ */
+
 class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.View,
 		BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
@@ -74,7 +78,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 		ImageLoader.load(mActivity, bean?.imageUrl, R.drawable.default_header, iv_other_user_head)
 		tv_other_user_nick_name.text = bean?.name
 		tv_other_user_signature.text = bean?.signature
-		tv_other_user_lv.text = bean?.intelligence?.getFormatNumber()
+		tv_other_user_lv.text = getString(R.string.tv_level, bean?.level ?: 1)
 		bean?.isFollow?.let { cb_other_user_follow.isChecked = it }
 	}
 

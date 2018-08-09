@@ -2,14 +2,14 @@ package com.zxcx.zhizhe.ui.article;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 
 /**
  * Created by anm on 2017/12/4.
  */
 
-public class ArticleAndSubjectBean extends RetrofitBaen implements MultiItemEntity {
+public class ArticleAndSubjectBean extends RetrofitBean implements MultiItemEntity {
 	
 	public static final int TYPE_ARTICLE = 1;
 	public static final int TYPE_SUBJECT = 2;

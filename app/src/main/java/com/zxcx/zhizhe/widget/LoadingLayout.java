@@ -8,6 +8,10 @@ import android.widget.LinearLayout;
 import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
+/**
+ * 自动适应屏幕剩下高度
+ */
+
 public class LoadingLayout extends LinearLayout {
 	
 	int[] position = new int[2];

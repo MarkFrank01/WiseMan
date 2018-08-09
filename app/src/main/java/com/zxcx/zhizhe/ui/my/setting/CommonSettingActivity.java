@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.utils.DataCleanManager;
 
 /**
  * Created by anm on 2017/6/26.
+ * 设置页面
  */
 
 public class CommonSettingActivity extends BaseActivity {

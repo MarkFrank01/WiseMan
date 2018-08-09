@@ -9,6 +9,9 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.window_sort.view.*
 
+/**
+ * 右上角更多-选择排序方式弹窗
+ */
 
 class SortWindow(val context: Context) : PopupWindow(context) {
 

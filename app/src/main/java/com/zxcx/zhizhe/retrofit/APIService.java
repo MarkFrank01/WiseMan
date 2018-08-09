@@ -9,7 +9,6 @@ import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
-import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
@@ -30,6 +29,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+
+/**
+ * 所有网络请求的接口
+ */
 
 public interface APIService {
 	
@@ -559,10 +562,4 @@ public interface APIService {
 		@Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
 		@Query("styleType") Integer styleType, @Query("submitType") Integer submitType,
 		@Field("content") String content);
-	
-	/**
-	 * 获取智力值详情
-	 */
-	@POST("/user/getIntelligenceValueData")
-	Flowable<BaseBean<IntelligenceValueBean>> getIntelligenceValue();
 }

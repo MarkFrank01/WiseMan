@@ -15,6 +15,10 @@ import top.zibin.luban.Luban
 import top.zibin.luban.OnCompressListener
 import java.io.File
 
+/**
+ * 头像裁剪页面
+ */
+
 class ImageCropActivity : BaseActivity(), CropImageView.OnBitmapSaveCompleteListener {
 
 	private var mBitmap: Bitmap? = null

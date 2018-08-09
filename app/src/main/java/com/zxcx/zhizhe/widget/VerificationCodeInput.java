@@ -3,8 +3,8 @@ package com.zxcx.zhizhe.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -18,15 +18,14 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.utils.ScreenUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by anm on 2018/3/13.
+ * 验证码输入框
  */
 
 public class VerificationCodeInput extends LinearLayout implements TextWatcher, View.OnKeyListener,
@@ -99,7 +98,7 @@ public class VerificationCodeInput extends LinearLayout implements TextWatcher, 
 			} else {
 				setBg(editText, false);
 			}
-			editText.setTextColor(Color.BLACK);
+			editText.setTextColor(ContextCompat.getColor(getContext(), R.color.text_color_1));
 			editText.setLayoutParams(layoutParams);
 			editText.setGravity(Gravity.CENTER);
 			editText.setInputType(EditorInfo.TYPE_CLASS_PHONE);

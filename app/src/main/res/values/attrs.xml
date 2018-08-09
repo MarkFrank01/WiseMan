@@ -2,52 +2,50 @@
 <resources>
     <!--取景框-->
     <declare-styleable name="ClipImageView">
-        <attr name="civHeight" format="integer" />
-        <attr name="civWidth" format="integer" />
-        <attr name="civTipText" format="string" />
-        <attr name="civTipTextSize" format="dimension" />
-        <attr name="civMaskColor" format="color" />
-        <attr name="civClipPadding" format="dimension" />
-        <attr name="civClipRoundCorner" format="dimension|reference" />
-        <attr name="civClipCircle" format="boolean" />
+        <attr format="integer" name="civHeight"/>
+        <attr format="integer" name="civWidth"/>
+        <attr format="string" name="civTipText"/>
+        <attr format="dimension" name="civTipTextSize"/>
+        <attr format="color" name="civMaskColor"/>
+        <attr format="dimension" name="civClipPadding"/>
+        <attr format="dimension|reference" name="civClipRoundCorner"/>
+        <attr format="boolean" name="civClipCircle"/>
     </declare-styleable>
 
     <declare-styleable name="VerificationCodeInput">
-        <attr name="box" format="integer" />
-        <attr name="child_h_padding" format="dimension"/>
-        <attr name="child_v_padding" format="dimension"/>
-        <attr name="child_width" format="dimension"/>
-        <attr name="child_height" format="dimension"/>
-        <attr name="padding" format="dimension"/>
-        <attr name="box_bg_focus" format="reference"/>
-        <attr name="box_bg_normal" format="reference"/>
-        <attr name="inputType" format="string"/>
+        <attr format="integer" name="box"/>
+        <attr format="dimension" name="child_h_padding"/>
+        <attr format="dimension" name="child_v_padding"/>
+        <attr format="dimension" name="child_width"/>
+        <attr format="dimension" name="child_height"/>
+        <attr format="dimension" name="padding"/>
+        <attr format="reference" name="box_bg_focus"/>
+        <attr format="reference" name="box_bg_normal"/>
+        <attr format="string" name="inputType"/>
     </declare-styleable>
 
     <declare-styleable name="CardImageView">
-        <attr name="widthWeight" format="integer" />
-        <attr name="heightWeight" format="integer" />
-        <attr name="hasShade" format="boolean" />
-        <attr name="radius" format="dimension" />
+        <attr format="boolean" name="hasShade"/>
+        <attr format="reference" name="shade"/>
     </declare-styleable>
 
     <!--图片裁剪框-->
     <declare-styleable name="CropImageView">
-        <attr name="cropMaskColor" format="color"/>
-        <attr name="cropBorderColor" format="color"/>
-        <attr name="cropBorderWidth" format="dimension"/>
-        <attr name="cropFocusWidth" format="dimension"/>
-        <attr name="cropFocusHeight" format="dimension"/>
-        <attr name="cropStyle" format="enum">
+        <attr format="color" name="cropMaskColor"/>
+        <attr format="color" name="cropBorderColor"/>
+        <attr format="dimension" name="cropBorderWidth"/>
+        <attr format="dimension" name="cropFocusWidth"/>
+        <attr format="dimension" name="cropFocusHeight"/>
+        <attr format="enum" name="cropStyle">
             <enum name="rectangle" value="0"/>
             <enum name="circle" value="1"/>
         </attr>
     </declare-styleable>
     
     <declare-styleable name="CardListTabLayout">
-        <attr name="minTextSize" format="dimension"/>
-        <attr name="maxTextSize" format="dimension"/>
-        <attr name="minTextColor" format="color"/>
-        <attr name="maxTextColor" format="color"/>
+        <attr format="dimension" name="minTextSize"/>
+        <attr format="dimension" name="maxTextSize"/>
+        <attr format="color" name="minTextColor"/>
+        <attr format="color" name="maxTextColor"/>
     </declare-styleable>
 </resources>

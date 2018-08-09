@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.dialog_single.*
 
 /**
  * Created by anm on 2017/7/21.
+ * 提交确认弹窗
  */
 
 class SubmitCreationDialog : CommonDialog() {

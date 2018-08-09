@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
  * Created by anm on 2017/12/1.
+ * 可删除作品Adapter
  */
 class DeleteCreationAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_my_card, data) {
 

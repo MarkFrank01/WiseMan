@@ -1,10 +1,13 @@
 package com.zxcx.zhizhe.retrofit;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
-public class BaseArrayBean<T> extends RetrofitBaen {
+/**
+ * 列表数据封装
+ */
+
+public class BaseArrayBean<T> extends RetrofitBean {
 	
 	@SerializedName("data")
 	private List<T> data;

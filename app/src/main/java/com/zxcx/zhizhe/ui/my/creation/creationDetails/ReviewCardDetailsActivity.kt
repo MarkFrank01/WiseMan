@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -12,6 +11,10 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_review_card_details.*
+
+/**
+ * 审核中卡片详情
+ */
 
 class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
@@ -80,7 +83,7 @@ class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 		}
 
 		val multi = MultiTransformation(
-				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
 		GlideApp
 				.with(mActivity)
 				.load(cardBean.imageUrl)

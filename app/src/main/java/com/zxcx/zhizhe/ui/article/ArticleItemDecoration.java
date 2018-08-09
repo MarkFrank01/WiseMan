@@ -7,6 +7,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**
  * Created by anm on 2017/6/20.
+ * 长文列表间隔
  */
 
 public class ArticleItemDecoration extends RecyclerView.ItemDecoration {

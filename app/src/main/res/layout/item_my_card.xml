@@ -22,7 +22,7 @@
 		android:background="@drawable/bg_background_12dp"
 		android:elevation="5dp">
 		
-		<ImageView
+		<com.zxcx.zhizhe.widget.CardImageView
 			android:id="@+id/iv_item_card_icon"
 			android:layout_width="64dp"
 			android:layout_height="64dp"
@@ -30,8 +30,10 @@
 			android:layout_marginStart="20dp"
 			android:scaleType="centerCrop"
 			android:transitionName="cardImage"
+			app:hasShade="true"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
+			app:shade="@color/shade"
 			tools:src="@drawable/iv_item_home_card_icon"/>
 		
 		<TextView

@@ -3,15 +3,15 @@ package com.zxcx.zhizhe.room;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
 /**
  * Created by anm on 2017/11/30.
+ * 搜索历史表
  */
 
 @Entity
-public class SearchHistory extends RetrofitBaen {
+public class SearchHistory extends RetrofitBean {
 	
 	@PrimaryKey
 	@NonNull

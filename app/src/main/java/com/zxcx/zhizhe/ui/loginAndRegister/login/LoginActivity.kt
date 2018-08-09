@@ -37,6 +37,10 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
+/**
+ * 登录页面
+ */
+
 class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 
 	private var phoneRules = "^1\\d{10}$"

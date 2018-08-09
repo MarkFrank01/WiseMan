@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import java.util.*
 
 data class DynamicMessageListBean(
@@ -16,7 +16,7 @@ data class DynamicMessageListBean(
 		@SerializedName("relatedUserName") var relatedUserName: String = "", //string
 		@SerializedName("time") var date: Date? //2017-12-20T09:17:26.516Z
 
-) : RetrofitBaen(), MultiItemEntity {
+) : RetrofitBean(), MultiItemEntity {
 	var newTime: String? = ""
 	override fun getItemType(): Int {
 		return dynamic_content

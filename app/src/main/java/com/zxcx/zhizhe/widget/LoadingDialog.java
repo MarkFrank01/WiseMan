@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**
  * Created by anm on 2017/5/27.
+ * 加载中弹窗
  */
 
 public class LoadingDialog extends BaseDialog {

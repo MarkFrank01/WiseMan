@@ -16,6 +16,10 @@ import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 创作长文预览页面
+ */
+
 class CreationPreviewActivity : BaseActivity() {
 
 	private var id = ""

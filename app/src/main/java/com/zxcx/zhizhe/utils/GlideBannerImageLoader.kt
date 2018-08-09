@@ -7,6 +7,7 @@ import com.youth.banner.loader.ImageLoader
 
 /**
  * Created by anm on 2018/3/19.
+ * 广告轮播使用的图片加载器
  */
 class GlideBannerImageLoader : ImageLoader() {
 	override fun displayImage(context: Context, path: Any, imageView: ImageView) {

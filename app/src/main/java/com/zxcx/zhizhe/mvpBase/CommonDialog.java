@@ -9,12 +9,13 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 /**
  * Created by anm on 2018/3/15.
+ * 样式相同的通用Dialog封装
  */
 
 public class CommonDialog extends BaseDialog {
 	
 	/**
-	 * 居中，左右边距20dp，背景透明
+	 * 居中，左右边距53dp，背景透明
 	 */
 	@Override
 	public void onStart() {

@@ -27,6 +27,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment基类
  */
 public class BaseFragment extends Fragment implements BaseView {
 	

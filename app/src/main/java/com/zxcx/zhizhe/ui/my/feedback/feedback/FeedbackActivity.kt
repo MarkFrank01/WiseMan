@@ -15,6 +15,10 @@ import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar.*
 
+/**
+ * 反馈页面
+ */
+
 class FeedbackActivity : MvpActivity<FeedbackPresenter>(), FeedbackContract.View {
 
 	override fun onCreate(savedInstanceState: Bundle?) {

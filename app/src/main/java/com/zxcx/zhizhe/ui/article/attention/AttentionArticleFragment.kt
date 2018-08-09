@@ -34,6 +34,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
+/**
+ * 首页-长文-关注Fragment
+ */
+
 class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>(), AttentionArticleContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, SubjectOnClickListener {
 

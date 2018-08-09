@@ -33,6 +33,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 首页-卡片-列表-列表内Fragment
+ */
+
 private const val ARG_ID = "categoryId"
 
 class CardListItemFragment : BaseFragment(), IGetPresenter<MutableList<CardBean>>,

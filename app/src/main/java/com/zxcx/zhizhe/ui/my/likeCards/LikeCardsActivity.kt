@@ -6,6 +6,7 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.UnLikeEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
@@ -23,6 +24,13 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_read_cards.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
+/**
+ * 我的-点赞文章页面
+ */
 
 class LikeCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener,
@@ -37,11 +45,17 @@ class LikeCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_read_cards)
+		EventBus.getDefault().register(this)
 		initToolBar("点赞")
 		initView()
 		initLoadSir()
 		mPresenter.getLikeCard(mSortType, mPage, mPageSize)
 		mPresenter.getEmptyRecommendCard(mTabType)
+	}
+
+	override fun onDestroy() {
+		EventBus.getDefault().unregister(this)
+		super.onDestroy()
 	}
 
 	private fun initLoadSir() {
@@ -50,6 +64,12 @@ class LikeCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.V
 
 	override fun createPresenter(): ReadCardsPresenter {
 		return ReadCardsPresenter(this)
+	}
+
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	fun onMessageEvent(event: UnLikeEvent) {
+		mPage = 0
+		mPresenter.getLikeCard(mSortType, mPage, mPageSize)
 	}
 
 	override fun onReload(v: View?) {

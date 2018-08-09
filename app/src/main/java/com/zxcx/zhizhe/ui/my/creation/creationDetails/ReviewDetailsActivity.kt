@@ -19,6 +19,10 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_review_details.*
 
+/**
+ * 审核中长文详情
+ */
+
 class ReviewDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
 	private var mWebView: WebView? = null

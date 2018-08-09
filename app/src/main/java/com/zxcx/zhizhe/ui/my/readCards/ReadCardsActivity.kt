@@ -21,6 +21,10 @@ import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_read_cards.*
 import kotlinx.android.synthetic.main.toolbar.*
 
+/**
+ * 我的-阅读文章列表页面
+ */
+
 class ReadCardsActivity : MvpActivity<ReadCardsPresenter>(), ReadCardsContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener,
 		SortWindow.SortListener {

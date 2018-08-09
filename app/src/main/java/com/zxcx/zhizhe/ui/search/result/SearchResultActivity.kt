@@ -15,6 +15,10 @@ import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_search_result.*
 
+/**
+ * 搜索结果页
+ */
+
 class SearchResultActivity : BaseActivity() {
 
 	private val cardFragment = SearchCardFragment()

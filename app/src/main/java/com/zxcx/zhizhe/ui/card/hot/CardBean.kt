@@ -3,7 +3,7 @@ package com.zxcx.zhizhe.ui.card.hot
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import java.util.*
 
@@ -35,7 +35,7 @@ class CardBean(
 		@SerializedName("adUrl") var adUrl: String = "",
 		@SerializedName("summary") var summary: String = "",
 		@SerializedName("adVO") var ad: ADBean? = null
-) : RetrofitBaen(), Parcelable {
+) : RetrofitBean(), Parcelable {
 	fun getLabelName(): String {
 		return "#$labelName"
 	}

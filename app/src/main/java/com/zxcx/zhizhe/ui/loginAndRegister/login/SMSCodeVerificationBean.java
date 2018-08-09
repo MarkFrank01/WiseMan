@@ -1,13 +1,13 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.login;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 
 /**
  * Created by anm on 2017/12/19.
  */
 
-public class SMSCodeVerificationBean extends RetrofitBaen {
+public class SMSCodeVerificationBean extends RetrofitBean {
 
 	/**
 	 * phoneNum : string verifyKey : string

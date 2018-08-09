@@ -2,10 +2,12 @@ package com.zxcx.zhizhe.mvpBase;
 
 
 import android.support.annotation.Nullable;
-
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * Mode基类
+ */
 
 public class BaseModel<T extends IBasePresenter> {
 	

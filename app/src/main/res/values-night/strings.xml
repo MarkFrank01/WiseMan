@@ -1,13 +1,13 @@
 <resources>
-    <string name="agreement_url">/user-agreement-dark.html</string>
-    <string name="creation_agreement_url">/create-protocol.html</string>
-    <string name="note_editor_url">/view/NoteEditorDark</string>
-    <string name="creation_editor_url">/view/mobile-editor-dark</string>
-    <string name="intelligence_url">/view/intelligenceDark</string>
     <string name="help_1_url">/help/help1-dark.html</string>
     <string name="help_2_url">/help/help2-dark.html</string>
     <string name="help_3_url">/help/help3-dark.html</string>
     <string name="help_4_url">/help/help4-dark.html</string>
     <string name="help_5_url">/help/help5-dark.html</string>
     <string name="help_6_url">/help/help6-dark.html</string>
+    <string name="card_share_url">/pages/long-share.html?id=</string>
+    <string name="creation_preview_url">/pages/preview-dark.html?id=</string>
+    <string name="note_editor_url">/pages/note-editor-dark.html</string>
+    <string name="creation_editor_url">/pages/editor-dark.html</string>
+    <string name="intelligence_url">/pages/intelligence-dark.html</string>
 </resources>

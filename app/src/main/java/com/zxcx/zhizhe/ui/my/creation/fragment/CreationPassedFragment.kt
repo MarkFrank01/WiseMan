@@ -18,6 +18,10 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_creation.*
 
+/**
+ * 作品-已通过列表
+ */
+
 class CreationPassedFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 

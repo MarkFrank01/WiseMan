@@ -30,31 +30,19 @@
 				app:layout_constraintStart_toStartOf="parent"
 				app:riv_oval="true"/>
 			
-			<android.support.constraint.Guideline
-				android:id="@+id/guideline4"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="vertical"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintGuide_percent="0.5"/>
-			
 			<TextView
 				android:id="@+id/tv_my_lv"
 				style="@style/tv_single"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:paddingTop="2dp"
-				android:paddingBottom="2dp"
-				android:paddingStart="8dp"
-				android:paddingEnd="8dp"
-				android:background="@drawable/bg_other_user_level"
-				android:drawablePadding="2dp"
-				android:drawableStart="@drawable/tv_my_lv"
-				android:gravity="center"
-				android:textColor="@color/text_color_ff"
+				android:layout_width="50dp"
+				android:layout_height="16dp"
+				android:layout_marginStart="35dp"
+				android:paddingStart="21dp"
+				android:background="@drawable/bg_level"
+				android:gravity="center_vertical"
+				android:textColor="@color/white_final"
 				android:textSize="@dimen/text_size_text_3"
 				app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
-				app:layout_constraintStart_toStartOf="@+id/guideline4"
+				app:layout_constraintStart_toStartOf="@+id/iv_my_head"
 				tools:text="1000"/>
 			
 			<TextView

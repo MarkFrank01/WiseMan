@@ -16,6 +16,10 @@ import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_guide_page.*
 import java.util.*
 
+/**
+ * 启动引导页
+ */
+
 class GuidePageActivity : BaseActivity() {
 
 	/**

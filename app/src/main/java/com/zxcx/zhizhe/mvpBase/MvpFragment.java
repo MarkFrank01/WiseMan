@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 
 /**
+ * MVP封装的Fragment
  * A simple {@link Fragment} subclass.
  */
 public abstract class MvpFragment<P extends BasePresenter> extends BaseFragment {

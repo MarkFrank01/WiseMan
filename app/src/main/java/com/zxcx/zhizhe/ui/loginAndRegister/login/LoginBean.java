@@ -1,10 +1,10 @@
 package com.zxcx.zhizhe.ui.loginAndRegister.login;
 
 import com.google.gson.annotations.SerializedName;
-import com.zxcx.zhizhe.retrofit.RetrofitBaen;
+import com.zxcx.zhizhe.retrofit.RetrofitBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 
-public class LoginBean extends RetrofitBaen {
+public class LoginBean extends RetrofitBean {
 
 	/**
 	 * serviceStartTime : 0 token : string user : {"avatar":"string","birth":"string","createTime":"2017-07-24T06:46:20.757Z","gender":0,"id":0,"name":"string"}

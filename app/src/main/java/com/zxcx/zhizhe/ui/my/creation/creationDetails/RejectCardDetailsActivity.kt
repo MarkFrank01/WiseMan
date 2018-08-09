@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation.creationDetails
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -23,6 +22,10 @@ import kotlinx.android.synthetic.main.activity_reject_card_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
+/**
+ * 未通过卡片详情
+ */
 
 class RejectCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
@@ -117,7 +120,7 @@ class RejectCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 		}
 
 		val multi = MultiTransformation(
-				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
 		GlideApp
 				.with(mActivity)
 				.load(cardBean.imageUrl)

@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import com.bumptech.glide.load.MultiTransformation
@@ -15,8 +14,13 @@ import com.zxcx.zhizhe.utils.GlideApp
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
+import com.zxcx.zhizhe.utils.getColorForKotlin
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_preview_card_details.*
+
+/**
+ * 创作卡片预览页面
+ */
 
 class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
@@ -51,7 +55,7 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
 		tv_item_card_details_label.text = mCardBean.getLabelName()
 
 		val multi = MultiTransformation(
-				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
 		GlideApp
 				.with(mActivity)
 				.load(imageUrl)

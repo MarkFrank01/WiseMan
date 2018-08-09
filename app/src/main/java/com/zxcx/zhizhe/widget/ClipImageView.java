@@ -14,14 +14,13 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.widget.ImageView;
-
 import com.zxcx.zhizhe.R;
 
 /**
@@ -29,7 +28,7 @@ import com.zxcx.zhizhe.R;
  * @version 2015-12-29 3.2
  * @since 2015-12-29 3.2
  */
-public class ClipImageView extends ImageView implements
+public class ClipImageView extends AppCompatImageView implements
 	ScaleGestureDetector.OnScaleGestureListener, View.OnTouchListener {
 
 	private final Paint mPaint;

@@ -10,6 +10,10 @@ import com.zxcx.zhizhe.ui.my.feedback.feedback.FeedbackActivity
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_about_us.*
 
+/**
+ * 关于我们页面
+ */
+
 class AboutUSActivity : BaseActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {

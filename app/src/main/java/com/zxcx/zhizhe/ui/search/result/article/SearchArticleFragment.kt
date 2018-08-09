@@ -18,6 +18,10 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_result.*
 
+/**
+ *搜索长文结果页面
+ */
+
 class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 

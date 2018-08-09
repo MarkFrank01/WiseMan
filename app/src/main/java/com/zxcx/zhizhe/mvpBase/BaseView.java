@@ -1,7 +1,8 @@
 package com.zxcx.zhizhe.mvpBase;
 
 /**
- * Created by chenf on 2016/9/1.
+ * Created by chenf on 2016/9/
+ * 所有View的基类接口
  */
 public interface BaseView {
 	

@@ -2,15 +2,14 @@ package com.zxcx.zhizhe.mvpBase;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.View;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * 封装了下拉刷新功能的MVPFragment
+ * @param <P>
  */
 public abstract class RefreshMvpFragment<P extends BasePresenter> extends MvpFragment<P> implements
 	OnRefreshListener {

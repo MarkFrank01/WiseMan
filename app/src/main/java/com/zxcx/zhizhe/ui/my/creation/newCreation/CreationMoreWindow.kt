@@ -9,6 +9,10 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.window_creation_more.view.*
 
+/**
+ * 创作编辑器-右下角更多弹窗
+ */
+
 class CreationMoreWindow(val context: Context, val isCard: Boolean) : PopupWindow(context) {
 
 	lateinit var mPreviewListener: () -> Unit

@@ -16,6 +16,10 @@ import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
+/**
+ * 默认下拉刷新头部
+ */
+
 public class DefaultRefreshHeader extends FrameLayout implements
 	com.scwang.smartrefresh.layout.api.RefreshHeader {
 	

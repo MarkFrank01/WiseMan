@@ -26,6 +26,7 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Created by anm on 2017/9/11.
+ * Dialog基类
  */
 
 public class BaseDialog extends DialogFragment implements IBasePresenter {

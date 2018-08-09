@@ -32,6 +32,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
+/**
+ * 首页-卡片-推荐页面
+ */
+
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 

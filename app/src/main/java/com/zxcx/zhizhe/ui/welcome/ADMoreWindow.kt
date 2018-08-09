@@ -9,6 +9,10 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.window_ad_more.view.*
 
+/**
+ * 广告右上角更多弹窗
+ */
+
 class ADMoreWindow(val context: Context) : PopupWindow(context) {
 
 	interface ADMoreListener {

@@ -3,10 +3,13 @@ package com.zxcx.zhizhe.mvpBase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zxcx.zhizhe.R;
+
+/**
+ * 封装了下拉刷新功能的MVPActivity
+ */
 
 public abstract class RefreshMvpActivity<P extends BasePresenter> extends MvpActivity<P> implements
 	OnRefreshListener {

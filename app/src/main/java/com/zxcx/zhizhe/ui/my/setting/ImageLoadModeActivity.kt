@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_image_load_mode.*
 
 /**
  * Created by anm on 2017/12/13.
+ * 图片加载页面
  */
 
 class ImageLoadModeActivity : BaseActivity() {

@@ -36,6 +36,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+/**
+ * 长文详情页
+ */
+
 class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View {
 
 	private var mWebView: WebView? = null

@@ -1,5 +1,8 @@
 package com.zxcx.zhizhe.mvpBase;
 
+/**
+ * Present基类
+ */
 
 public class BasePresenter<V> implements Presenter<V> {
 	

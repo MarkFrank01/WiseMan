@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by anm on 2017/7/13.
+ * 修改签名页面
  */
 
 class ChangeSignatureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {

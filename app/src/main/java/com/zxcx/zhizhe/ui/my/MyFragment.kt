@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 /**
+ * 我的页面
  * A simple [Fragment] subclass.
  */
 class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
@@ -47,7 +48,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	private var readNum: Int = 0
 	private var creationNum: Int = 0
 	private var fansNum: Int = 0
-	private var level: String = ""
+	private var level: Int = 0
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 	                          savedInstanceState: Bundle?): View? {
@@ -216,7 +217,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 		readNum = SharedPreferencesUtil.getInt(SVTSConstants.readNum, 0)
 		creationNum = SharedPreferencesUtil.getInt(SVTSConstants.creationNum, 0)
 		fansNum = SharedPreferencesUtil.getInt(SVTSConstants.fansNum, 0)
-		level = SharedPreferencesUtil.getString(SVTSConstants.level, "")
+		level = SharedPreferencesUtil.getInt(SVTSConstants.level, 0)
 		refreshRedPoint()
 	}
 
@@ -260,7 +261,7 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 			return
 		}
 		iv_message_red_point.visibility = if (hasSystemMessage || hasDynamicMessage) View.VISIBLE else View.GONE
-		tv_my_lv.text = totalIntelligenceValue.getFormatNumber()
+		tv_my_lv.text = getString(R.string.tv_level, level)
 		tv_my_top_read_num.text = readNum.toString()
 		tv_my_top_creation_num.text = creationNum.toString()
 		tv_my_top_fans_num.text = fansNum.toString()

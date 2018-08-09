@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
 import android.Manifest
-import android.graphics.Color
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.View
@@ -35,6 +34,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import top.zibin.luban.Luban
 import java.io.File
+
+/**
+ * 单个卡片详情页面
+ */
 
 class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
@@ -118,7 +121,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 		tv_item_card_details_goto_ad.visibility = if (mCardBean.adUrl.isNotEmpty()) View.VISIBLE else View.GONE
 
 		val multi = MultiTransformation(
-				ColorFilterTransformation(Color.argb(216, 255, 255, 255)))
+				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
 		GlideApp
 				.with(mActivity)
 				.load(imageUrl)

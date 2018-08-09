@@ -3,11 +3,11 @@ package com.zxcx.zhizhe.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
 import com.zxcx.zhizhe.App;
 
 /**
  * Created by WuXiaolong on 2016/3/31.
+ * 本地保存SP封装
  */
 public class SharedPreferencesUtil {
 	

@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.my.userInfo
 
 import com.google.gson.annotations.SerializedName
-import com.zxcx.zhizhe.retrofit.RetrofitBaen
+import com.zxcx.zhizhe.retrofit.RetrofitBean
 
 class UserInfoBean(
 		@SerializedName("id")
@@ -25,7 +25,7 @@ class UserInfoBean(
 		@SerializedName("bandingWeixin")
 		val bandingWeixin: Boolean = false,
 		@SerializedName("bandingWeibo")
-		val bandingWeibo: Boolean = false) : RetrofitBaen() {
+		val bandingWeibo: Boolean = false) : RetrofitBean() {
 
 	/**
 	 * id : 8 birth : 2017-03-25 avatar : default name : zxst_82698 gender : 1 createTime :

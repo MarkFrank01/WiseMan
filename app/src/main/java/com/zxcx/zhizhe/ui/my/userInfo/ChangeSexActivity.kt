@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by anm on 2017/7/13.
+ * 修改性别页面
  */
 
 class ChangeSexActivity : BaseActivity(), IPostPresenter<UserInfoBean> {

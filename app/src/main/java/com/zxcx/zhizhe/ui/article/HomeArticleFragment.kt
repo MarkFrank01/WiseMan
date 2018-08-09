@@ -21,6 +21,10 @@ import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_article.*
 
+/**
+ * 首页-长文Fragment
+ */
+
 class HomeArticleFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryBean>> {
 
 

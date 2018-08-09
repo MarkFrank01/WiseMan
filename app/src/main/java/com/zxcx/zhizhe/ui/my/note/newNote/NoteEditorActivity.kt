@@ -22,6 +22,10 @@ import com.zxcx.zhizhe.widget.PermissionDialog
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 import org.greenrobot.eventbus.EventBus
 
+/**
+ * 笔记编辑页面
+ */
+
 class NoteEditorActivity : BaseActivity(),
 		OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
 

@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.event;
 
 /**
  * Created by anm on 2017/7/4.
+ * 取消点赞事件
  */
 
 public class UnLikeEvent {
