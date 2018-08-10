@@ -55,11 +55,11 @@ class ChangeSignatureActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 		}
 
 		et_dialog_change_signature.afterTextChanged {
-			if (et_dialog_change_signature.length() in 1..5 || et_dialog_change_signature.length() == 18) {
+			/*if (et_dialog_change_signature.length() in 1..5 || et_dialog_change_signature.length() == 18) {
 				tv_change_signature_hint.visibility = View.VISIBLE
 			} else {
 				tv_change_signature_hint.visibility = View.GONE
-			}
+			}*/
 			tv_toolbar_right.isEnabled = it.length in 6..18
 		}
 	}

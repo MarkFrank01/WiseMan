@@ -15,6 +15,7 @@
 		android:layout_marginStart="20dp"
 		android:layout_marginEnd="2dp"
 		android:paddingStart="6dp"
+		android:paddingEnd="32dp"
 		android:background="@drawable/bg_home_search"
 		android:cursorVisible="true"
 		android:drawablePadding="5dp"
@@ -30,7 +31,8 @@
 		android:textSize="17sp"
 		app:layout_constraintEnd_toStartOf="@id/tv_search_cancel"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="4554555555555555555555555555555555555566"/>
 	
 	<TextView
 		android:id="@+id/tv_search_cancel"

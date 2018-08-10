@@ -66,13 +66,7 @@ class ChangeNickNameActivity : BaseActivity(), IPostPresenter<UserInfoBean> {
 		}
 
 		et_dialog_change_nick_name.afterTextChanged {
-			if (et_dialog_change_nick_name.length() == 1 || et_dialog_change_nick_name.length() == 10) {
-				tv_change_nick_name_hint.visibility = View.VISIBLE
-				tv_toolbar_right.isEnabled = false
-			} else {
-				tv_change_nick_name_hint.visibility = View.GONE
-				tv_toolbar_right.isEnabled = true
-			}
+			tv_toolbar_right.isEnabled = et_dialog_change_nick_name.length() > 1
 		}
 	}
 

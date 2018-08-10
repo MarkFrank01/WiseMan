@@ -105,7 +105,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 			}
 			bean.rankChange == 0 -> {
 				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_rank_invariability, tv_my_rank_change)
-				tv_my_rank_change.text = bean.rankIndex.toString()
+				tv_my_rank_change.text = ""
 			}
 			else -> {
 				TextViewUtils.setTextLeftDrawable(mActivity, R.drawable.tv_rank_down, tv_my_rank_change)
@@ -187,9 +187,12 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		banner_rank.setOnBannerListener {
 			val adUrl = mAdList[it].behavior
 			val adTitle = mAdList[it].description
+			val adImage = mAdList[it].titleImage
 			mActivity.startActivity(WebViewActivity::class.java) {
+				it.putExtra("isAD", true)
 				it.putExtra("title", adTitle)
 				it.putExtra("url", adUrl)
+				it.putExtra("imageUrl", adImage)
 			}
 		}
 		banner_rank.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {

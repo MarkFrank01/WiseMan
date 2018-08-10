@@ -130,8 +130,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	override fun getDataSuccess(list: MutableList<CardBean>) {
 		loadService.showSuccess()
 		if (mPage == 0) {
-			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setText(
-					getString(R.string.tv_refresh_text, list.size))
 			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
 			mRefreshLayout.finishRefresh()
 			mAdapter.setNewData(list)

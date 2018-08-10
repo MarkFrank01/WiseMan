@@ -111,14 +111,16 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {
 		val cb = view as CheckBox
 		cb.isChecked = !cb.isChecked
-		val bean = adapter.data[position] as SearchUserBean
-		if (cb.isChecked) {
-			val bundle = Bundle()
-			bundle.putInt("userId", bean.id ?: 0)
-			mDialog.arguments = bundle
-			mDialog.show(mActivity.supportFragmentManager, "")
-		} else {
-			mPresenter.followUser(bean.id ?: 0)
+		if (checkLogin()) {
+			val bean = adapter.data[position] as SearchUserBean
+			if (cb.isChecked) {
+				val bundle = Bundle()
+				bundle.putInt("userId", bean.id)
+				mDialog.arguments = bundle
+				mDialog.show(mActivity.supportFragmentManager, "")
+			} else {
+				mPresenter.followUser(bean.id)
+			}
 		}
 	}
 
@@ -134,9 +136,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 		mAdapter.setOnLoadMoreListener(this, rv_search_result)
 		rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_search_result.adapter = mAdapter
-		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无搜索用户", "换个关键词试试", R.drawable.no_data, View.OnClickListener {
-
-		})
+		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)
 		mAdapter.emptyView = emptyView
 	}
 }

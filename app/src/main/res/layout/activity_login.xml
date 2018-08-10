@@ -147,7 +147,7 @@
 				android:layout_alignParentBottom="true"
 				android:layout_centerHorizontal="true"
 				android:padding="10dp"
-				android:text="注册智者代表你已阅读并同意《智者协议》"
+				android:text="注册智者代表你已阅读并同意《智者用户协议》"
 				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_3"/>
 			

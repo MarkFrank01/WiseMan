@@ -6,9 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.kingja.loadsir.core.LoadSir
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -41,8 +43,13 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		EventBus.getDefault().register(this)
 		initToolBar("粉丝")
 		initRecyclerView()
+		initLoadSir()
 		mPresenter.getFollowUser(mFollowType, mPage, mPageSize)
 		mDialog = UnFollowConfirmDialog()
+	}
+
+	private fun initLoadSir() {
+		loadService = LoadSir.getDefault().register(rv_follow_user, this)
 	}
 
 	override fun setListener() {
@@ -57,6 +64,12 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		return FollowUserPresenter(this)
 	}
 
+	override fun onReload(v: View?) {
+		super.onReload(v)
+		mPage = 0
+		mPresenter.getFollowUser(mFollowType, mPage, mPageSize)
+	}
+
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: UnFollowConfirmEvent) {
 		mPresenter.unFollowUser(event.userId)
@@ -66,6 +79,7 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 
 	override fun getDataSuccess(list: MutableList<SearchUserBean>) {
 		if (mPage == 0) {
+			loadService.showSuccess()
 			mAdapter.setNewData(list)
 		} else {
 			mAdapter.addData(list)
@@ -77,6 +91,14 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 			mAdapter.loadMoreComplete()
 			mAdapter.setEnableLoadMore(false)
 			mAdapter.setEnableLoadMore(true)
+		}
+	}
+
+	override fun toastFail(msg: String) {
+		super.toastFail(msg)
+		mAdapter.loadMoreFail()
+		if (mPage == 0) {
+			loadService.showCallback(NetworkErrorCallback::class.java)
 		}
 	}
 

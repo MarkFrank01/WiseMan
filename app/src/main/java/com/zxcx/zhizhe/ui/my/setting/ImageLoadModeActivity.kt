@@ -20,7 +20,7 @@ class ImageLoadModeActivity : BaseActivity() {
 		setContentView(R.layout.activity_image_load_mode)
 		initToolBar("图片加载")
 
-		imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 1)
+		imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 0)
 		when (imageLoadMode) {
 			0 -> cb_image_load_mode_wifi.isChecked = true
 			1 -> cb_image_load_mode_all.isChecked = true
@@ -47,10 +47,7 @@ class ImageLoadModeActivity : BaseActivity() {
 				SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
 				cb_image_load_mode_all.isChecked = false
 			} else {
-				if (!isChecked && !cb_image_load_mode_all.isChecked) {
-					imageLoadMode = 2
-					SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
-				}
+				cb_image_load_mode_all.isChecked = true
 			}
 		}
 
@@ -58,12 +55,8 @@ class ImageLoadModeActivity : BaseActivity() {
 			if (isChecked) {
 				imageLoadMode = 1
 				SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
-				cb_image_load_mode_wifi.isChecked = false
 			} else {
-				if (!cb_image_load_mode_wifi.isChecked && !isChecked) {
-					imageLoadMode = 2
-					SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
-				}
+				cb_image_load_mode_wifi.isChecked = true
 			}
 		}
 	}

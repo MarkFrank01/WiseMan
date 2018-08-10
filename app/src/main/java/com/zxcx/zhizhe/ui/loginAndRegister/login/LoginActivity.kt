@@ -21,7 +21,6 @@ import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
-import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
@@ -141,6 +140,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 			it.putExtra("userGender", userGender)
 			it.putExtra("channelType", channelType)
 		}
+		finish()
 	}
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
@@ -148,12 +148,6 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 		//手机号确认成功,发送验证码
 		showLoading()
 		SMSSDK.getVerificationCode("86", et_login_phone.text.toString())
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: StopRegisteredEvent) {
-		//中断注册
-		finish()
 	}
 
 	private fun checkPhone(): Boolean {

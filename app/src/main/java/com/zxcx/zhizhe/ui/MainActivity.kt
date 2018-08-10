@@ -63,6 +63,15 @@ class MainActivity : BaseActivity() {
 		val intent = Intent()
 		intent.putExtra("isNight", true)
 		setIntent(intent)
+		try {//避免重启太快 恢复
+			val fragmentTransaction = supportFragmentManager.beginTransaction()
+			for (fragment in supportFragmentManager.fragments) {
+				fragmentTransaction.remove(fragment)
+			}
+			fragmentTransaction.commitAllowingStateLoss()
+		} catch (e: Exception) {
+		}
+
 		super.recreate()
 	}
 

@@ -60,7 +60,7 @@
     <string name="tv_refresh_text">已为你刷新%1$d张卡片</string>
     <string name="tv_dialog_phone_confirm_title">是否以手机号%1$s接收验证码?</string>
     <string name="tv_item_message_value">+%1$d</string>
-    <string name="tv_dynamic_message_no_data">暂无消息</string>
+    <string name="tv_dynamic_message_no_data">暂无内容</string>
     <string name="tv_dynamic_message_follow">%1$s&#160;等人最近关注了你&#8230;</string>
     <string name="tv_dynamic_message_comment">%1$s&#160;等人最近评论了你&#8230;</string>
     <string name="tv_dynamic_message_like">%1$s&#160;等人最近给你点赞了&#8230;</string>
@@ -75,6 +75,9 @@
     <string name="creation_editor_url">/pages/card-editor.html</string>
     <string name="intelligence_url">/pages/intelligence.html</string>
     <string name="send_verification_code_success">验证码发送成功，请留意接收</string>
+    <string name="et_comment_hint">回复&#160;%1$s</string>
+    <string name="versions">版本号：&#160;%1$s</string>
+    <string name="tv_level">Lv.%1$d</string>
     <!--common-end-->
 
     <!--transitionNameStart-->
@@ -82,7 +85,5 @@
     <string name="card_title_transition_name">cardTitle%1$d</string>
     <string name="card_category_transition_name">cardCategory%1$d</string>
     <string name="card_label_transition_name">cardLabel%1$d</string>
-    <string name="et_comment_hint">回复&#160;%1$s</string>
-    <string name="tv_level">Lv.%1$d</string>
 	<!--transitionNameEnd-->
 </resources>

@@ -63,7 +63,8 @@
 			android:id="@+id/sv_note_details"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_above="@id/ll_note_details_bottom">
+			android:layout_above="@id/ll_note_details_bottom"
+			android:scrollbars="none">
 			
 			<android.support.constraint.ConstraintLayout
 				android:id="@+id/ll_card_details_top"

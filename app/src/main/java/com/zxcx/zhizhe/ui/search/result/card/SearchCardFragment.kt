@@ -114,9 +114,7 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
 		mAdapter.setOnLoadMoreListener(this, rv_search_result)
 		rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_search_result.adapter = mAdapter
-		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无搜索卡片", "换个关键词试试", R.drawable.search_no_data, View.OnClickListener {
-
-		})
+		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)
 		mAdapter.emptyView = emptyView
 	}
 }

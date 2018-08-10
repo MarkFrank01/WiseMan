@@ -59,10 +59,8 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 				.setDefaultCallback(HomeLoadingCallback::class.java)
 				.build()
 		loadService = loadSir.register(root) { v ->
-			if (checkLogin()) {
-				loadService.showCallback(HomeLoadingCallback::class.java)
-				onRefresh()
-			}
+			loadService.showCallback(HomeLoadingCallback::class.java)
+			onRefresh()
 		}
 		return loadService.loadLayout
 	}
@@ -156,8 +154,12 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 	}
 
 	private fun onRefresh() {
-		page = 0
-		getAttentionCard()
+		if (checkLogin()) {
+			page = 0
+			getAttentionCard()
+		} else {
+			loadService.showCallback(AttentionNeedLoginCallback::class.java)
+		}
 	}
 
 	override fun onLoadMoreRequested() {
@@ -207,7 +209,11 @@ class AttentionCardFragment : RefreshMvpFragment<AttentionCardPresenter>(), Atte
 		super.toastFail(msg)
 		mAdapter.loadMoreFail()
 		if (page == 0) {
-			loadService.showCallback(HomeNetworkErrorCallback::class.java)
+			if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+				loadService.showCallback(HomeNetworkErrorCallback::class.java)
+			} else {
+				loadService.showCallback(AttentionNeedLoginCallback::class.java)
+			}
 		}
 	}
 

@@ -13,7 +13,6 @@ import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
-import com.zxcx.zhizhe.event.StopRegisteredEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
@@ -74,7 +73,6 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	}
 
 	private fun initData() {
-
 		appType = Constants.APP_TYPE
 		appChannel = WalleChannelReader.getChannel(this)
 		appVersion = Utils.getAppVersionName(this)
@@ -84,18 +82,12 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 		userIcon = intent.getStringExtra("userIcon")
 		userGender = intent.getStringExtra("userGender")
 		channelType = intent.getIntExtra("channelType", 1)
-
 		sex = if ("m" == userGender) 1 else 2
 	}
 
 	override fun initStatusBar() {
 		//全屏输入法问题
 		AndroidBug5497Workaround.assistActivity(this)
-	}
-
-	override fun onBackPressed() {
-		val stopRegisteredDialog = StopRegisteredDialog()
-		stopRegisteredDialog.show(mActivity.supportFragmentManager, "")
 	}
 
 	public override fun onDestroy() {
@@ -130,11 +122,6 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 		//手机号确认成功,发送验证码
 		showLoading()
 		SMSSDK.getVerificationCode("86", et_forget_phone.text.toString())
-	}
-
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: StopRegisteredEvent) {
-		finish()
 	}
 
 	private fun checkPhone(): Boolean {

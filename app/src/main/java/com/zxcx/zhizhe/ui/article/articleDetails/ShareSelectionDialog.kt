@@ -224,7 +224,7 @@ open class ShareSelectionDialog : BaseDialog() {
 			}
 		}
 
-		mDisposable = Flowable.just(sv_dialog_share)
+		mDisposable = Flowable.just(rfl_dialog_share)
 				.subscribeOn(AndroidSchedulers.mainThread())
 				.doOnSubscribe { subscription -> showLoading() }
 				.observeOn(Schedulers.io())

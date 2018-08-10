@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.article.ArticleItemDecoration
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardContract
@@ -86,9 +87,8 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 		rv_search_result.setBackgroundResource(R.color.strip)
 		rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_search_result.adapter = mAdapter
-		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无搜索长文", "换个关键词试试", R.drawable.search_no_data, View.OnClickListener {
-
-		})
+		rv_search_result.addItemDecoration(ArticleItemDecoration())
+		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)
 		mAdapter.emptyView = emptyView
 	}
 }

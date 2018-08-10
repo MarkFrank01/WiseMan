@@ -238,12 +238,16 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 			if (view.isChecked) {
 				val goodView = GoodView(this)
 				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-				goodView.setText(bean.likeNum.toString() + " +1")
+				goodView.setText("+1")
 				goodView.show(cb_item_card_details_like)
 				bean.likeNum += 1
 				tv_item_card_details_like.text = bean.likeNum.toString()
 				mPresenter.likeCard(bean.id)
 			} else {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText("-1")
+				goodView.show(cb_item_card_details_like)
 				bean.likeNum -= 1
 				tv_item_card_details_like.text = bean.likeNum.toString()
 				mPresenter.removeLikeCard(bean.id)
@@ -266,12 +270,16 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
 			if (view.isChecked) {
 				val goodView = GoodView(this)
 				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-				goodView.setText(bean.collectNum.toString() + " +1")
+				goodView.setText("+1")
 				goodView.show(view)
 				bean.collectNum += 1
 				tv_item_card_details_collect.text = bean.collectNum.toString()
 				mPresenter.addCollectCard(bean.id)
 			} else {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText("-1")
+				goodView.show(view)
 				bean.collectNum -= 1
 				tv_item_card_details_collect.text = bean.collectNum.toString()
 				mPresenter.removeCollectCard(bean.id)

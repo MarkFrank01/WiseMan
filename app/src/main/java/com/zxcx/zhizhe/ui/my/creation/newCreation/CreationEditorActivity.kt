@@ -427,7 +427,9 @@ class CreationEditorActivity : BaseActivity(),
 	@JavascriptInterface
 	fun lackSomething(string: String) {
 		runOnUiThread {
-			mUploadingDialog.setSuccess(false)
+			if (mUploadingDialog.isAdded) {
+				mUploadingDialog.setSuccess(false)
+			}
 		}
 		toastError(string)
 	}

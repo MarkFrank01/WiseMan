@@ -45,8 +45,8 @@
 		android:layout_marginTop="14dp"
 		android:layout_below="@id/et_dialog_change_nick_name"
 		android:layout_centerHorizontal="true"
-		android:text="昵称为2-10个字符"
-		android:textColor="@color/red"
+		android:text="昵称支持2-10个字符"
+		android:textColor="@color/text_color_d2"
 		android:textSize="@dimen/text_size_text_3"
 		android:visibility="gone"/>
 

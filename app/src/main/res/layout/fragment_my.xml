@@ -178,29 +178,15 @@
 			android:layout_height="65dp"
 			android:orientation="horizontal">
 			
-			<FrameLayout
-				android:layout_width="wrap_content"
+			<TextView
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:layout_marginStart="20dp"
-				android:layout_gravity="center">
-				
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="1dp"
-					android:layout_marginBottom="1dp"
-					android:layout_marginEnd="5dp"
-					android:text="消息"
-					android:textColor="@color/text_color_1"
-					android:textSize="@dimen/text_size_text_1"/>
-				
-				<ImageView
-					android:id="@+id/iv_message_red_point"
-					android:layout_width="8dp"
-					android:layout_height="8dp"
-					android:layout_gravity="top|end"
-					android:src="@drawable/point_red"/>
-			</FrameLayout>
+				android:layout_gravity="center_vertical"
+				android:text="消息"
+				android:textColor="@color/text_color_1"
+				android:textSize="@dimen/text_size_text_1"/>
 			
 			<View
 				android:layout_width="0dp"

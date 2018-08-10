@@ -15,15 +15,28 @@
 		android:src="@drawable/iv_about_us_background"/>
 	
 	<ImageView
-		android:layout_width="match_parent"
+		android:id="@+id/iv_about_us_logo"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:layout_marginBottom="8dp"
 		android:scaleType="fitXY"
 		android:src="@drawable/iv_about_us_icon"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.37"/>
+		app:layout_constraintVertical_bias="0.22"/>
+	
+	<TextView
+		android:id="@+id/tv_about_us_versions"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		android:text="版本号： 1.2"
+		android:textColor="#030303"
+		android:textSize="@dimen/text_size_text_2"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/iv_about_us_logo"/>
 	
 	<include
 		android:id="@+id/toolbar"
@@ -46,7 +59,7 @@
 		android:layout_height="wrap_content"
 		android:padding="10dp"
 		android:text="分享"
-		android:textColor="@color/text_color_2"
+		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_2"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +72,7 @@
 		android:layout_marginTop="16dp"
 		android:padding="10dp"
 		android:text="鼓励"
-		android:textColor="@color/text_color_2"
+		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_2"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +85,7 @@
 		android:layout_marginTop="16dp"
 		android:padding="10dp"
 		android:text="反馈"
-		android:textColor="@color/text_color_2"
+		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_2"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"

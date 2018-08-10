@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.afterTextChanged
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_comment.*
 
 /**
@@ -77,9 +78,10 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 	}
 
 	override fun getDataSuccess(list: MutableList<CommentBean>) {
-
 		if (mPage == 0) {
 			mAdapter.setNewData(list as List<MultiItemEntity>)
+			val emptyView = EmptyView.getEmptyView(mActivity, "暂无评论", R.drawable.no_comment)
+			mAdapter.emptyView = emptyView
 		} else {
 			mAdapter.addData(list)
 		}
@@ -101,9 +103,13 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 			parentBean.id = parentCommentId ?: 0
 			val position = mAdapter.data.indexOf(parentBean)
 			parentBean = mAdapter.data[position] as CommentBean
-			parentBean.childCommentList.add(bean.toChildCommentBean())
-			mAdapter.notifyItemChanged(position)
+			val child = bean.toChildCommentBean()
+			parentBean.childCommentList.add(child)
+			parentBean.addSubItem(child)
+			mAdapter.notifyDataSetChanged()
 		}
+		et_comment.setText("")
+		parentCommentId = null
 	}
 
 	override fun postFail(msg: String?) {
@@ -185,11 +191,21 @@ class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
 		}
 		fl_fragment_comment.setOnClickListener {
 			parentCommentId = null
-			et_comment.hint = "表达是智慧的体现"
+			if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+				et_comment.hint = "表达是智慧的体现"
+			} else {
+				et_comment.hint = "登录后发表评论"
+			}
 		}
 	}
 
 	private fun initRecyclerView() {
+		if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+			et_comment.hint = "表达是智慧的体现"
+		} else {
+			et_comment.hint = "登录后发表评论"
+		}
+
 		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 		mAdapter = CommentAdapter(arrayListOf())
 		mAdapter.setLoadMoreView(CommentLoadMoreView())

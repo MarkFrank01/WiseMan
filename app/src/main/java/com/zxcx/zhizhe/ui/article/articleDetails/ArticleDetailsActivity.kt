@@ -272,13 +272,17 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			if (view.isChecked) {
 				val goodView = GoodView(this)
 				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-				goodView.setText(bean.likeNum.toString() + " +1")
+				goodView.setText("+1")
 				goodView.show(cb_article_details_like)
 				bean.likeNum += 1
 				tv_article_details_like.text = bean.likeNum.toString()
 				tv_article_details_like.isEnabled = bean.isLike
 				mPresenter.likeCard(bean.id)
 			} else {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText("-1")
+				goodView.show(cb_article_details_like)
 				bean.likeNum -= 1
 				tv_article_details_like.text = bean.likeNum.toString()
 				mPresenter.removeLikeCard(bean.id)
@@ -300,13 +304,17 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			if (view.isChecked) {
 				val goodView = GoodView(this)
 				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
-				goodView.setText(bean.collectNum.toString() + " +1")
+				goodView.setText("+1")
 				goodView.show(view)
 				bean.collectNum += 1
 				tv_article_details_collect.text = bean.collectNum.toString()
 				tv_article_details_collect.isEnabled = bean.isCollect
 				mPresenter.addCollectCard(bean.id)
 			} else {
+				val goodView = GoodView(this)
+				goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+				goodView.setText("-1")
+				goodView.show(view)
 				bean.collectNum -= 1
 				tv_article_details_collect.text = bean.collectNum.toString()
 				mPresenter.removeCollectCard(bean.id)

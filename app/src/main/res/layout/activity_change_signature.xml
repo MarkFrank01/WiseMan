@@ -42,9 +42,8 @@
 		android:layout_marginTop="14dp"
 		android:layout_below="@id/et_dialog_change_signature"
 		android:layout_centerHorizontal="true"
-		android:text="签名为6-18个字符"
-		android:textColor="@color/red"
-		android:textSize="@dimen/text_size_text_3"
-		android:visibility="gone"/>
+		android:text="签名支持6-18个字符"
+		android:textColor="@color/text_color_d2"
+		android:textSize="@dimen/text_size_text_3"/>
 
 </RelativeLayout>

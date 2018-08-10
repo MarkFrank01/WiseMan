@@ -23,7 +23,7 @@
 		android:id="@+id/tv_refresh_header"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="10dp"
+		android:layout_marginEnd="15dp"
 		android:layout_gravity="center_vertical"
 		android:text="内容已刷新"
 		android:textColor="@color/text_color_3"

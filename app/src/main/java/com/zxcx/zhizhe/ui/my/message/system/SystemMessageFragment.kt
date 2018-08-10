@@ -20,7 +20,6 @@ import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
@@ -113,9 +112,7 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 				}
 			}
 			message_rank -> {
-				mActivity.startActivity(AllRankActivity::class.java) {}
-				mActivity.finish()
-				return
+				intent.setClass(mActivity, AllRankActivity::class.java)
 			}
 			message_recommend -> {
 				intent.setClass(mActivity, ArticleDetailsActivity::class.java)

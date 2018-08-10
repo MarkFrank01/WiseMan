@@ -7,10 +7,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.ui.my.aboutUS.AboutUSActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity;
 import com.zxcx.zhizhe.utils.DataCleanManager;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by anm on 2017/6/26.
@@ -26,17 +30,29 @@ public class CommonSettingActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_common_setting);
+		EventBus.getDefault().register(this);
 		ButterKnife.bind(this);
 		initToolBar("设置");
 		updateCacheSize();
 	}
-
+	
+	@Override
+	protected void onDestroy() {
+		EventBus.getDefault().unregister(this);
+		super.onDestroy();
+	}
+	
 	private void updateCacheSize() {
 		try {
 			mTvCommonSettingCleanCache.setText(DataCleanManager.getTotalCacheSize(this));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(LogoutEvent event) {
+		finish();
 	}
 
 	@OnClick(R.id.ll_common_setting_clean_cache)

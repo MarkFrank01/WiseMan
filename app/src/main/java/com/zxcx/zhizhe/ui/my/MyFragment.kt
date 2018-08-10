@@ -192,7 +192,6 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 	}
 
 	private fun setViewLogout() {
-		iv_message_red_point.visibility = View.GONE
 		tv_my_nick_name.text = "注册/登录"
 		tv_my_nick_name.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
 		tv_my_lv.visibility = View.GONE
@@ -260,7 +259,6 @@ class MyFragment : BaseFragment(), IGetPresenter<MyTabBean> {
 		if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) == 0) {
 			return
 		}
-		iv_message_red_point.visibility = if (hasSystemMessage || hasDynamicMessage) View.VISIBLE else View.GONE
 		tv_my_lv.text = getString(R.string.tv_level, level)
 		tv_my_top_read_num.text = readNum.toString()
 		tv_my_top_creation_num.text = creationNum.toString()

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_creation.*
  * 我的-作品页面
  */
 class CreationActivity : BaseActivity() {
-	private val titles = arrayOf("已通过", "待审核", "未通过", "草稿箱")
+	private val titles = arrayOf("已发布", "审核中", "未通过", "草稿箱")
 	private var goto: Int = 0 //0已通过，1待审核，2未通过，3草稿箱
 	private val passedFragment = CreationPassedFragment()
 	private val reviewFragment = CreationInReviewFragment()

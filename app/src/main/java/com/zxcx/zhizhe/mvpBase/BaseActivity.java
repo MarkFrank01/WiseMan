@@ -160,6 +160,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 		Toolbar toolbar = initToolBar();
 		TextView toolbar_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
 		if (!StringUtils.isEmpty(title)) {
+			if (title.length() > 8) {
+				title = title.substring(0, 8) + "...";
+			}
 			toolbar_title.setText(title);
 		}
 		return toolbar;

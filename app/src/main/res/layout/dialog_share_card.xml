@@ -87,6 +87,7 @@
 	</LinearLayout>
 	
 	<com.zxcx.zhizhe.widget.RoundedFrameLayout
+		android:id="@+id/rfl_dialog_share"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_above="@id/ll_dialog_share">

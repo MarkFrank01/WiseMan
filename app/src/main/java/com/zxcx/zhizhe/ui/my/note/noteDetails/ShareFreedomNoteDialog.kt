@@ -98,7 +98,7 @@ class ShareFreedomNoteDialog : BaseDialog() {
 			//postponeEnterTransition();
 		}
 		tv_dialog_share_title.text = name
-		tv_dialog_share_info.setText(getString(R.string.tv_item_card_note_info, date, "记录"))
+		tv_dialog_share_info.text = date
 
 		//获取WebView，并将WebView高度设为WRAP_CONTENT
 		mWebView = WebViewUtils.getWebView(activity)
