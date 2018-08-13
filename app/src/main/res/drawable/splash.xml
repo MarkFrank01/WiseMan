@@ -5,8 +5,8 @@
 	
 	<item>
 		<bitmap
-			android:gravity="bottom|center"
-			android:src="@drawable/iv_welcome_icon"/>
+			android:gravity="fill"
+			android:src="@drawable/iv_welcome_page"/>
 	</item>
 
 </layer-list>

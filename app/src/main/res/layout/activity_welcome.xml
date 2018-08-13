@@ -27,13 +27,14 @@
 		android:textColor="#FFFFFF"
 		android:textSize="12sp"
 		android:visibility="gone"/>
-	
+
 	<ImageView
 		android:id="@+id/iv_welcome_icon"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
+		android:adjustViewBounds="true"
 		android:scaleType="fitXY"
-		android:src="@drawable/iv_welcome_icon"/>
+		android:src="@drawable/iv_welcome_icon" />
 
 </android.support.percent.PercentRelativeLayout>
