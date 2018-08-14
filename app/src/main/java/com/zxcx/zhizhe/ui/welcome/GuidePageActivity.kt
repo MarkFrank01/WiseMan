@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -79,19 +78,9 @@ class GuidePageActivity : BaseActivity() {
 		view_pager.adapter = object : PagerAdapter() {
 
 			override fun instantiateItem(container: ViewGroup, position: Int): Any {
-				// 给最后一页引导页添加点击事件
-				return if (position == view_pager.adapter!!.count - 1) {
-					val view = LayoutInflater.from(this@GuidePageActivity).inflate(R.layout.guide_5_layout, container, false)
-					val guideButton = view.findViewById<View>(R.id.guide_button) as ImageView
-					guideButton.setOnClickListener { jumpToIndexActivity() }
-					container.addView(view)
-					view
-				} else {
-					container.addView(mImageViews[position])
-					mImageViews[position]
-				}
-
-			}
+                container.addView(mImageViews[position])
+                return mImageViews[position]
+            }
 
 			override fun destroyItem(container: ViewGroup, position: Int,
 			                         `object`: Any) {
@@ -124,4 +113,11 @@ class GuidePageActivity : BaseActivity() {
 			}
 		})
 	}
+
+    override fun setListener() {
+        super.setListener()
+        tv_skip.setOnClickListener {
+            jumpToIndexActivity()
+        }
+    }
 }
