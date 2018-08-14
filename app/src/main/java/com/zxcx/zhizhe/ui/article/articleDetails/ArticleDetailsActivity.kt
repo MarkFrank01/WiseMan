@@ -138,6 +138,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 	}
 
 	override fun getDataSuccess(bean: CardBean) {
+        cardBean = bean
 		collectStatus = bean.isCollect
 		likeStatus = bean.isLike
 		postSuccess(bean)
