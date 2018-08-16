@@ -33,7 +33,7 @@ class SystemMessageModel(presenter: SystemMessageContract.Presenter) : BaseModel
 				.compose(BaseRxJava.handleResult())
 				.subscribeWith(object : BaseSubscriber<CardBean>(mPresenter) {
 					override fun onNext(bean: CardBean) {
-						mPresenter?.getCardSuccess(bean.id)
+						mPresenter?.getCardSuccess(bean)
 					}
 
 					override fun onError(t: Throwable) {

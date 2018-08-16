@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.message.system
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 class SystemMessagePresenter(view: SystemMessageContract.View) : BasePresenter<SystemMessageContract.View>(), SystemMessageContract.Presenter {
 
@@ -27,8 +28,8 @@ class SystemMessagePresenter(view: SystemMessageContract.View) : BasePresenter<S
 		mView.toastFail(msg)
 	}
 
-	override fun getCardSuccess(cardId: Int) {
-		mView.getCardSuccess(cardId)
+	override fun getCardSuccess(bean: CardBean) {
+		mView.getCardSuccess(bean)
 	}
 
 	override fun getCardNoFound() {

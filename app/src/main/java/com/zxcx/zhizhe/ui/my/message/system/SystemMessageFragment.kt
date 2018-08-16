@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
+import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
@@ -20,6 +21,7 @@ import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_system_message.*
@@ -71,10 +73,16 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
 		}
 	}
 
-	override fun getCardSuccess(cardId: Int) {
-		val intent = Intent(mActivity, RejectDetailsActivity::class.java)
-		intent.putExtra("id", cardId)
-		startActivity(intent)
+	override fun getCardSuccess(bean: CardBean) {
+        if (bean.cardType == 1) {
+            mActivity.startActivity(RejectCardDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+        } else {
+            mActivity.startActivity(RejectDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+        }
 	}
 
 	override fun getCardNoFound() {
