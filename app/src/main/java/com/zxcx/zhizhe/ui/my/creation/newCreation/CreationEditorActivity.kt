@@ -88,7 +88,7 @@ class CreationEditorActivity : BaseActivity(),
 //		val url = "http://192.168.1.153:8043/pages/card-editor.html"
 		editor.url = url
 		cardId = intent.getIntExtra("cardId", 0)
-		val type = intent.getIntExtra("type", 0)
+        isCard = intent.getBooleanExtra("isCard",true)
 		val token = SharedPreferencesUtil.getString(SVTSConstants.token, "")
 		if (cardId != 0) {
 			editor.articleReedit(cardId, token)
@@ -320,11 +320,17 @@ class CreationEditorActivity : BaseActivity(),
 
 	@JavascriptInterface
 	fun preview(previewId: String) {
-		startActivity(PreviewCardDetailsActivity::class.java) {
-			val cardBean = CardBean()
-			cardBean.id = previewId.toInt()
-			it.putExtra("cardBean", cardBean)
-		}
+        if(isCard) {
+            startActivity(PreviewCardDetailsActivity::class.java) {
+                val cardBean = CardBean()
+                cardBean.id = previewId.toInt()
+                it.putExtra("cardBean", cardBean)
+            }
+        }else{
+            startActivity(CreationPreviewActivity::class.java){
+                it.putExtra("id",previewId)
+            }
+        }
 	}
 
 	@JavascriptInterface

@@ -194,7 +194,7 @@ class DraftDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetail
 		iv_note_details_edit.setOnClickListener {
 			startActivity(CreationEditorActivity::class.java) {
 				it.putExtra("cardId", cardBean.id)
-				it.putExtra("type", 3)
+				it.putExtra("isCard", false)
 			}
 		}
 

@@ -133,8 +133,8 @@ class CreationDraftsFragment : RefreshMvpFragment<CreationPresenter>(), Creation
 	override fun onDeleteClick(position: Int) {
 		val dialog = DeleteCreationDialog()
 		dialog.mListener = {
-			mAdapter.remove(position)
 			mPresenter.deleteCard(mAdapter.data[position].id)
+			mAdapter.remove(position)
 		}
 		dialog.show(fragmentManager, "")
 	}
