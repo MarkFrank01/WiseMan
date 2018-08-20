@@ -42,7 +42,8 @@
 		android:id="@+id/sv_reject_details"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_above="@id/ll_reject_details_bottom">
+		android:layout_above="@id/ll_reject_details_bottom"
+		android:scrollbars="none">
 		
 		<android.support.constraint.ConstraintLayout
 			android:id="@+id/ll_card_details_top"

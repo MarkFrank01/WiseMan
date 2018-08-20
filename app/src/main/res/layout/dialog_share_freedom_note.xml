@@ -81,7 +81,8 @@
 		<ScrollView
 			android:id="@+id/sv_dialog_share"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			android:scrollbars="none">
 			
 			<LinearLayout
 				android:id="@+id/ll_freedom_dialog_share"

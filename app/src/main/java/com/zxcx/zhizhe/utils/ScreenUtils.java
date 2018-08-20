@@ -131,7 +131,7 @@ public class ScreenUtils {
 		Bitmap bitmap = null;
 		// 获取scrollview实际高度
 		for (int i = 0; i < viewGroup.getChildCount(); i++) {
-			h += viewGroup.getChildAt(i).getHeight();
+			h += viewGroup.getChildAt(i).getMeasuredHeight();
 		}
 		// 创建对应大小的bitmap
 		bitmap = Bitmap.createBitmap(viewGroup.getWidth(), (int) h,

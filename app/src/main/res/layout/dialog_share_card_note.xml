@@ -82,7 +82,8 @@
 		<ScrollView
 			android:id="@+id/sv_dialog_share"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			android:scrollbars="none">
 			
 			<android.support.constraint.ConstraintLayout
 				android:id="@+id/ll_card_details_top"

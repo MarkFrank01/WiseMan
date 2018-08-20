@@ -95,15 +95,16 @@
 		<ScrollView
 			android:id="@+id/sv_dialog_share"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="match_parent"
+			android:scrollbars="none">
 			
 			<android.support.constraint.ConstraintLayout
 				android:id="@+id/ll_card_details_top"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@color/background">
+				android:background="@drawable/bg_background_12dp">
 				
-				<com.zxcx.zhizhe.widget.CardImageView
+				<com.zxcx.zhizhe.widget.CardRoundedImageView
 					android:id="@+id/iv_dialog_share"
 					android:layout_width="match_parent"
 					android:layout_height="0dp"
@@ -112,6 +113,8 @@
 					android:transitionName="@string/card_img_transition_name"
 					app:hasShade="true"
 					app:layout_constraintDimensionRatio="16:9"
+					app:riv_corner_radius_top_left="12dp"
+					app:riv_corner_radius_top_right="12dp"
 					app:shade="@color/shade"/>
 				
 				<TextView
