@@ -153,8 +153,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		super.toastFail(msg)
 		mAdapter.loadMoreFail()
 		if (mPage == 0) {
-			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setText("刷新失败")
-			(mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(false)
 			mRefreshLayout.finishRefresh()
 			loadService.showCallback(HomeNetworkErrorCallback::class.java)
 		}
