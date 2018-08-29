@@ -1,19 +1,25 @@
 package com.zxcx.zhizhe.ui.welcome
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.UploadingDialog
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * 通用网页加载页面
@@ -67,15 +73,43 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		}
 	}
 
+	@JavascriptInterface
+	fun writeMessage() {
+		runOnUiThread {
+			initToolBar("奖励兑换页")
+			iv_toolbar_right.visibility = View.GONE
+		}
+	}
+
+	@JavascriptInterface
+	fun submitSuccess() {
+		runOnUiThread {
+			toastShow("提交成功")
+			iv_toolbar_right.visibility = View.VISIBLE
+			initToolBar(title)
+			mWebView?.goBack()
+
+		}
+	}
+
+	@JavascriptInterface
+	fun saveFail() {
+		runOnUiThread {
+			toastError("提交失败")
+		}
+	}
+
+
+
 	private fun getIntentData() {
 		title = intent.getStringExtra("title")
 		url = intent.getStringExtra("url")
 		imageUrl = intent.getStringExtra("imageUrl")
 		val isAD = intent.getBooleanExtra("isAD", false)
 		loadUrl = if (isAD && SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-			url + "?=" + SharedPreferencesUtil.getString(SVTSConstants.token, "")
+			url + "?token=" + SharedPreferencesUtil.getString(SVTSConstants.token, "")
 		} else {
-			url
+			url +"?token=0"
 		}
 		initToolBar(title)
 		iv_toolbar_right.visibility = if (isAD) View.VISIBLE else View.GONE
@@ -118,7 +152,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		val shareDialog = ShareDialog()
 		val bundle = Bundle()
 		bundle.putString("title", title)
-		bundle.putString("url", url)
+		bundle.putString("url", url +"?token=share")
 		bundle.putString("imageUrl", imageUrl)
 		shareDialog.arguments = bundle
 		shareDialog.show(supportFragmentManager, "")
