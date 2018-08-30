@@ -6,7 +6,9 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
