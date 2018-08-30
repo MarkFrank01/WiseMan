@@ -133,7 +133,7 @@ class MainActivity : BaseActivity() {
 	}
 
 	private fun gotoLoginActivity(intent: Intent) {
-		if (intent.getBooleanExtra("isFirst", false)) {
+		if (intent.getBooleanExtra("needLogin", false)) {
 			val intent1 = Intent(this, LoginActivity::class.java)
 			startActivity(intent1)
 		}

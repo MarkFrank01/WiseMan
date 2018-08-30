@@ -101,8 +101,8 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	}
 
 	override fun getDataSuccess(bean: LoginBean) {
-		if (SharedPreferencesUtil.getBoolean(SVTSConstants.isFirstLogin, true)) {
-			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
+		if (!bean.user.hasAttention) {
+//			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
 			startActivity(SelectAttentionActivity::class.java) {}
 		}
 		ZhiZheUtils.saveLoginData(bean)

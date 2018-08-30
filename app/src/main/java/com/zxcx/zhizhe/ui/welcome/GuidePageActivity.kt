@@ -60,10 +60,10 @@ class GuidePageActivity : BaseActivity() {
 	/**
 	 * 跳转到App主界面
 	 */
-	private fun jumpToIndexActivity() {
+	private fun jumpToIndexActivity(needLogin: Boolean) {
 
 		val intent = Intent(this, MainActivity::class.java)
-		intent.putExtra("isFirst", true)
+		intent.putExtra("needLogin", needLogin)
 		startActivity(intent)
 
 		Utils.setIsFirstLaunchApp(false)
@@ -100,7 +100,7 @@ class GuidePageActivity : BaseActivity() {
 			override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 				if (position == mImgIds.size - 1 && positionOffset == 0f && positionOffsetPixels == 0 && isScrolling) {
 					isScrolling = false
-					jumpToIndexActivity()
+					jumpToIndexActivity(false)
 				}
 			}
 
@@ -117,7 +117,7 @@ class GuidePageActivity : BaseActivity() {
     override fun setListener() {
         super.setListener()
         tv_skip.setOnClickListener {
-            jumpToIndexActivity()
+	        jumpToIndexActivity(true)
         }
     }
 }

@@ -20,6 +20,8 @@ class UserInfoBean(
 		val gender: Int = 0,
 		@SerializedName("createTime")
 		val createTime: Long = 0,
+		@SerializedName("hasInterest")
+		val hasAttention: Boolean = false,
 		@SerializedName("bandingQQ")
 		val bandingQQ: Boolean = false,
 		@SerializedName("bandingWeixin")
