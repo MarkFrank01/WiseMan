@@ -54,7 +54,7 @@ public class ZhiZheUtils {
 		SharedPreferencesUtil.saveData(SVTSConstants.localTimeStamp, (long) 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.serverTimeStamp, (long) 0);
 		SharedPreferencesUtil.saveData(SVTSConstants.token, "");
-		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, "");
+		SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, 0);
 		saveUserInfo(new UserInfoBean());
 		EventBus.getDefault().post(new LogoutEvent());
 	}

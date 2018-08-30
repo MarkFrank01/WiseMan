@@ -124,6 +124,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		loadService.showSuccess()
 		if (list.size > 0) {
 			mAdList = list
+			imageList.clear()
 			mAdList.forEach {
 				imageList.add(it.titleImage)
 			}
@@ -226,6 +227,7 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	private fun refreshView() {
 		mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 		if (mUserId == 0) {
+			ImageLoader.load(mActivity, "", R.drawable.default_header, iv_item_rank_user)
 			tv_rank_need_login.visibility = View.VISIBLE
 			tv_my_rank_change.visibility = View.GONE
 		} else {
