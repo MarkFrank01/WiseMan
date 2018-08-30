@@ -25,7 +25,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	
 	private TextView mTvRefreshHeader;
 	private LottieAnimationView mIvRefreshHeader;
-	private String text = "已是最新";
+	private String text = "内容已刷新";
 	private boolean isSuccess = true;
 	private boolean hasText = false;
 	private View header;
@@ -68,7 +68,7 @@ public class DefaultRefreshHeader extends FrameLayout implements
 	}
 	
 	private void resetView() {
-		text = "已是最新";
+		text = "内容已刷新";
 		hasText = false;
 		mIvRefreshHeader.setAnimation("loading.json");
 		mIvRefreshHeader.setRepeatCount(LottieDrawable.INFINITE);
