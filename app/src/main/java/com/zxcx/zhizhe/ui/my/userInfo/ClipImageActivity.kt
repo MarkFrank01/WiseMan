@@ -29,6 +29,9 @@ class ClipImageActivity : BaseActivity() {
 
 	// 图片被旋转的角度
 	private var mDegree: Int = 0
+	// 图片主动旋转角度
+	private var mRotationDegree: Int = 0
+
 	// 大图被设置之前的缩放比例
 	private var mSampleSize: Int = 0
 	private var mSourceWidth: Int = 0
@@ -58,6 +61,8 @@ class ClipImageActivity : BaseActivity() {
 			cvl_head_image_crop.setMaxOutputWidth(mMaxWidth)
 
 			mDegree = readPictureDegree(mInput)
+
+			mDegree = mDegree + mRotationDegree
 
 			val isRotate = mDegree == 90 || mDegree == 270
 
@@ -207,6 +212,15 @@ class ClipImageActivity : BaseActivity() {
 
 		tv_cancel.setOnClickListener {
 			onBackPressed()
+		}
+
+		iv_clip_image_rotation.setOnClickListener {
+			if (mRotationDegree<=270){
+				mRotationDegree = mRotationDegree+90;
+			}else{
+				mRotationDegree = 0
+			}
+			setImageAndClipParams()
 		}
 	}
 

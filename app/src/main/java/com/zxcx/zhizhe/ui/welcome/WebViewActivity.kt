@@ -15,10 +15,13 @@ import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.NeedSaveDialog
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.UploadingDialog
+import kotlinx.android.synthetic.main.activity_creation_editor.*
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -57,28 +60,47 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	@JavascriptInterface
 	fun enterCreate() {
 		runOnUiThread {
-			when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-				writer_status_writer -> {
-					//创作界面
-					mActivity.startActivity(CreationEditorActivity::class.java) {}
-					finish()
-				}
-				else -> {
-					val dialog = CreationAgreementDialog()
-					dialog.mListener = {
+			if (checkLogin()){
+				when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+					writer_status_writer -> {
+						//创作界面
 						mActivity.startActivity(CreationEditorActivity::class.java) {}
 						finish()
 					}
-					dialog.show(mActivity.supportFragmentManager, "")
+					else -> {
+						val dialog = CreationAgreementDialog()
+						dialog.mListener = {
+							mActivity.startActivity(CreationEditorActivity::class.java) {}
+							finish()
+						}
+						dialog.show(mActivity.supportFragmentManager, "")
+					}
 				}
 			}
 		}
 	}
 
+
 	@JavascriptInterface
 	fun writeMessage() {
 		runOnUiThread {
 			initToolBar("奖励兑换页")
+			iv_toolbar_right.visibility = View.GONE
+		}
+	}
+
+	@JavascriptInterface
+	fun openIntelligence() {
+		runOnUiThread {
+			initToolBar("智力值说明")
+			iv_toolbar_right.visibility = View.GONE
+		}
+	}
+
+	@JavascriptInterface
+	fun setToolBarTitle(meg:String="智者") {
+		runOnUiThread {
+			initToolBar(meg)
 			iv_toolbar_right.visibility = View.GONE
 		}
 	}
@@ -129,6 +151,8 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		}
 		if (mWebView?.canGoBack() == true) {
 			mWebView?.goBack()
+			iv_toolbar_right.visibility = View.VISIBLE
+			initToolBar(title)
 		} else {
 			finish()
 		}

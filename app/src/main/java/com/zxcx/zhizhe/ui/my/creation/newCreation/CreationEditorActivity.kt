@@ -341,6 +341,24 @@ class CreationEditorActivity : BaseActivity(),
 		startActivityForResult(intent, CODE_SELECT_LABEL)
 	}
 
+
+	@JavascriptInterface
+	fun confirmExit(isBold: Boolean) {
+		runOnUiThread {
+			if (checkLogin()){
+				val dialog = CanNotSaveDialog()
+				dialog.mCancelListener = {
+				}
+				dialog.mConfirmListener = {
+					print("adfadsfs")
+					Utils.closeInputMethod(mActivity)
+					finish()
+				}
+				dialog.show(supportFragmentManager, "")
+			}
+		}
+	}
+
 	@JavascriptInterface
 	fun hiddenToolBar() {
 		runOnUiThread {

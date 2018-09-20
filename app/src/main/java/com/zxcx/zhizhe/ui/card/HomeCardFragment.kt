@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -13,6 +14,7 @@ import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
+import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
@@ -88,6 +90,11 @@ class HomeCardFragment : BaseFragment() {
 		super.setListener()
 		iv_home_search.setOnClickListener {
 			mActivity.startActivity(SearchActivity::class.java, {})
+		}
+		iv_home_interests.setOnClickListener {
+			if(checkLogin()){
+				mActivity.startActivity(SelectAttentionActivity::class.java, {})
+			}
 		}
 	}
 

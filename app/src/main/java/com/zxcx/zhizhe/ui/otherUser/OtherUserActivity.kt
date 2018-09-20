@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
+import com.zxcx.zhizhe.ui.my.userInfo.AuthorHeadImageActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -33,6 +34,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	private lateinit var mAdapter: OtherUserCardsAdapter
 	private var id: Int = 0
 	private var mUserId: Int = 0
+	private var mImageAvatar: String? = ""
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -76,6 +78,7 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	override fun getDataSuccess(bean: OtherUserInfoBean?) {
 		loadService.showSuccess()
 		ImageLoader.load(mActivity, bean?.imageUrl, R.drawable.default_header, iv_other_user_head)
+		mImageAvatar = bean?.imageUrl
 		tv_other_user_nick_name.text = bean?.name
 		tv_other_user_signature.text = bean?.signature
 		tv_other_user_lv.text = getString(R.string.tv_level, bean?.level ?: 1)
@@ -158,6 +161,11 @@ class OtherUserActivity : MvpActivity<OtherUserPresenter>(), OtherUserContract.V
 	override fun setListener() {
 		super.setListener()
 
+		iv_other_user_head.setOnClickListener {
+			mActivity.startActivity(AuthorHeadImageActivity::class.java) {
+				it.putExtra("avatarAvatar", mImageAvatar)
+			}
+		}
 		iv_toolbar_back.setOnClickListener {
 			onBackPressed()
 		}
