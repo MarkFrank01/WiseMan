@@ -26,7 +26,7 @@ class ChangeToCardDialog : CommonDialog() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		tv_dialog_title.text = "卡片最多显示140个字符"
+		tv_dialog_title.text = "卡片最多显示200个字符"
 	}
 
 	override fun setListener() {
