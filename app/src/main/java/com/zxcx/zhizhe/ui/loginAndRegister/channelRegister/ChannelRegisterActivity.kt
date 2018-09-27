@@ -65,7 +65,7 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 		EventBus.getDefault().register(this)
 
 		jpushRID = JPushInterface.getRegistrationID(mActivity)
-		SMSSDK.registerEventHandler(EventHandle())
+
 		initData()
 		//延迟弹出软键盘
 		Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
@@ -91,9 +91,10 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	}
 
 	public override fun onDestroy() {
+		SMSSDK.unregisterAllEventHandler()
 		EventBus.getDefault().unregister(this)
 		super.onDestroy()
-		SMSSDK.unregisterAllEventHandler()
+
 	}
 
 	override fun createPresenter(): ChannelRegisterPresenter {
@@ -120,6 +121,8 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: PhoneConfirmEvent) {
 		//手机号确认成功,发送验证码
+		SMSSDK.unregisterAllEventHandler()
+		SMSSDK.registerEventHandler(EventHandle())
 		showLoading()
 		SMSSDK.getVerificationCode("86", et_forget_phone.text.toString())
 	}
@@ -153,6 +156,8 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 		}
 
 		tv_forget_resend_code.setOnClickListener {
+			SMSSDK.unregisterAllEventHandler()
+			SMSSDK.registerEventHandler(EventHandle())
 			SMSSDK.getVerificationCode("86", et_forget_phone.text.toString())
 		}
 
