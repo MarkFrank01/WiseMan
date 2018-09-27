@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.loginAndRegister.login
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Html
 import android.view.View
 import butterknife.ButterKnife
 import cn.jiguang.analytics.android.api.JAnalyticsInterface
@@ -79,6 +80,10 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 		window.decorView.systemUiVisibility = uiFlags
 		ButterKnife.bind(this)
 		EventBus.getDefault().register(this)
+
+
+		val str = "注册智者代表你已阅读并同意<font color='#0088AA'>《智者用户协议》</font>";
+		tv_login_agreement.setText(Html.fromHtml(str));
 
 		appType = Constants.APP_TYPE
 		appChannel = WalleChannelReader.getChannel(mActivity)
