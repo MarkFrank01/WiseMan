@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">智者测试版</string>
-    <string name="base_url">http://120.78.189.141:8043</string>
-    <!--<string name="base_url">http://192.168.1.9:8043</string>-->
+    <!--<string name="base_url">http://120.77.180.183:8043</string>-->
+    <string name="base_url">http://192.168.1.8:8043</string>
     <string name="bucket_name">zhizhe</string>
 </resources>

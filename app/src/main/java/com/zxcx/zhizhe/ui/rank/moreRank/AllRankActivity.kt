@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.rank.RankAdapter
 import com.zxcx.zhizhe.ui.rank.UserRankBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.AllRankLoadMoreView
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_all_rank.*
 
@@ -80,7 +81,7 @@ class AllRankActivity : MvpActivity<RankPresenter>(), RankContract.View, BaseQui
 	private fun initRecyclerView() {
 		mAdapter = RankAdapter(ArrayList())
 		mAdapter.onItemClickListener = this
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
+		mAdapter.setLoadMoreView(AllRankLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_rank_user)
 		rv_rank_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_rank_user.adapter = mAdapter

@@ -15,8 +15,8 @@ android {
         applicationId "com.zxcx.zhizhe"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.1.0"
+        versionCode 6
+        versionName "1.2.3"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.compileOptions.sourceCompatibility 1.8

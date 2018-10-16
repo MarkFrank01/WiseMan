@@ -56,6 +56,7 @@ class NoteEditorActivity : BaseActivity(),
 		} else {
 			editor.setTimeStampAndToken(token)
 		}
+		tv_toolbar_right.setText("完成")
 	}
 
 	override fun initStatusBar() {
