@@ -32,4 +32,6 @@
     <color name="text_color_ee">#EEEEEE</color>
 	<color name="shade">#00000000</color>
 	<color name="bg_card_details">#E5FFFFFF</color>
+    <color name="bg_main_create">#66000000</color>
+    <color name="bg_pastelink_add">#FF0088AA</color>
 </resources>

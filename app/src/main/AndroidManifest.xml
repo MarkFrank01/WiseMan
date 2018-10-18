@@ -1,277 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	package="com.zxcx.zhizhe">
-	
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-	<uses-permission android:name="android.permission.GET_TASKS"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-	<uses-permission android:name="android.permission.READ_CONTACTS"/>
-	<uses-permission android:name="android.permission.RECEIVE_SMS"/>
-	<uses-permission android:name="android.permission.READ_SMS"/>
-	<!-- 申请未知应用安装权限，主要用于自我升级 -->
-	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-	
-	<application
-		android:allowBackup="true"
-		android:icon="@mipmap/ic_launcher"
-		android:label="@string/app_name"
-		android:name=".App"
-		android:supportsRtl="true"
-		android:theme="@style/AppTheme"
-		tools:replace="android:name">
-		<provider
-			android:authorities="${applicationId}.fileProvider"
-			android:exported="false"
-			android:grantUriPermissions="true"
-			android:name="android.support.v4.content.FileProvider">
-			<meta-data
-				android:name="android.support.FILE_PROVIDER_PATHS"
-				android:resource="@xml/provider_paths"/>
-		</provider>
-		
-		<receiver
-			android:enabled="true"
-			android:name=".receiver.OpenNotification">
-			<intent-filter>
-				<action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
-				
-				<category android:name="${applicationId}"/>
-			</intent-filter>
-		</receiver>
-		
-		<activity
-			android:configChanges="keyboardHidden|orientation|screenSize|locale"
-			android:name="com.tencent.bugly.beta.ui.BetaActivity"
-			android:theme="@android:style/Theme.Translucent"/>
-		<activity
-			android:name=".ui.welcome.SplashActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.Splash">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
-		<activity
-			android:name=".ui.welcome.WelcomeActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.welcome.GuidePageActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.MainActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"/>
-		<activity
-			android:launchMode="singleTop"
-			android:name=".ui.loginAndRegister.login.LoginActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"
-			android:windowSoftInputMode="adjustResize|stateHidden"/>
-		<activity
-			android:name=".ui.welcome.WebViewActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.search.search.SearchActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.UserInfoActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.setting.CommonSettingActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.card.label.LabelActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.search.result.SearchResultActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.collect.CollectCardActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustNothing|stateHidden"/>
-		<activity
-			android:name=".ui.article.articleDetails.ArticleDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.aboutUS.AboutUSActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.feedback.feedback.FeedbackActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.selectAttention.SelectAttentionActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.feedback.help.HelpActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.userInfo.userSafety.UserSafetyActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name="com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.ChangeNickNameActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
-		<activity
-			android:name=".ui.my.userInfo.ChangeSexActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.ChangeBirthdayActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.ChangeSignatureActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.userSafety.ChangePhoneActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.readCards.ReadCardsActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.likeCards.LikeCardsActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.note.NoteActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:launchMode="singleTask"
-			android:name=".ui.my.creation.CreationActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustNothing|stateHidden"/>
-		<activity
-			android:name=".ui.my.note.noteDetails.ArticleNoteDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.note.noteDetails.FreedomNoteDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.userInfo.ChangeHeadImageActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.AuthorHeadImageActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.ClipImageActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.note.newNote.NoteEditorActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustResize|stateHidden"/>
-		<activity
-			android:name=".ui.otherUser.OtherUserActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.followUser.FollowUserActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.followUser.FansActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.setting.MessageModeActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.ApplyForCreation1Activity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.ApplyForCreation2Activity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.ApplyReviewActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:launchMode="singleTop"
-			android:name=".ui.my.message.MessageActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.message.dynamic.dynamicList.DynamicMessageListActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.intelligenceValue.IntelligenceValueActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.ReviewDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.RejectDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.setting.ImageLoadModeActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.setting.TextSizeChangeActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.userInfo.ImageCropActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.DraftDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name="com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.newCreation.CreationEditorActivity"
-			android:screenOrientation="portrait"
-			android:windowSoftInputMode="adjustResize|stateHidden"/>
-		<activity
-			android:name=".ui.card.cardDetails.CardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.card.cardDetails.SingleCardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"
-			android:windowSoftInputMode="adjustResize|stateHidden"/>
-		<activity
-			android:name=".ui.my.creation.newCreation.SelectLabelActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.RejectCardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.DraftCardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-		<activity
-			android:name=".ui.my.creation.newCreation.CreationPreviewActivity"
-			android:screenOrientation="portrait"/>
-		<activity
-			android:name=".ui.my.creation.newCreation.PreviewCardDetailsActivity"
-			android:screenOrientation="portrait"
-			android:theme="@style/AppTheme.FullScreen"/>
-	</application>
+<manifest package="com.zxcx.zhizhe"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <!-- 申请未知应用安装权限，主要用于自我升级 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <receiver
+            android:name=".receiver.OpenNotification"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+
+                <category android:name="${applicationId}"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale"
+            android:theme="@android:style/Theme.Translucent"/>
+        <activity
+            android:name=".ui.welcome.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.welcome.GuidePageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.loginAndRegister.login.LoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.welcome.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.search.search.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.UserInfoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.setting.CommonSettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.card.label.LabelActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.search.result.SearchResultActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.collect.CollectCardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
+        <activity
+            android:name=".ui.article.articleDetails.ArticleDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.aboutUS.AboutUSActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.feedback.feedback.FeedbackActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.selectAttention.SelectAttentionActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.feedback.help.HelpActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.loginAndRegister.channelRegister.ChannelRegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.userInfo.userSafety.UserSafetyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeNickNameActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeSexActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeBirthdayActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeSignatureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.userSafety.ChangePhoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.readCards.ReadCardsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.likeCards.LikeCardsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.note.NoteActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.CreationActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateHidden"/>
+        <activity
+            android:name=".ui.my.note.noteDetails.ArticleNoteDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.note.noteDetails.FreedomNoteDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.userInfo.ChangeHeadImageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.AuthorHeadImageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ClipImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.note.newNote.NoteEditorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.otherUser.OtherUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.followUser.FollowUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.followUser.FansActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.setting.MessageModeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.ApplyForCreation1Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.ApplyForCreation2Activity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.ApplyReviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.message.MessageActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.message.dynamic.dynamicList.DynamicMessageListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.intelligenceValue.IntelligenceValueActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.ReviewDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.RejectDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.setting.ImageLoadModeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.setting.TextSizeChangeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.userInfo.ImageCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.DraftDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name="com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.CreationEditorActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.card.cardDetails.CardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.card.cardDetails.SingleCardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.SelectLabelActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.RejectCardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.DraftCardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.CreationPreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.my.creation.newCreation.PreviewCardDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity
+            android:name=".ui.my.pastelink.PasteLinkActivity"
+            android:screenOrientation="portrait"/>
+    </application>
 
 </manifest>
