@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.retrofit;
 
-import com.zxcx.zhizhe.App;
-import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
@@ -23,8 +21,10 @@ import com.zxcx.zhizhe.ui.rank.UserRankBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
-import io.reactivex.Flowable;
+
 import java.util.List;
+
+import io.reactivex.Flowable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -38,9 +38,11 @@ public interface APIService {
 	
 //	    String API_SERVER_URL = "http://120.77.180.183:8043";
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
-		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
+//		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
 //    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
+
+    String API_SERVER_URL = "http://192.168.1.153:8043";
 	
 	/**
 	 * 获取手机号注册状态 600:未注册 700:已注册

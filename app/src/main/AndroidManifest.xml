@@ -274,6 +274,7 @@
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.pastelink.PasteLinkActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
     </application>
 

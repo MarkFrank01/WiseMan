@@ -5,7 +5,8 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
 
 data class PastLinkBean(
         @SerializedName("id") var id:Int = 0,
-        @SerializedName("link") var link: String?
+        @SerializedName("link") var link: String?,
+        @SerializedName("click") var click:Boolean
 ):RetrofitBean(){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
