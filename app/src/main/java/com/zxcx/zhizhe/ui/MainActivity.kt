@@ -126,23 +126,25 @@ class MainActivity : BaseActivity() {
             }
 
             mHomeDialog.setHuishouClickListener {
-                //                toastShow("作品链接")
-                if (checkLogin()) {
-                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                        writer_status_writer -> {
-                            //黏贴作品链接
-                            mActivity.startActivity(PasteLinkActivity::class.java) {}
-                        }
 
-                        else -> {
-                            val dialog = CreationAgreementDialog()
-                            dialog.mListener = {
-                                mActivity.startActivity(PasteLinkActivity::class.java) {}
-                            }
-                            dialog.show(mActivity.supportFragmentManager, "")
-                        }
-                    }
-                }
+                mActivity.startActivity(PasteLinkActivity::class.java) {}
+
+//                if (checkLogin()) {
+//                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                        writer_status_writer -> {
+//                            //黏贴作品链接
+//                            mActivity.startActivity(PasteLinkActivity::class.java) {}
+//                        }
+//
+//                        else -> {
+//                            val dialog = CreationAgreementDialog()
+//                            dialog.mListener = {
+//                                mActivity.startActivity(PasteLinkActivity::class.java) {}
+//                            }
+//                            dialog.show(mActivity.supportFragmentManager, "")
+//                        }
+//                    }
+//                }
                 mHomeDialog.outDia()
             }
 

@@ -18,7 +18,7 @@ import org.greenrobot.eventbus.ThreadMode
  * 黏贴作品链接页面
  */
 
-class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.View ,PasteLinkListener{
+class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.View {
 
     private lateinit var mAdapter: PasteLinkAdapter
     var mSize: Int = 0
@@ -100,7 +100,7 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
         ll_add_more_link.setOnClickListener {
             if (mSize < 10) {
-                mAdapter.addData(PastLinkBean(0, "", true))
+                mAdapter.addData(PastLinkBean(0, ""+mSize, true))
 //                mAdapter.notifyDataSetChanged()
                 mAdapter.notifyItemInserted(mSize + 1)
                 mSize++
@@ -111,7 +111,5 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         }
     }
 
-    override fun onSaveLink(position: Int) {
 
-    }
 }
