@@ -12,8 +12,8 @@ class PasteLinkPresenter(view:PasteLinkContract.View):BasePresenter<PasteLinkCon
     }
 
     //上传链接操作,暂未处理
-    fun pushLinkList(){
-        mModel.pushLinkList()
+    fun pushLinkList(articleLinks:Array<String>){
+        mModel.pushLinkList(articleLinks)
     }
 
     override fun showLoading() {

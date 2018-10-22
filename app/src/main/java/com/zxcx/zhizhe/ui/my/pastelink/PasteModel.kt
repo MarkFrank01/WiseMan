@@ -8,7 +8,8 @@ class PasteModel(presenter:PasteLinkContract.Presenter):BaseModel<PasteLinkContr
     }
 
     //提交所有链接
-    fun pushLinkList(){
-
+    fun pushLinkList(articleLinks:Array<String>){
+//        mDisposable = AppClient.getAPIService().pushArticleLink(articleLinks)
+//                .compose(BaseRxJava.INSTANCE.hande)
     }
 }

@@ -3,20 +3,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-
-    <EditText
-        android:id="@+id/et_pates_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/et_check"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:ellipsize="end"
-        android:hint="添加链接"
-        android:inputType="textMultiLine"
-        android:maxLines="2"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/et_pates_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="在此处粘贴你的作品链接"
+            android:inputType="textMultiLine"
+            android:maxLines="2"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <!--<EditText-->
+    <!--android:id="@+id/et_pates_link"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginEnd="20dp"-->
+    <!--android:layout_marginStart="20dp"-->
+    <!--android:ellipsize="end"-->
+    <!--android:hint="添加链接"-->
+    <!--android:inputType="textMultiLine"-->
+    <!--android:maxLines="2"/>-->
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_paste_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,20 +41,21 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:text="123445"
-        android:textSize="17sp"/>
+        android:textSize="17sp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/ll_paste_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true">
 
         <ImageView
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"
             android:layout_width="15dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
             android:layout_marginEnd="28dp"
             android:src="@drawable/iv_home_create_cancel"/>
     </LinearLayout>

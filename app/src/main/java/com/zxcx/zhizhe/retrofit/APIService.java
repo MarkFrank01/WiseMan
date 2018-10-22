@@ -36,13 +36,13 @@ import retrofit2.http.Query;
 
 public interface APIService {
 	
-//	    String API_SERVER_URL = "http://120.77.180.183:8043";
+	    String API_SERVER_URL = "http://120.77.180.183:8043";
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
 //		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
 //    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
-    String API_SERVER_URL = "http://192.168.1.153:8043";
+//    String API_SERVER_URL = "http://192.168.1.153:8043";
 	
 	/**
 	 * 获取手机号注册状态 600:未注册 700:已注册
@@ -565,4 +565,17 @@ public interface APIService {
 		@Query("titleImage") String imageUrl, @Query("relatedArticleId") Integer withCardId,
 		@Query("styleType") Integer styleType, @Query("submitType") Integer submitType,
 		@Field("content") String content);
+
+	///////////////////////新版本功能分隔线/////////////////////////////
+
+    /**
+     * 上传创作链接
+     *
+     * @param articleLinks 链接数组
+     * @return 状态信息
+     */
+    @FormUrlEncoded
+    @POST("/article/uploadArticleLink")
+    Flowable<BaseBean<Object>> pushArticleLink(
+            @Query("linkList") String[] articleLinks);
 }
