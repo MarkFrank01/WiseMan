@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.my.creation.fragment
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +63,9 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 	}
 
 	override fun getDataSuccess(list: List<CardBean>) {
+
+        Log.e("CareSize","Size:"+list.size)
+
 		mRefreshLayout.finishRefresh()
 		if (mPage == 0) {
 			mAdapter.setNewData(list)
@@ -101,15 +105,15 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 		val bean = adapter.data[position] as CardBean
-		if (bean.cardType == 1) {
-			mActivity.startActivity(ReviewCardDetailsActivity::class.java) {
-				it.putExtra("cardBean", bean)
-			}
-		} else {
-			mActivity.startActivity(ReviewDetailsActivity::class.java) {
-				it.putExtra("cardBean", bean)
-			}
-		}
+        when {
+            bean.cardType == 1 -> mActivity.startActivity(ReviewCardDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+            bean.cardType == 2 -> mActivity.startActivity(ReviewDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+            bean.cardType == 3 -> toastShow("WebView")
+        }
 	}
 
 	private fun initRecyclerView() {

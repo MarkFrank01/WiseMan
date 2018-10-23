@@ -36,14 +36,14 @@ import retrofit2.http.Query;
 
 public interface APIService {
 	
-//	    String API_SERVER_URL = "http://120.77.180.183:8043";
+	    String API_SERVER_URL = "http://120.77.180.183:8043";
 
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
 //		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
 //    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
-    String API_SERVER_URL = "http://192.168.1.9:8043";
+//    String API_SERVER_URL = "http://192.168.1.9:8043";
 	
 	/**
 	 * 获取手机号注册状态 600:未注册 700:已注册
@@ -261,16 +261,27 @@ public interface APIService {
 		@Query("collectionId") int id, @Query("pageIndex") int page,
 		@Query("pageSize") int pageSize);
 	
-	/**
-	 * 获取创作列表
-	 *
-	 * @param passType 文章状态 0审核中 1未通过 2通过
-	 */
-	@POST("/article/getCreationList")
-	Flowable<BaseArrayBean<CardBean>> getCreation(
-		@Query("stateType") int passType, @Query("orderType") int sortType,
-		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
-	
+//	/**
+//	 * 获取创作列表
+//	 *
+//	 * @param passType 文章状态 0审核中 1未通过 2通过
+//	 */
+//	@POST("/article/getCreationList")
+//	Flowable<BaseArrayBean<CardBean>> getCreation(
+//		@Query("stateType") int passType, @Query("orderType") int sortType,
+//		@Query("pageIndex") int page, @Query("pageSize") int pageSize);
+
+    ///////////////////////////////////////////////////////////
+    /**注：更换后地址
+     * 获取创作列表
+     *
+     * @param passType 文章状态 0审核中 1未通过 2通过
+     */
+    @POST("/article/getAllCreationList")
+    Flowable<BaseArrayBean<CardBean>> getCreation(
+            @Query("stateType") int passType, @Query("orderType") int sortType,
+            @Query("pageIndex") int page, @Query("pageSize") int pageSize);
+	/////////////////////////////////////////////////////////////
 	/**
 	 * 获取被拒卡片详情
 	 */
