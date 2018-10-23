@@ -38,9 +38,13 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
             etcheck.error = "请添加你的作品链接"
         }
 
+        mListener.onClickSave(mData.indexOf(item))
+
+
         editText.isCursorVisible = true
         editText.isFocusable = true
         editText.isFocusableInTouchMode = true
+        mListener.onItemIsNull(true)
 
         val textWatcher: TextWatcher = object : TextWatcher {
 
@@ -54,19 +58,24 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                     mListener.onItemIsNull(true)
 
                 } else {
-                    etcheck.hint = ""
-                    etcheck.error = ""
-                    etcheck.isErrorEnabled = false
-                    mListener.onItemIsNull(false)
+
+                    etcheck.error = "请粘贴链接"
 
                     if (s.toString().length > 20) {
-                        editText.isCursorVisible = false
-                        editText.isFocusable = false
-                        editText.isFocusableInTouchMode = false
+
+                        etcheck.hint = ""
+                        etcheck.error = ""
+                        etcheck.isErrorEnabled = false
+                        mListener.onItemIsNull(false)
 
                         editText.setOnClickListener {
                             Toast.makeText(mContext, "Ready Go", Toast.LENGTH_SHORT).show()
                         }
+
+                        editText.isCursorVisible = false
+                        editText.isFocusable = false
+                        editText.isFocusableInTouchMode = false
+
                     }
                 }
             }

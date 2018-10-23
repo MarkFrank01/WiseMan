@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.my.pastelink
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -10,10 +11,12 @@ import com.zxcx.zhizhe.event.PushPastEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
+import com.zxcx.zhizhe.widget.UploadingDialog
 import kotlinx.android.synthetic.main.activity_paste_link.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 /**
  * 黏贴作品链接页面
@@ -23,6 +26,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
 
     private lateinit var mAdapter: PasteLinkAdapter
+    private lateinit var mUploadingDialog: UploadingDialog
+
     private var mSize: Int = 0
     private var mList2 = ArrayList<String>()
     private var mNotAdd: Boolean = true
@@ -31,8 +36,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paste_link)
 //        EventBus.getDefault().register(this)
-
         initView()
+        mUploadingDialog = UploadingDialog()
 
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
 
@@ -125,11 +130,19 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
             dialog.show(supportFragmentManager, "")
         }
 
+        tv_toolbar_right.setOnClickListener {
+            val pushLinks = arrayOfNulls<String>(mList2.size)
+
+            for (i in mList2.indices) {
+                pushLinks[i] = mList2[i]
+                Log.e("LInk" + i, pushLinks[i])
+            }
+
+        }
+
 
         ll_add_more_link.setOnClickListener {
-            if (mNotAdd) {
-                toastShow("请填写完此链接")
-            } else {
+            if (!mNotAdd) {
                 if (mSize < 10) {
                     ll_add_more_link.visibility = View.VISIBLE
                     mAdapter.addData(PastLinkBean(mSize + 1, "", true))
@@ -141,6 +154,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
                     ll_add_more_link.visibility = View.GONE
                 }
             }
+
+            mNotAdd = true
         }
 
     }
@@ -149,11 +164,11 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     override fun onClickSave(position: Int) {
         val bean = mAdapter.data[position] as PastLinkBean
 
-        if (mList2[position] == "") {
-            mList2[position] = bean.link!!
-        }
+        mList2[position] = bean.link!!
 
         tv_toolbar_right.isEnabled = mList2[position] != ""
+        mNotAdd = mList2[position] != ""
+
     }
 
     override fun onItemIsNull(isNull: Boolean) {
