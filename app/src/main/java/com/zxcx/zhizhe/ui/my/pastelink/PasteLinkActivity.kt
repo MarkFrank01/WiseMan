@@ -1,6 +1,8 @@
 package com.zxcx.zhizhe.ui.my.pastelink
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -9,8 +11,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushPastEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
+import com.zxcx.zhizhe.utils.Utils
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.UploadingDialog
 import kotlinx.android.synthetic.main.activity_paste_link.*
 import org.greenrobot.eventbus.EventBus
@@ -31,12 +36,13 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     private var mSize: Int = 0
     private var mList2 = ArrayList<String>()
     private var mNotAdd: Boolean = true
+//    private var mPushLinks = emptyArray<String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_paste_link)
-//        EventBus.getDefault().register(this)
         initView()
+        EventBus.getDefault().register(this)
         mUploadingDialog = UploadingDialog()
 
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
@@ -82,20 +88,35 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     }
 
     override fun postSuccess() {
+        runOnUiThread {
+            mUploadingDialog.setSuccess(true)
+        }
+        Handler().postDelayed({
+            //            EventBus.getDefault().post(PushPastEvent())
+            startActivity(CreationActivity::class.java) {
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                it.putExtra("goto", 1)
+            }
+            Utils.closeInputMethod(mActivity)
+            finish()
+        }, 1000)
+
     }
 
     override fun postFail(msg: String?) {
-        toastError(msg)
+        mUploadingDialog.setSuccess(false)
+//        toastError(msg)
     }
 
     override fun getDataSuccess(list: List<PastLinkBean>?) {
-        mAdapter.setNewData(list)
+//        mAdapter.setNewData(list)
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushPastEvent) {
-//        mPresenter.pushLinkList()
+        Log.e("WHY", "why not")
+        mPresenter.pushLinkList(mList2)
     }
 
 
@@ -131,13 +152,24 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         }
 
         tv_toolbar_right.setOnClickListener {
-            val pushLinks = arrayOfNulls<String>(mList2.size)
+            //            val pushLinks = arrayOfNulls<String>(mList2.size)
+//
+//            for (i in mList2.indices) {
+//                pushLinks[i] = mList2[i]
+//                Log.e("LInk" + i, pushLinks[i])
+//            }
+//
+//            mPushLinks = pushLinks
 
-            for (i in mList2.indices) {
-                pushLinks[i] = mList2[i]
-                Log.e("LInk" + i, pushLinks[i])
-            }
-
+            Handler().postDelayed({
+                EventBus.getDefault().post(PushPastEvent())
+                val bundle = Bundle()
+                bundle.putString("uploadingText", "正在提交")
+                bundle.putString("successText", "审核中")
+                bundle.putString("failText", "提交失败")
+                mUploadingDialog.arguments = bundle
+                mUploadingDialog.show(supportFragmentManager, "")
+            }, 1000)
         }
 
 

@@ -12,13 +12,17 @@ class PasteModel(presenter: PasteLinkContract.Presenter) : BaseModel<PasteLinkCo
     }
 
     //提交所有链接
-    fun pushLinkList(articleLinks: Array<String>) {
+    fun pushLinkList(articleLinks: List<String>) {
         mDisposable = AppClient.getAPIService().pushArticleLink(articleLinks)
-                .compose(BaseRxJava.io_main_loading(mPresenter))
                 .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main_loading(mPresenter))
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
                     override fun onNext(t: BaseBean<*>?) {
                         mPresenter?.postSuccess()
+                    }
+
+                    override fun onError(t: Throwable?) {
+                        mPresenter?.postFail(t?.message)
                     }
                 })
         addSubscription(mDisposable)

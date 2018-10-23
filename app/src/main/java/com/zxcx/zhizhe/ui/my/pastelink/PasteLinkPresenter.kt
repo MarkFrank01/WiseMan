@@ -12,7 +12,7 @@ class PasteLinkPresenter(view:PasteLinkContract.View):BasePresenter<PasteLinkCon
     }
 
     //上传链接操作,暂未处理
-    fun pushLinkList(articleLinks:Array<String>){
+    fun pushLinkList(articleLinks: List<String>){
         mModel.pushLinkList(articleLinks)
     }
 
@@ -37,7 +37,7 @@ class PasteLinkPresenter(view:PasteLinkContract.View):BasePresenter<PasteLinkCon
     }
 
     override fun getDataSuccess(bean: List<PastLinkBean>?) {
-        mView.getDataSuccess(bean)
+//        mView.getDataSuccess(bean)
     }
 
     override fun startLogin() {
