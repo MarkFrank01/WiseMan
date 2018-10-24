@@ -4,7 +4,6 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
@@ -22,7 +21,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
         helper.addOnClickListener(R.id.ll_paste_cancel)
 
-        helper.addOnClickListener(R.id.et_pates_link)
+//        helper.addOnClickListener(R.id.et_pates_link)
 
 
         val editText = helper.getView<AppCompatEditText>(R.id.et_pates_link)
@@ -68,9 +67,10 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                         etcheck.isErrorEnabled = false
                         mListener.onItemIsNull(false)
 
-                        editText.setOnClickListener {
-                            Toast.makeText(mContext, "Ready Go", Toast.LENGTH_SHORT).show()
-                        }
+//                        editText.setOnClickListener {
+//                            Toast.makeText(mContext, "Ready Go", Toast.LENGTH_SHORT).show()
+//                        }
+                        helper.addOnClickListener(R.id.et_pates_link)
 
                         editText.isCursorVisible = false
                         editText.isFocusable = false

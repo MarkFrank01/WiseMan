@@ -43,7 +43,7 @@ public interface APIService {
 //    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
-//    String API_SERVER_URL = "http://192.168.1.9:8043";
+//    String API_SERVER_URL = "http://192.168.1.153:8043";
 	
 	/**
 	 * 获取手机号注册状态 600:未注册 700:已注册

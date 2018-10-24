@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.my.pastelink
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
@@ -14,6 +15,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.UploadingDialog
@@ -47,6 +49,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
 
+            val bean = adapter.data[position] as PastLinkBean
+
             when (view) {
                 is LinearLayout -> {
                     val dialog = DeleteLinkDialog()
@@ -71,6 +75,14 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
                     dialog.show(supportFragmentManager, "")
                 }
 
+                is AppCompatEditText ->{
+                    startActivity(WebViewActivity::class.java){
+                        it.putExtra("url",bean.link)
+                        it.putExtra("title","我的作品")
+                        it.putExtra("imageUrl",bean.link)
+                        it.putExtra("isAD",true)
+                    }
+                }
 
             }
 

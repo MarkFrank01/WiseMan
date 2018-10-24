@@ -35,7 +35,11 @@ class CardBean(
         @SerializedName("follow") var isFollow: Boolean = false,
         @SerializedName("adUrl") var adUrl: String = "",
         @SerializedName("summary") var summary: String = "",
-        @SerializedName("adVO") var ad: ADBean? = null
+        @SerializedName("adVO") var ad: ADBean? = null,
+        //新增
+        @SerializedName("authorAuthenticationType") var authorType: Int = 0
+
+
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
         return cardType
@@ -92,7 +96,8 @@ class CardBean(
             1 == source.readInt(),
             source.readString(),
             source.readString(),
-            source.readParcelable<ADBean>(ADBean::class.java.classLoader)
+            source.readParcelable<ADBean>(ADBean::class.java.classLoader),
+            source.readInt()
     )
 
     override fun describeContents() = 0
@@ -125,6 +130,7 @@ class CardBean(
         writeString(adUrl)
         writeString(summary)
         writeParcelable(ad, 0)
+        writeInt(authorType)
     }
 
     companion object {

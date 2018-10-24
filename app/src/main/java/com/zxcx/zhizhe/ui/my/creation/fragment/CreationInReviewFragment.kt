@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.ReviewDetailsActivity
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -112,7 +113,12 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
             bean.cardType == 2 -> mActivity.startActivity(ReviewDetailsActivity::class.java) {
                 it.putExtra("cardBean", bean)
             }
-            bean.cardType == 3 -> toastShow("WebView")
+            bean.cardType == 3 -> mActivity.startActivity(WebViewActivity::class.java){
+                it.putExtra("url",bean.content)
+                it.putExtra("title","我的作品")
+                it.putExtra("imageUrl",bean.content)
+                it.putExtra("isAD",true)
+            }
         }
 	}
 
