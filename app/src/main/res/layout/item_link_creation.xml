@@ -22,7 +22,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="26dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/iv_item_card_link"
         android:transitionName="cardLinkImage"
         app:hasShade="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="https://www.vcg.com/creative/https://www.vcg.com/creative/https://www.vcg.com/creative/"/>
+        tools:text="ABC/www.vcg.com/creative/https://www.vcg.com/creative/https://www.vcg.com/creative/"/>
 
 </android.support.constraint.ConstraintLayout>

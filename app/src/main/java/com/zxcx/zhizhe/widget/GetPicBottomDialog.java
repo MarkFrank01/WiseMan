@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.widget;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -22,17 +20,22 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.FileUtil;
 import com.zxcx.zhizhe.utils.ScreenUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by anm on 2017/5/27.
@@ -271,4 +274,6 @@ public class GetPicBottomDialog extends BaseDialog {
 		
 		void onGetSuccess(UriType uriType, Uri uri, String imagePath);
 	}
+
+
 }
