@@ -243,7 +243,6 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         //选择标签点击处理
         mLabelAdapter.setOnItemChildClickListener { adapter, view, position ->
 
-            toastShow("click")
 
             val bean = adapter.data[position] as ClassifyCardBean
             val isClick = !bean.isChecked
