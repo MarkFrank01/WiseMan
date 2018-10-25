@@ -73,7 +73,8 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     override fun onBackPressed() {
-        editor.exitEdit()
+//        editor.exitEdit()
+        editor.twoExitEdit()
     }
 
     override fun onDestroy() {
@@ -120,7 +121,8 @@ class CreationEditorActivity : BaseActivity(),
             mUploadingDialog.arguments = bundle
             mUploadingDialog.show(supportFragmentManager, "")
             Handler().postDelayed({
-                editor.submitDraft()
+//                editor.submitDraft()
+                editor.twoSubmitDraft()
             }, 500)
         }
 
@@ -144,7 +146,8 @@ class CreationEditorActivity : BaseActivity(),
             Utils.closeInputMethod(mActivity)
             val window = CreationMoreWindow(mActivity, isCard)
             window.mPreviewListener = {
-                editor.editPreview()
+//                editor.editPreview()
+                editor.twoEditPreview()
             }
             window.mSaveListener = {
                 val bundle = Bundle()
@@ -154,7 +157,8 @@ class CreationEditorActivity : BaseActivity(),
                 mUploadingDialog.arguments = bundle
                 mUploadingDialog.show(supportFragmentManager, "")
                 Handler().postDelayed({
-                    editor.saveDraft()
+//                    editor.saveDraft()
+                    editor.twoSaveDraft()
                 }, 500)
             }
             window.mTypeListener = {
@@ -443,7 +447,8 @@ class CreationEditorActivity : BaseActivity(),
                 mUploadingDialog.arguments = bundle
                 mUploadingDialog.show(supportFragmentManager, "")
                 Handler().postDelayed({
-                    editor.saveDraft()
+//                    editor.saveDraft()
+                    editor.twoSaveDraft()
                 }, 500)
             }
             dialog.show(supportFragmentManager, "")

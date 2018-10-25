@@ -32,14 +32,16 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
     private var classifyId = 0
 
+    //选择标签值
     private var labelName = ""
+    //自定义标签值
     private var mSelectName: String = ""
 
     private var mSelectItem: Int = -1
 
 
-    private var FristLable: String = ""
-    private var SecondLable: String = ""
+    private var mTheFirst: String = ""
+    private var mTheSecond: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +54,22 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     }
 
     private fun initData() {
+        //二次获取
         labelName = intent.getStringExtra("labelName")
         classifyId = intent.getIntExtra("classifyId", 0)
         mSelectName = intent.getStringExtra("twoLabelName")
+
+        //日志
         Log.e("Back", labelName + "!" + mSelectName)
-        if (labelName.isNotEmpty()) {
+        //是否可直接跳过
+        if (labelName.isNotEmpty() || mSelectName.isNotEmpty()) {
             tv_toolbar_right.isEnabled = true
         }
 
-        FristLable = labelName
-        SecondLable = mSelectName
+        //必须置为第一个值，方便区分
+        mTheFirst = labelName
+        //必须置为第二个值，方便区分
+        mTheSecond = mSelectName
     }
 
     override fun createPresenter(): SelectAttentionPresenter {
@@ -72,6 +80,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         var isNewLabel = true
         list.forEach {
             it.dataList.forEach {
+
+                //判断是否有已选择的值，有则选中，将替换为第一个值
                 if (it.name == labelName) {
                     it.isChecked = true
                     mSelectedLabel = it
@@ -91,6 +101,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             }
         }
         mClassifyAdapter.setNewData(list)
+
+        //判断不为空进行操作,存在疑问，bug来源
         if (isNewLabel && labelName.isNotEmpty()) {
             mNewLabelName = labelName
             iv_select_label_new_label.visibility = View.GONE
@@ -98,6 +110,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             cb_item_select_label_new_label.visibility = View.VISIBLE
             cb_item_select_label_new_label.text = labelName
             cb_item_select_label_new_label.isChecked = true
+
+            mTheFirst = labelName
         }
     }
 
@@ -118,12 +132,17 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
             val intent = Intent()
-            intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
+            //传递值，存在疑问，bug导致数据顺序错乱
+
+//            intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
+            intent.putExtra("labelName", mTheFirst)
+            intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
-            intent.putExtra("twoLabelName", mSelectName)
+
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+
         iv_select_label_new_label_delete.setOnClickListener {
             val dialog = DeleteNewLabelDialog()
             dialog.mListener = {
@@ -133,9 +152,12 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label.visibility = View.GONE
                 cb_item_select_label_new_label.text = ""
                 cb_item_select_label_new_label.isChecked = false
+
+                mTheSecond = ""
             }
             dialog.show(supportFragmentManager, "")
         }
+
         iv_select_label_new_label.setOnClickListener {
             val dialog = NewLabelDialog()
             dialog.mListener = {
@@ -145,9 +167,12 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label.visibility = View.VISIBLE
                 cb_item_select_label_new_label.text = it
                 cb_item_select_label_new_label.isChecked = true
+
+                mTheSecond = it
             }
             dialog.show(supportFragmentManager, "")
         }
+
         cb_item_select_label_new_label.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 mSelectedLabel = null
@@ -165,6 +190,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         }
     }
 
+    //先加载rv
     private fun initRecyclerView() {
         mClassifyAdapter = SelectClassifyAdapter(ArrayList())
         mLabelAdapter = SelectLabelAdapter(ArrayList())
@@ -174,6 +200,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         rv_select_classify.layoutManager = manager
         rv_select_label.adapter = mLabelAdapter
         rv_select_label.layoutManager = manager1
+
+        //大分类处理，不动
         mClassifyAdapter.setOnItemChildClickListener { adapter, view, position ->
             val bean = adapter.data[position] as ClassifyBean
             val isChecked = !bean.isChecked
@@ -210,7 +238,13 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
             mSelectItem = -1
         }
+
+
+        //选择标签点击处理
         mLabelAdapter.setOnItemChildClickListener { adapter, view, position ->
+
+            toastShow("click")
+
             val bean = adapter.data[position] as ClassifyCardBean
             val isClick = !bean.isChecked
 
@@ -239,19 +273,27 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             mLabelAdapter.notifyDataSetChanged()
 
 
-
+            //尝试在这里获取值和回置值
             if (bean.isChecked) {
-                mSelectedLabel = bean
-//                mNewLabelSelect = false
-                if (mNewLabelName.isNotEmpty()) {
-                    cb_item_select_label_new_label.isChecked = false
-                }
+//                mSelectedLabel = bean
+////                mNewLabelSelect = false
+//                if (mNewLabelName.isNotEmpty()) {
+//                    cb_item_select_label_new_label.isChecked = false
+//                }
+
+                mTheFirst = bean.name.toString()
+
+
             } else {
                 mSelectedLabel = null
+                mTheFirst = ""
             }
+
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 
 
+            //只取第一个单值
+            Log.e("label", mTheFirst + "!")
         }
     }
 }

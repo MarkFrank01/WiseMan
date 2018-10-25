@@ -48,7 +48,8 @@ class CreationPreviewActivity : BaseActivity() {
 		}
 
 		tv_toolbar_right.setOnClickListener {
-			editor.submitDraft()
+//			editor.submitDraft()
+            editor.twoSubmitDraft()
 		}
 
 		//添加方法给js调用
