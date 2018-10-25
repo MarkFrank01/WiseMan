@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
@@ -31,7 +32,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private var labelName = ""
     private var classifyId = 0
 
-    private var mSelectNum: Int = 0
+    private var mSelectNum: Int = -1
+    private var mSelectName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +66,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     mSelectedLabel = it
                     mNewLabelSelect = false
                     isNewLabel = false
+
                 } else {
                     it.isChecked = false
                 }
@@ -105,6 +108,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             val intent = Intent()
             intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
             intent.putExtra("classifyId", mSelectedClassify?.id)
+            //第二标签
+//            intent.putExtra("twoLabelName",if ())
+            Log.e("SendNew", "!" + mSelectName)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -189,21 +195,38 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 iv_select_label_new_label.visibility = View.GONE
             }
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            mSelectNum = -1
         }
         mLabelAdapter.setOnItemChildClickListener { adapter, view, position ->
             val bean = adapter.data[position] as ClassifyCardBean
+            val isClick = !bean.isChecked
 
-
-            val isChecked = !bean.isChecked
+            if (!isClick) {
+                mSelectNum = -1
+                mSelectName = ""
+            }
 
             adapter.data.forEach {
                 it as ClassifyCardBean
                 it.isChecked = false
             }
 
+            if (mSelectNum != -1) {
+                val lastBean = adapter.data[mSelectNum] as ClassifyCardBean
+                lastBean.isChecked = isClick
+                mSelectName = bean.name.toString()
+                Log.e("NewName", mSelectName + "!")
+            }
 
-            bean.isChecked = isChecked
+
+            if (mSelectNum != position) {
+                mSelectNum = position
+            }
+
+            bean.isChecked = isClick
             mLabelAdapter.notifyDataSetChanged()
+
+
 
             if (bean.isChecked) {
                 mSelectedLabel = bean
