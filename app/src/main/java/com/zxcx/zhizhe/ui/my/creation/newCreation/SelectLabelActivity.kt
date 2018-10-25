@@ -29,11 +29,17 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private var mNewLabelName: String = ""
     private lateinit var mClassifyAdapter: SelectClassifyAdapter
     private lateinit var mLabelAdapter: SelectLabelAdapter
-    private var labelName = ""
+
     private var classifyId = 0
 
-    private var mSelectNum: Int = -1
+    private var labelName = ""
     private var mSelectName: String = ""
+
+    private var mSelectItem: Int = -1
+
+
+    private var FristLable: String = ""
+    private var SecondLable: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +54,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private fun initData() {
         labelName = intent.getStringExtra("labelName")
         classifyId = intent.getIntExtra("classifyId", 0)
+        mSelectName = intent.getStringExtra("twoLabelName")
+        Log.e("Back", labelName + "!" + mSelectName)
         if (labelName.isNotEmpty()) {
             tv_toolbar_right.isEnabled = true
         }
+
+        FristLable = labelName
+        SecondLable = mSelectName
     }
 
     override fun createPresenter(): SelectAttentionPresenter {
@@ -66,10 +77,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     mSelectedLabel = it
                     mNewLabelSelect = false
                     isNewLabel = false
-
                 } else {
                     it.isChecked = false
                 }
+
+
             }
             if (it.id == classifyId) {
                 it.isChecked = true
@@ -108,9 +120,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             val intent = Intent()
             intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
             intent.putExtra("classifyId", mSelectedClassify?.id)
-            //第二标签
-//            intent.putExtra("twoLabelName",if ())
-            Log.e("SendNew", "!" + mSelectName)
+            intent.putExtra("twoLabelName", mSelectName)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -144,6 +154,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 mLabelAdapter.data.forEach {
                     it as ClassifyCardBean
                     it.isChecked = false
+                }
+                if (mSelectItem != -1) {
+                    mLabelAdapter.data[mSelectItem].isChecked = true
                 }
                 mLabelAdapter.notifyDataSetChanged()
             }
@@ -195,14 +208,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 iv_select_label_new_label.visibility = View.GONE
             }
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
-            mSelectNum = -1
+            mSelectItem = -1
         }
         mLabelAdapter.setOnItemChildClickListener { adapter, view, position ->
             val bean = adapter.data[position] as ClassifyCardBean
             val isClick = !bean.isChecked
 
             if (!isClick) {
-                mSelectNum = -1
+                mSelectItem = -1
                 mSelectName = ""
             }
 
@@ -211,16 +224,15 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 it.isChecked = false
             }
 
-            if (mSelectNum != -1) {
-                val lastBean = adapter.data[mSelectNum] as ClassifyCardBean
-                lastBean.isChecked = isClick
-                mSelectName = bean.name.toString()
+
+            if (mSelectItem != -1) {
+                val lastBean = adapter.data[mSelectItem] as ClassifyCardBean
+                mSelectName = lastBean.name.toString()
                 Log.e("NewName", mSelectName + "!")
             }
 
-
-            if (mSelectNum != position) {
-                mSelectNum = position
+            if (mSelectItem != position) {
+                mSelectItem = position
             }
 
             bean.isChecked = isClick
@@ -230,7 +242,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
             if (bean.isChecked) {
                 mSelectedLabel = bean
-                mNewLabelSelect = false
+//                mNewLabelSelect = false
                 if (mNewLabelName.isNotEmpty()) {
                     cb_item_select_label_new_label.isChecked = false
                 }
