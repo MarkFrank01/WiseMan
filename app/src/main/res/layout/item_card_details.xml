@@ -71,6 +71,18 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
             tools:text="#数码产品"/>
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_item_card_details_label2"
+            style="@style/tv_card_label"
+            android:paddingBottom="12dp"
+            android:paddingEnd="12dp"
+            android:paddingStart="5dp"
+            android:paddingTop="6dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
+            tools:text="#数码产品"/>
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_item_card_details_content"
             android:layout_width="match_parent"

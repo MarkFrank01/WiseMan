@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.card
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -29,114 +28,114 @@ import org.greenrobot.eventbus.ThreadMode
 
 class HomeCardFragment : BaseFragment() {
 
-	private val mHotFragment = HotCardFragment()
-	private val mAttentionFragment = AttentionCardFragment()
-	private val mListFragment = CardListFragment()
-	private var mCurrentFragment = Fragment()
+    private val mHotFragment = HotCardFragment()
+    private val mAttentionFragment = AttentionCardFragment()
+    private val mListFragment = CardListFragment()
+    private var mCurrentFragment = Fragment()
 
-	private val titles = arrayOf("关注", "推荐", "列表")
+    private val titles = arrayOf("关注", "推荐", "列表")
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-	                          savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_home_card, container, false)
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home_card, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		EventBus.getDefault().register(this)
-		for (i in titles.indices) {
-			val tab = tl_home.newTab()
-			tab.setCustomView(R.layout.tab_home)
-			val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_home)
-			textView?.text = titles[i]
-			tl_home.addTab(tab)
-		}
-		tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-			override fun onTabSelected(tab: TabLayout.Tab) {
-				when (tab.position) {
-					0 -> {
-						switchFragment(mAttentionFragment)
-					}
-					1 -> {
-						switchFragment(mHotFragment)
-					}
-					2 -> {
-						switchFragment(mListFragment)
-					}
-				}
-				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
-				textView.paint.isFakeBoldText = true
-			}
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
+        for (i in titles.indices) {
+            val tab = tl_home.newTab()
+            tab.setCustomView(R.layout.tab_home)
+            val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_home)
+            textView?.text = titles[i]
+            tl_home.addTab(tab)
+        }
+        tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 -> {
+                        switchFragment(mAttentionFragment)
+                    }
+                    1 -> {
+                        switchFragment(mHotFragment)
+                    }
+                    2 -> {
+                        switchFragment(mListFragment)
+                    }
+                }
+                val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+                textView.paint.isFakeBoldText = true
+            }
 
-			override fun onTabUnselected(tab: TabLayout.Tab) {
-				val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
-				textView.paint.isFakeBoldText = false
-			}
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+                val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
+                textView.paint.isFakeBoldText = false
+            }
 
-			override fun onTabReselected(tab: TabLayout.Tab) {
+            override fun onTabReselected(tab: TabLayout.Tab) {
 
-			}
-		})
+            }
+        })
 
-		val para = tl_home.layoutParams
-		val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
-		para.width = screenWidth * 1 / 2
-		tl_home.layoutParams = para
+        val para = tl_home.layoutParams
+        val screenWidth = ScreenUtils.getDisplayWidth() //屏幕宽度
+        para.width = screenWidth * 1 / 2
+        tl_home.layoutParams = para
 
-		tl_home.getTabAt(1)?.select()
-	}
+        tl_home.getTabAt(1)?.select()
+    }
 
-	override fun setListener() {
-		super.setListener()
-		iv_home_search.setOnClickListener {
-			mActivity.startActivity(SearchActivity::class.java, {})
-		}
-		iv_home_interests.setOnClickListener {
-			if(checkLogin()){
-				mActivity.startActivity(SelectAttentionActivity::class.java, {})
-			}
-		}
-	}
+    override fun setListener() {
+        super.setListener()
+        iv_home_search.setOnClickListener {
+            mActivity.startActivity(SearchActivity::class.java, {})
+        }
+        iv_home_interests.setOnClickListener {
+            if (checkLogin()) {
+                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+            }
+        }
+    }
 
-	private fun switchFragment(newFragment: Fragment) {
+    private fun switchFragment(newFragment: Fragment) {
 
-		val fm = childFragmentManager
-		val transaction = fm.beginTransaction()
+        val fm = childFragmentManager
+        val transaction = fm.beginTransaction()
 
-		if (newFragment.isAdded) {
-			//.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
-			transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
-		} else {
-			transaction.hide(mCurrentFragment).add(R.id.fl_home, newFragment).commitAllowingStateLoss()
-		}
-		mCurrentFragment = newFragment
-	}
+        if (newFragment.isAdded) {
+            //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
+            transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()
+        } else {
+            transaction.hide(mCurrentFragment).add(R.id.fl_home, newFragment).commitAllowingStateLoss()
+        }
+        mCurrentFragment = newFragment
+    }
 
-	override fun onDestroyView() {
-		EventBus.getDefault().unregister(this)
-		super.onDestroyView()
-	}
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroyView()
+    }
 
-	public fun onActivityReenter() {
-		when (mCurrentFragment) {
-			mHotFragment -> mHotFragment.onActivityReenter()
-			mAttentionFragment -> mAttentionFragment.onActivityReenter()
-			mListFragment -> mListFragment.onActivityReenter()
-		}
-	}
+    public fun onActivityReenter() {
+        when (mCurrentFragment) {
+            mHotFragment -> mHotFragment.onActivityReenter()
+            mAttentionFragment -> mAttentionFragment.onActivityReenter()
+            mListFragment -> mListFragment.onActivityReenter()
+        }
+    }
 
-	fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
-		return when (mCurrentFragment) {
-			mHotFragment -> mHotFragment.getSharedView(names)
-			mAttentionFragment -> mAttentionFragment.getSharedView(names)
-			mListFragment -> mListFragment.getSharedView(names)
-			else -> mListFragment.getSharedView(names)
-		}
-	}
+    fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
+        return when (mCurrentFragment) {
+            mHotFragment -> mHotFragment.getSharedView(names)
+            mAttentionFragment -> mAttentionFragment.getSharedView(names)
+            mListFragment -> mListFragment.getSharedView(names)
+            else -> mListFragment.getSharedView(names)
+        }
+    }
 
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: GotoCardListEvent) {
-		//去往卡片列表页
-		tl_home.getTabAt(2)?.select()
-	}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: GotoCardListEvent) {
+        //去往卡片列表页
+        tl_home.getTabAt(2)?.select()
+    }
 }
