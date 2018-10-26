@@ -53,6 +53,7 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
 		tv_item_card_details_title.text = mCardBean.name
 		tv_item_card_details_category.text = mCardBean.categoryName
 		tv_item_card_details_label.text = mCardBean.getLabelName()
+        tv_item_card_details_label2.text = mCardBean.getSecondLabelName()
 
 		val multi = MultiTransformation(
 				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))

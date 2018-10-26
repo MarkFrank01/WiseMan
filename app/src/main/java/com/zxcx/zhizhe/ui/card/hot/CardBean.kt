@@ -37,7 +37,9 @@ class CardBean(
         @SerializedName("summary") var summary: String = "",
         @SerializedName("adVO") var ad: ADBean? = null,
         //新增
-        @SerializedName("authorAuthenticationType") var authorType: Int = 0
+        @SerializedName("authorAuthenticationType") var authorType: Int = 0,
+        @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
+        @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = ""
 
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
@@ -53,6 +55,11 @@ class CardBean(
     fun setLabelName(string: String) {
         labelName = string
     }
+
+    fun getSecondLabelName():String{
+        return "#$secondCollectionTitle"
+    }
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -97,7 +104,9 @@ class CardBean(
             source.readString(),
             source.readString(),
             source.readParcelable<ADBean>(ADBean::class.java.classLoader),
-            source.readInt()
+            source.readInt(),
+            source.readInt(),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -131,6 +140,8 @@ class CardBean(
         writeString(summary)
         writeParcelable(ad, 0)
         writeInt(authorType)
+        writeInt(secondCollectionId)
+        writeString(secondCollectionTitle)
     }
 
     companion object {

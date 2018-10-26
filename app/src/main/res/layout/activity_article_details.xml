@@ -71,6 +71,20 @@
 				app:layout_constraintStart_toEndOf="@id/tv_article_details_category"
 				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
 				tools:text="生活"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_article_details_label2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
+                android:transitionName="@string/card_label_transition_name"
+                app:layout_constraintStart_toEndOf="@id/tv_article_details_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
+                tools:text="生活"/>
 			
 			<TextView
 				android:id="@+id/tv_article_details_date"
@@ -80,7 +94,7 @@
 				android:layout_marginStart="12dp"
 				android:textColor="@color/text_color_3"
 				android:textSize="@dimen/text_size_text_3"
-				app:layout_constraintStart_toEndOf="@id/tv_article_details_label"
+				app:layout_constraintStart_toEndOf="@id/tv_article_details_label2"
 				app:layout_constraintTop_toBottomOf="@id/tv_article_details_title"
 				tools:text="2018/12/20"/>
 			

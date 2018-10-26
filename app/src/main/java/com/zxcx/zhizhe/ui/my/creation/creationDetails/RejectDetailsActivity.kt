@@ -103,6 +103,10 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 		tv_reject_details_date.text = DateTimeUtils.getDateString(cardBean.date)
 		tv_reject_details_category.text = bean.categoryName
 		tv_reject_details_label.text = bean.getLabelName()
+        if (bean.secondCollectionTitle.isNotEmpty()){
+            tv_reject_details_label2.visibility = View.VISIBLE
+            tv_reject_details_label2.text = bean.getSecondLabelName()
+        }
 		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
 
@@ -141,7 +145,10 @@ class RejectDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetai
 			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_reject_details)
 		}
-
+        if (!StringUtils.isEmpty(cardBean.secondCollectionTitle)){
+            tv_reject_details_label2.visibility = View.VISIBLE
+            tv_reject_details_label2.text = cardBean.getSecondLabelName()
+        }
 		initWebView()
 
 		initLoadSir()

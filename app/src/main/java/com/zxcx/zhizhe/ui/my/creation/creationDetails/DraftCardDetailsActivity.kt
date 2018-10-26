@@ -26,123 +26,132 @@ import org.greenrobot.eventbus.ThreadMode
 
 class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
-	private lateinit var cardBean: CardBean
+    private lateinit var cardBean: CardBean
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		setContentView(R.layout.activity_draft_card_details)
-		super.onCreate(savedInstanceState)
-		ButterKnife.bind(this)
-		EventBus.getDefault().register(this)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setContentView(R.layout.activity_draft_card_details)
+        super.onCreate(savedInstanceState)
+        ButterKnife.bind(this)
+        EventBus.getDefault().register(this)
 
-		initData()
-		initView()
+        initData()
+        initView()
 
-		mPresenter.getRejectDetails(cardBean.id)
-	}
+        mPresenter.getRejectDetails(cardBean.id)
+    }
 
-	override fun initStatusBar() {
+    override fun initStatusBar() {
 
-	}
+    }
 
-	override fun onDestroy() {
-		EventBus.getDefault().unregister(this)
-		super.onDestroy()
-	}
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
 
-	override fun createPresenter(): RejectDetailsPresenter {
-		return RejectDetailsPresenter(this)
-	}
+    override fun createPresenter(): RejectDetailsPresenter {
+        return RejectDetailsPresenter(this)
+    }
 
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: CommitCardReviewEvent) {
-		finish()
-	}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: CommitCardReviewEvent) {
+        finish()
+    }
 
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: DeleteCreationEvent) {
-		finish()
-	}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: DeleteCreationEvent) {
+        finish()
+    }
 
-	@Subscribe(threadMode = ThreadMode.MAIN)
-	fun onMessageEvent(event: SaveDraftSuccessEvent) {
-		onReload(null)
-	}
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveDraftSuccessEvent) {
+        onReload(null)
+    }
 
-	override fun onReload(v: View?) {
-		mPresenter.getRejectDetails(cardBean.id)
-	}
+    override fun onReload(v: View?) {
+        mPresenter.getRejectDetails(cardBean.id)
+    }
 
-	override fun getDataSuccess(bean: CardBean) {
-		//进入时只有id的时候，在这里初始化界面
-		cardBean = bean
+    override fun getDataSuccess(bean: CardBean) {
+        //进入时只有id的时候，在这里初始化界面
+        cardBean = bean
 
-		tv_draft_details_title.text = bean.name
-		tv_draft_details_category.text = bean.categoryName
-		tv_draft_details_label.text = bean.getLabelName()
-		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
-		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
-	}
+        tv_draft_details_title.text = bean.name
+        tv_draft_details_category.text = bean.categoryName
+        tv_draft_details_label.text = bean.getLabelName()
+        if (bean.secondCollectionTitle.isNotEmpty()) {
+            tv_draft_details_label2.visibility = View.VISIBLE
+            tv_draft_details_label2.text = bean.getSecondLabelName()
+        }
 
-	override fun postSuccess() {
-		EventBus.getDefault().post(SaveDraftSuccessEvent())
-		onBackPressed()
-	}
+        val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
+    }
 
-	override fun postFail(msg: String?) {
-		toastError(msg)
-	}
+    override fun postSuccess() {
+        EventBus.getDefault().post(SaveDraftSuccessEvent())
+        onBackPressed()
+    }
 
-	private fun initData() {
-		cardBean = intent.getParcelableExtra("cardBean")
-	}
+    override fun postFail(msg: String?) {
+        toastError(msg)
+    }
 
-	private fun initView() {
-		if (!StringUtils.isEmpty(cardBean.name))
-			tv_draft_details_title.text = cardBean.name
-		if (!StringUtils.isEmpty(cardBean.categoryName))
-			tv_draft_details_category.text = cardBean.categoryName
-		if (!StringUtils.isEmpty(cardBean.getLabelName()))
-			tv_draft_details_label.text = cardBean.getLabelName()
-		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
-			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
-			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
-		}
+    private fun initData() {
+        cardBean = intent.getParcelableExtra("cardBean")
+    }
 
-		val multi = MultiTransformation(
-				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
-		GlideApp
-				.with(mActivity)
-				.load(cardBean.imageUrl)
-				.apply(GlideOptions.bitmapTransform(multi))
-				.into(iv_card_details_bg)
+    private fun initView() {
+        if (!StringUtils.isEmpty(cardBean.name))
+            tv_draft_details_title.text = cardBean.name
+        if (!StringUtils.isEmpty(cardBean.categoryName))
+            tv_draft_details_category.text = cardBean.categoryName
+        if (!StringUtils.isEmpty(cardBean.getLabelName()))
+            tv_draft_details_label.text = cardBean.getLabelName()
+        if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+            val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
+            ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_draft_details)
+        }
+        if (!StringUtils.isEmpty(cardBean.secondCollectionTitle)) {
+            tv_draft_details_label2.visibility = View.VISIBLE
+            tv_draft_details_label2.text = cardBean.getSecondLabelName()
+        }
 
-		initWebView()
-	}
+        val multi = MultiTransformation(
+                ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
+        GlideApp
+                .with(mActivity)
+                .load(cardBean.imageUrl)
+                .apply(GlideOptions.bitmapTransform(multi))
+                .into(iv_card_details_bg)
 
-	private fun initWebView() {
-		val fromHtml = HtmlCompat.fromHtml(mActivity, cardBean.content, 0)
-		tv_draft_details_content.movementMethod = LinkMovementMethod.getInstance()
-		tv_draft_details_content.text = fromHtml
-	}
+        initWebView()
+    }
 
-	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
+    private fun initWebView() {
+        val fromHtml = HtmlCompat.fromHtml(mActivity, cardBean.content, 0)
+        tv_draft_details_content.movementMethod = LinkMovementMethod.getInstance()
+        tv_draft_details_content.text = fromHtml
+    }
 
-		iv_draft_details_edit.setOnClickListener {
-			startActivity(CreationEditorActivity::class.java) {
-				it.putExtra("cardId", cardBean.id)
-				it.putExtra("type", 2)
-			}
-		}
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
 
-		iv_draft_details_commit.setOnClickListener {
-			val dialog = SubmitCreationDialog()
-			dialog.mListener = {
-				mPresenter.submitReview(cardBean.id, 0)
-			}
-			dialog.show(supportFragmentManager, "")
-		}
-	}
+        iv_draft_details_edit.setOnClickListener {
+            startActivity(CreationEditorActivity::class.java) {
+                it.putExtra("cardId", cardBean.id)
+                it.putExtra("type", 2)
+            }
+        }
+
+        iv_draft_details_commit.setOnClickListener {
+            val dialog = SubmitCreationDialog()
+            dialog.mListener = {
+                mPresenter.submitReview(cardBean.id, 0)
+            }
+            dialog.show(supportFragmentManager, "")
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.creation.fragment
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -40,6 +41,10 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
                 helper.setText(R.id.tv_item_card_title, item.name)
                 helper.setText(R.id.tv_item_card_category, item.categoryName)
                 helper.setText(R.id.tv_item_card_label, item.getLabelName())
+                if (item.getSecondLabelName()!=""&&item.getSecondLabelName().isNotEmpty()) {
+                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+                    helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
+                }
                 helper.setText(R.id.tv_item_card_read, item.readNum.toString())
                 helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 

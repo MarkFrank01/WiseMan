@@ -147,6 +147,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		tv_article_details_date.text = date
 		tv_article_details_category.text = cardBean.categoryName
 		tv_article_details_label.text = cardBean.getLabelName()
+        if (cardBean.secondCollectionTitle.isNotEmpty()){
+            tv_article_details_label2.visibility = View.VISIBLE
+            tv_article_details_label2.text = cardBean.getSecondLabelName()
+        }
 		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
@@ -191,6 +195,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		tv_article_details_date.text = date
 		tv_article_details_category.text = cardBean.categoryName
 		tv_article_details_label.text = cardBean.getLabelName()
+        if (cardBean.secondCollectionTitle.isNotEmpty()){
+            tv_article_details_label2.visibility = View.VISIBLE
+            tv_article_details_label2.text = cardBean.getSecondLabelName()
+        }
 		val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		tv_article_details_author.text = bean.authorName
@@ -374,6 +382,11 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
 			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_article_details)
 		}
+        if (!StringUtils.isEmpty(cardBean.secondCollectionTitle)){
+            tv_article_details_label2.visibility = View.VISIBLE
+            tv_article_details_label2.text = cardBean.getSecondLabelName()
+        }
+
 		cb_article_details_follow.expandViewTouchDelegate(ScreenUtils.dip2px(8f))
 		iv_article_details_comment.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		cb_article_details_collect.expandViewTouchDelegate(ScreenUtils.dip2px(10f))

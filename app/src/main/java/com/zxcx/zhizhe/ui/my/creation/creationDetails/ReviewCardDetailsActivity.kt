@@ -18,90 +18,100 @@ import kotlinx.android.synthetic.main.activity_review_card_details.*
 
 class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDetailsContract.View {
 
-	private lateinit var cardBean: CardBean
+    private lateinit var cardBean: CardBean
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		setContentView(R.layout.activity_review_card_details)
-		super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setContentView(R.layout.activity_review_card_details)
+        super.onCreate(savedInstanceState)
 
-		initData()
-		initView()
+        initData()
+        initView()
 
-		mPresenter.getRejectDetails(cardBean.id)
-	}
+        mPresenter.getRejectDetails(cardBean.id)
+    }
 
-	override fun initStatusBar() {
+    override fun initStatusBar() {
 
-	}
+    }
 
-	override fun onDestroy() {
-		super.onDestroy()
-	}
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
-	override fun createPresenter(): RejectDetailsPresenter {
-		return RejectDetailsPresenter(this)
-	}
+    override fun createPresenter(): RejectDetailsPresenter {
+        return RejectDetailsPresenter(this)
+    }
 
-	override fun onReload(v: View?) {
-		mPresenter.getRejectDetails(cardBean.id)
-	}
+    override fun onReload(v: View?) {
+        mPresenter.getRejectDetails(cardBean.id)
+    }
 
-	override fun getDataSuccess(bean: CardBean) {
-		//进入时只有id的时候，在这里初始化界面
-		cardBean = bean
+    override fun getDataSuccess(bean: CardBean) {
+        //进入时只有id的时候，在这里初始化界面
+        cardBean = bean
 
-		tv_review_details_title.text = bean.name
-		tv_review_details_category.text = bean.categoryName
-		tv_review_details_label.text = bean.getLabelName()
-		val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
-		ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
-	}
+        tv_review_details_title.text = bean.name
+        tv_review_details_category.text = bean.categoryName
+        tv_review_details_label.text = bean.getLabelName()
 
-	override fun postSuccess() {
-		toastShow("删除成功")
-		onBackPressed()
-	}
+        if (bean.secondCollectionTitle != "" && bean.secondCollectionTitle.isNotEmpty()) {
+            tv_review_details_label2.visibility = View.VISIBLE
+            tv_review_details_label2.text = bean.getSecondLabelName()
+        }
 
-	override fun postFail(msg: String?) {
-		toastError(msg)
-	}
+        val imageUrl = ZhiZheUtils.getHDImageUrl(bean.imageUrl)
+        ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
+    }
 
-	private fun initData() {
-		cardBean = intent.getParcelableExtra("cardBean")
-	}
+    override fun postSuccess() {
+        toastShow("删除成功")
+        onBackPressed()
+    }
 
-	private fun initView() {
-		if (!StringUtils.isEmpty(cardBean.name))
-			tv_review_details_title.text = cardBean.name
-		if (!StringUtils.isEmpty(cardBean.categoryName))
-			tv_review_details_category.text = cardBean.categoryName
-		if (!StringUtils.isEmpty(cardBean.getLabelName()))
-			tv_review_details_label.text = cardBean.getLabelName()
-		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
-			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
-			ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
-		}
+    override fun postFail(msg: String?) {
+        toastError(msg)
+    }
 
-		val multi = MultiTransformation(
-				ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
-		GlideApp
-				.with(mActivity)
-				.load(cardBean.imageUrl)
-				.apply(GlideOptions.bitmapTransform(multi))
-				.into(iv_card_details_bg)
+    private fun initData() {
+        cardBean = intent.getParcelableExtra("cardBean")
+    }
 
-		initWebView()
-	}
+    private fun initView() {
+        if (!StringUtils.isEmpty(cardBean.name))
+            tv_review_details_title.text = cardBean.name
+        if (!StringUtils.isEmpty(cardBean.categoryName))
+            tv_review_details_category.text = cardBean.categoryName
+        if (!StringUtils.isEmpty(cardBean.getLabelName()))
+            tv_review_details_label.text = cardBean.getLabelName()
+        if (!StringUtils.isEmpty(cardBean.imageUrl)) {
+            val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
+            ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_review_details)
+        }
+        if (cardBean.secondCollectionTitle != "" && cardBean.secondCollectionTitle.isNotEmpty()) {
+            tv_review_details_label2.visibility = View.VISIBLE
+            tv_review_details_label2.text = cardBean.getSecondLabelName()
+        }
 
-	private fun initWebView() {
-		val fromHtml = HtmlCompat.fromHtml(mActivity, cardBean.content, 0)
-		tv_review_details_content.movementMethod = LinkMovementMethod.getInstance()
-		tv_review_details_content.text = fromHtml
-	}
+        val multi = MultiTransformation(
+                ColorFilterTransformation(getColorForKotlin(R.color.bg_card_details)))
+        GlideApp
+                .with(mActivity)
+                .load(cardBean.imageUrl)
+                .apply(GlideOptions.bitmapTransform(multi))
+                .into(iv_card_details_bg)
 
-	override fun setListener() {
-		iv_common_close.setOnClickListener {
-			onBackPressed()
-		}
-	}
+        initWebView()
+    }
+
+    private fun initWebView() {
+        val fromHtml = HtmlCompat.fromHtml(mActivity, cardBean.content, 0)
+        tv_review_details_content.movementMethod = LinkMovementMethod.getInstance()
+        tv_review_details_content.text = fromHtml
+    }
+
+    override fun setListener() {
+        iv_common_close.setOnClickListener {
+            onBackPressed()
+        }
+    }
 }

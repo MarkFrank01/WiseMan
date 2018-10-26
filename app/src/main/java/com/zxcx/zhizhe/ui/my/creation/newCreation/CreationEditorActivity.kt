@@ -73,8 +73,8 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     override fun onBackPressed() {
-//        editor.exitEdit()
-        editor.twoExitEdit()
+        editor.exitEdit()
+//        editor.twoExitEdit()
     }
 
     override fun onDestroy() {
@@ -146,8 +146,8 @@ class CreationEditorActivity : BaseActivity(),
             Utils.closeInputMethod(mActivity)
             val window = CreationMoreWindow(mActivity, isCard)
             window.mPreviewListener = {
-//                editor.editPreview()
-                editor.twoEditPreview()
+                editor.editPreview()
+//                editor.twoEditPreview()
             }
             window.mSaveListener = {
                 val bundle = Bundle()
