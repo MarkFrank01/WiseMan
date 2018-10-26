@@ -6,7 +6,6 @@ import android.os.Handler
 import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
@@ -69,18 +68,20 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
                             adapter.notifyItemRemoved(position)
                             mList2.remove(mList2[position])
                             mSize--
+
+                            ll_add_more_link.isEnabled = true
                         }
                     }
 
                     dialog.show(supportFragmentManager, "")
                 }
 
-                is AppCompatEditText ->{
-                    startActivity(WebViewActivity::class.java){
-                        it.putExtra("url",bean.link)
-                        it.putExtra("title","我的作品")
-                        it.putExtra("imageUrl",bean.link)
-                        it.putExtra("isAD",true)
+                is AppCompatEditText -> {
+                    startActivity(WebViewActivity::class.java) {
+                        it.putExtra("url", bean.link)
+                        it.putExtra("title", "我的作品")
+                        it.putExtra("imageUrl", bean.link)
+                        it.putExtra("isAD", true)
                     }
                 }
 
@@ -188,17 +189,16 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         ll_add_more_link.setOnClickListener {
             if (!mNotAdd) {
                 if (mSize < 10) {
-                    ll_add_more_link.visibility = View.VISIBLE
+                    ll_add_more_link.isEnabled = true
                     mAdapter.addData(PastLinkBean(mSize + 1, "", true))
                     mAdapter.notifyItemInserted(mSize + 1)
                     mSize++
 
                     mList2.add("")
                 } else {
-                    ll_add_more_link.visibility = View.GONE
+                    ll_add_more_link.isEnabled = false
                 }
             }
-
             mNotAdd = true
         }
 

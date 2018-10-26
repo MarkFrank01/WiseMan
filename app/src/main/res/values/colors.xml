@@ -34,4 +34,6 @@
 	<color name="bg_card_details">#E5FFFFFF</color>
     <color name="bg_main_create">#66000000</color>
     <color name="bg_pastelink_add">#FF0088AA</color>
+    <color name="bg_link_edit_text">#EEEEEE</color>
+    <color name="bg_link_text">#D2D2D2</color>
 </resources>
