@@ -112,6 +112,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             cb_item_select_label_new_label.isChecked = true
 
             mTheFirst = labelName
+            tv_toolbar_right.isEnabled
         }
     }
 
@@ -290,6 +291,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 
+            if (mTheFirst!=""&&mTheFirst.isNotEmpty()){
+                tv_toolbar_right.isEnabled = true
+            }
 
             //只取第一个单值
             Log.e("label", mTheFirst + "!")
