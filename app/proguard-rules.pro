@@ -121,3 +121,7 @@
 -keep class com.kingja.loadsir.** {*;}
 #Kotlin
 -dontwarn kotlin.reflect.jvm.internal.**
+#JS
+-keepattributes *JavascriptInterface*
+-keep class com.zxcx.zhizhe.ui.**{*;}
+-keep class com.zxcx.zhizhe.utils.**{*;}
