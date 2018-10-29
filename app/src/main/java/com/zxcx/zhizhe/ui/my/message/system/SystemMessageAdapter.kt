@@ -15,9 +15,17 @@ import java.util.regex.Pattern
  * Created by anm on 2017/12/20.
  */
 class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<SystemMessageBean, BaseViewHolder>(R.layout.item_system_message, data) {
+//class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseMultiItemQuickAdapter<SystemMessageBean, BaseViewHolder>(data) {
+
 	val format = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHINA)
 	var pattern = "(《.*?》)"
 	var r = Pattern.compile(pattern)
+
+    //预留将会多类型item
+//    init {
+//        addItemType(SystemMessageBean)
+//        R.layout.item_system_message
+//    }
 
 	override fun convert(helper: BaseViewHolder, item: SystemMessageBean) {
 		helper.addOnClickListener(R.id.tv_item_system_message_action)

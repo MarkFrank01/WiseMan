@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.message.system
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
 import java.util.*
@@ -25,5 +26,13 @@ data class SystemMessageBean(
 		@SerializedName("time") var time: Date?, //2017-12-20T03:28:06.284Z
 		@SerializedName("titleColor") var titleColor: String?, //string
 		@SerializedName("title") var title: String? //string
-) : RetrofitBean()
+) : RetrofitBean(),MultiItemEntity {
+
+    override fun getItemType(): Int {
+        return this.messageType!!
+    }
+
+    companion object {
+    }
+}
 
