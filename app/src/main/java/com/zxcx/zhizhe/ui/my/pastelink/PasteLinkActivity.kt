@@ -37,7 +37,6 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     private var mSize: Int = 0
     private var mList2 = ArrayList<String>()
     private var mNotAdd: Boolean = true
-//    private var mPushLinks = emptyArray<String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,17 +117,14 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
     override fun postFail(msg: String?) {
         mUploadingDialog.setSuccess(false)
-//        toastError(msg)
     }
 
     override fun getDataSuccess(list: List<PastLinkBean>?) {
-//        mAdapter.setNewData(list)
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushPastEvent) {
-        Log.e("WHY", "why not")
         mPresenter.pushLinkList(mList2)
     }
 
@@ -165,14 +161,6 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         }
 
         tv_toolbar_right.setOnClickListener {
-            //            val pushLinks = arrayOfNulls<String>(mList2.size)
-//
-//            for (i in mList2.indices) {
-//                pushLinks[i] = mList2[i]
-//                Log.e("LInk" + i, pushLinks[i])
-//            }
-//
-//            mPushLinks = pushLinks
 
             Handler().postDelayed({
                 EventBus.getDefault().post(PushPastEvent())
