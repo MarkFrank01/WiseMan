@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
@@ -25,6 +27,9 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.GlideBannerImageLoader
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import kotlinx.android.synthetic.main.fragment_hot.*
@@ -46,7 +51,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	private var mLastDate = Date()
 	private var mCurrentPosition = 0
 
-    private var mAdaList:MutableList<ADBean> = mutableListOf()
+    private var mAdList:MutableList<ADBean> = mutableListOf()
+    private var imageList:MutableList<String> = mutableListOf()
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_hot, container, false)
@@ -74,6 +80,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		initRecyclerView()
 		getHotCard()
 		mHidden = false
+        initADView()
+        onRefreshAD()
 	}
 
 	override fun onHiddenChanged(hidden: Boolean) {
@@ -126,6 +134,11 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		getHotCard()
 	}
 
+    private fun onRefreshAD(){
+        mPresenter.getAD()
+    }
+
+
 	override fun onLoadMoreRequested() {
 		getHotCard()
 	}
@@ -152,7 +165,23 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		}
 	}
 
-	override fun toastFail(msg: String) {
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        loadService.showSuccess()
+        if (list.size>0){
+            mAdList = list
+            imageList.clear()
+            mAdList.forEach {
+                imageList.add(it.titleImage)
+            }
+            fl_banner_card.visibility = View.VISIBLE
+        }else{
+            fl_banner_card.visibility = View.GONE
+        }
+        banner_card.setImages(imageList)
+        banner_card.start()
+    }
+
+    override fun toastFail(msg: String) {
 		super.toastFail(msg)
 		mAdapter.loadMoreFail()
 		if (mPage == 0) {
@@ -170,6 +199,49 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		rv_hot_card.layoutManager = layoutManager
 		rv_hot_card.adapter = mAdapter
 	}
+
+    private fun initADView(){
+        banner_card.setImageLoader(GlideBannerImageLoader())
+        banner_card.setIndicatorGravity(BannerConfig.RIGHT)
+        banner_card.setOnBannerListener {
+            val adUrl = mAdList[it].behavior
+            val adTitle = mAdList[it].description
+            val adImage = mAdList[it].titleImage
+            mActivity.startActivity(WebViewActivity::class.java) {
+                it.putExtra("isAD", true)
+                it.putExtra("title", adTitle)
+                it.putExtra("url", adUrl)
+                it.putExtra("imageUrl", adImage)
+            }
+        }
+
+        banner_card.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                val newPosition = position % 3
+                val ad = mAdList[newPosition]
+                when (ad.styleType) {
+                    0 -> {
+                        iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_0)
+                    }
+                    1 -> {
+                        iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_1)
+                    }
+                    2 -> {
+                        iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_2)
+                    }
+                }
+            }
+
+        })
+    }
 
 	private fun getHotCard() {
 		mPresenter.getHotCard(mLastDate.time.toString(), mPage)
