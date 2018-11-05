@@ -10,7 +10,11 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadSir
+import com.uuch.adlibrary.AdConstant
+import com.uuch.adlibrary.AdManager
+import com.uuch.adlibrary.bean.AdInfo
 import com.youth.banner.BannerConfig
+import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.LogoutEvent
@@ -37,6 +41,8 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	private var mUserId: Int = 0
 	private lateinit var mAdapter: RankAdapter
 
+    var advList:ArrayList<AdInfo> = ArrayList()
+
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_rank, container, false)
 		loadService = LoadSir.getDefault().register(root, this)
@@ -49,6 +55,16 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		initRecyclerView()
 		initView()
 		onRefresh()
+
+        showFirstDialog()
+        val adManager = AdManager(activity, advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    toastShow("get AD")
+                }
+
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
 	}
 
 	override fun createPresenter(): RankPresenter {
@@ -235,4 +251,10 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 			tv_my_rank_change.visibility = View.VISIBLE
 		}
 	}
+
+    private fun showFirstDialog() {
+        val adInfo = AdInfo()
+        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+        advList.add(adInfo)
+    }
 }
