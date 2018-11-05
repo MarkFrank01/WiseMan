@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.design.widget.CoordinatorLayout
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/refresh_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/background">
 
-    <android.support.design.widget.AppBarLayout
-        style="@style/Widget.Design.AppBarLayout.NoElevation"
+    <android.support.design.widget.CoordinatorLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/background">
 
-        <com.zxcx.zhizhe.widget.Rounded6FrameLayout
-            android:id="@+id/fl_banner_card"
+        <android.support.design.widget.AppBarLayout
+            style="@style/Widget.Design.AppBarLayout.NoElevation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:background="@color/background"
             app:layout_scrollFlags="scroll">
 
-            <com.zxcx.zhizhe.ui.rank.ADBanner
-                android:id="@+id/banner_card"
+            <com.zxcx.zhizhe.widget.Rounded6FrameLayout
+                android:id="@+id/fl_banner_card"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
-                app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
-                app:indicator_height="5dp"
-                app:indicator_margin="5dp"
-                app:indicator_width="5dp"/>
-
-            <ImageView
-                android:id="@+id/iv_ad_label_card"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|bottom"
-                android:src="@drawable/iv_ad_label_0"/>
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_scrollFlags="scroll">
 
-        </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
+                <com.zxcx.zhizhe.ui.rank.ADBanner
+                    android:id="@+id/banner_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+                    app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+                    app:indicator_height="5dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="5dp"/>
 
-    </android.support.design.widget.AppBarLayout>
+                <ImageView
+                    android:id="@+id/iv_ad_label_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:src="@drawable/iv_ad_label_0"/>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_hot_card"
@@ -58,5 +59,5 @@
             android:clipChildren="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:listitem="@layout/item_card"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

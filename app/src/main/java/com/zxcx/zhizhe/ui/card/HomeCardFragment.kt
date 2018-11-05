@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.uuch.adlibrary.AdConstant
+import com.uuch.adlibrary.AdManager
+import com.uuch.adlibrary.bean.AdInfo
+import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
@@ -32,6 +36,9 @@ class HomeCardFragment : BaseFragment() {
     private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
+
+    var advList:ArrayList<AdInfo> = ArrayList()
+
 
     private val titles = arrayOf("关注", "推荐", "列表")
 
@@ -83,6 +90,16 @@ class HomeCardFragment : BaseFragment() {
         tl_home.layoutParams = para
 
         tl_home.getTabAt(1)?.select()
+
+        showFirstDialog()
+        val adManager = AdManager(activity,advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    toastShow("get AD")
+                }
+
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
     override fun setListener() {
@@ -137,5 +154,11 @@ class HomeCardFragment : BaseFragment() {
     fun onMessageEvent(event: GotoCardListEvent) {
         //去往卡片列表页
         tl_home.getTabAt(2)?.select()
+    }
+
+    private fun showFirstDialog() {
+        val adInfo = AdInfo()
+        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+        advList.add(adInfo)
     }
 }
