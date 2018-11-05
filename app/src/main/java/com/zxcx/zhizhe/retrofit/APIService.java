@@ -98,10 +98,15 @@ public interface APIService {
 	/**
 	 * 第三方绑定解绑
 	 */
-	@POST("/user/thirdPartyBindingUnbinding")
-	Flowable<BaseBean<Object>> channelBinding(
-		@Query("thirdPartyType") int channelType, @Query("type") int type,
-		@Query("openId") String openId);
+//	@POST("/user/thirdPartyBindingUnbinding")
+//	Flowable<BaseBean<Object>> channelBinding(
+//		@Query("thirdPartyType") int channelType, @Query("type") int type,
+//		@Query("openId") String openId);
+
+    @POST("/user/thirdPartyBindingUnbinding")
+    Flowable<BaseBean<Object>> channelBinding(
+            @Query("thirdPartyType") int channelType, @Query("type") int type,
+            @Query("uuid") String openId);
 	
 	/**
 	 * 修改手机号

@@ -12,6 +12,7 @@ import cn.sharesdk.wechat.utils.WechatClientNotExistException
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.RemoveBindingEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
@@ -76,6 +77,7 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: RemoveBindingEvent) {
+        LogCat.e("解绑")
 		mPresenter.channelBinding(channelType, 2, null)
 	}
 
@@ -157,6 +159,7 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
 				val platDB = platform.db//获取数平台数据DB
 				//通过DB获取各种数据
 				val userId = platDB.userId
+                LogCat.e("解除绑定前ID"+userId)
 				mPresenter.channelBinding(channelType, 1, userId)
 			}
 		}

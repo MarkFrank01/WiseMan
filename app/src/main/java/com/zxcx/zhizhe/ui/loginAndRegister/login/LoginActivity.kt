@@ -245,6 +245,8 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 				userIcon = platDB.userIcon
 				userId = platDB.userId
 				userName = platDB.userName
+
+                LogCat.e("登录前ID"+userId)
 				mPresenter.channelLogin(channelType, userId, jpushID, appType, appChannel, appVersion)
 			}
 		}
