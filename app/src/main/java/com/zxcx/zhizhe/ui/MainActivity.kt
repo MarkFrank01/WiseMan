@@ -5,6 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import com.uuch.adlibrary.AdConstant
+import com.uuch.adlibrary.AdManager
+import com.uuch.adlibrary.bean.AdInfo
+import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
@@ -41,6 +45,9 @@ class MainActivity : BaseActivity() {
     private var mMyFragment: MyFragment? = MyFragment()
     private var mIsReenter = false
 
+    //////
+    var advList:ArrayList<AdInfo> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,6 +62,16 @@ class MainActivity : BaseActivity() {
         } else {
             home_tab_card.performClick()
         }
+
+        showFirstDialog()
+        val adManager = AdManager(this,advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    toastShow("get AD")
+                }
+
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -230,5 +247,12 @@ class MainActivity : BaseActivity() {
                 mIsReenter = false
             }
         }
+    }
+
+    ////////////////////////////
+    private fun showFirstDialog() {
+        val adInfo = AdInfo()
+        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+        advList.add(adInfo)
     }
 }

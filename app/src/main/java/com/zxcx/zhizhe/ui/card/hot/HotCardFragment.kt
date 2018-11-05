@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import kotlinx.android.synthetic.main.fragment_hot.*
@@ -44,6 +45,8 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	private var mHidden = true
 	private var mLastDate = Date()
 	private var mCurrentPosition = 0
+
+    private var mAdaList:MutableList<ADBean> = mutableListOf()
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_hot, container, false)
@@ -214,4 +217,5 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 		cardLabel?.let { sharedElements[cardLabel.transitionName] = it }
 		return sharedElements
 	}
+
 }

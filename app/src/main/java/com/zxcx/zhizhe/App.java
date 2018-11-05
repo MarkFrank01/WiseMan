@@ -4,8 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
-import cn.jiguang.analytics.android.api.JAnalyticsInterface;
-import cn.jpush.android.api.JPushInterface;
+import android.util.DisplayMetrics;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.kingja.loadsir.core.LoadSir;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
@@ -15,6 +16,7 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.uuch.adlibrary.utils.DisplayUtil;
 import com.zxcx.zhizhe.loadCallback.EmptyCallback;
 import com.zxcx.zhizhe.loadCallback.LoadingCallback;
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback;
@@ -23,6 +25,9 @@ import com.zxcx.zhizhe.ui.MainActivity;
 import com.zxcx.zhizhe.utils.Constants;
 import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader;
+
+import cn.jiguang.analytics.android.api.JAnalyticsInterface;
+import cn.jpush.android.api.JPushInterface;
 
 
 public class App extends Application {
@@ -98,6 +103,9 @@ public class App extends Application {
 		
 		//Logger初始化
 		LogCat.init();
+
+        Fresco.initialize(this);
+        initDisplayOpinion();
 	}
 	
 	@Override
@@ -109,5 +117,14 @@ public class App extends Application {
 		// 安装tinker
 		Beta.installTinker();
 	}
-	
+
+    private void initDisplayOpinion() {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        DisplayUtil.density = dm.density;
+        DisplayUtil.densityDPI = dm.densityDpi;
+        DisplayUtil.screenWidthPx = dm.widthPixels;
+        DisplayUtil.screenhightPx = dm.heightPixels;
+        DisplayUtil.screenWidthDip = DisplayUtil.px2dip(getApplicationContext(), dm.widthPixels);
+        DisplayUtil.screenHightDip = DisplayUtil.px2dip(getApplicationContext(), dm.heightPixels);
+    }
 }

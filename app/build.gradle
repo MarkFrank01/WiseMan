@@ -229,6 +229,7 @@ dependencies {
 
     /*//Android工具类
         compile 'com.blankj:utilcode:1.9.12'*/
+    compile 'cn.yipianfengye.android:ad-library:1.0'
 }
 
 kapt {

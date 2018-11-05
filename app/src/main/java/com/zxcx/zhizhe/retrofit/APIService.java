@@ -103,7 +103,7 @@ public interface APIService {
 //		@Query("thirdPartyType") int channelType, @Query("type") int type,
 //		@Query("openId") String openId);
 
-    @POST("/user/thirdPartyBindingUnbinding")
+    @POST("/user/thirdPartyBindingAndUnbinding")
     Flowable<BaseBean<Object>> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
             @Query("uuid") String openId);
