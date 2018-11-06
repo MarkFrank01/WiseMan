@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -21,6 +22,7 @@ import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_card.*
@@ -168,12 +170,15 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         advList.add(adInfo)
     }
 
-    private fun showImageDialog() {
+    private fun showImageDialog(title: String, url: String) {
         val adManager = AdManager(activity, advList)
         adManager.setOverScreen(true)
                 .setPageTransformer(DepthPageTransformer())
-                .setOnImageClickListener { view, advInfo ->
-                    toastShow("get AD")
+                .setOnImageClickListener { _, _ ->
+                    val intent = Intent(context, WebViewActivity::class.java)
+                    intent.putExtra("title", title)
+                    intent.putExtra("url",url)
+                    startActivity(intent)
                 }
         adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
@@ -184,12 +189,18 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
+
+        var title = ""
+        var url = ""
+
         if (list.size > 0) {
             mAdList = list
             mAdList.forEach {
                 addImageData(it.titleImage)
+                title = it.description
+                url = it.behavior
             }
-            showImageDialog()
+            showImageDialog(title, url)
         }
 
     }
