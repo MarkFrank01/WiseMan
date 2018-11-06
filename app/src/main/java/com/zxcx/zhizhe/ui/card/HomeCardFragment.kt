@@ -13,12 +13,14 @@ import com.uuch.adlibrary.bean.AdInfo
 import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoCardListEvent
-import com.zxcx.zhizhe.mvpBase.BaseFragment
+import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_card.*
@@ -30,14 +32,17 @@ import org.greenrobot.eventbus.ThreadMode
  * 首页-卡片Fragment
  */
 
-class HomeCardFragment : BaseFragment() {
+//class HomeCardFragment : BaseFragment() {
+class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View {
+
 
     private val mHotFragment = HotCardFragment()
     private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
-    var advList:ArrayList<AdInfo> = ArrayList()
+    private var advList: ArrayList<AdInfo> = ArrayList()
+    private var mAdList: MutableList<ADBean> = mutableListOf()
 
 
     private val titles = arrayOf("关注", "推荐", "列表")
@@ -91,15 +96,16 @@ class HomeCardFragment : BaseFragment() {
 
         tl_home.getTabAt(1)?.select()
 
-        showFirstDialog()
-        val adManager = AdManager(activity,advList)
-        adManager.setOverScreen(true)
-                .setPageTransformer(DepthPageTransformer())
-                .setOnImageClickListener { view, advInfo ->
-                    toastShow("get AD")
-                }
-
-        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+        onRefreshAD()
+//        showFirstDialog("")
+//        val adManager = AdManager(activity,advList)
+//        adManager.setOverScreen(true)
+//                .setPageTransformer(DepthPageTransformer())
+//                .setOnImageClickListener { view, advInfo ->
+//                    toastShow("get AD")
+//                }
+//
+//        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
     override fun setListener() {
@@ -156,9 +162,42 @@ class HomeCardFragment : BaseFragment() {
         tl_home.getTabAt(2)?.select()
     }
 
-    private fun showFirstDialog() {
+    private fun addImageData(url: String) {
         val adInfo = AdInfo()
-        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+        adInfo.activityImg = url
         advList.add(adInfo)
+    }
+
+    private fun showImageDialog() {
+        val adManager = AdManager(activity, advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    toastShow("get AD")
+                }
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+
+    override fun createPresenter(): HomeCardPresenter {
+        return HomeCardPresenter(this)
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        if (list.size > 0) {
+            mAdList = list
+            mAdList.forEach {
+                addImageData(it.titleImage)
+            }
+            showImageDialog()
+        }
+
+    }
+
+    override fun getDataSuccess(bean: MutableList<CardBean>?) {
+    }
+
+    private fun onRefreshAD() {
+        mPresenter.getAD()
     }
 }
