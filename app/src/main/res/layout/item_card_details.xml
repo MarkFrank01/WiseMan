@@ -136,8 +136,8 @@
 
     <ImageView
         android:id="@+id/iv_item_card_officials"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         android:layout_marginStart="2dp"
         android:src="@drawable/iv_card_detail_official"
         android:visibility="gone"

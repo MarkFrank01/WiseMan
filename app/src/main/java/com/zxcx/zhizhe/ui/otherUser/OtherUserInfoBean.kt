@@ -8,14 +8,15 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
  */
 
 data class OtherUserInfoBean(
-		@SerializedName("avatar") var imageUrl: String?, //string
-		@SerializedName("hasArticle") var hasCard: Boolean?, //0
-		@SerializedName("id") var id: Int?, //0
-		@SerializedName("intelligenceValue") var intelligence: Int?, //0
-		@SerializedName("authorCreateArticleCount") var creationNum: Int?, //0
-		@SerializedName("authorFollowerCount") var fansNum: Int?, //0
-		@SerializedName("name") var name: String?, //string
-		@SerializedName("accountLevel") var level: Int,
-		@SerializedName("follow") var isFollow: Boolean = false,
-		@SerializedName("sign") var signature: String? //0
+        @SerializedName("avatar") var imageUrl: String?, //string
+        @SerializedName("hasArticle") var hasCard: Boolean?, //0
+        @SerializedName("id") var id: Int?, //0
+        @SerializedName("intelligenceValue") var intelligence: Int?, //0
+        @SerializedName("authorCreateArticleCount") var creationNum: Int?, //0
+        @SerializedName("authorFollowerCount") var fansNum: Int?, //0
+        @SerializedName("name") var name: String?, //string
+        @SerializedName("accountLevel") var level: Int,
+        @SerializedName("follow") var isFollow: Boolean = false,
+        @SerializedName("sign") var signature: String?,
+        @SerializedName("authenticationType") var actionType: Int?//0
 ) : RetrofitBean()

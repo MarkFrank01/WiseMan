@@ -96,7 +96,18 @@
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toBottomOf="@id/iv_other_user_head"
 					tools:text="怕是个傻子哦"/>
-				
+
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/iv_item_card_officials"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/iv_card_detail_official"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_other_user_nick_name"
+                    app:layout_constraintStart_toEndOf="@id/tv_other_user_nick_name"
+                    app:layout_constraintTop_toTopOf="@id/tv_other_user_nick_name"/>
+
 				<TextView
 					android:id="@+id/tv_other_user_signature"
 					android:layout_width="wrap_content"

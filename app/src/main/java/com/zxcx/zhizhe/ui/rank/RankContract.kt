@@ -6,14 +6,16 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
 
 interface RankContract {
 
-	interface View : GetView<List<UserRankBean>> {
-		fun getMyRankSuccess(bean: UserRankBean)
-		fun getADSuccess(list: MutableList<ADBean>)
-	}
+    interface View : GetView<List<UserRankBean>> {
+        fun getMyRankSuccess(bean: UserRankBean)
+        fun getADSuccess(list: MutableList<ADBean>)
+        fun getDialogADSuccess(list: MutableList<ADBean>)
+    }
 
-	interface Presenter : IGetPresenter<List<UserRankBean>> {
-		fun getMyRankSuccess(bean: UserRankBean)
-		fun getADSuccess(list: MutableList<ADBean>)
-	}
+    interface Presenter : IGetPresenter<List<UserRankBean>> {
+        fun getMyRankSuccess(bean: UserRankBean)
+        fun getADSuccess(list: MutableList<ADBean>)
+        fun getDialogADSuccess(list: MutableList<ADBean>)
+    }
 }
 

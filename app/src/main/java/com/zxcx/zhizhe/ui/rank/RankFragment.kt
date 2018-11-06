@@ -36,7 +36,8 @@ import org.greenrobot.eventbus.ThreadMode
 
 class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickAdapter.OnItemClickListener, Callback.OnReloadListener {
 
-	private var mAdList: MutableList<ADBean> = mutableListOf()
+
+    private var mAdList: MutableList<ADBean> = mutableListOf()
 	private val imageList: MutableList<String> = mutableListOf()
 	private var mUserId: Int = 0
 	private lateinit var mAdapter: RankAdapter
@@ -56,15 +57,16 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		initView()
 		onRefresh()
 
-        showFirstDialog()
-        val adManager = AdManager(activity, advList)
-        adManager.setOverScreen(true)
-                .setPageTransformer(DepthPageTransformer())
-                .setOnImageClickListener { view, advInfo ->
-                    toastShow("get AD")
-                }
-
-        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+        onRefreshAD()
+//        showFirstDialog()
+//        val adManager = AdManager(activity, advList)
+//        adManager.setOverScreen(true)
+//                .setPageTransformer(DepthPageTransformer())
+//                .setOnImageClickListener { view, advInfo ->
+//                    toastShow("get AD")
+//                }
+//
+//        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
 	}
 
 	override fun createPresenter(): RankPresenter {
@@ -152,6 +154,22 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		banner_rank.start()
 	}
 
+    override fun getDialogADSuccess(list: MutableList<ADBean>) {
+
+        var title = ""
+        var url = ""
+
+        if (list.size > 0) {
+            mAdList = list
+            mAdList.forEach {
+                addImageData(it.titleImage)
+                title = it.description
+                url = it.behavior
+            }
+            showImageDialog(title, url)
+        }
+    }
+
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	fun onMessageEvent(event: LoginEvent) {
 		refreshView()
@@ -222,19 +240,19 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 			}
 
 			override fun onPageSelected(position: Int) {
-				val newPosition = position % 3
-				val ad = mAdList[newPosition]
-				when (ad.styleType) {
-					0 -> {
-						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
-					}
-					1 -> {
-						iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
-					}
-					2 -> {
-						iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
-					}
-				}
+//				val newPosition = position % 3
+//				val ad = mAdList[newPosition]
+//				when (ad.styleType) {
+//					0 -> {
+//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
+//					}
+//					1 -> {
+//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
+//					}
+//					2 -> {
+//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
+//					}
+//				}
 			}
 
 		})
@@ -252,9 +270,32 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 		}
 	}
 
-    private fun showFirstDialog() {
+//    private fun showFirstDialog() {
+//        val adInfo = AdInfo()
+//        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+//        advList.add(adInfo)
+//    }
+
+    private fun addImageData(url: String) {
         val adInfo = AdInfo()
-        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+        adInfo.activityImg = url
         advList.add(adInfo)
+    }
+
+    private fun showImageDialog(title: String, url: String) {
+        val adManager = AdManager(activity, advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { _, _ ->
+                    val intent = Intent(context, WebViewActivity::class.java)
+                    intent.putExtra("title", title)
+                    intent.putExtra("url",url)
+                    startActivity(intent)
+                }
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun onRefreshAD(){
+        mPresenter.getDialog()
     }
 }

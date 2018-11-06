@@ -20,6 +20,10 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
 		mModel.getAD()
 	}
 
+    fun getDialog(){
+        mModel.getDialogAD()
+    }
+
 	fun getTopTenRank() {
 		mModel.getTopTenRank()
 	}
@@ -36,7 +40,11 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
 		mView.getADSuccess(list)
 	}
 
-	override fun getDataFail(msg: String) {
+    override fun getDialogADSuccess(list: MutableList<ADBean>) {
+        mView.getDialogADSuccess(list)
+    }
+
+    override fun getDataFail(msg: String) {
 		mView.toastFail(msg)
 	}
 

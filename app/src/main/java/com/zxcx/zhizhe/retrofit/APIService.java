@@ -543,7 +543,7 @@ public interface APIService {
 		@Query("messageType") int messageType);
 	
 	/**
-	 * 获取红点状态
+	 * 获取个人信息,获取红点状态
 	 */
 	@POST("/mytabinfo/getMyTabInfo")
 	Flowable<BaseBean<MyTabBean>> getMyTabInfo();
