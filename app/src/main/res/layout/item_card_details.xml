@@ -72,13 +72,13 @@
             tools:text="#数码产品"/>
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_item_card_details_label2"
             style="@style/tv_card_label"
             android:paddingBottom="12dp"
             android:paddingEnd="12dp"
             android:paddingStart="5dp"
             android:paddingTop="6dp"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_label"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
             tools:text="#数码产品"/>
@@ -89,15 +89,18 @@
             android:layout_height="0dp"
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:lineSpacingExtra="9dp"
+            android:layout_marginTop="10dp"
+            android:autoSizePresetSizes="@arrays/autosize"
+            android:lineSpacingExtra="6dp"
             android:textColor="@color/text_color_2"
-            android:textSize="15sp"
-            app:autoSizeMaxTextSize="15sp"
-            app:autoSizeMinTextSize="5sp"
-            app:autoSizeStepGranularity="1px"
+            android:textSize="20sp"
+            app:autoSizeMaxTextSize="30sp"
+            app:autoSizeMinTextSize="15sp"
+            app:autoSizeStepGranularity="5sp"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_label"/>
     </android.support.constraint.ConstraintLayout>
 

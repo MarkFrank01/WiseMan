@@ -14,7 +14,8 @@ data class DynamicMessageListBean(
 		@SerializedName("relatedUserAvatar") var relatedUserAvatar: String = "", //string
 		@SerializedName("relatedUserId") var relatedUserId: Int = 0, //0
 		@SerializedName("relatedUserName") var relatedUserName: String = "", //string
-		@SerializedName("time") var date: Date? //2017-12-20T09:17:26.516Z
+		@SerializedName("time") var date: Date?, //2017-12-20T09:17:26.516Z
+        @SerializedName("authenticationType")var authenticationType:Int = 0
 
 ) : RetrofitBean(), MultiItemEntity {
 	var newTime: String? = ""

@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.rank
 
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -14,24 +16,29 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
  */
 class RankAdapter(data: List<UserRankBean>) : BaseQuickAdapter<UserRankBean, BaseViewHolder>(R.layout.item_rank_user, data) {
 
-	var mKeyword = ""
+    var mKeyword = ""
 
-	init {
-		setHeaderAndEmpty(true)
-	}
+    init {
+        setHeaderAndEmpty(true)
+    }
 
-	override fun convert(helper: BaseViewHolder, item: UserRankBean) {
-		val title = helper.getView<TextView>(R.id.tv_item_rank_user_name)
-		TextViewUtils.setTextViewColorBlue(title, mKeyword, item.name)
-		val imageView = helper.getView<RoundedImageView>(R.id.iv_item_rank_user)
-		val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
-		ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
-		helper.setText(R.id.tv_item_rank_user_card, item.cardNum.toString())
-		helper.setText(R.id.tv_item_rank_user_fans, item.fansNum.toString())
-		helper.setText(R.id.tv_item_rank_user_like, item.likeNum.toString())
-		helper.setText(R.id.tv_item_rank_user_collect, item.collectNum.toString())
-		helper.setText(R.id.tv_item_rank_user_level, mContext.getString(R.string.tv_level, item.level))
-		helper.setText(R.id.tv_item_rank_user_rank, item.rankIndex.toString())
-	}
+    override fun convert(helper: BaseViewHolder, item: UserRankBean) {
+        val title = helper.getView<TextView>(R.id.tv_item_rank_user_name)
+        TextViewUtils.setTextViewColorBlue(title, mKeyword, item.name)
+        val imageView = helper.getView<RoundedImageView>(R.id.iv_item_rank_user)
+        val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
+        ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
+        helper.setText(R.id.tv_item_rank_user_card, item.cardNum.toString())
+        helper.setText(R.id.tv_item_rank_user_fans, item.fansNum.toString())
+        helper.setText(R.id.tv_item_rank_user_like, item.likeNum.toString())
+        helper.setText(R.id.tv_item_rank_user_collect, item.collectNum.toString())
+        helper.setText(R.id.tv_item_rank_user_level, mContext.getString(R.string.tv_level, item.level))
+        helper.setText(R.id.tv_item_rank_user_rank, item.rankIndex.toString())
+
+        val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+        if (item.authenticationType != 0 && item.authenticationType == 1) {
+            imageVIP.visibility = View.VISIBLE
+        }
+    }
 
 }

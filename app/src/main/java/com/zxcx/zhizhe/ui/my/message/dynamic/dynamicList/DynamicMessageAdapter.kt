@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList
 
+import android.view.View
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -40,6 +42,11 @@ class DynamicMessageAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 				helper.addOnClickListener(R.id.tv_item_dynamic_message_name)
 				helper.addOnClickListener(R.id.tv_item_dynamic_message_content)
 				helper.addOnClickListener(R.id.tv_item_dynamic_message_card)
+
+                val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+                if (bean.authenticationType!=0&&bean.authenticationType==1){
+                    imageVIP.visibility = View.VISIBLE
+                }
 			}
 		}
 	}

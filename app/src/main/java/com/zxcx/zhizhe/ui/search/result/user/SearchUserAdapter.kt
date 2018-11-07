@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.user
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -29,5 +30,10 @@ class SearchUserAdapter(data: List<SearchUserBean>) : BaseQuickAdapter<SearchUse
 		helper.setChecked(R.id.cb_item_search_user_follow, item.isFollow)
 		helper.getView<View>(R.id.cb_item_search_user_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		helper.addOnClickListener(R.id.cb_item_search_user_follow)
+
+        val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+        if (item.authorAuthenticationType!=0&&item.authorAuthenticationType==1){
+            imageVIP.visibility = View.VISIBLE
+        }
 	}
 }

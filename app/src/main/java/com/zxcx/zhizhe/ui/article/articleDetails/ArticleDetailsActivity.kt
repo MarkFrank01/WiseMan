@@ -185,6 +185,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 				}
 			}
 		}
+
+        if (bean.authorType!=0&&bean.authorType==1){
+            iv_item_card_officials.visibility = View.VISIBLE
+        }
 	}
 
 	override fun postSuccess(bean: CardBean) {

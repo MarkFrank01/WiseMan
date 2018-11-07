@@ -106,6 +106,10 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
 	override fun getMyRankSuccess(bean: UserRankBean) {
 		loadService.showSuccess()
 
+        if (bean.authenticationType!=0&&bean.authenticationType==1){
+            iv_item_card_officials.visibility = View.VISIBLE
+        }
+
 		tv_item_rank_user_name.text = bean.name
 		tv_item_rank_user_card.text = bean.cardNum.toString()
 		tv_item_rank_user_fans.text = bean.fansNum.toString()
