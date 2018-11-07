@@ -24,6 +24,8 @@ import com.zxcx.zhizhe.ui.search.search.HotSearchBean
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_article.*
 
@@ -148,6 +150,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
             return if (list[position].id == -1) {
                 articleFragment
             } else {
+                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
                 ArticleListItemFragment.newInstance(list[position].id)
             }
         }

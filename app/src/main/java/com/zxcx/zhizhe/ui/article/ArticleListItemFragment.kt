@@ -14,16 +14,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.BaseFragment
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
+import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.ui.welcome.ADBean
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
 
@@ -31,14 +30,24 @@ import kotlinx.android.synthetic.main.fragment_card_list_item.*
  * 首页-长文-其他Tab的Fragment
  */
 
-class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<ArticleAndSubjectBean>>,
-		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
-		OnRefreshListener, SubjectOnClickListener {
+//class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<ArticleAndSubjectBean>>,
+//		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
+//		OnRefreshListener, SubjectOnClickListener {
+class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), ArticleListItemContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
+        OnRefreshListener, SubjectOnClickListener {
 
-	private lateinit var mAdapter: ArticleAndSubjectAdapter
+
+    private lateinit var mAdapter: ArticleAndSubjectAdapter
 	private var mPage = 0
 
-	companion object {
+    private var mAdList: MutableList<ADBean> = mutableListOf()
+    private var imageList: MutableList<String> = mutableListOf()
+
+    private var ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
+
+
+    companion object {
 		const val ARG_ID = "categoryId"
 		@JvmStatic
 		fun newInstance(id: Int) =
@@ -68,6 +77,8 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 		initRecyclerView()
 		refresh_layout.setOnRefreshListener(this)
 		getArticleListForCategory(categoryId, mPage)
+
+        onRefreshAD(ad_type_position)
 	}
 
 	private fun initRecyclerView() {
@@ -124,19 +135,36 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 			mAdapter.setEnableLoadMore(false)
 			mAdapter.setEnableLoadMore(true)
 		}
+
+        onRefreshAD(ad_type_position)
 	}
 
-	override fun getDataFail(msg: String?) {
-		refresh_layout.finishRefresh()
-		mAdapter.loadMoreFail()
-		toastFail(msg)
-	}
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        if (list.size > 0) {
+            mAdList = list
+            imageList.clear()
+            mAdList.forEach {
+                imageList.add(it.titleImage)
+            }
+            fl_banner_card.visibility = View.VISIBLE
+
+            banner_card.setImageLoader(GlideBannerImageLoader())
+            banner_card.setImages(imageList)
+            banner_card.start()
+        } else {
+            onRefreshAD(0)
+        }
+    }
+
+    override fun createPresenter(): ArticleListItemPresenter {
+        return ArticleListItemPresenter(this)
+    }
 
 	private fun getArticleListForCategory(cardCategoryId: Int, page: Int) {
 		mDisposable = AppClient.getAPIService().getArticleListForCategory(cardCategoryId, page, Constants.PAGE_SIZE)
 				.compose(BaseRxJava.handleArrayResult())
 				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : BaseSubscriber<MutableList<ArticleAndSubjectBean>>(this) {
+				.subscribeWith(object : BaseSubscriber<MutableList<ArticleAndSubjectBean>>(mPresenter) {
 					override fun onNext(t: MutableList<ArticleAndSubjectBean>) {
 						getDataSuccess(t)
 					}
@@ -156,4 +184,8 @@ class ArticleListItemFragment : BaseFragment(), IGetPresenter<MutableList<Articl
 		intent.putExtra("name", bean.name)
 		mActivity.startActivity(intent)
 	}
+
+    private fun onRefreshAD(id: Int){
+        mPresenter.getAD(id)
+    }
 }

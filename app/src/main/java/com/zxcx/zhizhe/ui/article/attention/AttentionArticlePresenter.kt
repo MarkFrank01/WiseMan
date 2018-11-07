@@ -6,7 +6,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 
 class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePresenter<AttentionArticleContract.View>(), AttentionArticleContract.Presenter {
 
-	private val mModel: AttentionArticleModel
+    private val mModel: AttentionArticleModel
 
 	init {
 		attachView(view)
@@ -21,11 +21,12 @@ class AttentionArticlePresenter(view: AttentionArticleContract.View) : BasePrese
 		mModel.getClassify()
 	}
 
+
 	override fun getDataSuccess(list: List<ArticleAndSubjectBean>) {
 		mView.getDataSuccess(list)
 	}
 
-	fun changeAttentionList(idList: MutableList<Int>) {
+    fun changeAttentionList(idList: MutableList<Int>) {
 		mModel.changeAttentionList(idList)
 	}
 

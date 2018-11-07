@@ -52,6 +52,17 @@ class AttentionArticleModel(present: AttentionArticleContract.Presenter) : BaseM
 				})
 		addSubscription(mDisposable)
 	}
+
+//    fun getAD(position:Int){
+//        mDisposable = AppClient.getAPIService().getAD("403",position,2)
+//                .compose(BaseRxJava.io_main())
+//                .compose(BaseRxJava.handleArrayResult())
+//                .subscribeWith(object :BaseSubscriber<MutableList<ADBean>>(mPresenter){
+//                    override fun onNext(t: MutableList<ADBean>) {
+//                        mPresenter?.getADSuccess(t)
+//                    }
+//                })
+//    }
 }
 
 

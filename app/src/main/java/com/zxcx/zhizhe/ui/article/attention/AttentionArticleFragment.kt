@@ -41,11 +41,13 @@ import java.util.*
 class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>(), AttentionArticleContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, SubjectOnClickListener {
 
-	private lateinit var mAdapter: ArticleAndSubjectAdapter
+
+    private lateinit var mAdapter: ArticleAndSubjectAdapter
 	private var page = 0
 	private var mHidden = true
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		val root = inflater.inflate(R.layout.fragment_attention, container, false)
 		mRefreshLayout = root.findViewById(R.id.refresh_layout)
 		val loadSir = LoadSir.Builder()
@@ -75,6 +77,7 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 		EventBus.getDefault().register(this)
 		initView()
 		mHidden = false
+
 	}
 
 	override fun onDestroyView() {
@@ -158,7 +161,8 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 			mAdapter.setEnableLoadMore(false)
 			mAdapter.setEnableLoadMore(true)
 		}
-	}
+
+    }
 
 	override fun postSuccess() {
 		onRefresh()
@@ -248,4 +252,5 @@ class AttentionArticleFragment : RefreshMvpFragment<AttentionArticlePresenter>()
 		intent.putExtra("name", bean.name)
 		mActivity.startActivity(intent)
 	}
+
 }

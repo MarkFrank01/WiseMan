@@ -51,4 +51,5 @@ public class SVTSConstants {
 	public static final String adTitle = "ad_title";
 
 	public static final String adTypePosition = "ad_type_position";
+	public static final String adTypePositionLong = "ad_type_position_long";
 }
