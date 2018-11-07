@@ -451,6 +451,9 @@ public interface APIService {
 	 */
 	@POST("/ad/getAdByAdNum")
 	Flowable<BaseArrayBean<ADBean>> getAD(@Query("adNum") String adNum);
+
+	@POST("/ad/getAdByAdNum")
+    Flowable<BaseArrayBean<ADBean>> getAD(@Query("adNum") String adNum,@Query("listStyleType")int listStyleType,@Query("classifyId")int classifyId);
 	
 	/**
 	 * 获取其他用户信息

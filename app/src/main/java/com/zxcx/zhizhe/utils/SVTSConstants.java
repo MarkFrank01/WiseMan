@@ -49,5 +49,6 @@ public class SVTSConstants {
 	public static final String adImageUrl = "ad_image_url";
 	public static final String adUrl = "ad_url";
 	public static final String adTitle = "ad_title";
-	
+
+	public static final String adTypePosition = "ad_type_position";
 }
