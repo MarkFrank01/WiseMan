@@ -50,20 +50,12 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tl_card_list.setupWithViewPager(vp_article_list)
-        tl_card_list.getTabAt(1)?.select()
+//        tl_card_list.getTabAt(1)?.select()
+
         getArticleCategory()
 
         onRefreshAD()
 
-//        showFirstDialog()
-//        val adManager = AdManager(activity, advList)
-//        adManager.setOverScreen(true)
-//                .setPageTransformer(DepthPageTransformer())
-//                .setOnImageClickListener { view, advInfo ->
-//                    toastShow("get AD")
-//                }
-//
-//        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
     override fun onResume() {
@@ -114,9 +106,6 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         tv_home_article_search.text = bean.conent
     }
 
-//    override fun getDataFail(msg: String?) {
-//        toastFail(msg)
-//    }
 
     private fun getArticleCategory() {
         mDisposable = AppClient.getAPIService().articleCategory
@@ -147,6 +136,12 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         private val articleFragment = AttentionArticleFragment()
 
         override fun getItem(position: Int): Fragment {
+//            return if (list[position].id == -1) {
+//                articleFragment
+//            } else {
+//                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
+//                ArticleListItemFragment.newInstance(list[position].id)
+//            }
             return if (list[position].id == -1) {
                 articleFragment
             } else {
@@ -166,11 +161,6 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         advList.add(adInfo)
     }
 
-//    private fun showFirstDialog() {
-//        val adInfo = AdInfo()
-//        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
-//        advList.add(adInfo)
-//    }
 
     private fun showImageDialog(title: String, url: String) {
         val adManager = AdManager(activity, advList)
@@ -179,7 +169,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
                 .setOnImageClickListener { _, _ ->
                     val intent = Intent(context, WebViewActivity::class.java)
                     intent.putExtra("title", title)
-                    intent.putExtra("url",url)
+                    intent.putExtra("url", url)
                     startActivity(intent)
                 }
         adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)

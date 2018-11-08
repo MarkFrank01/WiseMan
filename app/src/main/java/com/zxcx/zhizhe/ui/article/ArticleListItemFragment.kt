@@ -39,7 +39,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
 
     private lateinit var mAdapter: ArticleAndSubjectAdapter
-	private var mPage = 0
+    private var mPage = 0
 
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private var imageList: MutableList<String> = mutableListOf()
@@ -48,96 +48,105 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
 
     companion object {
-		const val ARG_ID = "categoryId"
-		@JvmStatic
-		fun newInstance(id: Int) =
-				ArticleListItemFragment().apply {
-					arguments = Bundle().apply {
-						putInt(ARG_ID, id)
-					}
-				}
-	}
+        const val ARG_ID = "categoryId"
+        @JvmStatic
+        fun newInstance(id: Int) =
+                ArticleListItemFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt(ARG_ID, id)
+                    }
+                }
+    }
 
-	private var categoryId: Int = 0
+    private var categoryId: Int = 0
 
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		arguments?.let {
-			categoryId = it.getInt(ARG_ID)
-		}
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            categoryId = it.getInt(ARG_ID)
+        }
+    }
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-	                          savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_card_list_item, container, false)
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_card_list_item, container, false)
+    }
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		initRecyclerView()
-		refresh_layout.setOnRefreshListener(this)
-		getArticleListForCategory(categoryId, mPage)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initRecyclerView()
+        refresh_layout.setOnRefreshListener(this)
+        getArticleListForCategory(categoryId, mPage)
 
-        onRefreshAD(ad_type_position)
-	}
+        if (ad_type_position != 0) {
+            onRefreshAD(ad_type_position)
+        } else {
+            onRefreshAD(0)
+        }
+    }
 
-	private fun initRecyclerView() {
-		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-		mAdapter = ArticleAndSubjectAdapter(arrayListOf(), this)
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
-		mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
-		mAdapter.onItemClickListener = this
-		rv_card_list_item.setBackgroundResource(R.color.strip)
-		rv_card_list_item.layoutManager = layoutManager
-		rv_card_list_item.adapter = mAdapter
-		rv_card_list_item.addItemDecoration(ArticleItemDecoration())
-	}
+    private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mAdapter = ArticleAndSubjectAdapter(arrayListOf(), this)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_card_list_item)
+        mAdapter.onItemClickListener = this
+        rv_card_list_item.setBackgroundResource(R.color.strip)
+        rv_card_list_item.layoutManager = layoutManager
+        rv_card_list_item.adapter = mAdapter
+        rv_card_list_item.addItemDecoration(ArticleItemDecoration())
+    }
 
-	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val bean = adapter.data[position] as ArticleAndSubjectBean
-		if (bean.itemType == ArticleAndSubjectBean.TYPE_ARTICLE) {
-			val articleImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-			val articleTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-			val articleCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
-			val articleLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
-			val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-					Pair.create(articleImg, articleImg.transitionName),
-					Pair.create(articleTitle, articleTitle.transitionName),
-					Pair.create(articleCategory, articleCategory.transitionName),
-					Pair.create(articleLabel, articleLabel.transitionName)).toBundle()
-			val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-			intent.putExtra("cardBean", bean.cardBean)
-			mActivity.startActivity(intent, bundle)
-		}
-	}
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as ArticleAndSubjectBean
+        if (bean.itemType == ArticleAndSubjectBean.TYPE_ARTICLE) {
+            val articleImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+            val articleTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+            val articleCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+            val articleLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                    Pair.create(articleImg, articleImg.transitionName),
+                    Pair.create(articleTitle, articleTitle.transitionName),
+                    Pair.create(articleCategory, articleCategory.transitionName),
+                    Pair.create(articleLabel, articleLabel.transitionName)).toBundle()
+            val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+            intent.putExtra("cardBean", bean.cardBean)
+            mActivity.startActivity(intent, bundle)
+        }
+    }
 
-	override fun onRefresh(refreshLayout: RefreshLayout?) {
-		mPage = 0
-		getArticleListForCategory(categoryId, mPage)
-	}
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
+        mPage = 0
+        getArticleListForCategory(categoryId, mPage)
+    }
 
-	override fun onLoadMoreRequested() {
-		getArticleListForCategory(categoryId, mPage)
-	}
+    override fun onLoadMoreRequested() {
+        getArticleListForCategory(categoryId, mPage)
+    }
 
-	override fun getDataSuccess(list: MutableList<ArticleAndSubjectBean>) {
-		if (mPage == 0) {
-			refresh_layout.finishRefresh()
-			mAdapter.setNewData(list)
-		} else {
-			mAdapter.addData(list)
-		}
-		mPage++
-		if (list.isEmpty()) {
-			mAdapter.loadMoreEnd(false)
-		} else {
-			mAdapter.loadMoreComplete()
-			mAdapter.setEnableLoadMore(false)
-			mAdapter.setEnableLoadMore(true)
-		}
+    override fun getDataSuccess(list: MutableList<ArticleAndSubjectBean>) {
+        if (mPage == 0) {
+            refresh_layout.finishRefresh()
+            mAdapter.setNewData(list)
+        } else {
+            mAdapter.addData(list)
+        }
+        mPage++
+        if (list.isEmpty()) {
+            mAdapter.loadMoreEnd(false)
+        } else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
 
-        onRefreshAD(ad_type_position)
-	}
+
+        if (ad_type_position != 0) {
+            onRefreshAD(ad_type_position)
+        } else {
+            onRefreshAD(0)
+        }
+    }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
         if (list.size > 0) {
@@ -160,32 +169,32 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
         return ArticleListItemPresenter(this)
     }
 
-	private fun getArticleListForCategory(cardCategoryId: Int, page: Int) {
-		mDisposable = AppClient.getAPIService().getArticleListForCategory(cardCategoryId, page, Constants.PAGE_SIZE)
-				.compose(BaseRxJava.handleArrayResult())
-				.compose(BaseRxJava.io_main())
-				.subscribeWith(object : BaseSubscriber<MutableList<ArticleAndSubjectBean>>(mPresenter) {
-					override fun onNext(t: MutableList<ArticleAndSubjectBean>) {
-						getDataSuccess(t)
-					}
-				})
-		addSubscription(mDisposable)
-	}
+    private fun getArticleListForCategory(cardCategoryId: Int, page: Int) {
+        mDisposable = AppClient.getAPIService().getArticleListForCategory(cardCategoryId, page, Constants.PAGE_SIZE)
+                .compose(BaseRxJava.handleArrayResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(object : BaseSubscriber<MutableList<ArticleAndSubjectBean>>(mPresenter) {
+                    override fun onNext(t: MutableList<ArticleAndSubjectBean>) {
+                        getDataSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 
-	override fun articleOnClick(bean: CardBean) {
-		mActivity.startActivity(ArticleDetailsActivity::class.java) {
-			it.putExtra("cardBean", bean)
-		}
-	}
+    override fun articleOnClick(bean: CardBean) {
+        mActivity.startActivity(ArticleDetailsActivity::class.java) {
+            it.putExtra("cardBean", bean)
+        }
+    }
 
-	override fun subjectOnClick(bean: SubjectBean) {
-		val intent = Intent(mActivity, SubjectArticleActivity::class.java)
-		intent.putExtra("id", bean.id)
-		intent.putExtra("name", bean.name)
-		mActivity.startActivity(intent)
-	}
+    override fun subjectOnClick(bean: SubjectBean) {
+        val intent = Intent(mActivity, SubjectArticleActivity::class.java)
+        intent.putExtra("id", bean.id)
+        intent.putExtra("name", bean.name)
+        mActivity.startActivity(intent)
+    }
 
-    private fun onRefreshAD(id: Int){
+    private fun onRefreshAD(id: Int) {
         mPresenter.getAD(id)
     }
 }
