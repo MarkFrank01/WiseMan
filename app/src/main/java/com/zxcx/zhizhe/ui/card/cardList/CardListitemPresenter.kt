@@ -22,7 +22,11 @@ class CardListitemPresenter(view:CardListitemContract.View):BasePresenter<CardLi
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        mView.getADSuccess(list)
+        if (list.isNotEmpty()) {
+            mView.getADSuccess(list)
+        }else{
+            mView.closeAD()
+        }
     }
 
     override fun showLoading() {

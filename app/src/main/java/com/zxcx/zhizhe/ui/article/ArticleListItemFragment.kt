@@ -139,13 +139,6 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
         }
-
-
-        if (ad_type_position != 0) {
-            onRefreshAD(ad_type_position)
-        } else {
-            onRefreshAD(0)
-        }
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -160,6 +153,12 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             banner_card.setImageLoader(GlideBannerImageLoader())
             banner_card.setImages(imageList)
             banner_card.start()
+        } else {
+            fl_banner_card.visibility = View.GONE
+        }
+
+        if (ad_type_position != 0) {
+            onRefreshAD(ad_type_position)
         } else {
             onRefreshAD(0)
         }
@@ -196,5 +195,9 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     private fun onRefreshAD(id: Int) {
         mPresenter.getAD(id)
+    }
+
+    override fun closeAD() {
+        fl_banner_card.visibility = View.GONE
     }
 }

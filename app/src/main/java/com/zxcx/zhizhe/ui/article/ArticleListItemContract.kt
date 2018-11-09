@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
 class ArticleListItemContract{
     interface View : GetView<MutableList<ArticleAndSubjectBean>> {
         fun getADSuccess(list: MutableList<ADBean>)
+        fun closeAD()
     }
 
     interface Presenter : IGetPresenter<MutableList<ArticleAndSubjectBean>> {

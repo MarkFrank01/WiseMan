@@ -91,7 +91,11 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
 
 
         //之后根据类型修改
-        onRefreshAD(ad_type_position)
+        if (ad_type_position != 0) {
+            onRefreshAD(ad_type_position)
+        } else {
+            onRefreshAD(0)
+        }
     }
 
     override fun onDestroyView() {
@@ -180,7 +184,11 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
             mAdapter.setEnableLoadMore(true)
         }
 
-        onRefreshAD(ad_type_position)
+        if (ad_type_position != 0) {
+            onRefreshAD(ad_type_position)
+        } else {
+            onRefreshAD(0)
+        }
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -196,14 +204,8 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
             banner_card.setImages(imageList)
             banner_card.start()
         } else {
-            onRefreshAD(0)
-//            fl_banner_card.visibility = View.GONE
+            fl_banner_card.visibility = View.GONE
         }
-
-//        LogCat.e("ListImage" + imageList.size)
-//        banner_card.setImageLoader(GlideBannerImageLoader())
-//        banner_card.setImages(imageList)
-//        banner_card.start()
     }
 
     override fun createPresenter(): CardListitemPresenter {
@@ -248,5 +250,9 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
 
     private fun onRefreshAD(id: Int) {
         mPresenter.getAD(id)
+    }
+
+    override fun closeAD() {
+        fl_banner_card.visibility = View.GONE
     }
 }

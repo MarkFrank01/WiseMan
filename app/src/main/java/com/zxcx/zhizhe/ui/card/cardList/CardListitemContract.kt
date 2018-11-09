@@ -13,6 +13,7 @@ interface CardListitemContract {
 
     interface View : GetView<MutableList<CardBean>> {
         fun getADSuccess(list: MutableList<ADBean>)
+        fun closeAD()
     }
 
     interface Presenter : IGetPresenter<MutableList<CardBean>> {
