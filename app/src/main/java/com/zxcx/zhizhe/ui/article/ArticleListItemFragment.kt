@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.MvpFragment
@@ -22,6 +23,7 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.article.subject.SubjectArticleActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
@@ -44,7 +46,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private var imageList: MutableList<String> = mutableListOf()
 
-    private var ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
+    private var ad_type_position = 0
 
 
     companion object {
@@ -75,14 +77,24 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initView()
         refresh_layout.setOnRefreshListener(this)
         getArticleListForCategory(categoryId, mPage)
 
-        if (ad_type_position != 0) {
-            onRefreshAD(ad_type_position)
-        } else {
-            onRefreshAD(0)
-        }
+        ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
+        onRefreshAD(ad_type_position)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //开始轮播
+        banner_card.startAutoPlay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //结束轮播
+        banner_card.stopAutoPlay()
     }
 
     private fun initRecyclerView() {
@@ -95,6 +107,22 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
         rv_card_list_item.layoutManager = layoutManager
         rv_card_list_item.adapter = mAdapter
         rv_card_list_item.addItemDecoration(ArticleItemDecoration())
+    }
+
+    private fun initView() {
+        banner_card.setImageLoader(GlideBannerImageLoader())
+        banner_card.setIndicatorGravity(BannerConfig.RIGHT)
+        banner_card.setOnBannerListener {
+            val adUrl = mAdList[it].behavior
+            val adTitle = mAdList[it].description
+            val adImage = mAdList[it].titleImage
+            mActivity.startActivity(WebViewActivity::class.java) {
+                it.putExtra("isAD", true)
+                it.putExtra("title", adTitle)
+                it.putExtra("url", adUrl)
+                it.putExtra("imageUrl", adImage)
+            }
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -150,18 +178,17 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             }
             fl_banner_card.visibility = View.VISIBLE
 
-            banner_card.setImageLoader(GlideBannerImageLoader())
             banner_card.setImages(imageList)
             banner_card.start()
         } else {
             fl_banner_card.visibility = View.GONE
         }
 
-        if (ad_type_position != 0) {
-            onRefreshAD(ad_type_position)
-        } else {
-            onRefreshAD(0)
-        }
+//        if (ad_type_position != 0) {
+//            onRefreshAD(ad_type_position)
+//        } else {
+//            onRefreshAD(0)
+//        }
     }
 
     override fun createPresenter(): ArticleListItemPresenter {

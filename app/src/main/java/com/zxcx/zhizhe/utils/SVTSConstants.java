@@ -52,4 +52,10 @@ public class SVTSConstants {
 
 	public static final String adTypePosition = "ad_type_position";
 	public static final String adTypePositionLong = "ad_type_position_long";
+
+    public static final String homeCardLastOpenedTime = "homeCardLastOpenedTime";
+	public static final String homeArticleLastOpenedTime = "homeArticleLastOpenedTime";
+	public static final String homeRankLastOpenedTime = "homeRankLastOpenedTime";
+	public static final String homeMyLastOpenedTime = "homeCardLastOpenedTime";
+
 }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.UpdateCardListEvent
@@ -26,10 +27,8 @@ import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardAdapter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.GlideBannerImageLoader
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_card_list_item.*
 import org.greenrobot.eventbus.EventBus
@@ -57,7 +56,7 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private var imageList: MutableList<String> = mutableListOf()
 
-    private var ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePosition, 0)
+    private var ad_type_position = 0
 
     companion object {
         @JvmStatic
@@ -86,16 +85,29 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+        initView()
         refresh_layout.setOnRefreshListener(this)
         getCardListForCategory(categoryId, mPage)
 
 
+        ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePosition, 0)
+        LogCat.e("ADPosition" + ad_type_position)
+
         //之后根据类型修改
-        if (ad_type_position != 0) {
-            onRefreshAD(ad_type_position)
-        } else {
-            onRefreshAD(0)
-        }
+        onRefreshAD(ad_type_position)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        //开始轮播
+        banner_card.startAutoPlay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //结束轮播
+        banner_card.stopAutoPlay()
     }
 
     override fun onDestroyView() {
@@ -119,6 +131,23 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
         mAdapter.onItemClickListener = this
         rv_card_list_item.layoutManager = layoutManager
         rv_card_list_item.adapter = mAdapter
+    }
+
+    private fun initView() {
+        banner_card.setImageLoader(GlideBannerImageLoader())
+        banner_card.setIndicatorGravity(BannerConfig.RIGHT)
+        banner_card.setOnBannerListener {
+            val adUrl = mAdList[it].behavior
+            val adTitle = mAdList[it].description
+            val adImage = mAdList[it].titleImage
+            mActivity.startActivity(WebViewActivity::class.java) {
+                it.putExtra("isAD", true)
+                it.putExtra("title", adTitle)
+                it.putExtra("url", adUrl)
+                it.putExtra("imageUrl", adImage)
+            }
+        }
+
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -184,15 +213,11 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
             mAdapter.setEnableLoadMore(true)
         }
 
-        if (ad_type_position != 0) {
-            onRefreshAD(ad_type_position)
-        } else {
-            onRefreshAD(0)
-        }
+        initView()
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        if (list.size > 0) {
+        if (list.isNotEmpty()) {
             mAdList = list
             imageList.clear()
             mAdList.forEach {
@@ -200,12 +225,17 @@ class CardListItemFragment : MvpFragment<CardListitemPresenter>(), CardListitemC
             }
             fl_banner_card.visibility = View.VISIBLE
 
-            banner_card.setImageLoader(GlideBannerImageLoader())
             banner_card.setImages(imageList)
             banner_card.start()
         } else {
             fl_banner_card.visibility = View.GONE
         }
+//
+//        if (ad_type_position != 0) {
+//            onRefreshAD(ad_type_position)
+//        } else {
+//            onRefreshAD(0)
+//        }
     }
 
     override fun createPresenter(): CardListitemPresenter {
