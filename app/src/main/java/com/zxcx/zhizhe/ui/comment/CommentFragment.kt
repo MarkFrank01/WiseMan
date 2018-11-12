@@ -25,196 +25,218 @@ import kotlinx.android.synthetic.main.fragment_comment.*
  */
 
 class CommentFragment : MvpFragment<CommentPresenter>(), CommentContract.View,
-		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
-		BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.OnItemChildClickListener {
 
-	private lateinit var mAdapter: CommentAdapter
-	private var mPage = 0
-	private var cardId = 0
-	private var parentCommentId: Int? = null
-	private lateinit var behavior: BottomSheetBehavior<View>
+    private lateinit var mAdapter: CommentAdapter
+    private var mPage = 0
+    private var cardId = 0
+    private var parentCommentId: Int? = null
+    private lateinit var behavior: BottomSheetBehavior<View>
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-	                          savedInstanceState: Bundle?): View? {
-		return inflater.inflate(R.layout.fragment_comment, container, false)
-	}
+    private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 
-	override fun createPresenter(): CommentPresenter {
-		return CommentPresenter(this)
-	}
 
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
-		cardId = arguments?.getInt("cardId") ?: 0
-		initRecyclerView()
-		initBottomSheet()
-		mPresenter.getComment(cardId, mPage)
-	}
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_comment, container, false)
+    }
 
-	override fun onResume() {
-		super.onResume()
-		val userId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-		mAdapter.userId = userId
-		mAdapter.notifyDataSetChanged()
-	}
+    override fun createPresenter(): CommentPresenter {
+        return CommentPresenter(this)
+    }
 
-	private fun initBottomSheet() {
-		behavior = BottomSheetBehavior.from(cl_fragment_comment)
-		behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-			override fun onSlide(bottomSheet: View, slideOffset: Float) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        cardId = arguments?.getInt("cardId") ?: 0
+        initRecyclerView()
+        initBottomSheet()
+        mPresenter.getComment(cardId, mPage)
+    }
 
-			}
+    override fun onResume() {
+        super.onResume()
+        val userId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+        mAdapter.userId = userId
+        mAdapter.notifyDataSetChanged()
+    }
 
-			override fun onStateChanged(bottomSheet: View, newState: Int) {
-				if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-					Utils.closeInputMethod(et_comment)
-					mActivity.onBackPressed()
-				} else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
-					behavior.state = BottomSheetBehavior.STATE_EXPANDED
-				}
-			}
-		})
-		behavior.state = BottomSheetBehavior.STATE_EXPANDED
-	}
+    private fun initBottomSheet() {
+        behavior = BottomSheetBehavior.from(cl_fragment_comment)
+        behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
-	override fun getDataSuccess(list: MutableList<CommentBean>) {
-		if (mPage == 0) {
-			mAdapter.setNewData(list as List<MultiItemEntity>)
-			val emptyView = EmptyView.getEmptyView(mActivity, "暂无评论", R.drawable.no_comment)
-			mAdapter.emptyView = emptyView
-		} else {
-			mAdapter.addData(list)
-		}
-		mPage++
-		if (list.isEmpty()) {
-			mAdapter.loadMoreEnd(false)
-		} else {
-			mAdapter.loadMoreComplete()
-			mAdapter.setEnableLoadMore(false)
-			mAdapter.setEnableLoadMore(true)
-		}
-	}
+            }
 
-	override fun postSuccess(bean: CommentBean) {
-		if (parentCommentId == null) {
-			mAdapter.addData(bean)
-		} else {
-			var parentBean = CommentBean()
-			parentBean.id = parentCommentId ?: 0
-			val position = mAdapter.data.indexOf(parentBean)
-			parentBean = mAdapter.data[position] as CommentBean
-			val child = bean.toChildCommentBean()
-			parentBean.childCommentList.add(child)
-			parentBean.addSubItem(child)
-			mAdapter.notifyDataSetChanged()
-		}
-		et_comment.setText("")
-		parentCommentId = null
-	}
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    Utils.closeInputMethod(et_comment)
+                    mActivity.onBackPressed()
+                } else if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                }
+            }
+        })
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
+    }
 
-	override fun postFail(msg: String?) {
-		toastFail(msg)
-	}
+    override fun getDataSuccess(list: MutableList<CommentBean>) {
+        if (mPage == 0) {
+            mAdapter.setNewData(list as List<MultiItemEntity>)
+            val emptyView = EmptyView.getEmptyView(mActivity, "暂无评论", R.drawable.no_comment)
+            mAdapter.emptyView = emptyView
+        } else {
+            mAdapter.addData(list)
+        }
+        mPage++
+        if (list.isEmpty()) {
+            mAdapter.loadMoreEnd(false)
+        } else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
+    }
 
-	override fun likeSuccess() {
+    override fun postSuccess(bean: CommentBean) {
+        if (parentCommentId == null) {
+            mAdapter.addData(bean)
+        } else {
+            var parentBean = CommentBean()
+            parentBean.id = parentCommentId ?: 0
+            val position = mAdapter.data.indexOf(parentBean)
+            parentBean = mAdapter.data[position] as CommentBean
+            val child = bean.toChildCommentBean()
+            parentBean.childCommentList.add(child)
+            parentBean.addSubItem(child)
+            mAdapter.notifyDataSetChanged()
+        }
+        et_comment.setText("")
+        parentCommentId = null
+    }
 
-	}
+    override fun postFail(msg: String?) {
+        toastFail(msg)
+    }
 
-	override fun unlikeSuccess() {
+    override fun likeSuccess() {
 
-	}
+    }
 
-	override fun onLoadMoreRequested() {
-		mPresenter.getComment(cardId, mPage)
-	}
+    override fun unlikeSuccess() {
 
-	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		var bean = adapter.getItem(position) as MultiItemEntity
-		if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
-			if (!checkLogin()) {
-				return
-			}
-			bean = bean as CommentBean
-			Utils.showInputMethod(et_comment)
-			rv_comment.scrollToPosition(position)
-			parentCommentId = bean.id
-			et_comment.hint = getString(R.string.et_comment_hint, bean.userName)
-		}
-	}
+    }
 
-	override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		if (!checkLogin()) {
-			return
-		}
-		var bean = adapter.getItem(position) as MultiItemEntity
-		val commentId: Int
-		if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
-			bean = bean as CommentBean
-			commentId = bean.id
-		} else {
-			bean = bean as ChildCommentBean
-			commentId = bean.id
-		}
-		if (view.id == R.id.cb_item_comment_like) {
-			val checkBox = view as CheckBox
-			if (checkBox.isChecked) {
-				val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
-				tvLikeNm.text = (tvLikeNm.text.toString().toInt() + 1).toString()
-				mPresenter.likeComment(commentId)
-			} else {
-				val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
-				tvLikeNm.text = (tvLikeNm.text.toString().toInt() - 1).toString()
-				mPresenter.unlikeComment(commentId)
-			}
-		}
-	}
+    override fun onLoadMoreRequested() {
+        mPresenter.getComment(cardId, mPage)
+    }
 
-	override fun setListener() {
-		super.setListener()
-		iv_comment_close.setOnClickListener {
-			Utils.closeInputMethod(et_comment)
-			mActivity.onBackPressed()
-		}
-		et_comment.afterTextChanged {
-			tv_comment_send.isEnabled = it.isNotEmpty()
-		}
-		et_comment.setOnClickListener {
-			if (!checkLogin()) {
-				Utils.closeInputMethod(et_comment)
-			}
-		}
-		tv_comment_send.setOnClickListener {
-			if (checkLogin()) {
-				mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
-			}
-			Utils.closeInputMethod(et_comment)
-		}
-		fl_fragment_comment.setOnClickListener {
-			parentCommentId = null
-			if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-				et_comment.hint = "表达是智慧的体现"
-			} else {
-				et_comment.hint = "登录后发表评论"
-			}
-		}
-	}
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        var bean = adapter.getItem(position) as MultiItemEntity
+        if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
+            if (!checkLogin()) {
+                return
+            }
+            bean = bean as CommentBean
+            Utils.showInputMethod(et_comment)
+            rv_comment.scrollToPosition(position)
+            parentCommentId = bean.id
+            et_comment.hint = getString(R.string.et_comment_hint, bean.userName)
+        }
+    }
 
-	private fun initRecyclerView() {
-		if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-			et_comment.hint = "表达是智慧的体现"
-		} else {
-			et_comment.hint = "登录后发表评论"
-		}
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        if (!checkLogin()) {
+            return
+        }
+        var bean = adapter.getItem(position) as MultiItemEntity
+        val commentId: Int
+        if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
+            bean = bean as CommentBean
+            commentId = bean.id
+        } else {
+            bean = bean as ChildCommentBean
+            commentId = bean.id
+        }
+        if (view.id == R.id.cb_item_comment_like) {
+            val checkBox = view as CheckBox
+            if (checkBox.isChecked) {
 
-		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-		mAdapter = CommentAdapter(arrayListOf())
-		mAdapter.setLoadMoreView(CommentLoadMoreView())
-		mAdapter.setOnLoadMoreListener(this, rv_comment)
-		mAdapter.onItemClickListener = this
-		mAdapter.onItemChildClickListener = this
-		rv_comment.layoutManager = layoutManager
-		rv_comment.adapter = mAdapter
-	}
+
+                if (bean.itemType == CommentBean.TYPE_LEVEL_0) {
+                    bean = bean as CommentBean
+                    if (mUserId == bean.userId) {
+                        toastShow("不能点赞自己哦")
+                        view.isChecked = !view.isChecked
+                        return
+                    }
+                } else {
+                    bean = bean as ChildCommentBean
+                    if (mUserId == bean.userId) {
+                        toastShow("不能点赞自己哦")
+                        view.isChecked = !view.isChecked
+                        return
+                    }
+                }
+
+
+                val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+                tvLikeNm.text = (tvLikeNm.text.toString().toInt() + 1).toString()
+                mPresenter.likeComment(commentId)
+            } else {
+                val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+                tvLikeNm.text = (tvLikeNm.text.toString().toInt() - 1).toString()
+                mPresenter.unlikeComment(commentId)
+            }
+        }
+    }
+
+    override fun setListener() {
+        super.setListener()
+        iv_comment_close.setOnClickListener {
+            Utils.closeInputMethod(et_comment)
+            mActivity.onBackPressed()
+        }
+        et_comment.afterTextChanged {
+            tv_comment_send.isEnabled = it.isNotEmpty()
+        }
+        et_comment.setOnClickListener {
+            if (!checkLogin()) {
+                Utils.closeInputMethod(et_comment)
+            }
+        }
+        tv_comment_send.setOnClickListener {
+            if (checkLogin()) {
+                mPresenter.sendComment(cardId, parentCommentId, et_comment.text.toString())
+            }
+            Utils.closeInputMethod(et_comment)
+        }
+        fl_fragment_comment.setOnClickListener {
+            parentCommentId = null
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                et_comment.hint = "表达是智慧的体现"
+            } else {
+                et_comment.hint = "登录后发表评论"
+            }
+        }
+    }
+
+    private fun initRecyclerView() {
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+            et_comment.hint = "表达是智慧的体现"
+        } else {
+            et_comment.hint = "登录后发表评论"
+        }
+
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        mAdapter = CommentAdapter(arrayListOf())
+        mAdapter.setLoadMoreView(CommentLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_comment)
+        mAdapter.onItemClickListener = this
+        mAdapter.onItemChildClickListener = this
+        rv_comment.layoutManager = layoutManager
+        rv_comment.adapter = mAdapter
+    }
 
 
 }

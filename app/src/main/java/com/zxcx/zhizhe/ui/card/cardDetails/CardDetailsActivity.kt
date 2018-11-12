@@ -265,6 +265,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 	}
 
 	private fun setLike(view: View, bean: CardBean, position: Int) {
+
+        LogCat.e("UserID"+mUserId+"beanID"+bean.authorId)
 		view as CheckBox
 		if (mUserId == bean.authorId) {
 			toastShow("不能点赞自己哦")
