@@ -85,9 +85,10 @@ public interface APIService {
 	 */
 	@POST("/user/thirdPartyLogin")
 	Flowable<BaseBean<LoginBean>> channelLogin(
-		@Query("thirdPartyType") int channelType, @Query("uuid") String openId,
+		@Query("thirdPartyType") int channelType, @Query("uuid") String uid,
 		@Query("jpushRID") String jpushRID, @Query("appType") int appType,
-		@Query("appChannel") String appChannel, @Query("appVersion") String appVersion);
+		@Query("appChannel") String appChannel, @Query("appVersion") String appVersion,
+        @Query("openId") String openId);
 	
 	/**
 	 * 获取绑定状态列表

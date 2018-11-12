@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_home_card.*
@@ -192,6 +193,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
         var title = ""
         var url = ""
+        var id1:Int = 0
+        var time = ""
 
         if (list.size > 0) {
             mAdList = list
@@ -199,7 +202,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 addImageData(it.titleImage)
                 title = it.description
                 url = it.behavior
+                id1 = it.id
             }
+            LogCat.e("Time"+System.currentTimeMillis()+"------id:"+id1)
             showImageDialog(title, url)
         }
 

@@ -249,7 +249,7 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
                 val Uid = platDB.get("unionid")
                 LogCat.e("UID" + Uid)
                 LogCat.e("登录前ID"+userId)
-				mPresenter.channelLogin(channelType, Uid, jpushID, appType, appChannel, appVersion)
+				mPresenter.channelLogin(channelType, Uid, jpushID, appType, appChannel, appVersion,userId)
 			}
 		}
 
