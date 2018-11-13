@@ -22,8 +22,8 @@ class RankModel(presenter: RankContract.Presenter) : BaseModel<RankContract.Pres
 				})
 	}
 
-    fun getDialogAD(){
-        mDisposable = AppClient.getAPIService().getAD("103")
+    fun getDialogAD(lastOpenedTime: Long, lastOpenedAdId: Long){
+        mDisposable = AppClient.getAPIService().getAD("103",lastOpenedTime,lastOpenedAdId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {

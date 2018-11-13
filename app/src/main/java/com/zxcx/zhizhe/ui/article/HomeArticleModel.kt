@@ -16,8 +16,8 @@ class HomeArticleModel(present:HomeArticleContract.Presenter):BaseModel<HomeArti
         this.mPresenter = present
     }
 
-    fun getAD(){
-        mDisposable = AppClient.getAPIService().getAD("102")
+    fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long){
+        mDisposable = AppClient.getAPIService().getAD("102",lastOpenedTime,lastOpenedAdId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<ADBean>>(mPresenter){

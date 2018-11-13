@@ -4,7 +4,6 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.card.HomeCardContract
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
 /**
@@ -17,8 +16,8 @@ class HomeCardModel(present: HomeCardContract.Presenter) : BaseModel<HomeCardCon
         this.mPresenter = present
     }
 
-    fun getAD() {
-        mDisposable = AppClient.getAPIService().getAD("101")
+    fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long) {
+        mDisposable = AppClient.getAPIService().getAD("101",lastOpenedTime,lastOpenedAdId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {

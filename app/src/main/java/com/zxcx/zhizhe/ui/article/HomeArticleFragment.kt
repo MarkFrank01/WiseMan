@@ -40,6 +40,8 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     private var advList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
 
+    private var lastADTime: Long = 0
+    private var lastADID: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,7 +56,11 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
 
         getArticleCategory()
 
-        onRefreshAD()
+        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeArticleLastOpenedTime, 0)
+        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeArticleLastOpenedID, 0)
+
+
+        onRefreshAD(lastADTime, lastADID.toLong())
 
     }
 
@@ -89,6 +95,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     override fun getADSuccess(list: MutableList<ADBean>) {
         var title = ""
         var url = ""
+        var id1 = 0
 
         if (list.size > 0) {
             mAdList = list
@@ -96,7 +103,12 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
                 addImageData(it.titleImage)
                 title = it.description
                 url = it.behavior
+                id1 = it.id
             }
+
+            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedTime,System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedID,id1)
+
             showImageDialog(title, url)
         }
     }
@@ -175,7 +187,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
-    private fun onRefreshAD() {
-        mPresenter.getAD()
+    private fun onRefreshAD(lastADTime: Long, lastADID: Long) {
+        mPresenter.getAD(lastADTime, lastADID)
     }
 }

@@ -15,8 +15,8 @@ class MyFragmentModel(present: MyFragmentContract.Presenter) : BaseModel<MyFragm
         this.mPresenter = present
     }
 
-    fun getAD() {
-        mDisposable = AppClient.getAPIService().getAD("104")
+    fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long) {
+        mDisposable = AppClient.getAPIService().getAD("104",lastOpenedTime,lastOpenedAdId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter) {

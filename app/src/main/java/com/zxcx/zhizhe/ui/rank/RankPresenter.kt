@@ -20,8 +20,8 @@ class RankPresenter(view: RankContract.View) : BasePresenter<RankContract.View>(
 		mModel.getAD()
 	}
 
-    fun getDialog(){
-        mModel.getDialogAD()
+    fun getDialog(lastOpenedTime: Long, lastOpenedAdId: Long){
+        mModel.getDialogAD(lastOpenedTime, lastOpenedAdId)
     }
 
 	fun getTopTenRank() {

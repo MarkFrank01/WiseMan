@@ -23,9 +23,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.fragment_home_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -47,6 +45,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     private var advList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
 
+    private var lastADTime:Long = 0
+    private var lastADID:Int = 0
 
     private val titles = arrayOf("关注", "推荐", "列表")
 
@@ -99,7 +99,13 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
         tl_home.getTabAt(1)?.select()
 
-        onRefreshAD()
+        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime,0)
+        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID,0)
+
+//        LogCat.e("Time2"+lastADTime+"------id:"+lastADID)
+
+
+        onRefreshAD(lastADTime,lastADID.toLong())
 //        showFirstDialog("")
 //        val adManager = AdManager(activity,advList)
 //        adManager.setOverScreen(true)
@@ -204,7 +210,10 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 url = it.behavior
                 id1 = it.id
             }
+
             LogCat.e("Time"+System.currentTimeMillis()+"------id:"+id1)
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime,System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID,id1)
             showImageDialog(title, url)
         }
 
@@ -213,7 +222,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     override fun getDataSuccess(bean: MutableList<CardBean>?) {
     }
 
-    private fun onRefreshAD() {
-        mPresenter.getAD()
+    private fun onRefreshAD(lastADTime:Long,lastADID:Long) {
+        mPresenter.getAD(lastADTime,lastADID)
     }
 }

@@ -8,18 +8,18 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
  * @author : MarkFrank01
  * @Description :
  */
-class HomeCardPresenter(view:HomeCardContract.View):BasePresenter<HomeCardContract.View>(),HomeCardContract.Presenter{
+class HomeCardPresenter(view: HomeCardContract.View) : BasePresenter<HomeCardContract.View>(), HomeCardContract.Presenter {
 
 
-    private val mModel:HomeCardModel
+    private val mModel: HomeCardModel
 
     init {
         attachView(view)
         mModel = HomeCardModel(this)
     }
 
-    fun getAD(){
-        mModel.getAD()
+    fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long) {
+        mModel.getAD(lastOpenedTime, lastOpenedAdId)
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {

@@ -17,8 +17,8 @@ class HomeArticlePresenter(view:HomeArticleContract.View):BasePresenter<HomeArti
         mModel = HomeArticleModel(this)
     }
 
-    fun getAD(){
-        mModel.getAD()
+    fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long){
+        mModel.getAD(lastOpenedTime, lastOpenedAdId)
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {

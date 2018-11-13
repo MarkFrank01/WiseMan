@@ -62,6 +62,9 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
     private var advList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
 
+    private var lastADTime:Long = 0
+    private var lastADID:Int = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my, container, false)
@@ -77,7 +80,11 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
             setViewLogin()
         }
 
-        onRefreshAD()
+        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeMyLastOpenedTime,0)
+        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeMyLastOpenedID,0)
+
+
+        onRefreshAD(lastADTime,lastADID.toLong())
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -281,6 +288,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
 
         var title = ""
         var url = ""
+        var id1 = 0
 
         if (list.size > 0) {
             mAdList = list
@@ -288,7 +296,12 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
                 addImageData(it.titleImage)
                 title = it.description
                 url = it.behavior
+                id1 = it.id
             }
+
+            SharedPreferencesUtil.saveData(SVTSConstants.homeMyLastOpenedTime,System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeMyLastOpenedID,id1)
+            
             showImageDialog(title, url)
         }
     }
@@ -327,7 +340,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         }
     }
 
-    private fun onRefreshAD() {
-        mPresenter.getAD()
+    private fun onRefreshAD(lastADTime:Long,lastADID:Long) {
+        mPresenter.getAD(lastADTime,lastADID)
     }
 }

@@ -58,4 +58,8 @@ public class SVTSConstants {
 	public static final String homeRankLastOpenedTime = "homeRankLastOpenedTime";
 	public static final String homeMyLastOpenedTime = "homeCardLastOpenedTime";
 
+	public static final String homeCardLastOpenedID = "homeCardLastOpenedID";
+	public static final String homeArticleLastOpenedID = "homeArticleLastOpenedID";
+	public static final String homeRankLastOpenedID = "homeRankLastOpenedID";
+	public static final String homeMyLastOpenedID = "homeMyLastOpenedID";
 }

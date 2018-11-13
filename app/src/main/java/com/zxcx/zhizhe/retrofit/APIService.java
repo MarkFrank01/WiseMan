@@ -455,7 +455,11 @@ public interface APIService {
 
 	@POST("/ad/getAdByAdNum")
     Flowable<BaseArrayBean<ADBean>> getAD(@Query("adNum") String adNum,@Query("listStyleType")int listStyleType,@Query("classifyId")int classifyId);
-	
+
+	@POST("/ad/getAdByAdNum")
+    Flowable<BaseArrayBean<ADBean>> getAD(@Query("adNum") String adNum,@Query("lastOpenedTime") long lastOpenedTime,
+                                          @Query("lastOpenedAdId")long lastOpenedAdId);
+
 	/**
 	 * 获取其他用户信息
 	 */
