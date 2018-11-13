@@ -10,7 +10,5 @@ import com.zxcx.zhizhe.mvpBase.INullPostPresenter
 interface CreationPreviewContract{
     interface View : GetView<List<String>>
 
-    interface Presenter :  INullPostPresenter {
-
-    }
+    interface Presenter :  INullPostPresenter
 }

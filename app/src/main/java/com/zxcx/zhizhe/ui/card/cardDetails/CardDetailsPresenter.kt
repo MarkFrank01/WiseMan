@@ -36,6 +36,10 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 		mModel.removeCollectCard(cardId)
 	}
 
+    fun deleteNote(noteId:Int){
+        mModel.deleteNote(noteId)
+    }
+
 	fun setUserFollow(authorId: Int, followType: Int, bean: CardBean) {
 		mModel.setUserFollow(authorId, followType, bean)
 	}
@@ -76,5 +80,8 @@ class CardDetailsPresenter(view: CardDetailsContract.View) : BasePresenter<CardD
 		super.detachView()
 		mModel.onDestroy()
 	}
+
+    override fun deleteSuccess() {
+    }
 }
 
