@@ -26,7 +26,7 @@ class HotCardModel(present: HotCardContract.Presenter) : BaseModel<HotCardContra
 	}
 
     fun getAD(){
-        mDisposable = AppClient.getAPIService().getAD("400")
+        mDisposable = AppClient.getAPIService().getAD("401")
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<ADBean>>(mPresenter){
