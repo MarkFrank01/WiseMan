@@ -106,8 +106,8 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
                 id1 = it.id
             }
 
-            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedTime,System.currentTimeMillis())
-            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedID,id1)
+            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedTime, System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeArticleLastOpenedID, id1)
 
             showImageDialog(title, url)
         }
@@ -157,7 +157,11 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
             return if (list[position].id == -1) {
                 articleFragment
             } else {
-                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
+                if (position == 1) {
+                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+                } else {
+                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
+                }
                 ArticleListItemFragment.newInstance(list[position].id)
             }
         }

@@ -36,8 +36,8 @@
                     android:layout_height="0dp"
                     app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
                     app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
-                    app:indicator_height="5dp"
                     app:indicator_margin="5dp"
+                    app:indicator_height="5dp"
                     app:indicator_width="5dp"/>
 
                 <ImageView

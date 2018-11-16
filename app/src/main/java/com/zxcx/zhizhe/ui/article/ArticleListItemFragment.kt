@@ -26,7 +26,7 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
-import kotlinx.android.synthetic.main.fragment_card_list_item.*
+import kotlinx.android.synthetic.main.fragment_long_list_item.*
 
 /**
  * 首页-长文-其他Tab的Fragment
@@ -71,7 +71,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_card_list_item, container, false)
+        return inflater.inflate(R.layout.fragment_long_list_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -176,12 +176,12 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             mAdList.forEach {
                 imageList.add(it.titleImage)
             }
-            fl_banner_card.visibility = View.VISIBLE
+            fl_banner_long.visibility = View.VISIBLE
 
             banner_card.setImages(imageList)
             banner_card.start()
         } else {
-            fl_banner_card.visibility = View.GONE
+            fl_banner_long.visibility = View.GONE
         }
 
 //        if (ad_type_position != 0) {
@@ -225,6 +225,6 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
     }
 
     override fun closeAD() {
-        fl_banner_card.visibility = View.GONE
+        fl_banner_long.visibility = View.GONE
     }
 }
