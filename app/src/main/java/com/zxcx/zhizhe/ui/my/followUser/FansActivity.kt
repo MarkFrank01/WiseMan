@@ -154,7 +154,7 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		mAdapter.setOnLoadMoreListener(this, rv_follow_user)
 		rv_follow_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_follow_user.adapter = mAdapter
-		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "点击创作 让更多的人知道你", R.drawable.no_data, View.OnClickListener {
+		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "", R.drawable.no_data, View.OnClickListener {
 			if (ZhiZheUtils.isWriter(mActivity)) {
 				val intent = Intent(mActivity, CreationEditorActivity::class.java)
 				startActivity(intent)
