@@ -54,6 +54,9 @@ class CreationEditorActivity : BaseActivity(),
     //第二标签
     private var twolabelName = ""
 
+    //卡片字数
+    private var mStrLength = 0
+
     companion object {
         const val CODE_SELECT_LABEL = 110
     }
@@ -329,16 +332,24 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun preview(previewId: String) {
         if (isCard) {
-            startActivity(PreviewCardDetailsActivity::class.java) {
-                val cardBean = CardBean()
-                cardBean.id = previewId.toInt()
-                it.putExtra("cardBean", cardBean)
+
+            if (mStrLength<=160) {
+                startActivity(PreviewCardDetailsActivity::class.java) {
+                    val cardBean = CardBean()
+                    cardBean.id = previewId.toInt()
+                    it.putExtra("cardBean", cardBean)
+                }
             }
         } else {
             startActivity(CreationPreviewActivity::class.java) {
                 it.putExtra("id", previewId)
             }
         }
+    }
+
+    @JavascriptInterface
+    fun andNum(strLength: Int){
+        mStrLength = strLength
     }
 
     @JavascriptInterface
