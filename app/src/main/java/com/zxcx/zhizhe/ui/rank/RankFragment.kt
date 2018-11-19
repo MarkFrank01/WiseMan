@@ -230,7 +230,8 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
         banner_rank.setOnBannerListener {
             val adUrl = mAdList[it].behavior
             val adTitle = mAdList[it].description
-            val adImage = mAdList[it].titleImage
+//            val adImage = mAdList[it].titleImage
+            val adImage = mAdList[it].shareImage
             mActivity.startActivity(WebViewActivity::class.java) {
                 it.putExtra("isAD", true)
                 it.putExtra("title", adTitle)

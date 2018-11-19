@@ -45,6 +45,8 @@ public class ADBean extends RetrofitBean implements Parcelable {
 	private int styleType;
 	@SerializedName("platformType")
 	private int platformType;
+	@SerializedName("shareImage")
+    private String shareImage;
 	
 	public ADBean() {
 	}
@@ -59,6 +61,7 @@ public class ADBean extends RetrofitBean implements Parcelable {
 		this.id = in.readInt();
 		this.styleType = in.readInt();
 		this.platformType = in.readInt();
+		this.shareImage = in.readString();
 	}
 	
 	public String getTitleImage() {
@@ -132,8 +135,16 @@ public class ADBean extends RetrofitBean implements Parcelable {
 	public void setPlatformType(int platformType) {
 		this.platformType = platformType;
 	}
-	
-	@Override
+
+    public String getShareImage() {
+        return shareImage;
+    }
+
+    public void setShareImage(String shareImage) {
+        this.shareImage = shareImage;
+    }
+
+    @Override
 	public int describeContents() {
 		return 0;
 	}
@@ -149,5 +160,6 @@ public class ADBean extends RetrofitBean implements Parcelable {
 		dest.writeInt(this.id);
 		dest.writeInt(this.styleType);
 		dest.writeInt(this.platformType);
+		dest.writeString(this.shareImage);
 	}
 }
