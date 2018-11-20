@@ -29,8 +29,7 @@
 				android:layout_height="match_parent"
 				android:layout_marginStart="30dp"
 				android:gravity="center"
-				android:scaleType="center"
-				android:src="@drawable/iv_note_details_source"/>
+				android:scaleType="center"/>
 			
 			<TextView
 				android:id="@+id/tv_note_details_source"

@@ -1,115 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/bg_details">
-	
-	<LinearLayout
-		android:id="@+id/ll_draft_details_bottom"
-		android:layout_width="match_parent"
-		android:layout_height="50dp"
-		android:layout_alignParentBottom="true">
-		
-		<ImageView
-			android:id="@+id/iv_note_details_edit"
-			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:layout_marginStart="26dp"
-			android:padding="10dp"
-			android:gravity="center"
-			android:scaleType="center"
-			android:src="@drawable/iv_note_details_edit"/>
-		
-		<View
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"/>
-		
-		<ImageView
-			android:id="@+id/iv_note_details_commit"
-			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:layout_marginEnd="26dp"
-			android:padding="10dp"
-			android:scaleType="center"
-			android:src="@drawable/iv_note_details_commit"/>
-	
-	</LinearLayout>
-	
-	<ScrollView
-		android:id="@+id/sv_draft_details"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_above="@id/ll_draft_details_bottom"
-		android:scrollbars="none">
-		
-		<android.support.constraint.ConstraintLayout
-			android:id="@+id/ll_card_details_top"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-			
-			<com.zxcx.zhizhe.widget.CardImageView
-				android:id="@+id/iv_draft_details"
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:scaleType="centerCrop"
-				android:src="@drawable/default_card"
-				android:transitionName="@string/card_img_transition_name"
-				app:hasShade="true"
-				app:layout_constraintDimensionRatio="16:9"
-				app:shade="@color/shade"/>
-			
-			<TextView
-				android:id="@+id/tv_draft_details_title"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="15dp"
-				android:layout_marginStart="20dp"
-				android:layout_marginEnd="20dp"
-				android:lineSpacingExtra="6dp"
-				android:textColor="@color/text_color_1"
-				android:textSize="@dimen/text_size_title_2"
-				android:transitionName="@string/card_title_transition_name"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/iv_draft_details"
-				tools:text="男士西装基本样式简介男士西装基本样式"/>
-			
-			<TextView
-				android:id="@+id/tv_draft_details_category"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="7dp"
-				android:layout_marginStart="20dp"
-				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"
-				android:transitionName="@string/card_category_transition_name"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
-				tools:text="生活"/>
-			
-			<TextView
-				android:id="@+id/tv_draft_details_label"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="7dp"
-				android:layout_marginStart="12dp"
-				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"
-				android:transitionName="@string/card_label_transition_name"
-				app:layout_constraintStart_toEndOf="@id/tv_draft_details_category"
-				app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
-				tools:text="生活"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_details">
+
+    <LinearLayout
+        android:id="@+id/ll_draft_details_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/iv_note_details_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="26dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:text="编辑"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/iv_note_details_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="26dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="center"
+            android:text="发布"
+            android:textColor="@color/color_text_enable_blue"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/sv_draft_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_draft_details_bottom"
+        android:scrollbars="none">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_card_details_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zxcx.zhizhe.widget.CardImageView
+                android:id="@+id/iv_draft_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_card"
+                android:transitionName="@string/card_img_transition_name"
+                app:hasShade="true"
+                app:layout_constraintDimensionRatio="16:9"
+                app:shade="@color/shade"/>
+
+            <TextView
+                android:id="@+id/tv_draft_details_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_title_2"
+                android:transitionName="@string/card_title_transition_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_draft_details"
+                tools:text="男士西装基本样式简介男士西装基本样式"/>
+
+            <TextView
+                android:id="@+id/tv_draft_details_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
+                android:transitionName="@string/card_category_transition_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
+                tools:text="生活"/>
+
+            <TextView
+                android:id="@+id/tv_draft_details_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
+                android:transitionName="@string/card_label_transition_name"
+                app:layout_constraintStart_toEndOf="@id/tv_draft_details_category"
+                app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
+                tools:text="生活"/>
 
             <TextView
                 android:id="@+id/tv_draft_details_label2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
                 android:textColor="@color/text_color_3"
                 android:textSize="@dimen/text_size_text_3"
                 android:transitionName="@string/card_label_transition_name"
@@ -117,35 +119,35 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
                 tools:text="生活"/>
 
-			<TextView
+            <TextView
+                android:id="@+id/tv_draft_details_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="7dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
                 android:visibility="gone"
-				android:id="@+id/tv_draft_details_date"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="7dp"
-				android:layout_marginStart="12dp"
-				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"
-				app:layout_constraintStart_toEndOf="@id/tv_draft_details_label2"
-				app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
-				tools:text="2018/12/20"/>
-			
-			<FrameLayout
-				android:id="@+id/fl_draft_details"
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				app:layout_constraintTop_toBottomOf="@id/tv_draft_details_category">
-			</FrameLayout>
-		</android.support.constraint.ConstraintLayout>
-	</ScrollView>
-	
-	<ImageView
-		android:id="@+id/iv_common_close"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="10dp"
-		android:layout_marginEnd="10dp"
-		android:layout_alignParentEnd="true"
-		android:padding="10dp"
-		android:src="@drawable/iv_common_close"/>
+                app:layout_constraintStart_toEndOf="@id/tv_draft_details_label2"
+                app:layout_constraintTop_toBottomOf="@id/tv_draft_details_title"
+                tools:text="2018/12/20"/>
+
+            <FrameLayout
+                android:id="@+id/fl_draft_details"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_draft_details_category">
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_common_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:src="@drawable/iv_common_close"/>
 </RelativeLayout>
