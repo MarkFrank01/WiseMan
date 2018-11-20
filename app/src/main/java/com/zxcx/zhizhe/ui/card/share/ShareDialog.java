@@ -16,6 +16,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.utils.LogCat;
+import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,10 +37,6 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.ScreenUtils;
-import java.util.HashMap;
 
 /**
  * Created by anm on 2017/5/27.
@@ -48,6 +52,7 @@ public class ShareDialog extends BaseDialog {
 	private String title;
 	private String text;
 	private String imageUrl;
+	private String comment;
 
 	@Nullable
 	@Override
@@ -59,6 +64,7 @@ public class ShareDialog extends BaseDialog {
 		title = getArguments().getString("title");
 		text = getArguments().getString("text");
 		imageUrl = getArguments().getString("imageUrl");
+//		comment = getArguments().getString("comment");
 		return view;
 	}
 
@@ -163,11 +169,13 @@ public class ShareDialog extends BaseDialog {
 		// url仅在微信（包括好友和朋友圈）中使用
 		oks.setUrl(url);
 		// comment是我对这条分享的评论，仅在人人网和QQ空间使用
-//        oks.setComment("我是测试评论文本");
+//        oks.setComment(comment);
 		// site是分享此内容的网站名称，仅在QQ空间使用
 //        oks.setSite("ShareSDK");
 		// siteUrl是分享此内容的网站地址，仅在QQ空间使用
 //        oks.setSiteUrl("http://sharesdk.cn");
+
+        LogCat.e("Text-----"+text);
 
 		//回调
 		oks.setCallback(new PlatformActionListener() {

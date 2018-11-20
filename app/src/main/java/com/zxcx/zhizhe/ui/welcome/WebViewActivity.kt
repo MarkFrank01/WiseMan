@@ -1,30 +1,19 @@
 package com.zxcx.zhizhe.ui.welcome
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
-import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
-import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.NeedSaveDialog
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
-import com.zxcx.zhizhe.widget.UploadingDialog
-import kotlinx.android.synthetic.main.activity_creation_editor.*
 import kotlinx.android.synthetic.main.activity_web_view.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
 
 /**
  * 通用网页加载页面
@@ -37,6 +26,8 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	private var url = ""
 	private var loadUrl = ""
 	private var imageUrl: String? = null
+    private var shareDescription:String = ""
+
 	private lateinit var adMoreWindow: ADMoreWindow
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,6 +120,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		title = intent.getStringExtra("title")
 		url = intent.getStringExtra("url")
 		imageUrl = intent.getStringExtra("imageUrl")
+        shareDescription = intent.getStringExtra("shareDescription")
 		val isAD = intent.getBooleanExtra("isAD", false)
 		loadUrl = if (isAD && SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
 			url + "?token=" + SharedPreferencesUtil.getString(SVTSConstants.token, "")
@@ -180,6 +172,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		bundle.putString("title", title)
 		bundle.putString("url", url +"?token=share")
 		bundle.putString("imageUrl", imageUrl)
+        bundle.putString("text",shareDescription)
 		shareDialog.arguments = bundle
 		shareDialog.show(supportFragmentManager, "")
 	}
