@@ -1,22 +1,28 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.method.LinkMovementMethod
 import com.bumptech.glide.load.MultiTransformation
 import com.gyf.barlibrary.ImmersionBar
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
+import com.zxcx.zhizhe.event.SaveDraftSuccessEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsContract
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsPresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.utils.GlideApp
+import com.zxcx.zhizhe.ui.my.creation.CreationActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.ZhiZheUtils
-import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.widget.UploadingDialog
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_preview_card_details.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * 创作卡片预览页面
@@ -24,11 +30,16 @@ import kotlinx.android.synthetic.main.activity_preview_card_details.*
 
 class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsContract.View {
 
+    private lateinit var mUploadingDialog: UploadingDialog
+
     private lateinit var mCardBean: CardBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview_card_details)
+        EventBus.getDefault().register(this)
+        mUploadingDialog = UploadingDialog()
+
         initData()
     }
 
@@ -81,6 +92,18 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
     }
 
     override fun postSuccess(bean: CardBean) {
+        runOnUiThread {
+            mUploadingDialog.setSuccess(true)
+        }
+        Handler().postDelayed({
+            EventBus.getDefault().post(CommitCardReviewEvent())
+            startActivity(CreationActivity::class.java) {
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                it.putExtra("goto", 1)
+            }
+            Utils.closeInputMethod(mActivity)
+            finish()
+        }, 1000)
     }
 
     override fun postFail(msg: String) {
@@ -97,5 +120,37 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
 
             onBackPressed()
         }
+
+        cancel_back.setOnClickListener {
+
+            mPresenter.deleteNote(mCardBean.id)
+
+            onBackPressed()
+        }
+
+        push_right.setOnClickListener {
+//            mPresenter.saveCardNode(mCardBean.name,mCardBean.imageUrl,mCardBean.id,mCardBean.content,mCardBean)
+
+
+            val bundle = Bundle()
+            bundle.putString("uploadingText", "正在提交")
+            bundle.putString("successText", "审核中")
+            bundle.putString("failText", "提交失败")
+            mUploadingDialog.arguments = bundle
+            mUploadingDialog.show(supportFragmentManager, "")
+            Handler().postDelayed({
+                mPresenter.saveCardNode(mCardBean.id,1,mCardBean)
+            }, 500)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: SaveDraftSuccessEvent) {
+        onReload(null)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

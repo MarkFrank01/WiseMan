@@ -112,6 +112,29 @@ class CardDetailsModel(presenter: CardDetailsContract.Presenter) : BaseModel<Car
                 })
         addSubscription(mDisposable)
     }
+
+   fun saveCardNode(title: String?, imageUrl: String?, withCardId: Int, content: String?,bean1: CardBean) {
+        mDisposable = AppClient.getAPIService().saveCardNode(title, imageUrl, withCardId, 3, 0, content)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .subscribeWith(object : PostSubscriber<BaseBean<*>>(mPresenter) {
+                    override fun onNext(bean: BaseBean<*>) {
+                        mPresenter?.postSuccess(bean1)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun saveCardNode( withCardId: Int,styleType:Int,cardBean:CardBean){
+        mDisposable = AppClient.getAPIService().saveFreeNode(withCardId,styleType,1)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(object : PostSubscriber<BaseBean<*>>(mPresenter) {
+                    override fun onNext(bean: BaseBean<*>) {
+                        mPresenter?.postSuccess(cardBean)
+                    }
+                })
+    }
 }
 
 
