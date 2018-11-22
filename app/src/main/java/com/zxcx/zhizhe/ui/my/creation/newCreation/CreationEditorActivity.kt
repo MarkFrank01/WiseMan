@@ -396,6 +396,7 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun showToolBar() {
         runOnUiThread {
+            iv_creation_editor_add_image.isEnabled = true
             iv_creation_editor_add_image.isClickable = true
             iv_creation_editor_bold.isClickable = true
             iv_creation_editor_center.isClickable = true
@@ -441,6 +442,22 @@ class CreationEditorActivity : BaseActivity(),
             iv_creation_editor_add_image.visibility = if (isCard) View.GONE else View.VISIBLE
         }
     }
+
+    @JavascriptInterface
+    fun hiddenPictuer(){
+        runOnUiThread{
+            iv_creation_editor_add_image.isEnabled = false
+        }
+    }
+
+    @JavascriptInterface
+    fun showPictuer(){
+        runOnUiThread {
+            iv_creation_editor_add_image.isEnabled = true
+        }
+    }
+
+
 
     @JavascriptInterface
     fun confirmSave(isNeedSave: Boolean) {

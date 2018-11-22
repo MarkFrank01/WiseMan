@@ -130,7 +130,7 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
                     android:text="取消"
-                    android:textColor="@color/text_color_1"
+                    android:textColor="@color/text_color_3"
                     android:textSize="14sp"/>
 
                 <Space

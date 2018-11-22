@@ -120,6 +120,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
+                android:textColor="@color/text_color_3"
                 android:gravity="center"
                 android:id="@+id/iv_draft_details_edit"
                 android:layout_width="wrap_content"

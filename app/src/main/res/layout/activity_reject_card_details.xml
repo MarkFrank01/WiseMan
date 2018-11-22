@@ -154,25 +154,27 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_reject_details_label"/>
 
             <TextView
-                android:id="@+id/iv_reject_details_edit"
+
+                android:id="@+id/iv_reject_details_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="10dp"
                 android:padding="10dp"
-                android:text="取消"
+                android:text="删除"
+                android:textColor="@color/text_color_3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_reject_details_content"/>
 
             <TextView
-                android:id="@+id/iv_reject_details_delete"
+                android:id="@+id/iv_reject_details_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="10dp"
                 android:padding="10dp"
-                android:text="删除"
+                android:text="编辑"
                 android:textColor="@color/color_text_enable_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
