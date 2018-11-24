@@ -26,7 +26,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 	private var url = ""
 	private var loadUrl = ""
 	private var imageUrl: String? = null
-    private var shareDescription:String = ""
+    private var shareDescription:String = "智者，只看实用知识"
 
 	private lateinit var adMoreWindow: ADMoreWindow
 
@@ -120,7 +120,7 @@ class WebViewActivity : BaseActivity(), ADMoreWindow.ADMoreListener {
 		title = intent.getStringExtra("title")
 		url = intent.getStringExtra("url")
 		imageUrl = intent.getStringExtra("imageUrl")
-        shareDescription = intent.getStringExtra("shareDescription")
+//        shareDescription = intent.getStringExtra("shareDescription")
 		val isAD = intent.getBooleanExtra("isAD", false)
 		loadUrl = if (isAD && SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
 			url + "?token=" + SharedPreferencesUtil.getString(SVTSConstants.token, "")

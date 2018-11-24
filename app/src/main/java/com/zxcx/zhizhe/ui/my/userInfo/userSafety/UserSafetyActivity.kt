@@ -162,8 +162,14 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
                 val Uid = platDB.get("unionid")
                 LogCat.e("UID" + Uid)
                 LogCat.e("解除绑定前ID" + userId)
+
+                if (Uid.isEmpty()){
+                    mPresenter.channelBinding(channelType, 1, userId)
+                }else{
+                    mPresenter.channelBinding(channelType, 1, Uid)
+                }
 //                mPresenter.channelBinding(channelType, 1, userId)
-                mPresenter.channelBinding(channelType, 1, Uid)
+//                mPresenter.channelBinding(channelType, 1, Uid)
             }
         }
 
