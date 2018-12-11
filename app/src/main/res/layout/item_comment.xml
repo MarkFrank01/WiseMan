@@ -1,110 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
-	
-	<com.makeramen.roundedimageview.RoundedImageView
-		android:id="@+id/iv_item_comment"
-		android:layout_width="30dp"
-		android:layout_height="30dp"
-		android:layout_marginTop="35dp"
-		android:layout_marginStart="20dp"
-		android:scaleType="centerCrop"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:riv_oval="true"
-		tools:src="@drawable/default_header"/>
-	
-	<TextView
-		android:id="@+id/tv_item_comment_name"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:textColor="@color/text_color_3"
-		android:textSize="@dimen/text_size_text_2"
-		app:layout_constraintStart_toEndOf="@id/iv_item_comment"
-		app:layout_constraintTop_toTopOf="@id/iv_item_comment"
-		tools:text="一个弱智"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_comment"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="35dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:riv_oval="true"
+        tools:src="@drawable/default_header"/>
+
+    <TextView
+        android:id="@+id/tv_item_comment_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_2"
+        app:layout_constraintStart_toEndOf="@id/iv_item_comment"
+        app:layout_constraintTop_toTopOf="@id/iv_item_comment"
+        tools:text="一个弱智"/>
 
     <ImageView
-        android:visibility="gone"
         android:id="@+id/iv_item_card_officials"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:layout_marginStart="5dp"
         android:src="@drawable/iv_card_detail_official"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tv_item_comment_name"
         app:layout_constraintStart_toEndOf="@id/tv_item_comment_name"
         app:layout_constraintTop_toTopOf="@id/tv_item_comment_name"/>
 
 
     <TextView
-		android:id="@+id/tv_item_comment_flag"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="6dp"
-		android:paddingStart="6dp"
-		android:paddingEnd="6dp"
-		android:background="@drawable/bg_item_comment_flag"
-		android:textColor="@color/text_color_ff"
-		android:textSize="@dimen/text_size_text_3"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
-		app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
-		app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
-		tools:text="弱智"/>
-	
-	<CheckBox
-		android:id="@+id/cb_item_comment_like"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:background="@drawable/selector_cb_card_details_like"
-		android:button="@null"
-		app:layout_constraintBottom_toBottomOf="@id/tv_item_comment_name"
-		app:layout_constraintEnd_toStartOf="@id/tv_item_comment_like_num"
-		app:layout_constraintTop_toTopOf="@id/tv_item_comment_name"/>
-	
-	<TextView
-		android:id="@+id/tv_item_comment_like_num"
-		android:textStyle="bold"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginEnd="20dp"
-		android:enabled="false"
-		android:textColor="@color/color_checkbox_card_details"
-		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"
-		tools:text="6"/>
-	
-	<TextView
-		android:id="@+id/tv_item_comment_content"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="20dp"
-		android:lineSpacingExtra="6dp"
-		android:textColor="@color/text_color_1"
-		android:textSize="@dimen/text_size_text_1"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="@id/tv_item_comment_name"
-		app:layout_constraintTop_toBottomOf="@id/tv_item_comment_name"
-		tools:text="和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和"/>
-	
-	<TextView
-		android:id="@+id/tv_item_comment_expand"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dp"
-		android:drawableEnd="@drawable/common_into"
-		android:gravity="center"
-		android:text="查看回复"
-		android:textColor="@color/text_color_3"
-		android:textSize="@dimen/text_size_text_3"
-		app:layout_constraintStart_toStartOf="@id/tv_item_comment_name"
-		app:layout_constraintTop_toBottomOf="@id/tv_item_comment_content"/>
+        android:id="@+id/tv_item_comment_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/bg_item_comment_flag"
+        android:paddingEnd="6dp"
+        android:paddingStart="6dp"
+        android:textColor="@color/text_color_ff"
+        android:textSize="@dimen/text_size_text_3"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
+        app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
+        app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
+        tools:text="弱智"/>
+
+    <CheckBox
+        android:id="@+id/cb_item_comment_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_cb_card_details_like"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_comment_name"
+        app:layout_constraintEnd_toStartOf="@id/tv_item_comment_like_num"
+        app:layout_constraintTop_toTopOf="@id/tv_item_comment_name"/>
+
+    <TextView
+        android:id="@+id/tv_item_comment_like_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:enabled="false"
+        android:textColor="@color/color_checkbox_card_details"
+        android:textSize="@dimen/text_size_text_4"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"
+        tools:text="6"/>
+
+    <TextView
+        android:id="@+id/tv_item_comment_distanceTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/app_name"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintStart_toStartOf="@id/tv_item_comment_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_comment_name"/>
+
+    <TextView
+        android:id="@+id/tv_item_comment_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="8dp"
+        android:lineSpacingExtra="6dp"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_text_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_item_comment_distanceTime"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_comment_distanceTime"
+        tools:text="和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和"/>
+
+    <TextView
+        android:id="@+id/tv_item_comment_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawableEnd="@drawable/common_into"
+        android:gravity="center"
+        android:text="查看回复"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_3"
+        app:layout_constraintStart_toStartOf="@id/tv_item_comment_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_comment_content"/>
 
 </android.support.constraint.ConstraintLayout>

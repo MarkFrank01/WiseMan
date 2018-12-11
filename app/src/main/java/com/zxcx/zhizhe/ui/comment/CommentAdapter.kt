@@ -39,6 +39,7 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 		helper.setText(R.id.tv_item_comment_name, item.userName)
+        helper.setText(R.id.tv_item_comment_distanceTime,item.distanceTime)
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
@@ -89,6 +90,7 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 
 		ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 		helper.setText(R.id.tv_item_comment_name, item.userName)
+        helper.setText(R.id.tv_item_comment_distanceTime,item.distanceTime)
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)

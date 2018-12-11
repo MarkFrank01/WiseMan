@@ -1,9 +1,12 @@
 package com.zxcx.zhizhe.ui.my.pastelink
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushPastEvent
@@ -11,6 +14,8 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.UploadingDialog
@@ -33,6 +38,7 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     private var mSize: Int = 0
     private var mList2 = ArrayList<String>()
     private var mNotAdd: Boolean = true
+    private var mCanPush: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +50,6 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
 
             val bean = adapter.data[position] as PastLinkBean
-
 
             when (view) {
 //                is LinearLayout -> {
@@ -73,14 +78,31 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 //                }
 
                 //链接点击
-//                is AppCompatEditText -> {
+                is AppCompatEditText -> {
+//                    LogCat.e(view.findViewById<AppCompatEditText>(R.id.et_pates_link).text.toString().trim())
+//
+//                    val web = WebAddress(view.findViewById<AppCompatEditText>(R.id.et_pates_link).text.toString().trim())
+//                    LogCat.e(web.toString())
+//                    LogCat.e(web.path)
+//                    if (web.path.length > 4) {
+//                        mCanPush = true
+//                    }
+
+                    if (view.findViewById<AppCompatEditText>(R.id.et_pates_link).text.toString().trim().length > 10) {
+                        startActivity(WebViewActivity::class.java) {
+                            it.putExtra("url", bean.link)
+                            it.putExtra("title", "我的作品")
+                            it.putExtra("imageUrl", bean.link)
+                            it.putExtra("isAD", true)
+                        }
+                    }
 //                    startActivity(WebViewActivity::class.java) {
 //                        it.putExtra("url", bean.link)
 //                        it.putExtra("title", "我的作品")
 //                        it.putExtra("imageUrl", bean.link)
 //                        it.putExtra("isAD", true)
 //                    }
-//                }
+                }
 
             }
 
@@ -142,6 +164,23 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         mSize++
         mList2.add("")
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>智者创作协议</font>", Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>智者创作协议</font>")
+        }
+
+        link_ZHIZHE.setOnClickListener {
+
+            startActivity(WebViewActivity::class.java) {
+                it.putExtra("title", "智者创作协议")
+                if (Constants.IS_NIGHT) {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_dark_url))
+                } else {
+                    it.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_url))
+                }
+            }
+        }
     }
 
     override fun setListener() {

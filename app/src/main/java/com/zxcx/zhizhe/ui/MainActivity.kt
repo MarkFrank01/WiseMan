@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.rank.RankFragment
@@ -158,9 +159,46 @@ class MainActivity : BaseActivity() {
                 mHomeDialog.outDia()
             }
 
+            mHomeDialog.setShenDuClickListener {
+                if (checkLogin()) {
+                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                        writer_status_writer -> {
+                            //创作界面
+                            mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                        }
+
+                        else -> {
+                            val dialog = CreationAgreementDialog()
+                            dialog.mListener = {
+                                mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                            }
+                            dialog.show(mActivity.supportFragmentManager, "")
+                        }
+                    }
+                }
+                mHomeDialog.outDia()
+            }
+
             mHomeDialog.setHuishouClickListener {
 
-                mActivity.startActivity(PasteLinkActivity::class.java) {}
+                if (checkLogin()) {
+                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                        writer_status_writer -> {
+                            //一键转载
+                            mActivity.startActivity(PasteLinkActivity::class.java) {}
+                        }
+
+                        else -> {
+                            val dialog = CreationAgreementDialog()
+                            dialog.mListener = {
+                                mActivity.startActivity(PasteLinkActivity::class.java) {}
+                            }
+                            dialog.show(mActivity.supportFragmentManager,"")
+                        }
+                    }
+                }
+
+//                mActivity.startActivity(PasteLinkActivity::class.java) {}
 
                 mHomeDialog.outDia()
             }

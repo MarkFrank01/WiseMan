@@ -14,7 +14,8 @@ class CommentBean(
 		@SerializedName("hasLike") var hasLike: Boolean = false,
 		@SerializedName("id") var id: Int = 0,
 		@SerializedName("likeCount") var likeCount: Int = 0,
-        @SerializedName("authorAuthenticationType") var authorAuthenticationType:Int = 0
+        @SerializedName("authorAuthenticationType") var authorAuthenticationType:Int = 0,
+        @SerializedName("distanceTime") var distanceTime:String = "" //时间
 ) : AbstractExpandableItem<ChildCommentBean>(), MultiItemEntity {
 
 	companion object {
@@ -61,6 +62,7 @@ class CommentBean(
 		bean.id = id
 		bean.likeCount = likeCount
         bean.authorAuthenticationType = authorAuthenticationType
+        bean.distanceTime = distanceTime
 		return bean
 	}
 }

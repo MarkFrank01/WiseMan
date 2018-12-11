@@ -43,28 +43,66 @@
     </LinearLayout>
 
     <LinearLayout
-        android:fitsSystemWindows="true"
+        android:id="@+id/rv_link"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp">
+
+        <!--android:fitsSystemWindows="true"-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_past_link"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             tools:listitem="@layout/item_past_link"/>
+
 
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rv_link"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/grey_round"
+            android:text="黏贴自己其他平台的作品链接后在此页面提交审核，审核通过后作品将以投稿者ID按照智者文章形式自动发布"
+            android:textSize="@dimen/sp_12"/>
+
+        <TextView
+            android:id="@+id/link_ZHIZHE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/grey_round"
+            android:text="投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅"
+            android:textSize="@dimen/sp_12"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/ll_add_more_link"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/bg_continue_add">
+        android:background="@drawable/bg_continue_add"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"
