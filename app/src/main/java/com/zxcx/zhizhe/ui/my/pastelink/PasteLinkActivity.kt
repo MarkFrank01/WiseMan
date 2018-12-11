@@ -3,10 +3,7 @@ package com.zxcx.zhizhe.ui.my.pastelink
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.AppCompatEditText
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushPastEvent
@@ -14,7 +11,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
-import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.UploadingDialog
@@ -49,40 +45,42 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
             val bean = adapter.data[position] as PastLinkBean
 
+
             when (view) {
-                is LinearLayout -> {
-                    val dialog = DeleteLinkDialog()
-                    dialog.mCancelListener = {
+//                is LinearLayout -> {
+//                    val dialog = DeleteLinkDialog()
+//                    dialog.mCancelListener = {
+//
+//                    }
+//                    dialog.mConfirmListener = {
+//                        if (mSize == 1) {
+//                            toastShow("第一个不能删除哦")
+//                        }
+//                        if (position == mSize - 1) {
+//                            mNotAdd = false
+//                        }
+//                        if (mSize > 1) {
+//                            adapter.remove(position)
+//                            adapter.notifyItemRemoved(position)
+//                            mList2.remove(mList2[position])
+//                            mSize--
+//
+//                            ll_add_more_link.isEnabled = true
+//                        }
+//                    }
+//
+//                    dialog.show(supportFragmentManager, "")
+//                }
 
-                    }
-                    dialog.mConfirmListener = {
-                        if (mSize == 1) {
-                            toastShow("第一个不能删除哦")
-                        }
-                        if (position == mSize - 1) {
-                            mNotAdd = false
-                        }
-                        if (mSize > 1) {
-                            adapter.remove(position)
-                            adapter.notifyItemRemoved(position)
-                            mList2.remove(mList2[position])
-                            mSize--
-
-                            ll_add_more_link.isEnabled = true
-                        }
-                    }
-
-                    dialog.show(supportFragmentManager, "")
-                }
-
-                is AppCompatEditText -> {
-                    startActivity(WebViewActivity::class.java) {
-                        it.putExtra("url", bean.link)
-                        it.putExtra("title", "我的作品")
-                        it.putExtra("imageUrl", bean.link)
-                        it.putExtra("isAD", true)
-                    }
-                }
+                //链接点击
+//                is AppCompatEditText -> {
+//                    startActivity(WebViewActivity::class.java) {
+//                        it.putExtra("url", bean.link)
+//                        it.putExtra("title", "我的作品")
+//                        it.putExtra("imageUrl", bean.link)
+//                        it.putExtra("isAD", true)
+//                    }
+//                }
 
             }
 

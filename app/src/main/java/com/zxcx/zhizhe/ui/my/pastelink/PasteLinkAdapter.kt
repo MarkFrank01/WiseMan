@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.LinearLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
@@ -20,6 +21,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
     override fun convert(helper: BaseViewHolder, item: PastLinkBean?) {
 
         helper.addOnClickListener(R.id.ll_paste_cancel)
+
 
 
         val editText = helper.getView<AppCompatEditText>(R.id.et_pates_link)
@@ -52,6 +54,11 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                     etcheck.isErrorEnabled = true
                     mListener.onItemIsNull(true)
                     etcheck.error = "请添加你的作品链接"
+
+                    editText.isCursorVisible = true
+                    editText.isFocusable = true
+                    editText.isFocusableInTouchMode = true
+
                 } else {
 
 
@@ -85,6 +92,10 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
         editText.addTextChangedListener(textWatcher)
         editText.setTag(R.id.et_pates_link, textWatcher)
 
+
+        helper.getView<LinearLayout>(R.id.ll_paste_cancel).setOnClickListener {
+            editText.setText("")
+        }
     }
 
 

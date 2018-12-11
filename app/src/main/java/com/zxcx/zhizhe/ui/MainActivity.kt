@@ -15,12 +15,14 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.widget.PublishDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -95,56 +97,76 @@ class MainActivity : BaseActivity() {
 
     override fun setListener() {
         super.setListener()
-        iv_home_creation.setOnClickListener {
-            if (checkLogin()) {
-                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                    writer_status_writer -> {
-                        //创作界面
-                        mActivity.startActivity(CreationEditorActivity::class.java) {}
-                    }
-                    else -> {
-                        val dialog = CreationAgreementDialog()
-                        dialog.mListener = {
-                            mActivity.startActivity(CreationEditorActivity::class.java) {}
-                        }
-                        dialog.show(mActivity.supportFragmentManager, "")
-                    }
-                }
-            }
-        }
 
 //        iv_home_creation.setOnClickListener {
-//            val mHomeDialog = PublishDialog(this)
-//            mHomeDialog.setFabuClickListener {
-//                //                toastShow("开始创作")
-//                if (checkLogin()) {
-//                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-//                        writer_status_writer -> {
-//                            //创作界面
-//                            mActivity.startActivity(CreationEditorActivity::class.java) {}
+//            if (checkLogin()) {
+//                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                    writer_status_writer -> {
+//                        //选择模板
+//                        mActivity.startActivity(TemplateCardActivity::class.java) {}
+//                    }
+//                    else -> {
+//                        val dialog = CreationAgreementDialog()
+//                        dialog.mListener = {
+//                            mActivity.startActivity(TemplateCardActivity::class.java){}
 //                        }
-//
-//                        else -> {
-//                            val dialog = CreationAgreementDialog()
-//                            dialog.mListener = {
-//                                mActivity.startActivity(CreationEditorActivity::class.java) {}
-//                            }
-//                            dialog.show(mActivity.supportFragmentManager, "")
-//                        }
+//                        dialog.show(mActivity.supportFragmentManager,"")
 //                    }
 //                }
-//                mHomeDialog.outDia()
 //            }
-//
-//            mHomeDialog.setHuishouClickListener {
-//
-//                mActivity.startActivity(PasteLinkActivity::class.java) {}
-//
-//                mHomeDialog.outDia()
-//            }
-//
-//            mHomeDialog.show()
 //        }
+
+        //暂时注释，可能版本仍需确认
+//        iv_home_creation.setOnClickListener {
+//            if (checkLogin()) {
+//                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                    writer_status_writer -> {
+//                        //创作界面
+//                        mActivity.startActivity(CreationEditorActivity::class.java) {}
+//                    }
+//                    else -> {
+//                        val dialog = CreationAgreementDialog()
+//                        dialog.mListener = {
+//                            mActivity.startActivity(CreationEditorActivity::class.java) {}
+//                        }
+//                        dialog.show(mActivity.supportFragmentManager, "")
+//                    }
+//                }
+//            }
+//        }
+
+        iv_home_creation.setOnClickListener {
+            val mHomeDialog = PublishDialog(this)
+            mHomeDialog.setFabuClickListener {
+                //                toastShow("开始创作")
+                if (checkLogin()) {
+                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                        writer_status_writer -> {
+                            //创作界面
+                            mActivity.startActivity(CreationEditorActivity::class.java) {}
+                        }
+
+                        else -> {
+                            val dialog = CreationAgreementDialog()
+                            dialog.mListener = {
+                                mActivity.startActivity(CreationEditorActivity::class.java) {}
+                            }
+                            dialog.show(mActivity.supportFragmentManager, "")
+                        }
+                    }
+                }
+                mHomeDialog.outDia()
+            }
+
+            mHomeDialog.setHuishouClickListener {
+
+                mActivity.startActivity(PasteLinkActivity::class.java) {}
+
+                mHomeDialog.outDia()
+            }
+
+            mHomeDialog.show()
+        }
 
         home_tab_card.setOnClickListener { switchFragment(mHomeCardFragment) }
         home_tab_article.setOnClickListener { switchFragment(mHomeArticleFragment) }

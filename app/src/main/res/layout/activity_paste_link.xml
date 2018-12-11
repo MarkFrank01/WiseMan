@@ -57,6 +57,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_add_more_link"
         android:layout_width="180dp"
         android:layout_height="40dp"
