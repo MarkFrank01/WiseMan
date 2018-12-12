@@ -602,5 +602,6 @@ public interface APIService {
     @FormUrlEncoded
     @POST("/article/uploadArticleLink")
     Flowable<BaseBean<Object>> pushArticleLink(
-            @Field("linkList") List<String> articleLinks);
+            @Field("linkList") List<String> articleLinks,
+            @Query("title") String title);
 }

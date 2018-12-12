@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_paste_link.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.jsoup.Jsoup
 import java.util.*
 
 /**
@@ -38,7 +39,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     private var mSize: Int = 0
     private var mList2 = ArrayList<String>()
     private var mNotAdd: Boolean = true
-    private var mCanPush: Boolean = false
+
+    private var mTitle = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,7 +147,11 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushPastEvent) {
-        mPresenter.pushLinkList(mList2)
+        if (mTitle.isNotEmpty() || mTitle != "") {
+            mPresenter.pushLinkList(mList2, mTitle)
+        } else {
+            mPresenter.pushLinkList(mList2, "我的作品")
+        }
     }
 
 
@@ -230,7 +236,21 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     }
 
 
-    override fun onClickSave(position: Int) {
+    override fun onClickSave(position: Int, url: String) {
+
+        var title = ""
+
+        Thread {
+            if (url.isNotEmpty()) {
+                val connect = Jsoup.connect(url)
+                val document = connect.get()
+                title = document.head().select("title").text()
+//                LogCat.e("New  " + document.head().select("title").text())
+                mTitle = title
+            }
+        }.start()
+
+
         val bean = mAdapter.data[position] as PastLinkBean
 
         mList2[position] = bean.link!!

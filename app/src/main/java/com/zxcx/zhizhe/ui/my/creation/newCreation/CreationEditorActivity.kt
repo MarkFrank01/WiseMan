@@ -68,7 +68,7 @@ class CreationEditorActivity : BaseActivity(),
 
         initEditor()
         iv_creation_editor_add_image.visibility = View.GONE
-        iv_creation_editor_more.visibility = View.VISIBLE
+//        iv_creation_editor_more.visibility = View.VISIBLE
 
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
@@ -112,6 +112,9 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     override fun setListener() {
+
+
+
         tv_toolbar_back.setOnClickListener {
             onBackPressed()
         }
@@ -129,6 +132,20 @@ class CreationEditorActivity : BaseActivity(),
             }, 500)
         }
 
+        //新的保存
+        tv_toolbar_save.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("uploadingText", "正在保存草稿")
+                bundle.putString("successText", "保存成功")
+                bundle.putString("failText", "保存失败")
+                mUploadingDialog.arguments = bundle
+                mUploadingDialog.show(supportFragmentManager, "")
+                Handler().postDelayed({
+                    // editor.saveDraft()
+                    editor.twoSaveDraft()
+                }, 500)
+        }
+
         iv_creation_editor_add_image.setOnClickListener {
             getContentImage()
         }
@@ -143,6 +160,10 @@ class CreationEditorActivity : BaseActivity(),
 
         iv_creation_editor_revocation.setOnClickListener {
             editor.rollback()
+        }
+
+        iv_creation_editor_preview.setOnClickListener {
+            editor.editPreview()
         }
 
         iv_creation_editor_more.setOnClickListener {
@@ -432,6 +453,7 @@ class CreationEditorActivity : BaseActivity(),
     fun judgeSubmit(isEnable: Boolean) {
         runOnUiThread {
             tv_toolbar_right.isEnabled = isEnable
+            tv_toolbar_save.isEnabled = isEnable
         }
     }
 

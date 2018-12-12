@@ -2,9 +2,9 @@ package com.zxcx.zhizhe.ui.my.pastelink
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 
-class PasteLinkPresenter(view:PasteLinkContract.View):BasePresenter<PasteLinkContract.View>(),PasteLinkContract.Presenter{
+class PasteLinkPresenter(view: PasteLinkContract.View) : BasePresenter<PasteLinkContract.View>(), PasteLinkContract.Presenter {
 
-    private val mModel : PasteModel
+    private val mModel: PasteModel
 
     init {
         attachView(view)
@@ -12,8 +12,8 @@ class PasteLinkPresenter(view:PasteLinkContract.View):BasePresenter<PasteLinkCon
     }
 
     //上传链接操作,暂未处理
-    fun pushLinkList(articleLinks: List<String>){
-        mModel.pushLinkList(articleLinks)
+    fun pushLinkList(articleLinks: List<String>, title: String) {
+        mModel.pushLinkList(articleLinks, title)
     }
 
     override fun showLoading() {

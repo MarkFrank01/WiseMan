@@ -39,7 +39,8 @@ class CardBean(
         //新增
         @SerializedName("authorAuthenticationType") var authorType: Int = 0,
         @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
-        @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = ""
+        @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
+        @SerializedName("distanceTime") var distanceTime:String = ""
 
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
@@ -106,6 +107,7 @@ class CardBean(
             source.readParcelable<ADBean>(ADBean::class.java.classLoader),
             source.readInt(),
             source.readInt(),
+            source.readString(),
             source.readString()
     )
 
@@ -142,6 +144,7 @@ class CardBean(
         writeInt(authorType)
         writeInt(secondCollectionId)
         writeString(secondCollectionTitle)
+        writeString(distanceTime)
     }
 
     companion object {

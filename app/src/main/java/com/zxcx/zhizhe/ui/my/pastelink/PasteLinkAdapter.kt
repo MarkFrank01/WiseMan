@@ -37,7 +37,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
 
 
-        mListener.onClickSave(mData.indexOf(item))
+        mListener.onClickSave(mData.indexOf(item),editText.text.toString().trim())
 
         mListener.onItemIsNull(true)
         if (item?.link.toString() == "" || item?.link.isNullOrEmpty()) {
@@ -50,7 +50,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
             override fun afterTextChanged(s: Editable?) {
                 item?.link = s.toString()
-                mListener.onClickSave(mData.indexOf(item))
+//                mListener.onClickSave(mData.indexOf(item))
 
                 if (editText.text.toString().trim() == "") {
                     etcheck.isErrorEnabled = true
@@ -64,7 +64,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                 } else {
 
 
-                    if (s.toString().length > 5) {
+                    if (s.toString().length > 10) {
                         etcheck.hint = ""
                         etcheck.error = ""
                         etcheck.isErrorEnabled = false
@@ -82,7 +82,10 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
                         WebAddress(editText.text.toString().trim()).toString()
                         if (web.path.length < 5) {
-                            Toast.makeText(mContext, "链接无效", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mContext, "作品链接格式不正确", Toast.LENGTH_SHORT).show()
+                        } else {
+
+                            mListener.onClickSave(mData.indexOf(item),editText.text.toString().trim())
                         }
 
                     } else {

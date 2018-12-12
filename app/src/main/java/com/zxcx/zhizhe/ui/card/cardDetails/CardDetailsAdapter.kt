@@ -37,6 +37,8 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.getView<TextView>(R.id.tv_item_card_details_collect).isEnabled = item.isCollect
         helper.getView<TextView>(R.id.tv_item_card_details_like).isEnabled = item.isLike
 
+        helper.setText(R.id.tv_item_card_details_time,item.distanceTime)
+
         if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()){
             helper.getView<TextView>(R.id.tv_item_card_details_label2).visibility = View.VISIBLE
             helper.setText(R.id.tv_item_card_details_label2,item.getSecondLabelName())

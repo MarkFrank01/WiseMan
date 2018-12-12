@@ -145,6 +145,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		//进入时只有id的时候，在这里初始化界面
 		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
+        tv_article_details_time.text = cardBean.distanceTime
 		tv_article_details_category.text = cardBean.categoryName
 		tv_article_details_label.text = cardBean.getLabelName()
         if (cardBean.secondCollectionTitle.isNotEmpty()){
@@ -197,6 +198,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 
 		tv_article_details_title.text = cardBean.name
 		tv_article_details_date.text = date
+        tv_article_details_time.text = cardBean.distanceTime
 		tv_article_details_category.text = cardBean.categoryName
 		tv_article_details_label.text = cardBean.getLabelName()
         if (cardBean.secondCollectionTitle.isNotEmpty()){
@@ -378,6 +380,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 			tv_article_details_title.text = cardBean.name
 		if (!StringUtils.isEmpty(date))
 			tv_article_details_date.text = date
+        if (!StringUtils.isEmpty(cardBean.distanceTime))
+            tv_article_details_time.text = cardBean.distanceTime
 		if (!StringUtils.isEmpty(cardBean.categoryName))
 			tv_article_details_category.text = cardBean.categoryName
 		if (!StringUtils.isEmpty(cardBean.getLabelName()))

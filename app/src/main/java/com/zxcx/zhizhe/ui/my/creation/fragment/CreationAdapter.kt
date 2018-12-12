@@ -41,7 +41,7 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
                 helper.setText(R.id.tv_item_card_title, item.name)
                 helper.setText(R.id.tv_item_card_category, item.categoryName)
                 helper.setText(R.id.tv_item_card_label, item.getLabelName())
-                if (item.getSecondLabelName()!=""&&item.getSecondLabelName().isNotEmpty()) {
+                if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()) {
                     helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
                     helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
                 }
@@ -59,7 +59,7 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
 
             CardBean.Article_LINK -> {
                 helper.setText(R.id.tv_item_card_link,item.content)
-
+                        .setText(R.id.tv_item_card_title,item.name)
             }
         }
     }
