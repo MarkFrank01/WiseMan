@@ -26,6 +26,7 @@ import com.zxcx.zhizhe.loadCallback.HomeNetworkErrorCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.my.daily.DailyActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.GlideBannerImageLoader
@@ -45,7 +46,7 @@ import java.util.*
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
-	private lateinit var mAdapter: CardAdapter
+	private lateinit var mAdapter: HotCardAdapter
 	private var mPage = 0
 	private var mHidden = true
 	private var mLastDate = Date()
@@ -192,7 +193,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
 	private fun initRecyclerView() {
 		val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-		mAdapter = CardAdapter(arrayListOf())
+		mAdapter = HotCardAdapter(arrayListOf())
 		mAdapter.setLoadMoreView(CustomLoadMoreView())
 		mAdapter.setOnLoadMoreListener(this, rv_hot_card)
 		mAdapter.onItemClickListener = this
@@ -253,22 +254,33 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-		val bean = adapter.data[position] as CardBean
-		val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-		val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
-		val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
-		val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
-		val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
-				Pair.create(cardImg, cardImg.transitionName),
-				Pair.create(cardTitle, cardTitle.transitionName),
-				Pair.create(cardCategory, cardCategory.transitionName),
-				Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
-		val intent = Intent(mActivity, CardDetailsActivity::class.java)
-		intent.putExtra("list", mAdapter.data as ArrayList)
-		intent.putExtra("currentPosition", position)
-		intent.putExtra("sourceName", this::class.java.name)
-		mActivity.startActivity(intent, bundle)
-		mCurrentPosition = position
+
+        if (position == 4){
+            val mIntent = Intent(mActivity,DailyActivity::class.java)
+            mActivity.startActivity(mIntent)
+        }
+
+        if (position!=4) {
+
+            val bean = adapter.data[position] as CardBean
+            val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+            val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+            val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+            val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                    Pair.create(cardImg, cardImg.transitionName),
+                    Pair.create(cardTitle, cardTitle.transitionName),
+                    Pair.create(cardCategory, cardCategory.transitionName),
+                    Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
+            val intent = Intent(mActivity, CardDetailsActivity::class.java)
+            intent.putExtra("list", mAdapter.data as ArrayList)
+            intent.putExtra("currentPosition", position)
+            intent.putExtra("sourceName", this::class.java.name)
+            mActivity.startActivity(intent, bundle)
+            mCurrentPosition = position
+        }
+
+
 	}
 
 	fun onActivityReenter() {

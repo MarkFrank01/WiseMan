@@ -42,11 +42,9 @@ class CardBean(
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
         @SerializedName("distanceTime") var distanceTime:String = ""
 
-
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
         return cardType
-
     }
 
     fun getLabelName(): String {
@@ -157,6 +155,7 @@ class CardBean(
         val Article = 1
         val Article_LONG = 2
         val Article_LINK = 3
+        val Article_TOUTIAO = 4
     }
 }
 

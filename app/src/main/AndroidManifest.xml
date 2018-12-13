@@ -320,7 +320,8 @@
         <activity
             android:name=".ui.my.template.TemplateCardActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".ui.my.daily.DailyActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
