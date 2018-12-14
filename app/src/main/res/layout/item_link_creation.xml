@@ -32,8 +32,7 @@
     <TextView
         android:id="@+id/tv_item_card_title"
         android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:ellipsize="end"
@@ -63,12 +62,11 @@
         android:id="@+id/tv_item_card_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="90dp"
         android:ellipsize="end"
+        android:maxLength="30"
         android:maxLines="1"
         android:singleLine="true"
-        android:maxLength="30"
         android:text="ABC/www.vcg.com/creative/https:s://www"
         android:textSize="@dimen/sp_12"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,6 +74,6 @@
         app:layout_constraintStart_toEndOf="@+id/tv_item_link_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.846"/>
+        app:layout_constraintVertical_bias="0.851"/>
 
 </android.support.constraint.ConstraintLayout>

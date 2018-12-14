@@ -4,6 +4,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -44,6 +45,8 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
             editText.isCursorVisible = true
             editText.isFocusable = true
             editText.isFocusableInTouchMode = true
+
+            helper.getView<LinearLayout>(R.id.ll_paste_cancel).visibility = View.GONE
         }
 
         val textWatcher: TextWatcher = object : TextWatcher {
@@ -53,16 +56,18 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 //                mListener.onClickSave(mData.indexOf(item))
 
                 if (editText.text.toString().trim() == "") {
-                    etcheck.isErrorEnabled = true
+                    etcheck.isErrorEnabled = false
                     mListener.onItemIsNull(true)
-                    etcheck.error = "请添加你的作品链接"
+//                    etcheck.error = "请添加你的作品链接"
 
                     editText.isCursorVisible = true
                     editText.isFocusable = true
                     editText.isFocusableInTouchMode = true
 
+                    helper.getView<LinearLayout>(R.id.ll_paste_cancel).visibility = View.GONE
                 } else {
 
+                    helper.getView<LinearLayout>(R.id.ll_paste_cancel).visibility = View.VISIBLE
 
                     if (s.toString().length > 10) {
                         etcheck.hint = ""
@@ -88,9 +93,10 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                             mListener.onClickSave(mData.indexOf(item),editText.text.toString().trim())
                         }
 
-                    } else {
-                        etcheck.error = "链接长度不够"
                     }
+//                    else {
+//                        etcheck.error = "链接长度不够"
+//                    }
                 }
             }
 
