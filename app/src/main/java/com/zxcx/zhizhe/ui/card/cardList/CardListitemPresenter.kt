@@ -25,7 +25,9 @@ class CardListitemPresenter(view:CardListitemContract.View):BasePresenter<CardLi
         if (list.isNotEmpty()) {
             mView.getADSuccess(list)
         }else{
-            mView.closeAD()
+            if (mView!=null) {
+                mView.closeAD()
+            }
         }
     }
 

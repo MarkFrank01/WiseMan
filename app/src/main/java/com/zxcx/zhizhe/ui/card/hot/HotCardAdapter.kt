@@ -48,6 +48,8 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
                 helper.setText(R.id.tv_item_card_read, item.readNum.toString())
                 helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
+                helper.setText(R.id.tv_item_card_time,item.distanceTime)
+
 //                if (item.secondCollectionTitle != "" && item.secondCollectionTitle.isNotEmpty()) {
 //                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
 //                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())

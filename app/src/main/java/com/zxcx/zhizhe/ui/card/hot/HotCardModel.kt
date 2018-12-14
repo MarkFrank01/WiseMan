@@ -34,7 +34,7 @@ class HotCardModel(present: HotCardContract.Presenter) : BaseModel<HotCardContra
                         mPresenter?.getADSuccess(list)
                     }
                 })
-
+        addSubscription(mDisposable)
     }
 }
 

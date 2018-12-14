@@ -9,8 +9,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.DailyAdapter
@@ -21,7 +22,9 @@ import kotlinx.android.synthetic.main.activity_daily.*
  * @Created on 2018/12/13
  * @Description :
  */
-class DailyActivity:MvpActivity<DailyPresenter>(),DailyContract.View, BaseQuickAdapter.OnItemClickListener{
+class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.RequestLoadMoreListener{
+
 
     private lateinit var mAdapter : DailyAdapter
     private var mPage = 0
@@ -68,9 +71,16 @@ class DailyActivity:MvpActivity<DailyPresenter>(),DailyContract.View, BaseQuickA
         mActivity.startActivity(intent, bundle)
     }
 
+    override fun onRefresh(refreshLayout: RefreshLayout?) {
+        getDailyCard(mPage)
+    }
 
+    override fun onLoadMoreRequested() {
+        mPage += 1
+        getDailyCard(mPage)
+    }
 
-    private fun getDailyCard(){
-        mPresenter.getDailyList(mPage)
+    private fun getDailyCard(page:Int){
+        mPresenter.getDailyList(page)
     }
 }

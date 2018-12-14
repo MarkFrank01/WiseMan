@@ -45,5 +45,7 @@ class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHol
 				R.string.card_category_transition_name, helper.adapterPosition)
 		helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
 				R.string.card_label_transition_name, helper.adapterPosition)
+
+        helper.setText(R.id.tv_item_card_time,item.distanceTime)
 	}
 }

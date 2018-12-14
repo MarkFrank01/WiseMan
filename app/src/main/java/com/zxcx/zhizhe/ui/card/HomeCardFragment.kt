@@ -15,7 +15,6 @@ import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
@@ -38,17 +37,18 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
 
     private val mHotFragment = HotCardFragment()
-    private val mAttentionFragment = AttentionCardFragment()
+    //    private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
     private var advList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
 
-    private var lastADTime:Long = 0
-    private var lastADID:Int = 0
+    private var lastADTime: Long = 0
+    private var lastADID: Int = 0
 
-    private val titles = arrayOf("关注", "推荐", "列表")
+    //    private val titles = arrayOf("关注", "推荐", "列表")
+    private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,13 +68,20 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
+//                    0 -> {
+//                        switchFragment(mAttentionFragment)
+//                    }
+//                    1 -> {
+//                        switchFragment(mHotFragment)
+//                    }
+//                    2 -> {
+//                        switchFragment(mListFragment)
+//                    }
                     0 -> {
-                        switchFragment(mAttentionFragment)
-                    }
-                    1 -> {
                         switchFragment(mHotFragment)
                     }
-                    2 -> {
+
+                    1 -> {
                         switchFragment(mListFragment)
                     }
                 }
@@ -99,13 +106,13 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
         tl_home.getTabAt(1)?.select()
 
-        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime,0)
-        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID,0)
+        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
+        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)
 
 //        LogCat.e("Time2"+lastADTime+"------id:"+lastADID)
 
 
-        onRefreshAD(lastADTime,lastADID.toLong())
+        onRefreshAD(lastADTime, lastADID.toLong())
 //        showFirstDialog("")
 //        val adManager = AdManager(activity,advList)
 //        adManager.setOverScreen(true)
@@ -151,7 +158,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     public fun onActivityReenter() {
         when (mCurrentFragment) {
             mHotFragment -> mHotFragment.onActivityReenter()
-            mAttentionFragment -> mAttentionFragment.onActivityReenter()
+//            mAttentionFragment -> mAttentionFragment.onActivityReenter()
             mListFragment -> mListFragment.onActivityReenter()
         }
     }
@@ -159,7 +166,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
         return when (mCurrentFragment) {
             mHotFragment -> mHotFragment.getSharedView(names)
-            mAttentionFragment -> mAttentionFragment.getSharedView(names)
+//            mAttentionFragment -> mAttentionFragment.getSharedView(names)
             mListFragment -> mListFragment.getSharedView(names)
             else -> mListFragment.getSharedView(names)
         }
@@ -184,7 +191,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 .setOnImageClickListener { _, _ ->
                     val intent = Intent(context, WebViewActivity::class.java)
                     intent.putExtra("title", title)
-                    intent.putExtra("url",url)
+                    intent.putExtra("url", url)
                     startActivity(intent)
                 }
         adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
@@ -199,7 +206,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
         var title = ""
         var url = ""
-        var id1:Int = 0
+        var id1: Int = 0
         var time = ""
 
         if (list.size > 0) {
@@ -211,9 +218,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 id1 = it.id
             }
 
-            LogCat.e("Time"+System.currentTimeMillis()+"------id:"+id1)
-            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime,System.currentTimeMillis())
-            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID,id1)
+            LogCat.e("Time" + System.currentTimeMillis() + "------id:" + id1)
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime, System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID, id1)
             showImageDialog(title, url)
         }
 
@@ -222,7 +229,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     override fun getDataSuccess(bean: MutableList<CardBean>?) {
     }
 
-    private fun onRefreshAD(lastADTime:Long,lastADID:Long) {
-        mPresenter.getAD(lastADTime,lastADID)
+    private fun onRefreshAD(lastADTime: Long, lastADID: Long) {
+        mPresenter.getAD(lastADTime, lastADID)
     }
 }
