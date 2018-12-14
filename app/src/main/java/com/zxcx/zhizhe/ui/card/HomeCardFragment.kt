@@ -37,7 +37,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
 
     private val mHotFragment = HotCardFragment()
-    //    private val mAttentionFragment = AttentionCardFragment()
+//        private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
@@ -47,7 +47,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
-    //    private val titles = arrayOf("关注", "推荐", "列表")
+//        private val titles = arrayOf("关注", "推荐", "列表")
     private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -105,6 +105,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         tl_home.layoutParams = para
 
         tl_home.getTabAt(1)?.select()
+        tl_home.getTabAt(0)?.select()
 
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
         lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)

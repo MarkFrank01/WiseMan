@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
+import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
@@ -59,6 +60,8 @@ class MainActivity : BaseActivity() {
         } else {
             home_tab_card.performClick()
         }
+
+        EventBus.getDefault().post(GotoCardListEvent())
 
 //        showFirstDialog()
 //        val adManager = AdManager(this,advList)
