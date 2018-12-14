@@ -9,24 +9,31 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.loadCallback.LoadingCallback
+import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
+import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.DailyAdapter
+import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_daily.*
+import kotlinx.android.synthetic.main.activity_label.*
 
 /**
  * @author : MarkFrank01
  * @Created on 2018/12/13
  * @Description :
  */
-class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, BaseQuickAdapter.OnItemClickListener,
-        BaseQuickAdapter.RequestLoadMoreListener{
+class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, BaseQuickAdapter.OnItemClickListener,
+        BaseQuickAdapter.RequestLoadMoreListener {
 
 
-    private lateinit var mAdapter : DailyAdapter
+    private lateinit var mAdapter: DailyAdapter
     private var mPage = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +41,9 @@ class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, Bas
         setContentView(R.layout.activity_daily)
         initToolBar("实用头条")
         initView()
+        onRefresh()
+
+        initLoadSir()
     }
 
     override fun createPresenter(): DailyPresenter {
@@ -41,16 +51,33 @@ class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, Bas
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>) {
-        mAdapter.setNewData(bean)
+        loadService.showSuccess()
+        mRefreshLayout.finishRefresh()
+        if (mPage == 0) {
+            mAdapter.setNewData(bean)
+        } else {
+            mAdapter.addData(bean)
+        }
+        mPage++
+        if (bean.size < Constants.PAGE_SIZE) {
+            mAdapter.loadMoreEnd(false)
+        } else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
     }
 
-    private fun initView(){
+    private fun initView() {
         mAdapter = DailyAdapter(ArrayList())
         mAdapter.onItemClickListener = this
-        rv_daily_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_card_bag_card)
+
+        rv_daily_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_daily_card.adapter = mAdapter
 
-        mPresenter.getDailyList(0)
+//        mPresenter.getDailyList(0)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -72,7 +99,7 @@ class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, Bas
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
-        getDailyCard(mPage)
+        onRefresh()
     }
 
     override fun onLoadMoreRequested() {
@@ -80,7 +107,21 @@ class DailyActivity:RefreshMvpActivity<DailyPresenter>(),DailyContract.View, Bas
         getDailyCard(mPage)
     }
 
-    private fun getDailyCard(page:Int){
+    fun onRefresh() {
+        getDailyCard(mPage)
+    }
+
+    private fun getDailyCard(page: Int) {
         mPresenter.getDailyList(page)
+    }
+
+    private fun initLoadSir() {
+        val loadSir = LoadSir.Builder()
+                .addCallback(LoadingCallback())
+                .addCallback(NetworkErrorCallback())
+                .addCallback(LoginTimeoutCallback())
+                .setDefaultCallback(LoadingCallback::class.java)
+                .build()
+        loadService = loadSir.register(mRefreshLayout, this)
     }
 }

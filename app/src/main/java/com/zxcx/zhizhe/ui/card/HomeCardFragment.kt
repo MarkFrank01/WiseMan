@@ -175,7 +175,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: GotoCardListEvent) {
         //去往卡片列表页
-        tl_home.getTabAt(2)?.select()
+        tl_home.getTabAt(1)?.select()
     }
 
     private fun addImageData(url: String) {
