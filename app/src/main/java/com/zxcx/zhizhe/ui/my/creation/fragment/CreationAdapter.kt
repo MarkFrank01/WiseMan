@@ -55,11 +55,14 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
                         R.string.card_category_transition_name)
                 helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
                         R.string.card_label_transition_name)
+
+                helper.setText(R.id.tv_item_card_time,item.distanceTime)
             }
 
             CardBean.Article_LINK -> {
                 helper.setText(R.id.tv_item_card_link,item.content)
                         .setText(R.id.tv_item_card_title,item.name)
+                        .setText(R.id.tv_item_link_time,item.distanceTime)
             }
         }
     }

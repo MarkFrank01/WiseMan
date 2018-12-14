@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.CommitCardReviewEvent
 import com.zxcx.zhizhe.event.PushPastEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
@@ -127,6 +128,7 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         }
         Handler().postDelayed({
             //            EventBus.getDefault().post(PushPastEvent())
+            EventBus.getDefault().post(CommitCardReviewEvent())
             startActivity(CreationActivity::class.java) {
                 it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 it.putExtra("goto", 1)

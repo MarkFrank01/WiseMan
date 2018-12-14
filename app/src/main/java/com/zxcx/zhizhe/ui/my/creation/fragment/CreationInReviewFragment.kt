@@ -115,7 +115,7 @@ class CreationInReviewFragment : RefreshMvpFragment<CreationPresenter>(), Creati
             }
             bean.cardType == 3 -> mActivity.startActivity(WebViewActivity::class.java){
                 it.putExtra("url",bean.content)
-                it.putExtra("title","我的作品")
+                it.putExtra("title",bean.title)
                 it.putExtra("imageUrl",bean.content)
                 it.putExtra("isAD",true)
             }

@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
-                    android:text="一键转载"
+                    android:text="一键发布"
                     android:textColor="#999999"
                     android:textSize="12sp"/>
             </LinearLayout>
