@@ -28,8 +28,7 @@ data class SystemMessageBean(
         @SerializedName("remaskContent") var remaskContent: String?, //string
         @SerializedName("time") var time: Date?, //2017-12-20T03:28:06.284Z
         @SerializedName("titleColor") var titleColor: String?, //string
-        @SerializedName("title") var title: String?, //string
-        @SerializedName("remask") var url: String?
+        @SerializedName("title") var title: String? //string
 ) : RetrofitBean(), MultiItemEntity {
 
     override fun getItemType(): Int {

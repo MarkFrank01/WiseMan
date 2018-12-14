@@ -626,9 +626,16 @@ public interface APIService {
      *
      * @param termIndex 期下标（每3期为一个下标）
      */
+    @Deprecated
     @FormUrlEncoded
     @POST("/article/dailyCreditCard")
     Flowable<BaseArrayBean<DailyBean>> getDailyList(
+            @Field("termIndex") int termIndex
+    );
+
+    @FormUrlEncoded
+    @POST("/article/dailyCreditCard")
+    Flowable<BaseArrayBean<CardBean>> getDaliyList1(
             @Field("termIndex") int termIndex
     );
 }

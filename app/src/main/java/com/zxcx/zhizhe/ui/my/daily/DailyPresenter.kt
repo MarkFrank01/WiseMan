@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.daily
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 /**
  * @author : MarkFrank01
@@ -18,7 +19,8 @@ class DailyPresenter(view: DailyContract.View) : BasePresenter<DailyContract.Vie
     }
 
     fun getDailyList(termIndex: Int) {
-        mModel.getDailyList(termIndex)
+//        mModel.getDailyList(termIndex)
+        mModel.getDailyList1(termIndex)
     }
 
     override fun showLoading() {
@@ -29,7 +31,7 @@ class DailyPresenter(view: DailyContract.View) : BasePresenter<DailyContract.Vie
         mView.hideLoading()
     }
 
-    override fun getDataSuccess(bean: MutableList<DailyBean>?) {
+    override fun getDataSuccess(bean: MutableList<CardBean>) {
         mView.getDataSuccess(bean)
     }
 

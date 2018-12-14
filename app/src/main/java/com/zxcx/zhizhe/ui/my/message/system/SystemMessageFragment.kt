@@ -127,18 +127,18 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                 intent.putExtra("cardBean", cardBean)
             }
             message_link_pass -> {
-                LogCat.e("url${bean.url}")
+                LogCat.e("url${bean.remaskContent}")
                 intent.setClass(mActivity,WebViewActivity::class.java)
                 intent.putExtra("title","我的作品")
-                intent.putExtra("url", bean.url)
+                intent.putExtra("url", bean.remaskContent)
 
 
             }
             message_link_unpass -> {
-                LogCat.e("url${bean.url}")
+                LogCat.e("url${bean.remaskContent}")
                 intent.setClass(mActivity,WebViewActivity::class.java)
                 intent.putExtra("title","我的作品")
-                intent.putExtra("url", bean.url)
+                intent.putExtra("url", bean.remaskContent)
             }
         }
         startActivity(intent)

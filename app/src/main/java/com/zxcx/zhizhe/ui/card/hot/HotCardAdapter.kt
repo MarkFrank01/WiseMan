@@ -40,14 +40,18 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
 
                 helper.setText(R.id.tv_item_card_title, item.name)
                 helper.setText(R.id.tv_item_card_category, item.categoryName)
-                helper.setText(R.id.tv_item_card_label, item.getLabelName())
+                if (item.labelName!=""||item.labelName.isNotEmpty()) {
+                    helper.setText(R.id.tv_item_card_label, item.getLabelName())
+                }else{
+                    helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
+                }
                 helper.setText(R.id.tv_item_card_read, item.readNum.toString())
                 helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
-                if (item.secondCollectionTitle != "" && item.secondCollectionTitle.isNotEmpty()) {
-                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
-                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())
-                }
+//                if (item.secondCollectionTitle != "" && item.secondCollectionTitle.isNotEmpty()) {
+//                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+//                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())
+//                }
 
                 imageView.transitionName = mContext.getString(R.string.card_img_transition_name, helper.adapterPosition)
                 helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(

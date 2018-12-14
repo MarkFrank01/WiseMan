@@ -40,7 +40,8 @@ class CardBean(
         @SerializedName("authorAuthenticationType") var authorType: Int = 0,
         @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
-        @SerializedName("distanceTime") var distanceTime:String = ""
+        @SerializedName("distanceTime") var distanceTime:String = "",
+        @SerializedName("remask") var title:String = ""
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
@@ -106,6 +107,7 @@ class CardBean(
             source.readInt(),
             source.readInt(),
             source.readString(),
+            source.readString(),
             source.readString()
     )
 
@@ -143,6 +145,7 @@ class CardBean(
         writeInt(secondCollectionId)
         writeString(secondCollectionTitle)
         writeString(distanceTime)
+        writeString(title)
     }
 
     companion object {
