@@ -16,6 +16,10 @@ class PasteLinkPresenter(view: PasteLinkContract.View) : BasePresenter<PasteLink
         mModel.pushLinkList(articleLinks, title)
     }
 
+    fun ErrorLink(msg:String){
+        mView.postFail(msg)
+    }
+
     override fun showLoading() {
         mView.showLoading()
     }

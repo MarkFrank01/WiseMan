@@ -36,7 +36,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
         editText.setText(item?.link)
 
-
+        editText.setTextColor(mContext.resources.getColor(R.color.text_color_2))
 
         mListener.onClickSave(mData.indexOf(item),editText.text.toString().trim())
 
@@ -54,6 +54,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
             override fun afterTextChanged(s: Editable?) {
                 item?.link = s.toString()
 //                mListener.onClickSave(mData.indexOf(item))
+                editText.setTextColor(mContext.resources.getColor(R.color.text_color_2))
 
                 if (editText.text.toString().trim() == "") {
                     etcheck.isErrorEnabled = false
@@ -89,6 +90,8 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
                         if (web.path.length < 5) {
                             Toast.makeText(mContext, "作品链接格式不正确", Toast.LENGTH_SHORT).show()
                         } else {
+
+                            editText.setTextColor(mContext.resources.getColor(R.color.button_blue))
 
                             mListener.onClickSave(mData.indexOf(item),editText.text.toString().trim())
                         }

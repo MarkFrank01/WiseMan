@@ -149,9 +149,11 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
     fun onMessageEvent(event: PushPastEvent) {
         if (mTitle.isNotEmpty() || mTitle != "") {
             mPresenter.pushLinkList(mList2, mTitle)
-        } else {
-            mPresenter.pushLinkList(mList2, "我的作品")
         }
+//        else {
+//            toastShow("作品链接无效")
+//            mPresenter.ErrorLink("作品链接无效")
+//        }
     }
 
 
@@ -201,15 +203,20 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
         tv_toolbar_right.setOnClickListener {
 
-            Handler().postDelayed({
-                EventBus.getDefault().post(PushPastEvent())
-                val bundle = Bundle()
-                bundle.putString("uploadingText", "正在提交")
-                bundle.putString("successText", "审核中")
-                bundle.putString("failText", "提交失败")
-                mUploadingDialog.arguments = bundle
-                mUploadingDialog.show(supportFragmentManager, "")
-            }, 1000)
+            if (mTitle.isNotEmpty() || mTitle != "") {
+
+                Handler().postDelayed({
+                    EventBus.getDefault().post(PushPastEvent())
+                    val bundle = Bundle()
+                    bundle.putString("uploadingText", "正在提交")
+                    bundle.putString("successText", "审核中")
+                    bundle.putString("failText", "提交失败")
+                    mUploadingDialog.arguments = bundle
+                    mUploadingDialog.show(supportFragmentManager, "")
+                }, 1000)
+            } else {
+                toastShow("作品链接无效")
+            }
         }
 
 
@@ -246,7 +253,7 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 //                LogCat.e("New  " + document.head().select("title").text())
                     mTitle = title
                 }
-            }catch(e:Exception) {
+            } catch (e: Exception) {
                 LogCat.e(e.toString())
             }
 

@@ -142,10 +142,10 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UpdateCardListPositionEvent) {
         if (this::class.java.name == event.sourceName) {
-//            if (event.currentPosition == mAdapter.data.size - 1) {
-////                getHotCard()
-//                getDailyCard(mPage)
-//            }
+            if (event.currentPosition == mAdapter.data.size - 1) {
+//                getHotCard()
+                getDailyCard(mPage)
+            }
             mCurrentPosition = event.currentPosition
 //            rv_hot_card.scrollToPosition(event.currentPosition)
             rv_daily_card.scrollToPosition(event.currentPosition)
