@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.UploadingDialog
@@ -236,13 +237,19 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         var title = ""
 
         Thread {
-            if (url.isNotEmpty()) {
-                val connect = Jsoup.connect(url)
-                val document = connect.get()
-                title = document.head().select("title").text()
+            try {
+
+                if (url.isNotEmpty()) {
+                    val connect = Jsoup.connect(url)
+                    val document = connect.get()
+                    title = document.head().select("title").text()
 //                LogCat.e("New  " + document.head().select("title").text())
-                mTitle = title
+                    mTitle = title
+                }
+            }catch(e:Exception) {
+                LogCat.e(e.toString())
             }
+
         }.start()
 
 
