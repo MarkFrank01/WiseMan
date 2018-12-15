@@ -22,7 +22,6 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.DailyAdapter
-import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_daily.*
 import kotlinx.android.synthetic.main.activity_label.*
@@ -49,8 +48,10 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
         setContentView(R.layout.activity_daily)
         initToolBar("实用头条")
         initView()
-        onRefresh()
 
+        getDailyCard(mPage)
+//        mPage = mPage +1
+//        getDailyCard(mPage)
         initLoadSir()
     }
 
@@ -69,7 +70,7 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
             EventBus.getDefault().post(event)
         }
         mPage++
-        if (bean.size < Constants.PAGE_SIZE) {
+        if (bean.isEmpty()) {
             mAdapter.loadMoreEnd(false)
         } else {
             mAdapter.loadMoreComplete()
@@ -91,6 +92,8 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+
+
         val bean = adapter.data[position] as CardBean
         val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
         val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)

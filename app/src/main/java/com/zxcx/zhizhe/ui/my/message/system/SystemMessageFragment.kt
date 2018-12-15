@@ -92,56 +92,75 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+
         val bean = mAdapter.data[position]
-        val intent = Intent()
-        when (bean.messageType) {
-            message_card_pass -> {
-                intent.setClass(mActivity, ArticleDetailsActivity::class.java)
-                val cardBean = CardBean()
-                cardBean.id = bean.relatedCardId ?: 0
-                intent.putExtra("cardBean", cardBean)
-            }
-            message_card_reject -> {
-                bean.relatedCardId?.let { mPresenter.getRejectDetails(it) }
-                return
-            }
-            message_apply_pass -> {
-                intent.setClass(mActivity, CreationEditorActivity::class.java)
-            }
-            message_apply_reject -> {
-                if (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0) == writer_status_user
-                        || SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0) == writer_status_reject) {
-                    //没有创作资格
-                    intent.setClass(mActivity, ApplyForCreation1Activity::class.java)
-                } else {
-                    return
+
+        when (view?.id) {
+            R.id.tv_item_system_message_action -> {
+                val intent = Intent()
+                when (bean.messageType) {
+                    message_card_pass -> {
+                        intent.setClass(mActivity, ArticleDetailsActivity::class.java)
+                        val cardBean = CardBean()
+                        cardBean.id = bean.relatedCardId ?: 0
+                        intent.putExtra("cardBean", cardBean)
+                    }
+                    message_card_reject -> {
+                        bean.relatedCardId?.let { mPresenter.getRejectDetails(it) }
+                        return
+                    }
+                    message_apply_pass -> {
+                        intent.setClass(mActivity, CreationEditorActivity::class.java)
+                    }
+                    message_apply_reject -> {
+                        if (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0) == writer_status_user
+                                || SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0) == writer_status_reject) {
+                            //没有创作资格
+                            intent.setClass(mActivity, ApplyForCreation1Activity::class.java)
+                        } else {
+                            return
+                        }
+                    }
+                    message_rank -> {
+                        intent.setClass(mActivity, AllRankActivity::class.java)
+                    }
+                    message_recommend -> {
+                        intent.setClass(mActivity, ArticleDetailsActivity::class.java)
+                        val cardBean = CardBean()
+                        cardBean.id = bean.relatedCardId ?: 0
+                        intent.putExtra("cardBean", cardBean)
+                    }
+                    message_link_pass -> {
+                        LogCat.e("url${bean.remaskContent}")
+//                intent.setClass(mActivity,WebViewActivity::class.java)
+//                intent.putExtra("title","我的作品")
+//                intent.putExtra("url", bean.remaskContent)
+                        intent.setClass(mActivity, ArticleDetailsActivity::class.java)
+                        val cardBean = CardBean()
+                        cardBean.id = bean.relatedCardId ?: 0
+                        intent.putExtra("cardBean", cardBean)
+                    }
+                    message_link_unpass -> {
+                        LogCat.e("url${bean.remaskContent}")
+                        intent.setClass(mActivity, WebViewActivity::class.java)
+                        intent.putExtra("title", "一键发布作品链接")
+                        intent.putExtra("url", bean.remaskContent)
+                    }
                 }
-            }
-            message_rank -> {
-                intent.setClass(mActivity, AllRankActivity::class.java)
-            }
-            message_recommend -> {
-                intent.setClass(mActivity, ArticleDetailsActivity::class.java)
-                val cardBean = CardBean()
-                cardBean.id = bean.relatedCardId ?: 0
-                intent.putExtra("cardBean", cardBean)
-            }
-            message_link_pass -> {
-                LogCat.e("url${bean.remaskContent}")
-                intent.setClass(mActivity,WebViewActivity::class.java)
-                intent.putExtra("title","我的作品")
-                intent.putExtra("url", bean.remaskContent)
 
-
+                startActivity(intent)
             }
-            message_link_unpass -> {
-                LogCat.e("url${bean.remaskContent}")
-                intent.setClass(mActivity,WebViewActivity::class.java)
-                intent.putExtra("title","我的作品")
-                intent.putExtra("url", bean.remaskContent)
+
+            R.id.tv_item_system_message_content -> {
+                val intent1 = Intent()
+                intent1.setClass(mActivity, WebViewActivity::class.java)
+                intent1.putExtra("title", "智者创作协议")
+                intent1.putExtra("url", getString(R.string.base_url) + getString(R.string.creation_agreement_url))
+                startActivity(intent1)
             }
         }
-        startActivity(intent)
+
+
     }
 
     private fun initRecyclerView() {

@@ -38,6 +38,7 @@ class MyCardsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseView
 		helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
 				R.string.card_label_transition_name)
 
+        helper.getView<TextView>(R.id.tv_item_card_time).text = item.distanceTime
 		val easySwipeMenuLayout = helper.getView<EasySwipeMenuLayout>(R.id.es)
 		helper.getView<View>(R.id.iv_delete).setOnClickListener {
 			easySwipeMenuLayout.resetStatus()

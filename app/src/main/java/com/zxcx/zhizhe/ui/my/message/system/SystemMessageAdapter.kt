@@ -75,7 +75,7 @@ class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<Sys
             message_link_pass ->{
 //                helper.setGone(R.id.tv_item_system_message_value,true)
                 helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
-                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setText(R.id.tv_item_system_message_action, "查看作品")
                 helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
 
             }
@@ -84,6 +84,13 @@ class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<Sys
                 helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
                 helper.setText(R.id.tv_item_system_message_action, "查看详情")
                 helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+//                helper.getView<TextView>(R.id.tv_item_system_message_content).setOnClickListener {
+//                    val intent = Intent()
+//                    intent.putExtra("title", "智者创作协议")
+//                    intent.putExtra("url", mContext.getString(R.string.base_url) + mContext.getString(R.string.creation_agreement_dark_url))
+//                    mContext.startActivity(intent)
+//                }
+                helper.addOnClickListener(R.id.tv_item_system_message_content)
             }
         }
     }

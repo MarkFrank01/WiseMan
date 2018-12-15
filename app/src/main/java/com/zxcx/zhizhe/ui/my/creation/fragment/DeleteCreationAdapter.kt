@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.my.likeCards.DeleteLinkListener
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
@@ -22,10 +23,11 @@ class DeleteCreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<Ca
     init {
         addItemType(CardBean.Article,R.layout.item_my_card)
         addItemType(CardBean.Article_LONG,R.layout.item_my_card)
-        addItemType(CardBean.Article_LINK,R.layout.item_link_creation)
+        addItemType(CardBean.Article_LINK,R.layout.item_link_creation_new)
     }
 
     lateinit var mListener: SwipeMenuClickListener
+    lateinit var mListener1: DeleteLinkListener
 
     override fun convert(helper: BaseViewHolder, item: CardBean) {
 
@@ -70,6 +72,17 @@ class DeleteCreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<Ca
                 helper.setText(R.id.tv_item_card_link,item.content)
                         .setText(R.id.tv_item_card_title,item.name)
                         .setText(R.id.tv_item_link_time,item.distanceTime)
+
+                val easySwipeMenuLayout = helper.getView<EasySwipeMenuLayout>(R.id.es)
+                helper.getView<View>(R.id.iv_delete).setOnClickListener {
+                    easySwipeMenuLayout.resetStatus()
+//                    mListener.onDeleteClick(mData.indexOf(item))
+                    mListener1.DeleteLink(mData.indexOf(item))
+                }
+                helper.getView<View>(R.id.content_view).setOnClickListener {
+                    easySwipeMenuLayout.resetStatus()
+                    mListener.onContentClick(mData.indexOf(item))
+                }
             }
         }
 

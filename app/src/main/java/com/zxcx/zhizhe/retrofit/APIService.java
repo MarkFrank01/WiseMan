@@ -578,6 +578,9 @@ public interface APIService {
     @POST("/article/deleteArticle")
     Flowable<BaseBean<Object>> deleteCard(@Query("articleId") int cardId);
 
+    @POST("/article/deleteLinkArticle")
+    Flowable<BaseBean<Object>> deleteLink(@Query("linkArticleId") int linkId);
+
     /**
      * 提交审核
      */

@@ -20,6 +20,10 @@ class CreationPresenter(view: CreationContract.View) : BasePresenter<CreationCon
 		mModel.deleteCard(cardId)
 	}
 
+    fun deleteLink(cardId: Int){
+        mModel.deleteLink(cardId)
+    }
+
 	override fun getDataSuccess(bean: List<CardBean>) {
 		mView.getDataSuccess(bean)
 	}

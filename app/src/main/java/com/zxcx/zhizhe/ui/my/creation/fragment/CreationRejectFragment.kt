@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.DeleteCreationDialog
+import com.zxcx.zhizhe.ui.my.likeCards.DeleteLinkListener
 import com.zxcx.zhizhe.ui.my.likeCards.SwipeMenuClickListener
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -28,7 +29,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), CreationContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener ,BaseQuickAdapter.OnItemClickListener{
+        BaseQuickAdapter.RequestLoadMoreListener, SwipeMenuClickListener,DeleteLinkListener ,BaseQuickAdapter.OnItemClickListener{
+
 
     private var mPage = 0
     private val mPassType = 1
@@ -117,7 +119,7 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
             }
             bean.cardType == 3 -> mActivity.startActivity(WebViewActivity::class.java) {
                 it.putExtra("url",bean.content)
-                it.putExtra("title",bean.title)
+                it.putExtra("title","一键发布作品链接")
                 it.putExtra("imageUrl",bean.content)
                 it.putExtra("isAD",true)
             }
@@ -160,9 +162,20 @@ class CreationRejectFragment : RefreshMvpFragment<CreationPresenter>(), Creation
         dialog.show(fragmentManager, "")
     }
 
+    override fun DeleteLink(position: Int) {
+        val dialog = DeleteCreationDialog()
+        dialog.mListener = {
+            mPresenter.deleteLink(mAdapter.data[position].id)
+
+            mAdapter.remove(position)
+        }
+        dialog.show(fragmentManager, "")
+    }
+
     private fun initRecyclerView() {
         mAdapter = DeleteCreationAdapter(ArrayList())
         mAdapter.mListener = this
+        mAdapter.mListener1 = this
         mAdapter.onItemClickListener = this
         mAdapter.setLoadMoreView(CommentLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_creation)

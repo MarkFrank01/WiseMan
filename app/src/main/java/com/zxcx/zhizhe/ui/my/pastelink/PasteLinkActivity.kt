@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.pastelink
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushPastEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CanNotSaveDialog
 import com.zxcx.zhizhe.ui.my.readCards.MyCardItemDecoration
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -128,10 +126,10 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         Handler().postDelayed({
             //            EventBus.getDefault().post(PushPastEvent())
 //            EventBus.getDefault().post(CommitCardReviewEvent())
-            startActivity(CreationActivity::class.java) {
-                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                it.putExtra("goto", 1)
-            }
+//            startActivity(CreationActivity::class.java) {
+//                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//                it.putExtra("goto", 1)
+//            }
             Utils.closeInputMethod(mActivity)
             finish()
         }, 1000)

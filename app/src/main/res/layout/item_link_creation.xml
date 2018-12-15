@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -42,7 +43,6 @@
         android:textColor="@color/text_color_1"
         android:textSize="17sp"
         android:transitionName="cardLink"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_item_card_link_item"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ABC/www.vcg.com/creative/https://www.vcg.com/creative/https://www.vcg.com/creative/"/>
@@ -72,7 +72,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_item_link_time"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.851"/>
 
