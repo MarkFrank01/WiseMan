@@ -12,6 +12,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.AddCardDetailsListEvent
+import com.zxcx.zhizhe.event.UpdateCardListEvent
+import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.loadCallback.LoadingCallback
 import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
@@ -23,6 +26,9 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_daily.*
 import kotlinx.android.synthetic.main.activity_label.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author : MarkFrank01
@@ -35,9 +41,11 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
 
     private lateinit var mAdapter: DailyAdapter
     private var mPage = 0
+    private var mCurrentPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
         setContentView(R.layout.activity_daily)
         initToolBar("实用头条")
         initView()
@@ -57,6 +65,8 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
             mAdapter.setNewData(bean)
         } else {
             mAdapter.addData(bean)
+            val event = AddCardDetailsListEvent(this::class.java.name, bean as java.util.ArrayList<CardBean>)
+            EventBus.getDefault().post(event)
         }
         mPage++
         if (bean.size < Constants.PAGE_SIZE) {
@@ -96,6 +106,7 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
         intent.putExtra("currentPosition", position)
         intent.putExtra("sourceName", this::class.java.name)
         mActivity.startActivity(intent, bundle)
+        mCurrentPosition = position
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
@@ -123,5 +134,29 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
                 .setDefaultCallback(LoadingCallback::class.java)
                 .build()
         loadService = loadSir.register(mRefreshLayout, this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: UpdateCardListPositionEvent) {
+        if (this::class.java.name == event.sourceName) {
+//            if (event.currentPosition == mAdapter.data.size - 1) {
+////                getHotCard()
+//                getDailyCard(mPage)
+//            }
+            mCurrentPosition = event.currentPosition
+//            rv_hot_card.scrollToPosition(event.currentPosition)
+            rv_daily_card.scrollToPosition(event.currentPosition)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: UpdateCardListEvent) {
+        mAdapter.data[event.currentPosition] = event.cardBean
+        mAdapter.notifyItemChanged(event.currentPosition)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

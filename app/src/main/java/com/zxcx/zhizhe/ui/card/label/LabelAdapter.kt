@@ -45,6 +45,7 @@ class LabelAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: Su
 		helper.setText(R.id.tv_item_card_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
 		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
+        helper.setText(R.id.tv_item_card_time,item.distanceTime)
 	}
 
 	private fun initSubjectView(helper: BaseViewHolder, bean: ArticleAndSubjectBean) {
@@ -63,6 +64,7 @@ class LabelAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: Su
 		val adapter = SubjectItemArticleAdapter(cardList)
 		adapter.onItemClickListener = this
 		recyclerView.adapter = adapter
+
 	}
 
 	override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View?, position: Int) {

@@ -56,13 +56,24 @@
             tools:text="笔记本笔记本笔记本笔记本笔记本笔记本"/>
 
         <TextView
-            android:id="@+id/tv_item_card_category"
+            android:id="@+id/tv_item_card_time"
             style="@style/tv_card_category"
             android:layout_marginBottom="12dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
+            android:text="1s"/>
+
+        <TextView
+            android:id="@+id/tv_item_card_category"
+            style="@style/tv_card_category"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_card_time"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
             tools:text="数码产品"/>
 

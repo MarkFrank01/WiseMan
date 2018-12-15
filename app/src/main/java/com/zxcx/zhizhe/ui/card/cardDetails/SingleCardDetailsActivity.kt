@@ -136,6 +136,8 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
         val fromHtml = HtmlCompat.fromHtml(mActivity, mCardBean.content, 0)
         tv_item_card_details_content.movementMethod = LinkMovementMethod.getInstance()
         tv_item_card_details_content.text = fromHtml
+
+        tv_item_card_details_time.text = mCardBean.distanceTime
     }
 
     override fun createPresenter(): CardDetailsPresenter {
