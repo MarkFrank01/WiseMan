@@ -172,10 +172,11 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
         mSize++
         mList2.add("")
 
+        link_ZHIZHE.setTextColor(resources.getColor(R.color.text_color_3))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>智者创作协议</font>", Html.FROM_HTML_MODE_LEGACY)
+            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>《智者创作协议》</font>", Html.FROM_HTML_MODE_LEGACY)
         } else {
-            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>智者创作协议</font>")
+            link_ZHIZHE.text = Html.fromHtml("投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅<font color='#0088AA'>《智者创作协议》</font>")
         }
 
         link_ZHIZHE.setOnClickListener {

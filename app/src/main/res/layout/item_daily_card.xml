@@ -11,8 +11,12 @@
         android:id="@+id/tv_daily_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        android:text="2018-12-10 精选卡片"/>
+        android:text="2018-12-10 精选卡片"
+        android:textColor="@color/text_color_1"
+        android:textSize="17sp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +24,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:background="@drawable/bg_background_12dp"
         android:elevation="5dp"
         android:orientation="vertical"
@@ -61,10 +64,10 @@
             android:layout_marginBottom="12dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:text="1s"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
-            android:text="1s"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"/>
 
         <TextView
             android:id="@+id/tv_item_card_category"

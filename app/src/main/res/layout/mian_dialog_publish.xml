@@ -42,7 +42,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
                     android:text="卡片创作"
-                    android:textColor="#999999"
+                    android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -68,7 +68,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
                     android:text="深读创作"
-                    android:textColor="#999999"
+                    android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -94,7 +94,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
                     android:text="一键发布"
-                    android:textColor="#999999"
+                    android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>
 

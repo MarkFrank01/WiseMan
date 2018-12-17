@@ -4,8 +4,11 @@ import android.support.design.widget.TextInputLayout
 import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -88,7 +91,8 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
                         WebAddress(editText.text.toString().trim()).toString()
                         if (web.path.length < 5) {
-                            Toast.makeText(mContext, "作品链接格式不正确", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(mContext, "作品链接格式不正确", Toast.LENGTH_SHORT).show()
+                            toastShow("作品链接格式不正确")
                         } else {
 
                             editText.setTextColor(mContext.resources.getColor(R.color.button_blue))
@@ -121,5 +125,17 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
         }
     }
 
+    fun toastShow(text: String) {
+        //        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
+        val linearLayout = LayoutInflater.from(mContext)
+                .inflate(R.layout.toast, null) as LinearLayout
+        val tvToast = linearLayout.findViewById<TextView>(R.id.tv_toast)
+        val toast = Toast(mContext)
+        toast.view = linearLayout
+        tvToast.text = text
+        toast.duration = Toast.LENGTH_LONG
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
 
 }
