@@ -23,6 +23,8 @@ class OtherUserCardsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, B
 		helper.setText(R.id.tv_item_card_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
 		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
+
+        helper.setText(R.id.tv_item_card_time,item.distanceTime)
 	}
 
 }

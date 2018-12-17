@@ -16,7 +16,7 @@
     <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/iv_toutiao"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:scaleType="centerCrop"
         android:transitionName="cardImage"
         app:hasShade="true"

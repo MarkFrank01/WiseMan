@@ -16,6 +16,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseDialog;
+import com.zxcx.zhizhe.utils.ScreenUtils;
+
+import java.io.File;
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,11 +37,6 @@ import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
-import com.zxcx.zhizhe.R;
-import com.zxcx.zhizhe.mvpBase.BaseDialog;
-import com.zxcx.zhizhe.utils.ScreenUtils;
-import java.io.File;
-import java.util.HashMap;
 
 /**
  * Created by anm on 2017/5/27.
@@ -57,6 +60,8 @@ public class ShareCardDialog extends BaseDialog {
 		View view = inflater.inflate(R.layout.dialog_share_card_image, container);
 		mUnbinder = ButterKnife.bind(this, view);
 		imagePath = getArguments().getString("imagePath");
+		title = getArguments().getString("card_title");
+		url = getArguments().getString("card_url");
 		return view;
 	}
 	
@@ -92,7 +97,7 @@ public class ShareCardDialog extends BaseDialog {
 	}
 	
 	@OnClick({R.id.ll_share_wechat, R.id.ll_share_moments, R.id.ll_share_qq, R.id.ll_share_qzone,
-		R.id.ll_share_weibo, R.id.ll_share_more, R.id.tv_dialog_cancel})
+		R.id.ll_share_weibo, R.id.ll_share_more,R.id.ll_share_copy, R.id.tv_dialog_cancel})
 	public void onViewClicked(View view) {
 		Platform plat;
 		switch (view.getId()) {
@@ -124,6 +129,10 @@ public class ShareCardDialog extends BaseDialog {
 				shareIntent.setType("image/*");
 				startActivity(Intent.createChooser(shareIntent, "分享到"));
 				break;
+            case R.id.ll_share_copy:
+                copy();
+                this.dismiss();
+                break;
 			case R.id.tv_dialog_cancel:
 				this.dismiss();
 				break;

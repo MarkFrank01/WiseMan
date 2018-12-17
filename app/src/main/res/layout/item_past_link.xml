@@ -7,14 +7,15 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/et_check"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             app:hintEnabled="false">
@@ -29,10 +30,10 @@
                 android:focusableInTouchMode="true"
                 android:hint="http://www.example.com"
                 android:inputType="text"
-                android:lineSpacingExtra="10dp"
                 android:maxLines="1"
                 android:textColor="@color/text_color_2"
                 android:textColorHint="@color/text_color_hint"
+                android:textCursorDrawable="@drawable/edit_cursor_color"
                 android:textSize="17sp"
                 android:theme="@style/link_edit_text"/>
         </android.support.design.widget.TextInputLayout>
@@ -40,12 +41,13 @@
 
         <LinearLayout
             android:id="@+id/ll_paste_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical|end"
             android:gravity="center_vertical|end">
 
             <ImageView
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
@@ -53,17 +55,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="28dp"
+            android:layout_width="25dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
 
     <View
-        android:layout_marginTop="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="28dp"
-        android:background="@color/text_color_d2"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line"/>
 
 
 </LinearLayout>

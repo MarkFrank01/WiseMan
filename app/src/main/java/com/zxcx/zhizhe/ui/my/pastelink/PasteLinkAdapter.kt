@@ -73,7 +73,7 @@ class PasteLinkAdapter(data: List<PastLinkBean>) : BaseQuickAdapter<PastLinkBean
 
                     helper.getView<LinearLayout>(R.id.ll_paste_cancel).visibility = View.VISIBLE
 
-                    if (s.toString().length > 10) {
+                    if (s.toString().length > 20) {
                         etcheck.hint = ""
                         etcheck.error = ""
                         etcheck.isErrorEnabled = false

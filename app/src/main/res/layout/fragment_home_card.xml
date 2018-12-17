@@ -29,7 +29,7 @@
 		
 		<android.support.design.widget.TabLayout
 			android:id="@+id/tl_home"
-			android:layout_width="204dp"
+			android:layout_width="136dp"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			app:tabBackground="@color/translate"

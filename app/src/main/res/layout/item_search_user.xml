@@ -17,7 +17,7 @@
 		android:scaleType="centerCrop"
 		app:riv_oval="true"
 		tools:src="@drawable/default_header"/>
-	
+
 	<TextView
 		android:id="@+id/tv_item_search_user_name"
 		style="@style/tv_single"

@@ -67,6 +67,7 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 	}
 
 	override fun getDataSuccess(list: List<SearchUserBean>) {
+        mAdapter.mKeyword = mKeyword
 		if (mPage == 0) {
 			mAdapter.setNewData(list)
 		} else {

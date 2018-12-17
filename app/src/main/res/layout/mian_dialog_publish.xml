@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:text="卡片创作"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:text="深读创作"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:text="一键发布"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
@@ -102,16 +102,21 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/publish_dialog_ivMenu"
             android:layout_width="20dp"
             android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@null"
             android:src="@drawable/bt_in_cancel"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
     <LinearLayout
