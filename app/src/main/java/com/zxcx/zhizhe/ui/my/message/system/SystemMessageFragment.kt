@@ -15,9 +15,9 @@ import com.zxcx.zhizhe.ui.my.creation.ApplyForCreation1Activity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectCardDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.creationDetails.RejectDetailsActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity
 import com.zxcx.zhizhe.ui.my.writer_status_reject
 import com.zxcx.zhizhe.ui.my.writer_status_user
-import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
@@ -122,7 +122,9 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                         }
                     }
                     message_rank -> {
-                        intent.setClass(mActivity, AllRankActivity::class.java)
+//                        intent.setClass(mActivity, AllRankActivity::class.java)
+                        //修改为去看智力值
+                        intent.setClass(mActivity, IntelligenceValueActivity::class.java)
                     }
                     message_recommend -> {
                         intent.setClass(mActivity, ArticleDetailsActivity::class.java)
@@ -143,7 +145,8 @@ class SystemMessageFragment : MvpFragment<SystemMessagePresenter>(), SystemMessa
                     message_link_unpass -> {
                         LogCat.e("url${bean.remaskContent}")
                         intent.setClass(mActivity, WebViewActivity::class.java)
-                        intent.putExtra("title", "一键发布作品链接")
+//                        intent.putExtra("title", "一键发布作品链接")
+                        intent.putExtra("title", "作品链接详情")
                         intent.putExtra("url", bean.remaskContent)
                     }
                 }

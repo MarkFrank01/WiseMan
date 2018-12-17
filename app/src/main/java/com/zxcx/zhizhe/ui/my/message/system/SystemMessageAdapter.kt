@@ -61,7 +61,8 @@ class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<Sys
                 helper.setText(R.id.tv_item_system_message_value,
                         mContext.getString(R.string.tv_item_message_value, item.intelligenceValue))
                 helper.setGone(R.id.tv_item_system_message_value, true)
-                helper.setText(R.id.tv_item_system_message_action, "查看榜单")
+//                helper.setText(R.id.tv_item_system_message_action, "查看榜单")
+                helper.setText(R.id.tv_item_system_message_action, "查看智力值")
                 helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
                 setRankContent(helper, item)
             }
