@@ -67,6 +67,38 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
             CardBean.Article_TOUTIAO -> {
                 val roundImage = helper.getView<CardRoundedImageView>(R.id.iv_toutiao)
                 roundImage.setImageResource(R.drawable.toutiao)
+
+                val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
+                val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
+                ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
+
+                helper.setText(R.id.tv_item_card_title, item.name)
+                helper.setText(R.id.tv_item_card_category, item.categoryName)
+                if (item.labelName!=""||item.labelName.isNotEmpty()) {
+                    helper.setText(R.id.tv_item_card_label, item.getLabelName())
+                }else{
+                    helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
+                }
+                helper.setText(R.id.tv_item_card_read, item.readNum.toString())
+                helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
+
+                helper.setText(R.id.tv_item_card_time,item.distanceTime)
+
+//                if (item.secondCollectionTitle != "" && item.secondCollectionTitle.isNotEmpty()) {
+//                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+//                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())
+//                }
+
+                imageView.transitionName = mContext.getString(R.string.card_img_transition_name, helper.adapterPosition)
+                helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
+                        R.string.card_title_transition_name, helper.adapterPosition)
+                helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
+                        R.string.card_category_transition_name, helper.adapterPosition)
+                helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
+                        R.string.card_label_transition_name, helper.adapterPosition)
+
+                helper.addOnClickListener(R.id.position_4)
+                        .addOnClickListener(R.id.iv_toutiao)
             }
         }
 

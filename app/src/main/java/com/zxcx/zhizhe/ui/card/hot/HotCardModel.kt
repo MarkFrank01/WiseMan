@@ -14,7 +14,7 @@ class HotCardModel(present: HotCardContract.Presenter) : BaseModel<HotCardContra
 	}
 
 	fun getHotCard(lastRefresh: String, page: Int) {
-		mDisposable = AppClient.getAPIService().getHotCardNew(lastRefresh, page, Constants.PAGE_SIZE)
+		mDisposable = AppClient.getAPIService().getHotCard(lastRefresh, page, Constants.PAGE_SIZE)
 				.compose(BaseRxJava.handleArrayResult())
 				.compose(BaseRxJava.io_main())
 				.subscribeWith(object : BaseSubscriber<MutableList<CardBean>>(mPresenter) {

@@ -44,7 +44,7 @@ import java.util.*
  */
 
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private lateinit var mAdapter: HotCardAdapter
     private var mPage = 0
@@ -52,7 +52,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     private var mLastDate = Date()
     private var mCurrentPosition = 0
 
-//    lateinit var saveCardBean: CardBean
 
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private var imageList: MutableList<String> = mutableListOf()
@@ -129,7 +128,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UpdateCardListEvent) {
         mAdapter.data[event.currentPosition] = event.cardBean
-//        mAdapter.data[event.currentPosition] = saveCardBean
         mAdapter.notifyItemChanged(event.currentPosition)
     }
 
@@ -148,6 +146,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
+        list[4].cardType = CardBean.Article_TOUTIAO
         loadService.showSuccess()
         if (mPage == 0) {
             (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
@@ -200,6 +199,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_hot_card)
         mAdapter.onItemClickListener = this
+        mAdapter.onItemChildClickListener = this
         rv_hot_card.layoutManager = layoutManager
         rv_hot_card.adapter = mAdapter
     }
@@ -258,13 +258,12 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 
-        if (position == 4) {
-            val mIntent = Intent(mActivity, DailyActivity::class.java)
-            mActivity.startActivity(mIntent)
-        }
-
+//        if (position == 4) {
+//            val mIntent = Intent(mActivity, DailyActivity::class.java)
+//            mActivity.startActivity(mIntent)
+//        }
+//
         if (position != 4) {
-
             val bean = adapter.data[position] as CardBean
             val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
             val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
@@ -277,7 +276,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
                     Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
             val intent = Intent(mActivity, CardDetailsActivity::class.java)
             val pushAdapter = mAdapter.data as ArrayList
-            pushAdapter.removeAt(4)
             intent.putExtra("list", mAdapter.data as ArrayList)
             intent.putExtra("list", pushAdapter)
             intent.putExtra("currentPosition", position)
@@ -285,7 +283,37 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
             mActivity.startActivity(intent, bundle)
             mCurrentPosition = position
         }
+    }
 
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        var content: String
+        when (view.id) {
+            R.id.position_4 -> {
+                val bean = adapter.data[position] as CardBean
+                val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+                val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
+                val cardCategory = view.findViewById<TextView>(R.id.tv_item_card_category)
+                val cardLabel = view.findViewById<TextView>(R.id.tv_item_card_label)
+                val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity,
+                        Pair.create(cardImg, cardImg.transitionName),
+                        Pair.create(cardTitle, cardTitle.transitionName),
+                        Pair.create(cardCategory, cardCategory.transitionName),
+                        Pair.create(cardLabel, cardLabel.transitionName)).toBundle()
+                val intent = Intent(mActivity, CardDetailsActivity::class.java)
+                val pushAdapter = mAdapter.data as ArrayList
+                intent.putExtra("list", mAdapter.data as ArrayList)
+                intent.putExtra("list", pushAdapter)
+                intent.putExtra("currentPosition", position)
+                intent.putExtra("sourceName", this::class.java.name)
+                mActivity.startActivity(intent, bundle)
+                mCurrentPosition = position
+            }
+
+            R.id.iv_toutiao -> {
+                val mIntent = Intent(mActivity, DailyActivity::class.java)
+                mActivity.startActivity(mIntent)
+            }
+        }
     }
 
     fun onActivityReenter() {
