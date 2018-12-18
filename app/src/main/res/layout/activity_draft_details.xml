@@ -14,7 +14,6 @@
         android:layout_alignParentBottom="true">
 
         <TextView
-            android:textColor="@color/text_color_3"
             android:id="@+id/iv_note_details_edit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -22,7 +21,9 @@
             android:gravity="center"
             android:padding="10dp"
             android:scaleType="center"
-            android:text="编辑"/>
+            android:text="编辑"
+            android:textColor="@color/text_color_3"
+            android:textSize="17sp"/>
 
         <View
             android:layout_width="0dp"
@@ -38,7 +39,8 @@
             android:padding="10dp"
             android:scaleType="center"
             android:text="发布"
-            android:textColor="@color/color_text_enable_blue"/>
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="17sp"/>
 
     </LinearLayout>
 

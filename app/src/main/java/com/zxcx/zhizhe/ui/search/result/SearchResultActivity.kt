@@ -26,7 +26,7 @@ class SearchResultActivity : BaseActivity() {
 	private val userFragment = SearchUserFragment()
 	private var mCurrentFragment = Fragment()
 
-	private val titles = arrayOf("卡片", "长文", "用户")
+	private val titles = arrayOf("卡片", "深读", "用户")
 
 	private var keyword = ""
 

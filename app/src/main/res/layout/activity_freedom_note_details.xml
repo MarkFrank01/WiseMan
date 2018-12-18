@@ -23,6 +23,7 @@
 			android:layout_alignParentBottom="true">
 			
 			<TextView
+                android:textSize="17sp"
                 android:textColor="@color/text_color_3"
                 android:text="编辑"
 				android:id="@+id/iv_note_details_edit"

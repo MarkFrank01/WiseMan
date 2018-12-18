@@ -120,6 +120,7 @@
             </android.support.constraint.ConstraintLayout>
 
             <TextView
+                android:textSize="17sp"
                 android:textColor="@color/text_color_3"
                 android:gravity="center"
                 android:id="@+id/iv_draft_details_edit"
@@ -133,6 +134,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
+                android:textSize="17sp"
                 android:gravity="center"
                 android:id="@+id/iv_draft_details_commit"
                 android:layout_width="wrap_content"

@@ -204,6 +204,8 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
 
         tv_toolbar_right.setOnClickListener {
 
+            tv_toolbar_right.isEnabled = false
+
             if (mTitle.isNotEmpty() || mTitle != "") {
 
                 Handler().postDelayed({
@@ -215,8 +217,11 @@ class PasteLinkActivity : MvpActivity<PasteLinkPresenter>(), PasteLinkContract.V
                     mUploadingDialog.arguments = bundle
                     mUploadingDialog.show(supportFragmentManager, "")
                 }, 1000)
+
             } else {
                 toastShow("作品链接无效")
+
+                tv_toolbar_right.isEnabled = true
             }
         }
 

@@ -154,7 +154,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_reject_details_label"/>
 
             <TextView
-
+                android:textSize="17sp"
                 android:id="@+id/iv_reject_details_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,6 +168,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_reject_details_content"/>
 
             <TextView
+                android:textSize="17sp"
                 android:id="@+id/iv_reject_details_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

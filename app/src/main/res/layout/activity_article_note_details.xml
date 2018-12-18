@@ -39,7 +39,7 @@
 				android:gravity="center"
 				android:text="查看原文"
 				android:textColor="@color/text_color_3"
-				android:textSize="@dimen/text_size_text_3"/>
+				android:textSize="17sp"/>
 			
 			<View
 				android:layout_width="0dp"
