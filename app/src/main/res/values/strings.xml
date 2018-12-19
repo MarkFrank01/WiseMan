@@ -87,4 +87,8 @@
     <string name="card_category_transition_name">cardCategory%1$d</string>
     <string name="card_label_transition_name">cardLabel%1$d</string>
 	<!--transitionNameEnd-->
+
+    <string name="android_auto_update_download_progress">正在下载:%1$d%%</string>
+    <string name="android_auto_update_notify_ticker">发现新版本,点击进行升级</string>
+
 </resources>

@@ -40,5 +40,6 @@ public class Constants {
 	//上榜排名
 	public static final int MISSION_HAS_RANK = 8;
 	public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
-	
+
+    public static final String APK_DOWNLOAD_URL = "downloadUrl";
 }

@@ -24,6 +24,8 @@ class DailyAdapter(data:MutableList<CardBean>):
         if (item.title.isNotEmpty()||item.title!="") {
             helper.getView<TextView>(R.id.tv_daily_title).visibility = View.VISIBLE
             helper.getView<TextView>(R.id.tv_daily_title).text = item.title
+        }else{
+            helper.getView<TextView>(R.id.tv_daily_title).visibility = View.GONE
         }
 
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
