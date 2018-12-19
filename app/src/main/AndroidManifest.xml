@@ -44,6 +44,8 @@
     <!-- 申请未知应用安装权限，主要用于自我升级 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
     <application
         android:name=".App"
         android:allowBackup="true"

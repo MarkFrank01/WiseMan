@@ -41,5 +41,4 @@ public class Constants {
 	public static final int MISSION_HAS_RANK = 8;
 	public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
 
-    public static final String APK_DOWNLOAD_URL = "downloadUrl";
 }
