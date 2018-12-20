@@ -25,5 +25,6 @@ class ArticleListItemModel(present:ArticleListItemContract.Presenter):BaseModel<
                         mPresenter?.getADSuccess(t)
                     }
                 })
+        addSubscription(mDisposable)
     }
 }

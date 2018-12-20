@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.event.ChangeNightModeEvent
 import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
@@ -21,6 +22,7 @@ import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -72,6 +74,16 @@ class MainActivity : BaseActivity() {
 //                }
 //
 //        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+        val num = ((Math.random() * 9 + 1) * 100000).toInt()
+        //android_设备型号_系统版本_app版本_渠道号_生成时毫秒时间戳_随机数
+        var maidian = "android"+android.os.Build.MODEL+
+                android.os.Build.VERSION.SDK_INT+
+                AppUtils.getVersionName(mActivity)+
+                System.currentTimeMillis()+
+                num
+
+
+        LogCat.e("maidian---"+maidian)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
