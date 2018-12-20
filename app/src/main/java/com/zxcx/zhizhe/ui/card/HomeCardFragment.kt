@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -15,6 +16,9 @@ import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.service.DownloadService
+import com.zxcx.zhizhe.service.version_update.entity.UpdateApk
+import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
@@ -37,17 +41,18 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
 
     private val mHotFragment = HotCardFragment()
-//        private val mAttentionFragment = AttentionCardFragment()
+    //        private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
     private var advList: ArrayList<AdInfo> = ArrayList()
+    private var updateImageList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
 
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
-//        private val titles = arrayOf("关注", "推荐", "列表")
+    //        private val titles = arrayOf("关注", "推荐", "列表")
     private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -114,6 +119,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
 
         onRefreshAD(lastADTime, lastADID.toLong())
+        mPresenter.getCheckUpdateApk(1)
 //        showFirstDialog("")
 //        val adManager = AdManager(activity,advList)
 //        adManager.setOverScreen(true)
@@ -179,7 +185,97 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         tl_home.getTabAt(1)?.select()
     }
 
-    private fun addImageData(url: String) {
+
+    override fun createPresenter(): HomeCardPresenter {
+        return HomeCardPresenter(this)
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+
+        var title = ""
+        var url = ""
+        var id1: Int = 0
+        var time = ""
+
+        if (list.size > 0) {
+            mAdList = list
+            mAdList.forEach {
+                addAdImageData(it.titleImage)
+                title = it.description
+                url = it.behavior
+                id1 = it.id
+            }
+
+            LogCat.e("Time" + System.currentTimeMillis() + "------id:" + id1)
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime, System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID, id1)
+
+            LogCat.e("title is $title,url is $url")
+            showImageDialog(title, url)
+        }
+
+    }
+
+    override fun getCheckUpdateSuccess(info: UpdateApk) {
+        val apkCode = info.version
+        val needUpdate = info.type
+        val url = info.apkDownloadURL
+        val versionCode = AppUtils.getVersionName(mActivity)
+
+        LogCat.e("$versionCode == $apkCode")
+        if (versionCode.toString() != apkCode) {
+            LogCat.e("需要更新")
+            addUpdateApkImageData(info.newFeatureImg)
+            if (needUpdate == 0) {
+                showUpdateDialog(url)
+            } else if (needUpdate == 1) {
+                showUpdateDialog(url, needUpdate)
+            }
+        } else {
+            LogCat.e("最新")
+        }
+    }
+
+    override fun getDataSuccess(bean: MutableList<CardBean>?) {
+    }
+
+    private fun onRefreshAD(lastADTime: Long, lastADID: Long) {
+        mPresenter.getAD(lastADTime, lastADID)
+    }
+
+
+    private fun addUpdateApkImageData(url: String) {
+        val adInfo = AdInfo()
+        adInfo.activityImg = url
+        updateImageList.add(adInfo)
+    }
+
+    private fun showUpdateDialog(url: String) {
+
+        val updateManager = AdManager(activity, updateImageList)
+        updateManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    LogCat.e("my url is $url")
+                    goToDownload(mActivity, url)
+                }
+        updateManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun showUpdateDialog(url: String, type: Int) {
+
+        val updateManager = AdManager(activity, updateImageList)
+        updateManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    LogCat.e("you url is $url")
+                    goToDownload(mActivity, url)
+                }
+                .setDialogCloseable(false)
+        updateManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun addAdImageData(url: String) {
         val adInfo = AdInfo()
         adInfo.activityImg = url
         advList.add(adInfo)
@@ -198,39 +294,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
-
-    override fun createPresenter(): HomeCardPresenter {
-        return HomeCardPresenter(this)
-    }
-
-    override fun getADSuccess(list: MutableList<ADBean>) {
-
-        var title = ""
-        var url = ""
-        var id1: Int = 0
-        var time = ""
-
-        if (list.size > 0) {
-            mAdList = list
-            mAdList.forEach {
-                addImageData(it.titleImage)
-                title = it.description
-                url = it.behavior
-                id1 = it.id
-            }
-
-            LogCat.e("Time" + System.currentTimeMillis() + "------id:" + id1)
-            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime, System.currentTimeMillis())
-            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID, id1)
-            showImageDialog(title, url)
-        }
-
-    }
-
-    override fun getDataSuccess(bean: MutableList<CardBean>?) {
-    }
-
-    private fun onRefreshAD(lastADTime: Long, lastADID: Long) {
-        mPresenter.getAD(lastADTime, lastADID)
+    private fun goToDownload(context: Context, downLoadUrl: String) {
+        val intent = Intent(context.applicationContext, DownloadService::class.java)
+        intent.putExtra("downloadUrl", downLoadUrl)
+        context.startService(intent)
     }
 }

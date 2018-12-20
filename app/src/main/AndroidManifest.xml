@@ -55,6 +55,9 @@
         android:theme="@style/AppTheme"
         tools:replace="android:name">
 
+        <service android:name=".service.DownloadService"
+                 android:exported="false"/>
+
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -69,13 +72,23 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
+            android:authorities="com.zxcx.zhizhe.provider_paths"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="${applicationId}.fileProvider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/provider_paths"/>-->
+        <!--</provider>-->
 
         <receiver
             android:name=".receiver.OpenNotification"

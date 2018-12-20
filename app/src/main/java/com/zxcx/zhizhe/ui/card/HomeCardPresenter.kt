@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.card
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.service.version_update.entity.UpdateApk
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
@@ -20,6 +21,10 @@ class HomeCardPresenter(view: HomeCardContract.View) : BasePresenter<HomeCardCon
 
     fun getAD(lastOpenedTime: Long, lastOpenedAdId: Long) {
         mModel.getAD(lastOpenedTime, lastOpenedAdId)
+    }
+
+    fun getCheckUpdateApk(platformType:Int){
+        mModel.getUpdate(platformType)
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -44,4 +49,7 @@ class HomeCardPresenter(view: HomeCardContract.View) : BasePresenter<HomeCardCon
     override fun getDataSuccess(bean: MutableList<CardBean>?) {
     }
 
+    override fun getCheckUpdateApk(info: UpdateApk) {
+        mView.getCheckUpdateSuccess(info)
+    }
 }

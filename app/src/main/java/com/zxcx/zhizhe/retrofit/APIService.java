@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.retrofit;
 
+import com.zxcx.zhizhe.service.version_update.entity.UpdateApk;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
@@ -640,5 +641,13 @@ public interface APIService {
     @POST("/article/dailyCreditCard")
     Flowable<BaseArrayBean<CardBean>> getDaliyList1(
             @Field("termIndex") int termIndex
+    );
+
+
+
+    @FormUrlEncoded
+    @POST("/version/getNewVersion")
+    Flowable<BaseBean<UpdateApk>> getUpdateApk(
+             @Field("platformType") int platformType
     );
 }
