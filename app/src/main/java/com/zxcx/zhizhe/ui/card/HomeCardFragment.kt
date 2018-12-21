@@ -259,6 +259,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                     LogCat.e("my url is $url")
                     goToDownload(mActivity, url)
                 }
+                .setWidthPerHeight(0.83f)
         updateManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 

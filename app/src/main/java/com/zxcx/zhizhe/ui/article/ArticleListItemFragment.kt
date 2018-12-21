@@ -180,11 +180,13 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
                 imageList.add(it.titleImage)
             }
             fl_banner_long.visibility = View.VISIBLE
+            fl_line.visibility = View.VISIBLE
 
             banner_card.setImages(imageList)
             banner_card.start()
         } else {
             fl_banner_long.visibility = View.GONE
+            fl_line.visibility = View.GONE
         }
 
 //        if (ad_type_position != 0) {
@@ -229,5 +231,6 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     override fun closeAD() {
         fl_banner_long.visibility = View.GONE
+        fl_line.visibility = View.GONE
     }
 }

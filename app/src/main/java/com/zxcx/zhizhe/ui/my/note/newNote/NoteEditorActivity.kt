@@ -37,7 +37,7 @@ class NoteEditorActivity : BaseActivity(),
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_creation_editor)
+		setContentView(R.layout.activity_creation_editor_note)
 
 		initEditor()
 

@@ -49,6 +49,7 @@ class MyCardsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseView
 			easySwipeMenuLayout.resetStatus()
 			mListener.onContentClick(mData.indexOf(item))
 		}
+
 	}
 
 }

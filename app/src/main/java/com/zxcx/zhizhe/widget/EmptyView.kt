@@ -67,6 +67,8 @@ object EmptyView {
 			}
 		}
 
+        emptyView.tv_item_card_time.text = bean.distanceTime
+
 		return emptyView
 	}
 }
