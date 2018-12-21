@@ -41,4 +41,6 @@ public class Constants {
 	public static final int MISSION_HAS_RANK = 8;
 	public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
 
+	//埋点
+	public static final String MD = SharedPreferencesUtil.getString("maidian","");
 }

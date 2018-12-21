@@ -90,7 +90,8 @@ public interface APIService {
             @Query("thirdPartyType") int channelType, @Query("uuid") String uid,
             @Query("jpushRID") String jpushRID, @Query("appType") int appType,
             @Query("appChannel") String appChannel, @Query("appVersion") String appVersion,
-            @Query("openId") String openId);
+            @Query("openId") String openId
+            );
 
     /**
      * 获取绑定状态列表
@@ -108,7 +109,8 @@ public interface APIService {
     @POST("/user/thirdPartyBindingAndUnbinding")
     Flowable<BaseBean<Object>> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
-            @Query("uuid") String openId);
+            @Query("uuid") String openId
+           );
 
     /**
      * 修改手机号

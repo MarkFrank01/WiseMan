@@ -55,6 +55,7 @@ class ImageLoadModeActivity : BaseActivity() {
 			if (isChecked) {
 				imageLoadMode = 1
 				SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
+                cb_image_load_mode_wifi.isChecked = false
 			} else {
 				cb_image_load_mode_wifi.isChecked = true
 			}

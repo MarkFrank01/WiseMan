@@ -10,7 +10,6 @@ import com.zxcx.zhizhe.event.ChangeNightModeEvent
 import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
-import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
@@ -22,7 +21,6 @@ import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -76,14 +74,15 @@ class MainActivity : BaseActivity() {
 //        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
         val num = ((Math.random() * 9 + 1) * 100000).toInt()
         //android_设备型号_系统版本_app版本_渠道号_生成时毫秒时间戳_随机数
-        var maidian = "android"+android.os.Build.MODEL+
-                android.os.Build.VERSION.SDK_INT+
-                AppUtils.getVersionName(mActivity)+
-                System.currentTimeMillis()+
-                num
+//        val maidian = "android_"+android.os.Build.MODEL+"_"+
+//                android.os.Build.VERSION.SDK_INT+"_"+
+//                AppUtils.getVersionName(mActivity)+"_"+
+//                System.currentTimeMillis()+"_"+
+//                getStringRanom(6)
 
+//        SharedPreferencesUtil.saveData("maidian",maidian)
 
-        LogCat.e("maidian---"+maidian)
+//        LogCat.e("maidian---"+SharedPreferencesUtil.getString("maidian",""))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -307,5 +306,26 @@ class MainActivity : BaseActivity() {
 //        val adInfo = AdInfo()
 //        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
 //        advList.add(adInfo)
+//    }
+
+//    fun getStringRanom(length:Int):String{
+//        var num = ""
+//        val random = Random()
+//
+//        //参数length，表示生成几位随机数
+//        for (i in 0 until length) {
+//
+//            val charOrNum = if (random.nextInt(2) % 2 === 0) "char" else "num"
+//            //输出字母还是数字
+//            if ("char".equals(charOrNum, ignoreCase = true)) {
+//                //输出是大写字母还是小写字母
+//                val temp = if (random.nextInt(2) % 2 === 0) 65 else 97
+//                num += (random.nextInt(26) + temp).toChar()
+//            } else if ("num".equals(charOrNum, ignoreCase = true)) {
+//                num += random.nextInt(10)
+//            }
+//        }
+//
+//        return num
 //    }
 }
