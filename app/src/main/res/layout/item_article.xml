@@ -45,32 +45,33 @@
         <TextView
             android:id="@+id/tv_item_card_time"
             style="@style/tv_card_label"
-            android:layout_marginBottom="14dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:text="1s"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"/>
 
         <TextView
             android:id="@+id/tv_item_card_category"
             style="@style/tv_card_category"
-            android:layout_marginBottom="14dp"
-            android:layout_marginStart="14dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toEndOf="@+id/tv_item_card_time"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="数码产品"/>
 
         <TextView
             android:id="@+id/tv_item_card_label"
             style="@style/tv_card_label"
-            android:paddingBottom="14dp"
+            android:paddingBottom="10dp"
             android:paddingEnd="12dp"
             android:paddingStart="12dp"
             android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_item_card_category"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
+            app:layout_constraintTop_toBottomOf="parent"
             tools:text="#数码产品"/>
 
         <ImageView

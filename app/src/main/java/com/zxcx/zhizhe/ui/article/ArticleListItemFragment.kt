@@ -124,7 +124,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
                 it.putExtra("title", adTitle)
                 it.putExtra("url", adUrl)
                 it.putExtra("imageUrl", adImage)
-                it.putExtra("shareDescription",shareDescription)
+                it.putExtra("shareDescription", shareDescription)
             }
         }
 
@@ -140,16 +140,18 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             override fun onPageSelected(position: Int) {
                 val newPosition = position % 3
                 val ad = mAdList[newPosition]
-                if (mAdList.size>0) {
-                    when (ad.styleType) {
-                        0 -> {
-                            iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_0)
-                        }
-                        1 -> {
-                            iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_1)
-                        }
-                        2 -> {
-                            iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_2)
+                if (mAdList.size > 0) {
+                    if (iv_ad_label_card != null) {
+                        when (ad.styleType) {
+                            0 -> {
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_0)
+                            }
+                            1 -> {
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_1)
+                            }
+                            2 -> {
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_2)
+                            }
                         }
                     }
                 }

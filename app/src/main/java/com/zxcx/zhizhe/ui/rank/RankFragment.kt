@@ -251,19 +251,19 @@ class RankFragment : MvpFragment<RankPresenter>(), RankContract.View, BaseQuickA
             }
 
             override fun onPageSelected(position: Int) {
-//				val newPosition = position % 3
-//				val ad = mAdList[newPosition]
-//				when (ad.styleType) {
-//					0 -> {
-//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
-//					}
-//					1 -> {
-//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
-//					}
-//					2 -> {
-//						iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
-//					}
-//				}
+				val newPosition = position % 3
+				val ad = mAdList[newPosition]
+				when (ad.styleType) {
+					0 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_0)
+					}
+					1 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_1)
+					}
+					2 -> {
+						iv_ad_label.setImageResource(R.drawable.iv_ad_label_2)
+					}
+				}
             }
 
         })
