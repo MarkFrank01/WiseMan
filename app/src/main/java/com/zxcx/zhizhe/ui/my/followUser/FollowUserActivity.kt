@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_follow_user.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -136,8 +135,8 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		mAdapter = FollowUserAdapter(ArrayList())
 		mAdapter.onItemChildClickListener = this
 		mAdapter.onItemClickListener = this
-		mAdapter.setLoadMoreView(CustomLoadMoreView())
-		mAdapter.setOnLoadMoreListener(this, rv_follow_user)
+//		mAdapter.setLoadMoreView(CustomLoadMoreView())
+//		mAdapter.setOnLoadMoreListener(this, rv_follow_user)
 		rv_follow_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_follow_user.adapter = mAdapter
 	}

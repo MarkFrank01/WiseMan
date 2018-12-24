@@ -29,12 +29,12 @@
             android:orientation="horizontal">
 
 
-            <com.zxcx.zhizhe.widget.CardImageView
+            <com.zxcx.zhizhe.widget.CardRoundedImageView
                 android:id="@+id/iv_item_card_link_item"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/iv_item_card_link1"
                 android:transitionName="cardLinkImage"
@@ -48,11 +48,11 @@
                 android:id="@+id/tv_item_card_title"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="18dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:ellipsize="end"
-                android:gravity="center|start"
+                android:gravity="start"
                 android:lineSpacingExtra="5dp"
                 android:maxLines="2"
                 android:textColor="@color/text_color_1"
@@ -64,7 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -72,7 +72,7 @@
             <TextView
                 android:id="@+id/tv_item_link_time"
                 style="@style/tv_card_category"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="18dp"
                 android:layout_marginRight="20dp"
                 android:text="1s"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +81,7 @@
                 app:layout_constraintVertical_bias="0.846"/>
 
             <TextView
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="18dp"
                 android:id="@+id/tv_item_card_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
