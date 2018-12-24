@@ -117,7 +117,6 @@ class DailyActivity : RefreshMvpActivity<DailyPresenter>(), DailyContract.View, 
     }
 
     override fun onLoadMoreRequested() {
-        mPage += 1
         getDailyCard(mPage)
     }
 
