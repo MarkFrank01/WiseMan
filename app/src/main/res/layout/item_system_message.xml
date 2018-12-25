@@ -59,7 +59,7 @@
 		android:layout_marginTop="1dp"
 		android:layout_marginStart="20dp"
 		android:drawablePadding="2dp"
-		android:drawableStart="@drawable/tv_item_rank_user_level"
+		android:drawableStart="@drawable/tv_item_rank_user_level_new"
 		android:gravity="center"
 		android:textColor="@color/text_color_3"
 		android:textSize="@dimen/text_size_text_3"

@@ -12,7 +12,6 @@ import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
@@ -156,8 +155,8 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		rv_follow_user.adapter = mAdapter
 		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "", R.drawable.no_data, View.OnClickListener {
 			if (ZhiZheUtils.isWriter(mActivity)) {
-				val intent = Intent(mActivity, CreationEditorActivity::class.java)
-				startActivity(intent)
+//				val intent = Intent(mActivity, CreationEditorActivity::class.java)
+//				startActivity(intent)
 			}
 		})
 		mAdapter.emptyView = emptyView
