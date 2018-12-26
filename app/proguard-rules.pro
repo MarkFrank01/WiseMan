@@ -123,5 +123,15 @@
 -dontwarn kotlin.reflect.jvm.internal.**
 #JS
 -keepattributes *JavascriptInterface*
--keep class com.zxcx.zhizhe.ui.**{*;}
+-keep class com.zxcx.zhizhe.**{*;}
 -keep class com.zxcx.zhizhe.utils.**{*;}
+
+########################################
+#待处理
+-keep class com.uuch.adlibrary.**
+
+########################################
+-optimizationpasses 5
+-dontpreverify
+-verbose
+-ignorewarning

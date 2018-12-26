@@ -115,7 +115,6 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
         lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)
 
-//        LogCat.e("Time2"+lastADTime+"------id:"+lastADID)
 
 
         onRefreshAD(lastADTime, lastADID.toLong())
@@ -206,11 +205,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 id1 = it.id
             }
 
-            LogCat.e("Time" + System.currentTimeMillis() + "------id:" + id1)
             SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime, System.currentTimeMillis())
             SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID, id1)
 
-            LogCat.e("title is $title,url is $url")
             showImageDialog(title, url)
         }
 
@@ -222,13 +219,12 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         val url = info.apkDownloadURL
         val versionCode = AppUtils.getVersionName(mActivity)
 
-        LogCat.e("$versionCode == $apkCode")
         if (versionCode.toString() != apkCode) {
             LogCat.e("需要更新")
             addUpdateApkImageData(info.newFeatureImg)
-            if (needUpdate == 0&&url!=""&&url.isNotEmpty()) {
+            if (needUpdate == 0) {
                 showUpdateDialog(url)
-            } else if (needUpdate == 1&&url!=""&&url.isNotEmpty()) {
+            } else if (needUpdate == 1) {
                 showUpdateDialog(url, needUpdate)
             }
         } else {
@@ -256,7 +252,6 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         updateManager.setOverScreen(true)
                 .setPageTransformer(DepthPageTransformer())
                 .setOnImageClickListener { view, advInfo ->
-                    LogCat.e("my url is $url")
                     goToDownload(mActivity, url)
                 }
                 .setWidthPerHeight(0.83f)
@@ -269,7 +264,6 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         updateManager.setOverScreen(true)
                 .setPageTransformer(DepthPageTransformer())
                 .setOnImageClickListener { view, advInfo ->
-                    LogCat.e("you url is $url")
                     goToDownload(mActivity, url)
                 }
                 .setDialogCloseable(false)
