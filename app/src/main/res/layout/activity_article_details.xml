@@ -99,6 +99,7 @@
                 tools:text="生活"/>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_article_details_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

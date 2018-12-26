@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/background">
-	
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 	<LinearLayout
+        android:background="@color/background"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
 		android:orientation="vertical">
-		
+
 		<ImageView
 			android:id="@+id/iv_no_data_and_card"
 			android:layout_width="120dp"
@@ -32,7 +32,7 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="140dp"
+			android:layout_marginTop="138dp"
 			android:layout_marginBottom="15dp"
 			android:layout_marginStart="12dp"
 			android:layout_marginEnd="20dp"
@@ -45,8 +45,9 @@
 			layout="@layout/item_other_user_creation"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
+			android:layout_marginBottom="10dp"
 			android:layout_marginStart="12dp"
 			android:layout_marginEnd="12dp"/>
 	</LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>
+
