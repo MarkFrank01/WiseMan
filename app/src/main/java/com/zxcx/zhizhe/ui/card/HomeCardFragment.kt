@@ -226,9 +226,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         if (versionCode.toString() != apkCode) {
             LogCat.e("需要更新")
             addUpdateApkImageData(info.newFeatureImg)
-            if (needUpdate == 0) {
+            if (needUpdate == 0&&url!=""&&url.isNotEmpty()) {
                 showUpdateDialog(url)
-            } else if (needUpdate == 1) {
+            } else if (needUpdate == 1&&url!=""&&url.isNotEmpty()) {
                 showUpdateDialog(url, needUpdate)
             }
         } else {
