@@ -378,6 +378,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 .doOnSubscribe { subscription -> showLoading() }
                 .map {
                     iv_share_qr.visibility = View.VISIBLE
+                    iv_share_qr_bg.visibility = View.VISIBLE
                     iv_common_close.visibility = View.GONE
                     it
                 }
@@ -396,6 +397,7 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     iv_share_qr.visibility = View.GONE
+                    iv_share_qr_bg.visibility = View.GONE
                     iv_common_close.visibility = View.VISIBLE
                     it
                 }
