@@ -143,7 +143,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:scaleType="fitXY"
-					android:src="@drawable/iv_dialog_share_qr"
+					android:src="@drawable/iv_dialog_share_qr2"
 					app:layout_constraintTop_toBottomOf="@id/fl_dialog_share"/>
 			
 			</android.support.constraint.ConstraintLayout>

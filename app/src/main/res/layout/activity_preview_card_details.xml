@@ -174,7 +174,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/bg_background_12dp"
             android:scaleType="fitXY"
-            android:src="@drawable/iv_dialog_share_qr"
+            android:src="@drawable/iv_dialog_share_qr2"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

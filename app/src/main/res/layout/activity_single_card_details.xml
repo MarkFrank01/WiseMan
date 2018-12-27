@@ -276,7 +276,7 @@
             android:scaleType="fitXY"
             android:translationZ="10dp"
             android:visibility="gone"
-            android:src="@drawable/iv_dialog_share_qr"
+            android:src="@drawable/iv_dialog_share_qr2"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
