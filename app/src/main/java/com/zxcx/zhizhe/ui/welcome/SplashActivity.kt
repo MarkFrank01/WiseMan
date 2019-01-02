@@ -24,19 +24,20 @@ class SplashActivity : AppCompatActivity() {
                 android.os.Build.VERSION.SDK_INT + "_" +
                 AppUtils.getVersionName(this) + "_" +
                 System.currentTimeMillis() + "_" +
-                getStringRanom(6)
+                getStringRandom(6)+"_"+
+                Utils.getChannel(applicationContext)
 
         if (Utils.getIsFirstLaunchApp()) {
             SharedPreferencesUtil.saveData("maidian", maidian)
         }
 
         LogCat.e(SharedPreferencesUtil.getString("maidian",""))
-
+//        LogCat.e("!!!!!!!!!!!!!!----"+Utils.getChannel(applicationContext))
         finish()
     }
 
 
-    fun getStringRanom(length: Int): String {
+    fun getStringRandom(length: Int): String {
         var num = ""
         val random = Random()
 

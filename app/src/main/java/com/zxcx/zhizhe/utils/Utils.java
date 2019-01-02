@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.meituan.android.walle.WalleChannelReader;
 import com.zxcx.zhizhe.App;
 
 import java.io.ByteArrayOutputStream;
@@ -314,4 +315,13 @@ public class Utils {
 		drawable.draw(canvas);
 		return bitmap;
 	}
+
+    /**
+     * 获取渠道信息
+     */
+    public static String getChannel(Context context){
+        String channel = WalleChannelReader.getChannel(context);
+//        LogCat.e("channel is "+channel);
+        return channel;
+    }
 }
