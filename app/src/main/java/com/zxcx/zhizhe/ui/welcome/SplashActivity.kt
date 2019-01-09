@@ -32,7 +32,6 @@ class SplashActivity : AppCompatActivity() {
         }
 
         LogCat.e(SharedPreferencesUtil.getString("maidian",""))
-//        LogCat.e("!!!!!!!!!!!!!!----"+Utils.getChannel(applicationContext))
         finish()
     }
 

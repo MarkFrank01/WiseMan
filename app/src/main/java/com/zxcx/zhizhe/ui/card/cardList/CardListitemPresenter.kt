@@ -8,24 +8,24 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
  * @author : MarkFrank01
  * @Description :
  */
-class CardListitemPresenter(view:CardListitemContract.View):BasePresenter<CardListitemContract.View>(),CardListitemContract.Presenter{
+class CardListitemPresenter(view: CardListitemContract.View) : BasePresenter<CardListitemContract.View>(), CardListitemContract.Presenter {
 
-    private val mModel:CardListitemModel
+    private val mModel: CardListitemModel
 
     init {
         attachView(view)
         mModel = CardListitemModel(this)
     }
 
-    fun getAD(position:Int){
+    fun getAD(position: Int) {
         mModel.getAD(position)
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        if (list.isNotEmpty()) {
-            mView.getADSuccess(list)
-        }else{
-            if (mView!=null) {
+        if (mView != null) {
+            if (list.isNotEmpty()) {
+                mView.getADSuccess(list)
+            } else {
                 mView.closeAD()
             }
         }

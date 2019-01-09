@@ -15,7 +15,6 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.fragment_card_list.*
@@ -84,7 +83,7 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		override fun instantiateItem(container: ViewGroup, position: Int): Any {
 			val fragment = super.instantiateItem(container, position) as CardListItemFragment
 			fragments.put(position, fragment)
-            LogCat.e("ChangeItem"+position)
+//            LogCat.e("ChangeItem"+position)
             SharedPreferencesUtil.saveData(SVTSConstants.adTypePosition, position)
 
             return fragment

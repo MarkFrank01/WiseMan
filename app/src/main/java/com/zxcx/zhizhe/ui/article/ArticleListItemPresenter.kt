@@ -21,11 +21,13 @@ class ArticleListItemPresenter(view: ArticleListItemContract.View):BasePresenter
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        if (list.isNotEmpty()) {
+        if (mView!=null) {
+            if (list.isNotEmpty()) {
 
-            mView.getADSuccess(list)
-        }else{
-            mView.closeAD()
+                mView.getADSuccess(list)
+            } else {
+                mView.closeAD()
+            }
         }
     }
 

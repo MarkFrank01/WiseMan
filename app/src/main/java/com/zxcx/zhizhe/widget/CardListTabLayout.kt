@@ -84,72 +84,72 @@ class CardListTabLayout : TabLayout {
 
 		override fun onPageScrolled(position: Int, positionOffset: Float,
 		                            positionOffsetPixels: Int) {
-			val tabLayout = mTabLayoutRef.get()
-			val selectedChild = tabLayout?.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-			val nextChild = if (position + 1 < tabLayout?.tabCount ?: 0)
-				tabLayout?.getTabAt(position + 1)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-			else
-				null
-
-			if (selectedChild != null) {
-				tabLayout.selectedPosition = position
-				selectedChild.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize - (mSelectTextSize - mNormalTextSize) * positionOffset)
-				//初始颜色值
-				val bgColor = when {
-					positionOffset == 0f -> //显示选中颜色
-						mSelectTextColor
-					positionOffset > 1 -> //显示普通颜色
-						mNormalTextColor
-					else -> //滚动过程中渐变的颜色
-						tabLayout.argbEvaluator.evaluate(positionOffset, mSelectTextColor, mNormalTextColor) as Int?
-				}
-				bgColor?.let { selectedChild.setTextColor(bgColor) }
-
-				if (positionOffset > 0.5) {
-					selectedChild.typeface = Typeface.DEFAULT
-				} else {
-					selectedChild.typeface = Typeface.DEFAULT_BOLD
-				}
-			}
-
-			if (nextChild != null) {
-				tabLayout?.nextPosition = position + 1
-				nextChild.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNormalTextSize + (mSelectTextSize - mNormalTextSize) * positionOffset)
-				//初始颜色值
-				val bgColor = when {
-					positionOffset == 0f -> //显示初始透明颜色
-						mNormalTextColor
-					positionOffset > 1 -> //滚动到一个定值后,颜色最深,而且不再加深
-						mSelectTextColor
-					else -> //滚动过程中渐变的颜色
-						tabLayout?.argbEvaluator?.evaluate(positionOffset, mNormalTextColor, mSelectTextColor) as Int
-				}
-				bgColor?.let { nextChild.setTextColor(bgColor) }
-				if (Math.abs(positionOffset) > 0.5) {
-					nextChild.typeface = Typeface.DEFAULT_BOLD
-				} else {
-					nextChild.typeface = Typeface.DEFAULT
-				}
-			}
+//			val tabLayout = mTabLayoutRef.get()
+//			val selectedChild = tabLayout?.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+//			val nextChild = if (position + 1 < tabLayout?.tabCount ?: 0)
+//				tabLayout?.getTabAt(position + 1)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+//			else
+//				null
+//
+//			if (selectedChild != null) {
+//				tabLayout.selectedPosition = position
+//				selectedChild.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize - (mSelectTextSize - mNormalTextSize) * positionOffset)
+//				//初始颜色值
+//				val bgColor = when {
+//					positionOffset == 0f -> //显示选中颜色
+//						mSelectTextColor
+//					positionOffset > 1 -> //显示普通颜色
+//						mNormalTextColor
+//					else -> //滚动过程中渐变的颜色
+//						tabLayout.argbEvaluator.evaluate(positionOffset, mSelectTextColor, mNormalTextColor) as Int?
+//				}
+//				bgColor?.let { selectedChild.setTextColor(bgColor) }
+//
+//				if (positionOffset > 0.5) {
+//					selectedChild.typeface = Typeface.DEFAULT
+//				} else {
+//					selectedChild.typeface = Typeface.DEFAULT_BOLD
+//				}
+//			}
+//
+//			if (nextChild != null) {
+//				tabLayout?.nextPosition = position + 1
+//				nextChild.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNormalTextSize + (mSelectTextSize - mNormalTextSize) * positionOffset)
+//				//初始颜色值
+//				val bgColor = when {
+//					positionOffset == 0f -> //显示初始透明颜色
+//						mNormalTextColor
+//					positionOffset > 1 -> //滚动到一个定值后,颜色最深,而且不再加深
+//						mSelectTextColor
+//					else -> //滚动过程中渐变的颜色
+//						tabLayout?.argbEvaluator?.evaluate(positionOffset, mNormalTextColor, mSelectTextColor) as Int
+//				}
+//				bgColor?.let { nextChild.setTextColor(bgColor) }
+//				if (Math.abs(positionOffset) > 0.5) {
+//					nextChild.typeface = Typeface.DEFAULT_BOLD
+//				} else {
+//					nextChild.typeface = Typeface.DEFAULT
+//				}
+//			}
 		}
 
 		override fun onPageScrollStateChanged(state: Int) {
 		}
 
 		override fun onPageSelected(position: Int) {
-//			val tabLayout = mTabLayoutRef.get()
-//			if (tabLayout != null) {
-//				for (index in 0 until tabLayout.tabCount) {
-//					val notSelectedChild = tabLayout.getTabAt(index)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-//					notSelectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNormalTextSize.toFloat())
-//					notSelectedChild?.typeface = Typeface.DEFAULT
-//					mNormalTextColor?.let { notSelectedChild?.setTextColor(it) }
-//				}
-//				val selectedChild = tabLayout.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-//				selectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize.toFloat())
-//				selectedChild?.typeface = Typeface.DEFAULT_BOLD
-//				mSelectTextColor?.let { selectedChild?.setTextColor(it) }
-//			}
+			val tabLayout = mTabLayoutRef.get()
+			if (tabLayout != null) {
+				for (index in 0 until tabLayout.tabCount) {
+					val notSelectedChild = tabLayout.getTabAt(index)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+					notSelectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNormalTextSize.toFloat())
+					notSelectedChild?.typeface = Typeface.DEFAULT
+					mNormalTextColor?.let { notSelectedChild?.setTextColor(it) }
+				}
+				val selectedChild = tabLayout.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+				selectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize.toFloat())
+				selectedChild?.typeface = Typeface.DEFAULT_BOLD
+				mSelectTextColor?.let { selectedChild?.setTextColor(it) }
+			}
 		}
 	}
 

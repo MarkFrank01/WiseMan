@@ -195,7 +195,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private fun initRecyclerView() {
         mClassifyAdapter = SelectClassifyAdapter(ArrayList())
         mLabelAdapter = SelectLabelAdapter(ArrayList())
-        val manager = GridLayoutManager(mActivity, 4)
+//        val manager = GridLayoutManager(mActivity, 4)
+//        val manager1 = GridLayoutManager(mActivity, 4)
+
+        val manager = GridLayoutManager(mActivity, 5)
         val manager1 = GridLayoutManager(mActivity, 4)
         rv_select_classify.adapter = mClassifyAdapter
         rv_select_classify.layoutManager = manager

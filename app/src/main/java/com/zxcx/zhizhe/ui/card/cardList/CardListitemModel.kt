@@ -25,5 +25,7 @@ class CardListitemModel(present:CardListitemContract.Presenter):BaseModel<CardLi
                         mPresenter?.getADSuccess(t)
                     }
                 })
+        addSubscription(mDisposable)
     }
+
 }
