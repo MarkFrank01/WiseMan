@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.service.DownloadService
 import com.zxcx.zhizhe.service.version_update.entity.UpdateApk
 import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
+import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
@@ -41,7 +42,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
 
     private val mHotFragment = HotCardFragment()
-    //        private val mAttentionFragment = AttentionCardFragment()
+    private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
@@ -52,8 +53,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
-    //        private val titles = arrayOf("关注", "推荐", "列表")
-    private val titles = arrayOf("推荐", "列表")
+            private val titles = arrayOf("关注", "推荐", "列表")
+//    private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -73,22 +74,22 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-//                    0 -> {
-//                        switchFragment(mAttentionFragment)
-//                    }
-//                    1 -> {
-//                        switchFragment(mHotFragment)
-//                    }
-//                    2 -> {
-//                        switchFragment(mListFragment)
-//                    }
                     0 -> {
+                        switchFragment(mAttentionFragment)
+                    }
+                    1 -> {
                         switchFragment(mHotFragment)
                     }
-
-                    1 -> {
+                    2 -> {
                         switchFragment(mListFragment)
                     }
+//                    0 -> {
+//                        switchFragment(mHotFragment)
+//                    }
+//
+//                    1 -> {
+//                        switchFragment(mListFragment)
+//                    }
                 }
                 val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
                 textView.paint.isFakeBoldText = true
@@ -109,8 +110,9 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         para.width = screenWidth * 1 / 2
         tl_home.layoutParams = para
 
-        tl_home.getTabAt(1)?.select()
+        tl_home.getTabAt(2)?.select()
         tl_home.getTabAt(0)?.select()
+        tl_home.getTabAt(1)?.select()
 
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
         lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)
@@ -164,7 +166,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     public fun onActivityReenter() {
         when (mCurrentFragment) {
             mHotFragment -> mHotFragment.onActivityReenter()
-//            mAttentionFragment -> mAttentionFragment.onActivityReenter()
+            mAttentionFragment -> mAttentionFragment.onActivityReenter()
             mListFragment -> mListFragment.onActivityReenter()
         }
     }
@@ -172,7 +174,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     fun getSharedView(names: MutableList<String>): MutableMap<String, View>? {
         return when (mCurrentFragment) {
             mHotFragment -> mHotFragment.getSharedView(names)
-//            mAttentionFragment -> mAttentionFragment.getSharedView(names)
+            mAttentionFragment -> mAttentionFragment.getSharedView(names)
             mListFragment -> mListFragment.getSharedView(names)
             else -> mListFragment.getSharedView(names)
         }
