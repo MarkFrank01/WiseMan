@@ -122,6 +122,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
             }
             mCurrentPosition = event.currentPosition
             rv_hot_card.scrollToPosition(event.currentPosition)
+            fl_banner_card.visibility = View.GONE
         }
     }
 
@@ -134,6 +135,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     override fun onRefresh(refreshLayout: RefreshLayout?) {
         mPage = 0
         getHotCard()
+        fl_banner_card.visibility = View.VISIBLE
     }
 
     private fun onRefreshAD() {

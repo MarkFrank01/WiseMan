@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <com.zxcx.zhizhe.widget.Rounded6FrameLayout
                 android:id="@+id/fl_banner_card"

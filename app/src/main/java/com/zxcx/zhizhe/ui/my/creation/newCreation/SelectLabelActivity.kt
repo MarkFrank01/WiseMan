@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionContract
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionPresenter
+import com.zxcx.zhizhe.utils.LogCat
 import kotlinx.android.synthetic.main.activity_select_label.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -83,15 +84,16 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
                 //判断是否有已选择的值，有则选中，将替换为第一个值
                 if (it.name == labelName) {
+                    LogCat.e("labelName"+labelName)
                     it.isChecked = true
                     mSelectedLabel = it
                     mNewLabelSelect = false
                     isNewLabel = false
-                } else {
-                    it.isChecked = false
+
                 }
-
-
+//                else {
+//                    it.isChecked = false
+//                }
             }
             if (it.id == classifyId) {
                 it.isChecked = true
@@ -99,21 +101,24 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 group_select_label.visibility = View.VISIBLE
                 mLabelAdapter.setNewData(it.dataList)
             }
+
         }
         mClassifyAdapter.setNewData(list)
 
         //判断不为空进行操作,存在疑问，bug来源
-        if (isNewLabel && labelName.isNotEmpty()) {
+        if (mTheSecond.isNotEmpty()) {
             mNewLabelName = labelName
             iv_select_label_new_label.visibility = View.GONE
             iv_select_label_new_label_delete.visibility = View.VISIBLE
             cb_item_select_label_new_label.visibility = View.VISIBLE
-            cb_item_select_label_new_label.text = labelName
+            cb_item_select_label_new_label.text = mTheSecond
             cb_item_select_label_new_label.isChecked = true
 
             mTheFirst = labelName
             tv_toolbar_right.isEnabled
         }
+
+
     }
 
     override fun postSuccess() {
@@ -139,6 +144,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             intent.putExtra("labelName", mTheFirst)
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
+
+            LogCat.e("Push"+mTheFirst+"---------"+mTheSecond)
 
             setResult(Activity.RESULT_OK, intent)
             finish()
