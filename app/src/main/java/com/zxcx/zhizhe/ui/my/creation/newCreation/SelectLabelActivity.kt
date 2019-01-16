@@ -31,6 +31,13 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private lateinit var mClassifyAdapter: SelectClassifyAdapter
     private lateinit var mLabelAdapter: SelectLabelAdapter
 
+    private lateinit var mOtherAdapter: SelectClassifyOtherAdapter
+
+    //数据处理后热门分类
+    private var mNewHotClassify: MutableList<ClassifyBean> = ArrayList()
+    //数据处理后其它分类
+    private var mNewOtherClassify: MutableList<ClassifyBean> = ArrayList()
+
     private var classifyId = 0
 
     //选择标签值
@@ -84,7 +91,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
                 //判断是否有已选择的值，有则选中，将替换为第一个值
                 if (it.name == labelName) {
-                    LogCat.e("labelName"+labelName)
+                    LogCat.e("labelName" + labelName)
                     it.isChecked = true
                     mSelectedLabel = it
                     mNewLabelSelect = false
@@ -102,8 +109,18 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 mLabelAdapter.setNewData(it.dataList)
             }
 
+            if (it.isHit == 1) {
+                mNewHotClassify.add(it)
+            } else if (it.isHit == 0) {
+                mNewOtherClassify.add(it)
+            }
+
         }
-        mClassifyAdapter.setNewData(list)
+        LogCat.e("Hot: "+mNewHotClassify.size+"Other: "+mNewOtherClassify.size)
+        mClassifyAdapter.setNewData(mNewHotClassify)
+        mOtherAdapter.setNewData(mNewOtherClassify)
+//        mClassifyAdapter.setNewData(list)
+//        mOtherAdapter.setNewData(list)
 
         //判断不为空进行操作,存在疑问，bug来源
         if (mTheSecond.isNotEmpty()) {
@@ -145,7 +162,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
 
-            LogCat.e("Push"+mTheFirst+"---------"+mTheSecond)
+            LogCat.e("Push" + mTheFirst + "---------" + mTheSecond)
 
             setResult(Activity.RESULT_OK, intent)
             finish()
@@ -202,15 +219,26 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private fun initRecyclerView() {
         mClassifyAdapter = SelectClassifyAdapter(ArrayList())
         mLabelAdapter = SelectLabelAdapter(ArrayList())
+        mOtherAdapter = SelectClassifyOtherAdapter(ArrayList())
 //        val manager = GridLayoutManager(mActivity, 4)
 //        val manager1 = GridLayoutManager(mActivity, 4)
 
         val manager = GridLayoutManager(mActivity, 5)
+        val manager_other = GridLayoutManager(mActivity, 5)
         val manager1 = GridLayoutManager(mActivity, 4)
+
+        //热门分类
         rv_select_classify.adapter = mClassifyAdapter
         rv_select_classify.layoutManager = manager
+
+        //其它分类
+        rv_select_classify_2.adapter = mOtherAdapter
+        rv_select_classify_2.layoutManager = manager_other
+
+        //小标签
         rv_select_label.adapter = mLabelAdapter
         rv_select_label.layoutManager = manager1
+
 
         //大分类处理，不动
         mClassifyAdapter.setOnItemChildClickListener { adapter, view, position ->
@@ -220,6 +248,13 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 it as ClassifyBean
                 it.isChecked = false
             }
+
+            mNewOtherClassify.forEach {
+                it.isChecked = false
+            }
+            mOtherAdapter.setNewData(mNewOtherClassify)
+            mOtherAdapter.notifyDataSetChanged()
+
             bean.isChecked = isChecked
             mClassifyAdapter.notifyDataSetChanged()
             mSelectedLabel = null
@@ -250,6 +285,50 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             mSelectItem = -1
         }
 
+        //其它分类
+        mOtherAdapter.setOnItemChildClickListener { adapter, view, position ->
+            val bean = adapter.data[position] as ClassifyBean
+            val isChecked = !bean.isChecked
+            adapter.data.forEach {
+                it as ClassifyBean
+                it.isChecked = false
+            }
+
+            mNewHotClassify.forEach {
+                it.isChecked = false
+            }
+            mClassifyAdapter.setNewData(mNewHotClassify)
+            mClassifyAdapter.notifyDataSetChanged()
+
+            bean.isChecked = isChecked
+            mOtherAdapter.notifyDataSetChanged()
+            mSelectedLabel = null
+            if (bean.isChecked) {
+                mSelectedClassify = bean
+                group_select_label.visibility = View.VISIBLE
+                if (mNewLabelName.isEmpty()) {
+                    cb_item_select_label_new_label.visibility = View.GONE
+                    iv_select_label_new_label_delete.visibility = View.GONE
+                    iv_select_label_new_label.visibility = View.VISIBLE
+                } else {
+                    cb_item_select_label_new_label.visibility = View.VISIBLE
+                    iv_select_label_new_label_delete.visibility = View.VISIBLE
+                    iv_select_label_new_label.visibility = View.GONE
+                }
+                bean.dataList.forEach {
+                    it.isChecked = false
+                }
+                mLabelAdapter.setNewData(bean.dataList)
+            } else {
+                mSelectedClassify = null
+                group_select_label.visibility = View.GONE
+                cb_item_select_label_new_label.visibility = View.GONE
+                iv_select_label_new_label_delete.visibility = View.GONE
+                iv_select_label_new_label.visibility = View.GONE
+            }
+            tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            mSelectItem = -1
+        }
 
         //选择标签点击处理
         mLabelAdapter.setOnItemChildClickListener { adapter, view, position ->
@@ -301,7 +380,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 
-            if (mTheFirst!=""&&mTheFirst.isNotEmpty()){
+            if (mTheFirst != "" && mTheFirst.isNotEmpty()) {
                 tv_toolbar_right.isEnabled = true
             }
 

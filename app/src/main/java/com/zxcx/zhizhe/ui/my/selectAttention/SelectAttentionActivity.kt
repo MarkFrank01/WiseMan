@@ -112,6 +112,9 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 				}
 			}
 		}
+//        val manager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+
+
 		rv_select_attention.adapter = mAdapter
 		rv_select_attention.layoutManager = manager
 	}

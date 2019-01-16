@@ -45,7 +45,20 @@
 				android:textSize="@dimen/text_size_text_3"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@id/tv_select_label_title"/>
-			
+
+            <TextView
+                android:id="@+id/tv_select_label_hot"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="20dp"
+                android:text="热门"
+                android:textColor="@color/text_color_2"
+                android:textSize="@dimen/text_size_text_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"/>
+
 			<android.support.v7.widget.RecyclerView
 				android:id="@+id/rv_select_classify"
 				android:layout_width="match_parent"
@@ -55,7 +68,7 @@
 				android:paddingRight="12.5dp"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"
+				app:layout_constraintTop_toBottomOf="@id/tv_select_label_hot"
 				tools:layout_height="150dp"
 				tools:listitem="@layout/item_select_card_bag"/>
 
@@ -64,13 +77,26 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginStart="20dp"
                 android:text="其它"
                 android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_select_classify"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_select_classify_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="12.5dp"
+                android:paddingRight="12.5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_other"
+                tools:layout_height="150dp"
+                tools:listitem="@layout/item_select_card_bag"/>
 
 			<TextView
 				android:id="@+id/tv_select_label_2"
@@ -83,7 +109,7 @@
 				android:textColor="@color/text_color_2"
 				android:textSize="@dimen/text_size_text_2"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/tv_select_label_other"/>
+				app:layout_constraintTop_toBottomOf="@id/rv_select_classify_2"/>
 			
 			<android.support.v7.widget.RecyclerView
 				android:id="@+id/rv_select_label"

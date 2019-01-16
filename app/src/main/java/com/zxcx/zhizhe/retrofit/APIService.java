@@ -15,11 +15,13 @@ import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean;
+import com.zxcx.zhizhe.ui.my.selectAttention.interest.InterestRecommendBean;
 import com.zxcx.zhizhe.ui.my.setting.MessageModeBean;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
 import com.zxcx.zhizhe.ui.otherUser.OtherUserInfoBean;
 import com.zxcx.zhizhe.ui.rank.UserRankBean;
+import com.zxcx.zhizhe.ui.search.result.label.SearchLabelBean;
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean;
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean;
 import com.zxcx.zhizhe.ui.welcome.ADBean;
@@ -38,11 +40,11 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-    String API_SERVER_URL = "http://120.77.180.183:8043";
+//    String API_SERVER_URL = "http://120.77.180.183:8043";
 
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
 //		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
-//    String API_SERVER_URL = "http://192.168.1.8:8043";
+    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
 //    String API_SERVER_URL = "http://192.168.1.153:8043";
@@ -258,6 +260,15 @@ public interface APIService {
     Flowable<BaseArrayBean<SearchUserBean>> searchUser(
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
+
+    /**
+     * 搜索标签
+     */
+    @POST("/search/searchCollection")
+    Flowable<BaseArrayBean<SearchLabelBean>> searchLabel(
+            @Query("keyword") String keyword, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
+
 
     /**
      * 获取专题内卡片列表
@@ -651,4 +662,11 @@ public interface APIService {
     Flowable<BaseBean<UpdateApk>> getUpdateApk(
              @Field("platformType") int platformType
     );
+
+
+    /**
+     * 感兴趣推荐数据
+     */
+    @POST("/interestRecommend/getInterestRecommend")
+    Flowable<BaseBean<InterestRecommendBean>> getInterestRecommend();
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/ll_dynamic_message_follow"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_background_12dp"
+        android:elevation="3dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+
+        <com.zxcx.zhizhe.widget.CardRoundedImageView
+            android:gravity="center"
+            android:id="@+id/iv_item_label_image"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:transitionName="cardImage"
+            app:hasShade="true"
+            app:riv_corner_radius="2dp"
+            app:shade="@color/shade"
+            tools:src="@drawable/iv_item_home_card_icon"/>
+
+        <TextView
+            android:id="@+id/tv_label_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="14dp"
+            android:text="关注"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        </LinearLayout>
+
+
+        <include layout="@layout/iv_right_into"/>
+
+    </RelativeLayout>
+</LinearLayout>

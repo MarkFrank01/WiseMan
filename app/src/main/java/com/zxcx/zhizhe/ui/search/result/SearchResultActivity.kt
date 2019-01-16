@@ -9,6 +9,8 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.search.result.article.SearchArticleFragment
 import com.zxcx.zhizhe.ui.search.result.card.SearchCardFragment
+import com.zxcx.zhizhe.ui.search.result.circle.SearchCircleFragment
+import com.zxcx.zhizhe.ui.search.result.label.SearchLabelFragment
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserFragment
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.utils.ScreenUtils
@@ -25,6 +27,9 @@ class SearchResultActivity : BaseActivity() {
     private val articleFragment = SearchArticleFragment()
     private val userFragment = SearchUserFragment()
     private var mCurrentFragment = Fragment()
+
+    private var labelFragment = SearchLabelFragment()
+    private var circleFragment = SearchCircleFragment()
 
     //	private val titles = arrayOf("卡片", "深读", "用户")
     private val titles = arrayOf("卡片", "深读", "标签", "圈子", "用户")
@@ -44,6 +49,7 @@ class SearchResultActivity : BaseActivity() {
         cardFragment.mKeyword = keyword
         articleFragment.mKeyword = keyword
         userFragment.mKeyword = keyword
+        labelFragment.mKeyword = keyword
     }
 
     private fun initView() {
@@ -75,8 +81,14 @@ class SearchResultActivity : BaseActivity() {
                     0 -> {
                         switchFragment(cardFragment)
                     }
-                    3 -> {
+                    1 -> {
                         switchFragment(articleFragment)
+                    }
+                    2 -> {
+                        switchFragment(labelFragment)
+                    }
+                    3 -> {
+                        switchFragment(circleFragment)
                     }
                     4 -> {
                         switchFragment(userFragment)

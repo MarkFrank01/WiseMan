@@ -12,7 +12,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils
  * 选择标签页面，类别Adapter
  */
 
-class SelectClassifyAdapter(data: List<ClassifyBean>) : BaseQuickAdapter<ClassifyBean, BaseViewHolder>(R.layout.item_select_card_bag, data) {
+class SelectClassifyOtherAdapter(data: List<ClassifyBean>) : BaseQuickAdapter<ClassifyBean, BaseViewHolder>(R.layout.item_select_card_bag, data) {
 //class SelectClassifyAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAdapter<MultiItemEntity,BaseViewHolder>(data) {
 
 //    init {
