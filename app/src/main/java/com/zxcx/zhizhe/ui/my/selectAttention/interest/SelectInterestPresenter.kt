@@ -20,6 +20,10 @@ class SelectInterestPresenter(view:SelectInterestContract.View):BasePresenter<Se
         mModel.getInterestRecommend()
     }
 
+    fun changeAttentionList(idList:MutableList<Int>){
+        mModel.changeAttentionList(idList)
+    }
+
     override fun getDataSuccess(bean: InterestRecommendBean) {
         mView.getDataSuccess(bean)
     }

@@ -7,7 +7,7 @@
               android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/ll_dynamic_message_follow"
+        android:id="@+id/re_to_label"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="16dp"
@@ -25,6 +25,7 @@
 
 
         <com.zxcx.zhizhe.widget.CardRoundedImageView
+            android:visibility="gone"
             android:gravity="center"
             android:id="@+id/iv_item_label_image"
             android:layout_width="28dp"
@@ -42,7 +43,7 @@
             android:id="@+id/tv_label_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:text="关注"
             android:textColor="@color/text_color_1"

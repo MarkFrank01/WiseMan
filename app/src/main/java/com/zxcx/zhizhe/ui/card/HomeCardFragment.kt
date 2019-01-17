@@ -23,7 +23,7 @@ import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.interest.SelectInterestActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -139,7 +139,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         }
         iv_home_interests.setOnClickListener {
             if (checkLogin()) {
-                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+//                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+                mActivity.startActivity(SelectInterestActivity::class.java,{})
             }
         }
     }

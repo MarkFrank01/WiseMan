@@ -13,9 +13,9 @@ import java.io.Serializable
  */
 class InterestRecommendBean(
         @SerializedName("collectionList")
-        var collectionList: List<ClassifyCardBean>? = null,
+        var collectionList: MutableList<ClassifyCardBean> = ArrayList(),
         @SerializedName("usersList")
-        var usersList: List<AttentionManBean>? = null
+        var usersList: MutableList<AttentionManBean> = ArrayList()
 
 ) : RetrofitBean(), MultiItemEntity, Serializable {
 

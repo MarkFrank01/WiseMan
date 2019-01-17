@@ -15,7 +15,10 @@ class ADBanner(context: Context, attrs: AttributeSet) : Banner(context, attrs) {
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 //		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) / 2
         //16：6
-		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 3f /8f
+//		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 3f /8f
+
+        //16:4
+        val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 1f / 3f
 
 //        LogCat.e("Base"+(ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2))
 //        LogCat.e("HeightSize is $heightSize")

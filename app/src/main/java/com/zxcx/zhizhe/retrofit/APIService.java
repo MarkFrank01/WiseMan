@@ -40,11 +40,11 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-//    String API_SERVER_URL = "http://120.77.180.183:8043";
+    String API_SERVER_URL = "http://120.77.180.183:8043";
 
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
 //		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";
-    String API_SERVER_URL = "http://192.168.1.8:8043";
+//    String API_SERVER_URL = "http://192.168.1.8:8043";
 //	String API_SERVER_URL = App.getContext().getString(R.string.base_url);
 
 //    String API_SERVER_URL = "http://192.168.1.153:8043";

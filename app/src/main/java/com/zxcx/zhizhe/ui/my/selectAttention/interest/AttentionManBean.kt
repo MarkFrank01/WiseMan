@@ -13,7 +13,7 @@ import java.io.Serializable
 class AttentionManBean : RetrofitBean(), MultiItemEntity, Serializable {
 
     override fun getItemType(): Int {
-        return 0
+        return TYPE1
     }
 
     @SerializedName("id")
@@ -26,4 +26,9 @@ class AttentionManBean : RetrofitBean(), MultiItemEntity, Serializable {
     var latestcircleTitle: String? =null
     @SerializedName("avatar")
     var avatar: String? = null
+
+    companion object {
+
+        const val TYPE1 = 2
+    }
 }

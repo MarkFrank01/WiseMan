@@ -15,6 +15,8 @@ import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionContract
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionPresenter
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.expandViewTouchDelegate
 import kotlinx.android.synthetic.main.activity_select_label.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -28,6 +30,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private var mSelectedLabel: ClassifyCardBean? = null
     private var mNewLabelSelect: Boolean = false
     private var mNewLabelName: String = ""
+    private var mNewLabelName2: String = ""
     private lateinit var mClassifyAdapter: SelectClassifyAdapter
     private lateinit var mLabelAdapter: SelectLabelAdapter
 
@@ -51,6 +54,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private var mTheFirst: String = ""
     private var mTheSecond: String = ""
 
+    //第二个自定义标签状态(待定)
+    private var mCustomSecond = false
+    //存放最后传递的数据
+    private var mPushData :MutableList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_label)
@@ -63,9 +71,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
     private fun initData() {
         //二次获取
-        labelName = intent.getStringExtra("labelName")
-        classifyId = intent.getIntExtra("classifyId", 0)
-        mSelectName = intent.getStringExtra("twoLabelName")
+//        labelName = intent.getStringExtra("labelName")
+//        classifyId = intent.getIntExtra("classifyId", 0)
+//        mSelectName = intent.getStringExtra("twoLabelName")
 
         //日志
         Log.e("Back", labelName + "!" + mSelectName)
@@ -107,6 +115,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 mSelectedClassify = it
                 group_select_label.visibility = View.VISIBLE
                 mLabelAdapter.setNewData(it.dataList)
+                tv_select_label_2.visibility = View.VISIBLE
+                tv_select_label_3.visibility = View.GONE
+
             }
 
             if (it.isHit == 1) {
@@ -116,7 +127,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             }
 
         }
-        LogCat.e("Hot: "+mNewHotClassify.size+"Other: "+mNewOtherClassify.size)
+        LogCat.e("Hot: " + mNewHotClassify.size + "Other: " + mNewOtherClassify.size)
         mClassifyAdapter.setNewData(mNewHotClassify)
         mOtherAdapter.setNewData(mNewOtherClassify)
 //        mClassifyAdapter.setNewData(list)
@@ -126,7 +137,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         if (mTheSecond.isNotEmpty()) {
             mNewLabelName = labelName
             iv_select_label_new_label.visibility = View.GONE
-            iv_select_label_new_label_delete.visibility = View.VISIBLE
+//            iv_select_label_new_label_delete.visibility = View.VISIBLE
             cb_item_select_label_new_label.visibility = View.VISIBLE
             cb_item_select_label_new_label.text = mTheSecond
             cb_item_select_label_new_label.isChecked = true
@@ -158,6 +169,15 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             //传递值，存在疑问，bug导致数据顺序错乱
 
 //            intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
+
+            LogCat.e("SIZE"+mPushData.size)
+            if (mPushData.size == 1){
+                mTheFirst = mPushData[0]
+            }else if (mPushData.size>1){
+                mTheFirst = mPushData[0]
+                mTheSecond = mPushData[1]
+            }
+
             intent.putExtra("labelName", mTheFirst)
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
@@ -188,11 +208,17 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             dialog.mListener = {
                 mNewLabelName = it
                 iv_select_label_new_label.visibility = View.GONE
-                iv_select_label_new_label_delete.visibility = View.VISIBLE
+//                iv_select_label_new_label_delete.visibility = View.VISIBLE
                 cb_item_select_label_new_label.visibility = View.VISIBLE
+                tv_delete_label.visibility = View.VISIBLE
+                tv_delete_label.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
                 cb_item_select_label_new_label.text = it
                 cb_item_select_label_new_label.isChecked = true
 
+//                mPushData.add(it)
+
+                mCustomSecond = true
+                iv_select_label_new_label2.visibility = View.VISIBLE
                 mTheSecond = it
             }
             dialog.show(supportFragmentManager, "")
@@ -209,9 +235,95 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     mLabelAdapter.data[mSelectItem].isChecked = true
                 }
                 mLabelAdapter.notifyDataSetChanged()
+                mPushData.add(cb_item_select_label_new_label.text.toString())
+            }else{
+                mPushData.remove(cb_item_select_label_new_label.text.toString())
             }
             mNewLabelSelect = isChecked
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+
+//            if (!mCustomSecond) {
+//                iv_select_label_new_label2.visibility = View.VISIBLE
+//            }else{
+//                mCustomSecond = false
+//            }
+        }
+///////////////////////////////////////////////////////
+        cb_item_select_label_new_label2.setOnCheckedChangeListener{buttonView, isChecked ->
+            if (isChecked) {
+                mSelectedLabel = null
+                mLabelAdapter.data.forEach {
+                    it as ClassifyCardBean
+                    it.isChecked = false
+                }
+                if (mSelectItem != -1) {
+                    mLabelAdapter.data[mSelectItem].isChecked = true
+                }
+                mLabelAdapter.notifyDataSetChanged()
+                mPushData.add(cb_item_select_label_new_label2.text.toString())
+            }else{
+                mPushData.remove(cb_item_select_label_new_label2.text.toString())
+            }
+
+            mNewLabelSelect = isChecked
+            tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+
+        }
+
+        iv_select_label_new_label2.setOnClickListener {
+            val dialog2 = NewLabelDialog()
+            dialog2.mListener = {
+                mNewLabelName2 = it
+                iv_select_label_new_label2.visibility = View.GONE
+//                iv_select_label_new_label_delete.visibility = View.VISIBLE
+                cb_item_select_label_new_label2.visibility = View.VISIBLE
+                tv_delete_label2.visibility = View.VISIBLE
+                tv_delete_label2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+                cb_item_select_label_new_label2.text = it
+                cb_item_select_label_new_label2.isChecked = true
+
+//                mPushData.add(it)
+            }
+            dialog2.show(supportFragmentManager,"")
+        }
+
+        tv_delete_label.setOnClickListener {
+            toastShow("1")
+            mPushData.remove(cb_item_select_label_new_label.text.toString())
+            LogCat.e("cb_item_select_label_new_label ${mPushData.size}")
+            if (mPushData.size>0){
+                iv_select_label_new_label2.visibility = View.VISIBLE
+                cb_item_select_label_new_label2.visibility = View.GONE
+                cb_item_select_label_new_label2.isChecked = false
+                tv_delete_label2.visibility = View.GONE
+                cb_item_select_label_new_label.text = cb_item_select_label_new_label2.text.toString()
+                cb_item_select_label_new_label2.text = ""
+            }
+
+            if (mPushData.size==0){
+                iv_select_label_new_label.visibility = View.VISIBLE
+                cb_item_select_label_new_label.visibility = View.GONE
+                cb_item_select_label_new_label.text = ""
+                cb_item_select_label_new_label.isChecked = false
+                tv_delete_label.visibility = View.GONE
+            }
+//                iv_select_label_new_label.visibility = View.VISIBLE
+//                cb_item_select_label_new_label.visibility = View.GONE
+//                cb_item_select_label_new_label.text = ""
+//                cb_item_select_label_new_label.isChecked = false
+//                tv_delete_label.visibility = View.GONE
+        }
+
+        tv_delete_label2.setOnClickListener {
+            toastShow("2")
+            mPushData.remove(cb_item_select_label_new_label2.text.toString())
+                LogCat.e("cb_item_select_label_new_label2 ${mPushData.size}")
+                iv_select_label_new_label2.visibility = View.VISIBLE
+                cb_item_select_label_new_label2.visibility = View.GONE
+                cb_item_select_label_new_label2.text = ""
+                cb_item_select_label_new_label2.isChecked = false
+
+                tv_delete_label2.visibility = View.GONE
         }
     }
 
@@ -263,22 +375,31 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 group_select_label.visibility = View.VISIBLE
                 if (mNewLabelName.isEmpty()) {
                     cb_item_select_label_new_label.visibility = View.GONE
-                    iv_select_label_new_label_delete.visibility = View.GONE
+//                    iv_select_label_new_label_delete.visibility = View.GONE
                     iv_select_label_new_label.visibility = View.VISIBLE
                 } else {
                     cb_item_select_label_new_label.visibility = View.VISIBLE
-                    iv_select_label_new_label_delete.visibility = View.VISIBLE
+//                    iv_select_label_new_label_delete.visibility = View.VISIBLE
                     iv_select_label_new_label.visibility = View.GONE
                 }
                 bean.dataList.forEach {
                     it.isChecked = false
                 }
+
                 mLabelAdapter.setNewData(bean.dataList)
+                LogCat.e("bean.dataList" + bean.dataList.size)
+                if (bean.dataList.size==0) {
+                    tv_select_label_2.visibility = View.GONE
+                }else{
+                    tv_select_label_2.visibility = View.VISIBLE
+                }
+
             } else {
                 mSelectedClassify = null
                 group_select_label.visibility = View.GONE
+                tv_select_label_2.visibility = View.GONE
                 cb_item_select_label_new_label.visibility = View.GONE
-                iv_select_label_new_label_delete.visibility = View.GONE
+//                iv_select_label_new_label_delete.visibility = View.GONE
                 iv_select_label_new_label.visibility = View.GONE
             }
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
@@ -308,22 +429,28 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 group_select_label.visibility = View.VISIBLE
                 if (mNewLabelName.isEmpty()) {
                     cb_item_select_label_new_label.visibility = View.GONE
-                    iv_select_label_new_label_delete.visibility = View.GONE
+//                    iv_select_label_new_label_delete.visibility = View.GONE
                     iv_select_label_new_label.visibility = View.VISIBLE
                 } else {
                     cb_item_select_label_new_label.visibility = View.VISIBLE
-                    iv_select_label_new_label_delete.visibility = View.VISIBLE
+//                    iv_select_label_new_label_delete.visibility = View.VISIBLE
                     iv_select_label_new_label.visibility = View.GONE
                 }
                 bean.dataList.forEach {
                     it.isChecked = false
                 }
                 mLabelAdapter.setNewData(bean.dataList)
+                if (bean.dataList.size==0) {
+                    tv_select_label_2.visibility = View.GONE
+                }else{
+                    tv_select_label_2.visibility = View.VISIBLE
+                }
             } else {
                 mSelectedClassify = null
                 group_select_label.visibility = View.GONE
+                tv_select_label_2.visibility = View.GONE
                 cb_item_select_label_new_label.visibility = View.GONE
-                iv_select_label_new_label_delete.visibility = View.GONE
+//                iv_select_label_new_label_delete.visibility = View.GONE
                 iv_select_label_new_label.visibility = View.GONE
             }
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)

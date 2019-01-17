@@ -10,7 +10,8 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
  */
 class SearchLabelBean(
         @SerializedName("title") var title: String?,
-        @SerializedName("titleImage") var titleImage: String?
+        @SerializedName("titleImage") var titleImage: String?,
+        @SerializedName("id") var id : Int
 ):RetrofitBean(){
 
 }

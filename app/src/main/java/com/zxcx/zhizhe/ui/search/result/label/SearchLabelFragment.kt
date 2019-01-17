@@ -9,7 +9,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.UpdateLabelPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.card.label.LabelActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_result.*
@@ -85,10 +87,28 @@ class SearchLabelFragment : MvpFragment<SearchLabelPresenter>(), SearchLabelCont
         mPresenter?.searchLabel(mKeyword,mPage)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = mAdapter.data[position]
+        when(view.id){
+            R.id.re_to_label -> {
+                mActivity.startActivity(LabelActivity::class.java) {
+                    it.putExtra("id", bean.id)
+                    it.putExtra("name", bean.title)
+                }
+            }
+        }
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = mAdapter.data[position]
+        when(view.id){
+            R.id.re_to_label -> {
+                mActivity.startActivity(LabelActivity::class.java) {
+                    it.putExtra("id", bean.id)
+                    it.putExtra("name", bean.title)
+                }
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
