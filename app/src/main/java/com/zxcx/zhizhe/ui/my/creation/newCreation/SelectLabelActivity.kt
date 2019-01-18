@@ -57,7 +57,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     //第二个自定义标签状态(待定)
     private var mCustomSecond = false
     //存放最后传递的数据
-    private var mPushData :MutableList<String> = ArrayList()
+    private var mPushData: MutableList<String> = ArrayList()
+    //存放单独的官方类别数据
+    private var mSingleLable: String = ""
+    //存放单独的分类数据
+    private var mSingleClassify: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,9 +87,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
         }
 
         //必须置为第一个值，方便区分
-        mTheFirst = labelName
+//        mTheFirst = labelName
         //必须置为第二个值，方便区分
-        mTheSecond = mSelectName
+//        mTheSecond = mSelectName
     }
 
     override fun createPresenter(): SelectAttentionPresenter {
@@ -99,7 +103,6 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
                 //判断是否有已选择的值，有则选中，将替换为第一个值
                 if (it.name == labelName) {
-                    LogCat.e("labelName" + labelName)
                     it.isChecked = true
                     mSelectedLabel = it
                     mNewLabelSelect = false
@@ -127,7 +130,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             }
 
         }
-        LogCat.e("Hot: " + mNewHotClassify.size + "Other: " + mNewOtherClassify.size)
+//        LogCat.e("Hot: " + mNewHotClassify.size + "Other: " + mNewOtherClassify.size)
         mClassifyAdapter.setNewData(mNewHotClassify)
         mOtherAdapter.setNewData(mNewOtherClassify)
 //        mClassifyAdapter.setNewData(list)
@@ -142,7 +145,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             cb_item_select_label_new_label.text = mTheSecond
             cb_item_select_label_new_label.isChecked = true
 
-            mTheFirst = labelName
+//            mTheFirst = labelName
             tv_toolbar_right.isEnabled
         }
 
@@ -170,12 +173,35 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
 //            intent.putExtra("labelName", if (mNewLabelSelect) mNewLabelName else mSelectedLabel?.name)
 
-            LogCat.e("SIZE"+mPushData.size)
-            if (mPushData.size == 1){
-                mTheFirst = mPushData[0]
-            }else if (mPushData.size>1){
+            if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
+                LogCat.e("单官方")
+                mTheFirst = mSingleLable
+            }
+
+            LogCat.e("SIZE" + mPushData.size)
+            if (mPushData.size == 1) {
+
+                LogCat.e("单标签或者是")
+
+                if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
+                    LogCat.e("单官方和单自定义")
+                    mTheSecond = mPushData[0]
+                } else if (mSingleLable == "") {
+                    LogCat.e("单自定义")
+                    mTheFirst = mPushData[0]
+                }
+            } else if (mPushData.size > 1) {
+                LogCat.e("双标签")
                 mTheFirst = mPushData[0]
                 mTheSecond = mPushData[1]
+            }
+
+            if (mSingleLable == "" && mSingleClassify.isNotEmpty() && mSingleClassify != "") {
+                LogCat.e("单类别")
+                if (mPushData.size == 0) {
+//                    mTheFirst = mSingleClassify
+                    LogCat.e("+++"+mSelectedClassify?.id)
+                }
             }
 
             intent.putExtra("labelName", mTheFirst)
@@ -198,7 +224,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label.text = ""
                 cb_item_select_label_new_label.isChecked = false
 
-                mTheSecond = ""
+//                mTheSecond = ""
             }
             dialog.show(supportFragmentManager, "")
         }
@@ -218,8 +244,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //                mPushData.add(it)
 
                 mCustomSecond = true
-                iv_select_label_new_label2.visibility = View.VISIBLE
-                mTheSecond = it
+                if (mSingleLable == "") {
+                    iv_select_label_new_label2.visibility = View.VISIBLE
+                }
+//                mTheSecond = it
             }
             dialog.show(supportFragmentManager, "")
         }
@@ -236,7 +264,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 }
                 mLabelAdapter.notifyDataSetChanged()
                 mPushData.add(cb_item_select_label_new_label.text.toString())
-            }else{
+            } else {
                 mPushData.remove(cb_item_select_label_new_label.text.toString())
             }
             mNewLabelSelect = isChecked
@@ -249,7 +277,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //            }
         }
 ///////////////////////////////////////////////////////
-        cb_item_select_label_new_label2.setOnCheckedChangeListener{buttonView, isChecked ->
+        cb_item_select_label_new_label2.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 mSelectedLabel = null
                 mLabelAdapter.data.forEach {
@@ -261,7 +289,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 }
                 mLabelAdapter.notifyDataSetChanged()
                 mPushData.add(cb_item_select_label_new_label2.text.toString())
-            }else{
+            } else {
                 mPushData.remove(cb_item_select_label_new_label2.text.toString())
             }
 
@@ -284,14 +312,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
 //                mPushData.add(it)
             }
-            dialog2.show(supportFragmentManager,"")
+            dialog2.show(supportFragmentManager, "")
         }
 
         tv_delete_label.setOnClickListener {
-            toastShow("1")
+            //            toastShow("1")
             mPushData.remove(cb_item_select_label_new_label.text.toString())
-            LogCat.e("cb_item_select_label_new_label ${mPushData.size}")
-            if (mPushData.size>0){
+//            LogCat.e("cb_item_select_label_new_label ${mPushData.size}")
+            if (mPushData.size > 0) {
                 iv_select_label_new_label2.visibility = View.VISIBLE
                 cb_item_select_label_new_label2.visibility = View.GONE
                 cb_item_select_label_new_label2.isChecked = false
@@ -300,30 +328,25 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label2.text = ""
             }
 
-            if (mPushData.size==0){
+            if (mPushData.size == 0) {
                 iv_select_label_new_label.visibility = View.VISIBLE
                 cb_item_select_label_new_label.visibility = View.GONE
                 cb_item_select_label_new_label.text = ""
                 cb_item_select_label_new_label.isChecked = false
                 tv_delete_label.visibility = View.GONE
             }
-//                iv_select_label_new_label.visibility = View.VISIBLE
-//                cb_item_select_label_new_label.visibility = View.GONE
-//                cb_item_select_label_new_label.text = ""
-//                cb_item_select_label_new_label.isChecked = false
-//                tv_delete_label.visibility = View.GONE
         }
 
         tv_delete_label2.setOnClickListener {
-            toastShow("2")
+            //            toastShow("2")
             mPushData.remove(cb_item_select_label_new_label2.text.toString())
-                LogCat.e("cb_item_select_label_new_label2 ${mPushData.size}")
-                iv_select_label_new_label2.visibility = View.VISIBLE
-                cb_item_select_label_new_label2.visibility = View.GONE
-                cb_item_select_label_new_label2.text = ""
-                cb_item_select_label_new_label2.isChecked = false
+//            LogCat.e("cb_item_select_label_new_label2 ${mPushData.size}")
+            iv_select_label_new_label2.visibility = View.VISIBLE
+            cb_item_select_label_new_label2.visibility = View.GONE
+            cb_item_select_label_new_label2.text = ""
+            cb_item_select_label_new_label2.isChecked = false
 
-                tv_delete_label2.visibility = View.GONE
+            tv_delete_label2.visibility = View.GONE
         }
     }
 
@@ -387,13 +410,15 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 }
 
                 mLabelAdapter.setNewData(bean.dataList)
-                LogCat.e("bean.dataList" + bean.dataList.size)
-                if (bean.dataList.size==0) {
+//                LogCat.e("bean.dataList" + bean.dataList.size)
+                if (bean.dataList.size == 0) {
                     tv_select_label_2.visibility = View.GONE
-                }else{
+                } else {
                     tv_select_label_2.visibility = View.VISIBLE
                 }
 
+                mSingleClassify = bean.title
+                tv_toolbar_right.isEnabled = true
             } else {
                 mSelectedClassify = null
                 group_select_label.visibility = View.GONE
@@ -401,8 +426,18 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label.visibility = View.GONE
 //                iv_select_label_new_label_delete.visibility = View.GONE
                 iv_select_label_new_label.visibility = View.GONE
+
+                mSingleClassify = ""
+                mSingleLable = ""
+                tv_toolbar_right.isEnabled = false
             }
-            tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            if (mSingleClassify != "" && mSingleClassify.isNotEmpty() && mSelectedClassify != null) {
+                tv_toolbar_right.isEnabled = true
+//                mTheFirst = mSingleClassify
+//                LogCat.e("Fuck Classify" + mSingleClassify)
+            } else {
+                tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            }
             mSelectItem = -1
         }
 
@@ -440,11 +475,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     it.isChecked = false
                 }
                 mLabelAdapter.setNewData(bean.dataList)
-                if (bean.dataList.size==0) {
+                if (bean.dataList.size == 0) {
                     tv_select_label_2.visibility = View.GONE
-                }else{
+                } else {
                     tv_select_label_2.visibility = View.VISIBLE
                 }
+
+                mSingleClassify = bean.title
+                tv_toolbar_right.isEnabled = true
             } else {
                 mSelectedClassify = null
                 group_select_label.visibility = View.GONE
@@ -452,8 +490,17 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 cb_item_select_label_new_label.visibility = View.GONE
 //                iv_select_label_new_label_delete.visibility = View.GONE
                 iv_select_label_new_label.visibility = View.GONE
+
+                mSingleClassify = ""
+                mSingleLable = ""
+                tv_toolbar_right.isEnabled = false
             }
-            tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            if (mSingleClassify != "" && mSingleClassify.isNotEmpty() && mSelectedClassify != null) {
+                tv_toolbar_right.isEnabled = true
+//                mTheFirst = mSingleClassify
+            } else {
+                tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
+            }
             mSelectItem = -1
         }
 
@@ -497,22 +544,30 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //                    cb_item_select_label_new_label.isChecked = false
 //                }
 
-                mTheFirst = bean.name.toString()
+                mSingleLable = bean.name.toString()
 
 
             } else {
                 mSelectedLabel = null
-                mTheFirst = ""
+                mSingleLable = ""
             }
 
             tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
 
-            if (mTheFirst != "" && mTheFirst.isNotEmpty()) {
+            if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
                 tv_toolbar_right.isEnabled = true
             }
 
-            //只取第一个单值
-            Log.e("label", mTheFirst + "!")
+
+            iv_select_label_new_label2.isEnabled = mSingleLable == ""
+
+//            if (mSingleLable == "") {
+////                iv_select_label_new_label2.visibility = View.VISIBLE
+//                iv_select_label_new_label2.isEnabled = true
+//            }else{
+////                iv_select_label_new_label2.visibility = View.GONE
+//                iv_select_label_new_label2.isEnabled = false
+//            }
         }
     }
 }

@@ -19,6 +19,8 @@ class ClassifyCardBean : RetrofitBean(), MultiItemEntity, Serializable {
 	var imageUrl: String? = null
 	@SerializedName("title")
 	var name: String? = null
+    @SerializedName("follow")
+    var follow:Boolean = false
 
 	override fun getItemType(): Int {
 		return TYPE_CARD_BAG

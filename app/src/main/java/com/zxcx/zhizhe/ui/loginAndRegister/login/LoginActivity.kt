@@ -24,7 +24,7 @@ import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.interest.SelectInterestActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
@@ -119,7 +119,8 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 	override fun getDataSuccess(bean: LoginBean) {
 		if (!bean.user.hasAttention) {
 //			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
-			startActivity(SelectAttentionActivity::class.java) {}
+//			startActivity(SelectAttentionActivity::class.java) {}
+            startActivity(SelectInterestActivity::class.java){}
 		}
 		ZhiZheUtils.saveLoginData(bean)
 		//极光统计

@@ -26,6 +26,8 @@ class AttentionManBean : RetrofitBean(), MultiItemEntity, Serializable {
     var latestcircleTitle: String? =null
     @SerializedName("avatar")
     var avatar: String? = null
+    @SerializedName("follow")
+    var isFollow:Boolean = false
 
     companion object {
 

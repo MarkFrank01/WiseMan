@@ -5,13 +5,15 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.event.SelectAttentionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.LogCat
 import kotlinx.android.synthetic.main.activity_interest.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -25,11 +27,13 @@ import org.greenrobot.eventbus.EventBus
 class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInterestContract.View,
         BaseQuickAdapter.OnItemChildClickListener {
 
+
     //推荐的标签
     private var mCollectionList: MutableList<ClassifyCardBean> = ArrayList()
 
     //推荐的用户
-    private var mUserList: MutableList<AttentionManBean> = ArrayList()
+//    private var mUserList: MutableList<AttentionManBean> = ArrayList()
+    private var mUserList: MutableList<SearchUserBean> = ArrayList()
 
     private lateinit var mHotLabelAdapter: SelectHotLabelAdapter
     private lateinit var mHotManAdapter: SelectHotManAdapter
@@ -61,15 +65,22 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
         mCollectionList = bean.collectionList
         mUserList = bean.usersList
 
-        for (bean in mCollectionList){
-            mHotLabelAdapter.data.add(bean)
+        for (bean1 in mCollectionList){
+            LogCat.e("???"+bean1.follow )
+            if (bean1.follow){
+                LogCat.e("Data follow ")
+                if (!mCollectionList.contains(bean1)){
+                    mCollectionList.add(bean1)
+                }
+            }
+            mHotLabelAdapter.data.add(bean1)
         }
         mHotLabelAdapter.notifyDataSetChanged()
-        tv_toolbar_right.isEnabled = mCollectionList.isEmpty()
+        tv_toolbar_right.isEnabled = mCollectionList.isNotEmpty()
         LogCat.e("Coll size " + mCollectionList.size + "  mU size " + mUserList.size)
 
 //        mHotLabelAdapter.setNewData(mCollectionList as List<MultiItemEntity>?)
-        mHotManAdapter.setNewData(mUserList as List<MultiItemEntity>?)
+        mHotManAdapter.setNewData(mUserList)
 
     }
 
@@ -77,21 +88,30 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
         tv_toolbar_right.setOnClickListener {
             val idList = mutableListOf<Int>()
             mCollectionList.forEach {
-                idList.add(it.id)
+                if (it.follow) {
+                    idList.add(it.id)
+//                    LogCat.e("FUCK BK" + it.follow )
+                }
             }
-            mPresenter.changeAttentionList(idList)
+            if (idList.size<1){
+                tv_toolbar_right.isEnabled = false
+            }else{
+                tv_toolbar_right.isEnabled = true
+                mPresenter.changeAttentionList(idList)
+            }
         }
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val bean = adapter.data[position] as ClassifyCardBean
+//        val bean = adapter.data[position] as ClassifyCardBean
 
         when(view.id){
             R.id.fl_item_select_card_bag,R.id.cb_item_select_hot_label ->{
-                bean.isChecked = !bean.isChecked
+                val bean = adapter.data[position] as ClassifyCardBean
+                bean.follow  = !bean.follow
                 mHotManAdapter.notifyItemChanged(position)
 
-                if (bean.isChecked){
+                if (bean.follow ){
                     if (!mCollectionList.contains(bean)){
                         mCollectionList.add(bean)
                     }
@@ -102,8 +122,33 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
                 }
                 tv_toolbar_right.isEnabled = mCollectionList.isNotEmpty()
             }
+
+            R.id.iv_man_follow ->{
+                val cb = view as CheckBox
+                cb.isChecked = !cb.isChecked
+                val userBean = adapter.data[position] as SearchUserBean
+                if (cb.isChecked){
+                    mPresenter.unFollowUser(userBean.id)
+                }else{
+                    mPresenter.followUser(userBean.id)
+                }
+            }
         }
 
+    }
+
+    override fun mFollowUserSuccess(bean: SearchUserBean) {
+        val position = mHotManAdapter.data.indexOf(bean)
+        mHotManAdapter.data[position].isFollow = bean.isFollow
+        mHotManAdapter.notifyItemChanged(position)
+        EventBus.getDefault().post(FollowUserRefreshEvent())
+    }
+
+    override fun unFollowUserSuccess(bean: SearchUserBean) {
+        val position = mHotManAdapter.data.indexOf(bean)
+        mHotManAdapter.data[position].isFollow = false
+        mHotManAdapter.notifyItemChanged(position)
+        EventBus.getDefault().post(FollowUserRefreshEvent())
     }
 
     private fun initView() {

@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import java.io.Serializable
 
 /**
@@ -15,7 +16,8 @@ class InterestRecommendBean(
         @SerializedName("collectionList")
         var collectionList: MutableList<ClassifyCardBean> = ArrayList(),
         @SerializedName("usersList")
-        var usersList: MutableList<AttentionManBean> = ArrayList()
+//        var usersList: MutableList<AttentionManBean> = ArrayList()
+        var usersList: MutableList<SearchUserBean> = ArrayList()
 
 ) : RetrofitBean(), MultiItemEntity, Serializable {
 

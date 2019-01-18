@@ -3,22 +3,25 @@ package com.zxcx.zhizhe.ui.my.userInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity;
+import com.zxcx.zhizhe.ui.my.selectAttention.interest.SelectInterestActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 用户信息页面
@@ -125,7 +128,8 @@ public class UserInfoActivity extends BaseActivity {
 	@OnClick(R.id.ll_user_info_attention)
 	public void onMLlUserInfoAttentionClicked() {
 		//兴趣选择页面
-		Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
+//		Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
+        Intent intent = new Intent(mActivity, SelectInterestActivity.class);
 		startActivity(intent);
 	}
 	

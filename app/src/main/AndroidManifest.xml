@@ -309,6 +309,7 @@
             android:theme="@style/AppTheme.FullScreen"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
+            android:launchMode="singleTask"
             android:name=".ui.my.creation.newCreation.SelectLabelActivity"
             android:screenOrientation="portrait"/>
         <activity

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/cn_man_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:layout_marginBottom="32dp"
     android:layout_marginStart="12dp"
     app:layout_scrollFlags="scroll">
@@ -21,17 +22,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:riv_oval="true"/>
 
-    <TextView
+    <CheckBox
         android:id="@+id/iv_man_follow"
-        android:layout_width="50dp"
+        android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginStart="35dp"
-        android:background="@drawable/bg_level"
-        android:gravity="center_vertical"
-        android:paddingStart="21dp"
-        android:textColor="@color/white_final"
-        android:textSize="@dimen/text_size_text_3"
-        android:text="1000"
+        android:layout_marginStart="45dp"
+        android:background="@drawable/selector_search_user_follow_new"
+        android:button="@null"
+        android:checked="false"
         app:layout_constraintBottom_toBottomOf="@+id/iv_man_head"
         app:layout_constraintStart_toStartOf="@+id/iv_man_head"/>
 
@@ -40,27 +38,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:gravity="center"
         android:maxLength="8"
         android:maxLines="1"
+        android:text="@string/app_name"
         android:textColor="@color/text_color_1"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_man_head"
-        android:text="@string/app_name"/>
+        app:layout_constraintTop_toBottomOf="@id/iv_man_head"/>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/iv_man_circle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/cn_circle_pic"
+        android:drawablePadding="1dp"
         android:ellipsize="end"
+        android:gravity="center"
         android:maxLines="1"
         android:singleLine="true"
+        android:text="@string/app_name"
         android:textColor="@color/text_color_3"
         android:textSize="@dimen/text_size_text_3"
-        android:text="@string/app_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_man_name"/>

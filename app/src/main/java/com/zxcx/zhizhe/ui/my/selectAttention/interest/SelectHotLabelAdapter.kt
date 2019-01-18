@@ -26,7 +26,7 @@ class SelectHotLabelAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
 
                 val cardBean = item as ClassifyCardBean
                 helper.setText(R.id.cb_item_select_hot_label, "# "+cardBean.name)
-                helper.setChecked(R.id.cb_item_select_hot_label, cardBean.isChecked)
+                helper.setChecked(R.id.cb_item_select_hot_label, cardBean.follow)
 
                 val para = helper.itemView.layoutParams
                 val screenWidth = ScreenUtils.getDisplayWidth()

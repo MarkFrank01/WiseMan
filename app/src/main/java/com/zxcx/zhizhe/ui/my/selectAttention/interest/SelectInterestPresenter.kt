@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.selectAttention.interest
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 
 /**
  * @author : MarkFrank01
@@ -8,6 +9,7 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter
  * @Description :
  */
 class SelectInterestPresenter(view:SelectInterestContract.View):BasePresenter<SelectInterestContract.View>(),SelectInterestContract.Presenter {
+
 
     private val mModel:SelectInterestModel
 
@@ -22,6 +24,22 @@ class SelectInterestPresenter(view:SelectInterestContract.View):BasePresenter<Se
 
     fun changeAttentionList(idList:MutableList<Int>){
         mModel.changeAttentionList(idList)
+    }
+
+    fun followUser(authorId:Int){
+        mModel.followUser(authorId)
+    }
+
+    fun unFollowUser(authorId: Int){
+        mModel.unFollowUser(authorId)
+    }
+
+    override fun mFollowUserSuccess(bean: SearchUserBean) {
+        mView.mFollowUserSuccess(bean)
+    }
+
+    override fun unFollowUserSuccess(bean: SearchUserBean) {
+        mView.unFollowUserSuccess(bean)
     }
 
     override fun getDataSuccess(bean: InterestRecommendBean) {
