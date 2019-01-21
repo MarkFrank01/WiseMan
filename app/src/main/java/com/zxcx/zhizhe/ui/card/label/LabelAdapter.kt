@@ -15,7 +15,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
-
+//标记参考
 class LabelAdapter(data: List<ArticleAndSubjectBean>?, private val mListener: SubjectOnClickListener) :
 		BaseMultiItemQuickAdapter<ArticleAndSubjectBean, BaseViewHolder>(data), BaseQuickAdapter.OnItemClickListener {
 

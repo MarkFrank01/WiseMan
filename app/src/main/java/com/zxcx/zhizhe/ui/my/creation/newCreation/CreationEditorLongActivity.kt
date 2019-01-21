@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +52,9 @@ class CreationEditorLongActivity : BaseActivity(),
 
     //第二标签
     private var twolabelName = ""
+
+    //分类名称
+    private var classifyName = ""
 
     //卡片字数
     private var mStrLength = 0
@@ -559,9 +561,12 @@ class CreationEditorLongActivity : BaseActivity(),
                     classifyId = data.getIntExtra("classifyId", 0)
 
                     twolabelName = data.getStringExtra("twoLabelName")
-                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
+
+                    classifyName = data.getStringExtra("classifyName")
+
+//                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
 //					editor.setLabel(labelName, classifyId)
-                    editor.twoSetLabel(labelName, twolabelName, classifyId)
+                    editor.twoSetLabel(labelName, twolabelName, classifyId,classifyName)
                 }
                 Constants.CLIP_IMAGE -> {
                     //图片裁剪完成

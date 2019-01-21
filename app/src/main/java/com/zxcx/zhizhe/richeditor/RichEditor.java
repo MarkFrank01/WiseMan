@@ -329,19 +329,24 @@ public class RichEditor extends WebView {
     public void twoSetLabel(String labelName, String cusName, int classifyId) {
 //        if (!custom.equals("")) {
         Log.e("Go", labelName + "+" + cusName + "+" + classifyId);
-            exec("twoSetLabel('" + labelName + "'," + "'" + cusName + "'," + classifyId + ");");
+        exec("twoSetLabel('" + labelName + "'," + "'" + cusName + "'," + classifyId + ");");
 //        }else {
 //            exec("setLabel('" + labelName + "'," + classifyId + ");");
 //        }
     }
 
+    //获取标签名称与分类id(新)
+    public void twoSetLabel(String labelName, String cusName, int classifyId, String classifyName) {
+        exec("twoSetLabel('" + labelName + "'," + "'" + cusName + "'," + classifyId + ",'" + classifyName + "');");
+    }
+
     //创作预览
-    public void twoEditPreview(){
+    public void twoEditPreview() {
         exec("twoEditPreview();");
     }
 
     //退出编辑
-    public void twoExitEdit(){
+    public void twoExitEdit() {
         exec("twoExitEdit();");
     }
     /////////////////////////////////////////////////////////

@@ -55,7 +55,13 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
 //                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())
 //                }
 
-                helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.GONE
+                if (item.labelName!=""||item.labelName.isNotEmpty()||item.secondCollectionTitle.isEmpty()) {
+                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.GONE
+                }else{
+                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+                    helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
+                    helper.setText(R.id.tv_item_card_label2, item.getSecondLabelName())
+                }
 
                 imageView.transitionName = mContext.getString(R.string.card_img_transition_name, helper.adapterPosition)
                 helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(

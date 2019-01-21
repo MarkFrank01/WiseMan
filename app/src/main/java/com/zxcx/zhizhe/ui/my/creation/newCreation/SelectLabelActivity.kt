@@ -207,6 +207,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             intent.putExtra("labelName", mTheFirst)
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
+            intent.putExtra("classifyName",mSelectedClassify?.title)
 
             LogCat.e("Push" + mTheFirst + "---------" + mTheSecond)
 

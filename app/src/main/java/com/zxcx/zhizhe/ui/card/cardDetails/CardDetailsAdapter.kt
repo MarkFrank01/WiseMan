@@ -26,7 +26,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
         helper.setText(R.id.tv_item_card_details_title, item.name)
         helper.setText(R.id.tv_item_card_details_category, item.categoryName)
-        helper.setText(R.id.tv_item_card_details_label, item.getLabelName())
+//        helper.setText(R.id.tv_item_card_details_label, item.getLabelName())
         helper.setText(R.id.tv_item_card_details_author, item.authorName)
         helper.setText(R.id.tv_item_card_details_comment, item.commentNum.toString())
         helper.setText(R.id.tv_item_card_details_collect, item.collectNum.toString())
@@ -38,6 +38,14 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.getView<TextView>(R.id.tv_item_card_details_like).isEnabled = item.isLike
 
         helper.setText(R.id.tv_item_card_details_time,item.distanceTime)
+
+        if(item.labelName!=""&&item.labelName.isNotEmpty()) {
+            helper.getView<TextView>(R.id.tv_item_card_details_label).visibility = View.VISIBLE
+            helper.setText(R.id.tv_item_card_details_label, item.getLabelName())
+        }else{
+            helper.getView<TextView>(R.id.tv_item_card_details_label).visibility = View.GONE
+        }
+
 
         if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()){
             helper.getView<TextView>(R.id.tv_item_card_details_label2).visibility = View.VISIBLE

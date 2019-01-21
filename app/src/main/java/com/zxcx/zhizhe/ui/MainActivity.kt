@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
@@ -19,7 +20,6 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
-import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -39,7 +39,8 @@ class MainActivity : BaseActivity() {
     private var mCurrentFragment = Fragment()
     private var mHomeCardFragment = HomeCardFragment()
     private var mHomeArticleFragment = HomeArticleFragment()
-    private var mRankFragment = RankFragment()
+//    private var mRankFragment = RankFragment()
+    private var mCircleFragment = CircleFragment()
     private var mMyFragment: MyFragment? = MyFragment()
     private var mIsReenter = false
 
@@ -222,9 +223,10 @@ class MainActivity : BaseActivity() {
 
         home_tab_card.setOnClickListener { switchFragment(mHomeCardFragment) }
         home_tab_article.setOnClickListener { switchFragment(mHomeArticleFragment) }
-        home_tab_rank.setOnClickListener {
-            switchFragment(mRankFragment)
-        }
+//        home_tab_rank.setOnClickListener {
+//            switchFragment(mRankFragment)
+//        }
+        home_tab_rank.setOnClickListener { switchFragment(mCircleFragment) }
         home_tab_my.setOnClickListener { switchFragment(mMyFragment) }
     }
 
