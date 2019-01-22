@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/circle_list_item_iv"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:src="@drawable/cn_circle_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/circle_list_item_tv"
-            android:gravity="center"
-            tools:text="科技"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_item_circle_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

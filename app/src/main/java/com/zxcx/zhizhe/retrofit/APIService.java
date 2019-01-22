@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.service.version_update.entity.UpdateApk;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
+import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
@@ -669,4 +670,24 @@ public interface APIService {
      */
     @POST("/interestRecommend/getInterestRecommend")
     Flowable<BaseBean<InterestRecommendBean>> getInterestRecommend();
+
+
+    ///////////////////////////////////////////////////
+    /**
+     * 圈子模块接口
+     */
+
+
+    /**
+     * 获取圈子的分类
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @POST("/circle/getRecommendClassifyList")
+    Flowable<BaseArrayBean<CircleClassifyBean>> getCircleClassify(
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
+    );
+
 }

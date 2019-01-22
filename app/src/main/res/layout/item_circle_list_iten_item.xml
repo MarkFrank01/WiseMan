@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/ll_item_circle_list_iten_item"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/iv_circle_list_iten_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_circle_list_iten_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textColor="@color/text_color_2"
+        android:textSize="12sp"
+        tools:text="科技"/>
+
+</LinearLayout>
