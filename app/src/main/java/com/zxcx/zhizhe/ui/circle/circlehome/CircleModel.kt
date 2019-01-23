@@ -54,4 +54,17 @@ class CircleModel(presenter: CircleContract.Presenter):BaseModel<CircleContract.
                 })
         addSubscription(mDisposable)
     }
+
+    //获取圈子信息
+    fun getRecommendCircleListByPage(page: Int,pageSize: Int){
+        mDisposable = AppClient.getAPIService().getRecommendCircleListByPage(page,pageSize)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object :BaseSubscriber<MutableList<CircleBean>>(mPresenter){
+                    override fun onNext(t: MutableList<CircleBean>) {
+                        mPresenter?.getDataSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }

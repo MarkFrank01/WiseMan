@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.adapter
+package com.zxcx.zhizhe.mvp.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder

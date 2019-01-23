@@ -26,6 +26,10 @@ class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.Vi
         mModel.getClassify(page,pageSize)
     }
 
+    fun getRecommendCircleListByPage(page: Int,pageSize: Int){
+        mModel.getRecommendCircleListByPage(page,pageSize)
+    }
+
     override fun getADSuccess(list: MutableList<ADBean>) {
         mView.getADSuccess(list)
     }

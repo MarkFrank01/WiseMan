@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.circle.circlehome
 
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.GlideBannerImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.gridview.Model
 import kotlinx.android.synthetic.main.fragment_circle.*
 import kotlinx.android.synthetic.main.fragment_hot.*
@@ -41,9 +43,13 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     private var imageList: MutableList<String> = mutableListOf()
 
     //分类部分的数据
-    private var mClassifyData:MutableList<Model> = mutableListOf()
+    private var mClassifyData: MutableList<Model> = mutableListOf()
     private var mClassifyPage = 0
     private var mClassifyPageSize = Constants.PAGE_SIZE
+
+    //圈子列表的数据
+    private var mCircleListPage = 0
+    private var mCircleListPageSize = Constants.PAGE_SIZE
 
     //分类部分的adapter
 //    private lateinit var mClassifyAdapter: CircleListAdapter
@@ -63,7 +69,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         initRecyclerView()
         initADView()
         mPresenter.getAD()
-        mPresenter.getClassify(mClassifyPage,mClassifyPageSize)
+        mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
+        getCircleById()
     }
 
     override fun onDestroyView() {
@@ -76,9 +83,22 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         toastShow("刷新成功")
     }
 
-    override fun getDataSuccess(bean: MutableList<CircleBean>?) {
+    override fun getDataSuccess(list: MutableList<CircleBean>) {
         LogCat.e("圈子获取圈子信息成功")
-
+        if (mCircleListPage == 0){
+            mAdapter.setNewData(list)
+            rv_circle_home_2.scrollToPosition(0)
+        }else{
+            mAdapter.addData(list)
+        }
+        mCircleListPage++
+        if (list.isEmpty()){
+            mAdapter.loadMoreEnd(false)
+        }else{
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -100,21 +120,25 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getClassifySuccess(list: MutableList<CircleClassifyBean>) {
         LogCat.e("圈子获取分类成功 ${list.size}")
-//        mCircleBean.classifyList = list
-//        mClassifyAdapter.setNewData(list as List<MultiItemEntity>?)
-//        mClassifyAdapter.addData(list)
         list.forEach {
-             mClassifyData.add(Model(it.title,it.titleImage))
+            mClassifyData.add(Model(it.title, it.titleImage))
         }
 
-        gv_circle_classify.pageSize = 10
-        gv_circle_classify.setGridItemClickListener { pos, position, str ->
-            toastShow("pos $pos")
+        if (mClassifyPage < 3) {
+            mClassifyPage++
+            mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
+        }else{
+            gv_circle_classify.pageSize = 10
+            gv_circle_classify.setGridItemClickListener { pos, position, str ->
+                toastShow("pos $pos+$position")
+//                mActivity.startActivity(TemplateCardActivity::class.java){}
+            }
+            gv_circle_classify.init(mClassifyData)
         }
-        gv_circle_classify.init(mClassifyData)
     }
 
     override fun onLoadMoreRequested() {
+        getCircleById()
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -142,18 +166,19 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
         //第三块
 //        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        mAdapter = CircleAdapter(ArrayList(), this)
-//        mAdapter.setLoadMoreView(CustomLoadMoreView())
-//        mAdapter.setOnLoadMoreListener(this, rv_circle_home_2)
-//        mAdapter.onItemClickListener = this
-////        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
-////        mAdapter.emptyView = view
-//
-//        rv_circle_home_2.layoutManager = layoutManager
-//        rv_circle_home_2.adapter = mAdapter
+        val layoutManager = GridLayoutManager(context, 2)
+        mAdapter = CircleAdapter(ArrayList(), this)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_circle_home_2)
+        mAdapter.onItemClickListener = this
+//        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+//        mAdapter.emptyView = view
+
+        rv_circle_home_2.layoutManager = layoutManager
+        rv_circle_home_2.adapter = mAdapter
     }
 
-    private fun initADView(){
+    private fun initADView() {
         banner_circle.setImageLoader(GlideBannerImageLoader())
         banner_circle.setIndicatorGravity(BannerConfig.RIGHT)
         banner_circle.setOnBannerListener {
@@ -183,9 +208,9 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             override fun onPageSelected(position: Int) {
                 val newPosition = position % 3
                 val ad = mAdList[newPosition]
-                if (mAdList.size>0) {
+                if (mAdList.size > 0) {
 
-                    if (iv_ad_label_card!=null) {
+                    if (iv_ad_label_card != null) {
 
                         when (ad.styleType) {
 
@@ -204,5 +229,10 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             }
 
         })
+    }
+
+    //获取圈子
+    private fun getCircleById(){
+        mPresenter.getRecommendCircleListByPage(mCircleListPage,mCircleListPageSize)
     }
 }

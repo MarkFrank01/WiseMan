@@ -75,14 +75,14 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp">
+            android:layout_marginTop="20dp">
 
             <com.zxcx.zhizhe.widget.Rounded6FrameLayout
                 android:id="@+id/fl_banner_circle"
@@ -112,6 +112,7 @@
             </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
 
             <LinearLayout
+                android:id="@+id/ll_gv_circle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -120,7 +121,7 @@
                 <com.zxcx.zhizhe.widget.gridview.GridViewPager
                     android:id="@+id/gv_circle_classify"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="200dp"
                     android:background="#FFFFFF"/>
             </LinearLayout>
 
@@ -132,15 +133,15 @@
 
             <!--</android.support.v7.widget.RecyclerView>-->
 
-            <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/rv_circle_home_2"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/rv_circle_home_1"/>-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_circle_home_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/ll_gv_circle"/>
 
         </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
 
 </LinearLayout>

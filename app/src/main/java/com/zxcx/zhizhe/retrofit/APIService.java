@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
@@ -690,4 +691,15 @@ public interface APIService {
             @Query("pageSize") int pageSize
     );
 
+    /**
+     * 通过分页获取推荐圈子
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @POST("/circle/getRecommendCircleListByPage")
+    Flowable<BaseArrayBean<CircleBean>> getRecommendCircleListByPage(
+         @Query("pageIndex") int page,
+         @Query("pageSize") int pageSize
+    );
 }

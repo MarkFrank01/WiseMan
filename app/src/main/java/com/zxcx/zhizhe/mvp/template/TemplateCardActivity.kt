@@ -1,11 +1,11 @@
-package com.zxcx.zhizhe.ui.my.template
+package com.zxcx.zhizhe.mvp.template
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.adapter.TemplateCardAdapter
+import com.zxcx.zhizhe.mvp.adapter.TemplateCardAdapter
 import com.zxcx.zhizhe.mvp.contract.TemplateContract
 import com.zxcx.zhizhe.mvp.entity.DataServer
 import com.zxcx.zhizhe.mvp.presenter.TemplatePresenter
