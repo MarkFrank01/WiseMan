@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.circle.circlehome
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
+import com.zxcx.zhizhe.ui.circle.bean.CircleItemBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
@@ -18,48 +19,49 @@ class CircleBean(
 
     //标记
     @Deprecated("暂时不用")
-    var mCircleType:Int = 0
+    var mCircleType: Int = 0
 
     //广告
     @Deprecated("暂时不用")
-     var adList: MutableList<ADBean> = ArrayList()
+    var adList: MutableList<ADBean> = ArrayList()
 
     //分类类别
     @Deprecated("暂时不用")
-     var classifyList: MutableList<ClassifyBean> = ArrayList()
+    var classifyList: MutableList<ClassifyBean> = ArrayList()
 
     //id
     @SerializedName("id")
-    var id:Int = 0
+    var id: Int = 0
 
     @SerializedName("title")
-    var title:String = ""
+    var title: String = ""
 
     @SerializedName("hasJoin")
-    var hasJoin:String = ""
+    var hasJoin: Boolean = false
 
     @SerializedName("sign")
-    var sign:String = ""
+    var sign: String = ""
 
     @SerializedName("titleImage")
-    var titleImage:String = ""
+    var titleImage: String = ""
 
     @SerializedName("classifytitle")
-    var classifytitle:String = ""
+    var classifytitle: String = ""
 
     @SerializedName("createrName")
-    var createrName:String =""
+    var createrName: String = ""
 
     @SerializedName("joinUserCount")
-    var joinUserCount:Int = 0
+    var joinUserCount: Int = 0
 
     @SerializedName("qaCount")
-    var qaCount:Int = 0
+    var qaCount: Int = 0
 
     @SerializedName("price")
-    var price:String = ""
+    var price: String = ""
 
-
+    @SerializedName("classifyVO")
+    val classifyVO: CircleItemBean? = null
 
     override fun getItemType(): Int {
         return CIRCLE_HOME_1

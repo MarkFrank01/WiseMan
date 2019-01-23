@@ -712,4 +712,24 @@ public interface APIService {
        @Query("pageSize") int pageSize
     );
 
+    /**
+     * 通过分类获取的圈子
+     */
+    @POST("/circle/getCircleListByClassifyId")
+    Flowable<BaseArrayBean<CircleBean>> getCircleListByClassifyId(
+            @Query("classifyId") int classifyId,
+            @Query("orderType") int orderType,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
+    /**
+     * 加入或退出圈子
+     * 加入类型 0加入 1退出
+     */
+    @POST("/circle/joinCircle")
+    Flowable<BaseArrayBean<CircleBean>> setjoinCircle(
+            @Query("circleId") int circleId,
+            @Query("joinType") int joinType
+    );
 }

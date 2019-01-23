@@ -9,12 +9,14 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
  * @Created on 2019/1/23
  * @Description :
  */
-class CircleClassifyContract{
-    interface View:GetPostView<MutableList<CircleBean>,CircleBean>{
-
+class CircleClassifyContract {
+    interface View : GetPostView<MutableList<CircleBean>, MutableList<CircleBean>> {
+        fun JoinCircleSuccess(bean: MutableList<CircleBean>)
+        fun QuitCircleSuccess(bean: MutableList<CircleBean>)
     }
 
-    interface Presenter : IGetPostPresenter<MutableList<CircleBean>,CircleBean>{
-
+    interface Presenter : IGetPostPresenter<MutableList<CircleBean>, MutableList<CircleBean>> {
+        fun JoinCircleSuccess(bean: MutableList<CircleBean>)
+        fun QuitCircleSuccess(bean: MutableList<CircleBean>)
     }
 }

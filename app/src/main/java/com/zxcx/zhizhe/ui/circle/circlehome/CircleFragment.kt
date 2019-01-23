@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
+import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
@@ -45,9 +46,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     private var mClassifyPage = 0
     private var mClassifyPageSize = Constants.PAGE_SIZE
 
+    private var mClassifySAVEData: MutableList<CircleClassifyBean> = mutableListOf()
+
     //圈子列表的数据
     private var mCircleListPage = 0
     private var mCircleListPageSize = Constants.PAGE_SIZE
+
+    //圈子列表的数据(测试替换)
+    private var mCircleNewList: MutableList<CircleBean> = mutableListOf()
 
     //分类部分的adapter
 //    private lateinit var mClassifyAdapter: CircleListAdapter
@@ -83,17 +89,28 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
-        LogCat.e("圈子获取圈子信息成功")
-        if (mCircleListPage == 0){
+//        LogCat.e("圈子获取圈子信息成功 " + list[0].classifyVO?.title+"---"+list[0].classifyVO?.id)
+//        list.forEach {
+//            it.classifyVO?.let { it1 -> mCircleNewList.add(it1) }
+//        }
+        list.forEach {
+            LogCat.e("Circle" + it.classifyVO?.id)
+            if (it.classifyVO?.id == 0)
+                mCircleNewList.add(it)
+        }
+
+        if (mCircleListPage == 0) {
             mAdapter.setNewData(list)
+//            mAdapter.setNewData(mCircleNewList)
             rv_circle_home_2.scrollToPosition(0)
-        }else{
+        } else {
             mAdapter.addData(list)
+//            mAdapter.addData(mCircleNewList)
         }
         mCircleListPage++
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             mAdapter.loadMoreEnd(false)
-        }else{
+        } else {
             mAdapter.loadMoreComplete()
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
@@ -121,16 +138,21 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         LogCat.e("圈子获取分类成功 ${list.size}")
         list.forEach {
             mClassifyData.add(Model(it.title, it.titleImage))
+            mClassifySAVEData.add(it)
         }
 
         if (mClassifyPage < 3) {
             mClassifyPage++
             mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
-        }else{
+        } else {
             gv_circle_classify.pageSize = 10
             gv_circle_classify.setGridItemClickListener { pos, position, str ->
-                toastShow("pos $pos+$position")
+                //                toastShow("pos $pos+$position")
 //                mActivity.startActivity(TemplateCardActivity::class.java){}
+                mActivity.startActivity(CircleClassifyActivity::class.java) {
+                    it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
+                    it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+                }
             }
             gv_circle_classify.init(mClassifyData)
         }
@@ -139,18 +161,18 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
         LogCat.e("获取我加入的圈子成功 ${list.size}")
         //        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView)
-        if (list[0].titleImage.isNotEmpty()&&list[0].titleImage!=""){
-            circle_image.visibility =View.VISIBLE
-            ImageLoader.load(mActivity,list[0].titleImage,R.drawable.default_card,circle_image)
+        if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
+            circle_image.visibility = View.VISIBLE
+            ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
 
         }
-        if (list[1].titleImage.isNotEmpty()&&list[1].titleImage!=""){
+        if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
             circle_image2.visibility = View.VISIBLE
-            ImageLoader.load(mActivity,list[1].titleImage,R.drawable.default_card,circle_image2)
+            ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
         }
-        if (list[2].titleImage.isNotEmpty()&&list[2].titleImage!=""){
+        if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
             circle_image3.visibility = View.VISIBLE
-            ImageLoader.load(mActivity,list[2].titleImage,R.drawable.default_card,circle_image3)
+            ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
         }
     }
 
@@ -248,16 +270,16 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         })
     }
 
-    private fun initView(){
-        if (checkLogin()){
+    private fun initView() {
+        if (checkLogin()) {
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
         }
-        mPresenter.getMyJoinCircleList(0,3)
+        mPresenter.getMyJoinCircleList(0, 3)
     }
 
     //获取圈子
-    private fun getCircleById(){
-        mPresenter.getRecommendCircleListByPage(mCircleListPage,mCircleListPageSize)
+    private fun getCircleById() {
+        mPresenter.getRecommendCircleListByPage(mCircleListPage, mCircleListPageSize)
     }
 }

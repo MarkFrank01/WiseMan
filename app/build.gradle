@@ -232,6 +232,9 @@ dependencies {
     implementation 'cn.yipianfengye.android:ad-library:1.0'
 
     implementation files('lib/jsoup-1.11.3.jar')
+
+    //超级弹框
+    implementation 'com.lxj:xpopup:1.0.9'
 }
 
 kapt {

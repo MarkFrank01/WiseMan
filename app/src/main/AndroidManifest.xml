@@ -124,8 +124,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
-            android:launchMode="singleTask"
             android:name=".ui.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"/>
         <activity
@@ -309,8 +309,8 @@
             android:theme="@style/AppTheme.FullScreen"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
-            android:launchMode="singleTask"
             android:name=".ui.my.creation.newCreation.SelectLabelActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.creationDetails.RejectCardDetailsActivity"
@@ -343,6 +343,10 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.selectAttention.interest.SelectInterestActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.classify.CircleClassifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>
