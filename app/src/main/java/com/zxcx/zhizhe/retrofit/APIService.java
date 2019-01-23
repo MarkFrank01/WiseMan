@@ -702,4 +702,14 @@ public interface APIService {
          @Query("pageIndex") int page,
          @Query("pageSize") int pageSize
     );
+
+    /**
+     * 获取我加入的圈子
+     */
+    @POST("/circle/getMyJoinCircleList")
+    Flowable<BaseArrayBean<CircleBean>> getMyJoinCircleList(
+       @Query("pageIndex") int page,
+       @Query("pageSize") int pageSize
+    );
+
 }

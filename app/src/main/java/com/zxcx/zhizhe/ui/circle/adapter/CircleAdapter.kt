@@ -21,6 +21,7 @@ class CircleAdapter(data:List<CircleBean>, private val mListener: CircleHomeOnCl
     }
 
     override fun convert(helper: BaseViewHolder, item: CircleBean) {
+
         val imageUrl = ZhiZheUtils.getHDImageUrl(item.titleImage)
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
         ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView)

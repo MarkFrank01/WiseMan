@@ -24,7 +24,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:riv_oval="true"/>
 
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:visibility="gone"
+            android:id="@+id/circle_image2"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/iv_my_head_placeholder"
+            app:layout_constraintStart_toEndOf="@+id/circle_image"
+            app:riv_oval="true"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:visibility="gone"
+            android:id="@+id/circle_image3"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/iv_my_head_placeholder"
+            app:layout_constraintStart_toEndOf="@+id/circle_image2"
+            app:riv_oval="true"/>
+
         <TextView
+            android:visibility="gone"
             android:id="@+id/circle_hint_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,6 +61,7 @@
             app:layout_constraintStart_toEndOf="@id/circle_image"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/circle_hint_login_dec"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +79,6 @@
             android:layout_height="20dp"
             android:layout_marginEnd="24dp"
             android:src="@drawable/rb_circle_rank"
-            app:layout_constraintBottom_toTopOf="@id/circle_hint_login_dec"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
@@ -62,7 +87,6 @@
             android:layout_height="20dp"
             android:layout_marginEnd="25dp"
             android:src="@drawable/rb_circle_rank"
-            app:layout_constraintBottom_toTopOf="@id/circle_hint_login_dec"
             app:layout_constraintEnd_toStartOf="@id/iv_3"/>
 
         <ImageView
@@ -70,7 +94,6 @@
             android:layout_height="20dp"
             android:layout_marginEnd="25dp"
             android:src="@drawable/rb_circle_rank"
-            app:layout_constraintBottom_toTopOf="@id/circle_hint_login_dec"
             app:layout_constraintEnd_toStartOf="@id/iv_2"/>
 
     </android.support.constraint.ConstraintLayout>

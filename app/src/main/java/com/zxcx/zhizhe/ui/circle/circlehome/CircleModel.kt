@@ -67,4 +67,17 @@ class CircleModel(presenter: CircleContract.Presenter):BaseModel<CircleContract.
                 })
         addSubscription(mDisposable)
     }
+
+    //获取我加入的圈子
+    fun getMyJoinCircleList(page: Int,pageSize: Int){
+        mDisposable = AppClient.getAPIService().getMyJoinCircleList(page,pageSize)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object :BaseSubscriber<MutableList<CircleBean>>(mPresenter){
+                    override fun onNext(t: MutableList<CircleBean>) {
+                        mPresenter?.getMyJoinCircleListSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }

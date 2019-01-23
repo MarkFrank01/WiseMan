@@ -66,6 +66,7 @@ class CircleBean(
     }
 
     companion object {
+        const val CIRCLE_HOME_0 = 0
         const val CIRCLE_HOME_1 = 1
         const val CIRCLE_HOME_2 = 2
         const val CIRCLE_HOME_3 = 3

@@ -18,6 +18,9 @@ interface CircleContract {
 
         //获取圈子选项分类
         fun getClassifySuccess(list: MutableList<CircleClassifyBean>)
+
+        //获取我的圈子
+        fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>)
     }
 
     //获取圈子选项分类
@@ -27,6 +30,9 @@ interface CircleContract {
 
         //获取圈子选项分类
         fun getClassifySuccess(list: MutableList<CircleClassifyBean>)
+
+        //获取我的圈子
+        fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>)
     }
 
 }

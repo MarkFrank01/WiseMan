@@ -15,10 +15,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.GlideBannerImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.gridview.Model
 import kotlinx.android.synthetic.main.fragment_circle.*
@@ -34,6 +31,7 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, CircleHomeOnClickListener,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+
 
     private lateinit var mAdapter: CircleAdapter
     private lateinit var mCircleBean: CircleBean
@@ -66,6 +64,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         super.onViewCreated(view, savedInstanceState)
         EventBus.getDefault().register(this)
         mCircleBean = CircleBean()
+        initView()
         initRecyclerView()
         initADView()
         mPresenter.getAD()
@@ -134,6 +133,24 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 //                mActivity.startActivity(TemplateCardActivity::class.java){}
             }
             gv_circle_classify.init(mClassifyData)
+        }
+    }
+
+    override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
+        LogCat.e("获取我加入的圈子成功 ${list.size}")
+        //        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView)
+        if (list[0].titleImage.isNotEmpty()&&list[0].titleImage!=""){
+            circle_image.visibility =View.VISIBLE
+            ImageLoader.load(mActivity,list[0].titleImage,R.drawable.default_card,circle_image)
+
+        }
+        if (list[1].titleImage.isNotEmpty()&&list[1].titleImage!=""){
+            circle_image2.visibility = View.VISIBLE
+            ImageLoader.load(mActivity,list[1].titleImage,R.drawable.default_card,circle_image2)
+        }
+        if (list[2].titleImage.isNotEmpty()&&list[2].titleImage!=""){
+            circle_image3.visibility = View.VISIBLE
+            ImageLoader.load(mActivity,list[2].titleImage,R.drawable.default_card,circle_image3)
         }
     }
 
@@ -229,6 +246,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             }
 
         })
+    }
+
+    private fun initView(){
+        if (checkLogin()){
+            circle_hint_login.visibility = View.GONE
+            circle_hint_login_dec.visibility = View.GONE
+        }
+        mPresenter.getMyJoinCircleList(0,3)
     }
 
     //获取圈子

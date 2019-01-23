@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
  */
 class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.View>(), CircleContract.Presenter {
 
+
     private val mModel: CircleModel
 
     init {
@@ -30,6 +31,10 @@ class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.Vi
         mModel.getRecommendCircleListByPage(page,pageSize)
     }
 
+    fun getMyJoinCircleList(page: Int,pageSize: Int){
+        mModel.getMyJoinCircleList(page,pageSize)
+    }
+
     override fun getADSuccess(list: MutableList<ADBean>) {
         mView.getADSuccess(list)
     }
@@ -38,6 +43,9 @@ class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.Vi
         mView.getClassifySuccess(list)
     }
 
+    override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
+        mView.getMyJoinCircleListSuccess(list)
+    }
 
     override fun showLoading() {
         mView.showLoading()
