@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
+import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
@@ -93,10 +94,11 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 //        list.forEach {
 //            it.classifyVO?.let { it1 -> mCircleNewList.add(it1) }
 //        }
+
         list.forEach {
-            LogCat.e("Circle" + it.classifyVO?.id)
-            if (it.classifyVO?.id == 0)
-                mCircleNewList.add(it)
+            LogCat.e("FUCK" + it.classifyVO?.id + it.title)
+            mCircleNewList.add(it)
+
         }
 
         if (mCircleListPage == 0) {
@@ -161,18 +163,25 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
         LogCat.e("获取我加入的圈子成功 ${list.size}")
         //        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView)
+        iv_circle_to_my.visibility = View.VISIBLE
+
         if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
             circle_image.visibility = View.VISIBLE
             ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
 
         }
-        if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
-            circle_image2.visibility = View.VISIBLE
-            ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
+        if (list.size>1) {
+            if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
+                circle_image2.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
+            }
         }
-        if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
-            circle_image3.visibility = View.VISIBLE
-            ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
+
+        if (list.size>2) {
+            if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
+                circle_image3.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
+            }
         }
     }
 
@@ -186,6 +195,12 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     override fun circleOnClick(bean: CircleBean) {
     }
 
+    override fun setListener() {
+        iv_circle_to_my.setOnClickListener {
+//            mActivity.startActivity(MyCircleActivity::class.java){}
+            mActivity.startActivity(AllMyCircleActivity::class.java){}
+        }
+    }
 
     private fun initRecyclerView() {
 

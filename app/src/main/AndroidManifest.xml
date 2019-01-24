@@ -349,6 +349,18 @@
             android:name=".ui.circle.classify.CircleClassifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.mycircle.MyCircleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.allmycircle.AllMyCircleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.createcircle.CreateCircleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

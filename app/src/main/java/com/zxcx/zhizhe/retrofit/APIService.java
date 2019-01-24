@@ -713,6 +713,16 @@ public interface APIService {
     );
 
     /**
+     * 获取我创建的圈子
+     */
+    @POST("/circle/getMyCreateCircleList")
+    Flowable<BaseArrayBean<CircleBean>> getMyCreateCircleList(
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
+    );
+
+
+    /**
      * 通过分类获取的圈子
      */
     @POST("/circle/getCircleListByClassifyId")
@@ -731,5 +741,18 @@ public interface APIService {
     Flowable<BaseArrayBean<CircleBean>> setjoinCircle(
             @Query("circleId") int circleId,
             @Query("joinType") int joinType
+    );
+
+    /**
+     *
+     */
+    @POST("/circle/createCircle")
+    Flowable<BaseBean<CircleBean>> createCircle(
+        @Query("title") String title,
+        @Query("titleImage")String titleImage,
+        @Query("classifyId")Long classifyId,
+        @Query("sign")String sign,
+        @Query("price")String price,
+        @Query("articleList")List<Integer> articleList
     );
 }

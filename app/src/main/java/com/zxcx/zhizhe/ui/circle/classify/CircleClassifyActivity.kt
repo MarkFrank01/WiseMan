@@ -119,7 +119,6 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 
     override fun setListener() {
         iv_toolbar_right.setOnClickListener {
-            LogCat.e("?????????")
             test()
         }
     }
