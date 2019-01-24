@@ -744,7 +744,7 @@ public interface APIService {
     );
 
     /**
-     *
+     * 创建圈子
      */
     @POST("/circle/createCircle")
     Flowable<BaseBean<CircleBean>> createCircle(
@@ -754,5 +754,14 @@ public interface APIService {
         @Query("sign")String sign,
         @Query("price")String price,
         @Query("articleList")List<Integer> articleList
+    );
+
+    /**
+     * 获取圈子可供发布的文章,先卡片后长文
+     */
+    @POST("/circle/getPublishableArticle")
+    Flowable<BaseArrayBean<CardBean>> getPublishableArticle(
+          @Query("pageIndex")int page,
+          @Query("pageSize")int pageSize
     );
 }

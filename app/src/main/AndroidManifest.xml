@@ -361,6 +361,8 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
