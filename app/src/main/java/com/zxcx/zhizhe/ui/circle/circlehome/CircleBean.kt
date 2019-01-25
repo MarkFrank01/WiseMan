@@ -69,6 +69,9 @@ class CircleBean(
     @SerializedName("memberList")
     val memberList:MutableList<CircleUserBean> = ArrayList()
 
+    @SerializedName("creater")
+    val creater:CircleUserBean? = null
+
     //新标题
     var newTitle: String? = ""
 

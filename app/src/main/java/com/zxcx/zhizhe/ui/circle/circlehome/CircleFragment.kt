@@ -11,13 +11,14 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LogoutEvent
-import com.zxcx.zhizhe.mvp.template.TemplateCardActivity
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
 import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
+import com.zxcx.zhizhe.ui.my.message.MessageActivity
+import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
@@ -245,7 +246,16 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
 
         iv_3.setOnClickListener {
-            mActivity.startActivity(TemplateCardActivity::class.java) {}
+            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+
+        }
+        iv_2.setOnClickListener {
+            if (checkLogin()) {
+                mActivity.startActivity(MessageActivity::class.java) {}
+            }
+        }
+        iv_1.setOnClickListener {
+            mActivity.startActivity(SearchActivity::class.java, {})
         }
     }
 
