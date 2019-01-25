@@ -2,9 +2,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
@@ -14,7 +19,6 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_manage_circle_create"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_my_card"/>
+            android:layout_height="match_parent"/>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

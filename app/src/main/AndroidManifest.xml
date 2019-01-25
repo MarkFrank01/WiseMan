@@ -359,10 +359,15 @@
             android:name=".ui.circle.createcircle.CreateCircleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize"/>
-        <activity android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
+        <activity
+            android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circledetaile.CircleDetaileActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

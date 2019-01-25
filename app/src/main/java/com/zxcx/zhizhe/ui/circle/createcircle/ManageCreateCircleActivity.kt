@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleAdapter
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.LogCat
 import kotlinx.android.synthetic.main.activity_manage_circle_create.*
 
 /**
@@ -28,16 +29,33 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(),M
         setContentView(R.layout.activity_manage_circle_create)
 
         initView()
+        onRefresh1()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
+        onRefresh1()
     }
 
     override fun createPresenter(): ManageCreatePresenter {
         return ManageCreatePresenter(this)
     }
 
-    override fun getDataSuccess(bean: MutableList<CardBean>?) {
+    override fun getDataSuccess(list: MutableList<CardBean>) {
+        LogCat.e("MyManage ${list.size}")
+        if (mPage == 0){
+            mAdapter.setNewData(list)
+        }else{
+            mAdapter.addData(list)
+        }
+
+        mPage++
+        if (list.size<Constants.PAGE_SIZE){
+            mAdapter.loadMoreEnd(false)
+        }else{
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -58,7 +76,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(),M
         rv_manage_circle_create.adapter = mAdapter
     }
 
-    fun onRefresh(){
+    fun onRefresh1(){
         getPushArc()
     }
 

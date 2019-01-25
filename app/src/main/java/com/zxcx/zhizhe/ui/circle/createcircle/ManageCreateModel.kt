@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.utils.LogCat
 
 /**
  * @author : MarkFrank01
@@ -19,6 +20,7 @@ class ManageCreateModel(presenter:ManageCreateContract.Presenter):BaseModel<Mana
 
     //获取作品
     fun getPublishableArticle(page:Int,pageSize:Int){
+        LogCat.e("MODEL FUCK")
         mDisposable = AppClient.getAPIService().getPublishableArticle(page, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())

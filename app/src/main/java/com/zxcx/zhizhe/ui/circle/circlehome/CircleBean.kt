@@ -57,11 +57,23 @@ class CircleBean(
     @SerializedName("qaCount")
     var qaCount: Int = 0
 
+    @SerializedName("likeCount")
+    var likeCount: Int = 0
+
     @SerializedName("price")
     var price: String = ""
 
     @SerializedName("classifyVO")
     val classifyVO: CircleItemBean? = null
+
+    @SerializedName("memberList")
+    val memberList:MutableList<CircleUserBean> = ArrayList()
+
+    //新标题
+    var newTitle: String? = ""
+
+    //唯一展示标题
+    var showTitle:String = ""
 
     override fun getItemType(): Int {
         return CIRCLE_HOME_1
@@ -69,7 +81,7 @@ class CircleBean(
 
     companion object {
         const val CIRCLE_HOME_0 = 0
-        const val CIRCLE_HOME_1 = 1
+        const val CIRCLE_HOME_1 = 2
         const val CIRCLE_HOME_2 = 2
         const val CIRCLE_HOME_3 = 3
     }

@@ -31,9 +31,9 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
     override fun convert(helper: BaseViewHolder, item: CardBean) {
 
 
-        when (helper.itemViewType) {
+//        when (helper.itemViewType) {
         //多类型item加入此选择即可
-            CardBean.Article, CardBean.Article_LONG -> {
+//            CardBean.Article, CardBean.Article_LONG -> {
                 val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
                 val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
                 ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
@@ -61,13 +61,13 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                         R.string.card_label_transition_name)
 
                 helper.setText(R.id.tv_item_card_time,item.distanceTime)
-            }
+//            }
 
-            CardBean.Article_LINK -> {
-                helper.setText(R.id.tv_item_card_link,item.content)
-                        .setText(R.id.tv_item_card_title,item.name)
-                        .setText(R.id.tv_item_link_time,item.distanceTime)
-            }
-        }
+//            CardBean.Article_LINK -> {
+//                helper.setText(R.id.tv_item_card_link,item.content)
+//                        .setText(R.id.tv_item_card_title,item.name)
+//                        .setText(R.id.tv_item_link_time,item.distanceTime)
+//            }
+//        }
     }
 }

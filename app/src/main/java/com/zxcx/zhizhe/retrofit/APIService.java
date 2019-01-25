@@ -764,4 +764,39 @@ public interface APIService {
           @Query("pageIndex")int page,
           @Query("pageSize")int pageSize
     );
+
+    /**
+     * 通过圈子id获取圈子详情
+     */
+    @POST("/circle/getCircleBasicInfo")
+    Flowable<BaseBean<CircleBean>> getCircleBasicInfo(
+         @Query("circleId")int circleId
+    );
+
+    /**
+     * 通过圈子id 获取圈子成员
+     * @param orderType
+     * @param circleId
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @POST("/circle/getCircleMemberByCircleId")
+    Flowable<BaseArrayBean<CircleBean>> getCircleMemberByCircleId(
+         @Query("orderType")int orderType,
+         @Query("circleId")int circleId,
+         @Query("pageIndex")int pageIndex,
+         @Query("pageSize")int pageSize
+    );
+
+    /**
+     * 通过圈子id 获取圈子话题
+     */
+    @POST("/circle/getCircleQAByCircleId")
+    Flowable<BaseArrayBean<CircleBean>> getCircleQAByCircleId(
+            @Query("orderType")int orderType,
+            @Query("circleId")int circleId,
+            @Query("pageIndex")int pageIndex,
+            @Query("pageSize")int pageSize
+    );
 }

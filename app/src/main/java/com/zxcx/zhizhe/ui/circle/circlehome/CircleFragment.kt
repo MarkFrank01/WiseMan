@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.circle.circlehome
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
+import android.util.ArrayMap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,21 +11,29 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LogoutEvent
+import com.zxcx.zhizhe.mvp.template.TemplateCardActivity
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
 import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.gridview.Model
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Function
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_circle.*
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+
 
 /**
  * @author : MarkFrank01
@@ -32,7 +41,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @Description :
  */
 class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, CircleHomeOnClickListener,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
 
     private lateinit var mAdapter: CircleAdapter
@@ -53,11 +62,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     private var mCircleListPage = 0
     private var mCircleListPageSize = Constants.PAGE_SIZE
 
-    //圈子列表的数据(测试替换)
-    private var mCircleNewList: MutableList<CircleBean> = mutableListOf()
-
-    //分类部分的adapter
-//    private lateinit var mClassifyAdapter: CircleListAdapter
+    //处理分组数据
+    private val map: ArrayMap<String, ArrayList<CircleBean>> = ArrayMap()
 
     override fun createPresenter(): CirclePresenter {
         return CirclePresenter(this)
@@ -90,33 +96,58 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
-//        LogCat.e("圈子获取圈子信息成功 " + list[0].classifyVO?.title+"---"+list[0].classifyVO?.id)
-//        list.forEach {
-//            it.classifyVO?.let { it1 -> mCircleNewList.add(it1) }
+
+        mDisposable = Flowable.just(list)
+                .observeOn(Schedulers.computation())
+                .map(PackData(map))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
+                    override fun onComplete() {
+                    }
+
+                    override fun onNext(t: List<CircleChooseBean>) {
+                        LogCat.e("CircleChooseBean size ${t.size}")
+                        mAdapter.data.clear()
+                        for (dcBean in t) {
+//                            mAdapter.data.add(dcBean)
+
+                            dcBean.list[0].showTitle = dcBean.date
+                            mAdapter.data.addAll(dcBean.list)
+                            if (dcBean.list.size % 2 != 0) {
+                                mAdapter.data.add(dcBean)
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged()
+
+                        mCircleListPage++
+                        if (list.size < mCircleListPageSize) {
+                            mAdapter.loadMoreEnd(false)
+                        } else {
+                            mAdapter.loadMoreComplete()
+                            mAdapter.setEnableLoadMore(false)
+                            mAdapter.setEnableLoadMore(true)
+                        }
+                    }
+
+                    override fun onError(t: Throwable?) {
+                    }
+
+                })
+
+//        if (mCircleListPage == 0) {
+//            mAdapter.setNewData(list as List<MultiItemEntity>?)
+//            rv_circle_home_2.scrollToPosition(0)
+//        } else {
+//            mAdapter.addData(list)
 //        }
-
-        list.forEach {
-            LogCat.e("FUCK" + it.classifyVO?.id + it.title)
-            mCircleNewList.add(it)
-
-        }
-
-        if (mCircleListPage == 0) {
-            mAdapter.setNewData(list)
-//            mAdapter.setNewData(mCircleNewList)
-            rv_circle_home_2.scrollToPosition(0)
-        } else {
-            mAdapter.addData(list)
-//            mAdapter.addData(mCircleNewList)
-        }
-        mCircleListPage++
-        if (list.isEmpty()) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
-        }
+//        mCircleListPage++
+//        if (list.isEmpty()) {
+//            mAdapter.loadMoreEnd(false)
+//        } else {
+//            mAdapter.loadMoreComplete()
+//            mAdapter.setEnableLoadMore(false)
+//            mAdapter.setEnableLoadMore(true)
+//        }
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -149,8 +180,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         } else {
             gv_circle_classify.pageSize = 10
             gv_circle_classify.setGridItemClickListener { pos, position, str ->
-                //                toastShow("pos $pos+$position")
-//                mActivity.startActivity(TemplateCardActivity::class.java){}
+
                 mActivity.startActivity(CircleClassifyActivity::class.java) {
                     it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
                     it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
@@ -161,8 +191,6 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
-        LogCat.e("获取我加入的圈子成功 ${list.size}")
-        //        ImageLoader.load(mContext,imageUrl,R.drawable.default_card,imageView)
         iv_circle_to_my.visibility = View.VISIBLE
 
         if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
@@ -170,14 +198,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
 
         }
-        if (list.size>1) {
+        if (list.size > 1) {
             if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
                 circle_image2.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
             }
         }
 
-        if (list.size>2) {
+        if (list.size > 2) {
             if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
                 circle_image3.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
@@ -189,46 +217,62 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         getCircleById()
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+
     }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when (view.id) {
+            R.id.to_content_circle -> {
+                val bean = adapter.data[position] as CircleBean
+                toastShow("to circle")
+                mActivity.startActivity(CircleDetaileActivity::class.java) {
+                    it.putExtra("circleID", bean.id)
+                    //   val bean = adapter.data[position] as CardBean
+                }
+            }
+        }
+    }
+
 
     override fun circleOnClick(bean: CircleBean) {
     }
 
     override fun setListener() {
         iv_circle_to_my.setOnClickListener {
-//            mActivity.startActivity(MyCircleActivity::class.java){}
-            mActivity.startActivity(AllMyCircleActivity::class.java){}
+            //            mActivity.startActivity(MyCircleActivity::class.java){}
+            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+        }
+
+        iv_3.setOnClickListener {
+            mActivity.startActivity(TemplateCardActivity::class.java) {}
         }
     }
 
     private fun initRecyclerView() {
 
-        //第二块
-//        mGridViewPager
-//                .setPageSize(10)
-//                .setGridItemClickListener { pos, position, str ->
-//                    toastShow("点击")
-//                }
-
-
-//        mClassifyAdapter = CircleListAdapter(ArrayList())
-//        mClassifyAdapter.onItemClickListener = this
-//
-//        rv_circle_home_1.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-//        rv_circle_home_1.adapter = mClassifyAdapter
-
         //第三块
 //        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val layoutManager = GridLayoutManager(context, 2)
+//        val layoutManager = GridLayoutManager(context, 2)
         mAdapter = CircleAdapter(ArrayList(), this)
         mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this, rv_circle_home_2)
         mAdapter.onItemClickListener = this
+        mAdapter.onItemChildClickListener = this
+
 //        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
 //        mAdapter.emptyView = view
+//        mAdapter.setSpanSizeLookup { _, position ->
+//
+//        }
+        rv_circle_home_2.layoutManager = object :GridLayoutManager(context,2){
+            override fun canScrollVertically() = false
+        }
+        rv_circle_home_2.isNestedScrollingEnabled = false
+        rv_circle_home_2.setHasFixedSize(true)
+        rv_circle_home_2.isFocusable = false
 
-        rv_circle_home_2.layoutManager = layoutManager
+//        rv_circle_home_2.layoutManager = layoutManager
         rv_circle_home_2.adapter = mAdapter
     }
 
@@ -297,4 +341,34 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     private fun getCircleById() {
         mPresenter.getRecommendCircleListByPage(mCircleListPage, mCircleListPageSize)
     }
+}
+
+class PackData(private val map: ArrayMap<String, ArrayList<CircleBean>>) : Function<List<CircleBean>, List<CircleChooseBean>> {
+
+    override fun apply(list: List<CircleBean>): List<CircleChooseBean> {
+        for (bean in list) {
+            val chooseTitle = bean.classifytitle
+            bean.newTitle = bean.classifytitle
+            if (map.containsKey(chooseTitle)) {
+                map[chooseTitle]?.add(bean)
+            } else {
+                val newList: ArrayList<CircleBean> = ArrayList()
+                newList.add(bean)
+                map[chooseTitle] = newList
+            }
+        }
+        val dcBeanList = ArrayList<CircleChooseBean>()
+        for (mutableEntry in map) {
+            mutableEntry.value.sortWith(Comparator { o1, o2 ->
+                o2?.classifytitle?.compareTo(o1.classifytitle)!!
+            })
+            val ChooseBean = CircleChooseBean(mutableEntry.key, mutableEntry.value)
+            dcBeanList.add(ChooseBean)
+        }
+        dcBeanList.sortWith(Comparator { o1, o2 ->
+            o2?.list?.get(0)?.classifytitle?.compareTo(o1?.list?.get(0)?.classifytitle!!)!!
+        })
+        return dcBeanList
+    }
+
 }

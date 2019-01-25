@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.circle.createcircle
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.utils.LogCat
 
 /**
  * @author : MarkFrank01
@@ -18,6 +19,7 @@ class ManageCreatePresenter(view:ManageCreateContract.View):BasePresenter<Manage
     }
 
     fun getPushArc(page:Int,pageSize:Int){
+        LogCat.e("FUCK")
         mModel.getPublishableArticle(page, pageSize)
     }
 
@@ -30,6 +32,7 @@ class ManageCreatePresenter(view:ManageCreateContract.View):BasePresenter<Manage
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>) {
+        LogCat.e("MODEL FUCK BACK")
         mView.getDataSuccess(bean)
     }
 

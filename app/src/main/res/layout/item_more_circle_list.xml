@@ -12,12 +12,13 @@
         android:layout_marginBottom="14dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        android:text="推荐"
+        tools:text="推荐"
         android:textColor="@color/text_color_3"
         android:textSize="14sp"
         android:textStyle="bold"/>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/to_content_circle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

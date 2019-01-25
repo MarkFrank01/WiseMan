@@ -210,7 +210,7 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
             intent.putExtra("classifyId", mSelectedClassify?.id)
             intent.putExtra("classifyName",mSelectedClassify?.title)
 
-            LogCat.e("Push" + mTheFirst + "---------" + mTheSecond)
+            LogCat.e("Classify ID "+mSelectedClassify?.id)
 
             setResult(Activity.RESULT_OK, intent)
             finish()

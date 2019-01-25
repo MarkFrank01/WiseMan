@@ -11,7 +11,7 @@ open class DataServer private constructor() {
         fun getTempItemData(): List<TemplateItem> {
             val list = ArrayList<TemplateItem>()
 
-            list.add(TemplateItem(TemplateItem.TEMP_0, "Basic", TemplateItem.IMG_TEXT_SPAN_SIZE_MIN))
+            list.add(TemplateItem(TemplateItem.TEMP_0, "Basic", TemplateItem.TEMP_1))
             list.add(TemplateItem(TemplateItem.TEMP_1, "First", TemplateItem.IMG_TEXT_SPAN_SIZE_MIN))
             list.add(TemplateItem(TemplateItem.TEMP_2, "Second", TemplateItem.IMG_TEXT_SPAN_SIZE_MIN))
             list.add(TemplateItem(TemplateItem.TEMP_3, "Third", TemplateItem.IMG_TEXT_SPAN_SIZE_MIN))

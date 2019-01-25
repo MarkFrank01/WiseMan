@@ -41,7 +41,7 @@ class CreateCircleActivity : BaseActivity(),
     private var labelName = ""
 
     //类别ID
-    private var classifyId =""
+    private var classifyId = 0
 
     //圈子签名
     private var sign = ""
@@ -70,6 +70,10 @@ class CreateCircleActivity : BaseActivity(),
         ll_circle_choose_circle.setOnClickListener {
             val intent = Intent(this, SelectCircleLabelActivity::class.java)
             startActivityForResult(intent, CreationEditorActivity.CODE_SELECT_LABEL)
+        }
+
+        create_manage_content.setOnClickListener {
+            startActivity(Intent(this,ManageCreateCircleActivity::class.java))
         }
 
         tv_toolbar_right.setOnClickListener {
@@ -175,10 +179,9 @@ class CreateCircleActivity : BaseActivity(),
                     val path = data.getStringExtra("path")
                     uploadImageToOSS(path)
                 }
-                CreationEditorActivity.CODE_SELECT_LABEL -> {
+                CreateCircleActivity.CODE_SELECT_LABEL -> {
                     labelName = data.getStringExtra("classifyName")
-                    classifyId = data.getStringExtra("classifyId")
-//                    LogCat.e("PUSHLabel $labelName")
+                    classifyId = data.getIntExtra("classifyId",0)
                     circle_tv_label.text = labelName
                 }
             }
