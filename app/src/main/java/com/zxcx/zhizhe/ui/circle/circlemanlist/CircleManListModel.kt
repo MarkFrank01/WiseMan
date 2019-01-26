@@ -4,7 +4,6 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 
 /**
@@ -12,7 +11,7 @@ import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
  * @Created on 2019/1/25
  * @Description :
  */
-class CircleManListModel(presenter:CircleManListContract.Presnter):BaseModel<CircleManListContract.Presnter>(){
+class CircleManListModel(presenter:CircleManListContract.Presenter):BaseModel<CircleManListContract.Presenter>(){
 
     init {
         this.mPresenter = presenter
@@ -20,11 +19,11 @@ class CircleManListModel(presenter:CircleManListContract.Presnter):BaseModel<Cir
 
     //获取圈子成员
     fun getCircleMemberByCircleId(orderType:Int,circleId:Int,pageIndex:Int,pageSize:Int){
-        mDisposable = AppClient.getAPIService().getCircleMemberByCircleId(orderType, circleId, pageIndex, pageSize)
+        mDisposable = AppClient.getAPIService().getCircleMemberByCircleId2(orderType, circleId, pageIndex, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object : BaseSubscriber<MutableList<CircleBean>>(mPresenter){
-                    override fun onNext(t: MutableList<CircleBean>) {
+                .subscribeWith(object : BaseSubscriber<MutableList<SearchUserBean>>(mPresenter){
+                    override fun onNext(t: MutableList<SearchUserBean>) {
                         mPresenter?.getCircleMemberByCircleIdSuccess(t)
                     }
                 })

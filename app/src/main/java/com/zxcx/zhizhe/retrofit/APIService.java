@@ -750,7 +750,7 @@ public interface APIService {
     Flowable<BaseBean<CircleBean>> createCircle(
         @Query("title") String title,
         @Query("titleImage")String titleImage,
-        @Query("classifyId")Long classifyId,
+        @Query("classifyId")int classifyId,
         @Query("sign")String sign,
         @Query("price")String price,
         @Query("articleList")List<Integer> articleList
@@ -787,6 +787,14 @@ public interface APIService {
          @Query("circleId")int circleId,
          @Query("pageIndex")int pageIndex,
          @Query("pageSize")int pageSize
+    );
+
+    @POST("/circle/getCircleMemberByCircleId")
+    Flowable<BaseArrayBean<SearchUserBean>> getCircleMemberByCircleId2(
+            @Query("orderType")int orderType,
+            @Query("circleId")int circleId,
+            @Query("pageIndex")int pageIndex,
+            @Query("pageSize")int pageSize
     );
 
     /**

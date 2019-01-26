@@ -8,8 +8,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
+import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
 /**
@@ -21,6 +24,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private var circleID: Int = 0
+
+   private lateinit var  creater: CircleUserBean
+
 
     //存放自己是否加入圈子
     private var hasJoinBoolean: Boolean = false
@@ -55,6 +61,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         ImageLoader.load(this, bean.titleImage, R.drawable.default_card, detail_src_img)
         ImageLoader.load(this, bean.creater?.avatar, R.drawable.default_card, detail_my_img)
 
+        creater = bean.creater!!
+
         loadJoinUserImg(bean)
 
 //        hasJoinBoolean = bean.hasJoin
@@ -76,8 +84,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun setListener() {
         //去圈子成员列表
         detail_to_man_list.setOnClickListener {
-            toastShow("to man list")
-
+//            toastShow("to man list")
+            mActivity.startActivity(CircleManListActivity::class.java){
+                it.putExtra("circleID", circleID)
+                it.putExtra("create",creater)
+            }
         }
 
         //去发布提问

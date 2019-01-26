@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
+import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
@@ -246,7 +247,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
 
         iv_3.setOnClickListener {
-            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+            mActivity.startActivity(CreateCircleActivity::class.java) {}
 
         }
         iv_2.setOnClickListener {

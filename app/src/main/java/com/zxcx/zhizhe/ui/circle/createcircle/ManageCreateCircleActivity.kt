@@ -18,11 +18,13 @@ import kotlinx.android.synthetic.main.activity_manage_circle_create.*
  * @Created on 2019/1/24
  * @Description :
  */
-class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(),ManageCreateContract.View,
+class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), ManageCreateContract.View,
         BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private var mPage = 0
     private lateinit var mAdapter: ManageCreateCircleAdapter
+
+    private var isFirstLong = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +44,32 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(),M
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
         LogCat.e("MyManage ${list.size}")
-        if (mPage == 0){
+        mRefreshLayout.finishRefresh()
+        if (mPage == 0) {
+            list[0].showTitle = "卡片"
+            for (index in list.indices){
+                if (list[index].cardType == 2&&isFirstLong){
+                    isFirstLong = false
+                    list[index].showTitle = "长文"
+                }
+            }
+
             mAdapter.setNewData(list)
-        }else{
+        } else {
+            for (index in list.indices){
+                if (list[index].cardType == 2&&isFirstLong){
+                    isFirstLong = false
+                    list[index].showTitle = "长文"
+                }
+            }
+
             mAdapter.addData(list)
         }
 
         mPage++
-        if (list.size<Constants.PAGE_SIZE){
+        if (list.size < Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false)
-        }else{
+        } else {
             mAdapter.loadMoreComplete()
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
@@ -67,20 +85,20 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(),M
     override fun onLoadMoreRequested() {
     }
 
-    private fun initView(){
-        initToolBar("挑选作品(1/2)")
+    private fun initView() {
+        initToolBar("作品审核")
 
         mAdapter = ManageCreateCircleAdapter(ArrayList())
 
-        rv_manage_circle_create.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_manage_circle_create.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_manage_circle_create.adapter = mAdapter
     }
 
-    fun onRefresh1(){
+    fun onRefresh1() {
         getPushArc()
     }
 
-    private fun getPushArc(){
-        mPresenter.getPushArc(mPage,Constants.PAGE_SIZE)
+    private fun getPushArc() {
+        mPresenter.getPushArc(mPage, Constants.PAGE_SIZE)
     }
 }

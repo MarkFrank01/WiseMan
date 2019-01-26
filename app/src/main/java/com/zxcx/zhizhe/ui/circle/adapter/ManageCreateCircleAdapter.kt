@@ -23,13 +23,18 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
      * 3 单独使用一个layout
      */
     init {
-        addItemType(CardBean.Article, R.layout.item_other_user_creation)
-        addItemType(CardBean.Article_LONG, R.layout.item_other_user_creation)
-        addItemType(CardBean.Article_LINK, R.layout.item_link_creation)
+        addItemType(CardBean.Article, R.layout.item_other_user_creation1)
+        addItemType(CardBean.Article_LONG, R.layout.item_other_user_creation1)
+//        addItemType(CardBean.Article_LINK, R.layout.item_link_creation)
     }
 
     override fun convert(helper: BaseViewHolder, item: CardBean) {
-
+                if (item.showTitle!=""&&item.showTitle.isNotEmpty()){
+                    helper.getView<TextView>(R.id.tv_daily_title).visibility = View.VISIBLE
+                    helper.setText(R.id.tv_daily_title,item.showTitle)
+                }else{
+                    helper.getView<TextView>(R.id.tv_daily_title).visibility = View.GONE
+                }
 
 //        when (helper.itemViewType) {
         //多类型item加入此选择即可

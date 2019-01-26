@@ -12,15 +12,17 @@ import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 class CircleManListContract{
 
     interface View:IGetPostPresenter<MutableList<CircleBean>,CircleBean>{
-        fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
+//        fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
+        fun getCircleMemberByCircleIdSuccess(bean:MutableList<SearchUserBean>)
         fun mFollowUserSuccess(bean: SearchUserBean)
         fun unFollowUserSuccess(bean: SearchUserBean)
     }
 
-    interface Presnter:IGetPostPresenter<MutableList<CircleBean>,CircleBean>{
-        fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
+    interface Presenter:IGetPostPresenter<MutableList<CircleBean>,CircleBean>{
+//        fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
         fun mFollowUserSuccess(bean: SearchUserBean)
         fun unFollowUserSuccess(bean: SearchUserBean)
+        fun getCircleMemberByCircleIdSuccess(bean:MutableList<SearchUserBean>)
     }
 
 }

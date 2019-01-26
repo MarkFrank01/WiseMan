@@ -11,6 +11,7 @@
                   android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height">
 
@@ -58,46 +59,6 @@
                 tools:src="@drawable/grey_round"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_circle_choose_circle"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="18dp"
-                android:src="@mipmap/ic_launcher"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:text="选择圈子分类"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/circle_tv_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="10dp"
-                tools:text="科技"/>
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="18dp"
-                android:src="@mipmap/ic_launcher"/>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,18 +72,37 @@
                 android:layout_marginStart="18dp"
                 android:background="@color/line"/>
 
-            <EditText
-                android:maxLength="8"
-                android:id="@+id/create_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:hint="给圈子起个好记有意义的名字"
-                android:textSize="22sp"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/create_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:hint="给圈子起个简洁好记的名字"
+                    android:maxLength="8"
+                    android:textSize="17sp"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="18dp"
+                    android:text="0/8"/>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -130,6 +110,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
                 android:background="@color/line"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +124,6 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:maxLines="30"
                     android:id="@+id/create_sign"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -152,7 +132,8 @@
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:background="@null"
-                    android:hint="给圈子起个好记有意义的名字22"
+                    android:hint="一句话向大家介绍这个圈子"
+                    android:maxLength="30"
                     android:textSize="17sp"/>
 
                 <Space
@@ -178,158 +159,127 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_circle_choose_circle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/create_manage_content"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginStart="18dp"
+                android:text="圈子分类"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:text="内容管理"
-                    android:textSize="17sp"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/circle_tv_label"
+                android:textColor="@color/text_color_3"
+                android:textSize="15sp"
+                android:layout_marginEnd="6dp"
+                android:layout_gravity="center"
+                tools:text="科技"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="18dp"
-                    android:src="@mipmap/ic_launcher"/>
-            </LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:layout_marginStart="18dp"
+                android:text="提交审核"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="18dp"
-                    android:src="@mipmap/ic_launcher"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginStart="3dp"
-                    android:text="自由管理你在圈子内外展示的作品，圈外需要保证50%的作品数量"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:text="创建条件"
-                    android:textSize="17sp"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="18dp"
-                    android:src="@mipmap/ic_launcher"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="18dp"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="已上线文章数"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="18dp"
-                    android:text="0/2"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="18dp"
-                    android:src="@mipmap/ic_launcher"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="已上线卡片数"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="18dp"
-                    android:text="0/4"/>
-            </LinearLayout>
-
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/ic_launcher"/>
         </LinearLayout>
 
         <TextView
+            android:textSize="12sp"
+            android:textColor="@color/text_color_3"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="10dp"
+            android:text="需提交符合圈子类型的2篇文章和4篇卡片作品"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/create_manage_content"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="18dp"
+                android:text="内容管理"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/text_color_3"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="10dp"
+            android:text="选择你希望在这个圈子展示的作品并设置阅读权限"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="72dp"
             android:layout_marginStart="72dp"
             android:layout_marginTop="28dp"
-            android:text="未满足创建条件的圈子将保留30天申请期， 详情请点击"/>
+            android:text="更多详情，点击了解圈子"/>
 
         <View
             android:layout_width="match_parent"

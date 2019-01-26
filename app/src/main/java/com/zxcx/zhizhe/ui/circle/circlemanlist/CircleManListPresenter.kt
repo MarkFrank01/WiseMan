@@ -9,7 +9,7 @@ import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
  * @Created on 2019/1/25
  * @Description :
  */
-class CircleManListPresenter(view:CircleManListContract.View):BasePresenter<CircleManListContract.View>(),CircleManListContract.Presnter{
+class CircleManListPresenter(view:CircleManListContract.View):BasePresenter<CircleManListContract.View>(),CircleManListContract.Presenter{
 
     private val mModel:CircleManListModel
 
@@ -27,7 +27,11 @@ class CircleManListPresenter(view:CircleManListContract.View):BasePresenter<Circ
         mModel.unFollowUser(authorId)
     }
 
-    override fun getCircleMemberByCircleIdSuccess(bean: MutableList<CircleBean>) {
+    fun getCircleMemberByCircleId(orderType: Int, circleId: Int, pageIndex: Int, pageSize: Int) {
+        mModel.getCircleMemberByCircleId(orderType, circleId, pageIndex, pageSize)
+    }
+
+    override fun getCircleMemberByCircleIdSuccess(bean: MutableList<SearchUserBean>) {
         mView.getCircleMemberByCircleIdSuccess(bean)
     }
 
@@ -62,6 +66,5 @@ class CircleManListPresenter(view:CircleManListContract.View):BasePresenter<Circ
 
     override fun startLogin() {
     }
-
 
 }

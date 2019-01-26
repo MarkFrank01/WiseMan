@@ -41,7 +41,9 @@ class CardBean(
         @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
         @SerializedName("distanceTime") var distanceTime:String = "",
-        @SerializedName("remask") var title:String = ""
+        @SerializedName("remask") var title:String = "",
+
+        var showTitle:String = ""
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {

@@ -7,9 +7,11 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import com.gyf.barlibrary.ImmersionBar
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -26,10 +28,13 @@ import kotlinx.android.synthetic.main.activity_create_circle.*
  * @Created on 2019/1/24
  * @Description :
  */
-class CreateCircleActivity : BaseActivity(),
+//class CreateCircleActivity : BaseActivity(),
+//        OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
+class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleContract.View,
         OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
 
     private lateinit var mOSSDialog: OSSDialog
+    private lateinit var articleList:List<Int>
 
     //标题
     private var title =""
@@ -53,13 +58,23 @@ class CreateCircleActivity : BaseActivity(),
         const val CODE_SELECT_LABEL = 110
     }
 
+    override fun createPresenter(): CreateCirclePresenter {
+        return CreateCirclePresenter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_circle)
+        articleList = ArrayList()
 
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
+    }
+
+    override fun initStatusBar() {
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar.keyboardEnable(true)
+        mImmersionBar.init()
     }
 
     override fun setListener() {
@@ -95,6 +110,12 @@ class CreateCircleActivity : BaseActivity(),
 
             //推荐文章
 //            arrList.add(arrListItem)
+
+            if (title!=""&&mImageUrl!=""&&classifyId!=0&&sign!="") {
+                mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", articleList)
+            }else{
+                toastShow("信息未填写完")
+            }
         }
     }
 
@@ -195,4 +216,15 @@ class CreateCircleActivity : BaseActivity(),
         mOSSDialog.arguments = bundle
         mOSSDialog.show(supportFragmentManager, "")
     }
+
+
+    override fun postSuccess(bean: CircleBean?) {
+    }
+
+    override fun postFail(msg: String?) {
+    }
+
+    override fun getDataSuccess(bean: CircleBean?) {
+    }
+
 }
