@@ -17,8 +17,8 @@ class CreateCirclePresenter(view: CreateCircleContract.View) : BasePresenter<Cre
         mModel = CreateCircleModel(this)
     }
 
-    fun createCircle(title: String, titleImage: String, classifyId: Int, sign: String, price: String, articleList: List<Int>) {
-        mModel.createCircle(title, titleImage, classifyId, sign, price, articleList)
+    fun createCircle(title: String, titleImage: String, classifyId: Int, sign: String, price: String, articleList: List<Int>,levelType:Int) {
+        mModel.createCircle(title, titleImage, classifyId, sign, price, articleList,levelType)
     }
 
 

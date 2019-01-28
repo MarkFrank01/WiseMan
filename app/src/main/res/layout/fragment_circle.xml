@@ -106,6 +106,7 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_2"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -115,6 +116,7 @@
                 app:layout_constraintEnd_toStartOf="@id/iv_3"/>
 
             <ImageView
+                android:visibility="gone"
                 android:id="@+id/iv_1"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

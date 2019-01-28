@@ -198,7 +198,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
                 null,-1,
                 object : OnSelectListener {
                     override fun onSelect(position: Int, text: String?) {
-                        toastShow("click $text")
+//                        toastShow("click $text")
 
                     }
                 }).show()

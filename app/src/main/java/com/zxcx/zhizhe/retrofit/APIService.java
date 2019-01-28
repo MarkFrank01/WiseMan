@@ -753,7 +753,8 @@ public interface APIService {
         @Query("classifyId")int classifyId,
         @Query("sign")String sign,
         @Query("price")String price,
-        @Query("articleList")List<Integer> articleList
+        @Query("articleList")List<Integer> articleList,
+        @Query("levelType")int levelType
     );
 
     /**

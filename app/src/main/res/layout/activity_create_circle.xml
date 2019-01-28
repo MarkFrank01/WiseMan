@@ -11,9 +11,9 @@
                   android:orientation="vertical">
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height">
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tv_toolbar_back"
@@ -56,6 +56,7 @@
                 android:id="@+id/mycircle_pic_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 tools:src="@drawable/grey_round"/>
         </LinearLayout>
 
@@ -180,13 +181,13 @@
 
             <TextView
                 android:id="@+id/circle_tv_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6dp"
                 android:textColor="@color/text_color_3"
                 android:textSize="15sp"
-                android:layout_marginEnd="6dp"
-                android:layout_gravity="center"
-                tools:text="科技"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                tools:text="科技"/>
 
             <ImageView
                 android:layout_width="20dp"
@@ -197,9 +198,58 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:id="@+id/create_push_level"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="18dp"
+                android:text="圈子等级"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/circle_tv_level_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="15sp"
+                tools:text="黄金"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="18dp"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="18dp"
+            android:text="根据自身贡献的知识程度选择你的圈子等级"
+            android:textColor="@color/text_color_3"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:id="@+id/create_push_check"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -225,19 +275,20 @@
         </LinearLayout>
 
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/text_color_3"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="10dp"
-            android:text="需提交符合圈子类型的2篇文章和4篇卡片作品"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="18dp"
+            android:text="需提交符合圈子类型的2篇文章和4篇卡片作品"
+            android:textColor="@color/text_color_3"
+            android:textSize="12sp"/>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/create_manage_content"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -263,23 +314,24 @@
         </LinearLayout>
 
         <TextView
-            android:textSize="12sp"
-            android:textColor="@color/text_color_3"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="10dp"
-            android:text="选择你希望在这个圈子展示的作品并设置阅读权限"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="18dp"
+            android:text="选择你希望在这个圈子展示的作品并设置阅读权限"
+            android:textColor="@color/text_color_3"
+            android:textSize="12sp"/>
 
         <TextView
-            android:textSize="12sp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginEnd="72dp"
             android:layout_marginStart="72dp"
             android:layout_marginTop="28dp"
-            android:text="更多详情，点击了解圈子"/>
+            android:text="更多详情，点击了解圈子"
+            android:textSize="12sp"/>
 
         <View
             android:layout_width="match_parent"

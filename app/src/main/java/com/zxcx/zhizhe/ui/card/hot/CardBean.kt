@@ -43,7 +43,8 @@ class CardBean(
         @SerializedName("distanceTime") var distanceTime:String = "",
         @SerializedName("remask") var title:String = "",
 
-        var showTitle:String = ""
+        var showTitle:String = "",
+        var mIfCheckOrNot:Boolean = false
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {

@@ -16,8 +16,8 @@ class CreateCircleModel(presenter:CreateCircleContract.Presenter):BaseModel<Crea
         this.mPresenter = presenter
     }
 
-    fun createCircle(title:String,titleImage:String,classifyId:Int,sign:String,price:String,articleList:List<Int>){
-        mDisposable = AppClient.getAPIService().createCircle(title,titleImage,classifyId,sign, price, articleList)
+    fun createCircle(title:String,titleImage:String,classifyId:Int,sign:String,price:String,articleList:List<Int>,levelType:Int){
+        mDisposable = AppClient.getAPIService().createCircle(title,titleImage,classifyId,sign, price, articleList,levelType)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(object :BaseSubscriber<CircleBean>(mPresenter){

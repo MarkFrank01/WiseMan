@@ -8,11 +8,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import com.gyf.barlibrary.ImmersionBar
+import com.lxj.xpopup.XPopup
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
-import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.FileUtil
@@ -51,11 +51,22 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
     //圈子签名
     private var sign = ""
 
+    //圈子等级
+    private var mLevel = 0
+
+    //显示的圈子的等级
+    private var mLevelName = ""
+
+    //管理文章回传得到的数据
+    private var mBackList:List<Int> = ArrayList()
+
+
     private lateinit var arrList :MutableList<Map<String,String>>
     private lateinit var arrListItem:Map<String,String>
 
     companion object {
         const val CODE_SELECT_LABEL = 110
+        const val CODE_SELECT_MANAGE = 111
     }
 
     override fun createPresenter(): CreateCirclePresenter {
@@ -78,17 +89,31 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
     }
 
     override fun setListener() {
+
+        tv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
+
        mycircle_pic.setOnClickListener {
            getContentImage()
        }
 
         ll_circle_choose_circle.setOnClickListener {
             val intent = Intent(this, SelectCircleLabelActivity::class.java)
-            startActivityForResult(intent, CreationEditorActivity.CODE_SELECT_LABEL)
+            startActivityForResult(intent, CreateCircleActivity.CODE_SELECT_LABEL)
+        }
+
+        create_push_check.setOnClickListener {
+            val intent1 = Intent(this,ManageCreateCircleActivity::class.java)
+            startActivityForResult(intent1,CreateCircleActivity.CODE_SELECT_MANAGE)
         }
 
         create_manage_content.setOnClickListener {
-            startActivity(Intent(this,ManageCreateCircleActivity::class.java))
+//            startActivity(Intent(this,ManageCreateCircleActivity::class.java))
+        }
+
+        create_push_level.setOnClickListener {
+            chooseLevel()
         }
 
         tv_toolbar_right.setOnClickListener {
@@ -111,8 +136,8 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
             //推荐文章
 //            arrList.add(arrListItem)
 
-            if (title!=""&&mImageUrl!=""&&classifyId!=0&&sign!="") {
-                mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", articleList)
+            if (title!=""&&mImageUrl!=""&&classifyId!=0&&sign!=""&&mLevel!=0) {
+                mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", articleList,mLevel)
             }else{
                 toastShow("信息未填写完")
             }
@@ -172,6 +197,15 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
         }
     }
 
+    fun chooseLevel() {
+        XPopup.get(mActivity).asBottomList("", arrayOf("黄金","白银","青铜","黑铁"),
+                null,-1
+        ) { position, text -> {}.run {
+            mLevel = position
+            circle_tv_level_name.text = text
+        } }.show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
@@ -205,6 +239,10 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
                     classifyId = data.getIntExtra("classifyId",0)
                     circle_tv_label.text = labelName
                 }
+                CreateCircleActivity.CODE_SELECT_MANAGE ->{
+                    mBackList = data.getIntegerArrayListExtra("manageCreateList")
+                    LogCat.e("BACK MANAGE"+mBackList.size)
+                }
             }
         }
     }
@@ -225,6 +263,8 @@ class CreateCircleActivity :MvpActivity<CreateCirclePresenter>(),CreateCircleCon
     }
 
     override fun getDataSuccess(bean: CircleBean?) {
+        toastShow("提交成功")
+        finish()
     }
 
 }

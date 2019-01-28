@@ -66,6 +66,8 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                         R.string.card_label_transition_name)
 
                 helper.setText(R.id.tv_item_card_time,item.distanceTime)
+
+                helper.addOnClickListener(R.id.cb_choose_push_manage)
 //            }
 
 //            CardBean.Article_LINK -> {

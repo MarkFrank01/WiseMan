@@ -30,7 +30,9 @@ class ManageCreatePresenter(view:ManageCreateContract.View):BasePresenter<Manage
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>) {
-        mView.getDataSuccess(bean)
+        if (mView!=null) {
+            mView.getDataSuccess(bean)
+        }
     }
 
     override fun getDataFail(msg: String?) {

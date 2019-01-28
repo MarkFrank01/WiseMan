@@ -9,17 +9,17 @@
     android:orientation="vertical">
 
     <TextView
-        android:visibility="gone"
-        android:layout_marginBottom="10dp"
         android:id="@+id/tv_daily_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        tools:text="卡片"
         android:textColor="@color/text_color_1"
         android:textSize="14sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="卡片"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             android:id="@+id/tv_item_card_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="5dp"
@@ -62,6 +62,20 @@
             app:layout_constraintStart_toEndOf="@id/iv_item_card_icon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
+
+        <CheckBox
+            android:id="@+id/cb_choose_push_manage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/selector_other_user_follow"
+            android:button="@null"
+            android:checked="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_item_card_title"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_item_card_time"
