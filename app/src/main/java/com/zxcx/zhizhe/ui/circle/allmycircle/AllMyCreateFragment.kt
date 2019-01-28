@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
-import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircleAdapter
+import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -27,7 +27,7 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
 
     private var mCreatePage = 0
 
-    private lateinit var mAllmyCircleAdapter: AllMyCircleAdapter
+    private lateinit var mAllmyCircleAdapter: AllMyCircle2Adapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_circle, container, false)
@@ -73,7 +73,7 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
     }
 
     private fun initRecycleView() {
-        mAllmyCircleAdapter = AllMyCircleAdapter(ArrayList())
+        mAllmyCircleAdapter = AllMyCircle2Adapter(ArrayList())
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter

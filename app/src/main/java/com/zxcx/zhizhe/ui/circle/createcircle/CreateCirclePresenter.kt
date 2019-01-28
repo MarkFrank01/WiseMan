@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
  */
 class CreateCirclePresenter(view: CreateCircleContract.View) : BasePresenter<CreateCircleContract.View>(), CreateCircleContract.Presenter {
 
+
     private val mModel: CreateCircleModel
 
     init {
@@ -21,6 +22,9 @@ class CreateCirclePresenter(view: CreateCircleContract.View) : BasePresenter<Cre
         mModel.createCircle(title, titleImage, classifyId, sign, price, articleList,levelType)
     }
 
+    fun checkName(name:String){
+        mModel.checkCircleName(name)
+    }
 
     override fun showLoading() {
         mView.showLoading()
@@ -28,6 +32,10 @@ class CreateCirclePresenter(view: CreateCircleContract.View) : BasePresenter<Cre
 
     override fun hideLoading() {
         mView.hideLoading()
+    }
+
+    override fun checkSuccess() {
+        mView.checkSuccess()
     }
 
     override fun getDataSuccess(bean: CircleBean) {

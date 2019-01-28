@@ -1,4 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/common_cancel"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="提交"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"/>
+
+    </LinearLayout>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -10,42 +53,42 @@
                   android:layout_height="match_parent"
                   android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_marginTop="10dp">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/toolbar_height"-->
+            <!--android:layout_marginTop="10dp">-->
 
-            <TextView
-                android:id="@+id/tv_toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="@string/common_cancel"
-                android:textColor="@color/text_color_1"
-                android:textSize="@dimen/text_size_text_1"/>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_toolbar_back"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:text="@string/common_cancel"-->
+                <!--android:textColor="@color/text_color_1"-->
+                <!--android:textSize="@dimen/text_size_text_1"/>-->
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+            <!--<Space-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"/>-->
 
-            <TextView
-                android:id="@+id/tv_toolbar_right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:text="提交"
-                android:textColor="@color/color_text_enable_blue"
-                android:textSize="@dimen/text_size_text_1"/>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_toolbar_right"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginStart="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:text="提交"-->
+                <!--android:textColor="@color/color_text_enable_blue"-->
+                <!--android:textSize="@dimen/text_size_text_1"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/mycircle_pic"
@@ -97,6 +140,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/tv_check1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -143,6 +187,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/tv_check2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -324,13 +369,14 @@
             android:textSize="12sp"/>
 
         <TextView
+            android:id="@+id/create_xieyi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="72dp"
             android:layout_marginStart="72dp"
             android:layout_marginTop="28dp"
-            android:text="更多详情，点击了解圈子"
+            tools:text="更多详情，点击了解圈子"
             android:textSize="12sp"/>
 
         <View
@@ -339,3 +385,4 @@
 
     </LinearLayout>
 </ScrollView>
+</LinearLayout>

@@ -46,6 +46,7 @@
     <string name="agreement_dark_url">/pages/user-protocol-dark.html</string>
     <string name="creation_agreement_url">/pages/create-protocol.html</string>
     <string name="creation_agreement_dark_url">/pages/create-protocol-dark.html</string>
+    <string name="create_circle">/pages/circle-refer.html</string>
     <string name="help_1_url">/help/help1.html</string>
     <string name="help_2_url">/help/help2.html</string>
     <string name="help_3_url">/help/help3.html</string>

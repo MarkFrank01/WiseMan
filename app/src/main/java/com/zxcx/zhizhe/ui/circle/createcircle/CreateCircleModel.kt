@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.circle.bean.CheckBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
@@ -23,6 +24,23 @@ class CreateCircleModel(presenter:CreateCircleContract.Presenter):BaseModel<Crea
                 .subscribeWith(object :BaseSubscriber<CircleBean>(mPresenter){
                     override fun onNext(t: CircleBean) {
                         mPresenter?.getDataSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun checkCircleName(name:String){
+        mDisposable = AppClient.getAPIService().getCheckName(name)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<CheckBean>(mPresenter){
+                    override fun onNext(t: CheckBean) {
+//                        mPresenter?.checkSuccess()
+
+                    }
+
+                    override fun onError(t: Throwable) {
+                        mPresenter?.checkSuccess()
                     }
                 })
         addSubscription(mDisposable)

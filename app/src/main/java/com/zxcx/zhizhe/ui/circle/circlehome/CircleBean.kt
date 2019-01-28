@@ -72,6 +72,9 @@ class CircleBean(
     @SerializedName("creater")
     val creater:CircleUserBean? = null
 
+    @SerializedName("statusType")
+    val statusType:Int = -11
+
     //新标题
     var newTitle: String? = ""
 

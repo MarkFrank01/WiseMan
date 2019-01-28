@@ -22,14 +22,14 @@ import com.zxcx.zhizhe.ui.my.message.MessageActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.GlideBannerImageLoader
+import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.gridview.Model
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_circle.*
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
@@ -99,57 +99,41 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
-        mDisposable = Flowable.just(list)
-                .observeOn(Schedulers.computation())
-                .map(PackData(map))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
-                    override fun onComplete() {
-                    }
-
-                    override fun onNext(t: List<CircleChooseBean>) {
-                        LogCat.e("CircleChooseBean size ${t.size}")
-                        mAdapter.data.clear()
-                        for (dcBean in t) {
-//                            mAdapter.data.add(dcBean)
-
-                            dcBean.list[0].showTitle = dcBean.date
-                            mAdapter.data.addAll(dcBean.list)
-                            if (dcBean.list.size % 2 != 0) {
-                                mAdapter.data.add(dcBean)
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged()
-
-                        mCircleListPage++
-                        if (list.size < mCircleListPageSize) {
-                            mAdapter.loadMoreEnd(false)
-                        } else {
-                            mAdapter.loadMoreComplete()
-                            mAdapter.setEnableLoadMore(false)
-                            mAdapter.setEnableLoadMore(true)
-                        }
-                    }
-
-                    override fun onError(t: Throwable?) {
-                    }
-
-                })
-
-//        if (mCircleListPage == 0) {
-//            mAdapter.setNewData(list as List<MultiItemEntity>?)
-//            rv_circle_home_2.scrollToPosition(0)
-//        } else {
-//            mAdapter.addData(list)
-//        }
-//        mCircleListPage++
-//        if (list.isEmpty()) {
-//            mAdapter.loadMoreEnd(false)
-//        } else {
-//            mAdapter.loadMoreComplete()
-//            mAdapter.setEnableLoadMore(false)
-//            mAdapter.setEnableLoadMore(true)
-//        }
+//        mDisposable = Flowable.just(list)
+//                .observeOn(Schedulers.computation())
+//                .map(PackData(map))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
+//                    override fun onComplete() {
+//                    }
+//
+//                    override fun onNext(t: List<CircleChooseBean>) {
+//                        LogCat.e("CircleChooseBean size ${t.size}")
+//                        mAdapter.data.clear()
+//                        for (dcBean in t) {
+//
+//                            dcBean.list[0].showTitle = dcBean.date
+//                            mAdapter.data.addAll(dcBean.list)
+//                            if (dcBean.list.size % 2 != 0) {
+//                                mAdapter.data.add(dcBean)
+//                            }
+//                        }
+//                        mAdapter.notifyDataSetChanged()
+//
+//                        mCircleListPage++
+//                        if (list.size < mCircleListPageSize) {
+//                            mAdapter.loadMoreEnd(false)
+//                        } else {
+//                            mAdapter.loadMoreComplete()
+//                            mAdapter.setEnableLoadMore(false)
+//                            mAdapter.setEnableLoadMore(true)
+//                        }
+//                    }
+//
+//                    override fun onError(t: Throwable?) {
+//                    }
+//
+//                })
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -195,24 +179,24 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
         iv_circle_to_my.visibility = View.VISIBLE
 
-        if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
-            circle_image.visibility = View.VISIBLE
-            ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
-
-        }
-        if (list.size > 1) {
-            if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
-                circle_image2.visibility = View.VISIBLE
-                ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
-            }
-        }
-
-        if (list.size > 2) {
-            if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
-                circle_image3.visibility = View.VISIBLE
-                ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
-            }
-        }
+//        if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
+//            circle_image.visibility = View.VISIBLE
+//            ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
+//
+//        }
+//        if (list.size > 1) {
+//            if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
+//                circle_image2.visibility = View.VISIBLE
+//                ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
+//            }
+//        }
+//
+//        if (list.size > 2) {
+//            if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
+//                circle_image3.visibility = View.VISIBLE
+//                ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
+//            }
+//        }
     }
 
     override fun onLoadMoreRequested() {
@@ -271,8 +255,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-//        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
-//        mAdapter.emptyView = view
+        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        mAdapter.emptyView = view
 //        mAdapter.setSpanSizeLookup { _, position ->
 //
 //        }

@@ -11,7 +11,11 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
  */
 class CreateCircleContract{
 
-    interface View:GetPostView<CircleBean,CircleBean>
+    interface View:GetPostView<CircleBean,CircleBean>{
+        fun checkSuccess()
+    }
 
-    interface Presenter:IGetPostPresenter<CircleBean,CircleBean>
+    interface Presenter:IGetPostPresenter<CircleBean,CircleBean>{
+        fun checkSuccess()
+    }
 }

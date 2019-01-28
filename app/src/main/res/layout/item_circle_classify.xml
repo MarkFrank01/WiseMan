@@ -8,7 +8,8 @@
     android:layout_centerHorizontal="true"
     android:layout_marginEnd="12dp"
     android:layout_marginStart="12dp"
-    android:layout_marginTop="18dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/bg_background_12dp"
     android:elevation="4dp"
     android:orientation="vertical"
@@ -92,7 +93,19 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
         tools:text="话题7.8K"/>
 
+
+    <TextView
+        android:id="@+id/tv_statue"
+        android:textSize="15sp"
+        android:layout_marginEnd="18dp"
+        tools:text="审核中"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <CheckBox
+        android:visibility="gone"
         android:id="@+id/cb_item_select_join_circle"
         style="@style/tv_single"
         android:layout_marginEnd="18dp"

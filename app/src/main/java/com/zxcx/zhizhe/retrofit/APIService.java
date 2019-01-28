@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.service.version_update.entity.UpdateApk;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
+import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
@@ -95,7 +96,7 @@ public interface APIService {
             @Query("jpushRID") String jpushRID, @Query("appType") int appType,
             @Query("appChannel") String appChannel, @Query("appVersion") String appVersion,
             @Query("openId") String openId
-            );
+    );
 
     /**
      * 获取绑定状态列表
@@ -114,7 +115,7 @@ public interface APIService {
     Flowable<BaseBean<Object>> channelBinding(
             @Query("thirdPartyType") int channelType, @Query("type") int type,
             @Query("uuid") String openId
-           );
+    );
 
     /**
      * 修改手机号
@@ -662,7 +663,7 @@ public interface APIService {
     @FormUrlEncoded
     @POST("/version/getNewVersion")
     Flowable<BaseBean<UpdateApk>> getUpdateApk(
-             @Field("platformType") int platformType
+            @Field("platformType") int platformType
     );
 
 
@@ -681,6 +682,7 @@ public interface APIService {
 
     /**
      * 获取圈子的分类
+     *
      * @param page
      * @param pageSize
      * @return
@@ -693,14 +695,15 @@ public interface APIService {
 
     /**
      * 通过分页获取推荐圈子
+     *
      * @param page
      * @param pageSize
      * @return
      */
     @POST("/circle/getRecommendCircleListByPage")
     Flowable<BaseArrayBean<CircleBean>> getRecommendCircleListByPage(
-         @Query("pageIndex") int page,
-         @Query("pageSize") int pageSize
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
     );
 
     /**
@@ -708,8 +711,8 @@ public interface APIService {
      */
     @POST("/circle/getMyJoinCircleList")
     Flowable<BaseArrayBean<CircleBean>> getMyJoinCircleList(
-       @Query("pageIndex") int page,
-       @Query("pageSize") int pageSize
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
     );
 
     /**
@@ -748,13 +751,13 @@ public interface APIService {
      */
     @POST("/circle/createCircle")
     Flowable<BaseBean<CircleBean>> createCircle(
-        @Query("title") String title,
-        @Query("titleImage")String titleImage,
-        @Query("classifyId")int classifyId,
-        @Query("sign")String sign,
-        @Query("price")String price,
-        @Query("articleList")List<Integer> articleList,
-        @Query("levelType")int levelType
+            @Query("title") String title,
+            @Query("titleImage") String titleImage,
+            @Query("classifyId") int classifyId,
+            @Query("sign") String sign,
+            @Query("price") String price,
+            @Query("articleList") List<Integer> articleList,
+            @Query("levelType") int levelType
     );
 
     /**
@@ -762,8 +765,8 @@ public interface APIService {
      */
     @POST("/circle/getPublishableArticle")
     Flowable<BaseArrayBean<CardBean>> getPublishableArticle(
-          @Query("pageIndex")int page,
-          @Query("pageSize")int pageSize
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
     );
 
     /**
@@ -771,11 +774,12 @@ public interface APIService {
      */
     @POST("/circle/getCircleBasicInfo")
     Flowable<BaseBean<CircleBean>> getCircleBasicInfo(
-         @Query("circleId")int circleId
+            @Query("circleId") int circleId
     );
 
     /**
      * 通过圈子id 获取圈子成员
+     *
      * @param orderType
      * @param circleId
      * @param pageIndex
@@ -784,18 +788,18 @@ public interface APIService {
      */
     @POST("/circle/getCircleMemberByCircleId")
     Flowable<BaseArrayBean<CircleBean>> getCircleMemberByCircleId(
-         @Query("orderType")int orderType,
-         @Query("circleId")int circleId,
-         @Query("pageIndex")int pageIndex,
-         @Query("pageSize")int pageSize
+            @Query("orderType") int orderType,
+            @Query("circleId") int circleId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
     );
 
     @POST("/circle/getCircleMemberByCircleId")
     Flowable<BaseArrayBean<SearchUserBean>> getCircleMemberByCircleId2(
-            @Query("orderType")int orderType,
-            @Query("circleId")int circleId,
-            @Query("pageIndex")int pageIndex,
-            @Query("pageSize")int pageSize
+            @Query("orderType") int orderType,
+            @Query("circleId") int circleId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
     );
 
     /**
@@ -803,9 +807,18 @@ public interface APIService {
      */
     @POST("/circle/getCircleQAByCircleId")
     Flowable<BaseArrayBean<CircleBean>> getCircleQAByCircleId(
-            @Query("orderType")int orderType,
-            @Query("circleId")int circleId,
-            @Query("pageIndex")int pageIndex,
-            @Query("pageSize")int pageSize
+            @Query("orderType") int orderType,
+            @Query("circleId") int circleId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
+
+    /**
+     * 检查圈子名
+     */
+    @POST("/circle/checkCircleName")
+    Flowable<BaseBean<CheckBean>> getCheckName(
+        @Query("circleName")String circleName
     );
 }
