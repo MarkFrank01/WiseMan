@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
@@ -18,14 +19,13 @@ import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
+import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.GlideBannerImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.gridview.Model
@@ -94,7 +94,17 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LogoutEvent) {
-        toastShow("刷新成功")
+//        toastShow("刷新成功")
+        circle_hint_login.visibility = View.VISIBLE
+        circle_hint_login_dec.visibility = View.VISIBLE
+        ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: LoginEvent) {
+        circle_hint_login.visibility = View.GONE
+        circle_hint_login_dec.visibility = View.GONE
+        ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
@@ -146,14 +156,17 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
                 imageList.add(it.titleImage)
             }
             fl_banner_circle.visibility = View.VISIBLE
+            banner_circle.setImages(imageList)
+            banner_circle.start()
         } else {
             fl_banner_circle.visibility = View.GONE
         }
-        banner_circle.setImages(imageList)
-        banner_circle.start()
+//        banner_circle.setImages(imageList)
+//        banner_circle.start()
     }
 
     override fun getClassifySuccess(list: MutableList<CircleClassifyBean>) {
+
         LogCat.e("圈子获取分类成功 ${list.size}")
         list.forEach {
             mClassifyData.add(Model(it.title, it.titleImage))
@@ -166,10 +179,16 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         } else {
             gv_circle_classify.pageSize = 10
             gv_circle_classify.setGridItemClickListener { pos, position, str ->
+                if (position!=9) {
+                    mActivity.startActivity(CircleClassifyActivity::class.java) {
+                        it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
+                        it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+                    }
+                }else{
+                    ////////////////////////
+                    mActivity.startActivity(AllRankActivity::class.java){
 
-                mActivity.startActivity(CircleClassifyActivity::class.java) {
-                    it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
-                    it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+                    }
                 }
             }
             gv_circle_classify.init(mClassifyData)
@@ -177,26 +196,28 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
-        iv_circle_to_my.visibility = View.VISIBLE
+//        iv_circle_to_my.visibility = View.VISIBLE
 
-//        if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
-//            circle_image.visibility = View.VISIBLE
-//            ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
-//
-//        }
-//        if (list.size > 1) {
-//            if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
-//                circle_image2.visibility = View.VISIBLE
-//                ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
-//            }
-//        }
-//
-//        if (list.size > 2) {
-//            if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
-//                circle_image3.visibility = View.VISIBLE
-//                ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
-//            }
-//        }
+        if (list.size>0) {
+            if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
+                circle_image.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
+
+            }
+        }
+        if (list.size > 1) {
+            if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
+                circle_image2.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
+            }
+        }
+
+        if (list.size > 2) {
+            if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
+                circle_image3.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
+            }
+        }
     }
 
     override fun onLoadMoreRequested() {
@@ -225,6 +246,10 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     override fun setListener() {
+        circle_image.setOnClickListener {
+            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+        }
+
         iv_circle_to_my.setOnClickListener {
             //            mActivity.startActivity(MyCircleActivity::class.java){}
             mActivity.startActivity(AllMyCircleActivity::class.java) {}
@@ -242,6 +267,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         iv_1.setOnClickListener {
             mActivity.startActivity(SearchActivity::class.java, {})
         }
+
+        circle_hint_login.setOnClickListener {
+            mActivity.startActivity(LoginActivity::class.java){}
+        }
+
+        circle_hint_login_dec.setOnClickListener {
+            mActivity.startActivity(LoginActivity::class.java){}
+        }
     }
 
     private fun initRecyclerView() {
@@ -255,7 +288,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        val view = EmptyView.getEmptyView2(mActivity,"",R.drawable.c_test)
         mAdapter.emptyView = view
 //        mAdapter.setSpanSizeLookup { _, position ->
 //
@@ -328,6 +361,12 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         if (checkLogin()) {
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
+            ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
+        }else{
+            circle_hint_login.visibility = View.VISIBLE
+            circle_hint_login_dec.visibility = View.VISIBLE
+            ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
+
         }
         mPresenter.getMyJoinCircleList(0, 3)
     }

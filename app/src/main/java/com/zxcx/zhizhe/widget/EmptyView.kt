@@ -26,7 +26,7 @@ object EmptyView {
     @Deprecated("不用")
     fun getEmptyView2(context: Context, str1: String, @DrawableRes imgRes: Int): View {
         val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data_2, null)
-        emptyView.tv_no_data_1.text = str1
+//        emptyView.tv_no_data_1.text = str1
         emptyView.iv_no_data.setImageResource(imgRes)
         return emptyView
     }

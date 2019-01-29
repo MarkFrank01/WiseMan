@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleClassifyAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_circle_classify.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -167,13 +168,16 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
     private fun initView() {
         initToolBar(classifyTitle)
         iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.tv_sort_earliest)
+        iv_toolbar_right.setImageResource(R.drawable.c_more_2)
 
         mAdapter = CircleClassifyAdapter(ArrayList())
 //        mAdapter.setLoadMoreView(CustomLoadMoreView())
 //        mAdapter.setOnLoadMoreListener(this,rv_circle_classify)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
+
+        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        mAdapter.emptyView = view
 
         rv_circle_classify.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_circle_classify.adapter = mAdapter

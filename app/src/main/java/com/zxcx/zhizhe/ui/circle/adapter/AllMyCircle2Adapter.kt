@@ -30,8 +30,8 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
 
         helper.setText(R.id.tv_item_circle_classify_title, item.title)
         helper.setText(R.id.tv_item_circle_classify_desc, item.sign)
-        helper.setText(R.id.tv_item_circle_classify_join, "加入" + item.joinUserCount + "w")
-        helper.setText(R.id.tv_item_circle_classify_topic, "话题" + item.qaCount + "w")
+        helper.setText(R.id.tv_item_circle_classify_join, "加入" + item.joinUserCount)
+        helper.setText(R.id.tv_item_circle_classify_topic, "话题" + item.qaCount)
 
         helper.getView<CheckBox>(R.id.cb_item_select_join_circle).visibility = View.GONE
 
@@ -51,6 +51,7 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
             1 -> {
                 helper.setText(R.id.tv_statue, "资料待补充")
                         .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
+                helper.addOnClickListener(R.id.tv_statue)
             }
 
             2 -> {

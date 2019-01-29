@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
+import android.widget.CheckBox
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -27,10 +28,14 @@ class CircleClassifyAdapter(data:List<CircleBean>):
 
         helper.setText(R.id.tv_item_circle_classify_title,item.title)
         helper.setText(R.id.tv_item_circle_classify_desc,item.sign)
-        helper.setText(R.id.tv_item_circle_classify_join,"加入"+item.joinUserCount+"w")
-        helper.setText(R.id.tv_item_circle_classify_topic,"话题"+item.qaCount+"w")
+        helper.setText(R.id.tv_item_circle_classify_join,"加入"+item.joinUserCount)
+        helper.setText(R.id.tv_item_circle_classify_topic,"话题"+item.qaCount)
 
         helper.setChecked(R.id.cb_item_select_join_circle,item.hasJoin)
+        val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle)
+        if (item.hasJoin){
+            checkBox.isEnabled = false
+        }
 
         helper.addOnClickListener(R.id.cb_item_select_join_circle)
     }

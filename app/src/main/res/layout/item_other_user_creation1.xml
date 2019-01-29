@@ -8,18 +8,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_daily_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/text_color_1"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:text="卡片"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_daily_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="卡片"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_daily_title_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="18dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="12sp"
+            tools:text="0/4"/>
+    </RelativeLayout>
+
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -70,7 +89,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/selector_other_user_follow"
+            android:background="@drawable/selector_other_user_choose"
             android:button="@null"
             android:checked="false"
             app:layout_constraintEnd_toEndOf="parent"

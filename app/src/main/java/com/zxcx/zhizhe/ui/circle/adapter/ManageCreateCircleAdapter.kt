@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -10,10 +11,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
-/**
- * Created by anm on 2017/12/1.
- * 不可删除作品Adapter
- */
+
 //class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_other_user_creation, data) {
 class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(data) {
 
@@ -34,6 +32,14 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                     helper.setText(R.id.tv_daily_title,item.showTitle)
                 }else{
                     helper.getView<TextView>(R.id.tv_daily_title).visibility = View.GONE
+                }
+
+                if (item.showNumTitle!=""&&item.showNumTitle.isNotEmpty()){
+                    helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.VISIBLE
+                    helper.setText(R.id.tv_daily_title_num,item.showNumTitle)
+                }else{
+                    helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.GONE
+
                 }
 
 //        when (helper.itemViewType) {
@@ -67,7 +73,15 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
 
                 helper.setText(R.id.tv_item_card_time,item.distanceTime)
 
-                helper.addOnClickListener(R.id.cb_choose_push_manage)
+                val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
+                if (item.circleFix){
+                    cb.isChecked = false
+                    helper.addOnClickListener(R.id.cb_choose_push_manage)
+                }else{
+                    cb.isChecked = true
+                    cb.isEnabled = false
+                }
+
 //            }
 
 //            CardBean.Article_LINK -> {

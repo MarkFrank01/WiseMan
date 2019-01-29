@@ -18,8 +18,20 @@ class ManageCreateModel(presenter:ManageCreateContract.Presenter):BaseModel<Mana
     }
 
     //获取作品
+//    fun getPublishableArticle(page:Int,pageSize:Int){
+//        mDisposable = AppClient.getAPIService().getPublishableArticle(page, pageSize)
+//                .compose(BaseRxJava.io_main())
+//                .compose(BaseRxJava.handleArrayResult())
+//                .subscribeWith(object :BaseSubscriber<MutableList<CardBean>>(mPresenter){
+//                    override fun onNext(t: MutableList<CardBean>) {
+//                        mPresenter?.getDataSuccess(t)
+//                    }
+//                })
+//        addSubscription(mDisposable)
+//    }
+
     fun getPublishableArticle(page:Int,pageSize:Int){
-        mDisposable = AppClient.getAPIService().getPublishableArticle(page, pageSize)
+        mDisposable = AppClient.getAPIService().getLockableArticle(page, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<CardBean>>(mPresenter){

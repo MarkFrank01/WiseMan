@@ -770,6 +770,15 @@ public interface APIService {
     );
 
     /**
+     * 获取圈子可供锁定的文章,先卡片后长文
+     */
+    @POST("/circle/getLockableArticle")
+    Flowable<BaseArrayBean<CardBean>> getLockableArticle(
+            @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize
+    );
+
+    /**
      * 通过圈子id获取圈子详情
      */
     @POST("/circle/getCircleBasicInfo")

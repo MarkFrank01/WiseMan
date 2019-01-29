@@ -1,20 +1,32 @@
 package com.zxcx.zhizhe.ui.circle.allmycircle
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.core.CenterPopupView
+import com.lxj.xpopup.interfaces.XPopupCallback
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
+import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
+import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
+import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.EmptyView
+import com.zxcx.zhizhe.widget.PublishDialog
 import kotlinx.android.synthetic.main.fragment_my_circle.*
 
 /**
@@ -23,7 +35,8 @@ import kotlinx.android.synthetic.main.fragment_my_circle.*
  * @Description :
  */
 class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCircleContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener {
+
 
     private var mCreatePage = 0
 
@@ -72,11 +85,168 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when(view.id){
+            R.id.tv_statue ->{
+                XPopup.get(mActivity)
+                        .asCustom(MyCustomPopup(mActivity))
+                        .dismissOnBackPressed(true)
+                        .setPopupCallback(object :XPopupCallback{
+                            override fun onDismiss() {
+                                val mHomeDialog = PublishDialog(mActivity)
+                                mHomeDialog.setFabuClickListener {
+                                    //                toastShow("开始创作")
+                                    if (checkLogin()) {
+                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                                            writer_status_writer -> {
+                                                //创作界面
+                                                mActivity.startActivity(CreationEditorActivity::class.java) {}
+                                            }
+
+                                            else -> {
+                                                val dialog = CreationAgreementDialog()
+                                                dialog.mListener = {
+                                                    mActivity.startActivity(CreationEditorActivity::class.java) {}
+                                                }
+                                                dialog.show(mActivity.supportFragmentManager, "")
+                                            }
+                                        }
+                                    }
+                                    mHomeDialog.outDia()
+                                }
+
+                                mHomeDialog.setShenDuClickListener {
+                                    if (checkLogin()) {
+                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                                            writer_status_writer -> {
+                                                //创作界面
+                                                mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                                            }
+
+                                            else -> {
+                                                val dialog = CreationAgreementDialog()
+                                                dialog.mListener = {
+                                                    mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                                                }
+                                                dialog.show(mActivity.supportFragmentManager, "")
+                                            }
+                                        }
+                                    }
+                                    mHomeDialog.outDia()
+                                }
+
+                                mHomeDialog.setHuishouClickListener {
+
+                                    if (checkLogin()) {
+                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                                            writer_status_writer -> {
+                                                //一键转载
+                                                mActivity.startActivity(PasteLinkActivity::class.java) {}
+                                            }
+
+                                            else -> {
+                                                val dialog = CreationAgreementDialog()
+                                                dialog.mListener = {
+                                                    mActivity.startActivity(PasteLinkActivity::class.java) {}
+                                                }
+                                                dialog.show(mActivity.supportFragmentManager, "")
+                                            }
+                                        }
+                                    }
+
+//                mActivity.startActivity(PasteLinkActivity::class.java) {}
+
+                                    mHomeDialog.outDia()
+                                }
+
+                                mHomeDialog.show()
+                            }
+
+                            override fun onShow() {
+                            }
+                        })
+                        // 设置弹窗显示和隐藏的回调监听
+                        .show()
+            }
+//            R.id.tv_statue->{
+//                    val mHomeDialog = PublishDialog(mActivity)
+//                    mHomeDialog.setFabuClickListener {
+//                        //                toastShow("开始创作")
+//                        if (checkLogin()) {
+//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                                writer_status_writer -> {
+//                                    //创作界面
+//                                    mActivity.startActivity(CreationEditorActivity::class.java) {}
+//                                }
+//
+//                                else -> {
+//                                    val dialog = CreationAgreementDialog()
+//                                    dialog.mListener = {
+//                                        mActivity.startActivity(CreationEditorActivity::class.java) {}
+//                                    }
+//                                    dialog.show(mActivity.supportFragmentManager, "")
+//                                }
+//                            }
+//                        }
+//                        mHomeDialog.outDia()
+//                    }
+//
+//                    mHomeDialog.setShenDuClickListener {
+//                        if (checkLogin()) {
+//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                                writer_status_writer -> {
+//                                    //创作界面
+//                                    mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+//                                }
+//
+//                                else -> {
+//                                    val dialog = CreationAgreementDialog()
+//                                    dialog.mListener = {
+//                                        mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+//                                    }
+//                                    dialog.show(mActivity.supportFragmentManager, "")
+//                                }
+//                            }
+//                        }
+//                        mHomeDialog.outDia()
+//                    }
+//
+//                    mHomeDialog.setHuishouClickListener {
+//
+//                        if (checkLogin()) {
+//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                                writer_status_writer -> {
+//                                    //一键转载
+//                                    mActivity.startActivity(PasteLinkActivity::class.java) {}
+//                                }
+//
+//                                else -> {
+//                                    val dialog = CreationAgreementDialog()
+//                                    dialog.mListener = {
+//                                        mActivity.startActivity(PasteLinkActivity::class.java) {}
+//                                    }
+//                                    dialog.show(mActivity.supportFragmentManager,"")
+//                                }
+//                            }
+//                        }
+//
+////                mActivity.startActivity(PasteLinkActivity::class.java) {}
+//
+//                        mHomeDialog.outDia()
+//                    }
+//
+//                    mHomeDialog.show()
+//            }
+        }
+    }
+
     private fun initRecycleView() {
         mAllmyCircleAdapter = AllMyCircle2Adapter(ArrayList())
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter
+
+        mAllmyCircleAdapter.onItemChildClickListener = this
 
 //        val emptyView = EmptyView.getEmptyView(mActivity, "大咖都在这里，创建圈子一起玩", R.drawable.no_data)
         val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"大咖都在这里，创建圈子一起玩","",R.drawable.no_data,View.OnClickListener {
@@ -94,4 +264,19 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
         mPresenter.getMyCreate(mCreatePage, Constants.PAGE_SIZE)
     }
 
+}
+
+class MyCustomPopup(context: Context) : CenterPopupView(context) {
+
+    override fun getImplLayoutId(): Int {
+        return R.layout.custom_popup
+    }
+
+    override fun initPopupContent() {
+        super.initPopupContent()
+        findViewById<View>(R.id.tv_close).setOnClickListener {
+            SharedPreferencesUtil.saveData("GOGOGO",true)
+            dismiss()
+        }
+    }
 }

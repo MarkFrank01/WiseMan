@@ -152,7 +152,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         create_xieyi.setOnClickListener {
 
             startActivity(WebViewActivity::class.java) {
-                it.putExtra("title", "智者创作协议")
+                it.putExtra("title", "智者圈子用户常见问题")
                 if (Constants.IS_NIGHT) {
                     it.putExtra("url", getString(R.string.base_url) + getString(R.string.create_circle))
                 } else {
@@ -273,14 +273,26 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     }
 
     fun chooseLevel() {
-        XPopup.get(mActivity).asBottomList("", arrayOf("黄金", "白银", "青铜", "黑铁"),
+//        XPopup.get(mActivity).asBottomList("", arrayOf("黄金", "白银", "青铜", "黑铁"),
+//                null, -1
+//        ) { position, text ->
+//            {}.run {
+//                mLevel = position
+//                circle_tv_level_name.text = text
+//            }
+//        }.show()
+        XPopup.get(this)
+//                .asCustom(CustomPopup(this))
+                .asBottomList("", arrayOf("黄金", "白银", "青铜", "黑铁"),
                 null, -1
-        ) { position, text ->
-            {}.run {
-                mLevel = position
-                circle_tv_level_name.text = text
-            }
-        }.show()
+        ){
+                    position, text ->
+                    {}.run {
+                        mLevel = position
+                        circle_tv_level_name.text = text
+                    }
+                }
+                .show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -350,7 +362,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             create_xieyi?.text = Html.fromHtml("更多详情，点击<font color='#0088AA'>了解圈子</font>", Html.FROM_HTML_MODE_LEGACY)
-        }else{
+        } else {
             create_xieyi?.text = Html.fromHtml("更多详情，点击<font color='#0088AA'>了解圈子</font>")
         }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

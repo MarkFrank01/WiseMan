@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
@@ -35,9 +36,17 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     private var isFirstLong = true
 
     //回传值
-    private var mBackList:MutableList<Int> = ArrayList()
+    private var mBackList: MutableList<Int> = ArrayList()
 
-    private lateinit var mDialog:PushManageConfirmDialog
+    //显示数值
+    private var mShowNum1: Int = 0
+    private var mShowNum2: Int = 0
+
+    //标记位置
+    private var mPosition1 = 0
+    private var mPosition2 = 0
+
+    private lateinit var mDialog: PushManageConfirmDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,19 +76,26 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
         mRefreshLayout.finishRefresh()
         if (mPage == 0) {
             list[0].showTitle = "卡片"
-            for (index in list.indices){
-                if (list[index].cardType == 2&&isFirstLong){
+            list[0].showNumTitle = "0/4"
+            for (index in list.indices) {
+                if (list[index].cardType == 2 && isFirstLong) {
                     isFirstLong = false
                     list[index].showTitle = "长文"
+                    list[index].showNumTitle = "0/2"
+
+                    mPosition2 = index
                 }
             }
 
             mAdapter.setNewData(list)
         } else {
-            for (index in list.indices){
-                if (list[index].cardType == 2&&isFirstLong){
+            for (index in list.indices) {
+                if (list[index].cardType == 2 && isFirstLong) {
                     isFirstLong = false
                     list[index].showTitle = "长文"
+                    list[index].showNumTitle = "0/2"
+
+                    mPosition2 = index
                 }
             }
 
@@ -97,7 +113,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event:PushManageListEvent){
+    fun onMessageEvent(event: PushManageListEvent) {
         val intent = Intent()
         intent.putIntegerArrayListExtra("manageCreateList", mBackList as java.util.ArrayList<Int>?)
         setResult(Activity.RESULT_OK, intent)
@@ -108,22 +124,52 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            R.id.cb_choose_push_manage->{
+
+
+        when (view.id) {
+            R.id.cb_choose_push_manage -> {
+                //   val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+                val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
+
                 val bean = adapter.data[position] as CardBean
                 bean.mIfCheckOrNot = !bean.mIfCheckOrNot
 
-                if (bean.mIfCheckOrNot){
-                    if (!mBackList.contains(bean.id)){
+//                if (bean.cardType == 1) {
+//                    cb.isEnabled = mShowNum1 <= 4
+//                } else if (bean.cardType == 2) {
+//                    cb.isEnabled = mShowNum2 <= 2
+//                }
+
+
+                if (bean.mIfCheckOrNot) {
+                    if (!mBackList.contains(bean.id)) {
                         mBackList.add(bean.id)
                     }
-                }else{
-                    if (mBackList.contains(bean.id)){
+                    if (bean.cardType == 1) {
+                        ++mShowNum1
+                    } else if (bean.cardType == 2) {
+                        ++mShowNum2
+                    }
+                } else {
+                    if (mBackList.contains(bean.id)) {
                         mBackList.remove(bean.id)
                     }
+                    if (bean.cardType == 1) {
+                        mShowNum1--
+                    } else if (bean.cardType == 2) {
+                        mShowNum2--
+                    }
                 }
-                LogCat.e("SIZE FOR MANAGE1"+mBackList.size)
+                LogCat.e("SIZE FOR SIZE" + mShowNum1 + "----" + mShowNum2)
 
+//                val biaoji:CardBean = adapter.data[mPosition2] as CardBean
+                if (mPosition1!=mPosition2) {
+                    val biaoji2 = adapter.data[mPosition2] as CardBean
+                    biaoji2.showNumTitle = "$mShowNum2/2"
+                }else{
+                    val biaoji1 = adapter.data[mPosition1] as CardBean
+                    biaoji1.showNumTitle = "$mShowNum1/4"
+                }
                 tv_toolbar_right.isEnabled = mBackList.isNotEmpty()
             }
         }
@@ -134,7 +180,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
 
             val bundle = Bundle()
             mDialog.arguments = bundle
-            mDialog.show(mActivity.supportFragmentManager,"")
+            mDialog.show(mActivity.supportFragmentManager, "")
 
 //            val intent = Intent()
 //            intent.putIntegerArrayListExtra("manageCreateList", mBackList as java.util.ArrayList<Int>?)
