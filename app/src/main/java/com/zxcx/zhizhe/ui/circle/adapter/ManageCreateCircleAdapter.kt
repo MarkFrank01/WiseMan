@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
+import android.support.constraint.ConstraintLayout
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -80,8 +82,10 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                 }else{
                     cb.isChecked = true
                     cb.isEnabled = false
+                    helper.getView<ConstraintLayout>(R.id.con).setBackgroundColor(ContextCompat.getColor(mContext, R.color.text_color_d2))
                 }
 
+//                cb.setOnCheckedChangeListener(null)
 //            }
 
 //            CardBean.Article_LINK -> {

@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
-import com.lxj.xpopup.interfaces.XPopupCallback
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
@@ -21,10 +20,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.PublishDialog
 import kotlinx.android.synthetic.main.fragment_my_circle.*
@@ -35,12 +31,13 @@ import kotlinx.android.synthetic.main.fragment_my_circle.*
  * @Description :
  */
 class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCircleContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener,MyCircleListener {
 
 
     private var mCreatePage = 0
 
     private lateinit var mAllmyCircleAdapter: AllMyCircle2Adapter
+    private lateinit var myCus:MyCustomPopup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_circle, container, false)
@@ -85,158 +82,91 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            R.id.tv_statue ->{
-                XPopup.get(mActivity)
-                        .asCustom(MyCustomPopup(mActivity))
-                        .dismissOnBackPressed(true)
-                        .setPopupCallback(object :XPopupCallback{
-                            override fun onDismiss() {
-                                val mHomeDialog = PublishDialog(mActivity)
-                                mHomeDialog.setFabuClickListener {
-                                    //                toastShow("开始创作")
-                                    if (checkLogin()) {
-                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                                            writer_status_writer -> {
-                                                //创作界面
-                                                mActivity.startActivity(CreationEditorActivity::class.java) {}
-                                            }
+    override fun onClick(click: Boolean) {
 
-                                            else -> {
-                                                val dialog = CreationAgreementDialog()
-                                                dialog.mListener = {
-                                                    mActivity.startActivity(CreationEditorActivity::class.java) {}
-                                                }
-                                                dialog.show(mActivity.supportFragmentManager, "")
-                                            }
-                                        }
-                                    }
-                                    mHomeDialog.outDia()
-                                }
 
-                                mHomeDialog.setShenDuClickListener {
-                                    if (checkLogin()) {
-                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                                            writer_status_writer -> {
-                                                //创作界面
-                                                mActivity.startActivity(CreationEditorLongActivity::class.java) {}
-                                            }
 
-                                            else -> {
-                                                val dialog = CreationAgreementDialog()
-                                                dialog.mListener = {
-                                                    mActivity.startActivity(CreationEditorLongActivity::class.java) {}
-                                                }
-                                                dialog.show(mActivity.supportFragmentManager, "")
-                                            }
-                                        }
-                                    }
-                                    mHomeDialog.outDia()
-                                }
+        val mHomeDialog = PublishDialog(mActivity)
+        mHomeDialog.setFabuClickListener {
+            //                toastShow("开始创作")
+            if (checkLogin()) {
+                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                    writer_status_writer -> {
+                        //创作界面
+                        mActivity.startActivity(CreationEditorActivity::class.java) {}
+                    }
 
-                                mHomeDialog.setHuishouClickListener {
+                    else -> {
+                        val dialog = CreationAgreementDialog()
+                        dialog.mListener = {
+                            mActivity.startActivity(CreationEditorActivity::class.java) {}
+                        }
+                        dialog.show(mActivity.supportFragmentManager, "")
+                    }
+                }
+            }
+            mHomeDialog.outDia()
+        }
 
-                                    if (checkLogin()) {
-                                        when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                                            writer_status_writer -> {
-                                                //一键转载
-                                                mActivity.startActivity(PasteLinkActivity::class.java) {}
-                                            }
+        mHomeDialog.setShenDuClickListener {
+            if (checkLogin()) {
+                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                    writer_status_writer -> {
+                        //创作界面
+                        mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                    }
 
-                                            else -> {
-                                                val dialog = CreationAgreementDialog()
-                                                dialog.mListener = {
-                                                    mActivity.startActivity(PasteLinkActivity::class.java) {}
-                                                }
-                                                dialog.show(mActivity.supportFragmentManager, "")
-                                            }
-                                        }
-                                    }
+                    else -> {
+                        val dialog = CreationAgreementDialog()
+                        dialog.mListener = {
+                            mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                        }
+                        dialog.show(mActivity.supportFragmentManager, "")
+                    }
+                }
+            }
+            mHomeDialog.outDia()
+        }
+
+        mHomeDialog.setHuishouClickListener {
+
+            if (checkLogin()) {
+                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                    writer_status_writer -> {
+                        //一键转载
+                        mActivity.startActivity(PasteLinkActivity::class.java) {}
+                    }
+
+                    else -> {
+                        val dialog = CreationAgreementDialog()
+                        dialog.mListener = {
+                            mActivity.startActivity(PasteLinkActivity::class.java) {}
+                        }
+                        dialog.show(mActivity.supportFragmentManager, "")
+                    }
+                }
+            }
 
 //                mActivity.startActivity(PasteLinkActivity::class.java) {}
 
-                                    mHomeDialog.outDia()
-                                }
+            mHomeDialog.outDia()
+        }
 
-                                mHomeDialog.show()
-                            }
+        mHomeDialog.show()
+    }
 
-                            override fun onShow() {
-                            }
-                        })
-                        // 设置弹窗显示和隐藏的回调监听
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when(view.id){
+            R.id.tv_statue ->{
+
+                XPopup.get(mActivity)
+                        .asCustom(myCus)
+                        .dismissOnBackPressed(true)
                         .show()
             }
-//            R.id.tv_statue->{
-//                    val mHomeDialog = PublishDialog(mActivity)
-//                    mHomeDialog.setFabuClickListener {
-//                        //                toastShow("开始创作")
-//                        if (checkLogin()) {
-//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-//                                writer_status_writer -> {
-//                                    //创作界面
-//                                    mActivity.startActivity(CreationEditorActivity::class.java) {}
-//                                }
-//
-//                                else -> {
-//                                    val dialog = CreationAgreementDialog()
-//                                    dialog.mListener = {
-//                                        mActivity.startActivity(CreationEditorActivity::class.java) {}
-//                                    }
-//                                    dialog.show(mActivity.supportFragmentManager, "")
-//                                }
-//                            }
-//                        }
-//                        mHomeDialog.outDia()
-//                    }
-//
-//                    mHomeDialog.setShenDuClickListener {
-//                        if (checkLogin()) {
-//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-//                                writer_status_writer -> {
-//                                    //创作界面
-//                                    mActivity.startActivity(CreationEditorLongActivity::class.java) {}
-//                                }
-//
-//                                else -> {
-//                                    val dialog = CreationAgreementDialog()
-//                                    dialog.mListener = {
-//                                        mActivity.startActivity(CreationEditorLongActivity::class.java) {}
-//                                    }
-//                                    dialog.show(mActivity.supportFragmentManager, "")
-//                                }
-//                            }
-//                        }
-//                        mHomeDialog.outDia()
-//                    }
-//
-//                    mHomeDialog.setHuishouClickListener {
-//
-//                        if (checkLogin()) {
-//                            when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-//                                writer_status_writer -> {
-//                                    //一键转载
-//                                    mActivity.startActivity(PasteLinkActivity::class.java) {}
-//                                }
-//
-//                                else -> {
-//                                    val dialog = CreationAgreementDialog()
-//                                    dialog.mListener = {
-//                                        mActivity.startActivity(PasteLinkActivity::class.java) {}
-//                                    }
-//                                    dialog.show(mActivity.supportFragmentManager,"")
-//                                }
-//                            }
-//                        }
-//
-////                mActivity.startActivity(PasteLinkActivity::class.java) {}
-//
-//                        mHomeDialog.outDia()
-//                    }
-//
-//                    mHomeDialog.show()
-//            }
+
+
         }
     }
 
@@ -253,6 +183,9 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
             mActivity.startActivity(CreateCircleActivity::class.java){}
         })
         mAllmyCircleAdapter.emptyView = emptyView
+
+        myCus = MyCustomPopup(mActivity)
+        myCus.mListener = this
     }
 
     fun onRefresh() {
@@ -266,7 +199,10 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
 
 }
 
-class MyCustomPopup(context: Context) : CenterPopupView(context) {
+class MyCustomPopup(context: Context) : CenterPopupView(context){
+
+    lateinit var mListener:MyCircleListener
+
 
     override fun getImplLayoutId(): Int {
         return R.layout.custom_popup
@@ -275,8 +211,12 @@ class MyCustomPopup(context: Context) : CenterPopupView(context) {
     override fun initPopupContent() {
         super.initPopupContent()
         findViewById<View>(R.id.tv_close).setOnClickListener {
-            SharedPreferencesUtil.saveData("GOGOGO",true)
             dismiss()
+            mListener.onClick(true)
         }
+    }
+
+    override fun getMaxWidth(): Int {
+        return ((ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 4) )
     }
 }

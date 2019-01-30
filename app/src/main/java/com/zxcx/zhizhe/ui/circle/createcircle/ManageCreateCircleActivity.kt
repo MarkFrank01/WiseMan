@@ -96,6 +96,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                     list[index].showNumTitle = "0/2"
 
                     mPosition2 = index
+                    LogCat.e("FUCK1" + mPosition2)
                 }
             }
 
@@ -121,6 +122,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -131,14 +133,17 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                 //   val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
                 val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
 
+                val beanF1 = adapter.data[mPosition1] as CardBean
+                val beanF2 = adapter.data[mPosition2] as CardBean
+
                 val bean = adapter.data[position] as CardBean
                 bean.mIfCheckOrNot = !bean.mIfCheckOrNot
 
-//                if (bean.cardType == 1) {
-//                    cb.isEnabled = mShowNum1 <= 4
-//                } else if (bean.cardType == 2) {
-//                    cb.isEnabled = mShowNum2 <= 2
-//                }
+                if (bean.cardType == 1) {
+                    cb.isEnabled = mShowNum1 <= 4
+                } else if (bean.cardType == 2) {
+                    cb.isEnabled = mShowNum2 <= 2
+                }
 
 
                 if (bean.mIfCheckOrNot) {
@@ -146,9 +151,11 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                         mBackList.add(bean.id)
                     }
                     if (bean.cardType == 1) {
-                        ++mShowNum1
+                        if (mShowNum1 < 2)
+                            mShowNum1++
                     } else if (bean.cardType == 2) {
-                        ++mShowNum2
+                        if (mShowNum2 < 2)
+                            mShowNum2++
                     }
                 } else {
                     if (mBackList.contains(bean.id)) {
@@ -160,16 +167,39 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                         mShowNum2--
                     }
                 }
-                LogCat.e("SIZE FOR SIZE" + mShowNum1 + "----" + mShowNum2)
 
-//                val biaoji:CardBean = adapter.data[mPosition2] as CardBean
-                if (mPosition1!=mPosition2) {
-                    val biaoji2 = adapter.data[mPosition2] as CardBean
-                    biaoji2.showNumTitle = "$mShowNum2/2"
-                }else{
-                    val biaoji1 = adapter.data[mPosition1] as CardBean
-                    biaoji1.showNumTitle = "$mShowNum1/4"
+                if (bean.cardType == 2) {
+                    if (mPosition2 != 0) {
+                        beanF2.showNumTitle = "$mShowNum2/2"
+                        mAdapter.notifyItemChanged(mPosition2)
+                    } else {
+                        beanF2.showNumTitle = "$mShowNum2/2"
+                        mAdapter.notifyItemChanged(mPosition2)
+                    }
                 }
+
+                if (bean.cardType == 1){
+                    if (mPosition2==0){
+                        beanF1.showNumTitle = "$mShowNum1/4"
+                        mAdapter.notifyItemChanged(mPosition1)
+                    }
+                }
+
+//                LogCat.e("SIZE FOR SIZE" + mShowNum1 + "----" + mShowNum2)
+
+//                if (bean.cardType == 2) {
+//                    if (mPosition1 != mPosition2) {
+//                        bean.showNumTitle = "$mShowNum2/2"
+//                    }
+//                }
+//
+//                if (bean.cardType == 1) {
+//                    if (mPosition1 == mPosition2) {
+//                        bean.showNumTitle = "$mShowNum1/4"
+//                    }
+//                }
+
+//                mAdapter.notifyItemChanged(mPosition2)/*/
                 tv_toolbar_right.isEnabled = mBackList.isNotEmpty()
             }
         }
