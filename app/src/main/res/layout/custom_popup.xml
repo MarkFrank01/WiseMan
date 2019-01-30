@@ -65,6 +65,7 @@
             android:textSize="12sp"/>
 
         <TextView
+            android:id="@+id/push_num_artic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -92,10 +93,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="20dp"
-            android:text="已上线文章数"
+            android:text="已上线卡片数"
             android:textSize="12sp"/>
 
         <TextView
+            android:id="@+id/push_num_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -127,6 +129,7 @@
             android:textSize="12sp"/>
 
         <TextView
+            android:id="@+id/push_num_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -136,17 +139,7 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="混沌未分天地乱，茫茫渺渺无人见。
-自从盘古破鸿蒙，开辟从兹清浊辨。
-覆载群生仰至仁，发明万物皆成善。
-欲知造化会元功，须看西游释厄传。"
-        android:textColor="#222"
-        android:textSize="16sp"
-        android:visibility="gone"/>
+
 
 
     <TextView
@@ -164,3 +157,7 @@
         android:text="马上创作"
         android:textColor="@color/button_blue"/>
 </LinearLayout>
+
+
+
+

@@ -13,9 +13,11 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushManageListEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleAdapter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.activity_manage_circle_create.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -32,6 +34,12 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
 
     private var mPage = 0
     private lateinit var mAdapter: ManageCreateCircleAdapter
+    private lateinit var mAdapter2: ManageCreateCircle2Adapter
+
+
+    private lateinit var listCard: MutableList<CardBean>
+    private lateinit var listArc: MutableList<CardBean>
+
 
     private var isFirstLong = true
 
@@ -39,12 +47,9 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     private var mBackList: MutableList<Int> = ArrayList()
 
     //显示数值
-    private var mShowNum1: Int = 0
-    private var mShowNum2: Int = 0
+    private var mNumBerCard: Int = 0
+    private var mNumArc: Int = 0
 
-    //标记位置
-    private var mPosition1 = 0
-    private var mPosition2 = 0
 
     private lateinit var mDialog: PushManageConfirmDialog
 
@@ -74,33 +79,20 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     override fun getDataSuccess(list: MutableList<CardBean>) {
         LogCat.e("MyManage ${list.size}")
         mRefreshLayout.finishRefresh()
+        list.forEach {
+            if (it.cardType == 1) {
+                listCard.add(it)
+            } else {
+                listArc.add(it)
+            }
+        }
+
         if (mPage == 0) {
-            list[0].showTitle = "卡片"
-            list[0].showNumTitle = "0/4"
-            for (index in list.indices) {
-                if (list[index].cardType == 2 && isFirstLong) {
-                    isFirstLong = false
-                    list[index].showTitle = "长文"
-                    list[index].showNumTitle = "0/2"
-
-                    mPosition2 = index
-                }
-            }
-
-            mAdapter.setNewData(list)
+            mAdapter.setNewData(listCard)
+            mAdapter2.setNewData(listArc)
         } else {
-            for (index in list.indices) {
-                if (list[index].cardType == 2 && isFirstLong) {
-                    isFirstLong = false
-                    list[index].showTitle = "长文"
-                    list[index].showNumTitle = "0/2"
-
-                    mPosition2 = index
-                    LogCat.e("FUCK1" + mPosition2)
-                }
-            }
-
-            mAdapter.addData(list)
+            mAdapter.addData(listCard)
+            mAdapter2.addData(listArc)
         }
 
         mPage++
@@ -129,78 +121,75 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
 
 
         when (view.id) {
+            R.id.con -> {
+                toastShow("已被审核")
+            }
+
             R.id.cb_choose_push_manage -> {
-                //   val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
                 val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
-
-                val beanF1 = adapter.data[mPosition1] as CardBean
-                val beanF2 = adapter.data[mPosition2] as CardBean
-
                 val bean = adapter.data[position] as CardBean
+
+//                if (mNumArc < 2 && mNumBerCard < 4) {
+
                 bean.mIfCheckOrNot = !bean.mIfCheckOrNot
 
-                if (bean.cardType == 1) {
-                    cb.isEnabled = mShowNum1 <= 4
-                } else if (bean.cardType == 2) {
-                    cb.isEnabled = mShowNum2 <= 2
-                }
-
-
                 if (bean.mIfCheckOrNot) {
-                    if (!mBackList.contains(bean.id)) {
-                        mBackList.add(bean.id)
+                    if (mNumArc < 2 && mNumBerCard < 4) {
+
+                        if (!mBackList.contains(bean.id)) {
+                            mBackList.add(bean.id)
+                        }
                     }
                     if (bean.cardType == 1) {
-                        if (mShowNum1 < 2)
-                            mShowNum1++
-                    } else if (bean.cardType == 2) {
-                        if (mShowNum2 < 2)
-                            mShowNum2++
+                        if (mNumBerCard < 4) {
+                            mNumBerCard++
+                            LogCat.e("NUMCARD $mNumBerCard")
+                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.text_color_1))
+                        } else {
+                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
+
+                        }
+                    } else {
+                        if (mNumArc < 2) {
+                            mNumArc++
+                            LogCat.e("NUMARC $mNumArc")
+                            tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.text_color_1))
+                        } else {
+                            tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                        }
                     }
+
                 } else {
                     if (mBackList.contains(bean.id)) {
                         mBackList.remove(bean.id)
                     }
                     if (bean.cardType == 1) {
-                        mShowNum1--
-                    } else if (bean.cardType == 2) {
-                        mShowNum2--
-                    }
-                }
-
-                if (bean.cardType == 2) {
-                    if (mPosition2 != 0) {
-                        beanF2.showNumTitle = "$mShowNum2/2"
-                        mAdapter.notifyItemChanged(mPosition2)
+                        mNumBerCard--
                     } else {
-                        beanF2.showNumTitle = "$mShowNum2/2"
-                        mAdapter.notifyItemChanged(mPosition2)
+                        mNumArc--
                     }
                 }
 
-                if (bean.cardType == 1){
-                    if (mPosition2==0){
-                        beanF1.showNumTitle = "$mShowNum1/4"
-                        mAdapter.notifyItemChanged(mPosition1)
-                    }
-                }
-
-//                LogCat.e("SIZE FOR SIZE" + mShowNum1 + "----" + mShowNum2)
-
-//                if (bean.cardType == 2) {
-//                    if (mPosition1 != mPosition2) {
-//                        bean.showNumTitle = "$mShowNum2/2"
-//                    }
-//                }
-//
-//                if (bean.cardType == 1) {
-//                    if (mPosition1 == mPosition2) {
-//                        bean.showNumTitle = "$mShowNum1/4"
-//                    }
-//                }
-
-//                mAdapter.notifyItemChanged(mPosition2)/*/
                 tv_toolbar_right.isEnabled = mBackList.isNotEmpty()
+                tv_daily_title_num.text = "$mNumBerCard/4"
+//                tv_daily_title.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                tv_daily_title_num2.text = "$mNumArc/2"
+//                tv_daily_title2.setTextColor(this.getColorForKotlin(R.color.button_blue))
+//                }else{
+//                    if (cb.isChecked){
+//
+//                        if (mBackList.contains(bean.id)) {
+//                            mBackList.remove(bean.id)
+//                        }
+//                        if (bean.cardType == 1) {
+//                            mNumBerCard--
+//                        } else {
+//                            mNumArc--
+//                        }
+//                    }else{
+//                        cb.isChecked = false
+//                    }
+//                }
             }
         }
     }
@@ -216,6 +205,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
 //            intent.putIntegerArrayListExtra("manageCreateList", mBackList as java.util.ArrayList<Int>?)
 //            setResult(Activity.RESULT_OK,intent)
 //            finish()
+
         }
     }
 
@@ -223,6 +213,10 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
     }
 
     private fun initView() {
+
+        listCard = ArrayList()
+        listArc = ArrayList()
+
         initToolBar("作品审核")
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "完成"
@@ -233,6 +227,19 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
         mAdapter.onItemChildClickListener = this
         rv_manage_circle_create.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_manage_circle_create.adapter = mAdapter
+
+        mAdapter2 = ManageCreateCircle2Adapter(ArrayList())
+        mAdapter2.onItemChildClickListener = this
+        rv_manage_circle_create2.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+        rv_manage_circle_create2.adapter = mAdapter2
+
+        rv_manage_circle_create.isNestedScrollingEnabled = false
+        rv_manage_circle_create.setHasFixedSize(true)
+        rv_manage_circle_create.isFocusable = false
+
+        rv_manage_circle_create2.isNestedScrollingEnabled = false
+        rv_manage_circle_create2.setHasFixedSize(true)
+        rv_manage_circle_create2.isFocusable = false
     }
 
     fun onRefresh1() {

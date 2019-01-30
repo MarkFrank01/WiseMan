@@ -52,6 +52,7 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
                 helper.setText(R.id.tv_statue, "资料待补充")
                         .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
                 helper.addOnClickListener(R.id.tv_statue)
+                        .addOnClickListener(R.id.con_click)
             }
 
             2 -> {

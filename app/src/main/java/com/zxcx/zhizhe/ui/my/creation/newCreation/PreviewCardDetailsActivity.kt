@@ -63,7 +63,9 @@ class PreviewCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDeta
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_item_card_details_icon)
         tv_item_card_details_title.text = mCardBean.name
         tv_item_card_details_category.text = mCardBean.categoryName
-        tv_item_card_details_label.text = mCardBean.getLabelName()
+        if (mCardBean.labelName!=""&&mCardBean.labelName.isNotEmpty()) {
+            tv_item_card_details_label.text = mCardBean.getLabelName()
+        }
         if (mCardBean.secondCollectionTitle.isNotEmpty()) {
             tv_item_card_details_label2.text = mCardBean.getSecondLabelName()
         }

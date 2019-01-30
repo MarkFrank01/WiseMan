@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
@@ -30,14 +31,14 @@ import kotlinx.android.synthetic.main.fragment_my_circle.*
  * @Created on 2019/1/24
  * @Description :
  */
-class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCircleContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener,MyCircleListener {
+class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCircleContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, MyCircleListener {
 
 
     private var mCreatePage = 0
 
     private lateinit var mAllmyCircleAdapter: AllMyCircle2Adapter
-    private lateinit var myCus:MyCustomPopup
+    private lateinit var myCus: MyCustomPopup
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_circle, container, false)
@@ -60,20 +61,22 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
         mRefreshLayout.finishRefresh()
-        if (mCreatePage == 0){
+        if (mCreatePage == 0) {
             mAllmyCircleAdapter.setNewData(list)
-        }else{
+        } else {
             mAllmyCircleAdapter.addData(list)
         }
 
         mCreatePage++
-        if (list.size< Constants.PAGE_SIZE){
+        if (list.size < Constants.PAGE_SIZE) {
             mAllmyCircleAdapter.loadMoreEnd(false)
-        }else{
+        } else {
             mAllmyCircleAdapter.loadMoreComplete()
             mAllmyCircleAdapter.setEnableLoadMore(false)
             mAllmyCircleAdapter.setEnableLoadMore(true)
         }
+
+//        LogCat.e("toBeAddedInfoVO"+list[0].toBeAddedInfoVO?.deadline)
     }
 
     override fun onLoadMoreRequested() {
@@ -83,7 +86,6 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
     }
 
     override fun onClick(click: Boolean) {
-
 
 
         val mHomeDialog = PublishDialog(mActivity)
@@ -157,8 +159,19 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
 
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            R.id.tv_statue ->{
+        when (view.id) {
+            R.id.tv_statue, R.id.con_click -> {
+
+                //      val beanF1 = adapter.data[mPosition1] as CardBean
+                val circleBean = adapter.data[position] as CircleBean
+
+                SharedPreferencesUtil.saveData("cardCount",circleBean.toBeAddedInfoVO?.cardCount)
+                SharedPreferencesUtil.saveData("articleCount",circleBean.toBeAddedInfoVO?.articleCount)
+                SharedPreferencesUtil.saveData("deadline",circleBean.toBeAddedInfoVO?.deadline)
+
+
+                myCus = MyCustomPopup(mActivity)
+                myCus.mListener = this
 
                 XPopup.get(mActivity)
                         .asCustom(myCus)
@@ -179,13 +192,13 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
         mAllmyCircleAdapter.onItemChildClickListener = this
 
 //        val emptyView = EmptyView.getEmptyView(mActivity, "大咖都在这里，创建圈子一起玩", R.drawable.no_data)
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity,"大咖都在这里，创建圈子一起玩","",R.drawable.no_data,View.OnClickListener {
-            mActivity.startActivity(CreateCircleActivity::class.java){}
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "大咖都在这里，创建圈子一起玩", "", R.drawable.no_data, View.OnClickListener {
+            mActivity.startActivity(CreateCircleActivity::class.java) {}
         })
         mAllmyCircleAdapter.emptyView = emptyView
 
-        myCus = MyCustomPopup(mActivity)
-        myCus.mListener = this
+//        myCus = MyCustomPopup(mActivity)
+//        myCus.mListener = this
     }
 
     fun onRefresh() {
@@ -199,9 +212,10 @@ class AllMyCreateFragment: RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCir
 
 }
 
-class MyCustomPopup(context: Context) : CenterPopupView(context){
+class MyCustomPopup(context: Context) : CenterPopupView(context) {
 
-    lateinit var mListener:MyCircleListener
+    lateinit var mListener: MyCircleListener
+
 
 
     override fun getImplLayoutId(): Int {
@@ -214,9 +228,13 @@ class MyCustomPopup(context: Context) : CenterPopupView(context){
             dismiss()
             mListener.onClick(true)
         }
+        findViewById<TextView>(R.id.push_num_artic).text = SharedPreferencesUtil.getString("articleCount","")
+        findViewById<TextView>(R.id.push_num_num).text = SharedPreferencesUtil.getString("cardCount","")
+        findViewById<TextView>(R.id.push_num_time).text = SharedPreferencesUtil.getString("deadline","")
+
     }
 
     override fun getMaxWidth(): Int {
-        return ((ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 4) )
+        return ((ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 4))
     }
 }

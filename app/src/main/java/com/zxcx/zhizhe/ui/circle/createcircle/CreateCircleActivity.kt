@@ -144,7 +144,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushCreateCircleListEvent) {
-        mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", articleList, mLevel)
+        mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", mBackList, mLevel)
     }
 
     override fun setListener() {
@@ -330,7 +330,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                 }
                 CreateCircleActivity.CODE_SELECT_MANAGE -> {
                     mBackList = data.getIntegerArrayListExtra("manageCreateList")
-                    LogCat.e("BACK MANAGE" + mBackList.size)
+                    LogCat.e("BACK MANAGE" + mBackList.toString())
                 }
             }
         }

@@ -14,7 +14,7 @@ import com.zxcx.zhizhe.utils.getColorForKotlin
 
 
 //class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_other_user_creation, data) {
-class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(data) {
+class ManageCreateCircle2Adapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(data) {
 
     /**
      * 特别注意此处的layout只有两种类型，

@@ -42,7 +42,7 @@ class CardBean(
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
         @SerializedName("distanceTime") var distanceTime:String = "",
         @SerializedName("remask") var title:String = "",
-        @SerializedName("circleFix")var circleFix:Boolean = false,
+        @SerializedName("circleFix")var circleFix:Boolean? = null,
 
         var showTitle:String = "",
         var showNumTitle:String = "",

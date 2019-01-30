@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
-                    android:text="深读创作"
+                    android:text="文章创作"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>

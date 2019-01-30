@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.circle.circlehome
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
+import com.zxcx.zhizhe.ui.circle.bean.CircleIWaitContentBean
 import com.zxcx.zhizhe.ui.circle.bean.CircleItemBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
@@ -74,6 +75,9 @@ class CircleBean(
 
     @SerializedName("statusType")
     val statusType:Int = -11
+
+    @SerializedName("toBeAddedInfoVO")
+    val toBeAddedInfoVO:CircleIWaitContentBean? =null
 
     //新标题
     var newTitle: String? = ""

@@ -39,7 +39,7 @@ class SelectHotManAdapter(data: List<SearchUserBean>) : BaseQuickAdapter<SearchU
 
         helper.setChecked(R.id.iv_man_follow,item.isFollow)
 
-        helper.getView<View>(R.id.iv_man_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+        helper.getView<View>(R.id.iv_man_follow).expandViewTouchDelegate(ScreenUtils.dip2px(50f))
         helper.addOnClickListener(R.id.iv_man_follow)
     }
 

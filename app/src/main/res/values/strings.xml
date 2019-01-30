@@ -1,6 +1,6 @@
 <resources>
-    <string name="home_card">刷卡片</string>
-    <string name="home_article">深读</string>
+    <string name="home_card">卡片</string>
+    <string name="home_article">文章</string>
     <string name="home_rank">榜单</string>
     <string name="home_circle">圈子</string>
     <string name="home_my">我的</string>

@@ -247,13 +247,17 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun setListener() {
         circle_image.setOnClickListener {
-            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+           if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+               mActivity.startActivity(AllMyCircleActivity::class.java) {}
+           }else{
+               mActivity.startActivity(LoginActivity::class.java){}
+           }
         }
 
-        iv_circle_to_my.setOnClickListener {
-            //            mActivity.startActivity(MyCircleActivity::class.java){}
-            mActivity.startActivity(AllMyCircleActivity::class.java) {}
-        }
+//        iv_circle_to_my.setOnClickListener {
+//            //            mActivity.startActivity(MyCircleActivity::class.java){}
+//            mActivity.startActivity(AllMyCircleActivity::class.java) {}
+//        }
 
         iv_3.setOnClickListener {
             mActivity.startActivity(CreateCircleActivity::class.java) {}

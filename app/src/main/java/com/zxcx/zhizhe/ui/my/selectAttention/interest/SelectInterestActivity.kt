@@ -123,7 +123,7 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
                 tv_toolbar_right.isEnabled = mCollectionList.isNotEmpty()
             }
 
-            R.id.iv_man_follow ->{
+            R.id.iv_man_follow->{
                 val cb = view as CheckBox
                 cb.isChecked = !cb.isChecked
                 val userBean = adapter.data[position] as SearchUserBean
