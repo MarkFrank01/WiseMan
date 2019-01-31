@@ -176,7 +176,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        val view = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        val view = EmptyView.getEmptyView(mActivity,"暂无圈子",R.drawable.no_circle_data)
         mAdapter.emptyView = view
 
         rv_circle_classify.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)

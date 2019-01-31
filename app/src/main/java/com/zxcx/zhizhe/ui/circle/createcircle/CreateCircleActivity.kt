@@ -288,7 +288,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         ){
                     position, text ->
                     {}.run {
-                        mLevel = position
+                        mLevel = position+1
                         circle_tv_level_name.text = text
                     }
                 }

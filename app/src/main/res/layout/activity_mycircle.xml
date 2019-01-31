@@ -40,7 +40,7 @@
             android:layout_width="120dp"
             android:layout_height="80dp"
             android:scaleType="center"
-            android:src="@drawable/no_data"/>
+            android:src="@drawable/no_circle_data"/>
 
         <TextView
             android:id="@+id/tv_no_data_1"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="8dp"
-            android:text="大咖都在这里，创建圈子一起玩"
+            android:text="暂无圈子"
             android:textColor="@color/button_blue"
             android:textSize="@dimen/text_size_text_2"/>
 

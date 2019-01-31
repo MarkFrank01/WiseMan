@@ -60,6 +60,13 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
+//        if (Constants.PAGE_SIZE==0&&list.size==0){
+            val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "大咖都在这里，创建圈子一起玩", "", R.drawable.no_data, View.OnClickListener {
+                mActivity.startActivity(CreateCircleActivity::class.java) {}
+            })
+            mAllmyCircleAdapter.emptyView = emptyView
+//        }
+
         mRefreshLayout.finishRefresh()
         if (mCreatePage == 0) {
             mAllmyCircleAdapter.setNewData(list)
@@ -192,10 +199,10 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
         mAllmyCircleAdapter.onItemChildClickListener = this
 
 //        val emptyView = EmptyView.getEmptyView(mActivity, "大咖都在这里，创建圈子一起玩", R.drawable.no_data)
-        val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "大咖都在这里，创建圈子一起玩", "", R.drawable.no_data, View.OnClickListener {
+        val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无圈子", "", R.drawable.no_circle_data, View.OnClickListener {
             mActivity.startActivity(CreateCircleActivity::class.java) {}
         })
-        mAllmyCircleAdapter.emptyView = emptyView
+        //mAllmyCircleAdapter.emptyView = emptyView
 
 //        myCus = MyCustomPopup(mActivity)
 //        myCus.mListener = this

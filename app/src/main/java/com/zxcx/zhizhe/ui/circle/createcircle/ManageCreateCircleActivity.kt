@@ -126,70 +126,84 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
             }
 
             R.id.cb_choose_push_manage -> {
+
                 val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
                 val bean = adapter.data[position] as CardBean
 
-//                if (mNumArc < 2 && mNumBerCard < 4) {
+                //首先判断新增还还是减少
+                if (cb.isChecked) {
+                    //点亮
+                    //判断是否够数
+                    if (bean.cardType==1){
+                        //是卡片
+                        //判断卡片是否够数
+                        if (mNumBerCard==4){
+                            //够数，不给他点
+                            cb.isChecked=false
+//                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
 
-                bean.mIfCheckOrNot = !bean.mIfCheckOrNot
-
-                if (bean.mIfCheckOrNot) {
-                    if (mNumArc < 2 && mNumBerCard < 4) {
-
-                        if (!mBackList.contains(bean.id)) {
-                            mBackList.add(bean.id)
-                        }
-                    }
-                    if (bean.cardType == 1) {
-                        if (mNumBerCard < 4) {
+                        }else{
+                            //不够数
                             mNumBerCard++
-                            LogCat.e("NUMCARD $mNumBerCard")
-                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.text_color_1))
-                        } else {
-                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
-
+                            mBackList.add(bean.id)
+//                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
                         }
-                    } else {
-                        if (mNumArc < 2) {
+                    }else{
+                        //是长文
+                        if (mNumArc==2){
+                            //够数，不给他点
+                            cb.isChecked=false
+//                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                        }else{
+                            //不够数
                             mNumArc++
-                            LogCat.e("NUMARC $mNumArc")
-                            tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.text_color_1))
-                        } else {
-                            tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                            mBackList.add(bean.id)
+//                            tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                        }
+                    }
+                }else{
+                    //点灭
+                    //判断是卡片还是长文
+                    if (bean.cardType==1){
+                        //是卡片 判断是否穿底
+                        if (mNumBerCard==0){
+                            cb.isChecked=false
+                        }else{
+                            mNumBerCard--
+                            mBackList.remove(bean.id)
+                        }
+                    }else{
+                        //是长文
+                        if (mNumArc==0){
+                            cb.isChecked=false
+                        }else{
+                            mNumArc--
+                            mBackList.remove(bean.id)
                         }
                     }
 
-                } else {
-                    if (mBackList.contains(bean.id)) {
-                        mBackList.remove(bean.id)
-                    }
-                    if (bean.cardType == 1) {
-                        mNumBerCard--
-                    } else {
-                        mNumArc--
-                    }
                 }
 
-                tv_toolbar_right.isEnabled = mBackList.isNotEmpty()
                 tv_daily_title_num.text = "$mNumBerCard/4"
-//                tv_daily_title.setTextColor(this.getColorForKotlin(R.color.button_blue))
-                tv_daily_title_num2.text = "$mNumArc/2"
-//                tv_daily_title2.setTextColor(this.getColorForKotlin(R.color.button_blue))
-//                }else{
-//                    if (cb.isChecked){
-//
-//                        if (mBackList.contains(bean.id)) {
-//                            mBackList.remove(bean.id)
-//                        }
-//                        if (bean.cardType == 1) {
-//                            mNumBerCard--
-//                        } else {
-//                            mNumArc--
-//                        }
-//                    }else{
-//                        cb.isChecked = false
-//                    }
-//                }
+//                tv_daily_title_num2.text = "$mNumArc/2"
+
+                if(mBackList.size>0){
+                    tv_toolbar_right.isEnabled = true
+                }else{
+                    tv_toolbar_right.isEnabled = false
+                }
+
+                if (mNumBerCard==4){
+                    tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                }else{
+                    tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.text_color_1))
+                }
+                if (mNumArc==2){
+                    tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.button_blue))
+                }else{
+                    tv_daily_title_num2.setTextColor(this.getColorForKotlin(R.color.text_color_1))
+                }
+
             }
         }
     }

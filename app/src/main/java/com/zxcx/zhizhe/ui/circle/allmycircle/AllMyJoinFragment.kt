@@ -76,7 +76,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter
 
-        val emptyView = EmptyView.getEmptyView(mActivity, "大咖都在这里，创建圈子一起玩", R.drawable.no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂无圈子", R.drawable.no_circle_data)
         mAllmyCircleAdapter.emptyView = emptyView
     }
 
