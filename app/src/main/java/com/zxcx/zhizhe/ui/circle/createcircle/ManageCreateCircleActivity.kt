@@ -185,7 +185,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                 }
 
                 tv_daily_title_num.text = "$mNumBerCard/4"
-//                tv_daily_title_num2.text = "$mNumArc/2"
+                tv_daily_title_num2.text = "$mNumArc/2"
 
                 if(mBackList.size>0){
                     tv_toolbar_right.isEnabled = true
