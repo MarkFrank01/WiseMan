@@ -97,11 +97,11 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
 
         mPage++
         if (list.size < Constants.PAGE_SIZE) {
-            mAdapter.loadMoreEnd(false)
+            mAdapter2.loadMoreEnd(false)
         } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
+            mAdapter2.loadMoreComplete()
+            mAdapter2.setEnableLoadMore(false)
+            mAdapter2.setEnableLoadMore(true)
         }
     }
 

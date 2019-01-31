@@ -160,7 +160,8 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
                 if (position == 1) {
                     SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
                 } else {
-                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
+//                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
+                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
                 }
                 ArticleListItemFragment.newInstance(list[position].id)
             }

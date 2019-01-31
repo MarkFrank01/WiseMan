@@ -29,6 +29,8 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_long_list_item.*
 
+
+
 /**
  * 首页-长文-其他Tab的Fragment
  */
@@ -84,6 +86,11 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
         ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
         onRefreshAD(ad_type_position)
+
+
+//        val linearParams = password_layout.getLayoutParams() as LinearLayout.LayoutParams
+//        linearParams.height = 120;
+//        view.setLayoutParams(linearParams);
     }
 
     override fun onStart() {

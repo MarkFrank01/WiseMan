@@ -17,7 +17,7 @@ class CardListitemModel(present:CardListitemContract.Presenter):BaseModel<CardLi
     }
 
     fun getAD(position:Int){
-        mDisposable = AppClient.getAPIService().getAD("402",position,1)
+        mDisposable = AppClient.getAPIService().getAD("402",2,position)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<ADBean>>(mPresenter){

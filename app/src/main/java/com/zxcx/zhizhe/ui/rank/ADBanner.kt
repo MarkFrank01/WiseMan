@@ -18,7 +18,7 @@ class ADBanner(context: Context, attrs: AttributeSet) : Banner(context, attrs) {
 //		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 3f /8f
 
         //16:4
-        val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 1f / 3f
+        val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 1f / 4f
 
 //        LogCat.e("Base"+(ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2))
 //        LogCat.e("HeightSize is $heightSize")

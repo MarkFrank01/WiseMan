@@ -31,7 +31,7 @@ class ManageCreateModel(presenter:ManageCreateContract.Presenter):BaseModel<Mana
 //    }
 
     fun getPublishableArticle(page:Int,pageSize:Int){
-        mDisposable = AppClient.getAPIService().getLockableArticle(page, pageSize)
+        mDisposable = AppClient.getAPIService().getLockableArticle(page,500)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<CardBean>>(mPresenter){
