@@ -31,8 +31,8 @@ class SelectHotLabelAdapter(data: List<MultiItemEntity>) : BaseMultiItemQuickAda
                 val para = helper.itemView.layoutParams
                 val screenWidth = ScreenUtils.getDisplayWidth()
 
-                if (cardBean.name?.length!! > 5) {
-                    para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 2
+                if (cardBean.name?.length!! >= 5) {
+                    para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20).toFloat())) / 3
                 } else {
                     para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 3
                 }

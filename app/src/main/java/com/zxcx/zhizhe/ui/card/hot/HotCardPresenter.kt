@@ -21,11 +21,15 @@ class HotCardPresenter(view: HotCardContract.View) : BasePresenter<HotCardContra
     }
 
 	override fun getDataSuccess(s: MutableList<CardBean>) {
-		mView.getDataSuccess(s)
+        if (mView!=null) {
+            mView.getDataSuccess(s)
+        }
 	}
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        mView.getADSuccess(list)
+        if (mView!=null) {
+            mView.getADSuccess(list)
+        }
     }
 
     override fun getDataFail(msg: String) {
