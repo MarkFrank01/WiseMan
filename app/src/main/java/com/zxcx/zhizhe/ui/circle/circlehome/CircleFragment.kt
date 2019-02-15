@@ -29,7 +29,11 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.gridview.Model
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_circle.*
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
@@ -109,41 +113,44 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
-//        mDisposable = Flowable.just(list)
-//                .observeOn(Schedulers.computation())
-//                .map(PackData(map))
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
-//                    override fun onComplete() {
-//                    }
-//
-//                    override fun onNext(t: List<CircleChooseBean>) {
-//                        LogCat.e("CircleChooseBean size ${t.size}")
-//                        mAdapter.data.clear()
-//                        for (dcBean in t) {
-//
-//                            dcBean.list[0].showTitle = dcBean.date
-//                            mAdapter.data.addAll(dcBean.list)
-//                            if (dcBean.list.size % 2 != 0) {
-//                                mAdapter.data.add(dcBean)
-//                            }
-//                        }
-//                        mAdapter.notifyDataSetChanged()
-//
-//                        mCircleListPage++
-//                        if (list.size < mCircleListPageSize) {
-//                            mAdapter.loadMoreEnd(false)
-//                        } else {
-//                            mAdapter.loadMoreComplete()
-//                            mAdapter.setEnableLoadMore(false)
-//                            mAdapter.setEnableLoadMore(true)
-//                        }
-//                    }
-//
-//                    override fun onError(t: Throwable?) {
-//                    }
-//
-//                })
+        mDisposable = Flowable.just(list)
+                .observeOn(Schedulers.computation())
+                .map(PackData(map))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
+                    override fun onComplete() {
+                    }
+
+                    override fun onNext(t: List<CircleChooseBean>) {
+                        LogCat.e("CircleChooseBean size ${t.size}")
+                        mAdapter.data.clear()
+                        for (dcBean in t) {
+
+                            dcBean.list[0].showTitle = dcBean.date
+                            if (dcBean.list.size>1) {
+                                dcBean.list[1].showTitle = "更多"
+                            }
+                            mAdapter.data.addAll(dcBean.list)
+                            if (dcBean.list.size % 2 != 0) {
+                                mAdapter.data.add(dcBean)
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged()
+
+                        mCircleListPage++
+                        if (list.size < mCircleListPageSize) {
+                            mAdapter.loadMoreEnd(false)
+                        } else {
+                            mAdapter.loadMoreComplete()
+                            mAdapter.setEnableLoadMore(false)
+                            mAdapter.setEnableLoadMore(true)
+                        }
+                    }
+
+                    override fun onError(t: Throwable?) {
+                    }
+
+                })
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {

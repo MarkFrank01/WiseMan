@@ -1,6 +1,8 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -40,12 +42,18 @@ class CircleAdapter(data: List<MultiItemEntity>, private val mListener: CircleHo
 
                 helper.setText(R.id.tv_circle_title, item1.title)
                 helper.setText(R.id.tv_item_card_title, item1.sign)
-                helper.setText(R.id.tv_item_circle_input, "" + item1.joinUserCount)
-                helper.setText(R.id.tv_item_circle_comment, "" + item1.qaCount)
+                helper.setText(R.id.tv_item_circle_input, "加入" + item1.joinUserCount)
+                helper.setText(R.id.tv_item_circle_comment, "话题" + item1.qaCount)
 
                 helper.addOnClickListener(R.id.to_content_circle)
                 if (item1.showTitle!=""&&item1.showTitle.isNotEmpty()){
-                    helper.setText(R.id.tv_circle_classify_title,item1.showTitle)
+                    if (item1.showTitle=="更多"){
+                        helper.setText(R.id.tv_circle_classify_title,"")
+                    }else {
+                        helper.setText(R.id.tv_circle_classify_title, item1.showTitle)
+                    }
+                }else{
+                    helper.getView<TextView>(R.id.tv_circle_classify_title).visibility = View.GONE
                 }
 //                helper.setText(R.id.tv_circle_classify_title, item1.classifytitle)
             }

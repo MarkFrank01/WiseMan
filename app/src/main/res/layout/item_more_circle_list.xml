@@ -5,6 +5,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
+
     <TextView
         android:id="@+id/tv_circle_classify_title"
         android:layout_width="wrap_content"
@@ -12,10 +13,10 @@
         android:layout_marginBottom="14dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        tools:text="推荐"
         android:textColor="@color/text_color_3"
         android:textSize="14sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        tools:text="推荐"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/to_content_circle"
@@ -44,14 +45,16 @@
 
         <TextView
             android:id="@+id/tv_circle_title"
-            android:textColor="@color/text_color_ff"
-            android:textSize="17sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SKTSKKKKKKK"
-            tools:layout_editor_absoluteX="120dp"
-            tools:layout_editor_absoluteY="120dp"
-            tools:ignore="MissingConstraints"/>
+            android:textColor="@color/text_color_ff"
+            android:textSize="17sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.419"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_item_card_title"
@@ -61,11 +64,10 @@
             android:layout_marginEnd="18dp"
             android:layout_marginStart="18dp"
             android:layout_marginTop="15dp"
+            android:ellipsize="end"
             android:transitionName="cardTitle"
-            app:autoSizeMaxTextSize="@dimen/text_size_text_1"
+            app:autoSizeMaxTextSize="15sp"
             app:autoSizeMinTextSize="5sp"
-            app:autoSizeStepGranularity="1px"
-            app:autoSizeTextType="uniform"
             app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"
             tools:text="为你解读最新最全的..."/>
 
@@ -86,13 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
             android:layout_marginStart="3dp"
+            android:text="话题7.8K"
             android:textColor="@color/text_color_3"
             android:textSize="@dimen/text_size_text_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"
-            android:text="话题7.8K"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"/>
     </android.support.constraint.ConstraintLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="16dp"/>
