@@ -90,7 +90,7 @@
             android:layout_marginStart="3dp"
             android:text="话题7.8K"
             android:textColor="@color/text_color_3"
-            android:textSize="@dimen/text_size_text_4"
+            android:textSize="@dimen/text_size_text_3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"/>

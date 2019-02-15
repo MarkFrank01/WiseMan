@@ -187,11 +187,7 @@ class ManageCreateCircleActivity : RefreshMvpActivity<ManageCreatePresenter>(), 
                 tv_daily_title_num.text = "$mNumBerCard/4"
                 tv_daily_title_num2.text = "$mNumArc/2"
 
-                if(mBackList.size>0){
-                    tv_toolbar_right.isEnabled = true
-                }else{
-                    tv_toolbar_right.isEnabled = false
-                }
+                tv_toolbar_right.isEnabled = mBackList.size>0
 
                 if (mNumBerCard==4){
                     tv_daily_title_num.setTextColor(this.getColorForKotlin(R.color.button_blue))

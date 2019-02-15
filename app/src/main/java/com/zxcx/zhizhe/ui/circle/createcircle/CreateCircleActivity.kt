@@ -365,10 +365,6 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         } else {
             create_xieyi?.text = Html.fromHtml("更多详情，点击<font color='#0088AA'>了解圈子</font>")
         }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            tv_reject_agreement?.text = Html.fromHtml("详情请阅读<font color='#0088AA'>智者创作协议</font>", Html.FROM_HTML_MODE_LEGACY)
-//        } else {
-//            tv_reject_agreement?.text = Html.fromHtml("详情请阅读<font color='#0088AA'>智者创作协议</font>")
-//        }
+
     }
 }
