@@ -212,6 +212,8 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
+
+
         if (list.size > 0) {
             mAdList = list
             imageList.clear()
