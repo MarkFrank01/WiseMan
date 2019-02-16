@@ -266,6 +266,7 @@
 			app:layout_constraintTop_toTopOf="parent"/>
 
         <View
+            android:translationZ="10dp"
             android:visibility="gone"
             android:id="@+id/iv_share_qr_bg"
             android:layout_margin="10dp"

@@ -18,7 +18,7 @@ class CircleClassifyAdapter(data:List<CircleBean>):
         BaseMultiItemQuickAdapter<CircleBean,BaseViewHolder>(data){
 
     init {
-        addItemType(CircleBean.CIRCLE_HOME_1, R.layout.item_circle_classify)
+        addItemType(CircleBean.CIRCLE_HOME_1, R.layout.item_circle_classify1)
     }
 
     override fun convert(helper: BaseViewHolder, item: CircleBean) {
@@ -34,6 +34,7 @@ class CircleClassifyAdapter(data:List<CircleBean>):
         helper.setChecked(R.id.cb_item_select_join_circle,item.hasJoin)
         val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle)
         if (item.hasJoin){
+            checkBox.text = "已加入"
             checkBox.isEnabled = false
         }
 

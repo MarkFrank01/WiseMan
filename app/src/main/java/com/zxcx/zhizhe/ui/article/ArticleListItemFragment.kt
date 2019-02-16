@@ -93,17 +93,17 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 //        view.setLayoutParams(linearParams);
     }
 
-    override fun onStart() {
-        super.onStart()
-        //开始轮播
-        banner_card.startAutoPlay()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        //结束轮播
-        banner_card.stopAutoPlay()
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        //开始轮播
+//        banner_card.startAutoPlay()
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        //结束轮播
+//        banner_card.stopAutoPlay()
+//    }
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

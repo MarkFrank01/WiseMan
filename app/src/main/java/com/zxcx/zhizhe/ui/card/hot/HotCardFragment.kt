@@ -148,7 +148,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
-        if (mPage == 0) {
+        if (mPage == 0&&list.size>=4) {
             list[4].cardType = CardBean.Article_TOUTIAO
         }
         loadService.showSuccess()
