@@ -59,6 +59,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"/>
 
+            <com.zxcx.zhizhe.widget.flowtag.FlowTagLayout
+                android:visibility="gone"
+                android:id="@+id/rv_hot_label2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="12.5dp"
+                android:paddingRight="12.5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hot"
+                tools:layout_height="150dp"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_hot_label"
                 android:layout_width="match_parent"
