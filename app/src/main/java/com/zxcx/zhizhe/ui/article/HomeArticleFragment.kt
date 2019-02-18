@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.ui.search.search.HotSearchBean
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -64,7 +65,6 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeArticleLastOpenedTime, 0)
         lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeArticleLastOpenedID, 0)
 
-        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
 
         onRefreshAD(lastADTime, lastADID.toLong())
 
@@ -168,19 +168,15 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
 
 //            LogCat.e("name is" + list[position].name + "Position is $position " + "id is " + list[position].id)
 
+            position_Type = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, -2)
+            LogCat.e("SBBBB $position_Type")
+            if (list.size > position_Type) {
 
-//            if (position == 1&&list[position].name == "推荐") {
-//                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-//            } else {
-//                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
-//            }
-
-            position_Type = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
-            if (list.size>position_Type) {
                 if (list[position_Type].name == "推荐") {
-                    if (!isLoad) {
+                    if (position==0) {
                         SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-                        isLoad = true
+                    }else{
+                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
                     }
                 } else {
                     SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)

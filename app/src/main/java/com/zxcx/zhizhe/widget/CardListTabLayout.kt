@@ -115,6 +115,7 @@ class CardListTabLayout : TabLayout {
                     }
                 }
             }
+
 //
 //			if (nextChild != null) {
 //				tabLayout?.nextPosition = position + 1
@@ -154,11 +155,8 @@ class CardListTabLayout : TabLayout {
                 selectedChild?.typeface = Typeface.DEFAULT_BOLD
                 mSelectTextColor?.let { selectedChild?.setTextColor(it) }
 
-                if (position == 0) {
-                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-                } else {
-                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
-                }
+
+                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
             }
         }
     }

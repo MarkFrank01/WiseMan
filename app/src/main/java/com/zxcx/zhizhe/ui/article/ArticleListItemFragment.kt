@@ -63,7 +63,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
                 }
     }
 
-    private var categoryId: Int = 0
+    private var categoryId: Int = -11
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +84,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
         refresh_layout.setOnRefreshListener(this)
         getArticleListForCategory(categoryId, mPage)
 
-        ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
+        ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, -200)
         onRefreshAD(ad_type_position)
 
 
