@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.FrameLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -15,6 +18,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.ScreenUtils
 import kotlinx.android.synthetic.main.activity_interest.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -25,7 +29,8 @@ import org.greenrobot.eventbus.EventBus
  * @Description :
  */
 class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInterestContract.View,
-        BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.OnItemChildClickListener{
+
 
 
     //推荐的标签
@@ -37,6 +42,7 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
 
     private lateinit var mHotLabelAdapter: SelectHotLabelAdapter
     private lateinit var mHotManAdapter: SelectHotManAdapter
+
 
     override fun createPresenter(): SelectInterestPresenter {
         return SelectInterestPresenter(this)
@@ -82,7 +88,33 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
 //        mHotLabelAdapter.setNewData(mCollectionList as List<MultiItemEntity>?)
         mHotManAdapter.setNewData(mUserList)
 
+
+        rv_hot_label2.removeAllViews()
+        for (i in mCollectionList.indices) {
+//            val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_select_card_new1, null) as FrameLayout
+//            val checkBox = frameLayout.findViewById<CheckBox>(R.id.cb_item_select_hot_label)
+//            val checkBox2 = frameLayout.findViewById<CheckBox>(R.id.tv_item_search_hot)
+//            checkBox.text = mCollectionList[i].name
+//            checkBox.isChecked = mCollectionList[i].follow
+//
+//            checkBox2.text = mCollectionList[i].name
+
+            val frameLayout = LayoutInflater.from(mActivity).inflate(R.layout.item_select_card_new1, null) as FrameLayout
+            val checkBox = frameLayout.findViewById<CheckBox>(R.id.tv_item_search_hot)
+            checkBox.text = "#"+mCollectionList[i].name
+            checkBox.isChecked = mCollectionList[i].follow
+            checkBox.setOnClickListener{
+                mCollectionList[i].follow = !mCollectionList[i].follow
+
+            }
+
+            rv_hot_label2.addView(frameLayout)
+            val mlp = frameLayout.layoutParams as ViewGroup.MarginLayoutParams
+            mlp.setMargins(ScreenUtils.dip2px(7.5f), ScreenUtils.dip2px(15f), ScreenUtils.dip2px(7.5f), 0)
+        }
     }
+
+
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
@@ -157,6 +189,8 @@ class SelectInterestActivity : MvpActivity<SelectInterestPresenter>(), SelectInt
         tv_toolbar_right.text = "完成"
         tv_toolbar_right.isEnabled = false
         tv_toolbar_right.setTextColor(ContextCompat.getColorStateList(mActivity, R.color.color_text_enable_blue))
+
+
     }
 
     private fun initRecyclerView() {

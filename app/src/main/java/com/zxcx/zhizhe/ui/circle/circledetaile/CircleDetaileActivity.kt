@@ -36,6 +36,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         setContentView(R.layout.layout_circle_detail)
         initData()
         initRecycleView()
+        initView()
 
         mPresenter.getCircleBasicInfo(circleID)
     }
@@ -112,6 +113,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     private fun initRecycleView() {
+
+    }
+
+    private fun initView(){
 
     }
 

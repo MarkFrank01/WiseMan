@@ -157,12 +157,14 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
             return if (list[position].id == -1) {
                 articleFragment
             } else {
-                if (position == 1 || position == 0) {
-                    if (list[position].id == 21) {
-                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
-                    } else {
-                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-                    }
+                if (position == 1 ) {
+//                    if (list[position].id == 21) {
+//                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
+//                    } else {
+//                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+//                    }
+                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+
                 } else {
 //                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
                     SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
