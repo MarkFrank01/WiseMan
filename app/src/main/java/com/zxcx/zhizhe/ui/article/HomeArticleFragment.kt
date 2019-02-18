@@ -24,7 +24,6 @@ import com.zxcx.zhizhe.ui.search.search.HotSearchBean
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -179,19 +178,14 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
             position_Type = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
             if (list.size>position_Type) {
                 if (list[position_Type].name == "推荐") {
-                    LogCat.e("???")
-                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+                    if (!isLoad) {
+                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+                        isLoad = true
+                    }
                 } else {
                     SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
                 }
             }
-
-//            position_Type =  SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, 0)
-//            if (position_Type!=0&&position_Type!=-1){
-//                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong,list[position_Type].id)
-//            }
-//            LogCat.e("position Type is $position_Type"+"and id is "+list[position_Type].id)
-
 
             return ArticleListItemFragment.newInstance(list[position].id)
 
