@@ -151,13 +151,13 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
                     if (iv_ad_label_card != null) {
                         when (ad.styleType) {
                             0 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_0)
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_long_0)
                             }
                             1 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_1)
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_long_1)
                             }
                             2 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_2)
+                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_long_2)
                             }
                         }
                     }
