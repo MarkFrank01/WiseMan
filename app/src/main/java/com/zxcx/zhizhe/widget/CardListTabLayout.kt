@@ -9,9 +9,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.TextView
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import java.lang.ref.WeakReference
 
@@ -94,6 +92,7 @@ class CardListTabLayout : TabLayout {
                 null
 
             if (position == 0) {
+
                 if (selectedChild != null) {
                     tabLayout.selectedPosition = position
                     selectedChild.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize - (mSelectTextSize - mNormalTextSize) * positionOffset)
@@ -155,8 +154,6 @@ class CardListTabLayout : TabLayout {
                 selectedChild?.typeface = Typeface.DEFAULT_BOLD
                 mSelectTextColor?.let { selectedChild?.setTextColor(it) }
 
-
-                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
             }
         }
     }

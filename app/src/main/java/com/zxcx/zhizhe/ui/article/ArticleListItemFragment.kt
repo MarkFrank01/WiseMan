@@ -51,6 +51,11 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     private var ad_type_position = 0
 
+    private var ad_isLoad = false
+
+    //冷加载
+    private var isInitView = false
+    private var isVisible1 = false
 
     companion object {
         const val ARG_ID = "categoryId"
@@ -74,7 +79,17 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_long_list_item, container, false)
+        var rootView:View = inflater.inflate(R.layout.fragment_long_list_item, container, false)
+        isInitView = true
+        isCanLoadData()
+
+        if (view!=null){
+            var parent:ViewGroup = view!!.parent as ViewGroup
+            parent.removeView(view)
+        }
+
+        return rootView
+//        return inflater.inflate(R.layout.fragment_long_list_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,8 +99,22 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
         refresh_layout.setOnRefreshListener(this)
         getArticleListForCategory(categoryId, mPage)
 
+
         ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, -200)
-        onRefreshAD(ad_type_position)
+        ad_isLoad = SharedPreferencesUtil.getBoolean(SVTSConstants.ad_is_load,false)
+        if (ad_type_position == 0){
+            if (ad_isLoad) {
+                LogCat.e("IF ad "+ad_isLoad)
+                SharedPreferencesUtil.saveData(SVTSConstants.ad_is_load, false)
+                onRefreshAD(ad_type_position)
+            }
+        }
+//        else{
+//            LogCat.e("?????")
+//            ad_type_position = -200
+//            onRefreshAD(ad_type_position)
+//        }
+
 
 
 //        val linearParams = password_layout.getLayoutParams() as LinearLayout.LayoutParams
@@ -230,11 +259,7 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             fl_line.visibility = View.GONE
         }
 
-//        if (ad_type_position != 0) {
-//            onRefreshAD(ad_type_position)
-//        } else {
-//            onRefreshAD(0)
-//        }
+
     }
 
     override fun createPresenter(): ArticleListItemPresenter {
@@ -273,5 +298,26 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
     override fun closeAD() {
         fl_banner_long.visibility = View.GONE
         fl_line.visibility = View.GONE
+    }
+
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见，获取该标志记录下来
+        if (isVisibleToUser) {
+            isVisible1 = true
+            isCanLoadData()
+        } else {
+            isVisible1 = false
+        }
+    }
+
+    private fun isCanLoadData(){
+        if (isInitView&&isVisible1){
+
+            isInitView = false
+            isVisible1 = false
+        }
     }
 }

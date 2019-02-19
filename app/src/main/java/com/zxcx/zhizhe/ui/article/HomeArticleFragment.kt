@@ -24,7 +24,6 @@ import com.zxcx.zhizhe.ui.search.search.HotSearchBean
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -44,6 +43,8 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
+    private var mFragmentList: MutableList<ArticleListItemFragment> = mutableListOf()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -56,6 +57,9 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         if (savedInstanceState != null) {
             onSaveInstanceState(savedInstanceState)
         }
+
+        SharedPreferencesUtil.saveData(SVTSConstants.ad_is_load,true)
+
         tl_card_list.setupWithViewPager(vp_article_list)
 //        tl_card_list.getTabAt(1)?.select()
 //        tl_card_list.getTabAt(0)?.customView?.isSelected = true
@@ -84,6 +88,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
 
     override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
         vp_article_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
+        vp_article_list.offscreenPageLimit = list.size
         tl_card_list.removeAllTabs()
         list.forEach {
             val tab = tl_card_list.newTab()
@@ -154,57 +159,28 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
 
         private val articleFragment = AttentionArticleFragment()
 
-        private var isLoad: Boolean = false
-
-        private var position_Type = -1
 
         override fun getItem(position: Int): Fragment {
-//            return if (list[position].id == -1) {
-//                articleFragment
-//            } else {
-//                SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
-//                ArticleListItemFragment.newInstance(list[position].id)
-//            }
 
-//            LogCat.e("name is" + list[position].name + "Position is $position " + "id is " + list[position].id)
 
-            position_Type = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, -2)
-            LogCat.e("SBBBB $position_Type")
-            if (list.size > position_Type) {
 
-                if (list[position_Type].name == "推荐") {
-                    if (position==0) {
-                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-                    }else{
-                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
-                    }
+            return if (list[position].id == -1) {
+                articleFragment
+            } else {
+
+
+                if (position == 1) {
+
+                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
+
+                    ArticleListItemFragment.newInstance(0)
+
                 } else {
                     SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
+
+                    ArticleListItemFragment.newInstance(list[position].id)
                 }
             }
-
-            return ArticleListItemFragment.newInstance(list[position].id)
-
-//            return if (list[position].id == -1) {
-//                articleFragment
-//            } else {
-//
-//                LogCat.e("Position is $position "+"id is "+list[position].id)
-//
-//                if (position == 1 ) {
-////                    if (list[position].id == 21) {
-////                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
-////                    } else {
-////                        SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-////                    }
-//                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, 0)
-//
-//                } else {
-////                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, position)
-//                    SharedPreferencesUtil.saveData(SVTSConstants.adTypePositionLong, list[position].id)
-//                }
-//                ArticleListItemFragment.newInstance(list[position].id)
-//            }
         }
 
         override fun getCount(): Int {
