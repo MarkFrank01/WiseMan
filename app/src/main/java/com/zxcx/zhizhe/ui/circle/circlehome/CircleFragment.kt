@@ -369,7 +369,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     }
 
     private fun initView() {
-        if (checkLogin()) {
+        if (checkLogin1()) {
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
             ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
@@ -379,12 +379,16 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
 
         }
-        mPresenter.getMyJoinCircleList(0, 3)
+//        mPresenter.getMyJoinCircleList(0, 3)
     }
 
     //获取圈子
     private fun getCircleById() {
         mPresenter.getRecommendCircleListByPage(mCircleListPage, mCircleListPageSize)
+    }
+
+    fun checkLogin1(): Boolean {
+        return SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0
     }
 }
 
@@ -415,5 +419,6 @@ class PackData(private val map: ArrayMap<String, ArrayList<CircleBean>>) : Funct
         })
         return dcBeanList
     }
+
 
 }
