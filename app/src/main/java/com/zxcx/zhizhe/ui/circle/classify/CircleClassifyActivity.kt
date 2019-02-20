@@ -42,6 +42,8 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
     private lateinit var mAdapter: CircleClassifyAdapter
     private lateinit var mDialog: QuitCircleConfirmDialog
 
+    private  var mSelectPosition = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_classify)
@@ -199,11 +201,11 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 
     fun test() {
         XPopup.get(mActivity).asBottomList("", arrayOf("默认排序","最多加入","最多话题","最多点赞"),
-                null,-1,
+                null,mSelectPosition,
                 object : OnSelectListener {
                     override fun onSelect(position: Int, text: String?) {
 //                        toastShow("click $text")
-
+                        mSelectPosition = position
                     }
                 }).show()
 //        XPopup.get(mActivity).asBottomList("", arrayOf("条目1", "条目2", "条目3", "条目4", "条目5"),
