@@ -473,7 +473,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 		bundle.putString("title", cardBean.name)
 		bundle.putString("text", cardBean.summary)
 //		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
-		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
+//		bundle.putString("url", getString(R.string.base_url) + getString(R.string.card_share_url) + cardBean.id.toString())
+        bundle.putString("url","http://mp.zz-park.com/app-Lshow.html?id="+cardBean.id.toString())
 		bundle.putString("imageUrl", cardBean.imageUrl)
 		shareCardDialog.arguments = bundle
 		shareCardDialog.show(supportFragmentManager, "")
