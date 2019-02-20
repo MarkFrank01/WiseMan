@@ -65,6 +65,20 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
         initShareElement()
         initRecyclerView()
         initData()
+
+        //尝试适配Android P版本及以上 (不顶用)
+//        if (Build.VERSION.SDK_INT >= 28) {
+//            var window = getWindow()
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN.and(View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//            window.statusBarColor = Color.TRANSPARENT
+//            //设置页面全面屏显示
+//            var lp: WindowManager.LayoutParams = window.attributes
+//            lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+//            //设置页面延伸至刘海区显示
+//            window.attributes = lp
+//        }
+
     }
 
     override fun onBackPressed() {
