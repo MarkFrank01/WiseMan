@@ -7,6 +7,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
+import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
@@ -829,5 +830,16 @@ public interface APIService {
     @POST("/circle/checkCircleName")
     Flowable<BaseBean<CheckBean>> getCheckName(
         @Query("circleName")String circleName
+    );
+
+    /**
+     *
+     */
+    @POST("/circle/createQuestion")
+    Flowable<BaseBean<QuestionBean>> pushQuestion(
+        @Query("circleId") int circleId,
+        @Query("title") String title,
+        @Query("description") String description,
+        @Query("askImage") List<String> askImage
     );
 }

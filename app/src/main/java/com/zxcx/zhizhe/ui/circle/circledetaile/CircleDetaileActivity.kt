@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
+import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
@@ -94,7 +95,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         //去发布提问
         ll_comment_input.setOnClickListener {
+            mActivity.startActivity(CircleQuestionActivity::class.java){}
+        }
 
+        et_comment.setOnClickListener {
+            mActivity.startActivity(CircleQuestionActivity::class.java) {}
         }
     }
 
