@@ -30,7 +30,6 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_long_list_item.*
 
 
-
 /**
  * 首页-长文-其他Tab的Fragment
  */
@@ -79,12 +78,12 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var rootView:View = inflater.inflate(R.layout.fragment_long_list_item, container, false)
+        var rootView: View = inflater.inflate(R.layout.fragment_long_list_item, container, false)
         isInitView = true
         isCanLoadData()
 
-        if (view!=null){
-            var parent:ViewGroup = view!!.parent as ViewGroup
+        if (view != null) {
+            var parent: ViewGroup = view!!.parent as ViewGroup
             parent.removeView(view)
         }
 
@@ -101,10 +100,10 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 
 
         ad_type_position = SharedPreferencesUtil.getInt(SVTSConstants.adTypePositionLong, -200)
-        ad_isLoad = SharedPreferencesUtil.getBoolean(SVTSConstants.ad_is_load,false)
-        if (ad_type_position == 0){
+        ad_isLoad = SharedPreferencesUtil.getBoolean(SVTSConstants.ad_is_load, false)
+        if (ad_type_position == 0 && categoryId == 0) {
+            LogCat.e("????")
             if (ad_isLoad) {
-                LogCat.e("IF ad "+ad_isLoad)
                 SharedPreferencesUtil.saveData(SVTSConstants.ad_is_load, false)
                 onRefreshAD(ad_type_position)
             }
@@ -114,7 +113,6 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
 //            ad_type_position = -200
 //            onRefreshAD(ad_type_position)
 //        }
-
 
 
 //        val linearParams = password_layout.getLayoutParams() as LinearLayout.LayoutParams
@@ -313,8 +311,8 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
         }
     }
 
-    private fun isCanLoadData(){
-        if (isInitView&&isVisible1){
+    private fun isCanLoadData() {
+        if (isInitView && isVisible1) {
 
             isInitView = false
             isVisible1 = false

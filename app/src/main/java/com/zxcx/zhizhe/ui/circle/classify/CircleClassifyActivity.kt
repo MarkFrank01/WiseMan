@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleClassifyAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_circle_classify.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -200,17 +201,19 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
     }
 
     fun test() {
-        XPopup.get(mActivity).asBottomList("", arrayOf("默认排序","最多加入","最多话题","最多点赞"),
-                null,mSelectPosition,
-                object : OnSelectListener {
-                    override fun onSelect(position: Int, text: String?) {
-//                        toastShow("click $text")
-                        mSelectPosition = position
-                    }
-                }).show()
-//        XPopup.get(mActivity).asBottomList("", arrayOf("条目1", "条目2", "条目3", "条目4", "条目5"),
-//                null, 2
-//        ) { position, text -> toastShow("click $text") }
-//                .show()
+//        XPopup.get(mActivity).asBottomList("", arrayOf("默认排序","最多加入","最多话题","最多点赞"),
+//                null,mSelectPosition,
+//                object : OnSelectListener {
+//                    override fun onSelect(position: Int, text: String?) {
+//                        mSelectPosition = position
+//                    }
+//                }).show()
+
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this,"", arrayOf("默认排序","最多加入","最多话题","最多点赞"),
+                        null,mSelectPosition,
+                        OnSelectListener { position, text -> mSelectPosition = position })
+                ).show()
+
     }
 }

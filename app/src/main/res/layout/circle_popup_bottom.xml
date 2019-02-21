@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_title1"
+        android:textColor="@color/black"
+        android:paddingTop="20dp"
+        android:paddingLeft="18dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="18dp"
+        android:background="@android:color/white"
+        android:lines="1"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <com.zxcx.zhizhe.widget.BottomListPopup.VerticalRecyclerView
+        android:id="@+id/recyclerView1"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"/>
+
+</LinearLayout>
