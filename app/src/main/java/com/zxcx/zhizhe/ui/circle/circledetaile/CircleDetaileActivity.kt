@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
+import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
@@ -28,6 +29,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
    private lateinit var  creater: CircleUserBean
 
+    //话题的数据
+    private var mHuaTiPage = 0
+    private var mHuaTiPageSize = Constants.PAGE_SIZE
 
     //存放自己是否加入圈子
     private var hasJoinBoolean: Boolean = false
@@ -40,6 +44,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         initView()
 
         mPresenter.getCircleBasicInfo(circleID)
+        mPresenter.getCircleQAByCircleId(0,circleID,mHuaTiPage,mHuaTiPageSize)
     }
 
     override fun initStatusBar() {
@@ -78,6 +83,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun getCircleQAByCircleIdSuccess(bean: MutableList<CircleBean>) {
+        LogCat.e("getCircleQAByCircleIdSuccess"+bean.size)
     }
 
     override fun getDataSuccess(bean: MutableList<CircleBean>?) {
