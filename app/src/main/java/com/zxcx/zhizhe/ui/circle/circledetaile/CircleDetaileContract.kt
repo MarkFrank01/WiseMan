@@ -13,12 +13,12 @@ class CircleDetaileContract{
     interface View:GetView<MutableList<CircleBean>>{
         fun getCircleBasicInfoSuccess(bean:CircleBean)
         fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
-        fun getCircleQAByCircleIdSuccess(bean:MutableList<CircleBean>)
+        fun getCircleQAByCircleIdSuccess(bean:MutableList<CircleDetailBean>)
     }
 
     interface Presenter:IGetPresenter<MutableList<CircleBean>>{
         fun getCircleBasicInfoSuccess(bean:CircleBean)
         fun getCircleMemberByCircleIdSuccess(bean:MutableList<CircleBean>)
-        fun getCircleQAByCircleIdSuccess(bean:MutableList<CircleBean>)
+        fun getCircleQAByCircleIdSuccess(bean:MutableList<CircleDetailBean>)
     }
 }

@@ -94,50 +94,52 @@
         app:layout_constraintTop_toBottomOf="@id/circle_detail_content"
         tools:text="一二三四五六"/>
 
-    <CheckBox
-        android:id="@+id/cb_item_card_details_read"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/selector_cb_card_details_like"
-        android:button="@null"
-        app:layout_constraintEnd_toStartOf="@id/tv_item_card_details_read"
-        app:layout_constraintTop_toBottomOf="@id/circle_detail_content"/>
-
-
-    <TextView
-        android:id="@+id/tv_item_card_details_read"
-        app:layout_constraintEnd_toStartOf="@+id/cb_item_card_details_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:enabled="false"
-        android:textColor="@color/color_checkbox_card_details"
-        android:textSize="@dimen/text_size_text_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_like"
-        tools:text="100"/>
-
-    <CheckBox
-        android:id="@+id/cb_item_card_details_like"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/selector_cb_card_details_like"
-        android:button="@null"
-        app:layout_constraintEnd_toStartOf="@id/tv_item_card_details_like"
-        app:layout_constraintTop_toBottomOf="@id/circle_detail_content"/>
+    <ImageView
+        android:id="@+id/iv_item_card_read"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="3dp"
+        android:src="@drawable/iv_item_card_read"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read"
+        app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
 
     <TextView
-        android:id="@+id/tv_item_card_details_like"
+        android:id="@+id/tv_item_card_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:enabled="false"
-        android:textColor="@color/color_checkbox_card_details"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="3dp"
+        android:textColor="@color/text_color_3"
         android:textSize="@dimen/text_size_text_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cb_item_card_details_like"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+        app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment"
+        app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
         tools:text="100"/>
+
+    <ImageView
+        android:id="@+id/iv_item_card_comment"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/iv_item_card_comment"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment"
+        app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
+
+    <TextView
+        android:id="@+id/tv_item_card_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="3dp"
+        android:textColor="@color/text_color_3"
+        android:textSize="@dimen/text_size_text_4"
+        app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
+        tools:text="100"/>
+
 
 </android.support.constraint.ConstraintLayout>

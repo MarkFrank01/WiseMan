@@ -44,11 +44,11 @@ class CircleDetaileModel(presenter: CircleDetaileContract.Presenter):BaseModel<C
 
     //获取圈子话题
     fun getCircleQAByCircleId(orderType:Int,circleId:Int,pageIndex:Int,pageSize:Int){
-        mDisposable = AppClient.getAPIService().getCircleQAByCircleId(orderType, circleId, pageIndex, pageSize)
+        mDisposable = AppClient.getAPIService().getCircleQAByCircleId2(orderType, circleId, pageIndex, pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object :BaseSubscriber<MutableList<CircleBean>>(mPresenter){
-                    override fun onNext(t: MutableList<CircleBean>) {
+                .subscribeWith(object :BaseSubscriber<MutableList<CircleDetailBean>>(mPresenter){
+                    override fun onNext(t: MutableList<CircleDetailBean>) {
                         mPresenter?.getCircleQAByCircleIdSuccess(t)
                     }
                 })

@@ -1,12 +1,14 @@
 package com.zxcx.zhizhe.ui.circle.circledetaile
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
@@ -15,6 +17,8 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
 /**
@@ -29,9 +33,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
    private lateinit var  creater: CircleUserBean
 
+    private lateinit var mAdapter: CircleDetaileAdapter
+
     //话题的数据
     private var mHuaTiPage = 0
     private var mHuaTiPageSize = Constants.PAGE_SIZE
+    private var mHuaTiOrder = 0
 
     //存放自己是否加入圈子
     private var hasJoinBoolean: Boolean = false
@@ -43,8 +50,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         initRecycleView()
         initView()
 
+        mRefreshLayout = refresh_layout
+
         mPresenter.getCircleBasicInfo(circleID)
-        mPresenter.getCircleQAByCircleId(0,circleID,mHuaTiPage,mHuaTiPageSize)
+//        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
+        onRefresh()
     }
 
     override fun initStatusBar() {
@@ -54,6 +64,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
+        onRefresh()
     }
 
     override fun createPresenter(): CircleDetailePresenter {
@@ -82,8 +93,34 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun getCircleMemberByCircleIdSuccess(bean: MutableList<CircleBean>) {
     }
 
-    override fun getCircleQAByCircleIdSuccess(bean: MutableList<CircleBean>) {
-        LogCat.e("getCircleQAByCircleIdSuccess"+bean.size)
+    override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
+        LogCat.e("getCircleQAByCircleIdSuccess~ "+list.size)
+
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        mAdapter.emptyView = emptyView
+
+        mRefreshLayout.finishRefresh()
+        if (mHuaTiPage == 0){
+            LogCat.e("First")
+            mAdapter.setNewData(list)
+            mHuaTiPage++
+            onRefresh()
+        }else{
+            LogCat.e("More")
+            mAdapter.addData(list)
+        }
+
+        mAdapter.notifyDataSetChanged()
+
+        mHuaTiPage++
+
+        if (list.isEmpty()){
+            mAdapter.loadMoreEnd(false)
+        }else {
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
+        }
     }
 
     override fun getDataSuccess(bean: MutableList<CircleBean>?) {
@@ -116,6 +153,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onLoadMoreRequested() {
+        onRefresh()
     }
 
     private fun initData() {
@@ -124,7 +162,22 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     private fun initRecycleView() {
+        mAdapter = CircleDetaileAdapter(ArrayList())
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this, rv_circle_detail)
+        mAdapter.onItemClickListener = this
+        mAdapter.onItemChildClickListener = this
 
+//        rv_circle_detail.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+
+        rv_circle_detail.layoutManager = object :GridLayoutManager(this,1){
+            override fun canScrollVertically() = false
+        }
+        rv_circle_detail.isNestedScrollingEnabled =false
+        rv_circle_detail.setHasFixedSize(true)
+        rv_circle_detail.isFocusable  = false
+
+        rv_circle_detail.adapter = mAdapter
     }
 
     private fun initView(){
@@ -173,5 +226,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 ImageLoader.load(mActivity,bean.memberList[5].avatar,R.drawable.default_card,detail_round_img6)
             }
         }
+    }
+
+    fun onRefresh(){
+       getCircleQAByCircleIdRefresh()
+    }
+
+    private fun getCircleQAByCircleIdRefresh(){
+        mPresenter.getCircleQAByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
     }
 }

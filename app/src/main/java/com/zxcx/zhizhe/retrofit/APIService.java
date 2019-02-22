@@ -6,6 +6,7 @@ import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
 import com.zxcx.zhizhe.ui.card.hot.CardBean;
 import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
@@ -817,6 +818,15 @@ public interface APIService {
      */
     @POST("/circle/getCircleQAByCircleId")
     Flowable<BaseArrayBean<CircleBean>> getCircleQAByCircleId(
+            @Query("orderType") int orderType,
+            @Query("circleId") int circleId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
+    //获取外层的简介
+    @POST("/circle/getCircleQAByCircleId")
+    Flowable<BaseArrayBean<CircleDetailBean>> getCircleQAByCircleId2(
             @Query("orderType") int orderType,
             @Query("circleId") int circleId,
             @Query("pageIndex") int pageIndex,
