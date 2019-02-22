@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,322 +6,392 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <include
         android:id="@+id/title"
         layout="@layout/toolbar"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ScrollView
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/toolbar_height"
-        app:layout_constraintBottom_toBottomOf="@+id/title">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/mycircle_pic"
-                android:layout_width="match_parent"
-                android:layout_height="250dp">
-
-                <ImageView
-                    android:id="@+id/detail_src_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    tools:src="@color/button_blue"/>
-
-
-                <TextView
-                    android:id="@+id/t3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:text="1.4k"/>
-
-                <TextView
-                    android:id="@+id/t2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/t3"
-                    tools:text="2.1k"/>
-
-                <TextView
-                    android:id="@+id/t1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/t2"
-                    tools:text="1.1w"/>
-            </android.support.constraint.ConstraintLayout>
-
-            <TextView
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="12sp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:text="为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"
-                android:textSize="12sp"/>
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
-                android:id="@+id/detail_to_man_list"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_my_img"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="15dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img1"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img2"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img3"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img4"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img5"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/detail_round_img6"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="12dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:layout_marginEnd="20dp"
-                    android:text="看我看我"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/line"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:gravity="center"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:text="推荐"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:text="排序"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.zxcx.zhizhe.widget.gridview.GridViewPager
-                    android:id="@+id/gv_circle_classify"
+                <android.support.v7.widget.Toolbar
+                    app:layout_collapseMode="pin"
+                    android:minHeight="?attr/actionBarSize"
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="#FFFFFF"/>
+                    android:layout_height="@dimen/toolbar_height"
+                    android:background="@color/background"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/iv_toolbar_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="10dp"
+                        android:src="@drawable/common_back"
+                        android:visibility="visible"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/line"/>
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/toolbar_title"
+                        android:textSize="17sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_toolbar_right"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="20dp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tv_toolbar_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:paddingEnd="20dp"
+                        android:gravity="center"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="@dimen/text_size_text_1"
+                        android:visibility="gone"/>
+
+
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:gravity="center"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:text="话题"/>
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:gravity="center"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:text="上下"/>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:descendantFocusability="blocksDescendants"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                    android:id="@+id/refresh_layout"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/mycircle_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="250dp">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_circle_detail"
+                    <ImageView
+                        android:id="@+id/detail_src_img"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:src="@color/button_blue"/>
 
-            </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/load_more_load_end_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
+                    <TextView
+                        android:id="@+id/t3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="1.4k"/>
+
+                    <TextView
+                        android:id="@+id/t2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/t3"
+                        tools:text="2.1k"/>
+
+                    <TextView
+                        android:id="@+id/t1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/t2"
+                        tools:text="1.1w"/>
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tv_load_more_end"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingTop="28dp"
-                    android:paddingBottom="28dp"
-                    android:drawableEnd="@drawable/tv_load_more_end_into"
-                    android:drawablePadding="2dp"
-                    android:text="去列表看看有没有感兴趣的"
-                    android:textColor="@color/text_color_d2"
-                    android:textSize="@dimen/text_size_text_3"/>
-            </FrameLayout>
+                    android:layout_marginEnd="12sp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"
+                    android:textSize="12sp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                <LinearLayout
+                    android:id="@+id/detail_to_man_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:orientation="horizontal">
 
-        </LinearLayout>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_my_img"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="15dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
 
-    </ScrollView>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
 
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img4"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img5"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/detail_round_img6"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="12dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/iv_my_head_placeholder"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|end"
+                        android:layout_marginEnd="20dp"
+                        android:text="看我看我"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="推荐"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="排序"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.zxcx.zhizhe.widget.gridview.GridViewPager
+                        android:id="@+id/gv_circle_classify"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:background="#FFFFFF"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="话题"/>
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="上下"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                        android:id="@+id/refresh_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_circle_detail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/load_more_load_end_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_load_more_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableEnd="@drawable/tv_load_more_end_into"
+                        android:drawablePadding="2dp"
+                        android:paddingBottom="28dp"
+                        android:paddingTop="28dp"
+                        android:text="去列表看看有没有感兴趣的"
+                        android:textColor="@color/text_color_d2"
+                        android:textSize="@dimen/text_size_text_3"/>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <LinearLayout
         android:id="@+id/ll_comment_input"
