@@ -139,8 +139,12 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         }
         iv_home_interests.setOnClickListener {
             if (checkLogin()) {
+                //以前
 //                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+                //现在
                 mActivity.startActivity(SelectInterestActivity::class.java,{})
+                //方便测试
+//                mActivity.startActivity(WXEntryActivity::class.java,{})
             }
         }
     }

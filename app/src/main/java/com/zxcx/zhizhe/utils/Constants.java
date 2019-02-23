@@ -43,4 +43,12 @@ public class Constants {
 
 	//埋点
 	public static final String MD = SharedPreferencesUtil.getString("maidian","");
+
+    /**
+     * 重要：微信APP_ID
+     */
+    public static final String WX_APP_ID = "wxac8cb0c3f9b06b05";
+
+
+
 }

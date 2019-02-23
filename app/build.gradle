@@ -9,6 +9,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 28
     buildToolsVersion '27.0.3'
     defaultConfig {
@@ -235,6 +236,12 @@ dependencies {
 
     //超级弹框
     implementation 'com.lxj:xpopup:1.0.9'
+
+    //微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //支付宝支付
+    implementation files('lib/alipaySdk-15.5.9-20181123210601.aar')
 }
 
 kapt {
