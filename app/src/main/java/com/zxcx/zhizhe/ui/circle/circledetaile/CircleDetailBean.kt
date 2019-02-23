@@ -13,7 +13,11 @@ class CircleDetailBean (
     @SerializedName("id") var id: Int = 0,
     @SerializedName("title")var title:String,
     @SerializedName("description")var description:String,
-    @SerializedName("usersVO")var usersVO:CircleDetailItemBean
+    @SerializedName("usersVO")var usersVO:CircleDetailItemBean,
+    @SerializedName("qaImageEntityList")var qaImageEntityList:List<String>,
+    @SerializedName("modifiedTime")var modifiedTime:String,
+    @SerializedName("commentCount")var commentCount:Int,
+    @SerializedName("likeCount")var likeCount:Int
 
 ):RetrofitBean(),MultiItemEntity {
     override fun getItemType(): Int {

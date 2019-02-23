@@ -71,16 +71,28 @@
         app:layout_constraintTop_toBottomOf="@id/circle_detail_content"
         tools:text="2018:12.10"/>
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:id="@+id/circle_detail_pushuser"-->
+        <!--android:layout_width="12dp"-->
+        <!--android:layout_height="12dp"-->
+        <!--android:layout_marginStart="12dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:src="@drawable/iv_card_detail_official"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/circle_detail_time"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/circle_detail_content"/>-->
+
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/circle_detail_pushuser"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_gravity="center"
         android:layout_marginTop="12dp"
-        android:src="@drawable/iv_card_detail_official"
+        android:layout_marginStart="12dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/iv_my_head_placeholder"
+        app:riv_oval="true"
         app:layout_constraintStart_toEndOf="@+id/circle_detail_time"
         app:layout_constraintTop_toBottomOf="@id/circle_detail_content"/>
-
 
     <TextView
         android:id="@+id/circle_detail_username"
@@ -95,17 +107,17 @@
         tools:text="一二三四五六"/>
 
     <ImageView
-        android:id="@+id/iv_item_card_read"
+        android:id="@+id/iv_item_card_read1"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_marginEnd="3dp"
         android:src="@drawable/iv_item_card_read"
         app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
-        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read1"
         app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
 
     <TextView
-        android:id="@+id/tv_item_card_read"
+        android:id="@+id/tv_item_card_read1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
@@ -113,23 +125,23 @@
         android:textColor="@color/text_color_3"
         android:textSize="@dimen/text_size_text_4"
         app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
-        app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment"
+        app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment1"
         app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
         tools:text="100"/>
 
     <ImageView
-        android:id="@+id/iv_item_card_comment"
+        android:id="@+id/iv_item_card_comment1"
         android:layout_width="14dp"
         android:layout_height="14dp"
         android:layout_marginEnd="3dp"
         android:layout_marginStart="12dp"
         android:src="@drawable/iv_item_card_comment"
         app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
-        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment1"
         app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
 
     <TextView
-        android:id="@+id/tv_item_card_comment"
+        android:id="@+id/tv_item_card_comment1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
