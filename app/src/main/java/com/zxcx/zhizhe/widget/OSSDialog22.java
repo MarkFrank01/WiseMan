@@ -35,6 +35,7 @@ import com.zxcx.zhizhe.retrofit.BaseSubscriber;
 import com.zxcx.zhizhe.ui.my.userInfo.OSSTokenBean;
 import com.zxcx.zhizhe.utils.DateTimeUtils;
 import com.zxcx.zhizhe.utils.FileUtil;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.MD5Utils;
 import com.zxcx.zhizhe.utils.SVTSConstants;
 import com.zxcx.zhizhe.utils.ScreenUtils;
@@ -42,6 +43,7 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,6 +67,8 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
     private OSSTokenBean mOSSTokenBean;
     private OSSUploadListener mUploadListener;
     private OSSDeleteListener mDeleteListener;
+
+    private List<String> urls = new ArrayList<>();
 
     public void setUploadListener(OSSUploadListener uploadListener) {
         mUploadListener = uploadListener;
@@ -93,6 +97,9 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
         mOSSAction = getArguments().getInt("OSSAction");
         mFilePath = getArguments().getString("filePath");
         mFolderName = getArguments().getString("folderName");
+
+        urls = getArguments().getStringArrayList("photoList");
+
         if (StringUtils.isEmpty(mFolderName)) {
             mFolderName = "user/";
         }
@@ -148,6 +155,8 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
             uploadFileToOSS(mFilePath);
         } else if (mOSSAction == 2) {
             deleteImageFromOSS(mUrl);
+        } else if (mOSSAction == 3) {
+            ossUpload(urls);
         }
     }
 
@@ -270,7 +279,6 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
     }
 
 
-
     //尝试使用递归体上传多图
     private void ossUpload(final List<String> urls) {
 
@@ -328,8 +336,11 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
                 new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
                     public void onSuccess(PutObjectRequest request, PutObjectResult result) { // 上传成功
+                        mUploadListener.uploadSuccess(urls.get(0));
                         urls.remove(0);
                         ossUpload(urls);// 递归同步效果
+
+                        LogCat.e("嘤嘤嘤");
                     }
 
                     @Override
@@ -348,12 +359,13 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
                             Log.e("HostId", serviceException.getHostId());
                             Log.e("RawMessage", serviceException.getRawMessage());
                         }
+                        dismiss();
                     }
                 });
+        task.waitUntilFinished(); // 可以等待直到任务完成
+        dismiss();
         // task.cancel(); // 可以取消任务
-        // task.waitUntilFinished(); // 可以等待直到任务完成
     }
-
 
 
     public interface OSSUploadListener {
