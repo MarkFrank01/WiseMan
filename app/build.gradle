@@ -242,6 +242,10 @@ dependencies {
 
     //支付宝支付
     implementation files('lib/alipaySdk-15.5.9-20181123210601.aar')
+
+    //新版的图片选择器，暂定选用，未来将废除老的图片选择
+    implementation 'com.github.HuanTanSheng:EasyPhotos:2.3.6'
+
 }
 
 kapt {

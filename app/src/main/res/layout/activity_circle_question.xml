@@ -71,9 +71,9 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
-                        android:text="你想问什么问题"
                         android:maxLength="8"
                         android:maxLines="1"
+                        android:text="你想问什么问题"
                         android:textSize="15sp"/>
 
                     <TextView
@@ -89,15 +89,15 @@
                 </RelativeLayout>
 
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="@color/bg_item_user_level"
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:background="@color/bg_item_user_level">
 
                 <EditText
-                    android:textColor="@color/text_color_d2"
                     android:layout_width="270dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -109,6 +109,7 @@
                     android:inputType="text"
                     android:maxLength="8"
                     android:maxLines="1"
+                    android:textColor="@color/text_color_d2"
                     android:textSize="17sp"/>
 
             </LinearLayout>
@@ -121,20 +122,19 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="10dp"
                 android:background="@null"
-                android:text="问题补充"
                 android:maxLength="8"
                 android:maxLines="1"
+                android:text="问题补充"
                 android:textSize="15sp"/>
 
             <LinearLayout
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="@color/bg_item_user_level"
                 android:layout_width="match_parent"
-                android:layout_height="96dp">
+                android:layout_height="96dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:background="@color/bg_item_user_level">
 
                 <EditText
-                    android:textColor="@color/text_color_d2"
                     android:layout_width="270dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -146,22 +146,37 @@
                     android:inputType="text"
                     android:maxLength="8"
                     android:maxLines="1"
+                    android:textColor="@color/text_color_d2"
                     android:textSize="17sp"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="270dp"
+            <LinearLayout
+                android:id="@+id/ll_add_photo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="10dp"
-                android:background="@null"
-                android:text="添加图片"
-                android:maxLength="8"
-                android:maxLines="1"
-                android:textSize="15sp"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@null"
+                    android:maxLength="8"
+                    android:maxLines="1"
+                    android:text="添加图片"
+                    android:textSize="15sp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
