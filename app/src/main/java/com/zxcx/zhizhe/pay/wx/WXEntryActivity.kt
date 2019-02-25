@@ -30,6 +30,7 @@ class WXEntryActivity : BaseActivity() {
             goto_send_btn.isEnabled = false
 
             //待服务器那边处理
+            //此均为测试写法
             var req = PayReq()
             req.appId = Constants.WX_APP_ID
             req.partnerId = "1900006771"
