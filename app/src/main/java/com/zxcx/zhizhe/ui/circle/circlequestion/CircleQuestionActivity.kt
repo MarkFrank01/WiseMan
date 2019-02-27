@@ -6,14 +6,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity
+import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.huantansheng.easyphotos.EasyPhotos
-import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleQuestionAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleSixPicBean
-import com.zxcx.zhizhe.utils.GlideEngine
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
@@ -26,8 +26,14 @@ import kotlinx.android.synthetic.main.activity_circle_question.*
  */
 class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQuestionContract.View,
         OSSDialog22.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener,
-        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
+        BGASortableNinePhotoLayout.Delegate {
 
+    //////////////////////////
+    private val RC_CHOOSE_PHOTO = 1
+    private val RC_PHOTO_PREVIEW = 2
+
+//////////////////////////
 
     private lateinit var mOSSDialog: OSSDialog22
 
@@ -36,6 +42,11 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     //图片的数据
     private var mPickData: MutableList<CircleSixPicBean> = mutableListOf()
 
+
+
+    //拖拽排序九宫格控件
+    private lateinit var mPhotosSnpl: BGASortableNinePhotoLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_question)
@@ -43,16 +54,11 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog = OSSDialog22()
         mOSSDialog.setUploadListener(this)
 
+        initView()
         initRecyclerView()
+
     }
 
-    override fun setListener() {
-        ll_add_photo.setOnClickListener {
-            EasyPhotos.createAlbum(this, false, GlideEngine.getInstance())
-                    .setCount(6)
-                    .start(101)
-        }
-    }
 
     override fun createPresenter(): CircleQuestionPresenter {
         return CircleQuestionPresenter(this)
@@ -84,32 +90,11 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null) {
 
-            if (requestCode == 101) {
-                //返回对象集合：如果你需要了解图片的宽、高、大小、用户是否选中原图选项等信息，可以用这个
-                val resultPhotos = data.getParcelableArrayListExtra<Photo>(EasyPhotos.RESULT_PHOTOS)
-
-                //返回图片地址集合：如果你只需要获取图片的地址，可以用这个
-                val resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
-
-                LogCat.e("mPickData size is "+mPickData.size)
-                for (i in  mPickData.indices){
-                    mAdapter.notifyItemRemoved(i)
-                    mAdapter.notifyItemChanged(i)
-                }
-
-                mAdapter.notifyDataSetChanged()
-                mPickData.clear()
-                num = 0
-                for (t in resultPaths) {
-                    mPickData.add(CircleSixPicBean(t))
-                }
-                mAdapter.addData(mPickData)
-                mAdapter.notifyDataSetChanged()
-
-                uploadUrlsToOSS(resultPaths)
-            }
+        if (resultCode == Activity.RESULT_OK &&requestCode == RC_CHOOSE_PHOTO&&data!=null){
+            mPhotosSnpl.addMoreData(BGAPhotoPickerActivity.getSelectedPhotos(data))
+        }else if (requestCode == RC_PHOTO_PREVIEW&&data!=null){
+            mPhotosSnpl.data = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data)
         }
     }
 
@@ -137,4 +122,55 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         rv_image.layoutManager = layoutManager
         rv_image.adapter = mAdapter
     }
+
+    private fun initView() {
+        mPhotosSnpl = findViewById(R.id.snpl_moment_add_photos)
+        mPhotosSnpl.maxItemCount = 6
+
+        mPhotosSnpl.isPlusEnable = true
+
+        mPhotosSnpl.setDelegate(this)
+    }
+
+
+    override fun onClickNinePhotoItem(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, view: View?, position: Int, model: String?, models: java.util.ArrayList<String>?) {
+        var photoPickerPreviewIntent: Intent = BGAPhotoPickerPreviewActivity.IntentBuilder(this)
+                //当前预览的图片路径集合
+                .previewPhotos(models)
+                //当前已选中的图片路径集合
+                .selectedPhotos(models)
+                //图片选择张数的最大值
+                .maxChooseCount(mPhotosSnpl.maxItemCount)
+                //当前预览图片的索引
+                .currentPosition(position)
+                .isFromTakePhoto(false)
+                .build()
+        startActivityForResult(photoPickerPreviewIntent,RC_PHOTO_PREVIEW)
+    }
+
+    override fun onClickAddNinePhotoItem(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, view: View?, position: Int, models: java.util.ArrayList<String>?) {
+        choicePhotoWrapper()
+    }
+
+    override fun onNinePhotoItemExchanged(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, fromPosition: Int, toPosition: Int, models: java.util.ArrayList<String>?) {
+    }
+
+    override fun onClickDeleteNinePhotoItem(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, view: View?, position: Int, model: String?, models: java.util.ArrayList<String>?) {
+        mPhotosSnpl.removeItem(position)
+    }
+
+
+    private fun choicePhotoWrapper() {
+        var photoPickerIntent: Intent = BGAPhotoPickerActivity.IntentBuilder(this)
+                //选择图片的最大数
+                .maxChooseCount(mPhotosSnpl.maxItemCount - mPhotosSnpl.itemCount)
+                //当前已选中的图片路径合集
+                .selectedPhotos(null)
+                //滚动列表时是否暂停再加载图片
+                .pauseOnScroll(false)
+                .build()
+        startActivityForResult(photoPickerIntent, RC_CHOOSE_PHOTO)
+    }
+
+
 }

@@ -243,9 +243,16 @@ dependencies {
     //支付宝支付
     implementation files('lib/alipaySdk-15.5.9-20181123210601.aar')
 
-    //新版的图片选择器，暂定选用，未来将废除老的图片选择
-    implementation 'com.github.HuanTanSheng:EasyPhotos:2.3.6'
+    //测试图片选择器(将废弃，测试使用)
+//    implementation 'com.github.HuanTanSheng:EasyPhotos:2.3.6'
+//
+//    //朋友圈九宫格控件(将废弃，测试使用)
+//    implementation 'com.github.razerdp:PhotoContents:1.4.5'
 
+
+    //采用此作为图片选择和九宫图
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
 }
 
 kapt {

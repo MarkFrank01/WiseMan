@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -171,10 +172,30 @@
                     android:textSize="15sp"/>
 
                 <android.support.v7.widget.RecyclerView
+                    android:visibility="gone"
                     android:id="@+id/rv_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
+
+                <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
+                    android:id="@+id/snpl_moment_add_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:bga_snpl_deleteDrawable="@mipmap/bga_pp_ic_delete"
+                    app:bga_snpl_deleteDrawableOverlapQuarter="false"
+                    app:bga_snpl_editable="true"
+                    app:bga_snpl_itemCornerRadius="0dp"
+                    app:bga_snpl_itemSpanCount="2"
+                    app:bga_snpl_itemWhiteSpacing="14dp"
+                    app:bga_snpl_itemWidth="0dp"
+                    app:bga_snpl_maxItemCount="9"
+                    app:bga_snpl_otherWhiteSpacing="100dp"
+                    app:bga_snpl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
+                    app:bga_snpl_plusDrawable="@mipmap/bga_pp_ic_plus"
+                    app:bga_snpl_plusEnable="true"
+                    app:bga_snpl_sortable="true" />
 
             </LinearLayout>
 
