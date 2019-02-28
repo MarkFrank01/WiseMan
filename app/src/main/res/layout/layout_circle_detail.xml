@@ -27,7 +27,7 @@
                 android:layout_height="match_parent"
                 app:collapsedTitleGravity="left"
                 app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                app:contentScrim="@color/white"
+                app:contentScrim="@color/line"
                 app:expandedTitleMarginEnd="10dp"
                 app:expandedTitleMarginStart="10dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">

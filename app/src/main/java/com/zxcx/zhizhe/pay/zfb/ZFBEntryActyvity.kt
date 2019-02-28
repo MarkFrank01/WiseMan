@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Message
 import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
 import com.alipay.sdk.app.AuthTask
@@ -111,17 +110,20 @@ class ZFBEntryActivity : BaseActivity() {
     }
 
     private fun requestPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    PERMISSIONS_REQUEST_CODE)
-        } else {
-            toastShow("支付宝所需权限不足")
-        }
+        ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                PERMISSIONS_REQUEST_CODE)
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+//                != PackageManager.PERMISSION_GRANTED
+//                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+//
+//            ActivityCompat.requestPermissions(this,
+//                    arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//                    PERMISSIONS_REQUEST_CODE)
+//        } else {
+//            toastShow("支付宝所需权限不足")
+//        }
     }
 
     /**

@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.layout_circle_detail.*
 /**
  * @author : MarkFrank01
  * @Created on 2019/1/25
- * @Description :
+ * @Description : 圈子详情页
  */
 class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), CircleDetaileContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
