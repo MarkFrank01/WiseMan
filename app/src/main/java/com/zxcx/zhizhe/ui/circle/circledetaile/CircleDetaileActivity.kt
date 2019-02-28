@@ -49,6 +49,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         initData()
         initRecycleView()
         initView()
+        initToolBar()
 
         mRefreshLayout = refresh_layout
 
