@@ -361,9 +361,9 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         create_sign.addTextChangedListener(textWatcher2)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            create_xieyi?.text = Html.fromHtml("更多详情，点击<font color='#0088AA'>了解圈子</font>", Html.FROM_HTML_MODE_LEGACY)
+            create_xieyi?.text = Html.fromHtml("未提交的圈子可保留30天有效期，详情点击<font color='#0088AA'>了解圈子</font>", Html.FROM_HTML_MODE_LEGACY)
         } else {
-            create_xieyi?.text = Html.fromHtml("更多详情，点击<font color='#0088AA'>了解圈子</font>")
+            create_xieyi?.text = Html.fromHtml("未提交的圈子可保留30天有效期，详情点击<font color='#0088AA'>了解圈子</font>")
         }
 
     }

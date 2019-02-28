@@ -181,6 +181,32 @@
                     android:background="#FFFFFF"/>
             </LinearLayout>
 
+            <RelativeLayout
+                android:descendantFocusability="blocksDescendants"
+                android:id="@+id/rl_to_more"
+                app:layout_constraintTop_toBottomOf="@id/ll_gv_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_circle_classify_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:text="推荐"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/c_more"/>
+            </RelativeLayout>
             <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/rv_circle_home_1"-->
             <!--android:layout_width="match_parent"-->
@@ -192,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants"
-                app:layout_constraintTop_toBottomOf="@id/ll_gv_circle">
+                app:layout_constraintTop_toBottomOf="@id/rl_to_more">
 
                 <ImageView
                     android:visibility="gone"
@@ -202,7 +228,6 @@
                     android:layout_height="wrap_content"/>
 
                 <android.support.v7.widget.RecyclerView
-
                     android:id="@+id/rv_circle_home_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

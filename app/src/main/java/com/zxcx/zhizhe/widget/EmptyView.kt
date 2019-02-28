@@ -50,6 +50,17 @@ object EmptyView {
 		return emptyView
 	}
 
+    @JvmStatic
+    fun getEmptyViewAndClick2(context: Context, str1: String, str2: String, @DrawableRes imgRes: Int, listener: View.OnClickListener?): View {
+        val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
+        emptyView.tv_no_data_1.text = str1
+        emptyView.tv_no_data_2.visibility = View.VISIBLE
+        emptyView.tv_no_data_2.text = str2
+        emptyView.iv_no_data.setImageResource(imgRes)
+        emptyView.setOnClickListener(listener)
+        return emptyView
+    }
+
 	@JvmStatic
 	fun getEmptyViewAndCard(activity: Activity, str1: String, @DrawableRes imgRes: Int, bean: CardBean): View {
 		val emptyView = LayoutInflater.from(activity).inflate(R.layout.layout_no_data_and_card, null)

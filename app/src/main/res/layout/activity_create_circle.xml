@@ -130,6 +130,7 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
+                        android:textColorHint="@color/text_color_1"
                         android:hint="给圈子起个简洁好记的名字"
                         android:inputType="text"
                         android:maxLength="8"
@@ -176,7 +177,8 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
-                        android:hint="一句话向大家介绍这个圈子"
+                        android:hint="你希望如何跟别人介绍你的圈子"
+                        android:textColorHint="@color/text_color_1"
                         android:inputType="text"
                         android:maxLength="30"
                         android:maxLines="1"
@@ -243,6 +245,15 @@
                     android:src="@drawable/c_more"/>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="18dp"
+                android:text="精准的分类有助于圈子的推荐和搜索"
+                android:textColor="@color/text_color_3"
+                android:textSize="12sp"/>
+
             <LinearLayout
                 android:id="@+id/create_push_level"
                 android:layout_width="match_parent"
@@ -255,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="18dp"
-                    android:text="圈子等级"
+                    android:text="付费进圈"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 
@@ -287,7 +298,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="18dp"
-                android:text="根据自身贡献的知识程度选择你的圈子等级"
+                android:text="根据贡献的知识程度选择合理价格"
                 android:textColor="@color/text_color_3"
                 android:textSize="12sp"/>
 
@@ -303,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="18dp"
-                    android:text="提交审核"
+                    android:text="限时免费"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 
@@ -325,7 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="18dp"
-                android:text="需提交符合圈子类型的2篇文章和4篇卡片作品"
+                android:text="限免可为新建圈子增加更多人气"
                 android:textColor="@color/text_color_3"
                 android:textSize="12sp"/>
 
