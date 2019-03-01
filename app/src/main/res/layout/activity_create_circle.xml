@@ -117,6 +117,7 @@
                     android:background="@color/line"/>
 
                 <RelativeLayout
+                    android:id="@+id/rl_to_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -130,12 +131,13 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginTop="10dp"
                         android:background="@null"
-                        android:textColorHint="@color/text_color_1"
                         android:hint="给圈子起个简洁好记的名字"
                         android:inputType="text"
                         android:maxLength="8"
                         android:maxLines="1"
-                        android:textSize="17sp"/>
+                        android:textColorHint="@color/text_color_1"
+                        android:textSize="17sp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_check1"
@@ -145,7 +147,29 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginEnd="18dp"
-                        android:text="0/8"/>
+                        android:text="0/8"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tv_to_name"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="10dp"
+                        android:text="给圈子起个简洁好记的名字"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="17sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_to_name"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="22dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/c_more"/>
 
                 </RelativeLayout>
 
@@ -163,10 +187,39 @@
                 android:layout_height="60dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_to_name2"
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="10dp"
+                        android:text="你希望如何跟别人介绍你的圈子"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="17sp"/>
+
+                    <ImageView
+                        android:id="@+id/iv_to_name2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="22dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/c_more"/>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <EditText
                         android:id="@+id/create_sign"
@@ -178,10 +231,10 @@
                         android:layout_marginTop="10dp"
                         android:background="@null"
                         android:hint="你希望如何跟别人介绍你的圈子"
-                        android:textColorHint="@color/text_color_1"
                         android:inputType="text"
                         android:maxLength="30"
                         android:maxLines="1"
+                        android:textColorHint="@color/text_color_1"
                         android:textSize="17sp"/>
 
                     <Space

@@ -104,6 +104,8 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     companion object {
         const val CODE_SELECT_LABEL = 110
         const val CODE_SELECT_MANAGE = 111
+        const val CODE_CREATE_NAME = 112
+        const val CODE_DESC = 113
     }
 
     override fun createPresenter(): CreateCirclePresenter {
@@ -159,6 +161,16 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                     it.putExtra("url", getString(R.string.base_url) + getString(R.string.create_circle))
                 }
             }
+        }
+
+        iv_to_name.setOnClickListener {
+            val intent = Intent(this, CreateCircleNameActivity::class.java)
+            startActivityForResult(intent, CreateCircleActivity.CODE_CREATE_NAME)
+        }
+
+        iv_to_name2.setOnClickListener {
+            val intent = Intent(this,CreateCircleDescActivity::class.java)
+            startActivityForResult(intent,CreateCircleActivity.CODE_DESC)
         }
 
         tv_toolbar_back.setOnClickListener {
@@ -284,11 +296,10 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         XPopup.get(this)
 //                .asCustom(CustomPopup(this))
                 .asBottomList("", arrayOf("黄金", "白银", "青铜", "黑铁"),
-                null, -1
-        ){
-                    position, text ->
+                        null, -1
+                ) { position, text ->
                     {}.run {
-                        mLevel = position+1
+                        mLevel = position + 1
                         circle_tv_level_name.text = text
                     }
                 }
@@ -331,6 +342,12 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                 CreateCircleActivity.CODE_SELECT_MANAGE -> {
                     mBackList = data.getIntegerArrayListExtra("manageCreateList")
                     LogCat.e("BACK MANAGE" + mBackList.toString())
+                }
+                CreateCircleActivity.CODE_CREATE_NAME -> {
+                    tv_to_name.text = data.getStringExtra("circle_title")
+                }
+                CreateCircleActivity.CODE_DESC -> {
+                    tv_to_name2.text = data.getStringExtra("circle_desc")
                 }
             }
         }
