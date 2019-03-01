@@ -171,13 +171,6 @@
                     android:text="添加图片"
                     android:textSize="15sp"/>
 
-                <android.support.v7.widget.RecyclerView
-                    android:visibility="gone"
-                    android:id="@+id/rv_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-
-
                 <cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
                     android:id="@+id/snpl_moment_add_photos"
                     android:layout_width="wrap_content"

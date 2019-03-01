@@ -4,20 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.circle.adapter.CircleQuestionAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleSixPicBean
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
-import kotlinx.android.synthetic.main.activity_circle_question.*
 
 /**
  * @author : MarkFrank01
@@ -26,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_circle_question.*
  */
 class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQuestionContract.View,
         OSSDialog22.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener,
-        BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
         BGASortableNinePhotoLayout.Delegate {
 
     //////////////////////////
@@ -37,7 +32,6 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
     private lateinit var mOSSDialog: OSSDialog22
 
-    private lateinit var mAdapter: CircleQuestionAdapter
 
     //图片的数据
     private var mPickData: MutableList<CircleSixPicBean> = mutableListOf()
@@ -55,7 +49,6 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog.setUploadListener(this)
 
         initView()
-        initRecyclerView()
 
     }
 
@@ -98,11 +91,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         }
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-    }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-    }
 
     private fun uploadUrlsToOSS(path: ArrayList<String>) {
         val bundle = Bundle()
@@ -112,16 +101,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog.show(supportFragmentManager, "")
     }
 
-    private fun initRecyclerView() {
-        mAdapter = CircleQuestionAdapter(ArrayList())
-        mAdapter.onItemClickListener = this
-        mAdapter.onItemChildClickListener = this
 
-        val layoutManager = GridLayoutManager(this, 2)
-
-        rv_image.layoutManager = layoutManager
-        rv_image.adapter = mAdapter
-    }
 
     private fun initView() {
         mPhotosSnpl = findViewById(R.id.snpl_moment_add_photos)
