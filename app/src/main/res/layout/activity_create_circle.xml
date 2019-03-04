@@ -376,6 +376,16 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
+                <TextView
+                    android:id="@+id/circle_tv_free_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="6dp"
+                    android:textColor="@color/text_color_3"
+                    android:textSize="15sp"
+                    tools:text="黄金"/>
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -438,8 +448,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="72dp"
-                android:layout_marginStart="72dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="32dp"
                 android:textSize="12sp"
                 tools:text="更多详情，点击了解圈子"/>

@@ -61,7 +61,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 //        if (Constants.PAGE_SIZE==0&&list.size==0){
-            val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无圈子,你可以创建一个", "", R.drawable.no_data, View.OnClickListener {
+            val emptyView = EmptyView.getEmptyViewAndClick2(mActivity, "暂无圈子,你可以创建一个", "", R.drawable.no_data, View.OnClickListener {
                 mActivity.startActivity(CreateCircleActivity::class.java) {}
             })
             mAllmyCircleAdapter.emptyView = emptyView

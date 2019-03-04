@@ -13,6 +13,7 @@ import android.text.Html
 import android.text.TextWatcher
 import com.gyf.barlibrary.ImmersionBar
 import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushCreateCircleListEvent
@@ -21,6 +22,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
@@ -42,6 +44,10 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     private lateinit var mOSSDialog: OSSDialog
     private lateinit var articleList: List<Int>
+
+    private var mSelectPosition = 0
+    private var mSelectPosition2 = 0
+
 
     val textWatcher1: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable) {
@@ -169,8 +175,8 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         }
 
         iv_to_name2.setOnClickListener {
-            val intent = Intent(this,CreateCircleDescActivity::class.java)
-            startActivityForResult(intent,CreateCircleActivity.CODE_DESC)
+            val intent = Intent(this, CreateCircleDescActivity::class.java)
+            startActivityForResult(intent, CreateCircleActivity.CODE_DESC)
         }
 
         tv_toolbar_back.setOnClickListener {
@@ -187,16 +193,22 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         }
 
         create_push_check.setOnClickListener {
-            val intent1 = Intent(this, ManageCreateCircleActivity::class.java)
-            startActivityForResult(intent1, CreateCircleActivity.CODE_SELECT_MANAGE)
+            //原来的管理圈子，暂时隐藏，保留
+//            val intent1 = Intent(this, ManageCreateCircleActivity::class.java)
+//            startActivityForResult(intent1, CreateCircleActivity.CODE_SELECT_MANAGE)
+
+            chooseFreeTime()
         }
 
         create_manage_content.setOnClickListener {
+
             //            startActivity(Intent(this,ManageCreateCircleActivity::class.java))
         }
 
         create_push_level.setOnClickListener {
-            chooseLevel()
+            //原来选择等级
+//            chooseLevel()
+            chooseMoney()
         }
 
         tv_toolbar_right.setOnClickListener {
@@ -383,5 +395,29 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             create_xieyi?.text = Html.fromHtml("未提交的圈子可保留30天有效期，详情点击<font color='#0088AA'>了解圈子</font>")
         }
 
+    }
+
+    //选择价钱
+    private fun chooseMoney() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "付费进圈", arrayOf("￥ 98.00", "￥ 40.00", "￥ 18.00"),
+                        null, -1,
+                        OnSelectListener { position, text ->
+                            mSelectPosition = position
+                            circle_tv_level_name.text = text
+                        })
+                ).show()
+    }
+
+    //限时免费
+    private fun chooseFreeTime() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "限时免费", arrayOf("3个月", "1个月", "无"),
+                        null, -1,
+                        OnSelectListener { position, text ->
+                            mSelectPosition2 = position
+                            circle_tv_free_time.text = text
+                        })
+                ).show()
     }
 }

@@ -60,7 +60,9 @@ class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.Vi
     }
 
     override fun getDataFail(msg: String?) {
-        mView.toastFail(msg)
+        if (mView!=null) {
+            mView.toastFail(msg)
+        }
     }
 
     override fun startLogin() {

@@ -18,6 +18,7 @@ class CreateCircleDescActivity:BaseActivity() {
 
     val textWatcher1:TextWatcher = object  :TextWatcher{
         override fun afterTextChanged(s: Editable?) {
+            tv_check1.text = "${s.toString().length}/300"
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -30,6 +31,7 @@ class CreateCircleDescActivity:BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_circle_desc)
+        create_title.addTextChangedListener(textWatcher1)
     }
 
     override fun setListener() {

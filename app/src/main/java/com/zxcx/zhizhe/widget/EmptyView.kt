@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.widget
 import android.app.Activity
 import android.content.Context
 import android.support.annotation.DrawableRes
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import com.zxcx.zhizhe.R
@@ -53,7 +54,8 @@ object EmptyView {
     @JvmStatic
     fun getEmptyViewAndClick2(context: Context, str1: String, str2: String, @DrawableRes imgRes: Int, listener: View.OnClickListener?): View {
         val emptyView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, null)
-        emptyView.tv_no_data_1.text = str1
+        emptyView.tv_no_data_1.text = Html.fromHtml("大神都在这里,<font color='#0088AA'>创建圈子</font>一起玩")
+
         emptyView.tv_no_data_2.visibility = View.VISIBLE
         emptyView.tv_no_data_2.text = str2
         emptyView.iv_no_data.setImageResource(imgRes)
