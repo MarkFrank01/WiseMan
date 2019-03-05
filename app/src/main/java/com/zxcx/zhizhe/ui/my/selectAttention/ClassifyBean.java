@@ -28,6 +28,9 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
     @SerializedName("isHit")
     private int isHit;
 
+    @SerializedName("cover")
+    private String cover;
+
 	private boolean isChecked = false;
 	
 	@Override
@@ -91,6 +94,14 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
 
     public void setIsHit(int isHit) {
         this.isHit = isHit;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }
 

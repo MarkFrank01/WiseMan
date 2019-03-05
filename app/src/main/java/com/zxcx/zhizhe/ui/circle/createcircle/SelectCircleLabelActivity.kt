@@ -10,9 +10,9 @@ import android.view.View
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectClassifyAdapter
-import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectClassifyOtherAdapter
-import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectLabelAdapter
+import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectClassifyAdapter1
+import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectClassifyOtherAdapter1
+import com.zxcx.zhizhe.ui.my.creation.newCreation.SelectLabelAdapter1
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionContract
@@ -32,10 +32,10 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
     private var mNewLabelSelect: Boolean = false
     private var mNewLabelName: String = ""
     private var mNewLabelName2: String = ""
-    private lateinit var mClassifyAdapter: SelectClassifyAdapter
-    private lateinit var mLabelAdapter: SelectLabelAdapter
+    private lateinit var mClassifyAdapter: SelectClassifyAdapter1
+    private lateinit var mLabelAdapter: SelectLabelAdapter1
 
-    private lateinit var mOtherAdapter: SelectClassifyOtherAdapter
+    private lateinit var mOtherAdapter: SelectClassifyOtherAdapter1
 
     //数据处理后热门分类
     private var mNewHotClassify: MutableList<ClassifyBean> = ArrayList()
@@ -221,14 +221,14 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
 
     //先加载rv
     private fun initRecyclerView() {
-        mClassifyAdapter = SelectClassifyAdapter(ArrayList())
-        mLabelAdapter = SelectLabelAdapter(ArrayList())
-        mOtherAdapter = SelectClassifyOtherAdapter(ArrayList())
+        mClassifyAdapter = SelectClassifyAdapter1(ArrayList())
+        mLabelAdapter = SelectLabelAdapter1(ArrayList())
+        mOtherAdapter = SelectClassifyOtherAdapter1(ArrayList())
 //        val manager = GridLayoutManager(mActivity, 4)
 //        val manager1 = GridLayoutManager(mActivity, 4)
 
-        val manager = GridLayoutManager(mActivity, 5)
-        val manager_other = GridLayoutManager(mActivity, 5)
+        val manager = GridLayoutManager(mActivity, 4)
+        val manager_other = GridLayoutManager(mActivity, 4)
         val manager1 = GridLayoutManager(mActivity, 4)
 
         //热门分类
@@ -264,37 +264,18 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
             mSelectedLabel = null
             if (bean.isChecked) {
                 mSelectedClassify = bean
-//                group_select_label.visibility = View.VISIBLE
-//                if (mNewLabelName.isEmpty()) {
-//                    cb_item_select_label_new_label.visibility = View.GONE
-////                    iv_select_label_new_label_delete.visibility = View.GONE
-////                    iv_select_label_new_label.visibility = View.VISIBLE
-//                } else {
-//                    cb_item_select_label_new_label.visibility = View.VISIBLE
-////                    iv_select_label_new_label_delete.visibility = View.VISIBLE
-////                    iv_select_label_new_label.visibility = View.GONE
-//                }
+
                 bean.dataList.forEach {
                     it.isChecked = false
                 }
 
                 mLabelAdapter.setNewData(bean.dataList)
-//                LogCat.e("bean.dataList" + bean.dataList.size)
-//                if (bean.dataList.size == 0) {
-//                    tv_select_label_2.visibility = View.GONE
-//                } else {
-//                    tv_select_label_2.visibility = View.VISIBLE
-//                }
+
 
                 mSingleClassify = bean.title
                 tv_toolbar_right.isEnabled = true
             } else {
                 mSelectedClassify = null
-//                group_select_label.visibility = View.GONE
-//                tv_select_label_2.visibility = View.GONE
-//                cb_item_select_label_new_label.visibility = View.GONE
-//                iv_select_label_new_label_delete.visibility = View.GONE
-//                iv_select_label_new_label.visibility = View.GONE
 
                 mSingleClassify = ""
                 mSingleLable = ""
@@ -302,12 +283,15 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
             }
             if (mSingleClassify != "" && mSingleClassify.isNotEmpty() && mSelectedClassify != null) {
                 tv_toolbar_right.isEnabled = true
-//                mTheFirst = mSingleClassify
-//                LogCat.e("Fuck Classify" + mSingleClassify)
             } else {
                 tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
             }
             mSelectItem = -1
+
+
+            //////////////////////////////////////
+            //新的分类方式
+
         }
 
         //其它分类
@@ -371,7 +355,11 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
                 tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
             }
             mSelectItem = -1
+
+            ////////////////////////////////////
+            //新的
         }
+
 
 
     }

@@ -29,7 +29,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="20dp"
 				android:layout_marginStart="20dp"
-				android:text="选择分类和标签"
+				android:text="选择圈子分类"
 				android:textColor="@color/text_color_1"
 				android:textSize="@dimen/text_size_text_1"
 				app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="10dp"
 				android:layout_marginStart="20dp"
-				android:text="合适的分类或标签能让你的作品更容易获得阅读和推荐"
+				android:text="合适的分类能让你的圈子更容易被发现或推荐"
 				android:textColor="@color/text_color_d2"
 				android:textSize="@dimen/text_size_text_3"
 				app:layout_constraintStart_toStartOf="parent"
@@ -53,12 +53,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="35dp"
                 android:text="热门"
                 android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"/>
+
+            <View
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/bg_round"
+                android:layout_width="8dp"
+                android:layout_height="8dp"/>
 
 			<android.support.v7.widget.RecyclerView
 				android:id="@+id/rv_select_classify"
@@ -79,12 +88,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="35dp"
                 android:text="其它"
                 android:textColor="@color/text_color_2"
                 android:textSize="@dimen/text_size_text_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_select_classify"/>
+
+            <View
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_select_classify"
+                android:background="@drawable/bg_round"
+                android:layout_width="8dp"
+                android:layout_height="8dp"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_select_classify_2"

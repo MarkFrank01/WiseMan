@@ -35,6 +35,7 @@ class CircleNewAdapter(data:List<MultiItemEntity>):
                         .setText(R.id.more_circle_join_num,"加入"+item1.joinUserCount)
                         .setText(R.id.more_circle_huati_num,"话题"+item1.qaCount)
 
+                helper.addOnClickListener(R.id.to_content_circle)
             }
         }
     }

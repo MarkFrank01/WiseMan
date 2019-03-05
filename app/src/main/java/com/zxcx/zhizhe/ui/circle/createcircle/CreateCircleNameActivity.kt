@@ -1,11 +1,13 @@
 package com.zxcx.zhizhe.ui.circle.createcircle
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -53,6 +55,7 @@ class CreateCircleNameActivity : MvpActivity<CreateCircleNamePresenter>(), Creat
         }
 
         tv_toolbar_right.setOnClickListener {
+            hideKB()
             val intent = Intent()
             intent.putExtra("circle_title",create_title.text.toString().trim())
             setResult(Activity.RESULT_OK,intent)
@@ -96,5 +99,11 @@ class CreateCircleNameActivity : MvpActivity<CreateCircleNamePresenter>(), Creat
     override fun postFail(msg: String?) {
     }
 
+    private fun hideKB(){
+        var imm :InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive&&currentFocus!=null){
+            imm.hideSoftInputFromWindow(currentFocus.windowToken,InputMethodManager.HIDE_NOT_ALWAYS)
+        }
+    }
 
 }
