@@ -13,7 +13,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.LogoutEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.circle.adapter.CircleAdapter
+import com.zxcx.zhizhe.ui.circle.adapter.CircleNewAdapter
 import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
@@ -21,19 +21,12 @@ import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
-import com.zxcx.zhizhe.ui.rank.moreRank.AllRankActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
-import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.gridview.Model
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subscribers.DisposableSubscriber
 import kotlinx.android.synthetic.main.fragment_circle.*
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
@@ -50,8 +43,11 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
 
-    private lateinit var mAdapter: CircleAdapter
+    //    private lateinit var mAdapter: CircleAdapter
     private lateinit var mCircleBean: CircleBean
+
+    //新的CircleAdapter
+    private lateinit var mCircleNewAdapter: CircleNewAdapter
 
     //广告块的数据
     private var mAdList: MutableList<ADBean> = mutableListOf()
@@ -66,7 +62,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     //圈子列表的数据
     private var mCircleListPage = 0
-    private var mCircleListPageSize = Constants.PAGE_SIZE
+    private var mCircleListPageSize = 6
 
     //处理分组数据
     private val map: ArrayMap<String, ArrayList<CircleBean>> = ArrayMap()
@@ -84,7 +80,9 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         EventBus.getDefault().register(this)
         mCircleBean = CircleBean()
         initView()
-        initRecyclerView()
+//        initRecyclerView()
+
+        initRv()
         initADView()
         mPresenter.getAD()
         mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
@@ -113,44 +111,54 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
-        mDisposable = Flowable.just(list)
-                .observeOn(Schedulers.computation())
-                .map(PackData(map))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
-                    override fun onComplete() {
-                    }
+        if (list.size<6){
+            mCircleListPage = 0
+            getCircleById()
+        }else{
+            mCircleNewAdapter.data.clear()
+            mCircleNewAdapter.data.addAll(list)
+            mCircleNewAdapter.notifyDataSetChanged()
+            mCircleListPage++
+        }
 
-                    override fun onNext(t: List<CircleChooseBean>) {
-                        LogCat.e("CircleChooseBean size ${t.size}")
-                        mAdapter.data.clear()
-                        for (dcBean in t) {
-
-                            dcBean.list[0].showTitle = dcBean.date
-                            if (dcBean.list.size>1) {
-                                dcBean.list[1].showTitle = "更多"
-                            }
-                            mAdapter.data.addAll(dcBean.list)
-                            if (dcBean.list.size % 2 != 0) {
-                                mAdapter.data.add(dcBean)
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged()
-
-                        mCircleListPage++
-                        if (list.size < mCircleListPageSize) {
-                            mAdapter.loadMoreEnd(false)
-                        } else {
-                            mAdapter.loadMoreComplete()
-                            mAdapter.setEnableLoadMore(false)
-                            mAdapter.setEnableLoadMore(true)
-                        }
-                    }
-
-                    override fun onError(t: Throwable?) {
-                    }
-
-                })
+//        mDisposable = Flowable.just(list)
+//                .observeOn(Schedulers.computation())
+//                .map(PackData(map))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(object : DisposableSubscriber<List<CircleChooseBean>>() {
+//                    override fun onComplete() {
+//                    }
+//
+//                    override fun onNext(t: List<CircleChooseBean>) {
+//                        LogCat.e("CircleChooseBean size ${t.size}")
+//                        mAdapter.data.clear()
+//                        for (dcBean in t) {
+//
+//                            dcBean.list[0].showTitle = dcBean.date
+//                            if (dcBean.list.size>1) {
+//                                dcBean.list[1].showTitle = "更多"
+//                            }
+//                            mAdapter.data.addAll(dcBean.list)
+//                            if (dcBean.list.size % 2 != 0) {
+//                                mAdapter.data.add(dcBean)
+//                            }
+//                        }
+//                        mAdapter.notifyDataSetChanged()
+//
+//                        mCircleListPage++
+//                        if (list.size < mCircleListPageSize) {
+//                            mAdapter.loadMoreEnd(false)
+//                        } else {
+//                            mAdapter.loadMoreComplete()
+//                            mAdapter.setEnableLoadMore(false)
+//                            mAdapter.setEnableLoadMore(true)
+//                        }
+//                    }
+//
+//                    override fun onError(t: Throwable?) {
+//                    }
+//
+//                })
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
@@ -186,17 +194,23 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         } else {
             gv_circle_classify.pageSize = 10
             gv_circle_classify.setGridItemClickListener { pos, position, str ->
-                if (position!=9) {
-                    mActivity.startActivity(CircleClassifyActivity::class.java) {
-                        it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
-                        it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
-                    }
-                }else{
-                    ////////////////////////
-                    mActivity.startActivity(AllRankActivity::class.java){
 
-                    }
+                mActivity.startActivity(CircleClassifyActivity::class.java) {
+                    it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
+                    it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
                 }
+
+//                if (position != 9) {
+//                    mActivity.startActivity(CircleClassifyActivity::class.java) {
+//                        it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
+//                        it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+//                    }
+//                } else {
+//                    ////////////////////////
+//                    mActivity.startActivity(AllRankActivity::class.java) {
+//
+//                    }
+//                }
             }
             gv_circle_classify.init(mClassifyData)
         }
@@ -205,7 +219,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
 //        iv_circle_to_my.visibility = View.VISIBLE
 
-        if (list.size>0) {
+        if (list.size > 0) {
             if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
                 circle_image.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
@@ -254,11 +268,11 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun setListener() {
         circle_image.setOnClickListener {
-           if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
-               mActivity.startActivity(AllMyCircleActivity::class.java) {}
-           }else{
-               mActivity.startActivity(LoginActivity::class.java){}
-           }
+            if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0) {
+                mActivity.startActivity(AllMyCircleActivity::class.java) {}
+            } else {
+                mActivity.startActivity(LoginActivity::class.java) {}
+            }
         }
 
 //        iv_circle_to_my.setOnClickListener {
@@ -280,39 +294,56 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
 
         circle_hint_login.setOnClickListener {
-            mActivity.startActivity(LoginActivity::class.java){}
+            mActivity.startActivity(LoginActivity::class.java) {}
         }
 
         circle_hint_login_dec.setOnClickListener {
-            mActivity.startActivity(LoginActivity::class.java){}
+            mActivity.startActivity(LoginActivity::class.java) {}
+        }
+
+        more_change.setOnClickListener {
+            getCircleById()
         }
     }
 
     private fun initRecyclerView() {
 
         //第三块
-//        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        val layoutManager = GridLayoutManager(context, 2)
-        mAdapter = CircleAdapter(ArrayList(), this)
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this, rv_circle_home_2)
-        mAdapter.onItemClickListener = this
-        mAdapter.onItemChildClickListener = this
 
-        val view = EmptyView.getEmptyView2(mActivity,"",R.drawable.c_test)
-        mAdapter.emptyView = view
-//        mAdapter.setSpanSizeLookup { _, position ->
+//        mAdapter = CircleAdapter(ArrayList(), this)
+//        mAdapter.setLoadMoreView(CustomLoadMoreView())
+//        mAdapter.setOnLoadMoreListener(this, rv_circle_home_2)
+//        mAdapter.onItemClickListener = this
+//        mAdapter.onItemChildClickListener = this
 //
+//        val view = EmptyView.getEmptyView2(mActivity,"",R.drawable.c_test)
+//        mAdapter.emptyView = view
+////        mAdapter.setSpanSizeLookup { _, position ->
+////
+////        }
+//        rv_circle_home_2.layoutManager = object :GridLayoutManager(context,2){
+//            override fun canScrollVertically() = false
 //        }
-        rv_circle_home_2.layoutManager = object :GridLayoutManager(context,2){
+//        rv_circle_home_2.isNestedScrollingEnabled = false
+//        rv_circle_home_2.setHasFixedSize(true)
+//        rv_circle_home_2.isFocusable = false
+
+//        rv_circle_home_2.adapter = mAdapter
+    }
+
+    private fun initRv() {
+        mCircleNewAdapter = CircleNewAdapter(ArrayList())
+        mCircleNewAdapter.onItemClickListener = this
+        mCircleNewAdapter.onItemChildClickListener = this
+
+        rv_circle_home_2.layoutManager = object : GridLayoutManager(context, 2) {
             override fun canScrollVertically() = false
         }
         rv_circle_home_2.isNestedScrollingEnabled = false
         rv_circle_home_2.setHasFixedSize(true)
         rv_circle_home_2.isFocusable = false
 
-//        rv_circle_home_2.layoutManager = layoutManager
-        rv_circle_home_2.adapter = mAdapter
+        rv_circle_home_2.adapter = mCircleNewAdapter
     }
 
     private fun initADView() {
@@ -373,7 +404,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
             ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
-        }else{
+        } else {
             circle_hint_login.visibility = View.VISIBLE
             circle_hint_login_dec.visibility = View.VISIBLE
             ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)

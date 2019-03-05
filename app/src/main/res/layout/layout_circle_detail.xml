@@ -75,27 +75,27 @@
 
                         <ImageView
                             android:id="@+id/iv_toolbar_right1"
-                            android:layout_width="50dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="end"
-                            android:layout_marginEnd="70dp"
-                            android:paddingEnd="20dp"
+                            android:layout_marginEnd="50dp"
+                            android:paddingEnd="10dp"
                             android:paddingStart="10dp"
                             android:src="@drawable/et_search"/>
 
                         <ImageView
                             android:id="@+id/iv_toolbar_right2"
-                            android:layout_width="50dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="end"
                             android:layout_marginEnd="10dp"
-                            android:paddingEnd="20dp"
+                            android:paddingEnd="10dp"
                             android:paddingStart="10dp"
-                            android:src="@drawable/et_search"/>
+                            android:src="@drawable/c_more_2"/>
 
                     </RelativeLayout>
 

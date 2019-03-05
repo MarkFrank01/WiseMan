@@ -79,6 +79,12 @@ class CircleBean(
     @SerializedName("toBeAddedInfoVO")
     val toBeAddedInfoVO:CircleIWaitContentBean? =null
 
+    @SerializedName("articleClount")
+    var articleClount:Int = 0
+
+    @SerializedName("overallRating")
+    var overallRating:Int = 0
+
     //新标题
     var newTitle: String? = ""
 

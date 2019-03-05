@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="SKTSKKKKKKK"
+            tools:text="SKTSKKKKKKK"
             android:textColor="@color/text_color_ff"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,13 +57,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/more_star"
+            android:background="@color/black"
+            android:layout_width="40dp"
+            android:layout_height="10dp"/>
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/black"
+            android:id="@+id/more_price"
+            android:layout_width="40dp"
+            android:layout_height="10dp"/>
+
         <TextView
             android:id="@+id/more_circle_type"
             style="@style/tv_card_category"
             android:layout_marginBottom="12dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:text="职场"
+            tools:text="职场"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,9 +92,9 @@
             android:id="@+id/more_circle_join_num"
             style="@style/tv_card_category"
             android:layout_marginBottom="12dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:text="话题200+"
+            tools:text="话题200+"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/more_circle_type"
@@ -83,11 +102,11 @@
 
         <TextView
             style="@style/tv_card_category"
-            android:id="@+id/more_circle_huati.num"
+            android:id="@+id/more_circle_huati_num"
             android:layout_marginBottom="12dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:text="话题7.8k"
+            tools:text="话题7.8k"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/more_circle_join_num"

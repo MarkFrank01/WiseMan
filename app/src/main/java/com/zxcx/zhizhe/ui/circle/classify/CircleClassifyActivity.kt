@@ -43,7 +43,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
     private lateinit var mAdapter: CircleClassifyAdapter
     private lateinit var mDialog: QuitCircleConfirmDialog
 
-    private  var mSelectPosition = 0
+    private var mSelectPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -179,7 +179,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        val view = EmptyView.getEmptyView(mActivity,"暂无圈子",R.drawable.no_circle_data)
+        val view = EmptyView.getEmptyView(mActivity, "暂无圈子", R.drawable.no_circle_data)
         mAdapter.emptyView = view
 
         rv_circle_classify.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
@@ -209,11 +209,18 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 //                    }
 //                }).show()
 
+        //目前
         XPopup.get(mActivity)
-                .asCustom(CirclePopup(this,"排序选项", arrayOf("默认排序","最高星级","最多加入","最多话题"),
-                        null,mSelectPosition,
+                .asCustom(CirclePopup(this, "排序选项", arrayOf("默认排序", "最高星级", "最多加入", "最多话题"),
+                        null, mSelectPosition,
                         OnSelectListener { position, text -> mSelectPosition = position })
                 ).show()
 
+        //将用于提示
+//        XPopup.get(mActivity)
+//                .asCustom(CircleBottomPopup(this, OnSelectListener { position, text ->
+//
+//                })
+//                ).show()
     }
 }

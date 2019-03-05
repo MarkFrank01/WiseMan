@@ -5,6 +5,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.gyf.barlibrary.ImmersionBar
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
@@ -17,6 +19,7 @@ import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.layout_circle_detail.*
@@ -145,6 +148,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         et_comment.setOnClickListener {
             mActivity.startActivity(CircleQuestionActivity::class.java) {}
         }
+
+        iv_toolbar_right2.setOnClickListener {
+            chooseMore()
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -235,5 +242,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     private fun getCircleQAByCircleIdRefresh(){
         mPresenter.getCircleQAByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
+    }
+
+    private fun chooseMore(){
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this,"更多", arrayOf("圈子介绍","分享圈子","圈子评分"),
+                        null,-1, OnSelectListener { position, text ->
+                    toastShow(text)
+                })).show()
     }
 }
