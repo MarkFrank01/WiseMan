@@ -1,11 +1,13 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
 import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.getColorForKotlin
 
 
 /**
@@ -14,7 +16,6 @@ import com.zxcx.zhizhe.utils.ImageLoader
  */
 
 class SelectClassifyAdapter1(data: List<ClassifyBean>) : BaseQuickAdapter<ClassifyBean, BaseViewHolder>(R.layout.item_select_card_bag_circle, data) {
-
 
 
     override fun convert(helper: BaseViewHolder, item: ClassifyBean) {
@@ -30,12 +31,20 @@ class SelectClassifyAdapter1(data: List<ClassifyBean>) : BaseQuickAdapter<Classi
 //            helper.setChecked(R.id.cb_item_select_card_bag, item.isChecked)
 
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
-        ImageLoader.load(mContext,item.cover,R.drawable.default_card,imageView)
+        ImageLoader.load(mContext, item.cover, R.drawable.default_card, imageView)
 
-        helper.setText(R.id.tv_item_card_icon,item.title)
+        val textView = helper.getView<TextView>(R.id.tv_item_card_icon)
+        if (item.isChecked) {
+            textView.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
+        } else {
+            textView.setTextColor(mContext.getColorForKotlin(R.color.text_color_d2))
+        }
+
+        helper.setText(R.id.tv_item_card_icon, item.title)
 
         helper.addOnClickListener(R.id.iv_item_card_icon)
         helper.addOnClickListener(R.id.tv_item_card_icon)
+
 
     }
 }

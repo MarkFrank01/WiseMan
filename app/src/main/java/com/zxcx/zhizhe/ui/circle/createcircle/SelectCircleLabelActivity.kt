@@ -201,16 +201,16 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
                 LogCat.e("单类别")
                 if (mPushData.size == 0) {
 //                    mTheFirst = mSingleClassify
-                    LogCat.e("+++"+mSelectedClassify?.id)
+                    LogCat.e("+++" + mSelectedClassify?.id)
                 }
             }
 
             intent.putExtra("labelName", mTheFirst)
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
-            intent.putExtra("classifyName",mSelectedClassify?.title)
+            intent.putExtra("classifyName", mSelectedClassify?.title)
 
-            LogCat.e("Classify ID "+mSelectedClassify?.id)
+            LogCat.e("Classify ID " + mSelectedClassify?.id)
 
             setResult(Activity.RESULT_OK, intent)
             finish()
@@ -246,7 +246,6 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
 
         //大分类处理，不动
         mClassifyAdapter.setOnItemChildClickListener { adapter, view, position ->
-
 
             val bean = adapter.data[position] as ClassifyBean
             val isChecked = !bean.isChecked

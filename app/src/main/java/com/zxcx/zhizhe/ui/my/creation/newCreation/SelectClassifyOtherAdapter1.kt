@@ -1,11 +1,13 @@
 package com.zxcx.zhizhe.ui.my.creation.newCreation
 
 import android.widget.ImageView
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.getColorForKotlin
 
 
 /**
@@ -28,6 +30,13 @@ class SelectClassifyOtherAdapter1(data: List<ClassifyBean>) : BaseQuickAdapter<C
 
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
         ImageLoader.load(mContext,item.cover,R.drawable.default_card,imageView)
+
+        val textView = helper.getView<TextView>(R.id.tv_item_card_icon)
+        if (item.isChecked){
+            textView.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
+        }else{
+            textView.setTextColor(mContext.getColorForKotlin(R.color.text_color_d2))
+        }
 
         helper.setText(R.id.tv_item_card_icon,item.title)
 

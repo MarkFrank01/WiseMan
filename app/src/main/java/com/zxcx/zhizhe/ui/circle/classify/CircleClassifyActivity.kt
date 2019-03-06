@@ -140,7 +140,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
                 if (bean.hasJoin) {
                     //加入圈子
                     LogCat.e("Join" + bean.id)
-                    mPresenter.setjoinCircle(bean.id, 0)
+//                    mPresenter.setjoinCircle(bean.id, 0)
                 } else {
                     //取消加入
                     LogCat.e("Cancel+" + bean.id)
@@ -192,7 +192,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
     }
 
     private fun getCircleListByClassifyId() {
-        mPresenter.getCircleListByClassifyId(classifyID, 0, page, Constants.PAGE_SIZE)
+        mPresenter.getCircleListByClassifyId(classifyID, mSelectPosition, page, Constants.PAGE_SIZE)
     }
 
     fun onRefresh() {
@@ -213,7 +213,10 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
         XPopup.get(mActivity)
                 .asCustom(CirclePopup(this, "排序选项", arrayOf("默认排序", "最高星级", "最多加入", "最多话题"),
                         null, mSelectPosition,
-                        OnSelectListener { position, text -> mSelectPosition = position })
+                        OnSelectListener { position, text ->
+                            mSelectPosition = position
+                            onRefresh()
+                        })
                 ).show()
 
         //将用于提示
