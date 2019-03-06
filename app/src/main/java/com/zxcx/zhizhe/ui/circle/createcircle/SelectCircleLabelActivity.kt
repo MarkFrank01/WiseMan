@@ -246,6 +246,8 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
 
         //大分类处理，不动
         mClassifyAdapter.setOnItemChildClickListener { adapter, view, position ->
+
+
             val bean = adapter.data[position] as ClassifyBean
             val isChecked = !bean.isChecked
             adapter.data.forEach {
@@ -274,6 +276,7 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
 
                 mSingleClassify = bean.title
                 tv_toolbar_right.isEnabled = true
+
             } else {
                 mSelectedClassify = null
 
@@ -359,8 +362,6 @@ class SelectCircleLabelActivity : MvpActivity<SelectAttentionPresenter>(), Selec
             ////////////////////////////////////
             //新的
         }
-
-
-
     }
+
 }

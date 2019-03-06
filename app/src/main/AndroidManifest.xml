@@ -406,6 +406,10 @@
             android:name=".ui.circle.createcircle.CreateCircleDescActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.classify.CircleTuiActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

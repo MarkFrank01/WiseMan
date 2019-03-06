@@ -31,7 +31,7 @@
             app:layout_constraintStart_toEndOf="@+id/circle_image">
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/circle_image2"
+                android:id="@+id/circle_image1"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="12dp"
@@ -39,6 +39,17 @@
                 android:src="@drawable/iv_my_head_placeholder"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/circle_image"
+                app:riv_oval="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/circle_image2"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/iv_my_head_placeholder"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/circle_image1"
                 app:riv_oval="true"/>
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -194,15 +205,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
                     android:text="推荐"
                     android:textColor="@color/text_color_1"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 
                 <ImageView
+                    android:id="@+id/to_more_tuijian"
+                    android:layout_marginTop="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/c_more"/>
@@ -246,6 +259,7 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
                 android:text="换一批"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/button_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

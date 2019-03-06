@@ -26,6 +26,7 @@ import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_create_circle.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -156,7 +157,6 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     }
 
     override fun setListener() {
-
         create_xieyi.setOnClickListener {
 
             startActivity(WebViewActivity::class.java) {
@@ -180,7 +180,13 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         }
 
         tv_toolbar_back.setOnClickListener {
-            onBackPressed()
+            title = tv_to_name.text.toString().trim()
+            sign = tv_to_name2.text.toString().trim()
+            if (title!=""||sign!="") {
+                showCancel()
+            }else{
+                onBackPressed()
+            }
         }
 
         mycircle_pic.setOnClickListener {
@@ -417,6 +423,18 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                         OnSelectListener { position, text ->
                             mSelectPosition2 = position
                             circle_tv_free_time.text = text
+                        })
+                ).show()
+    }
+
+    //检查退出
+    private fun showCancel() {
+        XPopup.get(mActivity)
+                .asCustom(BottomInfoPopup(this, "还有编辑未完成，是否退出？", -1,
+                        OnSelectListener { position, text ->
+                            if(position == 2){
+                                onBackPressed()
+                            }
                         })
                 ).show()
     }

@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
+import com.zxcx.zhizhe.ui.circle.classify.CircleTuiActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
@@ -28,7 +29,6 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.gridview.Model
 import io.reactivex.functions.Function
 import kotlinx.android.synthetic.main.fragment_circle.*
-import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -200,17 +200,6 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
                     it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
                 }
 
-//                if (position != 9) {
-//                    mActivity.startActivity(CircleClassifyActivity::class.java) {
-//                        it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
-//                        it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
-//                    }
-//                } else {
-//                    ////////////////////////
-//                    mActivity.startActivity(AllRankActivity::class.java) {
-//
-//                    }
-//                }
             }
             gv_circle_classify.init(mClassifyData)
         }
@@ -221,8 +210,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
         if (list.size > 0) {
             if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
-                circle_image.visibility = View.VISIBLE
-                ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image)
+                circle_image1.visibility = View.VISIBLE
+                ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image1)
 
             }
         }
@@ -304,6 +293,15 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         more_change.setOnClickListener {
             getCircleById()
         }
+
+        to_more_tuijian.setOnClickListener {
+            mActivity.startActivity(CircleTuiActivity::class.java){}
+
+//            mActivity.startActivity(CircleClassifyActivity::class.java){
+//                it.putExtra("circleClassifyActivityID", 0)
+//                it.putExtra("circleClassifyActivityTitle", "推荐")
+//            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -376,20 +374,22 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             override fun onPageSelected(position: Int) {
                 val newPosition = position % 3
                 val ad = mAdList[newPosition]
+
+
                 if (mAdList.size > 0) {
 
-                    if (iv_ad_label_card != null) {
+                    if (iv_ad_label_circle != null) {
 
                         when (ad.styleType) {
 
                             0 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_0)
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_0)
                             }
                             1 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_1)
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_1)
                             }
                             2 -> {
-                                iv_ad_label_card.setImageResource(R.drawable.iv_ad_label_2)
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_2)
                             }
                         }
                     }
@@ -410,7 +410,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
 
         }
-//        mPresenter.getMyJoinCircleList(0, 3)
+        mPresenter.getMyJoinCircleList(0, 3)
     }
 
     //获取圈子

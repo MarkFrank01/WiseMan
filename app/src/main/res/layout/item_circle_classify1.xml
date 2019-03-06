@@ -65,7 +65,7 @@
         tools:text="为你解读最新最全的科技资…"/>
 
     <TextView
-        android:id="@+id/tv_item_circle_classify_join"
+        android:id="@+id/tv_item_circle_classify_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
@@ -76,6 +76,21 @@
         android:textSize="12sp"
         android:transitionName="cardTitle"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
+        tools:text="科技"/>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_d2"
+        android:textSize="12sp"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/tv_item_circle_classify_type"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
         tools:text="加入1.3W"/>
 
@@ -112,13 +127,12 @@
         android:layout_marginEnd="18dp"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:background="@drawable/bg_checkbox_select_attention"
+        android:background="@drawable/bg_checkbox_select_attention1"
         android:button="@null"
         android:checked="true"
         android:clickable="false"
         android:gravity="center"
         android:text="加入"
-        android:textColor="@color/color_checkbox_text_select_attention1"
         android:textSize="@dimen/text_size_text_3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"/>
