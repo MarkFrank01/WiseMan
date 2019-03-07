@@ -72,6 +72,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
 
     private fun initRecycleView() {
         mAllmyCircleAdapter = AllMyCircleAdapter(ArrayList())
+        mAllmyCircleAdapter.onItemClickListener = this
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter

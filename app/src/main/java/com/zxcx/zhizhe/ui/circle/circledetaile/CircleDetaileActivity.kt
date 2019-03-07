@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.circledetaile
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -15,13 +16,11 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
-import com.zxcx.zhizhe.utils.Constants
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
 /**
@@ -34,7 +33,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     private var circleID: Int = 0
 
-   private lateinit var  creater: CircleUserBean
+    private lateinit var creater: CircleUserBean
 
     private lateinit var mAdapter: CircleDetaileAdapter
 
@@ -87,6 +86,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         loadJoinUserImg(bean)
 
+        toolbar_title_1.text = bean.title
+
 //        hasJoinBoolean = bean.hasJoin
 //
 //        LogCat.e("member ${bean.memberList.size}")
@@ -98,18 +99,18 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
-        LogCat.e("getCircleQAByCircleIdSuccess~ "+list.size)
+        LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无内容",R.drawable.no_data)
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
         mAdapter.emptyView = emptyView
 
         mRefreshLayout.finishRefresh()
-        if (mHuaTiPage == 0){
+        if (mHuaTiPage == 0) {
             LogCat.e("First")
             mAdapter.setNewData(list)
             mHuaTiPage++
             onRefresh()
-        }else{
+        } else {
             LogCat.e("More")
             mAdapter.addData(list)
         }
@@ -118,9 +119,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mHuaTiPage++
 
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             mAdapter.loadMoreEnd(false)
-        }else {
+        } else {
             mAdapter.loadMoreComplete()
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
@@ -133,16 +134,16 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun setListener() {
         //去圈子成员列表
         detail_to_man_list.setOnClickListener {
-//            toastShow("to man list")
-            mActivity.startActivity(CircleManListActivity::class.java){
+            //            toastShow("to man list")
+            mActivity.startActivity(CircleManListActivity::class.java) {
                 it.putExtra("circleID", circleID)
-                it.putExtra("create",creater)
+                it.putExtra("create", creater)
             }
         }
 
         //去发布提问
         ll_comment_input.setOnClickListener {
-            mActivity.startActivity(CircleQuestionActivity::class.java){}
+            mActivity.startActivity(CircleQuestionActivity::class.java) {}
         }
 
         et_comment.setOnClickListener {
@@ -178,77 +179,105 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
 //        rv_circle_detail.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
 
-        rv_circle_detail.layoutManager = object :GridLayoutManager(this,1){
+        rv_circle_detail.layoutManager = object : GridLayoutManager(this, 1) {
             override fun canScrollVertically() = false
         }
-        rv_circle_detail.isNestedScrollingEnabled =false
+        rv_circle_detail.isNestedScrollingEnabled = false
         rv_circle_detail.setHasFixedSize(true)
-        rv_circle_detail.isFocusable  = false
+        rv_circle_detail.isFocusable = false
 
         rv_circle_detail.adapter = mAdapter
     }
 
-    private fun initView(){
+    private fun initView() {
+        detail_circle_appbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                when (state) {
+                    State.EXPANDED -> {
+                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.colorPrimary))
+                        LogCat.e("展开状态")
+                    }
+
+                    State.COLLAPSED -> {
+                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
+                        LogCat.e("折叠状态")
+
+                    }
+                    else -> {
+                        //中间状态
+                    }
+                }
+            }
+        })
 
     }
 
-    private fun loadJoinUserImg(bean: CircleBean){
+    private fun loadJoinUserImg(bean: CircleBean) {
         if (bean.memberList.size > 0) {
             if (bean.memberList[0].avatar.isNotEmpty() && bean.memberList[0].avatar != "") {
                 detail_round_img1.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[0].avatar,R.drawable.default_card,detail_round_img1)
+                ImageLoader.load(mActivity, bean.memberList[0].avatar, R.drawable.default_card, detail_round_img1)
             }
         }
 
         if (bean.memberList.size > 1) {
             if (bean.memberList[1].avatar.isNotEmpty() && bean.memberList[1].avatar != "") {
                 detail_round_img2.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[1].avatar,R.drawable.default_card,detail_round_img2)
+                ImageLoader.load(mActivity, bean.memberList[1].avatar, R.drawable.default_card, detail_round_img2)
             }
         }
 
         if (bean.memberList.size > 2) {
             if (bean.memberList[2].avatar.isNotEmpty() && bean.memberList[2].avatar != "") {
                 detail_round_img3.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[2].avatar,R.drawable.default_card,detail_round_img3)
+                ImageLoader.load(mActivity, bean.memberList[2].avatar, R.drawable.default_card, detail_round_img3)
             }
         }
 
         if (bean.memberList.size > 3) {
             if (bean.memberList[3].avatar.isNotEmpty() && bean.memberList[3].avatar != "") {
                 detail_round_img4.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[3].avatar,R.drawable.default_card,detail_round_img4)
+                ImageLoader.load(mActivity, bean.memberList[3].avatar, R.drawable.default_card, detail_round_img4)
             }
         }
 
         if (bean.memberList.size > 4) {
             if (bean.memberList[4].avatar.isNotEmpty() && bean.memberList[4].avatar != "") {
                 detail_round_img5.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[4].avatar,R.drawable.default_card,detail_round_img5)
+                ImageLoader.load(mActivity, bean.memberList[4].avatar, R.drawable.default_card, detail_round_img5)
             }
         }
 
         if (bean.memberList.size > 5) {
             if (bean.memberList[5].avatar.isNotEmpty() && bean.memberList[5].avatar != "") {
                 detail_round_img6.visibility = View.VISIBLE
-                ImageLoader.load(mActivity,bean.memberList[5].avatar,R.drawable.default_card,detail_round_img6)
+                ImageLoader.load(mActivity, bean.memberList[5].avatar, R.drawable.default_card, detail_round_img6)
             }
         }
     }
 
-    fun onRefresh(){
-       getCircleQAByCircleIdRefresh()
+    fun onRefresh() {
+        getCircleQAByCircleIdRefresh()
     }
 
-    private fun getCircleQAByCircleIdRefresh(){
-        mPresenter.getCircleQAByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
+    private fun getCircleQAByCircleIdRefresh() {
+        mPresenter.getCircleQAByCircleId(mHuaTiOrder, circleID, mHuaTiPage, mHuaTiPageSize)
     }
 
-    private fun chooseMore(){
+    private fun chooseMore() {
         XPopup.get(mActivity)
-                .asCustom(CirclePopup(this,"更多", arrayOf("圈子介绍","分享圈子","圈子评分"),
-                        null,-1, OnSelectListener { position, text ->
+                .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "分享圈子", "圈子评分"),
+                        null, -1, OnSelectListener { position, text ->
                     toastShow(text)
                 })).show()
     }
+
+    private fun showjoinhit() {
+        XPopup.get(mActivity)
+                .asCustom(CircleBottomPopup2(this, OnSelectListener { position, text ->
+
+                })
+                ).show()
+    }
+
 }

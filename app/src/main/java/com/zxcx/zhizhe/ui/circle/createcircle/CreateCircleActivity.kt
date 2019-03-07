@@ -94,6 +94,12 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     //圈子签名
     private var sign = ""
 
+    //（新）价格选择
+    private var levelType = 0
+
+    //(新)限时免费
+    private var limitedTimeType = 0
+
     //圈子等级
     private var mLevel = 0
 
@@ -153,7 +159,8 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushCreateCircleListEvent) {
-        mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", mBackList, mLevel)
+//        mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", mBackList, mLevel)
+        mPresenter.createCircleNew(title, mImageUrl, classifyId, sign, levelType, limitedTimeType)
     }
 
     override fun setListener() {
@@ -182,9 +189,9 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         tv_toolbar_back.setOnClickListener {
             title = tv_to_name.text.toString().trim()
             sign = tv_to_name2.text.toString().trim()
-            if (title!=""||sign!="") {
+            if (title != "" || sign != "") {
                 showCancel()
-            }else{
+            } else {
                 onBackPressed()
             }
         }
@@ -215,6 +222,21 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             //原来选择等级
 //            chooseLevel()
             chooseMoney()
+        }
+
+        tv_toolbar_right2.setOnClickListener {
+            title = tv_to_name.text.toString().trim()
+            sign = tv_to_name2.text.toString().trim()
+
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
+//                toastShow("填写好了")
+                val bundle = Bundle()
+                mDialog.arguments = bundle
+                mDialog.show(mActivity.supportFragmentManager, "")
+
+            } else {
+                toastShow("信息未填写完")
+            }
         }
 
         tv_toolbar_right.setOnClickListener {
@@ -411,6 +433,11 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                         OnSelectListener { position, text ->
                             mSelectPosition = position
                             circle_tv_level_name.text = text
+                            when (position) {
+                                0 -> levelType = 3
+                                1 -> levelType = 2
+                                3 -> levelType = 1
+                            }
                         })
                 ).show()
     }
@@ -423,6 +450,11 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                         OnSelectListener { position, text ->
                             mSelectPosition2 = position
                             circle_tv_free_time.text = text
+                            when (position) {
+                                0 -> limitedTimeType = 3
+                                1 -> limitedTimeType = 2
+                                2 -> limitedTimeType = 1
+                            }
                         })
                 ).show()
     }
@@ -432,7 +464,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         XPopup.get(mActivity)
                 .asCustom(BottomInfoPopup(this, "还有编辑未完成，是否退出？", -1,
                         OnSelectListener { position, text ->
-                            if(position == 2){
+                            if (position == 2) {
                                 onBackPressed()
                             }
                         })

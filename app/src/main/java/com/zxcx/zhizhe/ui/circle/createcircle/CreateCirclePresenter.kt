@@ -18,11 +18,16 @@ class CreateCirclePresenter(view: CreateCircleContract.View) : BasePresenter<Cre
         mModel = CreateCircleModel(this)
     }
 
-    fun createCircle(title: String, titleImage: String, classifyId: Int, sign: String, price: String, articleList: List<Int>,levelType:Int) {
-        mModel.createCircle(title, titleImage, classifyId, sign, price, articleList,levelType)
+    fun createCircle(title: String, titleImage: String, classifyId: Int, sign: String, price: String, articleList: List<Int>, levelType: Int) {
+        mModel.createCircle(title, titleImage, classifyId, sign, price, articleList, levelType)
     }
 
-    fun checkName(name:String){
+    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String, levelType: Int, limitedTimeType: Int) {
+        mModel.createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType)
+    }
+
+
+    fun checkName(name: String) {
         mModel.checkCircleName(name)
     }
 

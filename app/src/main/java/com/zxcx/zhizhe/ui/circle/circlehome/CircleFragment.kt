@@ -242,7 +242,6 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         when (view.id) {
             R.id.to_content_circle -> {
                 val bean = adapter.data[position] as CircleBean
-                toastShow("to circle")
                 mActivity.startActivity(CircleDetaileActivity::class.java) {
                     it.putExtra("circleID", bean.id)
                     //   val bean = adapter.data[position] as CardBean

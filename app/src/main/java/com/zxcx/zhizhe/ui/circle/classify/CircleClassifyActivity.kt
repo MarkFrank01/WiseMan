@@ -29,7 +29,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * @author : MarkFrank01
  * @Created on 2019/1/23
- * @Description :
+ * @Description : 分类进来的圈子的列表
  */
 class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), CircleClassifyContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {

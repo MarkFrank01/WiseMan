@@ -17,6 +17,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/detail_circle_appbar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:fitsSystemWindows="true">
@@ -30,7 +31,7 @@
                 app:contentScrim="@color/line"
                 app:expandedTitleMarginEnd="10dp"
                 app:expandedTitleMarginStart="10dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
                     android:id="@+id/detail_src_img"
@@ -64,14 +65,13 @@
                             android:visibility="visible"/>
 
                         <TextView
-                            android:id="@+id/toolbar_title"
-                            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                            android:id="@+id/toolbar_title_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="小崔说科技"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="17dp"/>
+                            android:textSize="17sp"
+                            tools:text="小崔说科技"/>
 
                         <ImageView
                             android:id="@+id/iv_toolbar_right1"
@@ -419,45 +419,67 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_comment_input"
+    <android.support.constraint.ConstraintLayout
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/et_comment"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_home_search"
-            android:gravity="center_vertical"
-            android:hint="提问是交流的捷径"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:singleLine="true"
-            android:textColor="@color/text_color_1"
-            android:textColorHint="@color/text_color_d2"
-            android:textCursorDrawable="@drawable/bg_edit_cursor"
-            android:textSize="@dimen/text_size_text_2"/>
+        <Button
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/bottom_bt"
+            android:textColor="@color/white"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            tools:text="交钱把"
+            android:layout_marginTop="36dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_backbutton2"
+            android:layout_width="160dp"
+            android:layout_marginBottom="24dp"
+            android:layout_height="40dp"/>
 
-        <TextView
-            android:id="@+id/tv_comment_send"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/ll_comment_input"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:enabled="false"
-            android:padding="10dp"
-            android:text="提问"
-            android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_2"
-            android:textStyle="bold"/>
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/et_comment"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_home_search"
+                android:gravity="center_vertical"
+                android:hint="提问是交流的捷径"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color_1"
+                android:textColorHint="@color/text_color_d2"
+                android:textCursorDrawable="@drawable/bg_edit_cursor"
+                android:textSize="@dimen/text_size_text_2"/>
+
+            <TextView
+                android:id="@+id/tv_comment_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:enabled="false"
+                android:padding="10dp"
+                android:text="提问"
+                android:textColor="@color/color_text_enable_blue"
+                android:textSize="@dimen/text_size_text_2"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.constraint.ConstraintLayout>
 

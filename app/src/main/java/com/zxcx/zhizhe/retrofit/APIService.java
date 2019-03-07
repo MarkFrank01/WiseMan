@@ -762,6 +762,16 @@ public interface APIService {
             @Query("levelType") int levelType
     );
 
+    @POST("/circle/createCircle")
+    Flowable<BaseBean<CircleBean>> createCircleNew(
+            @Query("title") String title,
+            @Query("titleImage") String titleImage,
+            @Query("classifyId") int classifyId,
+            @Query("sign") String sign,
+            @Query("levelType")int levelType,
+            @Query("limitedTimeType")int limitedTimeType
+    );
+
     /**
      * 获取圈子可供发布的文章,先卡片后长文
      */
