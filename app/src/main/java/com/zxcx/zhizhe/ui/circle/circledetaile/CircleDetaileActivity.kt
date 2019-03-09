@@ -16,11 +16,15 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
-import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
+import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
 /**
@@ -39,11 +43,20 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //话题的数据
     private var mHuaTiPage = 0
-    private var mHuaTiPageSize = Constants.PAGE_SIZE
+    private var mHuaTiPageSize = 5
     private var mHuaTiOrder = 0
 
     //存放自己是否加入圈子
     private var hasJoinBoolean: Boolean = false
+
+    //推荐文章的数据
+    private var mClassifyData: MutableList<ContentBean> = mutableListOf()
+
+    //存放一些支付信息所必须的数据
+     var circlename: String = ""
+     var circleprice: String = ""
+     var circleendtime: String = ""
+     var circleyue: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +95,30 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         ImageLoader.load(this, bean.titleImage, R.drawable.default_card, detail_src_img)
         ImageLoader.load(this, bean.creater?.avatar, R.drawable.default_card, detail_my_img)
 
+        tv_show.text = bean.sign
+
         creater = bean.creater!!
 
         loadJoinUserImg(bean)
+        loadTuiJianArticle(bean)
 
         toolbar_title_1.text = bean.title
+
+        if (!bean.hasJoin) {
+            bottom_bt.text = "立即加入 ￥" + bean.price
+            bottom_bt.visibility = View.VISIBLE
+            ll_join.visibility = View.VISIBLE
+            ll_comment_input.isEnabled = false
+            et_comment.isEnabled = false
+        } else {
+            bottom_bt.visibility = View.GONE
+            ll_join.visibility = View.GONE
+            ll_comment_input.isEnabled = true
+            et_comment.isEnabled = true
+        }
+
+        circlename = bean.title
+        circleprice = bean.price
 
 //        hasJoinBoolean = bean.hasJoin
 //
@@ -153,6 +185,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         iv_toolbar_right2.setOnClickListener {
             chooseMore()
         }
+
+        bottom_bt.setOnClickListener {
+            showjoinhit(circlename,circleprice,"","")
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -210,6 +246,24 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             }
         })
 
+    }
+
+    private fun loadTuiJianArticle(list: CircleBean) {
+        for (t in list.partialArticleList) {
+            LogCat.e("推荐的数据测试" + t.title)
+        }
+
+        if (list.partialArticleList.size>0) {
+            list.partialArticleList.forEach {
+                mClassifyData.add(ContentBean(it.title, it.styleType))
+            }
+
+            gv_circle_classify2.pageSize = 4
+            gv_circle_classify2.setGridItemClickListener { pos, position, str ->
+
+            }
+            gv_circle_classify2.init(mClassifyData)
+        }
     }
 
     private fun loadJoinUserImg(bean: CircleBean) {
@@ -272,7 +326,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 })).show()
     }
 
-    private fun showjoinhit() {
+    private fun showjoinhit(circlename:String,circleprice:String,circleendtime:String,circleyue:String) {
         XPopup.get(mActivity)
                 .asCustom(CircleBottomPopup2(this, OnSelectListener { position, text ->
 

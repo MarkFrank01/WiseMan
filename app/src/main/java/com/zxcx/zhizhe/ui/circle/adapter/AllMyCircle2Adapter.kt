@@ -36,10 +36,20 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
         helper.getView<CheckBox>(R.id.cb_item_select_join_circle).visibility = View.GONE
 
         when (item.statusType) {
+            -3 -> {
+                helper.setText(R.id.tv_statue, "已关闭")
+                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.red))
+            }
+
+            -2 -> {
+                helper.setText(R.id.tv_statue, "未通过")
+                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.text_color_3))
+            }
+
             -1 -> {
                 //  helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
 
-                helper.setText(R.id.tv_statue, "已关闭")
+                helper.setText(R.id.tv_statue, "待提交")
                         .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.red))
             }
 
@@ -49,7 +59,7 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
             }
 
             1 -> {
-                helper.setText(R.id.tv_statue, "资料待补充")
+                helper.setText(R.id.tv_statue, "限免中")
                         .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
                 helper.addOnClickListener(R.id.tv_statue)
                         .addOnClickListener(R.id.con_click)
@@ -58,6 +68,10 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
             2 -> {
 //                helper.setText(R.id.tv_statue, "已通过")
 //                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setText(R.id.tv_statue, "已上线")
+                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
+                helper.addOnClickListener(R.id.tv_statue)
+                        .addOnClickListener(R.id.con_click)
             }
         }
     }

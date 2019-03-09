@@ -163,16 +163,6 @@
                         tools:text="1.1w"/>
                 </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="12sp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:text="为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"
-                    android:textSize="12sp"/>
 
                 <LinearLayout
                     android:id="@+id/detail_to_man_list"
@@ -283,6 +273,185 @@
                         android:text="看我看我"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_join"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:textColor="@color/text_color_1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:text="圈子简介"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/tv_show"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12sp"
+                        android:layout_marginStart="12dp"
+                        tools:text="111111111111111111111111111111111111111111111111为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"
+                        android:textSize="17sp"/>
+
+                    <TextView
+                        android:textColor="@color/text_color_1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:text="付费说明"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/grey_round"/>
+
+                        <TextView
+                            android:textColor="@color/text_color_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="31dp"
+                            android:drawablePadding="5dp"
+                            android:lineSpacingExtra="5dp"
+                            android:text="所有圈子价格均为年费，即付费之日至1年内均可在付费圈子自由浏览和交流;"
+                            android:textSize="17sp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/grey_round"/>
+
+                        <TextView
+                            android:textColor="@color/text_color_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="31dp"
+                            android:drawablePadding="5dp"
+                            android:lineSpacingExtra="5dp"
+                            android:text="圈主发表的观点不代表官方立场。若发现违法违规请及时举报至官方"
+                            android:textSize="17sp"/>
+                    </RelativeLayout>
+
+
+
+                    <TextView
+                        android:textColor="@color/text_color_1"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        android:text="会员权益"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="32dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:background="@color/button_blue"
+                                android:layout_width="80dp"
+                                android:layout_height="65dp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_color_2"
+                                android:layout_marginTop="18dp"
+                                android:text="看私密文章"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="32dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:background="@color/button_blue"
+                                android:layout_width="80dp"
+                                android:layout_height="65dp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_color_2"
+                                android:layout_marginTop="18dp"
+                                android:text="向圈主提问"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="32dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:background="@color/button_blue"
+                                android:layout_width="80dp"
+                                android:layout_height="65dp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:textSize="12sp"
+                                android:textColor="@color/text_color_2"
+                                android:layout_marginTop="18dp"
+                                android:text="交流与讨论"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
@@ -295,6 +464,9 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/text_color_1"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="3dp"
@@ -302,8 +474,18 @@
                         android:layout_marginTop="3dp"
                         android:gravity="center"
                         android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="推荐"/>
+                        android:paddingStart="12dp"
+                        android:text="精选内容"/>
+
+                    <!--<TextView-->
+                        <!--android:textColor="@color/text_color_1"-->
+                        <!--android:layout_marginStart="12dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="17sp"-->
+                        <!--android:text="会员权益"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"/>-->
 
                     <Space
                         android:layout_width="0dp"
@@ -325,10 +507,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.zxcx.zhizhe.widget.gridview.GridViewPager
-                        android:id="@+id/gv_circle_classify"
+                    <com.zxcx.zhizhe.widget.gridview_tj.TJGridViewPager
+                        android:id="@+id/gv_circle_classify2"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="200dp"
                         android:background="#FFFFFF"/>
 
                 </LinearLayout>
@@ -345,6 +527,9 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/text_color_1"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="3dp"
@@ -352,8 +537,8 @@
                         android:layout_marginTop="3dp"
                         android:gravity="center"
                         android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="话题"/>
+                        android:paddingStart="12dp"
+                        android:text="热门话题"/>
 
                     <Space
                         android:layout_width="0dp"
@@ -420,25 +605,25 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.constraint.ConstraintLayout
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:id="@+id/bottom_bt"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/bg_backbutton2"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp"
+            android:textColor="@color/white"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/bottom_bt"
-            android:textColor="@color/white"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            tools:text="交钱把"
-            android:layout_marginTop="36dp"
-            android:layout_gravity="center"
-            android:background="@drawable/bg_backbutton2"
-            android:layout_width="160dp"
-            android:layout_marginBottom="24dp"
-            android:layout_height="40dp"/>
+            tools:text="交钱把"/>
 
         <LinearLayout
             android:id="@+id/ll_comment_input"

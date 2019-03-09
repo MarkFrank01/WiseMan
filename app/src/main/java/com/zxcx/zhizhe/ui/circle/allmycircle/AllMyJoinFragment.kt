@@ -10,8 +10,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircleAdapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_my_circle.*
 
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_my_circle.*
  * @Description :
  */
 class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCircleContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     private var mCreatePage = 0
 
@@ -48,16 +50,16 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
         mRefreshLayout.finishRefresh()
-        if (mCreatePage == 0){
+        if (mCreatePage == 0) {
             mAllmyCircleAdapter.setNewData(list)
-        }else{
+        } else {
             mAllmyCircleAdapter.addData(list)
         }
 
         mCreatePage++
-        if (list.size<Constants.PAGE_SIZE){
+        if (list.size < Constants.PAGE_SIZE) {
             mAllmyCircleAdapter.loadMoreEnd(false)
-        }else{
+        } else {
             mAllmyCircleAdapter.loadMoreComplete()
             mAllmyCircleAdapter.setEnableLoadMore(false)
             mAllmyCircleAdapter.setEnableLoadMore(true)
@@ -67,12 +69,29 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
     override fun onLoadMoreRequested() {
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when (view.id) {
+            R.id.cb_item_select_join_circle2 -> {
+                val bean = adapter.data[position] as CircleBean
+                mActivity.startActivity(CircleDetaileActivity::class.java) {
+                    it.putExtra("circleID", bean.id)
+                }
+            }
+
+            R.id.con_click -> {
+                toastShow("续费")
+            }
+        }
     }
 
     private fun initRecycleView() {
         mAllmyCircleAdapter = AllMyCircleAdapter(ArrayList())
         mAllmyCircleAdapter.onItemClickListener = this
+        mAllmyCircleAdapter.onItemChildClickListener = this
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter

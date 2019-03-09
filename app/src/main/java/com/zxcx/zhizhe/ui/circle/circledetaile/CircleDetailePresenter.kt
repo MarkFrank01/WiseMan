@@ -39,7 +39,9 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
     }
 
     override fun getCircleQAByCircleIdSuccess(bean: MutableList<CircleDetailBean>) {
-        mView.getCircleQAByCircleIdSuccess(bean)
+        if (mView!=null) {
+            mView.getCircleQAByCircleIdSuccess(bean)
+        }
     }
 
     override fun showLoading() {

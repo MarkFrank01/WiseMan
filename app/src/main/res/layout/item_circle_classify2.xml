@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"/>
 
     <CheckBox
-        android:id="@+id/cb_item_select_join_circle"
+        android:id="@+id/cb_item_select_join_circle2"
         style="@style/tv_single"
         android:layout_marginEnd="18dp"
         android:layout_width="60dp"

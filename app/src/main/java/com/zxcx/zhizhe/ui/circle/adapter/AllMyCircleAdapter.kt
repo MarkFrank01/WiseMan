@@ -33,13 +33,15 @@ class AllMyCircleAdapter(data:List<CircleBean>):
         helper.setText(R.id.tv_item_circle_classify_topic,"话题"+item.qaCount)
         helper.setText(R.id.tv_item_circle_classify_type,item.classifytitle)
 
-        val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle)
+        val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle2)
         if (item.hasJoin){
             checkBox.text = "进圈"
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
+            helper.addOnClickListener(R.id.cb_item_select_join_circle2)
         }else{
             checkBox.text = "续费"
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.red))
+            helper.addOnClickListener(R.id.con_click)
         }
 
     }
