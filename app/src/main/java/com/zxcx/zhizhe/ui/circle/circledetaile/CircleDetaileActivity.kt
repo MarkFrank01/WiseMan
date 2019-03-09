@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
+import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
@@ -22,8 +23,10 @@ import com.zxcx.zhizhe.utils.getColorForKotlin
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
+import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
@@ -49,18 +52,25 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //存放自己是否加入圈子
     private var hasJoinBoolean: Boolean = false
 
+    //存放自己是否是圈主
+    private var mCircleImOwer: Boolean = false
+
+    //存放简介
+    private var mIntroduction: String = ""
+
     //推荐文章的数据
     private var mClassifyData: MutableList<ContentBean> = mutableListOf()
 
     //存放一些支付信息所必须的数据
-     var circlename: String = ""
-     var circleprice: String = ""
-     var circleendtime: String = ""
-     var circleyue: String = ""
+    var circlename: String = ""
+    var circleprice: String = ""
+    var circleendtime: String = ""
+    var circleyue: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_circle_detail)
+        mRefreshLayout = findViewById(R.id.refresh_layout)
         initData()
         initRecycleView()
         initView()
@@ -80,6 +90,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
+
         onRefresh()
     }
 
@@ -120,6 +131,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         circlename = bean.title
         circleprice = bean.price
 
+        //存储数据
+        mIntroduction = bean.sign
+
 //        hasJoinBoolean = bean.hasJoin
 //
 //        LogCat.e("member ${bean.memberList.size}")
@@ -139,9 +153,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
             LogCat.e("First")
+            (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
+            mRefreshLayout.finishRefresh()
             mAdapter.setNewData(list)
-            mHuaTiPage++
-            onRefresh()
+            rv_circle_detail.scrollToPosition(0)
+
+//            mHuaTiPage++
+//            onRefresh()
         } else {
             LogCat.e("More")
             mAdapter.addData(list)
@@ -187,7 +205,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         bottom_bt.setOnClickListener {
-            showjoinhit(circlename,circleprice,"","")
+            showjoinhit(circlename, circleprice, "", "")
         }
     }
 
@@ -200,6 +218,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun onLoadMoreRequested() {
         onRefresh()
     }
+
 
     private fun initData() {
         circleID = intent.getIntExtra("circleID", 0)
@@ -253,7 +272,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             LogCat.e("推荐的数据测试" + t.title)
         }
 
-        if (list.partialArticleList.size>0) {
+        if (list.partialArticleList.size > 0) {
             list.partialArticleList.forEach {
                 mClassifyData.add(ContentBean(it.title, it.styleType))
             }
@@ -318,15 +337,35 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         mPresenter.getCircleQAByCircleId(mHuaTiOrder, circleID, mHuaTiPage, mHuaTiPageSize)
     }
 
+    //游客或者会员的情况
     private fun chooseMore() {
         XPopup.get(mActivity)
-                .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "分享圈子", "圈子评分"),
+                .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "分享圈子", "会员续费", "分享圈子", "举报圈子"),
+                        null, -1, OnSelectListener { position, text ->
+                    when (position) {
+                        0 -> {
+                            startActivity(CircleIntroductionActivity::class.java) {
+                                it.putExtra("info", mIntroduction)
+                            }
+                        }
+                        1 -> {
+                            showshare()
+                        }
+                    }
+                })).show()
+    }
+
+    //圈主的情况
+    private fun chooseMoreOwe() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "更多", arrayOf("内容管理", "编辑圈子", "圈子介绍", "分享圈子"),
                         null, -1, OnSelectListener { position, text ->
                     toastShow(text)
                 })).show()
     }
 
-    private fun showjoinhit(circlename:String,circleprice:String,circleendtime:String,circleyue:String) {
+    //提醒你加入交钱
+    private fun showjoinhit(circlename: String, circleprice: String, circleendtime: String, circleyue: String) {
         XPopup.get(mActivity)
                 .asCustom(CircleBottomPopup2(this, OnSelectListener { position, text ->
 
@@ -334,4 +373,29 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 ).show()
     }
 
+    //分享
+    //弹出分享四兄弟
+    private fun showshare() {
+        XPopup.get(mActivity)
+                .asCustom(CircleBottomSharePopup(this,
+                        OnSelectListener { position, text ->
+                            when (position) {
+                                1 -> {
+                                    toastShow("微信")
+                                }
+
+                                2 -> {
+                                    toastShow("朋友圈")
+                                }
+
+                                3 -> {
+                                    toastShow("球球号")
+                                }
+                                4 -> {
+                                    toastShow("微博")
+                                }
+                            }
+                        })
+                ).show()
+    }
 }

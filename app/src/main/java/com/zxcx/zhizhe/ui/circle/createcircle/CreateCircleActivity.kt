@@ -239,6 +239,24 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             }
         }
 
+        tv_toolbar_right3.setOnClickListener {
+
+            //暂时用于方便测试
+//            startActivity(ManageCreateCircleActivity::class.java){}
+
+            title = tv_to_name.text.toString().trim()
+            sign = tv_to_name2.text.toString().trim()
+
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
+//                val bundle = Bundle()
+//                mDialog.arguments = bundle
+//                mDialog.show(mActivity.supportFragmentManager, "")
+                showNextHint()
+            } else {
+                toastShow("信息未填写完")
+            }
+        }
+
         tv_toolbar_right.setOnClickListener {
             //标题 封面图 类别id 圈子签名 圈子价格  推荐的文章articleList
 
@@ -470,4 +488,16 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                         })
                 ).show()
     }
+
+    //下一步操作提示
+    private fun showNextHint() {
+        XPopup.get(mActivity)
+                .asCustom(BottomInfoPopup(this, "下一步操作至少需要8张卡片及4篇文章才能提交审核，是否继续？", -1,
+                        OnSelectListener { position, text ->
+
+                        })
+                ).show()
+    }
+
+
 }

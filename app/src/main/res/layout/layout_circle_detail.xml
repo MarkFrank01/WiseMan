@@ -358,7 +358,34 @@
                             android:layout_marginStart="31dp"
                             android:drawablePadding="5dp"
                             android:lineSpacingExtra="5dp"
-                            android:text="圈主发表的观点不代表官方立场。若发现违法违规请及时举报至官方"
+                            android:text="因虚拟服务或商品的特殊性，一经支付恕不退款；"
+                            android:textSize="17sp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="5dp"
+                            android:layout_height="5dp"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="19dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/grey_round"/>
+
+                        <TextView
+                            android:textColor="@color/text_color_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="31dp"
+                            android:drawablePadding="5dp"
+                            android:lineSpacingExtra="5dp"
+                            android:text="圈主发表的观点不代表官方立场。若发现违法违规请及时举报至官方。"
                             android:textSize="17sp"/>
                     </RelativeLayout>
 

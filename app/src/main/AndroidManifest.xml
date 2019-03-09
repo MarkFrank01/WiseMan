@@ -410,6 +410,14 @@
             android:name=".ui.circle.classify.CircleTuiActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circlemore.CircleIntroductionActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circlemore.CirclePingFenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
