@@ -50,6 +50,8 @@
         tools:text="小崔说科技"/>
 
     <TextView
+        android:ellipsize="end"
+        android:maxLength="15"
         android:id="@+id/tv_item_circle_classify_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

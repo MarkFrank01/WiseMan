@@ -95,6 +95,10 @@ class CircleBean(
     //推荐的文章
     var partialArticleList:MutableList<CircleTJBean> = ArrayList()
 
+    //
+    @SerializedName("owner")
+    var owner:Boolean = false
+
     override fun getItemType(): Int {
         return CIRCLE_HOME_1
     }

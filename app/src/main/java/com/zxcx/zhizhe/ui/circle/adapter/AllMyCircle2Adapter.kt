@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
-import android.view.View
-import android.widget.CheckBox
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -20,7 +18,7 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
         BaseMultiItemQuickAdapter<CircleBean, BaseViewHolder>(data) {
 
     init {
-        addItemType(CircleBean.CIRCLE_HOME_1, R.layout.item_circle_classify)
+        addItemType(CircleBean.CIRCLE_HOME_1, R.layout.item_circle_classify_create)
     }
 
     override fun convert(helper: BaseViewHolder, item: CircleBean) {
@@ -33,47 +31,48 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
         helper.setText(R.id.tv_item_circle_classify_join, "加入" + item.joinUserCount)
         helper.setText(R.id.tv_item_circle_classify_topic, "话题" + item.qaCount)
 
-        helper.getView<CheckBox>(R.id.cb_item_select_join_circle).visibility = View.GONE
+//        helper.getView<CheckBox>(R.id.cb_item_select_join_circle2).visibility = View.GONE
 
         when (item.statusType) {
             -3 -> {
-                helper.setText(R.id.tv_statue, "已关闭")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.red))
+                helper.setText(R.id.cb_item_select_join_circle2, "已关闭")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.red))
             }
 
             -2 -> {
-                helper.setText(R.id.tv_statue, "未通过")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setText(R.id.cb_item_select_join_circle2, "未通过")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.text_color_3))
             }
 
             -1 -> {
                 //  helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
 
-                helper.setText(R.id.tv_statue, "待提交")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.red))
+                helper.setText(R.id.cb_item_select_join_circle2, "待提交")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.red))
             }
 
             0 -> {
-                helper.setText(R.id.tv_statue, "审核中")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setText(R.id.cb_item_select_join_circle2, "审核中")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.text_color_3))
             }
 
             1 -> {
-                helper.setText(R.id.tv_statue, "限免中")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
-                helper.addOnClickListener(R.id.tv_statue)
-                        .addOnClickListener(R.id.con_click)
+                helper.setText(R.id.cb_item_select_join_circle2, "限免中")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.button_blue))
+                helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+
             }
 
             2 -> {
 //                helper.setText(R.id.tv_statue, "已通过")
 //                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.text_color_3))
-                helper.setText(R.id.tv_statue, "已上线")
-                        .setTextColor(R.id.tv_statue, mContext.getColorForKotlin(R.color.button_blue))
-                helper.addOnClickListener(R.id.tv_statue)
-                        .addOnClickListener(R.id.con_click)
+                helper.setText(R.id.cb_item_select_join_circle2, "已上线")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.button_blue))
             }
         }
+
+        helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+
     }
 
 }

@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.widget.Button;
 
 import com.lxj.xpopup.core.BottomPopupView;
-import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.zxcx.zhizhe.R;
 
 /**
@@ -15,28 +14,30 @@ import com.zxcx.zhizhe.R;
  */
 public class CircleBottomPopup extends BottomPopupView {
 
-    String name;
-    String time;
-    String type;
-    String reason;
-    private OnSelectListener selectListener;
+    //标题
+    String desc_title1;
+    String desc_title2;
+    String desc_title3;
+
+    //数据内容
+    String desc_content1;
+    String desc_content2;
+    String desc_content3;
+
+    //底部按钮提示
+    String desc_bottom;
 
     public CircleBottomPopup(@NonNull Context context) {
         super(context);
     }
 
-    public CircleBottomPopup(@NonNull Context context, OnSelectListener selectListener) {
+    public CircleBottomPopup(@NonNull Context context, String desc_title1, String desc_title2, String desc_content1, String desc_content2,  String desc_bottom) {
         super(context);
-        this.selectListener = selectListener;
-    }
-
-    public CircleBottomPopup(@NonNull Context context, String name, String time, String type, String reason, OnSelectListener selectListener) {
-        super(context);
-        this.name = name;
-        this.time = time;
-        this.type = type;
-        this.reason = reason;
-        this.selectListener = selectListener;
+        this.desc_title1 = desc_title1;
+        this.desc_title2 = desc_title2;
+        this.desc_content1 = desc_content1;
+        this.desc_content2 = desc_content2;
+        this.desc_bottom = desc_bottom;
     }
 
     @Override

@@ -134,6 +134,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         //存储数据
         mIntroduction = bean.sign
 
+        LogCat.e("检查是否是圈主"+bean.owner)
+
 //        hasJoinBoolean = bean.hasJoin
 //
 //        LogCat.e("member ${bean.memberList.size}")

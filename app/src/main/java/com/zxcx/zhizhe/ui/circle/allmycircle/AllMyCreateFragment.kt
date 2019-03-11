@@ -6,9 +6,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
@@ -61,10 +61,10 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 //        if (Constants.PAGE_SIZE==0&&list.size==0){
-            val emptyView = EmptyView.getEmptyViewAndClick2(mActivity, "暂无圈子,你可以创建一个", "", R.drawable.no_data, View.OnClickListener {
-                mActivity.startActivity(CreateCircleActivity::class.java) {}
-            })
-            mAllmyCircleAdapter.emptyView = emptyView
+        val emptyView = EmptyView.getEmptyViewAndClick2(mActivity, "暂无圈子,你可以创建一个", "", R.drawable.no_data, View.OnClickListener {
+            mActivity.startActivity(CreateCircleActivity::class.java) {}
+        })
+        mAllmyCircleAdapter.emptyView = emptyView
 //        }
 
         mRefreshLayout.finishRefresh()
@@ -167,25 +167,53 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when (view.id) {
-            R.id.tv_statue, R.id.con_click -> {
+//            R.id.tv_statue -> {
+//
+//                //      val beanF1 = adapter.data[mPosition1] as CardBean
+//                val circleBean = adapter.data[position] as CircleBean
+//
+//                SharedPreferencesUtil.saveData("cardCount",circleBean.toBeAddedInfoVO?.cardCount)
+//                SharedPreferencesUtil.saveData("articleCount",circleBean.toBeAddedInfoVO?.articleCount)
+//                SharedPreferencesUtil.saveData("deadline",circleBean.toBeAddedInfoVO?.deadline)
+//
+//
+//                myCus = MyCustomPopup(mActivity)
+//                myCus.mListener = this
+//
+//                XPopup.get(mActivity)
+//                        .asCustom(myCus)
+//                        .dismissOnBackPressed(true)
+//                        .show()
+//            }
 
-                //      val beanF1 = adapter.data[mPosition1] as CardBean
+            //    val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
+            R.id.cb_item_select_join_circle2 -> {
                 val circleBean = adapter.data[position] as CircleBean
+                val checkBox = view.findViewById<CheckBox>(R.id.cb_item_select_join_circle2)
+                var typetext = checkBox.text.toString()
+                LogCat.e(checkBox.text.toString() + " 测试")
+                when (typetext) {
+                    "已关闭" -> {
 
-                SharedPreferencesUtil.saveData("cardCount",circleBean.toBeAddedInfoVO?.cardCount)
-                SharedPreferencesUtil.saveData("articleCount",circleBean.toBeAddedInfoVO?.articleCount)
-                SharedPreferencesUtil.saveData("deadline",circleBean.toBeAddedInfoVO?.deadline)
+                    }
 
+                    "未通过" -> {
 
-                myCus = MyCustomPopup(mActivity)
-                myCus.mListener = this
+                    }
 
-                XPopup.get(mActivity)
-                        .asCustom(myCus)
-                        .dismissOnBackPressed(true)
-                        .show()
+                    "待提交" -> {
+
+                    }
+
+                    "审核中" -> {
+
+                    }
+
+                    "限免中" -> {
+
+                    }
+                }
             }
-
 
         }
     }
@@ -217,12 +245,15 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
         mPresenter.getMyCreate(mCreatePage, Constants.PAGE_SIZE)
     }
 
+
+    private fun hintCircle(){
+
+    }
 }
 
 class MyCustomPopup(context: Context) : CenterPopupView(context) {
 
     lateinit var mListener: MyCircleListener
-
 
 
     override fun getImplLayoutId(): Int {
@@ -235,9 +266,9 @@ class MyCustomPopup(context: Context) : CenterPopupView(context) {
             dismiss()
             mListener.onClick(true)
         }
-        findViewById<TextView>(R.id.push_num_artic).text = SharedPreferencesUtil.getString("articleCount","")
-        findViewById<TextView>(R.id.push_num_num).text = SharedPreferencesUtil.getString("cardCount","")
-        findViewById<TextView>(R.id.push_num_time).text = SharedPreferencesUtil.getString("deadline","")
+        findViewById<TextView>(R.id.push_num_artic).text = SharedPreferencesUtil.getString("articleCount", "")
+        findViewById<TextView>(R.id.push_num_num).text = SharedPreferencesUtil.getString("cardCount", "")
+        findViewById<TextView>(R.id.push_num_time).text = SharedPreferencesUtil.getString("deadline", "")
 
     }
 
