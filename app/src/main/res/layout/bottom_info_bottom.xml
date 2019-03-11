@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_margin="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:background="@drawable/bg_background_12dp"
         android:elevation="5dp">
 
@@ -23,9 +25,10 @@
             android:layout_marginTop="20dp"
             android:textColor="@color/text_color_1"
             android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="还有编辑未完成，是否退出？"/>
+            tools:text="下一步操作至少需要8张卡片及4篇文章才能提交审核，是否继续？"/>
 
         <TextView
             android:id="@+id/info_cancel"

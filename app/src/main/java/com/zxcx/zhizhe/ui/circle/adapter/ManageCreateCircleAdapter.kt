@@ -22,8 +22,8 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
      * 3 单独使用一个layout
      */
     init {
-        addItemType(CardBean.Article, R.layout.item_other_user_creation1)
-        addItemType(CardBean.Article_LONG, R.layout.item_other_user_creation1)
+        addItemType(CardBean.Article, R.layout.item_other_user_creation_card)
+        addItemType(CardBean.Article_LONG, R.layout.item_other_user_creation_card)
 //        addItemType(CardBean.Article_LINK, R.layout.item_link_creation)
     }
 

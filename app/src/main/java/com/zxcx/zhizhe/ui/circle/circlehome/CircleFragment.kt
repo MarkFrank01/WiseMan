@@ -263,10 +263,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             }
         }
 
-//        iv_circle_to_my.setOnClickListener {
-//            //            mActivity.startActivity(MyCircleActivity::class.java){}
-//            mActivity.startActivity(AllMyCircleActivity::class.java) {}
-//        }
+
 
         iv_3.setOnClickListener {
             mActivity.startActivity(CreateCircleActivity::class.java) {}

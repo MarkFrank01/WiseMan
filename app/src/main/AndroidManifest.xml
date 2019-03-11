@@ -355,9 +355,7 @@
             android:name=".ui.circle.classify.CircleClassifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.circle.mycircle.MyCircleActivity"
-            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.circle.allmycircle.AllMyCircleActivity"
             android:screenOrientation="portrait"/>
@@ -416,6 +414,10 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.circle.circlemore.CirclePingFenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circleowner.ownercreate.OwnerCreateManageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

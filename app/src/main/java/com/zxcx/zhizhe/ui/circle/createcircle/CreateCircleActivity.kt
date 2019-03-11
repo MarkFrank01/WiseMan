@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushCreateCircleListEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.circle.circleowner.ownercreate.OwnerCreateManageActivity
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
@@ -494,7 +495,12 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
         XPopup.get(mActivity)
                 .asCustom(BottomInfoPopup(this, "下一步操作至少需要8张卡片及4篇文章才能提交审核，是否继续？", -1,
                         OnSelectListener { position, text ->
-
+                            if (position == 2){
+                                startActivity(OwnerCreateManageActivity::class.java){
+                                    it.putExtra("classifyId",classifyId)
+                                    it.putExtra("classifyName",labelName)
+                                }
+                            }
                         })
                 ).show()
     }

@@ -862,4 +862,25 @@ public interface APIService {
         @Query("description") String description,
         @Query("askImage") List<String> askImage
     );
+
+    /**
+     * 获取圈子可供审核的文章列表（用于圈子首次提交）
+     */
+    @POST("/circle/getLockableArticleForCreate")
+    Flowable<BaseArrayBean<CardBean>> getLockableArticleForCreate(
+       @Query("styleType") int styleType,
+       @Query("classifyId") int classifyId,
+       @Query("pageIndex") int pageIndex,
+       @Query("pageSize") int pageSize
+    );
+
+    /**
+     * 设置圈子文章与圈内可见的文章
+     */
+    @POST("/circle/setCircleArticle")
+    Flowable<BaseArrayBean<CardBean>> setCircleArticle(
+        @Query("circleId") int circleId,
+        @Query("auditArticleList") List<Integer> auditArticleList,
+        @Query("privateArticleList")List<Integer> privateArticleList
+    );
 }

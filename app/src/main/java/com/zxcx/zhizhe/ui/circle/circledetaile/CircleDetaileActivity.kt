@@ -53,7 +53,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     private var hasJoinBoolean: Boolean = false
 
     //存放自己是否是圈主
-    private var mCircleImOwer: Boolean = false
+    private var mCircleImOwner: Boolean = false
 
     //存放简介
     private var mIntroduction: String = ""
@@ -135,6 +135,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         mIntroduction = bean.sign
 
         LogCat.e("检查是否是圈主"+bean.owner)
+        //存放是否是㕑的数据
+        mCircleImOwner  = bean.owner
 
 //        hasJoinBoolean = bean.hasJoin
 //
@@ -203,7 +205,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         iv_toolbar_right2.setOnClickListener {
-            chooseMore()
+            if (mCircleImOwner){
+                chooseMoreOwner()
+            }else {
+                chooseMore()
+            }
         }
 
         bottom_bt.setOnClickListener {
@@ -358,7 +364,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     //圈主的情况
-    private fun chooseMoreOwe() {
+    private fun chooseMoreOwner() {
         XPopup.get(mActivity)
                 .asCustom(CirclePopup(this, "更多", arrayOf("内容管理", "编辑圈子", "圈子介绍", "分享圈子"),
                         null, -1, OnSelectListener { position, text ->

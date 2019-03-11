@@ -9,14 +9,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/show_first_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:text="在此页面选择符合圈子分类的8张卡片"
+        android:textColor="@color/text_color_3"
+        android:textSize="12sp"/>
+
     <RelativeLayout
-        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_daily_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,10 +37,10 @@
             android:textColor="@color/text_color_1"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:visibility="gone"
             tools:text="卡片"/>
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_daily_title_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +49,7 @@
             android:layout_marginEnd="18dp"
             android:textColor="@color/text_color_1"
             android:textSize="12sp"
+            android:visibility="gone"
             tools:text="0/4"/>
     </RelativeLayout>
 

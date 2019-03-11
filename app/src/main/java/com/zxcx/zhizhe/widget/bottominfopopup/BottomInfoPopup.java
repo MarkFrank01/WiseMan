@@ -49,6 +49,7 @@ public class BottomInfoPopup extends BottomPopupView{
         TextView t2 = findViewById(R.id.info_queren);
         t2.setOnClickListener(v->{
             selectListener.onSelect(2,"完成");
+            postDelayed(this::dismiss,100);
         });
     }
 }
