@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
+import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
@@ -368,7 +369,25 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         XPopup.get(mActivity)
                 .asCustom(CirclePopup(this, "更多", arrayOf("内容管理", "编辑圈子", "圈子介绍", "分享圈子"),
                         null, -1, OnSelectListener { position, text ->
-                    toastShow(text)
+                    when(position){
+                        0->{
+                            startActivity(OwnerManageContentActivity::class.java){
+                                it.putExtra("circleId",circleID)
+                            }
+                        }
+
+
+
+                        2->{
+                            startActivity(CircleIntroductionActivity::class.java) {
+                                it.putExtra("info", mIntroduction)
+                            }
+                        }
+
+                        3->{
+                            showshare()
+                        }
+                    }
                 })).show()
     }
 

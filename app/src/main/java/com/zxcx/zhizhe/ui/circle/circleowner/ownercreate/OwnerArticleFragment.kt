@@ -68,6 +68,7 @@ BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,Ba
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
+        mPage = 0
         onRefresh()
     }
 
@@ -94,6 +95,7 @@ BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,Ba
     }
 
     override fun onLoadMoreRequested() {
+        onRefresh()
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {

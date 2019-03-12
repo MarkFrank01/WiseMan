@@ -768,8 +768,8 @@ public interface APIService {
             @Query("titleImage") String titleImage,
             @Query("classifyId") int classifyId,
             @Query("sign") String sign,
-            @Query("levelType")int levelType,
-            @Query("limitedTimeType")int limitedTimeType
+            @Query("levelType") int levelType,
+            @Query("limitedTimeType") int limitedTimeType
     );
 
     /**
@@ -849,7 +849,7 @@ public interface APIService {
      */
     @POST("/circle/checkCircleName")
     Flowable<BaseBean<CheckBean>> getCheckName(
-        @Query("circleName")String circleName
+            @Query("circleName") String circleName
     );
 
     /**
@@ -857,10 +857,10 @@ public interface APIService {
      */
     @POST("/circle/createQuestion")
     Flowable<BaseBean<QuestionBean>> pushQuestion(
-        @Query("circleId") int circleId,
-        @Query("title") String title,
-        @Query("description") String description,
-        @Query("askImage") List<String> askImage
+            @Query("circleId") int circleId,
+            @Query("title") String title,
+            @Query("description") String description,
+            @Query("askImage") List<String> askImage
     );
 
     /**
@@ -868,10 +868,21 @@ public interface APIService {
      */
     @POST("/circle/getLockableArticleForCreate")
     Flowable<BaseArrayBean<CardBean>> getLockableArticleForCreate(
-       @Query("styleType") int styleType,
-       @Query("classifyId") int classifyId,
-       @Query("pageIndex") int pageIndex,
-       @Query("pageSize") int pageSize
+            @Query("styleType") int styleType,
+            @Query("classifyId") int classifyId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
+    /**
+     *
+     */
+    @POST("/circle/getLockableArticleForAdd")
+    Flowable<BaseArrayBean<CardBean>> getLockableArticleForAdd(
+            @Query("styleType") int styleType,
+            @Query("circleId") int circleId,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
     );
 
     /**
@@ -879,8 +890,19 @@ public interface APIService {
      */
     @POST("/circle/setCircleArticle")
     Flowable<BaseArrayBean<CardBean>> setCircleArticle(
-        @Query("circleId") int circleId,
-        @Query("auditArticleList") List<Integer> auditArticleList,
-        @Query("privateArticleList")List<Integer> privateArticleList
+            @Query("circleId") int circleId,
+            @Query("auditArticleList") List<Integer> auditArticleList,
+            @Query("privateArticleList") List<Integer> privateArticleList
+    );
+
+    /**
+     *
+     */
+    @POST("/circle/getArticleByCircleId")
+    Flowable<BaseArrayBean<CardBean>> getArticleByCircleId(
+            @Query("circleId") int circleId,
+            @Query("orderType") int orderType,
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
     );
 }

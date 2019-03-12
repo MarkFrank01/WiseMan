@@ -1,4 +1,4 @@
-package com.zxcx.zhizhe.ui.circle.circleowner.ownercreate
+package com.zxcx.zhizhe.ui.circle.circleowner.owneradd
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -23,15 +23,15 @@ import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author : MarkFrank01
- * @Created on 2019/3/11
+ * @Created on 2019/3/12
  * @Description :
  */
-class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerCreateManageContract.View,
-    BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener{
+class OwnerAddArticleFragment : RefreshMvpFragment<OwnerAddPresenter>(),OwnerAddContract.View,
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener{
 
 
     private var mPage = 0
-    private var mClassifyId = 0
+    private var mcircleId = 0
 
     //存放卡片的数量值
     private var mNumberCard:Int =0
@@ -39,8 +39,8 @@ class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerC
     //传递值
     private var mBackList: MutableList<Int> = ArrayList()
 
-    //把选中的卡片的bean回传到下个Ac中
-    private var listBackCard: MutableList<CardBean> = ArrayList()
+    //把选中的长文的bean回传到下个Ac中
+    private var listArcCard: MutableList<CardBean> = ArrayList()
 
     private lateinit var mAdapter :ManageCreateCircleAdapter
 
@@ -72,11 +72,12 @@ class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerC
         onRefresh()
     }
 
-    override fun createPresenter(): OwnerCreateManagePresenter {
-        return OwnerCreateManagePresenter(this)
+    override fun createPresenter(): OwnerAddPresenter {
+        return OwnerAddPresenter(this)
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
+        LogCat.e("???? data"+list.size)
         mRefreshLayout.finishRefresh()
         if (mPage == 0){
             mAdapter.setNewData(list)
@@ -108,15 +109,14 @@ class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerC
         if (cb.isChecked){
             mNumberCard++
             mBackList.add(bean.id)
-            listBackCard.add(bean)
+            listArcCard.add(bean)
         }else{
             mNumberCard--
             mBackList.remove(bean.id)
-            listBackCard.remove(bean)
+            listArcCard.remove(bean)
         }
 
-
-        EventBus.getDefault().post(GetBackNumAndDataEvent(0,mBackList,listBackCard))
+        EventBus.getDefault().post(GetBackNumAndDataEvent(1,mBackList,listArcCard))
     }
 
     private fun initRecycleView(){
@@ -134,13 +134,11 @@ class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerC
 
     //获取可选择的卡片
     private fun getCanChooseCard(){
-        mPresenter.getLockableArticleForCreate(1,mClassifyId,mPage,10)
+        mPresenter.getLockableArticleForAdd(2,mcircleId,mPage,10)
     }
 
     private fun initData(){
-        mClassifyId = SharedPreferencesUtil.getInt("mClassifyId",-1)
-        LogCat.e("进入ID $mClassifyId")
+        mcircleId = SharedPreferencesUtil.getInt("mcircleId",-1)
     }
 
 }
-

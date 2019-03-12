@@ -1,24 +1,24 @@
-package com.zxcx.zhizhe.ui.circle.circleowner.ownermanage
+package com.zxcx.zhizhe.ui.circle.circleowner.owneradd
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 
 /**
  * @author : MarkFrank01
- * @Created on 2019/3/11
+ * @Created on 2019/3/12
  * @Description :
  */
-class OwnerManageContentPresenter(view: OwnerManageContentContract.View) : BasePresenter<OwnerManageContentContract.View>(), OwnerManageContentContract.Presenter {
+class OwnerAddPresenter(view: OwnerAddContract.View) : BasePresenter<OwnerAddContract.View>(), OwnerAddContract.Presenter {
 
-    private val mModel: OwnerManageContentModel
+    private val mModel: OwnerAddModel
 
     init {
         attachView(view)
-        mModel = OwnerManageContentModel(this)
+        mModel = OwnerAddModel(this)
     }
 
-    fun getArticleByCircleId(circleId: Int, orderType: Int, pageIndex: Int, pageSize: Int) {
-        mModel.getArticleByCircleId(circleId, orderType, pageIndex, pageSize)
+    fun getLockableArticleForAdd(styleType: Int, circleId: Int, pageIndex: Int, pageSize: Int) {
+        mModel.getLockableArticleForAdd(styleType, circleId, pageIndex, pageSize)
     }
 
     override fun showLoading() {
@@ -40,6 +40,5 @@ class OwnerManageContentPresenter(view: OwnerManageContentContract.View) : BaseP
 
     override fun startLogin() {
     }
-
 
 }
