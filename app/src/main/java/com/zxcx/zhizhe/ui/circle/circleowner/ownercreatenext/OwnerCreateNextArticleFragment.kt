@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.event.GetNextCardEvent
+import com.zxcx.zhizhe.event.GetNextArcEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleNextAdapter
@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @Created on 2019/3/11
  * @Description :
  */
-class OwnerCreateNextCardFragment :RefreshMvpFragment<OwnerCreateNextPresenter>(),OwnerCreateNextContract.View,
+class OwnerCreateNextArticleFragment :RefreshMvpFragment<OwnerCreateNextPresenter>(),OwnerCreateNextContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener{
 
     private lateinit var mAdapter:ManageCreateCircleNextAdapter
@@ -34,19 +34,23 @@ class OwnerCreateNextCardFragment :RefreshMvpFragment<OwnerCreateNextPresenter>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        EventBus.getDefault().register(this)
+//        EventBus.getDefault().register(this)
         mRefreshLayout = refresh_layout_next
 //        initData()
         initRecycleView()
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: GetNextCardEvent){
-        LogCat.e("GetNextCard"+event.cardBeanList.size)
-        mAdapter.setNewData(event.cardBeanList)
+    fun onMessageEvent(event: GetNextArcEvent){
+        LogCat.e("GetNextCard"+event.contentList.size)
+        mAdapter.setNewData(event.contentList)
     }
 
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+
+    }
 
     override fun onDestroyView() {
         EventBus.getDefault().unregister(this)

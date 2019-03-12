@@ -248,13 +248,17 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             title = tv_to_name.text.toString().trim()
             sign = tv_to_name2.text.toString().trim()
 
-            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
-//                val bundle = Bundle()
-//                mDialog.arguments = bundle
-//                mDialog.show(mActivity.supportFragmentManager, "")
+            //正式2
+//            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
+//
+//                showNextHint()
+//            } else {
+//                toastShow("信息未填写完")
+//            }
+
+            //方便测试
+            if (classifyId!=0){
                 showNextHint()
-            } else {
-                toastShow("信息未填写完")
             }
         }
 

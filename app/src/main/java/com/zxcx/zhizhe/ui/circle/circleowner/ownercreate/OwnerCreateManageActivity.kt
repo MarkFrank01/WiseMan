@@ -9,9 +9,11 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GetBackNumAndDataEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circleowner.ownercreatenext.OwnerCreateNextActivity
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_owner_create_manage.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -60,6 +62,8 @@ class OwnerCreateManageActivity : BaseActivity() {
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "下一步"
         tv_toolbar_right.isEnabled = false
+        tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+
 
         initView()
     }
@@ -88,6 +92,11 @@ class OwnerCreateManageActivity : BaseActivity() {
         if (mCardNum >= 1 && mArcNum >= 1) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+        }else{
+            tv_toolbar_right.isEnabled = false
+            tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+
+
         }
 
 
@@ -95,7 +104,10 @@ class OwnerCreateManageActivity : BaseActivity() {
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            toastShow("YES")
+            startActivity(OwnerCreateNextActivity::class.java){
+                it.putExtra("listCard",listcdCard as ArrayList)
+                it.putExtra("listArc",listcdArc as ArrayList)
+            }
         }
     }
 

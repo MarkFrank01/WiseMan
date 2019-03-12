@@ -131,7 +131,7 @@ BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,Ba
 
     //获取可选择的卡片
     private fun getCanChooseCard(){
-        mPresenter.getLockableArticleForCreate(1,mClassifyId,mPage,10)
+        mPresenter.getLockableArticleForCreate(2,mClassifyId,mPage,10)
     }
 
     private fun initData(){
