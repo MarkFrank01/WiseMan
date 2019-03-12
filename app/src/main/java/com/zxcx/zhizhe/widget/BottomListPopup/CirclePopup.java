@@ -50,6 +50,7 @@ public class CirclePopup extends BottomPopupView {
         TextView tv = findViewById(R.id.tv_title1);
         tv.setText(title);
 
+
         final CommonAdapter<String> adapter = new CommonAdapter<String>(R.layout.adapter_text, Arrays.asList(data)) {
             @Override
             protected void convert(@NonNull ViewHolder holder, @NonNull String s, int position) {

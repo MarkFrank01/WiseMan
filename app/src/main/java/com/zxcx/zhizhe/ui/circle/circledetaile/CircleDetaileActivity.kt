@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
+import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
 import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
@@ -58,6 +59,18 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //存放简介
     private var mIntroduction: String = ""
+
+    //存放图片地址
+    private var mImageUrl:String = ""
+
+    //存放分类的ID和名字
+    private var classifyId = 0
+
+    private var labelName = ""
+
+    //存放限免的类型
+    private var limitedTimeType = 0
+
 
     //推荐文章的数据
     private var mClassifyData: MutableList<ContentBean> = mutableListOf()
@@ -131,12 +144,16 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         circlename = bean.title
         circleprice = bean.price
+        mImageUrl = bean.titleImage
+        labelName = bean.classifytitle
+        classifyId = bean.classifyId
+        limitedTimeType = bean.limitedTimeType
 
         //存储数据
         mIntroduction = bean.sign
 
         LogCat.e("检查是否是圈主"+bean.owner)
-        //存放是否是㕑的数据
+        //存放是否是圈主的数据
         mCircleImOwner  = bean.owner
 
 //        hasJoinBoolean = bean.hasJoin
@@ -157,7 +174,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
-            LogCat.e("First")
             (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
             mRefreshLayout.finishRefresh()
             mAdapter.setNewData(list)
@@ -166,7 +182,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //            mHuaTiPage++
 //            onRefresh()
         } else {
-            LogCat.e("More")
             mAdapter.addData(list)
         }
 
@@ -221,7 +236,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+         when(view.id){
+             R.id.tiwen_con ->{
+                 val bean = adapter.data[position] as CircleDetailBean
+                 toastShow("进入话题中"+bean.id)
+             }
+         }
     }
 
     override fun onLoadMoreRequested() {
@@ -376,7 +397,17 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                             }
                         }
 
-
+                        1->{
+                            startActivity(CircleEditActivity::class.java){
+                                it.putExtra("title",circlename)
+                                it.putExtra("levelType",circleprice)
+                                it.putExtra("sign",mIntroduction)
+                                it.putExtra("mImageUrl",mImageUrl)
+                                it.putExtra("labelName",labelName)
+                                it.putExtra("classifyId",classifyId)
+                                it.putExtra("limitedTimeType",limitedTimeType)
+                            }
+                        }
 
                         2->{
                             startActivity(CircleIntroductionActivity::class.java) {

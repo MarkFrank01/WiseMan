@@ -50,6 +50,9 @@ class CircleBean(
     @SerializedName("classifytitle")
     var classifytitle: String = ""
 
+    @SerializedName("classifyId")
+    var classifyId:Int = 0
+
     @SerializedName("createrName")
     var createrName: String = ""
 
@@ -98,6 +101,10 @@ class CircleBean(
     //
     @SerializedName("owner")
     var owner:Boolean = false
+
+    //限免的类型
+    @SerializedName("limitedTimeType")
+    var limitedTimeType:Int = 0
 
     override fun getItemType(): Int {
         return CIRCLE_HOME_1
