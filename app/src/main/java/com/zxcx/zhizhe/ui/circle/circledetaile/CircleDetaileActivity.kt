@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
 import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
+import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleQuestionDetailActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.getColorForKotlin
@@ -241,6 +242,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
              R.id.tiwen_con ->{
                  val bean = adapter.data[position] as CircleDetailBean
                  toastShow("进入话题中"+bean.id)
+                 mActivity.startActivity(CircleQuestionDetailActivity::class.java){
+                     it.putExtra("huatiId",bean.id)
+                 }
              }
          }
     }

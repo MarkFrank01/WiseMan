@@ -9,6 +9,7 @@ import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
+import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleCommentBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
@@ -907,10 +908,20 @@ public interface APIService {
     );
 
     /**
-     *
+     * 获取提问详情
      */
     @POST("/circle/getQuestionInfo")
     Flowable<BaseBean<CircleDetailBean>> getQuestionInfo(
            @Query("qaId") int qaId
+    );
+
+    /**
+     * 获取回答列表
+     */
+    @POST("/circle/getAnswerList")
+    Flowable<BaseArrayBean<CircleCommentBean>> getAnswerList(
+       @Query("qaId") int qaId,
+       @Query("pageIndex") int page,
+       @Query("pageSize") int pageSize
     );
 }

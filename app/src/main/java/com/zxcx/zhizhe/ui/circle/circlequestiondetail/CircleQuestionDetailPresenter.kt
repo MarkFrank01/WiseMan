@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
  */
 class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):BasePresenter<CircleQuestionDetailContract.View>(),CircleQuestionDetailContract.Presenter {
 
+
     private val mModel: CircleQuestionDetailModel
 
     init {
@@ -17,13 +18,30 @@ class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):Base
         mModel = CircleQuestionDetailModel(this)
     }
 
+    fun getAnswerList(qaId: Int,page:Int){
+        mModel.getAnswerList(qaId, page)
+    }
+
     fun getQuestionInfo(qaId: Int) {
         mModel.getQuestionInfo(qaId)
+    }
+
+    override fun likeSuccess() {
+        mView.likeSuccess()
+    }
+
+    override fun unlikeSuccess() {
+        mView.unlikeSuccess()
     }
 
     override fun getBasicQuestionSuccess(bean: CircleDetailBean) {
         mView.getBasicQuestionSuccess(bean)
     }
+
+    override fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>) {
+        mView.getCommentBeanSuccess(bean)
+    }
+
 
     override fun showLoading() {
         mView.showLoading()

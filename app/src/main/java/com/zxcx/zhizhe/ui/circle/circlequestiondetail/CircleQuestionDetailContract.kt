@@ -11,10 +11,16 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
  */
 class CircleQuestionDetailContract {
     interface View:GetView<CircleDetailBean>{
+        fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>)
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
+        fun likeSuccess()
+        fun unlikeSuccess()
     }
 
     interface Presenter:IGetPresenter<CircleDetailBean>{
+        fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>)
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
+        fun likeSuccess()
+        fun unlikeSuccess()
     }
 }

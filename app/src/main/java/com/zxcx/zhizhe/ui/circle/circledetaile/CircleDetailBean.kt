@@ -17,7 +17,9 @@ class CircleDetailBean (
     @SerializedName("qaImageEntityList")var qaImageEntityList:List<String>,
     @SerializedName("modifiedTime")var modifiedTime:String,
     @SerializedName("commentCount")var commentCount:Int,
-    @SerializedName("likeCount")var likeCount:Int
+    @SerializedName("likeCount")var likeCount:Int,
+    @SerializedName("createTime")var createTime:String,
+    @SerializedName("pv")var pv:Int
 
 ):RetrofitBean(),MultiItemEntity {
     override fun getItemType(): Int {
