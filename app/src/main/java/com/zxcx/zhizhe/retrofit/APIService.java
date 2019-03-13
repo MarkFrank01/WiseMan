@@ -875,7 +875,7 @@ public interface APIService {
     );
 
     /**
-     *
+     *获取圈子可供审核的文章列表（用于圈子添加文章）
      */
     @POST("/circle/getLockableArticleForAdd")
     Flowable<BaseArrayBean<CardBean>> getLockableArticleForAdd(
@@ -896,7 +896,7 @@ public interface APIService {
     );
 
     /**
-     *
+     * 通过圈子id获取圈子文章
      */
     @POST("/circle/getArticleByCircleId")
     Flowable<BaseArrayBean<CardBean>> getArticleByCircleId(
@@ -904,5 +904,13 @@ public interface APIService {
             @Query("orderType") int orderType,
             @Query("pageIndex") int pageIndex,
             @Query("pageSize") int pageSize
+    );
+
+    /**
+     *
+     */
+    @POST("/circle/getQuestionInfo")
+    Flowable<BaseBean<CircleDetailBean>> getQuestionInfo(
+           @Query("qaId") int qaId
     );
 }

@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.circle.circleowner.ownercreatenext
 import com.zxcx.zhizhe.mvpBase.GetView
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
  * @author : MarkFrank01
@@ -11,7 +12,11 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 class OwnerCreateNextContract {
 
-    interface View: GetView<MutableList<CardBean>>
+    interface View: GetView<MutableList<CardBean>>{
+        fun createCircleSuccess(bean:CircleBean)
+    }
 
-    interface Presenter: IGetPresenter<MutableList<CardBean>>
+    interface Presenter: IGetPresenter<MutableList<CardBean>>{
+        fun createCircleSuccess(bean: CircleBean)
+    }
 }

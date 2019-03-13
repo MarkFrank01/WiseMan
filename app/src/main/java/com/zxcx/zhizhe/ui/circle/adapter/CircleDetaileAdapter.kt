@@ -23,7 +23,11 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         val itemBean = item as CircleDetailBean
 
         val imageView = helper.getView<RoundedImageView>(R.id.circle_detail_img)
-        ImageLoader.load(mContext, itemBean.usersVO.avater, R.drawable.default_card, imageView)
+        if(itemBean.qaImageEntityList.isNotEmpty()){
+            ImageLoader.load(mContext, itemBean.qaImageEntityList[0], R.drawable.default_card, imageView)
+        }else{
+            ImageLoader.load(mContext,R.drawable.default_card,imageView)
+        }
 
         val UserImageView = helper.getView<RoundedImageView>(R.id.circle_detail_pushuser)
         ImageLoader.load(mContext, itemBean.usersVO.avater, R.drawable.default_card, UserImageView)

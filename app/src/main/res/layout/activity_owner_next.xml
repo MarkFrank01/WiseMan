@@ -16,7 +16,7 @@
         <include layout="@layout/toolbar"/>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tl_circle"
+            android:id="@+id/tl_circle_next"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginStart="20dp"

@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.circle.circleowner.ownercreatenext
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
  * @author : MarkFrank01
@@ -10,6 +11,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 class OwnerCreateNextPresenter(view: OwnerCreateNextContract.View) : BasePresenter<OwnerCreateNextContract.View>(), OwnerCreateNextContract.Presenter {
 
+
     private val mModel: OwnerCreateNextModel
 
     init {
@@ -17,16 +19,26 @@ class OwnerCreateNextPresenter(view: OwnerCreateNextContract.View) : BasePresent
         mModel = OwnerCreateNextModel(this)
     }
 
-    fun setCircleArticle(circleId:Int,auditArticleList:List<Int>,privateArticleList:List<Int>) {
+    fun setCircleArticle(circleId: Int, auditArticleList: List<Int>, privateArticleList: List<Int>) {
         mModel.setCircleArticle(circleId, auditArticleList, privateArticleList)
     }
 
-        override fun showLoading() {
+    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String, levelType: Int, limitedTimeType: Int) {
+        mModel.createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType)
+    }
+
+    override fun showLoading() {
         mView.showLoading()
     }
 
     override fun hideLoading() {
         mView.hideLoading()
+    }
+
+    override fun createCircleSuccess(bean:CircleBean) {
+        if (mView!=null){
+            mView?.createCircleSuccess(bean)
+        }
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>?) {

@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
  * @author : MarkFrank01
@@ -24,6 +25,19 @@ class OwnerCreateNextModel(presenter: OwnerCreateNextContract.Presenter):BaseMod
                 .subscribeWith(object :BaseSubscriber<MutableList<CardBean>>(mPresenter){
                     override fun onNext(t: MutableList<CardBean>) {
                         mPresenter?.getDataSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String,levelType: Int,limitedTimeType :Int) {
+
+        mDisposable = AppClient.getAPIService().createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<CircleBean>(mPresenter){
+                    override fun onNext(t: CircleBean) {
+                        mPresenter?.createCircleSuccess(t)
                     }
                 })
         addSubscription(mDisposable)

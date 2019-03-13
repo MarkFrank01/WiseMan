@@ -82,7 +82,7 @@ public class CirclePopup extends BottomPopupView {
                 }
                 postDelayed(() -> {
                     dismiss();
-                }, 100);
+                }, 10);
             }
         });
         recyclerView.setAdapter(adapter);

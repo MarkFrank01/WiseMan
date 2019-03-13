@@ -503,6 +503,15 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                                 startActivity(OwnerCreateManageActivity::class.java){
                                     it.putExtra("classifyId",classifyId)
                                     it.putExtra("classifyName",labelName)
+
+                                    it.putExtra("title",title)
+                                    it.putExtra("levelType",levelType)
+                                    it.putExtra("sign",sign)
+                                    it.putExtra("mImageUrl",mImageUrl)
+                                    it.putExtra("labelName",labelName)
+                                    it.putExtra("classifyId",classifyId)
+                                    it.putExtra("limitedTimeType",limitedTimeType)
+
                                 }
                             }
                         })

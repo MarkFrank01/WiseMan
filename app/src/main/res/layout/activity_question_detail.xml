@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/question_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:textColor="@color/text_color_1"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="2000预算买华为还是苹果好？"/>
+
+            <ImageView
+                android:id="@+id/question_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginStart="18dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_title"
+                tools:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/question_desc"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小米的叫MIUI、华为的叫EMUI，另外的一些却叫OS，比如Color OS。既然都是安卓系统，为啥命名不同？其实叫OS的安卓系统，归类到UI中。命名为“OS”只是厂商认为他们对系统进行了深度修改定制命名为“OS”只是厂商认为他们对系统。"/>
+
+            <TextView
+                android:id="@+id/question_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question_desc"
+                tools:text="2018:12.10"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/question_push"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/iv_my_head_placeholder"
+                app:riv_oval="true"
+                app:layout_constraintStart_toEndOf="@+id/question_time"
+                app:layout_constraintTop_toBottomOf="@id/question_desc"/>
+
+            <TextView
+                android:id="@+id/circle_detail_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_3"
+                app:layout_constraintStart_toEndOf="@+id/question_push"
+                app:layout_constraintTop_toBottomOf="@id/question_desc"
+                tools:text="一二三四五六"/>
+
+
+            <ImageView
+                android:id="@+id/iv_item_card_read1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/iv_item_card_read"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toStartOf="@+id/tv_item_card_read1"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
+
+            <TextView
+                android:id="@+id/tv_item_card_read1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_4"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toStartOf="@+id/iv_item_card_comment1"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
+                tools:text="dasda"/>
+
+            <ImageView
+                android:id="@+id/iv_item_card_comment1"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/iv_item_card_comment"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toStartOf="@+id/tv_item_card_comment1"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
+
+            <TextView
+                android:id="@+id/tv_item_card_comment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_4"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toStartOf="@+id/iv_item_card_dianzan"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
+                tools:text="100"/>
+
+            <ImageView
+                android:id="@+id/iv_item_card_dianzan"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginStart="12dp"
+                android:src="@drawable/cb_card_details_like"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toStartOf="@+id/tv_item_card_dianzan"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
+
+            <TextView
+                tools:text="sda"
+                android:id="@+id/tv_item_card_dianzan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="18dp"
+                android:layout_marginStart="3dp"
+                android:textColor="@color/text_color_3"
+                android:textSize="@dimen/text_size_text_4"
+                app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

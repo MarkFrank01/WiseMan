@@ -72,6 +72,10 @@ class ManageCreateCircleNextAdapter(data: List<CardBean>) : BaseMultiItemQuickAd
 
                 helper.setText(R.id.tv_item_card_time,item.distanceTime)
 
+                helper.addOnClickListener(R.id.cb_choose_push_manage)
+
+
+
 //                val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
 //                if (!item.circleFix!!){
 //                    cb.isChecked = false

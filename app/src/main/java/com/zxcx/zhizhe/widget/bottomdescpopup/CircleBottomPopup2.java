@@ -51,7 +51,7 @@ public class CircleBottomPopup2 extends BottomPopupView {
         super.initPopupContent();
         Button bt = findViewById(R.id.bottom_bt);
         bt.setOnClickListener(v -> {
-            postDelayed(this::dismiss,100);
+            postDelayed(this::dismiss,10);
         });
     }
 

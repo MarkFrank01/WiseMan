@@ -32,7 +32,7 @@ class OwnerCreateManageActivity : BaseActivity() {
     private val mOwnerArticleFragment = OwnerArticleFragment()
     private var mCurrentFragment = Fragment()
 
-    private var classifyId = 0
+//    private var classifyId = 0
     private var classifyName = ""
 
     //检测卡片的数量
@@ -51,6 +51,30 @@ class OwnerCreateManageActivity : BaseActivity() {
 
     //传递到下一个AC的Arc
     private var listcdArc:MutableList<CardBean> = ArrayList()
+
+    /////////////////////////
+
+    //标题
+    private var title = ""
+
+    //封面图
+    private var mImageUrl = ""
+
+    //类别名
+    private var labelName = ""
+
+    //类别ID
+    private var classifyId = 0
+
+    //圈子签名
+    private var sign = ""
+
+    //（新）价格选择
+    private var levelType = 0
+
+    //(新)限时免费
+    private var limitedTimeType = 0
+    ////////////////////////
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,7 +120,6 @@ class OwnerCreateManageActivity : BaseActivity() {
             tv_toolbar_right.isEnabled = false
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
 
-
         }
 
 
@@ -107,7 +130,19 @@ class OwnerCreateManageActivity : BaseActivity() {
             startActivity(OwnerCreateNextActivity::class.java){
                 it.putExtra("listCard",listcdCard as ArrayList)
                 it.putExtra("listArc",listcdArc as ArrayList)
+
+                it.putExtra("classifyId",classifyId)
+                it.putExtra("classifyName",labelName)
+
+                it.putExtra("title",title)
+                it.putExtra("levelType",levelType)
+                it.putExtra("sign",sign)
+                it.putExtra("mImageUrl",mImageUrl)
+                it.putExtra("labelName",labelName)
+                it.putExtra("classifyId",classifyId)
+                it.putExtra("limitedTimeType",limitedTimeType)
             }
+            finish()
         }
     }
 
@@ -116,6 +151,14 @@ class OwnerCreateManageActivity : BaseActivity() {
         classifyName = intent.getStringExtra("classifyName")
         SharedPreferencesUtil.saveData("mClassifyId", classifyId)
         LogCat.e("ID is $classifyId")
+
+        title = intent.getStringExtra("title")
+        levelType = intent.getIntExtra("levelType", 0)
+        sign = intent.getStringExtra("sign")
+        mImageUrl = intent.getStringExtra("mImageUrl")
+        labelName = intent.getStringExtra("labelName")
+        classifyId = intent.getIntExtra("classifyId", 0)
+        limitedTimeType = intent.getIntExtra("limitedTimeType", 0)
     }
 
     private fun initView() {
