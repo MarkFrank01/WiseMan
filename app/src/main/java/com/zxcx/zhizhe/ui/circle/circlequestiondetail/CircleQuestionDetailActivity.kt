@@ -14,7 +14,6 @@ import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
-import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -59,8 +58,8 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         LogCat.e("显示把"+list.size)
         if (mPage == 0){
             mAdapter.setNewData(list as List<MultiItemEntity>)
-            val emptyView = EmptyView.getEmptyView(mActivity,"暂无评论",R.drawable.no_comment)
-            mAdapter.emptyView = emptyView
+//            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
+//            mAdapter.emptyView = emptyView
         }else{
             mAdapter.addData(list)
         }
@@ -105,7 +104,12 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        var bean = adapter.getItem(position) as MultiItemEntity
+        if (bean.itemType == CircleCommentBean.TYPE_LEVEL_0){
+            bean = bean as CircleCommentBean
+            toastShow(getString(R.string.et_comment_hint, bean.authorVO?.name))
+        }
     }
 
     override fun onLoadMoreRequested() {

@@ -24,9 +24,11 @@ class CircleCommentBean(
         @SerializedName("childQaCommentVOList")var childQaCommentVOList:ArrayList<CircleChildCommentBean> = arrayListOf(),
         @SerializedName("createTime")var createTime:String,
         @SerializedName("description")var description:String,
-        @SerializedName("qacImageList")var qacImageList:List<String>,
+        @SerializedName("qacImageList")var qacImageList:ArrayList<String>,
         @SerializedName("statusType")var statusType:Int = 0,
-        @SerializedName("id") var id: Int = 0
+        @SerializedName("id") var id: Int = 0,
+
+        @SerializedName("likeCount") var likeCount:Int = 0
 
 
 ) : AbstractExpandableItem<CircleChildCommentBean>(), MultiItemEntity {

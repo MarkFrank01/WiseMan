@@ -20,7 +20,9 @@ class CircleChildCommentBean(
         @SerializedName("createTime") var createTime: String,
         @SerializedName("description") var description: String,
         @SerializedName("statusType") var statusType: Int = 0,
-        @SerializedName("id") var id: Int = 0
+        @SerializedName("id") var id: Int = 0,
+        @SerializedName("likeCount") var likeCount:Int = 0
+
 ) : MultiItemEntity {
 
     companion object {

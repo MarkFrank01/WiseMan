@@ -1,7 +1,9 @@
 package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -14,8 +16,8 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
     var userId = 0
 
     init {
-        addItemType(CircleCommentBean.TYPE_LEVEL_0, R.layout.item_comment)
-        addItemType(CircleChildCommentBean.TYPE_LEVEL_1, R.layout.item_child_comment)
+        addItemType(CircleCommentBean.TYPE_LEVEL_0, R.layout.item_comment_circle)
+        addItemType(CircleChildCommentBean.TYPE_LEVEL_1, R.layout.item_child_comment_circle)
     }
 
     override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
@@ -43,9 +45,14 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         //内容
         helper.setText(R.id.tv_item_comment_content, item.description)
 
+        //点赞数
+        helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
+
         //子项
         helper.setGone(R.id.tv_item_comment_expand, item.childQaCommentVOList.isNotEmpty())
         val tvExpand = helper.getView<TextView>(R.id.tv_item_comment_expand)
+        tvExpand.text = "共"+item.childCommentCount+"条回复"
+        tvExpand.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
 
         if (item.isExpanded) {
             TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_collapse, tvExpand)
@@ -61,6 +68,12 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
                 expand(pos)
             }
         }
+
+        val sixPhoto = helper.getView<BGANinePhotoLayout>(R.id.six_photo_widget)
+        if (item.qacImageList.size>0){
+            sixPhoto.visibility = View.VISIBLE
+        }
+        sixPhoto.data = item.qacImageList
 
 //		val item = bean as CircleCommentBean
 //		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)
@@ -128,6 +141,8 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         //内容
         helper.setText(R.id.tv_item_comment_content, item.description)
 
+        //点赞数
+        helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 
 //		val item = bean as CircleChildCommentBean
 //		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)
