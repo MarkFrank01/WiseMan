@@ -989,4 +989,30 @@ public interface APIService {
          @Query("articleId") int articleId
     );
 
+    /**
+     * 评价圈子
+     */
+    @POST("/circle/evaluationCircle")
+    Flowable<BaseBean<HintBean>> evaluationCircle(
+        @Query("circleId") int circleId,
+        @Query("contentQuality") int contentQuality,
+        @Query("topicQuality") int topicQuality
+    );
+
+    /**
+     * 举报圈子
+     */
+    @POST("/circle/reportCircle")
+    Flowable<BaseBean<HintBean>> reportCircle(
+        @Query("circleId") int circleId,
+        @Query("reportType") int reportType
+    );
+
+    /**
+     * 删除话题
+     */
+    @POST("/circle/deleteQa")
+    Flowable<BaseBean<HintBean>> deleteQa(
+          @Query("qaId") int qaId
+    );
 }

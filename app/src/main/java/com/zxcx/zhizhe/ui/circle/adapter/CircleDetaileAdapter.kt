@@ -40,7 +40,10 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         helper.setText(R.id.tv_item_card_comment1,""+itemBean.commentCount)
         helper.setText(R.id.circle_detail_username,itemBean.usersVO.name)
 
-        helper.addOnClickListener(R.id.tiwen_con)
+        helper.addOnClickListener(R.id.circle_detail_text)
+        helper.addOnClickListener(R.id.circle_detail_img)
+
+        helper.addOnClickListener(R.id.circle_detail_more)
     }
 
 

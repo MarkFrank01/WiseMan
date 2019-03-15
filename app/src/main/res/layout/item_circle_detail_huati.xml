@@ -18,6 +18,7 @@
         android:id="@+id/circle_detail_text"
         style="@style/tv_card"
         android:layout_width="match_parent"
+        android:layout_marginEnd="40dp"
         android:layout_height="23dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
@@ -27,6 +28,16 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
+
+    <ImageView
+        android:id="@+id/circle_detail_more"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@id/circle_detail_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/c_more_2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
 
     <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/circle_detail_img"

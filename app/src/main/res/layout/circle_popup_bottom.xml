@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:id="@+id/tv_title1"
-        android:textColor="@color/text_color_2"
+        android:textColor="@color/text_color_3"
         android:paddingTop="20dp"
         android:paddingLeft="18dp"
         android:paddingBottom="20dp"

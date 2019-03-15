@@ -30,6 +30,32 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
         mModel.getCircleQAByCircleId(orderType, circleId, pageIndex, pageSize)
     }
 
+    fun reportCircle(circleId: Int, reportType: Int) {
+        mModel.reportCircle(circleId, reportType)
+    }
+
+    fun setQAFixTop(qaId: Int, fixType: Int) {
+        mModel.setQAFixTop(qaId, fixType)
+    }
+
+    fun deleteQa(qaId: Int) {
+        mModel.deleteQa(qaId)
+    }
+
+    override fun deleteQaSuccess() {
+        mView.deleteQaSuccess()
+    }
+
+
+    override fun setQAFixTopSuccess() {
+        mView.setQAFixTopSuccess()
+    }
+
+    override fun reportCircleSuccess() {
+        mView.reportCircleSuccess()
+    }
+
+
     override fun getCircleBasicInfoSuccess(bean: CircleBean) {
         mView.getCircleBasicInfoSuccess(bean)
     }
@@ -39,7 +65,7 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
     }
 
     override fun getCircleQAByCircleIdSuccess(bean: MutableList<CircleDetailBean>) {
-        if (mView!=null) {
+        if (mView != null) {
             mView.getCircleQAByCircleIdSuccess(bean)
         }
     }

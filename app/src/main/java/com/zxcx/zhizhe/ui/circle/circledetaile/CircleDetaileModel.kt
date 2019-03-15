@@ -4,6 +4,8 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.retrofit.HintBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
@@ -50,6 +52,49 @@ class CircleDetaileModel(presenter: CircleDetaileContract.Presenter):BaseModel<C
                 .subscribeWith(object :BaseSubscriber<MutableList<CircleDetailBean>>(mPresenter){
                     override fun onNext(t: MutableList<CircleDetailBean>) {
                         mPresenter?.getCircleQAByCircleIdSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //举报圈子
+    fun reportCircle(circleId:Int,reportType:Int){
+        mDisposable = AppClient.getAPIService().reportCircle(circleId, reportType)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object : BaseSubscriber<HintBean>(mPresenter){
+                    override fun onNext(t: HintBean) {
+                        mPresenter?.reportCircleSuccess()
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //是否置顶话题
+    fun setQAFixTop(qaId:Int,fixType:Int){
+        mDisposable = AppClient.getAPIService().setQAFixTop(qaId, fixType)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<CardBean>(mPresenter){
+                    override fun onNext(t: CardBean) {
+                        mPresenter?.setQAFixTopSuccess()
+                    }
+
+                    override fun onError(t: Throwable) {
+                        mPresenter?.setQAFixTopSuccess()
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //删除话题
+    fun deleteQa(qaId: Int){
+        mDisposable = AppClient.getAPIService().deleteQa(qaId)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<HintBean>(mPresenter){
+                    override fun onNext(t: HintBean) {
+                        mPresenter?.deleteQaSuccess()
                     }
                 })
         addSubscription(mDisposable)

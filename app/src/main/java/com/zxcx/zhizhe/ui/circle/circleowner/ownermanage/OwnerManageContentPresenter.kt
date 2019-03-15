@@ -26,11 +26,11 @@ class OwnerManageContentPresenter(view: OwnerManageContentContract.View) : BaseP
         mModel.setArticleFixTop(circleId, articleId, fixType)
     }
 
-    fun removeArticle(circleId:Int,articleId: Int) {
+    fun removeArticle(circleId: Int, articleId: Int) {
         mModel.removeArticle(circleId, articleId)
     }
 
-        override fun showLoading() {
+    override fun showLoading() {
         mView.showLoading()
     }
 

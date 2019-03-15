@@ -19,7 +19,8 @@ class CircleDetailBean (
     @SerializedName("commentCount")var commentCount:Int,
     @SerializedName("likeCount")var likeCount:Int,
     @SerializedName("createTime")var createTime:String,
-    @SerializedName("pv")var pv:Int
+    @SerializedName("pv")var pv:Int,
+    @SerializedName("circleFix") var circleFix:Boolean
 
 ):RetrofitBean(),MultiItemEntity {
     override fun getItemType(): Int {

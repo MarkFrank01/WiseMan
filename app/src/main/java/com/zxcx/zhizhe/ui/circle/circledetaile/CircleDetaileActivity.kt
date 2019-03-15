@@ -25,10 +25,12 @@ import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
+import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
 import kotlinx.android.synthetic.main.layout_circle_detail.*
@@ -40,6 +42,7 @@ import kotlinx.android.synthetic.main.layout_circle_detail.*
  */
 class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), CircleDetaileContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+
 
     private var circleID: Int = 0
 
@@ -62,7 +65,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     private var mIntroduction: String = ""
 
     //存放图片地址
-    private var mImageUrl:String = ""
+    private var mImageUrl: String = ""
 
     //存放分类的ID和名字
     private var classifyId = 0
@@ -153,9 +156,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         //存储数据
         mIntroduction = bean.sign
 
-        LogCat.e("检查是否是圈主"+bean.owner)
+        LogCat.e("检查是否是圈主" + bean.owner)
         //存放是否是圈主的数据
-        mCircleImOwner  = bean.owner
+        mCircleImOwner = bean.owner
 
 //        hasJoinBoolean = bean.hasJoin
 //
@@ -165,6 +168,19 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun getCircleMemberByCircleIdSuccess(bean: MutableList<CircleBean>) {
+    }
+
+    override fun reportCircleSuccess() {
+        toastShow("举报成功")
+    }
+
+    override fun setQAFixTopSuccess() {
+        toastShow("设置成功")
+
+    }
+
+    override fun deleteQaSuccess() {
+        toastShow("删除成功")
     }
 
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
@@ -222,9 +238,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         iv_toolbar_right2.setOnClickListener {
-            if (mCircleImOwner){
+            if (mCircleImOwner) {
                 chooseMoreOwner()
-            }else {
+            } else {
                 chooseMore()
             }
         }
@@ -238,15 +254,20 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-         when(view.id){
-             R.id.tiwen_con ->{
-                 val bean = adapter.data[position] as CircleDetailBean
-                 toastShow("进入话题中"+bean.id)
-                 mActivity.startActivity(CircleQuestionDetailActivity::class.java){
-                     it.putExtra("huatiId",bean.id)
-                 }
-             }
-         }
+        when (view.id) {
+            R.id.circle_detail_text, R.id.circle_detail_img -> {
+                val bean = adapter.data[position] as CircleDetailBean
+                toastShow("进入话题中" + bean.id)
+                mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
+                    it.putExtra("huatiId", bean.id)
+                }
+            }
+
+            R.id.circle_detail_more -> {
+                val bean = adapter.data[position] as CircleDetailBean
+                manageHTowner(bean.circleFix,bean.id)
+            }
+        }
     }
 
     override fun onLoadMoreRequested() {
@@ -374,7 +395,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //游客或者会员的情况
     private fun chooseMore() {
         XPopup.get(mActivity)
-                .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "分享圈子", "会员续费", "分享圈子", "举报圈子"),
+                .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "圈子评分", "会员续费", "分享圈子", "举报圈子"),
                         null, -1, OnSelectListener { position, text ->
                     when (position) {
                         0 -> {
@@ -382,8 +403,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                 it.putExtra("info", mIntroduction)
                             }
                         }
-                        1 -> {
+                        3 -> {
                             showshare()
+                        }
+                        4 -> {
+                            jubaoCircle()
                         }
                     }
                 })).show()
@@ -394,35 +418,35 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         XPopup.get(mActivity)
                 .asCustom(CirclePopup(this, "更多", arrayOf("内容管理", "编辑圈子", "圈子介绍", "分享圈子"),
                         null, -1, OnSelectListener { position, text ->
-                    when(position){
-                        0->{
-                            startActivity(OwnerManageContentActivity::class.java){
-                                it.putExtra("circleId",circleID)
+                    when (position) {
+                        0 -> {
+                            startActivity(OwnerManageContentActivity::class.java) {
+                                it.putExtra("circleId", circleID)
                             }
                         }
 
-                        1->{
+                        1 -> {
                             onBackPressed()
-                            startActivity(CircleEditActivity::class.java){
-                                it.putExtra("title",circlename)
-                                it.putExtra("levelType",circleprice)
-                                it.putExtra("sign",mIntroduction)
-                                it.putExtra("mImageUrl",mImageUrl)
-                                it.putExtra("labelName",labelName)
-                                it.putExtra("classifyId",classifyId)
-                                it.putExtra("limitedTimeType",limitedTimeType)
+                            startActivity(CircleEditActivity::class.java) {
+                                it.putExtra("title", circlename)
+                                it.putExtra("levelType", circleprice)
+                                it.putExtra("sign", mIntroduction)
+                                it.putExtra("mImageUrl", mImageUrl)
+                                it.putExtra("labelName", labelName)
+                                it.putExtra("classifyId", classifyId)
+                                it.putExtra("limitedTimeType", limitedTimeType)
 
-                                it.putExtra("circleId",circleID)
+                                it.putExtra("circleId", circleID)
                             }
                         }
 
-                        2->{
+                        2 -> {
                             startActivity(CircleIntroductionActivity::class.java) {
                                 it.putExtra("info", mIntroduction)
                             }
                         }
 
-                        3->{
+                        3 -> {
                             showshare()
                         }
                     }
@@ -459,6 +483,60 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                 4 -> {
                                     toastShow("微博")
                                 }
+                            }
+                        })
+                ).show()
+    }
+
+    //举报圈子
+    private fun jubaoCircle() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "举报类型", arrayOf("政治敏感", "垃圾广告", "恶意攻击", "色情低俗", "其它"), null, -1,
+                        OnSelectListener { position, text ->
+                            mPresenter.reportCircle(circleID, position)
+                        })
+                ).show()
+    }
+
+    //管理话题 分为人和管理
+    private fun manageHTowner(circleFix:Boolean,id:Int){
+        var type = -1
+        type = if (circleFix){
+            2
+        }else{
+            3
+        }
+
+        XPopup.get(mActivity)
+                .asCustom(HuatiManagePopup(this,type,circleFix,-1,
+                        OnSelectListener { position, text ->
+                             when(position){
+                                 0->{
+                                     mPresenter.setQAFixTop(id,1)
+                                 }
+                                 1->{
+                                     deleteHuaTi(id)
+                                 }
+                                 2->{
+                                     mPresenter.setQAFixTop(id,0)
+                                 }
+
+                             }
+                        })
+                ).show()
+    }
+
+    private fun manageHTman(){
+
+    }
+
+    //删除话题
+    private fun deleteHuaTi(qaId:Int){
+        XPopup.get(mActivity)
+                .asCustom(BottomInfoPopup(this,"该操作将删除此话题和所有关联回复，是否继续？",-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                mPresenter.deleteQa(qaId)
                             }
                         })
                 ).show()
