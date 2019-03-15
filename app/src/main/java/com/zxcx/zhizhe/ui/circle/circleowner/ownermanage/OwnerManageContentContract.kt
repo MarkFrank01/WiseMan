@@ -10,7 +10,13 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  * @Description :
  */
 class OwnerManageContentContract {
-    interface View:GetView<MutableList<CardBean>>
+    interface View:GetView<MutableList<CardBean>>{
+        fun setArticleFixTopSuccess(hint: String)
+        fun removeArticleSuccess()
+    }
 
-    interface Presenter: IGetPresenter<MutableList<CardBean>>
+    interface Presenter: IGetPresenter<MutableList<CardBean>>{
+        fun setArticleFixTopSuccess(hint:String)
+        fun removeArticleSuccess()
+    }
 }

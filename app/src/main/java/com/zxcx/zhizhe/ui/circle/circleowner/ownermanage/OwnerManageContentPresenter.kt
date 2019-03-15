@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 class OwnerManageContentPresenter(view: OwnerManageContentContract.View) : BasePresenter<OwnerManageContentContract.View>(), OwnerManageContentContract.Presenter {
 
+
     private val mModel: OwnerManageContentModel
 
     init {
@@ -21,12 +22,33 @@ class OwnerManageContentPresenter(view: OwnerManageContentContract.View) : BaseP
         mModel.getArticleByCircleId(circleId, orderType, pageIndex, pageSize)
     }
 
-    override fun showLoading() {
+    fun setArticleFixTop(circleId: Int, articleId: Int, fixType: Int) {
+        mModel.setArticleFixTop(circleId, articleId, fixType)
+    }
+
+    fun removeArticle(circleId:Int,articleId: Int) {
+        mModel.removeArticle(circleId, articleId)
+    }
+
+        override fun showLoading() {
         mView.showLoading()
     }
 
     override fun hideLoading() {
         mView.hideLoading()
+    }
+
+    override fun removeArticleSuccess() {
+        if (mView != null) {
+            mView.removeArticleSuccess()
+        }
+    }
+
+
+    override fun setArticleFixTopSuccess(hint: String) {
+        if (mView != null) {
+            mView.setArticleFixTopSuccess(hint)
+        }
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>) {

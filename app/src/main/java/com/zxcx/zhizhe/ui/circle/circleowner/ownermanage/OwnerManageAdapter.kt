@@ -9,6 +9,7 @@ import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
@@ -64,7 +65,12 @@ class OwnerManageAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardB
                 }
                 helper.getView<View>(R.id.iv_top).setOnClickListener {
                     easySwipeMenuLayout.resetStatus()
-                    mListener.onTopClick(mData.indexOf(item))
+                    LogCat.e("??"+item.circleFix)
+                    if (item.circleFix){
+                        mListener.onCancelTopClick(mData.indexOf((item)))
+                    }else {
+                        mListener.onTopClick(mData.indexOf(item))
+                    }
                 }
 
                 helper.setText(R.id.tv_item_card_time,item.distanceTime)

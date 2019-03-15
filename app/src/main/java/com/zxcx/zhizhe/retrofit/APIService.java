@@ -960,4 +960,33 @@ public interface APIService {
     Flowable<BaseBean<BalanceBean>> checkCircleArticleBalance(
        @Query("circleId") int circleId
     );
+
+    /**
+     * 设置话题置顶&不置顶
+     */
+    @POST("/circle/setQAFixTop")
+    Flowable<BaseBean<CardBean>> setQAFixTop(
+        @Query("qaId") int qaId,
+        @Query("fixType") int fixType
+    );
+
+    /**
+     * 内容文章置顶
+     */
+    @POST("/circle/setArticleFixTop")
+    Flowable<BaseBean<CardBean>> setArticleFixTop(
+         @Query("circleId") int circleId,
+         @Query("articleId") int articleId,
+         @Query("fixType") int fixType
+    );
+
+    /**
+     * 内容文章文章删除
+     */
+    @POST("/circle/removeArticle")
+    Flowable<BaseBean<HintBean>> removeArticle(
+         @Query("circleId") int circleId,
+         @Query("articleId") int articleId
+    );
+
 }

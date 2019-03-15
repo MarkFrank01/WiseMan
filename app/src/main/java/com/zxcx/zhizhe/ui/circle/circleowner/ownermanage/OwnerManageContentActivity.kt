@@ -34,6 +34,7 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
         BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener,
         SwipeMenuClickListener2 {
 
+
     private var mPage = 0
     private var type = 0
     private val mPageSize = Constants.PAGE_SIZE
@@ -89,6 +90,14 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
         return OwnerManageContentPresenter(this)
     }
 
+    override fun removeArticleSuccess() {
+        toastShow("移除成功")
+    }
+
+    override fun setArticleFixTopSuccess(hint: String) {
+        toastShow(hint)
+    }
+
     override fun getDataSuccess(list: MutableList<CardBean>) {
         mRefreshLayout.finishRefresh()
         if (mPage == 0) {
@@ -118,17 +127,30 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
     }
 
     override fun onDeleteClick(position: Int) {
-        deleteHint()
+        deleteHint(position)
     }
 
     override fun onContentClick(position: Int) {
     }
 
     override fun onTopClick(position: Int) {
+        rv_content.scrollToPosition(0)
+        mPresenter.setArticleFixTop(circleID,mAdapter.data[position].id,1)
+
+        mAdapter.add(0,mAdapter.data[position])
+        mAdapter.remove(position+1)
+
+//        mPage = 0
+//        mPresenter.getArticleByCircleId(circleID, type, mPage, mPageSize)
+//        toastShow("置顶ing")
+    }
+
+    override fun onCancelTopClick(position: Int) {
+        mPresenter.setArticleFixTop(circleID,mAdapter.data[position].id,0)
         mPage = 0
         mPresenter.getArticleByCircleId(circleID, type, mPage, mPageSize)
-        toastShow("置顶TAT")
-        rv_content.scrollToPosition(0)
+//        toastShow("取消置顶ing")
+
     }
 
     //拿ID
@@ -151,12 +173,12 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
     }
 
     //移除时的提示
-    private fun deleteHint(){
+    private fun deleteHint(index:Int){
         XPopup.get(mActivity)
                 .asCustom(BottomInfoPopup(this,"移除后将导致圈内可阅读作品减少，是否继续？",-1,
                        OnSelectListener { position, text ->
                             if (position == 2){
-                                toastShow("移除不是删除")
+                                mPresenter.removeArticle(circleID,index)
                             }
                        })
                 ).show()
