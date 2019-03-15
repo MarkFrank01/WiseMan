@@ -16,7 +16,10 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.PushCreateCircleListEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
-import com.zxcx.zhizhe.ui.circle.createcircle.*
+import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
+import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleDescActivity
+import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleNameActivity
+import com.zxcx.zhizhe.ui.circle.createcircle.PushCreateCircleConfirmDialog
 import com.zxcx.zhizhe.ui.my.userInfo.ClipImageActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.Constants
@@ -27,6 +30,7 @@ import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleEditBottomPopup
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_edit_circle.*
 import org.greenrobot.eventbus.EventBus
@@ -42,6 +46,9 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
         OSSDialog.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener {
 
     private lateinit var mOSSDialog: OSSDialog
+
+    //圈子的ID
+    private var circleId = 0
 
     //标题
     private var title = ""
@@ -98,7 +105,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: PushCreateCircleListEvent) {
 //        mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", mBackList, mLevel)
-        mPresenter.createCircleNew(title, mImageUrl, classifyId, sign, levelType, limitedTimeType)
+        mPresenter.createCircleNew(title, mImageUrl, classifyId, sign, levelType, limitedTimeType,circleId)
     }
 
     override fun onDestroy() {
@@ -107,6 +114,8 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
     }
 
     override fun checkSuccess() {
+        toastShow("提交成功，等待审核")
+        onBackPressed()
     }
 
     override fun postSuccess(bean: CircleBean?) {
@@ -116,7 +125,10 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
     }
 
     override fun getDataSuccess(bean: CircleBean?) {
+//        onBackPressed()
     }
+
+
 
     override fun uploadSuccess(url: String) {
         ImageLoader.load(mActivity, url, R.drawable.default_card, mycircle_pic_pic)
@@ -214,8 +226,9 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
         }
 
         ll_circle_choose_circle.setOnClickListener {
-            val intent = Intent(this, SelectCircleLabelActivity::class.java)
-            startActivityForResult(intent, CircleEditActivity.CODE_SELECT_LABEL)
+            //编辑圈子的时候分类不可选
+//            val intent = Intent(this, SelectCircleLabelActivity::class.java)
+//            startActivityForResult(intent, CircleEditActivity.CODE_SELECT_LABEL)
         }
 
         create_push_check.setOnClickListener {
@@ -226,14 +239,17 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
             chooseMoney()
         }
 
+
+
         tv_toolbar_right2.setOnClickListener {
             title = tv_to_name.text.toString().trim()
             sign = tv_to_name2.text.toString().trim()
 
-            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
-                val bundle = Bundle()
-                mDialog.arguments = bundle
-                mDialog.show(mActivity.supportFragmentManager, "")
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != -1 && limitedTimeType != -1) {
+//                val bundle = Bundle()
+//                mDialog.arguments = bundle
+//                mDialog.show(mActivity.supportFragmentManager, "")
+                mPresenter.createCircleNew(title, mImageUrl, classifyId, sign, levelType, limitedTimeType,circleId)
             } else {
                 toastShow("信息未填写完")
             }
@@ -243,7 +259,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
             title = tv_to_name.text.toString().trim()
             sign = tv_to_name2.text.toString().trim()
 
-            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != -1 && limitedTimeType != -1) {
                 val bundle = Bundle()
                 mDialog.arguments = bundle
                 mDialog.show(mActivity.supportFragmentManager, "")
@@ -267,6 +283,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
         tv_to_name2.text = sign
         circle_tv_label.text = labelName
 
+        hintTime()
     }
 
     private fun initData() {
@@ -277,6 +294,8 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
         labelName = intent.getStringExtra("labelName")
         classifyId = intent.getIntExtra("classifyId", 0)
         limitedTimeType = intent.getIntExtra("limitedTimeType", 0)
+
+        circleId = intent.getIntExtra("circleId",0)
     }
 
     private fun uploadImageToOSS(path: String) {
@@ -361,6 +380,15 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
                                 onBackPressed()
                             }
                         })
+                ).show()
+    }
+
+    //提示时间
+    private fun hintTime(){
+        XPopup.get(mActivity)
+                .asCustom(CircleEditBottomPopup(this, OnSelectListener { position, text ->
+
+                     })
                 ).show()
     }
 }

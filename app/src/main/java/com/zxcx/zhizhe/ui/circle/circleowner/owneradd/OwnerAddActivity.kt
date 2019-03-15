@@ -8,9 +8,12 @@ import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GetBackNumAndDataEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext.OwnerAddNextActivity
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_owner_create_manage.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -35,6 +38,12 @@ class OwnerAddActivity : BaseActivity() {
     //检查长文的数量
     private var mArcNum = 0
 
+    //传递到下一个AC的card
+    private var listcdCard: MutableList<CardBean> = ArrayList()
+
+    //传递到下一个AC的Arc
+    private var listcdArc:MutableList<CardBean> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_owner_add)
@@ -42,7 +51,7 @@ class OwnerAddActivity : BaseActivity() {
         initData()
         initToolBar("作品审核")
         tv_toolbar_right.visibility = View.VISIBLE
-        tv_toolbar_right.text = "完成"
+        tv_toolbar_right.text = "下一步"
         tv_toolbar_right.isEnabled = false
         tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
 
@@ -60,13 +69,15 @@ class OwnerAddActivity : BaseActivity() {
         if (event.type == 0) {
             mCardNum = event.contentList.size
 //            mCardList = event.contentList
+            listcdCard = event.cardBeanList
         } else if (event.type == 1) {
             mArcNum = event.contentList.size
 //            mArcList = event.contentList
+            listcdArc = event.cardBeanList
         }
 
         //之后调整为8和4
-        if (mCardNum >= 1 && mArcNum >= 1) {
+        if (mCardNum >= 1 || mArcNum >= 1) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         }else{
@@ -77,7 +88,11 @@ class OwnerAddActivity : BaseActivity() {
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            toastShow("传递")
+            startActivity(OwnerAddNextActivity::class.java){
+                it.putExtra("circleId",circleID)
+                it.putExtra("listCard",listcdCard as ArrayList)
+                it.putExtra("listArc",listcdArc as ArrayList)
+            }
         }
     }
 

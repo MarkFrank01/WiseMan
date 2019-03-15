@@ -43,7 +43,7 @@ public class BottomInfoPopup extends BottomPopupView{
 
         TextView t1 = findViewById(R.id.info_cancel);
         t1.setOnClickListener(v->{
-            postDelayed(this::dismiss,100);
+            postDelayed(this::dismiss,10);
         });
 
         TextView t2 = findViewById(R.id.info_queren);

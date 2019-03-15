@@ -1,43 +1,43 @@
-package com.zxcx.zhizhe.ui.circle.circleowner.ownercreatenext
+package com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
  * @author : MarkFrank01
- * @Created on 2019/3/11
+ * @Created on 2019/3/15
  * @Description :
  */
-class OwnerCreateNextModel(presenter: OwnerCreateNextContract.Presenter):BaseModel<OwnerCreateNextContract.Presenter>() {
+class OwnerAddNextModel(presenter: OwnerAddNextContract.Presenter) : BaseModel<OwnerAddNextContract.Presenter>() {
 
     init {
         this.mPresenter = presenter
     }
 
-    fun setCircleArticle(circleId:Int,auditArticleList:List<Int>,privateArticleList:List<Int>){
+    //设置文章哦
+    fun setCircleArticle(circleId: Int, auditArticleList: List<Int>, privateArticleList: List<Int>) {
         mDisposable = AppClient.getAPIService().setCircleArticle(circleId, auditArticleList, privateArticleList)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<CardBean>>(mPresenter){
                     override fun onNext(t: MutableList<CardBean>) {
-                        mPresenter?.getDataSuccess(t)
+                        mPresenter?.setArcSuccess(t)
                     }
                 })
         addSubscription(mDisposable)
     }
 
-    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String,levelType: Int,limitedTimeType :Int) {
-
-        mDisposable = AppClient.getAPIService().createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType,0)
+    //检查圈子文章是否平衡
+    fun checkCircleArticleBalance(circleId:Int){
+        mDisposable = AppClient.getAPIService().checkCircleArticleBalance(circleId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleResult())
-                .subscribeWith(object :BaseSubscriber<CircleBean>(mPresenter){
-                    override fun onNext(t: CircleBean) {
-                        mPresenter?.createCircleSuccess(t)
+                .subscribeWith(object :BaseSubscriber<BalanceBean>(mPresenter){
+                    override fun onNext(t: BalanceBean) {
+                        mPresenter?.checkCircleArticleBalanceSuccess(t)
                     }
                 })
         addSubscription(mDisposable)

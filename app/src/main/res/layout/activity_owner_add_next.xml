@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -17,7 +16,7 @@
         <include layout="@layout/toolbar"/>
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tl_circle"
+            android:id="@+id/tl_circle_next"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginStart="20dp"
@@ -35,7 +34,7 @@
             android:layout_marginBottom="12dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="15dp"
-            tools:text="在此页面选择4张卡片在圈外公开阅读"
+            android:text="在此页面选择符合圈子分类的8张卡片"
             android:textColor="@color/text_color_3"
             android:textSize="12sp"/>
 

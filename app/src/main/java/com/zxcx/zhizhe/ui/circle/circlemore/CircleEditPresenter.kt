@@ -17,11 +17,12 @@ class CircleEditPresenter(view: CircleEditContract.View) : BasePresenter<CircleE
         mModel = CircleEditModel(this)
     }
 
-    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String, levelType: Int, limitedTimeType: Int) {
-        mModel.createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType)
+    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String, levelType: Int, limitedTimeType: Int,circleId:Int) {
+        mModel.createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType,circleId)
     }
 
     override fun checkSuccess() {
+        mView.checkSuccess()
     }
 
     override fun showLoading() {
@@ -36,6 +37,7 @@ class CircleEditPresenter(view: CircleEditContract.View) : BasePresenter<CircleE
     }
 
     override fun getDataFail(msg: String?) {
+
     }
 
     override fun postFail(msg: String?) {

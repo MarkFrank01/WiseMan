@@ -440,6 +440,10 @@
             android:name=".ui.circle.circlequestiondetail.CircleQuestionDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circleowner.owneradd.addnext.OwnerAddNextActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

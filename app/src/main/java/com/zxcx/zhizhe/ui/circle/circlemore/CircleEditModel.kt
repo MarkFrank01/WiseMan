@@ -18,14 +18,18 @@ class CircleEditModel(presenter: CircleEditContract.Presenter):BaseModel<CircleE
     }
 
 
-    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String,levelType: Int,limitedTimeType :Int) {
+    fun createCircleNew(title: String, titleImage: String, classifyId: Int, sign: String,levelType: Int,limitedTimeType :Int,circleId:Int) {
 
-        mDisposable = AppClient.getAPIService().createCircleNew(title, titleImage, classifyId, sign, levelType, limitedTimeType)
+        mDisposable = AppClient.getAPIService().editCircle(title, titleImage, classifyId, sign, levelType, limitedTimeType,circleId)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(object : BaseSubscriber<CircleBean>(mPresenter){
                     override fun onNext(t: CircleBean) {
                         mPresenter?.getDataSuccess(t)
+                    }
+
+                    override fun onComplete() {
+                        mPresenter?.checkSuccess()
                     }
                 })
         addSubscription(mDisposable)

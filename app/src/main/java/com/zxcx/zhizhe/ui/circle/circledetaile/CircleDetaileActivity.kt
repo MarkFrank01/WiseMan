@@ -402,6 +402,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         }
 
                         1->{
+                            onBackPressed()
                             startActivity(CircleEditActivity::class.java){
                                 it.putExtra("title",circlename)
                                 it.putExtra("levelType",circleprice)
@@ -410,6 +411,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                 it.putExtra("labelName",labelName)
                                 it.putExtra("classifyId",classifyId)
                                 it.putExtra("limitedTimeType",limitedTimeType)
+
+                                it.putExtra("circleId",circleID)
                             }
                         }
 

@@ -8,6 +8,7 @@ import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
+import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext.BalanceBean;
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
 import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleCommentBean;
 import com.zxcx.zhizhe.ui.comment.CommentBean;
@@ -763,6 +764,17 @@ public interface APIService {
             @Query("levelType") int levelType
     );
 
+    /**
+     * 新的创建圈子的接口，加入是否是保存字段
+     * @param title
+     * @param titleImage
+     * @param classifyId
+     * @param sign
+     * @param levelType
+     * @param limitedTimeType
+     * @param isSave 0 1
+     * @return
+     */
     @POST("/circle/createCircle")
     Flowable<BaseBean<CircleBean>> createCircleNew(
             @Query("title") String title,
@@ -770,7 +782,23 @@ public interface APIService {
             @Query("classifyId") int classifyId,
             @Query("sign") String sign,
             @Query("levelType") int levelType,
-            @Query("limitedTimeType") int limitedTimeType
+            @Query("limitedTimeType") int limitedTimeType,
+            @Query("isSave") int isSave
+    );
+
+    /**
+     * 编辑圈子资料（用于未通过编辑和通过后的再编辑）
+     */
+    @POST("/circle/editCircle")
+    Flowable<BaseBean<CircleBean>> editCircle(
+            @Query("title") String title,
+            @Query("titleImage") String titleImage,
+            @Query("classifyId") int classifyId,
+            @Query("sign") String sign,
+            @Query("levelType") int levelType,
+            @Query("limitedTimeType") int limitedTimeType,
+
+            @Query("circleId") int circleId
     );
 
     /**
@@ -923,5 +951,13 @@ public interface APIService {
        @Query("qaId") int qaId,
        @Query("pageIndex") int page,
        @Query("pageSize") int pageSize
+    );
+
+    /**
+     * 检查圈子文章是否平衡
+     */
+    @POST("/circle/checkCircleArticleBalance")
+    Flowable<BaseBean<BalanceBean>> checkCircleArticleBalance(
+       @Query("circleId") int circleId
     );
 }

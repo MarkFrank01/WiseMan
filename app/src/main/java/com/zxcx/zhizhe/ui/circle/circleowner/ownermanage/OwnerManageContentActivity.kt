@@ -63,6 +63,10 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
 
             }
         }
+
+        iv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onDestroy() {
@@ -121,7 +125,10 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
     }
 
     override fun onTopClick(position: Int) {
+        mPage = 0
+        mPresenter.getArticleByCircleId(circleID, type, mPage, mPageSize)
         toastShow("置顶TAT")
+        rv_content.scrollToPosition(0)
     }
 
     //拿ID
