@@ -40,7 +40,7 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         //人头名
         helper.setText(R.id.tv_item_comment_name, item.authorVO?.name)
         //时间
-        helper.setText(R.id.tv_item_comment_distanceTime, item.createTime)
+        helper.setText(R.id.tv_item_comment_distanceTime, item.distanceTime)
 
         //内容
         helper.setText(R.id.tv_item_comment_content, item.description)
@@ -136,7 +136,7 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         //人头名
         helper.setText(R.id.tv_item_comment_name, item.authorVO?.name)
         //时间
-        helper.setText(R.id.tv_item_comment_distanceTime,item.createTime)
+        helper.setText(R.id.tv_item_comment_distanceTime,item.distanceTime)
 
         //内容
         helper.setText(R.id.tv_item_comment_content, item.description)

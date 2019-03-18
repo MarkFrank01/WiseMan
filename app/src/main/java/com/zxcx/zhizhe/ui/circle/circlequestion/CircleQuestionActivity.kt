@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleSixPicBean
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
+import kotlinx.android.synthetic.main.activity_circle_question.*
 
 /**
  * @author : MarkFrank01
@@ -32,10 +33,17 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
     private lateinit var mOSSDialog: OSSDialog22
 
+    //圈子ID
+    private var circleID = 0
 
     //图片的数据
     private var mPickData: MutableList<CircleSixPicBean> = mutableListOf()
 
+    //回传的图片的集合
+    private var mAllImgs : ArrayList<String> = arrayListOf()
+
+    //传递到接口的集合
+    private var mPushImgs :ArrayList<String> = arrayListOf()
 
 
     //拖拽排序九宫格控件
@@ -48,6 +56,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog = OSSDialog22()
         mOSSDialog.setUploadListener(this)
 
+        initData()
         initView()
 
     }
@@ -67,12 +76,25 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     }
 
     override fun getDataSuccess(bean: QuestionBean?) {
+        LogCat.e("搞定")
     }
 
     var num = 0
     override fun uploadSuccess(url: String) {
+        mPushImgs.add(url)
         LogCat.e("${num}Url is " + url)
         num++
+//        if (num == mAllImgs.size){
+////            mPresenter.pushQuestion(circleID,)
+//        }
+//
+
+//        if (mAllImgs.size>0){
+//            uploadImageToOSS(mAllImgs[0])
+//            mAllImgs.remove(mAllImgs[0])
+//        }else{
+//            toastShow("球球你")
+//        }
     }
 
     override fun uploadFail(message: String?) {
@@ -86,12 +108,34 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
         if (resultCode == Activity.RESULT_OK &&requestCode == RC_CHOOSE_PHOTO&&data!=null){
             mPhotosSnpl.addMoreData(BGAPhotoPickerActivity.getSelectedPhotos(data))
+//            mAllImgs = BGAPhotoPickerActivity.getSelectedPhotos(data)
+            for (i in BGAPhotoPickerActivity.getSelectedPhotos(data).iterator()){
+                mAllImgs.add(i)
+            }
+
         }else if (requestCode == RC_PHOTO_PREVIEW&&data!=null){
             mPhotosSnpl.data = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data)
+
+            for (i in BGAPhotoPickerActivity.getSelectedPhotos(data).iterator()){
+                mAllImgs.add(i)
+            }
         }
     }
 
+    override fun setListener() {
 
+        //暂无合适办法，待紧急处理
+
+        tv_toolbar_right.setOnClickListener {
+//            toastShow("All size is "+mAllImgs.size)
+            uploadUrlsToOSS(mAllImgs)
+
+//            if (mAllImgs.size>0) {
+//                uploadImageToOSS(mAllImgs[0])
+//                mAllImgs.remove(mAllImgs[0])
+//            }
+        }
+    }
 
     private fun uploadUrlsToOSS(path: ArrayList<String>) {
         val bundle = Bundle()
@@ -101,6 +145,13 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog.show(supportFragmentManager, "")
     }
 
+    private fun uploadImageToOSS(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog.arguments = bundle
+        mOSSDialog.show(supportFragmentManager, "")
+    }
 
 
     private fun initView() {
@@ -110,6 +161,10 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mPhotosSnpl.isPlusEnable = true
 
         mPhotosSnpl.setDelegate(this)
+    }
+
+    private fun initData(){
+        circleID = intent.getIntExtra("circleID", 0)
     }
 
 
@@ -137,6 +192,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
     override fun onClickDeleteNinePhotoItem(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, view: View?, position: Int, model: String?, models: java.util.ArrayList<String>?) {
         mPhotosSnpl.removeItem(position)
+        mAllImgs.removeAt(position)
     }
 
 

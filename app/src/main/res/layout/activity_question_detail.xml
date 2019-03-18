@@ -36,18 +36,34 @@
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="2000预算买华为还是苹果好？"/>
 
-                <ImageView
+                <!--<ImageView-->
+                <!--android:id="@+id/question_pic"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="18dp"-->
+                <!--android:layout_marginStart="18dp"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/question_title"-->
+                <!--tools:src="@mipmap/ic_launcher"/>-->
+
+
+                <com.zxcx.zhizhe.ui.rank.ADBanner2
                     android:id="@+id/question_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="16dp"
-                    android:scaleType="fitXY"
+                    app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+                    app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+                    app:indicator_height="5dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/question_title"
-                    tools:src="@mipmap/ic_launcher"/>
+                    app:layout_constraintTop_toBottomOf="@+id/question_title"/>
 
                 <TextView
                     android:id="@+id/question_desc"
@@ -189,14 +205,12 @@
                 android:descendantFocusability="blocksDescendants">
 
                 <android.support.v7.widget.RecyclerView
+                    android:descendantFocusability="blocksDescendants"
                     android:id="@+id/rv_ht_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="30dp"/>
 
         </LinearLayout>
 

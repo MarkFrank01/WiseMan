@@ -329,18 +329,42 @@ public class OSSDialog22 extends BaseDialog implements IGetPresenter<OSSTokenBea
             @Override
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
                 // 进度逻辑
+                LogCat.e("当前 total"+totalSize +"current "+currentSize);
             }
         });
+
+
         // 异步上传
         OSSAsyncTask task = oss.asyncPutObject(put,
                 new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                     @Override
                     public void onSuccess(PutObjectRequest request, PutObjectResult result) { // 上传成功
-                        mUploadListener.uploadSuccess(urls.get(0));
+
+                        final String imageUrl =
+                                "http://" + bucketName + ".oss-cn-shenzhen.aliyuncs.com/" + fileName;
+
+//                        if (mUploadListener!=null){
+//                            getActivity().runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//
+//                                    mUploadListener.uploadSuccess(imageUrl);
+//                                    urls.remove(0);
+//                                    ossUpload(urls);// 递归同步效果
+//
+//                                    toastShow("图片正在上传中，请稍等");
+//                                }
+//                            });
+//                        }
+
+//                        mUploadListener.uploadSuccess(urls.get(0));
+
+
+                        mUploadListener.uploadSuccess(imageUrl);
                         urls.remove(0);
                         ossUpload(urls);// 递归同步效果
 
-                        LogCat.e("嘤嘤嘤");
+                        toastShow("图片正在上传中，请稍等");
                     }
 
                     @Override

@@ -6,14 +6,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
+import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -25,7 +24,8 @@ import kotlinx.android.synthetic.main.toolbar.*
 class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(), CircleQuestionDetailContract.View,
         BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-
+    //图片的数据
+    private var imageList: MutableList<String> = mutableListOf()
 
     private lateinit var mAdapter:CircleQuestionDetailCommentAdapter
     private var mPage = 0
@@ -42,6 +42,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         setContentView(R.layout.activity_question_detail)
         initData()
         initView()
+        initADView()
         initRecyclerView()
 
 
@@ -58,8 +59,8 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         LogCat.e("显示把"+list.size)
         if (mPage == 0){
             mAdapter.setNewData(list as List<MultiItemEntity>)
-//            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
-//            mAdapter.emptyView = emptyView
+            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
+            mAdapter.emptyView = emptyView
         }else{
             mAdapter.addData(list)
         }
@@ -75,17 +76,32 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
     }
 
     override fun getBasicQuestionSuccess(bean: CircleDetailBean) {
+//        if (bean.qaImageEntityList.isNotEmpty()){
+//            ImageLoader.load(this,bean.qaImageEntityList[0],R.drawable.default_card,question_pic)
+//        }else{
+//            question_pic.visibility = View.GONE
+//        }
+
         if (bean.qaImageEntityList.isNotEmpty()){
-            ImageLoader.load(this,bean.qaImageEntityList[0],R.drawable.default_card,question_pic)
+            imageList.clear()
+            for (url in bean.qaImageEntityList.listIterator()){
+                imageList.add(url)
+                LogCat.e(url)
+            }
+            question_pic.visibility = View.VISIBLE
+            question_pic.setImages(imageList)
+            question_pic.start()
+
         }else{
             question_pic.visibility = View.GONE
+
         }
 
         ImageLoader.load(this,bean.usersVO.avater,R.drawable.default_card,question_push)
 
         question_title.text = bean.title
         question_desc.text = bean.description
-        question_time.text = bean.createTime
+        question_time.text = bean.distanceTime
         circle_detail_username.text = bean.usersVO.name
         tv_item_card_read1.text = ""+bean.pv
         tv_item_card_comment1.text = ""+bean.commentCount
@@ -145,5 +161,11 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     }
 
+
+    private fun initADView(){
+        question_pic.setImageLoader(GlideBannerImageLoader())
+        question_pic.setIndicatorGravity(BannerConfig.CENTER)
+
+    }
 
 }

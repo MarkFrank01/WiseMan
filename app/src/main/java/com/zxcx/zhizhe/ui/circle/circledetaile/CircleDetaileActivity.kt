@@ -29,6 +29,7 @@ import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
+import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
@@ -195,8 +196,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
-//        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
-//        mAdapter.emptyView = emptyView
+        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
+        mAdapter.emptyView = emptyView
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
@@ -240,11 +241,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         //去发布提问
         ll_comment_input.setOnClickListener {
-            mActivity.startActivity(CircleQuestionActivity::class.java) {}
+            mActivity.startActivity(CircleQuestionActivity::class.java) {
+                it.putExtra("circleID", circleID)
+            }
         }
 
         et_comment.setOnClickListener {
-            mActivity.startActivity(CircleQuestionActivity::class.java) {}
+            mActivity.startActivity(CircleQuestionActivity::class.java) {
+                it.putExtra("circleID", circleID)
+            }
         }
 
         iv_toolbar_right2.setOnClickListener {

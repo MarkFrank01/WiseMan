@@ -22,7 +22,7 @@ class CircleQuestionModel(presenter:CircleQuestionContract.Presenter):BaseModel<
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(object :BaseSubscriber<QuestionBean>(mPresenter){
                     override fun onNext(t: QuestionBean) {
-//                        mPresenter?.pushQuestionSuccess()
+                        mPresenter?.pushQuestionSuccess()
                     }
                 })
         addSubscription(mDisposable)

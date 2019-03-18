@@ -28,7 +28,8 @@ class CircleCommentBean(
         @SerializedName("statusType")var statusType:Int = 0,
         @SerializedName("id") var id: Int = 0,
 
-        @SerializedName("likeCount") var likeCount:Int = 0
+        @SerializedName("likeCount") var likeCount:Int = 0,
+        @SerializedName("distanceTime")var  distanceTime:String
 
 
 ) : AbstractExpandableItem<CircleChildCommentBean>(), MultiItemEntity {
