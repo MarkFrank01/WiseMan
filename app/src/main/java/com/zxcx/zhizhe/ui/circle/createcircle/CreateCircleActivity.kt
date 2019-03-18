@@ -96,10 +96,10 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     private var sign = ""
 
     //（新）价格选择
-    private var levelType = 0
+    private var levelType = -1
 
     //(新)限时免费
-    private var limitedTimeType = 0
+    private var limitedTimeType = -1
 
     //圈子等级
     private var mLevel = 0
@@ -282,7 +282,8 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             //推荐文章
 //            arrList.add(arrListItem)
 
-            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && mLevel != 0) {
+
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != -1&&+limitedTimeType!=-1) {
                 //mPresenter.createCircle(title, mImageUrl, classifyId, sign, "", articleList,mLevel)
                 val bundle = Bundle()
                 mDialog.arguments = bundle

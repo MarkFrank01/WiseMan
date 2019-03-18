@@ -444,6 +444,10 @@
             android:name=".ui.circle.circleowner.owneradd.addnext.OwnerAddNextActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circledetaile.recommend.CircleRecommendActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

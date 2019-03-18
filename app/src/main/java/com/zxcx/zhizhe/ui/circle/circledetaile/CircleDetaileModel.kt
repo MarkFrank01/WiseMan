@@ -99,4 +99,5 @@ class CircleDetaileModel(presenter: CircleDetaileContract.Presenter):BaseModel<C
                 })
         addSubscription(mDisposable)
     }
+
 }

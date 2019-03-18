@@ -12,6 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
@@ -28,7 +29,6 @@ import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
-import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
@@ -121,6 +121,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //        t1.text = ""+bean.likeCount
 //        t2.text = ""+bean.qaCount
 //        t3.text = ""+bean.joinUserCount
+
+        //数据加载后才可点击
+        iv_toolbar_right2.isEnabled = true
+        iv_toolbar_right1.isEnabled = true
+
         ImageLoader.load(this, bean.titleImage, R.drawable.default_card, detail_src_img)
         ImageLoader.load(this, bean.creater?.avatar, R.drawable.default_card, detail_my_img)
 
@@ -132,6 +137,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         loadTuiJianArticle(bean)
 
         toolbar_title_1.text = bean.title
+
+        hasJoinBoolean = bean.hasJoin
 
         if (!bean.hasJoin) {
             bottom_bt.text = "立即加入 ￥" + bean.price
@@ -181,13 +188,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     override fun deleteQaSuccess() {
         toastShow("删除成功")
+        mHuaTiPage = 0
+        onRefresh()
     }
 
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
-        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
-        mAdapter.emptyView = emptyView
+//        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
+//        mAdapter.emptyView = emptyView
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
@@ -220,6 +229,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     override fun setListener() {
         //去圈子成员列表
+
         detail_to_man_list.setOnClickListener {
             //            toastShow("to man list")
             mActivity.startActivity(CircleManListActivity::class.java) {
@@ -248,24 +258,34 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         bottom_bt.setOnClickListener {
             showjoinhit(circlename, circleprice, "", "")
         }
+
+        goto_jx.setOnClickListener {
+            mActivity.startActivity(CircleRecommendActivity::class.java){
+                it.putExtra("circleID",circleID)
+            }
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when (view.id) {
-            R.id.circle_detail_text, R.id.circle_detail_img -> {
-                val bean = adapter.data[position] as CircleDetailBean
-                toastShow("进入话题中" + bean.id)
-                mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
-                    it.putExtra("huatiId", bean.id)
-                }
-            }
+        LogCat.e("hasJoinBoolean" + hasJoinBoolean + "mCircleImOwner" + mCircleImOwner)
 
-            R.id.circle_detail_more -> {
-                val bean = adapter.data[position] as CircleDetailBean
-                manageHTowner(bean.circleFix,bean.id)
+        if (hasJoinBoolean || mCircleImOwner) {
+            when (view.id) {
+                R.id.circle_detail_text, R.id.circle_detail_img -> {
+                    val bean = adapter.data[position] as CircleDetailBean
+//                toastShow("进入话题中" + bean.id)
+                    mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
+                        it.putExtra("huatiId", bean.id)
+                    }
+                }
+
+                R.id.circle_detail_more -> {
+                    val bean = adapter.data[position] as CircleDetailBean
+                    manageHTowner(bean.circleFix, bean.id,position)
+                }
             }
         }
     }
@@ -320,8 +340,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             }
         })
 
+        //数据未加载时
+        iv_toolbar_right2.isEnabled = false
+        iv_toolbar_right1.isEnabled = false
+
     }
 
+    //推荐即左右滑动的文章
     private fun loadTuiJianArticle(list: CircleBean) {
         for (t in list.partialArticleList) {
             LogCat.e("推荐的数据测试" + t.title)
@@ -340,6 +365,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
     }
 
+    //人头像
     private fun loadJoinUserImg(bean: CircleBean) {
         if (bean.memberList.size > 0) {
             if (bean.memberList[0].avatar.isNotEmpty() && bean.memberList[0].avatar != "") {
@@ -499,41 +525,48 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     //管理话题 分为人和管理
-    private fun manageHTowner(circleFix:Boolean,id:Int){
+    //管理包括置顶操作和取消置顶的操作
+    private fun manageHTowner(circleFix: Boolean, id: Int,weizhi:Int) {
         var type = -1
-        type = if (circleFix){
+        type = if (circleFix) {
             2
-        }else{
+        } else {
             3
         }
 
         XPopup.get(mActivity)
-                .asCustom(HuatiManagePopup(this,type,circleFix,-1,
+                .asCustom(HuatiManagePopup(this, type, circleFix, -1,
                         OnSelectListener { position, text ->
-                             when(position){
-                                 0->{
-                                     mPresenter.setQAFixTop(id,1)
-                                 }
-                                 1->{
-                                     deleteHuaTi(id)
-                                 }
-                                 2->{
-                                     mPresenter.setQAFixTop(id,0)
-                                 }
+                            when (position) {
+                                0 -> {
+                                    rv_circle_detail.scrollToPosition(0)
+                                    mAdapter.add(0,mAdapter.data[weizhi])
+                                    mAdapter.remove(weizhi+1)
+                                    mPresenter.setQAFixTop(id, 1)
+                                }
+                                1 -> {
+                                    deleteHuaTi(id)
+                                }
+                                2 -> {
+                                    mPresenter.setQAFixTop(id, 0)
+                                    rv_circle_detail.scrollToPosition(0)
+                                    mHuaTiPage = 0
+                                    onRefresh()
+                                }
 
-                             }
+                            }
                         })
                 ).show()
     }
 
-    private fun manageHTman(){
+    private fun manageHTman() {
 
     }
 
     //删除话题
-    private fun deleteHuaTi(qaId:Int){
+    private fun deleteHuaTi(qaId: Int) {
         XPopup.get(mActivity)
-                .asCustom(BottomInfoPopup(this,"该操作将删除此话题和所有关联回复，是否继续？",-1,
+                .asCustom(BottomInfoPopup(this, "该操作将删除此话题和所有关联回复，是否继续？", -1,
                         OnSelectListener { position, text ->
                             if (position == 2) {
                                 mPresenter.deleteQa(qaId)
