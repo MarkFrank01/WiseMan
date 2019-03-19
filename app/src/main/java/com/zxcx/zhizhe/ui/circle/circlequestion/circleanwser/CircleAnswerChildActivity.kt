@@ -59,6 +59,10 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
 
             mPresenter.createAnswer(circleId, qaId, qaCommentId, description)
         }
+
+        tv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun createPresenter(): CircleAnswerChildPresenter {

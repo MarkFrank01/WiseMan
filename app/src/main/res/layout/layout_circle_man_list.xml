@@ -128,6 +128,7 @@
             tools:text="1000"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_item_search_user_collect"
             style="@style/tv_single"
             android:layout_width="wrap_content"
@@ -145,15 +146,38 @@
 
         <CheckBox
             android:id="@+id/cb_item_search_user_follow_2"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/selector_search_user_follow"
+            style="@style/tv_single"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/bg_checkbox_select_attention1"
             android:button="@null"
-            android:checked="false"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:checked="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_3"
+            tools:text="进圈"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/cb_item_search_user_follow"-->
+            <!--style="@style/tv_single"-->
+            <!--android:layout_marginEnd="18dp"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:background="@drawable/bg_checkbox_select_attention1"-->
+            <!--android:button="@null"-->
+            <!--android:checked="true"-->
+            <!--android:clickable="false"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/button_blue"-->
+            <!--tools:text="进圈"-->
+            <!--android:textSize="@dimen/text_size_text_3"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"/>-->
 
     </android.support.constraint.ConstraintLayout>
 
