@@ -123,7 +123,6 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="25dp"
                 android:src="@drawable/rb_circle_rank"
-                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/iv_3"/>
 
             <ImageView

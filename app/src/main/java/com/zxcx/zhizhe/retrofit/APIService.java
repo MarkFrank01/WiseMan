@@ -8,6 +8,7 @@ import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
+import com.zxcx.zhizhe.ui.circle.circlemessage.MyCircleTabBean;
 import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext.BalanceBean;
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
 import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleCommentBean;
@@ -1046,4 +1047,20 @@ public interface APIService {
             @Query("description") String description
     );
 
+
+    /**
+     * 获取我的圈子的数据(获取我的圈子数据（圈子动态消息）)
+     */
+    @POST("/circle/getCircleTabInfo")
+    Flowable<BaseBean<MyCircleTabBean>> getCircleTabInfo();
+
+
+    /**
+     * 获取圈子评论消息
+     */
+    @POST("/circleNotification/getCommentMessageList")
+    Flowable<BaseArrayBean<MyCircleTabBean>> getCommentMessageList(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
 }

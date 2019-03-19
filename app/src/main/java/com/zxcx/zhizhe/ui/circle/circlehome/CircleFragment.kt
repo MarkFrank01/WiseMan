@@ -17,11 +17,11 @@ import com.zxcx.zhizhe.ui.circle.adapter.CircleNewAdapter
 import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
+import com.zxcx.zhizhe.ui.circle.circlemessage.CircleMessageActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleTuiActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
-import com.zxcx.zhizhe.ui.my.message.MessageActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -271,7 +271,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
         iv_2.setOnClickListener {
             if (checkLogin()) {
-                mActivity.startActivity(MessageActivity::class.java) {}
+//                mActivity.startActivity(MessageActivity::class.java) {}
+                mActivity.startActivity(CircleMessageActivity::class.java){}
             }
         }
         iv_1.setOnClickListener {

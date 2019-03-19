@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="@drawable/bg_background_12dp"
+    android:elevation="4dp"
+    android:orientation="vertical">
+    
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/message_round_img"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@color/button_blue"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
+
+    <TextView
+        android:id="@+id/message_man_name"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color_1"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/message_round_img"
+        tools:text="的吗西亚"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="15sp"
+        android:textColor="@color/text_color_2"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message_man_name"
+        tools:text="ABCDdddddd1ddddddd"
+        android:id="@+id/message_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:background="@color/strip"
+        app:layout_constraintTop_toBottomOf="@+id/message_comment"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_marginStart="12dp"
+            android:id="@+id/message_man_name_2"
+            android:layout_gravity="center"
+            tools:text="MY : "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+    
+</android.support.constraint.ConstraintLayout>
