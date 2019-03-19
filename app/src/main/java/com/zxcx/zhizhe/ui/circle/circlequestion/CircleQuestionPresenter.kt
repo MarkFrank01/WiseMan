@@ -22,7 +22,9 @@ class CircleQuestionPresenter(view:CircleQuestionContract.View):BasePresenter<Ci
     }
 
     override fun pushQuestionSuccess() {
-        mView.pushQuestionSuccess()
+        if(mView!=null) {
+            mView.pushQuestionSuccess()
+        }
     }
 
     override fun showLoading() {

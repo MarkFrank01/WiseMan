@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity
@@ -12,6 +14,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleSixPicBean
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.getColorForKotlin
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
 import kotlinx.android.synthetic.main.activity_circle_question.*
@@ -19,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_circle_question.*
 /**
  * @author : MarkFrank01
  * @Created on 2019/2/20
- * @Description :
+ * @Description : 提问的发布页面。多图待处理
  */
 class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQuestionContract.View,
         OSSDialog22.OSSUploadListener, GetPicBottomDialog.GetPicDialogListener,
@@ -30,6 +33,8 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     private val RC_PHOTO_PREVIEW = 2
 
 //////////////////////////
+
+
 
     private lateinit var mOSSDialog: OSSDialog22
 
@@ -49,6 +54,29 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     //拖拽排序九宫格控件
     private lateinit var mPhotosSnpl: BGASortableNinePhotoLayout
 
+    //监听
+    val textWatcher1: TextWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable) {
+            tv_toolbar_right.isEnabled = true
+
+            tv_check1.text = "${s.toString().length}/18"
+            tv_check1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_3))
+            LogCat.e("${s.toString()}")
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+
+    //标题
+    private var my_question:String = ""
+
+    //描述
+    private var my_desc:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_question)
@@ -67,6 +95,10 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     }
 
     override fun pushQuestionSuccess() {
+        toastShow("提交成功")
+        val intent = Intent()
+        setResult(Activity.RESULT_OK,intent)
+        finish()
     }
 
     override fun postSuccess(bean: QuestionBean?) {
@@ -76,14 +108,25 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     }
 
     override fun getDataSuccess(bean: QuestionBean?) {
-        LogCat.e("搞定")
     }
 
-    var num = 0
+    var num = 1
     override fun uploadSuccess(url: String) {
         mPushImgs.add(url)
         LogCat.e("${num}Url is " + url)
-        num++
+
+        //待思考处理
+//        if (num<mAllImgs.size){
+//            toastShow("正在传一下张图")
+//            uploadImageToOSS(mAllImgs[num])
+//            num++
+//        }
+
+        if (num==mAllImgs.size){
+            toastShow("图片全部上传完毕")
+            mPresenter.pushQuestion(circleID,my_question,my_desc,mPushImgs)
+        }
+
 //        if (num == mAllImgs.size){
 ////            mPresenter.pushQuestion(circleID,)
 //        }
@@ -128,12 +171,27 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
         tv_toolbar_right.setOnClickListener {
 //            toastShow("All size is "+mAllImgs.size)
-            uploadUrlsToOSS(mAllImgs)
+//            uploadUrlsToOSS(mAllImgs)
+            my_question = question_title.text.toString().trim()
+            my_desc = question_desc.text.toString().trim()
+
+            if (mAllImgs.size>0) {
+                uploadImageToOSS(mAllImgs[0])
+            }else{
+                tv_toolbar_right.isEnabled = false
+                mPresenter.pushQuestion(circleID,my_question,my_desc,mAllImgs)
+            }
 
 //            if (mAllImgs.size>0) {
 //                uploadImageToOSS(mAllImgs[0])
 //                mAllImgs.remove(mAllImgs[0])
 //            }
+
+
+        }
+
+        tv_toolbar_back.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -161,6 +219,9 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mPhotosSnpl.isPlusEnable = true
 
         mPhotosSnpl.setDelegate(this)
+
+        tv_toolbar_right.isEnabled = false
+        question_title.addTextChangedListener(textWatcher1)
     }
 
     private fun initData(){

@@ -1015,4 +1015,35 @@ public interface APIService {
     Flowable<BaseBean<HintBean>> deleteQa(
           @Query("qaId") int qaId
     );
+
+    /**
+     * 回答提问&回复回答
+     */
+    @POST("/circle/createAnswer")
+    Flowable<BaseBean<QuestionBean>> createAnswer(
+         @Query("circleId") int circleId,
+         @Query("qaId") int qaId,
+         @Query("qaCommentId") int qaCommentId,
+         @Query("description") String description,
+         @Query("askImage") List<String> askImage
+    );
+
+    //接上面无子ID
+    @POST("/circle/createAnswer")
+    Flowable<BaseBean<QuestionBean>> createAnswerNokid(
+            @Query("circleId") int circleId,
+            @Query("qaId") int qaId,
+            @Query("description") String description,
+            @Query("askImage") List<String> askImage
+    );
+
+    //接上面无图
+    @POST("/circle/createAnswer")
+    Flowable<BaseBean<QuestionBean>> createAnswerHaveKid(
+            @Query("circleId") int circleId,
+            @Query("qaId") int qaId,
+            @Query("qaCommentId") int qaCommentId,
+            @Query("description") String description
+    );
+
 }

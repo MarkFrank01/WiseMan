@@ -27,19 +27,27 @@ class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):Base
     }
 
     override fun likeSuccess() {
-        mView.likeSuccess()
+        if (mView!=null) {
+            mView.likeSuccess()
+        }
     }
 
     override fun unlikeSuccess() {
-        mView.unlikeSuccess()
+        if (mView!=null) {
+            mView.unlikeSuccess()
+        }
     }
 
     override fun getBasicQuestionSuccess(bean: CircleDetailBean) {
-        mView.getBasicQuestionSuccess(bean)
+        if (mView!=null) {
+            mView.getBasicQuestionSuccess(bean)
+        }
     }
 
     override fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>) {
-        mView.getCommentBeanSuccess(bean)
+        if (mView!=null) {
+            mView.getCommentBeanSuccess(bean)
+        }
     }
 
 

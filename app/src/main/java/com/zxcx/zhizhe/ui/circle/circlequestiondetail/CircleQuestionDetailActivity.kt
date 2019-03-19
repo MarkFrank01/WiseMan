@@ -10,6 +10,8 @@ import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
+import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerActivity
+import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerChildActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_question_detail.*
@@ -18,7 +20,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * @author : MarkFrank01
  * @Created on 2019/3/13
- * @Description :
+ * @Description : 提问的详情的列表
  */
 class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(), CircleQuestionDetailContract.View,
         BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
@@ -33,8 +35,11 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
 
-
+    //就是qaId
     private var huatiID = 0
+
+    //CircleId
+    private var circleId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +130,38 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         var bean = adapter.getItem(position) as MultiItemEntity
         if (bean.itemType == CircleCommentBean.TYPE_LEVEL_0){
             bean = bean as CircleCommentBean
-            toastShow(getString(R.string.et_comment_hint, bean.authorVO?.name))
+//            toastShow(getString(R.string.et_comment_hint, bean.authorVO?.name))
+            mActivity.startActivity(CircleAnswerChildActivity::class.java){
+                it.putExtra("qaId",huatiID)
+                it.putExtra("CircleId",circleId)
+                it.putExtra("name",bean.authorVO?.name)
+                it.putExtra("qaCommentId",bean.id)
+            }
+        }
+    }
+
+    override fun setListener() {
+
+        //以下三个去同一个的地方
+        comment_bottom.setOnClickListener {
+            mActivity.startActivity(CircleAnswerActivity::class.java){
+                it.putExtra("qaId",huatiID)
+                it.putExtra("CircleId",circleId)
+            }
+        }
+
+        ll_comment_input.setOnClickListener {
+            mActivity.startActivity(CircleAnswerActivity::class.java){
+                it.putExtra("qaId",huatiID)
+                it.putExtra("CircleId",circleId)
+            }
+        }
+
+        tv_comment_send.setOnClickListener {
+            mActivity.startActivity(CircleAnswerActivity::class.java){
+                it.putExtra("qaId",huatiID)
+                it.putExtra("CircleId",circleId)
+            }
         }
     }
 
@@ -141,6 +177,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     private fun initData(){
         huatiID = intent.getIntExtra("huatiId",0)
+        circleId = intent.getIntExtra("CircleId",0)
     }
 
     private fun initRecyclerView(){

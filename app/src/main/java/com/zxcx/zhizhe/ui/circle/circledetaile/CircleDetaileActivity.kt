@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.circledetaile
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.widget.GridLayoutManager
@@ -100,6 +102,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         mPresenter.getCircleBasicInfo(circleID)
 //        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
         onRefresh()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == 1 && data != null) {
+            onRefresh()
+        }
     }
 
     override fun initStatusBar() {
@@ -247,9 +257,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         et_comment.setOnClickListener {
-            mActivity.startActivity(CircleQuestionActivity::class.java) {
-                it.putExtra("circleID", circleID)
-            }
+            var intent = Intent(this, CircleQuestionActivity::class.java)
+            intent.putExtra("circleID", circleID)
+
+            mActivity.startActivityForResult(intent, 1)
+
+//            mActivity.startActivity(CircleQuestionActivity::class.java) {
+//                it.putExtra("circleID", circleID)
+//            }
         }
 
         iv_toolbar_right2.setOnClickListener {
@@ -265,8 +280,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         goto_jx.setOnClickListener {
-            mActivity.startActivity(CircleRecommendActivity::class.java){
-                it.putExtra("circleID",circleID)
+            mActivity.startActivity(CircleRecommendActivity::class.java) {
+                it.putExtra("circleID", circleID)
             }
         }
     }
@@ -284,12 +299,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //                toastShow("进入话题中" + bean.id)
                     mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
                         it.putExtra("huatiId", bean.id)
+                        it.putExtra("CircleId",circleID)
                     }
                 }
 
                 R.id.circle_detail_more -> {
                     val bean = adapter.data[position] as CircleDetailBean
-                    manageHTowner(bean.circleFix, bean.id,position)
+                    manageHTowner(bean.circleFix, bean.id, position)
                 }
             }
         }
@@ -531,7 +547,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //管理话题 分为人和管理
     //管理包括置顶操作和取消置顶的操作
-    private fun manageHTowner(circleFix: Boolean, id: Int,weizhi:Int) {
+    private fun manageHTowner(circleFix: Boolean, id: Int, weizhi: Int) {
         var type = -1
         type = if (circleFix) {
             2
@@ -545,8 +561,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                             when (position) {
                                 0 -> {
                                     rv_circle_detail.scrollToPosition(0)
-                                    mAdapter.add(0,mAdapter.data[weizhi])
-                                    mAdapter.remove(weizhi+1)
+                                    mAdapter.add(0, mAdapter.data[weizhi])
+                                    mAdapter.remove(weizhi + 1)
                                     mPresenter.setQAFixTop(id, 1)
                                 }
                                 1 -> {
