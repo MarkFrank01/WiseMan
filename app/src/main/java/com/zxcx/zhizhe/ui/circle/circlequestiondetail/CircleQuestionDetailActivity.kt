@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -11,8 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 import com.zxcx.zhizhe.utils.*
-import com.zxcx.zhizhe.widget.CommentLoadMoreView
-import com.zxcx.zhizhe.widget.EmptyView
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -59,11 +58,13 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         LogCat.e("显示把"+list.size)
         if (mPage == 0){
             mAdapter.setNewData(list as List<MultiItemEntity>)
-            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
-            mAdapter.emptyView = emptyView
+//            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
+//            mAdapter.emptyView = emptyView
         }else{
             mAdapter.addData(list)
         }
+
+        mAdapter.notifyDataSetChanged()
 
         mPage++
         if (list.isEmpty()){
@@ -144,12 +145,12 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     private fun initRecyclerView(){
         mAdapter = CircleQuestionDetailCommentAdapter(arrayListOf())
-        mAdapter.setLoadMoreView(CommentLoadMoreView())
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_ht_comment)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        rv_ht_comment.layoutManager = object :LinearLayoutManager(this){
+        rv_ht_comment.layoutManager = object :GridLayoutManager(this,1){
             override fun canScrollVertically() = false
         }
 
