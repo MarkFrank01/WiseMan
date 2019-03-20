@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.search.result.circle
 
 import com.zxcx.zhizhe.mvpBase.GetView
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
-import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 
 /**
  * @author : MarkFrank01
@@ -11,8 +11,8 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
  */
 class SearchCircleContract {
 
-    interface View : GetView<MutableList<CardBean>>
+    interface View : GetView<MutableList<CircleBean>>
 
-    interface Presenter : IGetPresenter<MutableList<CardBean>>
+    interface Presenter : IGetPresenter<MutableList<CircleBean>>
 
 }

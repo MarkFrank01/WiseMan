@@ -277,6 +277,13 @@ public interface APIService {
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
 
+    /**
+     * 搜索圈子
+     */
+    @POST("/search/searchCircle")
+    Flowable<BaseArrayBean<CircleBean>> searchCircle(
+            @Query("keyword") String keyword, @Query("pageIndex") int page,
+            @Query("pageSize") int pageSize);
 
     /**
      * 获取专题内卡片列表

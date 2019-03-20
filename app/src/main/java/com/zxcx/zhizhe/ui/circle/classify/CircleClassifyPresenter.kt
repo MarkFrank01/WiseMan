@@ -58,7 +58,9 @@ class CircleClassifyPresenter(view: CircleClassifyContract.View) : BasePresenter
     }
 
     override fun getDataSuccess(bean: MutableList<CircleBean>) {
-        mView.getDataSuccess(bean)
+        if (mView!=null) {
+            mView.getDataSuccess(bean)
+        }
     }
 
     override fun startLogin() {
