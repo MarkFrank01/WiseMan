@@ -460,6 +460,14 @@
             android:name=".ui.circle.circlemessage.CircleMessageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circlemessage.question.CircleMesQaActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.circle.circlemessage.zan.CircleMesZanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

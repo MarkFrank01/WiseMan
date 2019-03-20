@@ -1063,4 +1063,23 @@ public interface APIService {
             @Query("pageIndex") int pageIndex,
             @Query("pageSize") int pageSize
     );
+
+    /**
+     * 获取圈子提问消息（仅圈主）
+     */
+    @POST("/circleNotification/getQuestionMessageList")
+    Flowable<BaseArrayBean<MyCircleTabBean>> getQuestionMessageList(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
+    /**
+     * 获取圈子点赞消息
+     */
+    @POST("/circleNotification/getLikeMessageList")
+    Flowable<BaseArrayBean<MyCircleTabBean>> getLikeMessageList(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
+
 }

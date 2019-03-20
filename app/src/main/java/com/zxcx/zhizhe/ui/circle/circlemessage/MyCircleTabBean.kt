@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.circlemessage
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
 
@@ -13,6 +14,19 @@ const val writer_status_user = 0
 const val writer_status_reject = 1
 const val writer_status_review = 2
 const val writer_status_writer = 3
+
+//一级评论
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_FIRST_LEVEL_COMMENT = 301
+//二级评论
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_SECOND_LEVEL_COMMENT = 302
+//点赞圈子
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_LIKE_CIRCLE = 303
+//点赞提问
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_LIST_QUESTION = 304
+//点赞回复
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_LIST_ANSWER = 305
+//提问
+const val MESSAGE_TYPE_CIRCLE_DYNAMIC_QUESTION = 306
 
 data class MyCircleTabBean(
         @SerializedName("creationCount") var cardCreationCount: Int,
@@ -49,4 +63,9 @@ data class MyCircleTabBean(
 
 
 
-) :RetrofitBean()
+) :RetrofitBean(),MultiItemEntity {
+
+    override fun getItemType(): Int {
+        return messageType
+    }
+}

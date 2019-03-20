@@ -70,7 +70,7 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
     }
 
     override fun createAnswerSuccess() {
-        toastShow("已评论")
+        toastShow("回复成功")
         onBackPressed()
     }
 
@@ -93,5 +93,6 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
     private fun initView(){
         question_desc.addTextChangedListener(textWatcher1)
         tv_toolbar_right.isEnabled = false
+        tv_toolbar_title.text = "回复：$titleName"
     }
 }
