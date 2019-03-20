@@ -67,6 +67,11 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     //处理分组数据
     private val map: ArrayMap<String, ArrayList<CircleBean>> = ArrayMap()
 
+    //记录前三个圈子的ID
+    private var id_1:Int = 0
+    private var id_2:Int = 0
+    private var id_3:Int = 0
+
     override fun createPresenter(): CirclePresenter {
         return CirclePresenter(this)
     }
@@ -86,6 +91,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         initADView()
         mPresenter.getAD()
         mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
+        mPresenter.getIndexCircleList()
         getCircleById()
     }
 
@@ -205,20 +211,25 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
     }
 
+    //获取首页显示的我的圈子
     override fun getMyJoinCircleListSuccess(list: MutableList<CircleBean>) {
 //        iv_circle_to_my.visibility = View.VISIBLE
 
         if (list.size > 0) {
             if (list[0].titleImage.isNotEmpty() && list[0].titleImage != "") {
+
                 circle_image1.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[0].titleImage, R.drawable.default_card, circle_image1)
 
+                id_1 = list[0].id
             }
         }
         if (list.size > 1) {
             if (list[1].titleImage.isNotEmpty() && list[1].titleImage != "") {
                 circle_image2.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[1].titleImage, R.drawable.default_card, circle_image2)
+
+                id_2 = list[1].id
             }
         }
 
@@ -226,6 +237,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             if (list[2].titleImage.isNotEmpty() && list[2].titleImage != "") {
                 circle_image3.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
+
+                id_3 = list[0].id
             }
         }
     }
@@ -298,6 +311,25 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 //                it.putExtra("circleClassifyActivityID", 0)
 //                it.putExtra("circleClassifyActivityTitle", "推荐")
 //            }
+        }
+
+        //直接进入自己的圈子
+        circle_image1.setOnClickListener {
+            mActivity.startActivity(CircleDetaileActivity::class.java){
+                it.putExtra("circleID",id_1)
+            }
+        }
+
+        circle_image2.setOnClickListener {
+            mActivity.startActivity(CircleDetaileActivity::class.java){
+                it.putExtra("circleID",id_2)
+            }
+        }
+
+        circle_image3.setOnClickListener {
+            mActivity.startActivity(CircleDetaileActivity::class.java){
+                it.putExtra("circleID",id_3)
+            }
         }
     }
 
@@ -407,7 +439,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
 
         }
-        mPresenter.getMyJoinCircleList(0, 3)
+//        mPresenter.getMyJoinCircleList(0, 3)
     }
 
     //获取圈子

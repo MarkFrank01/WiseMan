@@ -1082,4 +1082,9 @@ public interface APIService {
             @Query("pageSize") int pageSize
     );
 
+    /**
+     * 获取首页我的圈子
+     */
+    @POST("/circle/getIndexCircleList")
+    Flowable<BaseArrayBean<CircleBean>> getIndexCircleList();
 }

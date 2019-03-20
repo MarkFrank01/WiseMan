@@ -69,6 +69,7 @@ class CircleModel(presenter: CircleContract.Presenter):BaseModel<CircleContract.
     }
 
     //获取我加入的圈子
+    @Deprecated("弃用")
     fun getMyJoinCircleList(page: Int,pageSize: Int){
         mDisposable = AppClient.getAPIService().getMyJoinCircleList(page,pageSize)
                 .compose(BaseRxJava.io_main())
@@ -80,4 +81,18 @@ class CircleModel(presenter: CircleContract.Presenter):BaseModel<CircleContract.
                 })
         addSubscription(mDisposable)
     }
+
+    //新 获取首页我的圈子
+    fun getIndexCircleList(){
+        mDisposable = AppClient.getAPIService().indexCircleList
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object :BaseSubscriber<MutableList<CircleBean>>(mPresenter){
+                    override fun onNext(t: MutableList<CircleBean>) {
+                        mPresenter?.getMyJoinCircleListSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
 }

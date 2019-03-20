@@ -35,6 +35,10 @@ class CirclePresenter(view: CircleContract.View):BasePresenter<CircleContract.Vi
         mModel.getMyJoinCircleList(page,pageSize)
     }
 
+    fun getIndexCircleList(){
+        mModel.getIndexCircleList()
+    }
+
     override fun getADSuccess(list: MutableList<ADBean>) {
         mView.getADSuccess(list)
     }
