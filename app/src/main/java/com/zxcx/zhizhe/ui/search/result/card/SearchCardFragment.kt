@@ -30,7 +30,7 @@ class SearchCardFragment : MvpFragment<SearchCardPresenter>(), SearchCardContrac
 		BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
 	var mPage = 0
-	var cardType = 0 //卡片类型 0卡片 1为长文
+	var cardType = 1 //卡片类型 0卡片 1为长文
 	private lateinit var mAdapter: SearchCardAdapter
 
 	var mKeyword = ""

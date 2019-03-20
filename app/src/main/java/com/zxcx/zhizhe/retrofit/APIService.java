@@ -284,6 +284,30 @@ public interface APIService {
     Flowable<BaseArrayBean<CircleBean>> searchCircle(
             @Query("keyword") String keyword, @Query("pageIndex") int page,
             @Query("pageSize") int pageSize);
+    //此处的搜索均为搜索圈内
+    /**
+     * 搜索圈内 （卡片/长文）
+     */
+    @POST("/circleSearch/searchCircleArticle")
+    Flowable<BaseArrayBean<CardBean>> searchCircleArticle(
+        @Query("pageIndex") int pageIndex,@Query("pageSize") int pageSize,
+        @Query("circleId") int circleId,@Query("cardType") int cardType,@Query("keyword") String keyword
+    );
+
+
+    /**
+     * 搜索圈内话题
+     */
+//    @POST("/circleSearch/searchCircleQA")
+
+
+    /**
+     * 搜索圈内用户
+     */
+    @POST("/circleSearch/searchCircleUsers")
+    Flowable<BaseArrayBean<SearchUserBean>> searchCircleUsers(
+            @Query("pageIndex") int pageIndex,@Query("pageSize") int pageSize,
+            @Query("circleId") int circleId,@Query("keyword") String keyword);
 
     /**
      * 获取专题内卡片列表
