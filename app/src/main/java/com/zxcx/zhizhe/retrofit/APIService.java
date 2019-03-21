@@ -1121,4 +1121,20 @@ public interface APIService {
      */
     @POST("/circle/getIndexCircleList")
     Flowable<BaseArrayBean<CircleBean>> getIndexCircleList();
+
+    /**
+     * 给话题或回复点赞
+     */
+    @POST("/circle/likeQAOrQAComment")
+    Flowable<BaseBean<Object>> likeQAOrQAComment_qa(
+           @Query("qaId") int qaId,
+           @Query("likeType") int likeType
+    );
+
+    @POST("/circle/likeQAOrQAComment")
+    Flowable<BaseBean<Object>> likeQAOrQAComment_comment(
+            @Query("qaId") int qaId,
+            @Query("commentId") int commentId,
+            @Query("likeType") int likeType
+    );
 }

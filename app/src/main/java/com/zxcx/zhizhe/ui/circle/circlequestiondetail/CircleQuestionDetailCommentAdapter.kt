@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import cn.bingoogolapple.photopicker.widget.BGANinePhotoLayout
@@ -75,6 +76,12 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         }
         sixPhoto.data = item.qacImageList
 
+        //点赞部分
+        helper.setChecked(R.id.cb_item_comment_like,item.like)
+        helper.getView<TextView>(R.id.tv_item_comment_like_num).isEnabled = item.like
+        helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+        helper.addOnClickListener(R.id.cb_item_comment_like)
+
 //		val item = bean as CircleCommentBean
 //		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)
 //		val imageUrl = ZhiZheUtils.getHDImageUrl(item.userImageUrl)
@@ -143,6 +150,12 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
 
         //点赞数
         helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
+
+        helper.setChecked(R.id.cb_item_comment_like,item.like)
+        helper.getView<TextView>(R.id.tv_item_comment_like_num).isEnabled = item.like
+        helper.getView<CheckBox>(R.id.cb_item_comment_like).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+        helper.addOnClickListener(R.id.cb_item_comment_like)
+
 
 //		val item = bean as CircleChildCommentBean
 //		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)

@@ -1,7 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
-import com.zxcx.zhizhe.mvpBase.GetView
-import com.zxcx.zhizhe.mvpBase.IGetPresenter
+import com.zxcx.zhizhe.mvpBase.GetPostView
+import com.zxcx.zhizhe.mvpBase.IGetPostPresenter
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 
 /**
@@ -10,14 +10,14 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
  * @Description :
  */
 class CircleQuestionDetailContract {
-    interface View:GetView<CircleDetailBean>{
+    interface View: GetPostView<MutableList<CircleCommentBean>,CircleCommentBean> {
         fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>)
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
         fun likeSuccess()
         fun unlikeSuccess()
     }
 
-    interface Presenter:IGetPresenter<CircleDetailBean>{
+    interface Presenter: IGetPostPresenter<MutableList<CircleCommentBean>,CircleCommentBean> {
         fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>)
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
         fun likeSuccess()

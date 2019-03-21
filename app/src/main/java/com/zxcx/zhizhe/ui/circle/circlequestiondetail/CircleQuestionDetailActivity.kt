@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.CheckBox
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.youth.banner.BannerConfig
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(), CircleQuestionDetailContract.View,
         BaseQuickAdapter.OnItemClickListener,BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+
 
     //图片的数据
     private var imageList: MutableList<String> = mutableListOf()
@@ -114,7 +117,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         tv_item_card_dianzan.text = ""+bean.likeCount
     }
 
-    override fun getDataSuccess(bean: CircleDetailBean?) {
+    override fun getDataSuccess(bean: MutableList<CircleCommentBean>) {
     }
 
     override fun likeSuccess() {
@@ -123,7 +126,56 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
     override fun unlikeSuccess() {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun postSuccess(bean: CircleCommentBean) {
+    }
+
+    override fun postFail(msg: String?) {
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+
+        var bean = adapter.getItem(position) as MultiItemEntity
+        val commentId: Int
+        if (bean.itemType == CircleCommentBean.TYPE_LEVEL_0) {
+            bean = bean as CircleCommentBean
+            commentId = bean.id
+        } else {
+            bean = bean as CircleChildCommentBean
+            commentId = bean.id
+        }
+
+        when(view.id){
+            R.id.cb_item_comment_like ->{
+                val checkBox = view as CheckBox
+                if (checkBox.isChecked){
+
+//                    if (bean.itemType == CircleCommentBean.TYPE_LEVEL_0){
+//                        bean = bean as CircleCommentBean
+//                        if (mUserId == bean.authorVO?.id){
+//                            toastShow("不能点赞自己哦")
+//                            view.isChecked = !view.isChecked
+//                            return
+//                        }
+//                    }else{
+//                        bean = bean as CircleChildCommentBean
+//                        if (mUserId == bean.authorVO?.id){
+//                            toastShow("不能点赞自己哦")
+//                            view.isChecked = !view.isChecked
+//                            return
+//                        }
+//                    }
+
+                    val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+                    tvLikeNm.text = (tvLikeNm.text.toString().toInt() + 1).toString()
+                    mPresenter.likeQAOrQAComment_comment(huatiID,commentId)
+
+                }else{
+                    val tvLikeNm = adapter.getViewByPosition(position, R.id.tv_item_comment_like_num) as TextView
+                    tvLikeNm.text = (tvLikeNm.text.toString().toInt() - 1).toString()
+                    mPresenter.unlikeQAOrQAComment_comment(huatiID,commentId)
+                }
+            }
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

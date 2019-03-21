@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
-	
+
 	<com.makeramen.roundedimageview.RoundedImageView
 		android:id="@+id/iv_item_comment"
 		android:layout_width="30dp"
@@ -17,7 +17,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:riv_oval="true"
 		tools:src="@drawable/default_header"/>
-	
+
 	<TextView
 		android:id="@+id/tv_item_comment_name"
 		android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_item_comment_name"
         app:layout_constraintStart_toEndOf="@id/tv_item_comment_name"
         app:layout_constraintTop_toTopOf="@id/tv_item_comment_name"/>
-	
+
 	<TextView
         android:visibility="gone"
 		android:id="@+id/tv_item_comment_flag"
@@ -55,7 +55,7 @@
 		app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
 		app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
 		tools:text="弱智"/>
-	
+
 	<CheckBox
 		android:id="@+id/cb_item_comment_like"
 		android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
 		app:layout_constraintBottom_toBottomOf="@id/tv_item_comment_name"
 		app:layout_constraintEnd_toStartOf="@id/tv_item_comment_like_num"
 		app:layout_constraintTop_toTopOf="@id/tv_item_comment_name"/>
-	
+
 	<TextView
 		android:id="@+id/tv_item_comment_like_num"
 		android:textStyle="bold"
@@ -76,7 +76,7 @@
 		android:enabled="false"
 		android:textColor="@color/color_checkbox_card_details"
 		android:textSize="@dimen/text_size_text_4"
-		app:layout_constraintEnd_toStartOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/iv_more_child"
 		app:layout_constraintTop_toTopOf="@id/cb_item_comment_like"
 		tools:text="6"/>
 

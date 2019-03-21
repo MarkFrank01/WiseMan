@@ -73,6 +73,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/question_title"/>
 
                     <TextView
+                        android:gravity="start"
                         android:id="@+id/question_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -90,7 +91,7 @@
                         android:id="@+id/question_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
+                        android:layout_marginStart="18dp"
                         android:layout_marginTop="12dp"
                         android:textColor="@color/text_color_3"
                         android:textSize="@dimen/text_size_text_3"

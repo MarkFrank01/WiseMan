@@ -8,7 +8,7 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
  * @Created on 2019/3/13
  * @Description :
  */
-class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):BasePresenter<CircleQuestionDetailContract.View>(),CircleQuestionDetailContract.Presenter {
+class CircleQuestionDetailPresenter(view: CircleQuestionDetailContract.View) : BasePresenter<CircleQuestionDetailContract.View>(), CircleQuestionDetailContract.Presenter {
 
 
     private val mModel: CircleQuestionDetailModel
@@ -18,7 +18,7 @@ class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):Base
         mModel = CircleQuestionDetailModel(this)
     }
 
-    fun getAnswerList(qaId: Int,page:Int){
+    fun getAnswerList(qaId: Int, page: Int) {
         mModel.getAnswerList(qaId, page)
     }
 
@@ -26,28 +26,43 @@ class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):Base
         mModel.getQuestionInfo(qaId)
     }
 
+    fun likeQAOrQAComment_comment(qaId: Int, commentId: Int) {
+        mModel.likeQAOrQAComment_comment(qaId, commentId)
+    }
+
+    fun unlikeQAOrQAComment_comment(qaId: Int, commentId: Int) {
+        mModel.unlikeQAOrQAComment_comment(qaId, commentId)
+    }
+
     override fun likeSuccess() {
-        if (mView!=null) {
+        if (mView != null) {
             mView.likeSuccess()
         }
     }
 
     override fun unlikeSuccess() {
-        if (mView!=null) {
+        if (mView != null) {
             mView.unlikeSuccess()
         }
     }
 
     override fun getBasicQuestionSuccess(bean: CircleDetailBean) {
-        if (mView!=null) {
+        if (mView != null) {
             mView.getBasicQuestionSuccess(bean)
         }
     }
 
     override fun getCommentBeanSuccess(bean: MutableList<CircleCommentBean>) {
-        if (mView!=null) {
+        if (mView != null) {
             mView.getCommentBeanSuccess(bean)
         }
+    }
+
+    override fun postSuccess(bean: CircleCommentBean) {
+        mView.postSuccess(bean)
+    }
+
+    override fun postFail(msg: String?) {
     }
 
 
@@ -59,7 +74,7 @@ class CircleQuestionDetailPresenter(view:CircleQuestionDetailContract.View):Base
         mView.hideLoading()
     }
 
-    override fun getDataSuccess(bean: CircleDetailBean?) {
+    override fun getDataSuccess(bean: MutableList<CircleCommentBean>) {
         mView.getDataSuccess(bean)
     }
 
