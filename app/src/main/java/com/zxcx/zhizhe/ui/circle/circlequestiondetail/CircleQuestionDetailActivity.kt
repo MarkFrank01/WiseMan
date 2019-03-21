@@ -2,7 +2,7 @@ package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.MultiItemEntity
@@ -13,7 +13,7 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerChildActivity
 import com.zxcx.zhizhe.utils.*
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.CommentLoadMoreView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -182,18 +182,19 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     private fun initRecyclerView(){
         mAdapter = CircleQuestionDetailCommentAdapter(arrayListOf())
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setLoadMoreView(CommentLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_ht_comment)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        rv_ht_comment.layoutManager = object :GridLayoutManager(this,1){
+        rv_ht_comment.layoutManager = object :LinearLayoutManager(this){
             override fun canScrollVertically() = false
         }
 
-        rv_ht_comment.isNestedScrollingEnabled = false
-        rv_ht_comment.setHasFixedSize(true)
-        rv_ht_comment.isFocusable = false
+        //打开有风险 需谨慎
+//        rv_ht_comment.isNestedScrollingEnabled = false
+//        rv_ht_comment.setHasFixedSize(true)
+//        rv_ht_comment.isFocusable = false
 
         rv_ht_comment.adapter = mAdapter
 

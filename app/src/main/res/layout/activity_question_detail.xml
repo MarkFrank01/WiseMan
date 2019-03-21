@@ -28,6 +28,7 @@
 
 
                 <android.support.constraint.ConstraintLayout
+                    android:overScrollMode="always"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -211,6 +212,7 @@
                     android:descendantFocusability="blocksDescendants">
 
                     <android.support.v7.widget.RecyclerView
+                        android:overScrollMode="never"
                         android:id="@+id/rv_ht_comment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
