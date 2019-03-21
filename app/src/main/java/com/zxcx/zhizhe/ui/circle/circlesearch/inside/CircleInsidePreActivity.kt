@@ -19,9 +19,12 @@ import kotlinx.android.synthetic.main.activity_circle_search_pre.*
  */
 class CircleInsidePreActivity :BaseActivity(){
 
+    private var circleId:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_search_pre)
+        initData()
     }
 
     override fun setListener() {
@@ -50,10 +53,15 @@ class CircleInsidePreActivity :BaseActivity(){
         super.onResume()
     }
 
+    fun initData(){
+        circleId = intent.getIntExtra("circleId",0)
+    }
+
     fun gotoSearchResult(keyword: String) {
         Utils.closeInputMethod(et_search)
         val intent = Intent(this, CircleInsideActivity::class.java)
         intent.putExtra("keyword",keyword)
+        intent.putExtra("circleId",circleId)
         startActivity(intent)
         finish()
     }

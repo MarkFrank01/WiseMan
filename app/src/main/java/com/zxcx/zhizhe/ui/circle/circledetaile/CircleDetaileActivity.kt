@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
 import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleQuestionDetailActivity
+import com.zxcx.zhizhe.ui.circle.circlesearch.inside.CircleInsidePreActivity
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.getColorForKotlin
@@ -265,6 +266,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //            mActivity.startActivity(CircleQuestionActivity::class.java) {
 //                it.putExtra("circleID", circleID)
 //            }
+        }
+
+        //去搜索
+        iv_toolbar_right1.setOnClickListener {
+            mActivity.startActivity(CircleInsidePreActivity::class.java){
+                it.putExtra("circleId",circleID)
+            }
         }
 
         iv_toolbar_right2.setOnClickListener {

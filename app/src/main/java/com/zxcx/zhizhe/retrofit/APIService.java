@@ -298,8 +298,11 @@ public interface APIService {
     /**
      * 搜索圈内话题
      */
-//    @POST("/circleSearch/searchCircleQA")
-
+    @POST("/circleSearch/searchCircleQA")
+    Flowable<BaseArrayBean<CircleDetailBean>> searchCircleQA(
+            @Query("pageIndex") int pageIndex,@Query("pageSize") int pageSize,
+            @Query("circleId") int circleId,@Query("keyword") String keyword
+    );
 
     /**
      * 搜索圈内用户
