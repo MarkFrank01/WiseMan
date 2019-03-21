@@ -109,6 +109,12 @@ class CircleBean(
     @SerializedName("circleActiveDistanceTime")
     var circleActiveDistanceTime:String = ""
 
+    @SerializedName("modifiedTime")
+    var modifiedTime:String = ""
+
+    @SerializedName("unpassReason")
+    var unpassReason:String = ""
+
     override fun getItemType(): Int {
         return CIRCLE_HOME_1
     }

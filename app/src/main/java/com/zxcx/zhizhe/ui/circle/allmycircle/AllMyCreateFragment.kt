@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.CenterPopupView
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.OwnerAddActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
@@ -24,6 +27,8 @@ import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.PublishDialog
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomGBPopup
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup
 import kotlinx.android.synthetic.main.fragment_my_circle.*
 
 /**
@@ -194,7 +199,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                 LogCat.e(checkBox.text.toString() + " 测试")
                 when (typetext) {
                     "已关闭" -> {
-
+                        guanbi(circleBean.modifiedTime,circleBean.unpassReason)
                     }
 
                     "未通过" -> {
@@ -202,11 +207,13 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                     }
 
                     "待提交" -> {
-
+                        mActivity.startActivity(OwnerAddActivity::class.java) {
+                            it.putExtra("circleId", circleBean.id)
+                        }
                     }
 
                     "审核中" -> {
-
+                        shenheing(circleBean.modifiedTime)
                     }
 
                     "限免中" -> {
@@ -246,9 +253,28 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
     }
 
 
-    private fun hintCircle(){
+    private fun hintCircle() {
 
     }
+
+    //审核中时
+    private fun shenheing(text_content: String) {
+        XPopup.get(mActivity)
+                .asCustom(CircleBottomPopup(mActivity, text_content, -1, OnSelectListener { position, text ->
+                })
+                ).show()
+    }
+
+    //关闭时
+    private fun guanbi(text_content: String,text_content2: String){
+        XPopup.get(mActivity)
+                .asCustom(CircleBottomGBPopup(mActivity,text_content,text_content2,-1, OnSelectListener { position, text ->
+
+                })
+                ).show()
+    }
+
+
 }
 
 class MyCustomPopup(context: Context) : CenterPopupView(context) {
@@ -275,4 +301,6 @@ class MyCustomPopup(context: Context) : CenterPopupView(context) {
     override fun getMaxWidth(): Int {
         return ((ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 4))
     }
+
+
 }

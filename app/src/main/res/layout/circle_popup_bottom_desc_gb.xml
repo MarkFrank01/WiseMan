@@ -50,10 +50,31 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-
+    <LinearLayout
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/desc_title2"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_3"
+            android:layout_marginStart="18dp"
+            android:text="原因说明"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/bottom_tv2"
+            android:textColor="@color/text_color_1"
+            android:layout_marginStart="12dp"
+            tools:text="带你去旅行"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 
     <TextView
+        android:visibility="gone"
         android:layout_marginStart="18dp"
         android:layout_marginTop="24dp"
         android:text="温馨提示：如遇审核队列较多时请耐心等待"

@@ -14,7 +14,7 @@ import com.zxcx.zhizhe.R;
  * @Created on 2019/3/4
  * @Description :
  */
-public class CircleBottomPopup extends BottomPopupView {
+public class CircleBottomWTGPopup extends BottomPopupView {
 
 
     //数据内容
@@ -26,11 +26,11 @@ public class CircleBottomPopup extends BottomPopupView {
 
     //底部按钮提示
 
-    public CircleBottomPopup(@NonNull Context context) {
+    public CircleBottomWTGPopup(@NonNull Context context) {
         super(context);
     }
 
-    public CircleBottomPopup(@NonNull Context context, String desc_content1, int checkPosition, OnSelectListener selectListener) {
+    public CircleBottomWTGPopup(@NonNull Context context, String desc_content1, int checkPosition, OnSelectListener selectListener) {
         super(context);
         this.desc_content1 = desc_content1;
         this.checkPosition = checkPosition;
