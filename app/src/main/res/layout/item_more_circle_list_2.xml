@@ -49,68 +49,114 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            tools:text="SKTSKKKKKKK"
             android:textColor="@color/text_color_ff"
             android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="SKTSKKKKKKK"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/more_star"
+            android:layout_width="40dp"
+            android:layout_height="10dp"
+            android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <ImageView
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/more_star"
-            android:background="@color/black"
-            android:layout_width="40dp"
-            android:layout_height="10dp"/>
-
-        <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/star_1"
+                android:src="@drawable/cb_card_details_collect"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+
+            <ImageView
+                android:id="@+id/star_2"
+                android:src="@drawable/cb_card_details_collect"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+
+            <ImageView
+                android:id="@+id/star_3"
+                android:src="@drawable/cb_card_details_collect"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+
+            <ImageView
+                android:id="@+id/star_4"
+                android:src="@drawable/cb_card_details_collect"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+
+            <ImageView
+                android:id="@+id/star_5"
+                android:src="@drawable/cb_card_details_collect"
+                android:layout_width="9dp"
+                android:layout_height="9dp"/>
+
+        </LinearLayout>
+
+        <TextView
             android:id="@+id/more_price"
-            android:layout_width="40dp"
-            android:layout_height="10dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/button_blue"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="$ 40.0"/>
 
         <TextView
             android:id="@+id/more_circle_type"
             style="@style/tv_card_category"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-            tools:text="职场"
+            android:layout_marginTop="8dp"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"
+            tools:text="职场"/>
 
         <TextView
             android:id="@+id/more_circle_join_num"
             style="@style/tv_card_category"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-            tools:text="话题200+"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/more_circle_type"
-            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"
+            tools:text="话题200+"/>
 
         <TextView
-            style="@style/tv_card_category"
             android:id="@+id/more_circle_huati_num"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
-            tools:text="话题7.8k"
+            style="@style/tv_card_category"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/more_circle_join_num"
-            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"/>
+            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"
+            tools:text="话题7.8k"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_item_card_title"

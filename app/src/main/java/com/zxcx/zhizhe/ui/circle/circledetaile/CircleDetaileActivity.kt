@@ -32,7 +32,6 @@ import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
-import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
@@ -184,6 +183,18 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //        LogCat.e("member ${bean.memberList.size}")
 //        val memberList:MutableList<CircleUserBean> = bean.memberList
 
+        //评分
+        numScore(bean.overallRating)
+
+        //最近一次的时间
+        detail_time.text ="圈主活跃: " +bean.circleActiveDistanceTime
+
+        detail_man_num.text = bean.joinUserCount.toString()
+
+        detail_read_num.text = bean.articleCount.toString()
+
+        detail_comment_num.text = bean.qaCount.toString()
+
     }
 
     override fun getCircleMemberByCircleIdSuccess(bean: MutableList<CircleBean>) {
@@ -207,8 +218,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
-        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
-        mAdapter.emptyView = emptyView
+//        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
+//        mAdapter.emptyView = emptyView
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
@@ -341,9 +352,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         rv_circle_detail.layoutManager = object : GridLayoutManager(this, 1) {
             override fun canScrollVertically() = false
         }
-        rv_circle_detail.isNestedScrollingEnabled = false
-        rv_circle_detail.setHasFixedSize(true)
-        rv_circle_detail.isFocusable = false
+//        rv_circle_detail.isNestedScrollingEnabled = false
+//        rv_circle_detail.setHasFixedSize(true)
+//        rv_circle_detail.isFocusable = false
 
         rv_circle_detail.adapter = mAdapter
     }
@@ -355,12 +366,17 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     State.EXPANDED -> {
                         toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.colorPrimary))
                         LogCat.e("展开状态")
+                        detail_time.visibility = View.VISIBLE
+                        detail_star.visibility = View.VISIBLE
+                        detail_num.visibility = View.VISIBLE
                     }
 
                     State.COLLAPSED -> {
                         toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
                         LogCat.e("折叠状态")
-
+                        detail_time.visibility = View.GONE
+                        detail_star.visibility = View.GONE
+                        detail_num.visibility = View.GONE
                     }
                     else -> {
                         //中间状态
@@ -602,5 +618,43 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                             }
                         })
                 ).show()
+    }
+
+    //评分显示
+    private fun numScore(num:Int){
+        when (num) {
+            0 -> {
+
+            }
+
+            1 -> {
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+            }
+
+            2 -> {
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
+            }
+
+            3 -> {
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
+            }
+
+            4 -> {
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_4)
+            }
+            5 -> {
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_4)
+                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_5)
+            }
+        }
     }
 }

@@ -83,8 +83,8 @@ class CircleBean(
     @SerializedName("toBeAddedInfoVO")
     val toBeAddedInfoVO:CircleIWaitContentBean? =null
 
-    @SerializedName("articleClount")
-    var articleClount:Int = 0
+    @SerializedName("articleCount")
+    var articleCount:Int = 0
 
     @SerializedName("overallRating")
     var overallRating:Int = 0
@@ -105,6 +105,9 @@ class CircleBean(
     //限免的类型
     @SerializedName("limitedTimeType")
     var limitedTimeType:Int = 0
+
+    @SerializedName("circleActiveDistanceTime")
+    var circleActiveDistanceTime:String = ""
 
     override fun getItemType(): Int {
         return CIRCLE_HOME_1

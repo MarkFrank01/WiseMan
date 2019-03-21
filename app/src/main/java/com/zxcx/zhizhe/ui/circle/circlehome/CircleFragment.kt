@@ -238,7 +238,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
                 circle_image3.visibility = View.VISIBLE
                 ImageLoader.load(mActivity, list[2].titleImage, R.drawable.default_card, circle_image3)
 
-                id_3 = list[0].id
+                id_3 = list[2].id
             }
         }
     }
