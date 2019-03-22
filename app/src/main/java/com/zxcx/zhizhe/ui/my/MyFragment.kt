@@ -215,6 +215,10 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         ll_my_rank.setOnClickListener {
             mActivity.startActivity(NewRankActivity::class.java){}
         }
+
+        ll_my_count.setOnClickListener {
+
+        }
     }
 
     private fun setViewLogout() {

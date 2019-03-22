@@ -43,7 +43,6 @@ class MoreRankModel(presenter:MoreRankContract.Presenter):BaseModel<MoreRankCont
         addSubscription(mDisposable)
     }
 
-    //取消关注用户
     fun unFollowUser(authorId: Int) {
         mDisposable = AppClient.getAPIService().setUserFollow(authorId,1)
                 .compose(BaseRxJava.handleResult())

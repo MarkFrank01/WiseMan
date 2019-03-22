@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.ui.newrank.morerank
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -23,6 +24,7 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
     private var page = 0
     private lateinit var mAdapter: MoreRankAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_more_rank)
@@ -37,10 +39,14 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
     }
 
     override fun followUserSuccess(bean: SearchUserBean) {
+        toastShow("关注成功")
     }
 
     override fun unFollowUserSuccess(bean: SearchUserBean) {
+        toastShow("取消关注成功")
     }
+
+
 
     override fun getMoreRankSuccess(list: List<UserRankBean>) {
         if (page == 0) {
@@ -65,7 +71,19 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when(view.id){
+            R.id.cb_item_search_user_follow ->{
+                val cb = view as CheckBox
+                cb.isChecked = !cb.isChecked
+                val bean = adapter.data[position] as UserRankBean
+                if (cb.isChecked){
+                    mPresenter.unFollowUser(bean.id)
+                }else{
+                    mPresenter.followUser(bean.id)
+                }
+            }
+        }
     }
 
     override fun onLoadMoreRequested() {

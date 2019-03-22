@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+    
+    <android.support.constraint.ConstraintLayout
+        android:background="@color/button_blue"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:id="@+id/money_count"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="48sp"
+            android:textColor="@color/white"
+            android:text="1380"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/money_count"
+            android:textColor="@color/white"
+            android:text="智者币"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/text_color_1"
+        android:textSize="17sp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="18dp"
+        android:text="关于智者币"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

@@ -47,5 +47,7 @@ class MoreRankAdapter(data: List<UserRankBean>) : BaseQuickAdapter<UserRankBean,
                 helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
             }
         }
+
+        helper.addOnClickListener(R.id.cb_item_search_user_follow)
     }
 }
