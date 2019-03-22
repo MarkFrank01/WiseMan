@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:paddingBottom="16dp"
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_rank"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:checked="false"
+        android:gravity="center"
+        android:textColor="@color/text_color_d2"
+        android:textSize="@dimen/text_size_title_2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="20"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_rank_user"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_rank"
+        app:riv_oval="true"
+        tools:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/tv_item_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:textColor="@color/text_color_2"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ABCD"/>
+
+    <ImageView
+        android:layout_marginEnd="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tv_item_rank_user_level_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_item_rank_num_zl"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_num_zl"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="8dp"
+        android:checked="false"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="20"/>
+</android.support.constraint.ConstraintLayout>
+

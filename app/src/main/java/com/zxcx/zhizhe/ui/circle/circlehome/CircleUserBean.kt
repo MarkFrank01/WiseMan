@@ -21,6 +21,8 @@ class CircleUserBean(
         @SerializedName("likeArticleCount") var likeNum: Int = 0, //0
         @SerializedName("collectedArticleCount") var collectNum: Int = 0, //0
 
+        @SerializedName("followType") var followType:Int = 0
+
 //        @SerializedName("phoneNum")
 //        val phoneNum: String = "",
 //        @SerializedName("gender")
@@ -34,7 +36,8 @@ class CircleUserBean(
 //        @SerializedName("bandingWeixin")
 //        val bandingWeixin: Boolean = false,
 //        @SerializedName("bandingWeibo")
-        val bandingWeibo: Boolean = false) : RetrofitBean(), Parcelable {
+//        val bandingWeibo: Boolean = false
+) : RetrofitBean(), Parcelable {
 
 
     constructor(parcel: Parcel) : this(
@@ -47,7 +50,8 @@ class CircleUserBean(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readInt(),
-            parcel.readByte() != 0.toByte()) {
+            parcel.readInt()
+            ) {
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {

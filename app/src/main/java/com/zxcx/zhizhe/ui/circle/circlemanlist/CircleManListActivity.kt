@@ -36,7 +36,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     private lateinit var mDialog: UnFollowConfirmDialog
     private lateinit var mDialog1: UnFollowConfirmDialog
 
-    private lateinit var createBean:CircleUserBean
+    private lateinit var createBean: CircleUserBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,15 +67,15 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
     override fun getCircleMemberByCircleIdSuccess(list: MutableList<SearchUserBean>) {
         mRefreshLayout.finishRefresh()
-        if (page == 0){
+        if (page == 0) {
             mAdapter.setNewData(list)
-        }else{
+        } else {
             mAdapter.addData(list)
         }
         page++
-        if (list.size<Constants.PAGE_SIZE){
+        if (list.size < Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false)
-        }else{
+        } else {
             mAdapter.loadMoreComplete()
             mAdapter.setEnableLoadMore(false)
             mAdapter.setEnableLoadMore(true)
@@ -119,8 +119,8 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            R.id.cb_item_search_user_follow ->{
+        when (view.id) {
+            R.id.cb_item_search_user_follow -> {
                 val cb = view as CheckBox
                 cb.isChecked = !cb.isChecked
                 if (checkLogin()) {
@@ -153,18 +153,28 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         iv_toolbar_right.visibility = View.VISIBLE
         iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 
-        val cb1:CheckBox = cb_item_search_user_follow_2
+        val cb1: CheckBox = cb_item_search_user_follow_2
 
-        ImageLoader.load(this,createBean.avatar,R.drawable.default_card,iv_item_search_user)
+        ImageLoader.load(this, createBean.avatar, R.drawable.default_card, iv_item_search_user)
         tv_item_search_user_name.text = createBean.name
         tv_item_search_user_level.text = this.getString(R.string.tv_level, createBean.level)
         tv_item_search_user_card.text = createBean.cardNum.toString()
-        tv_item_search_user_fans.text =  createBean.fansNum.toString()
+        tv_item_search_user_fans.text = createBean.fansNum.toString()
         tv_item_search_user_like.text = createBean.likeNum.toString()
         tv_item_search_user_collect.text = createBean.collectNum.toString()
         cb_item_search_user_follow_2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         cb_item_search_user_follow_2.setOnClickListener {
-//            cb1.isChecked = !cb1.isChecked
+            cb_item_search_user_follow_2.isChecked = !cb_item_search_user_follow_2.isChecked
+            if (cb_item_search_user_follow_2.isChecked) {
+                val bundle = Bundle()
+                bundle.putInt("userId", createBean.id)
+                mDialog1.arguments = bundle
+                mDialog1.show(mActivity.supportFragmentManager, "")
+            }else{
+                mPresenter.followUser(createBean.id)
+            }
+
+            //            cb1.isChecked = !cb1.isChecked
 //            if (cb1.isChecked){
 //                val bundle = Bundle()
 //                bundle.putInt("userId", createBean.id)
@@ -174,6 +184,25 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 //                mPresenter.followUser(createBean.id)
 //            }
         }
+
+        when (createBean.followType) {
+            0 -> {
+                cb_item_search_user_follow_2.text = "关注"
+                cb_item_search_user_follow_2.setTextColor(getColorForKotlin(R.color.button_blue))
+            }
+
+            1 -> {
+                cb_item_search_user_follow_2.text = "已关注"
+                cb_item_search_user_follow_2.setTextColor(getColorForKotlin(R.color.text_color_3))
+            }
+
+            2 -> {
+                cb_item_search_user_follow_2.text = "相互关注"
+                cb_item_search_user_follow_2.setTextColor(getColorForKotlin(R.color.text_color_3))
+            }
+
+        }
+
 
         mAdapter = CircleManListAdapter(ArrayList())
         mAdapter.onItemClickListener = this

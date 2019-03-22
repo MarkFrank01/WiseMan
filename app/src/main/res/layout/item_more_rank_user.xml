@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:paddingBottom="16dp"
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/tv_item_rank_user_rank"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:checked="false"
+        android:gravity="center"
+        android:textColor="@color/text_color_d2"
+        android:textSize="@dimen/text_size_title_2"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="20"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/iv_item_rank_user"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toEndOf="@id/tv_item_rank_user_rank"
+        app:riv_oval="true"
+        tools:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/text_color_1"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+        tools:text="化妆现大大大大大代人"/>
+
+    <TextView
+        android:id="@+id/tv_user_rank_level"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/blue_12dp"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
+        app:layout_constraintStart_toEndOf="@id/tv_user_name"
+        tools:text="Lv.3"/>
+
+    <ImageView
+        android:id="@+id/iv_zhili"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/tv_item_rank_user_level_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_item_rank_user"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"/>
+
+    <TextView
+        android:id="@+id/tv_item_rank_num_zl"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="8dp"
+        android:checked="false"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_zhili"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        tools:text="3871"/>
+
+    <CheckBox
+        android:id="@+id/cb_item_search_user_follow"
+        style="@style/tv_single"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="18dp"
+        android:background="@drawable/bg_checkbox_select_attention1"
+        android:button="@null"
+        android:checked="true"
+        android:clickable="false"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
+        android:textSize="@dimen/text_size_text_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_rank_level"
+        tools:text="关注"/>
+
+</android.support.constraint.ConstraintLayout>

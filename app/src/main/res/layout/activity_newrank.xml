@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="上周我的榜单"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/iv_up_or_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/tv_rank_up"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="18dp"
+                    android:textColor="@color/button_blue"
+                    android:textSize="15sp"
+                    tools:text="15"/>
+
+            </LinearLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp">
+
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_my_head"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/iv_my_head_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:riv_oval="true"/>
+
+                <TextView
+                    android:id="@+id/tv_my_lv"
+                    style="@style/tv_single"
+                    android:layout_width="50dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="35dp"
+                    android:background="@drawable/bg_level"
+                    android:gravity="center_vertical"
+                    android:paddingStart="21dp"
+                    android:textColor="@color/white_final"
+                    android:textSize="@dimen/text_size_text_3"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
+                    app:layout_constraintStart_toStartOf="@+id/iv_my_head"
+                    tools:text="1000"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="@dimen/text_size_text_1"
+                        tools:text="1257"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="上周智力值"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="@dimen/text_size_text_3"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="@dimen/text_size_text_1"
+                        tools:text="98%"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="超越用户"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="@dimen/text_size_text_3"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_1"
+                        android:textSize="@dimen/text_size_text_1"
+                        tools:text="3"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="上榜次数"
+                        android:textColor="@color/text_color_2"
+                        android:textSize="@dimen/text_size_text_3"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.zxcx.zhizhe.widget.CardRoundedImageView
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@color/button_blue"
+                app:hasShade="true"
+                app:shade="@drawable/shade_top_6dp"
+                app:riv_corner_radius_bottom_left="6dp"
+                app:riv_corner_radius_bottom_right="6dp"
+                app:riv_corner_radius_top_left="6dp"
+                app:riv_corner_radius_top_right="6dp"/>
+
+            <LinearLayout
+                android:id="@+id/last_week_rank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="上周榜单"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <include layout="@layout/iv_right_into"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_ht_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants"
+                    android:overScrollMode="never"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/load_more_load_end_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_load_more_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="28dp"
+                    android:paddingBottom="28dp"
+                    android:drawableEnd="@drawable/tv_load_more_end_into"
+                    android:drawablePadding="2dp"
+                    android:text="查看更多榜单"
+                    android:textColor="@color/button_blue"
+                    android:textSize="@dimen/text_size_text_3"/>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

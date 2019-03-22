@@ -62,12 +62,12 @@
                 tools:text="怕是个傻子哦"/>
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/iv_item_card_officials"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/iv_card_detail_official"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/tv_my_nick_name"
                 app:layout_constraintStart_toEndOf="@id/tv_my_nick_name"
                 app:layout_constraintTop_toTopOf="@id/tv_my_nick_name"/>
@@ -177,12 +177,60 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_my_rank"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp">
+
+                <TextView
+                    android:id="@+id/tv_my_top_rank_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="@dimen/text_size_text_1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="榜单"
+                    android:textColor="@color/text_color_2"
+                    android:textSize="@dimen/text_size_text_3"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="6dp"
             android:background="@color/strip"/>
+
+        <LinearLayout
+            android:id="@+id/ll_my_count"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="65dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="账户"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"/>
+
+            <include layout="@layout/iv_right_into"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_my_message"

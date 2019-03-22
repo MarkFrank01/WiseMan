@@ -33,6 +33,7 @@ import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsActivity
 import com.zxcx.zhizhe.ui.my.setting.CommonSettingActivity
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoActivity
+import com.zxcx.zhizhe.ui.newrank.NewRankActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
@@ -209,6 +210,10 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
             EventBus.getDefault().post(ChangeNightModeEvent())
+        }
+
+        ll_my_rank.setOnClickListener {
+            mActivity.startActivity(NewRankActivity::class.java){}
         }
     }
 
