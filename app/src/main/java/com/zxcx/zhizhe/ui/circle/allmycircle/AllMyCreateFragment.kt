@@ -29,6 +29,7 @@ import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.PublishDialog
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomGBPopup
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomWTGPopup
 import kotlinx.android.synthetic.main.fragment_my_circle.*
 
 /**
@@ -203,7 +204,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                     }
 
                     "未通过" -> {
-
+                        wtg(circleBean.modifiedTime,circleBean.unpassReason)
                     }
 
                     "待提交" -> {
@@ -269,6 +270,15 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
     private fun guanbi(text_content: String,text_content2: String){
         XPopup.get(mActivity)
                 .asCustom(CircleBottomGBPopup(mActivity,text_content,text_content2,-1, OnSelectListener { position, text ->
+
+                })
+                ).show()
+    }
+
+    //未通过时
+    private fun wtg(text_content: String,text_content2: String){
+        XPopup.get(mActivity)
+                .asCustom(CircleBottomWTGPopup(mActivity,text_content,text_content2,-1, OnSelectListener { position, text ->
 
                 })
                 ).show()

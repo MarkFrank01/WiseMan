@@ -637,16 +637,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"/>
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/goto_jx"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="精选"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/common_into"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -691,15 +688,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"/>
 
-                    <TextView
+                    <ImageView
+                        android:id="@+id/change_order"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:gravity="center"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:text="上下"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/common_into"/>
                 </LinearLayout>
 
                 <RelativeLayout

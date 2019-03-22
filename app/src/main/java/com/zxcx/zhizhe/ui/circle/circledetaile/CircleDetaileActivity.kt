@@ -78,6 +78,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //存放限免的类型
     private var limitedTimeType = 0
 
+    //排序话题时的标注
+    private var mSelectPosition = 0
+
 
     //推荐文章的数据
     private var mClassifyData: MutableList<ContentBean> = mutableListOf()
@@ -119,7 +122,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
-
+        mHuaTiPage = 0
         onRefresh()
     }
 
@@ -187,7 +190,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         numScore(bean.overallRating)
 
         //最近一次的时间
-        detail_time.text ="圈主活跃: " +bean.circleActiveDistanceTime
+        detail_time.text = "圈主活跃: " + bean.circleActiveDistanceTime
 
         detail_man_num.text = bean.joinUserCount.toString()
 
@@ -281,8 +284,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         //去搜索
         iv_toolbar_right1.setOnClickListener {
-            mActivity.startActivity(CircleInsidePreActivity::class.java){
-                it.putExtra("circleId",circleID)
+            mActivity.startActivity(CircleInsidePreActivity::class.java) {
+                it.putExtra("circleId", circleID)
             }
         }
 
@@ -303,6 +306,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 it.putExtra("circleID", circleID)
             }
         }
+
+        change_order.setOnClickListener {
+            //排序重新加载话题
+            orderHuati()
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -313,12 +321,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         if (hasJoinBoolean || mCircleImOwner) {
             when (view.id) {
-                R.id.circle_detail_text, R.id.circle_detail_img -> {
+                R.id.circle_detail_text, R.id.circle_detail_img, R.id.circle_detail_content -> {
                     val bean = adapter.data[position] as CircleDetailBean
 //                toastShow("进入话题中" + bean.id)
                     mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
                         it.putExtra("huatiId", bean.id)
-                        it.putExtra("CircleId",circleID)
+                        it.putExtra("CircleId", circleID)
                     }
                 }
 
@@ -620,8 +628,21 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 ).show()
     }
 
+    //排序话题
+    private fun orderHuati() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "排序类型", arrayOf("默认排序", "只看圈主", "只看我的", "最新话题"),
+                        null, mHuaTiOrder,
+                        OnSelectListener { position, text ->
+                            mHuaTiOrder = position
+                            mHuaTiPage = 0
+                            onRefresh()
+                        })
+                ).show()
+    }
+
     //评分显示
-    private fun numScore(num:Int){
+    private fun numScore(num: Int) {
         when (num) {
             0 -> {
 
