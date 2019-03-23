@@ -17,7 +17,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.room.AppDatabase
 import com.zxcx.zhizhe.room.SearchHistory
-import com.zxcx.zhizhe.ui.search.result.SearchResultActivity
+import com.zxcx.zhizhe.ui.circle.circlesearch.CircleSearchActivity
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.StringUtils
@@ -181,8 +181,10 @@ class SearchActivity : MvpActivity<SearchPresenter>(), SearchContract.View, View
 
 					override fun onComplete() {
 						Utils.closeInputMethod(et_search)
-						val intent = Intent(this@SearchActivity, SearchResultActivity::class.java)
-						intent.putExtra("keyword", keyword)
+//						val intent = Intent(this@SearchActivity, SearchResultActivity::class.java)
+                        val intent = Intent(this@SearchActivity, CircleSearchActivity::class.java)
+
+                        intent.putExtra("keyword", keyword)
 						startActivity(intent)
 						finish()
 					}

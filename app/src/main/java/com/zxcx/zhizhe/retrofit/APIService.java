@@ -17,6 +17,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.loginAndRegister.login.SMSCodeVerificationBean;
 import com.zxcx.zhizhe.ui.my.MyTabBean;
 import com.zxcx.zhizhe.ui.my.daily.DailyBean;
+import com.zxcx.zhizhe.ui.my.invite.InviteBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
@@ -545,6 +546,10 @@ public interface APIService {
      */
     @POST("/user/setUserFollowUser")
     Flowable<BaseBean<SearchUserBean>> setUserFollow(
+            @Query("userId") int userId, @Query("followType") int followType);
+
+    @POST("/user/setUserFollowUser")
+    Flowable<BaseBean<UserRankBean>> setUserFollow_New(
             @Query("userId") int userId, @Query("followType") int followType);
 
     /**
@@ -1139,5 +1144,39 @@ public interface APIService {
     );
 
 
+    /**
+     * 检测是否上榜 获取本周前三奖励
+     */
+    @POST("/activity/checkEnterTheTopThree")
+    Flowable<BaseBean<Object>> checkEnterTheTopThree();
 
+    /**
+     * 邀请码活动-获取邀请历史记录
+     */
+    @POST("/activity/getInvitationHistory")
+    Flowable<BaseArrayBean<InviteBean>> getInvitationHistory();
+
+    /**
+     * 邀请码活动-获取邀请码详情信息
+     */
+    @POST("/activity/getInvitationInfo")
+    Flowable<BaseArrayBean<InviteBean>> getInvitationInfo();
+
+    /**
+     * 邀请码活动-填写邀请码
+     */
+    @POST("/activity/inputInvitationCode")
+    Flowable<InviteBean> inputInvitationCode(
+            @Query("invitationCode") String invitationCode
+    );
+
+    /**
+     * 设置中奖后的 收货信息
+     */
+    @POST("/activity/submitWinningInfo")
+    Flowable<BaseBean<Object>> submitWinningInfo(
+           @Query("consigneeName") String consigneeName,
+           @Query("consigneeAddress") String consigneeAddress,
+           @Query("consigneeMobile") String consigneeMobile
+    );
 }

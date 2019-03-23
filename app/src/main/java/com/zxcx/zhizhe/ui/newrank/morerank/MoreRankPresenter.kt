@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.newrank.morerank
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.rank.UserRankBean
-import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 
 /**
  * @author : MarkFrank01
@@ -23,23 +22,23 @@ class MoreRankPresenter(view: MoreRankContract.View) : BasePresenter<MoreRankCon
         mModel.getMoreRank(page, pageSize)
     }
 
-    fun followUser(authorId: Int) {
-        mModel.followUser(authorId)
+    fun followUser(authorId: Int,position:Int) {
+        mModel.followUser(authorId,position)
     }
 
-    fun unFollowUser(authorId: Int) {
-        mModel.unFollowUser(authorId)
+    fun unFollowUser(authorId: Int,position:Int) {
+        mModel.unFollowUser(authorId,position)
     }
 
-    override fun followUserSuccess(bean: SearchUserBean) {
+    override fun followUserSuccess(bean: UserRankBean,position: Int) {
         if (mView != null) {
-            mView.followUserSuccess(bean)
+            mView.followUserSuccess(bean,position)
         }
     }
 
-    override fun unFollowUserSuccess(bean: SearchUserBean) {
+    override fun unFollowUserSuccess(bean: UserRankBean,position: Int) {
         if (mView != null) {
-            mView.unFollowUserSuccess(bean)
+            mView.unFollowUserSuccess(bean,position)
         }
     }
 
@@ -62,6 +61,12 @@ class MoreRankPresenter(view: MoreRankContract.View) : BasePresenter<MoreRankCon
     }
 
     override fun startLogin() {
+    }
+
+    override fun postSuccess(bean: UserRankBean?) {
+    }
+
+    override fun postFail(msg: String?) {
     }
 
 }

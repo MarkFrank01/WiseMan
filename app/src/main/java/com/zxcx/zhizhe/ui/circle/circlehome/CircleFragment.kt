@@ -18,7 +18,6 @@ import com.zxcx.zhizhe.ui.circle.allmycircle.AllMyCircleActivity
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlemessage.CircleMessageActivity
-import com.zxcx.zhizhe.ui.circle.circlesearch.CircleSearchPreActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleClassifyActivity
 import com.zxcx.zhizhe.ui.circle.classify.CircleTuiActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
@@ -283,7 +282,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 //            mActivity.startActivity(CreateCircleActivity::class.java) {}
 
             //正式时为搜索功能
-            mActivity.startActivity(CircleSearchPreActivity::class.java){}
+//            mActivity.startActivity(CircleSearchPreActivity::class.java){}
+            mActivity.startActivity(SearchActivity::class.java){}
         }
         //圈子的消息
         iv_2.setOnClickListener {

@@ -8,8 +8,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
-import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_more_rank.*
 
@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_more_rank.*
  */
 class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View,
         BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+
 
     private var page = 0
     private lateinit var mAdapter: MoreRankAdapter
@@ -38,11 +39,15 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
         return MoreRankPresenter(this)
     }
 
-    override fun followUserSuccess(bean: SearchUserBean) {
+    override fun followUserSuccess(bean: UserRankBean,position: Int) {
+        mAdapter.data[position].followType = 1
+        mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
         toastShow("关注成功")
     }
 
-    override fun unFollowUserSuccess(bean: SearchUserBean) {
+    override fun unFollowUserSuccess(bean: UserRankBean,position: Int) {
+        mAdapter.data[position].followType = 0
+        mAdapter.notifyItemChanged(position +mAdapter.headerLayoutCount)
         toastShow("取消关注成功")
     }
 
@@ -68,6 +73,12 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
     override fun getDataSuccess(bean: List<UserRankBean>?) {
     }
 
+    override fun postSuccess(bean: UserRankBean?) {
+    }
+
+    override fun postFail(msg: String?) {
+    }
+
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
@@ -78,9 +89,11 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
                 cb.isChecked = !cb.isChecked
                 val bean = adapter.data[position] as UserRankBean
                 if (cb.isChecked){
-                    mPresenter.unFollowUser(bean.id)
+                    LogCat.e("name is "+bean.name)
+                    mPresenter.unFollowUser(bean.id,position)
                 }else{
-                    mPresenter.followUser(bean.id)
+                    LogCat.e("name is "+bean.name)
+                    mPresenter.followUser(bean.id,position)
                 }
             }
         }
