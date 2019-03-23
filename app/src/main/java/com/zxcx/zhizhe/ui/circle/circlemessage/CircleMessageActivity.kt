@@ -133,7 +133,10 @@ class CircleMessageActivity : MvpActivity<CircleMessagePresenter>(), CircleMessa
         mAdapter.setOnLoadMoreListener(this,rv_circle_message)
         mAdapter.onItemChildClickListener = this
 
-        rv_circle_message.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_circle_message.layoutManager = object :LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false){
+            override fun canScrollVertically() = false
+        }
+
         rv_circle_message.adapter = mAdapter
     }
 

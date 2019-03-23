@@ -27,8 +27,10 @@ import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.followUser.FansActivity
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity
+import com.zxcx.zhizhe.ui.my.invite.MyInviteActivity
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
+import com.zxcx.zhizhe.ui.my.money.MyMoneyActivity
 import com.zxcx.zhizhe.ui.my.note.NoteActivity
 import com.zxcx.zhizhe.ui.my.readCards.ReadCardsActivity
 import com.zxcx.zhizhe.ui.my.setting.CommonSettingActivity
@@ -217,8 +219,12 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         }
 
         ll_my_count.setOnClickListener {
-
+            mActivity.startActivity(MyMoneyActivity::class.java){}
         }
+
+       my_ewm.setOnClickListener {
+            mActivity.startActivity(MyInviteActivity::class.java){}
+       }
     }
 
     private fun setViewLogout() {

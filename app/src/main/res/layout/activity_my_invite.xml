@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp"
+            android:background="@drawable/bg_background_12dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="36dp"
+                android:src="@color/button_blue"/>
+
+            <TextView
+                android:id="@+id/copy_my_invite_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="28dp"
+                android:text="ADMNA"
+                android:textSize="36dp"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textColor="@color/button_blue"
+                android:textSize="12sp"
+                android:layout_gravity="center"
+                android:text="点击邀请码复制"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:id="@+id/share_to_invite"
+                android:background="@drawable/bg_backbutton2"
+                android:layout_marginTop="32dp"
+                android:layout_gravity="center"
+                android:layout_width="164dp"
+                android:layout_height="44dp">
+                <TextView
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:text="邀请好友"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="56dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我的邀请记录"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <Space
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:textColor="@color/text_color_3"
+                    android:textSize="12sp"
+                    android:text="0/10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

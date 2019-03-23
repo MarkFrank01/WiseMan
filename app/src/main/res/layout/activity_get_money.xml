@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
@@ -13,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
@@ -21,31 +22,55 @@
                 android:layout_height="120dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
+                android:layout_marginTop="24dp"
                 android:background="@drawable/bg_backbutton2">
 
                 <TextView
-                    android:id="@+id/money_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="1380"
+                    android:layout_marginEnd="10dp"
+                    android:text="￥"
                     android:textColor="@color/white"
                     android:textSize="48sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/et_my_money"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <EditText
+                    android:id="@+id/et_my_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
+                    android:hint="200"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textCursorDrawable="@drawable/edit_cursor_color_white"
+                    android:textSize="48sp"
+                    android:theme="@style/link_edit_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="智者币"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/money_count"/>
-
             </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/check_my_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp"
+                android:text="提现金额必须≥200"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +85,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -78,10 +103,9 @@
                     android:layout_marginStart="31dp"
                     android:drawablePadding="5dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="智者币是智者的虚拟货币，目前可在智者App内申请加入付费圈子（购买年费会员资格）。"
+                    android:text="提现金额最少为200"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -105,10 +129,9 @@
                     android:layout_marginStart="31dp"
                     android:drawablePadding="5dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="严禁通过未经授权的任何渠道或利用违法违规违反服务协议的方式（包括但不限于利用支付漏洞等）获取智者币，以前述非法方式获得的智者币及所购物品，智者有权随时回收且无需返还任何款项，因使用前述非法方式获取的智者币所取得的圈子年费会员资格无效，将会被清除。"
+                    android:text="每用户每自然月可提现一次，目前仅支持支付宝"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -132,10 +155,9 @@
                     android:layout_marginStart="31dp"
                     android:drawablePadding="5dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="因规定要求，充值仅限以上指定价格。"
+                    android:text="提现时间视转账渠道的效率，智者平台不保证到账时长"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -159,81 +181,13 @@
                     android:layout_marginStart="31dp"
                     android:drawablePadding="5dp"
                     android:lineSpacingExtra="5dp"
-                    android:text="在iOS上获得的智者币，非iOS终端不可使用。"
+                    android:text="如无法到账或有其他疑问，您可以通过App内提交反馈让我们更快帮助您解决问题"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
-
             </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/grey_round"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="31dp"
-                    android:drawablePadding="5dp"
-                    android:lineSpacingExtra="5dp"
-                    android:text="支付需本账户注册绑定手机号以及iOS终端绑定微信支付、支付宝或银行卡。"
-                    android:textColor="@color/text_color_3"
-                    android:textSize="12sp"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/goto_tx"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="31dp"
-                android:background="@drawable/bg_backbutton">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="提现"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold"/>
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/load_more_load_end_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_load_more_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawableEnd="@drawable/tv_load_more_end_into"
-                    android:drawablePadding="2dp"
-                    android:paddingBottom="28dp"
-                    android:paddingTop="28dp"
-                    android:text="编辑支付宝"
-                    android:textColor="@color/text_color_3"
-                    android:textSize="@dimen/text_size_text_3"/>
-            </FrameLayout>
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
 
 </LinearLayout>

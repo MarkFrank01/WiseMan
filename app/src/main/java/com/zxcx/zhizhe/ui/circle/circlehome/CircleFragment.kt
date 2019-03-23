@@ -285,12 +285,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             //正式时为搜索功能
             mActivity.startActivity(CircleSearchPreActivity::class.java){}
         }
+        //圈子的消息
         iv_2.setOnClickListener {
             if (checkLogin()) {
 //                mActivity.startActivity(MessageActivity::class.java) {}
                 mActivity.startActivity(CircleMessageActivity::class.java){}
             }
         }
+        //圈子外面的搜索
         iv_1.setOnClickListener {
             mActivity.startActivity(SearchActivity::class.java, {})
         }
