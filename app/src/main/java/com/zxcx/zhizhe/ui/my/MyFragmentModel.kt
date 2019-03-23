@@ -24,5 +24,6 @@ class MyFragmentModel(present: MyFragmentContract.Presenter) : BaseModel<MyFragm
                         mPresenter?.getADSuccess(t)
                     }
                 })
+        addSubscription(mDisposable)
     }
 }

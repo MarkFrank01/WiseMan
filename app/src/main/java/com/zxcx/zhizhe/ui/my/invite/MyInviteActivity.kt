@@ -8,8 +8,9 @@ import android.view.View
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.invite.input.InputInviteActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import kotlinx.android.synthetic.main.activity_my_invite.*
@@ -20,7 +21,9 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Created on 2019/3/23
  * @Description :
  */
-class MyInviteActivity:BaseActivity() {
+class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_invite)
@@ -28,12 +31,14 @@ class MyInviteActivity:BaseActivity() {
         initToolBar()
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "填写邀请码"
+
+        mPresenter.getInvitationHistory()
     }
 
     override fun setListener() {
         copy_my_invite_text.setOnClickListener {
             var text = copy_my_invite_text.text.toString().trim()
-            putTextInto(this,text)
+            putTextInto(this, text)
             toastShow("复制成功")
         }
 
@@ -42,15 +47,27 @@ class MyInviteActivity:BaseActivity() {
         }
 
         tv_toolbar_right.setOnClickListener {
-            mActivity.startActivity(InputInviteActivity::class.java){}
+            mActivity.startActivity(InputInviteActivity::class.java) {}
         }
     }
 
+    override fun createPresenter(): MyInvitePresenter {
+        return MyInvitePresenter(this)
+    }
+
+    override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
+        LogCat.e("list size is " + list.size)
+    }
+
+    override fun getDataSuccess(bean: MutableList<InviteBean>?) {
+    }
+
+
     //粘贴板
-    private fun putTextInto(context:Context,text:String){
-        var clipManager:ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    private fun putTextInto(context: Context, text: String) {
+        var clipManager: ClipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         //创建clipData对象
-        var clipData:ClipData = ClipData.newPlainText("",text)
+        var clipData: ClipData = ClipData.newPlainText("", text)
         clipManager.primaryClip = clipData
     }
 
