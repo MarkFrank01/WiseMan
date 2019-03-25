@@ -54,9 +54,16 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
 
         mPresenter.getQuestionInfo(huatiID)
-        mPresenter.getAnswerList(huatiID,mPage)
+//        mPresenter.getAnswerList(huatiID,mPage)
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        mPage = 0
+        mPresenter.getAnswerList(huatiID,mPage)
+
+    }
 
     override fun createPresenter(): CircleQuestionDetailPresenter {
         return CircleQuestionDetailPresenter(this)

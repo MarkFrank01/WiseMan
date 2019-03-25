@@ -32,12 +32,26 @@ class CircleManListAdapter(data:List<SearchUserBean>) :BaseQuickAdapter<SearchUs
         helper.getView<View>(R.id.cb_item_search_user_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         helper.addOnClickListener(R.id.cb_item_search_user_follow)
 
-        if (!item.isFollow){
-            helper.setText(R.id.cb_item_search_user_follow,"关注")
-                    .setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.button_blue))
-        }else{
-            helper.setText(R.id.cb_item_search_user_follow,"已关注")
-                    .setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
+        when (item.followType) {
+            0 -> {
+                helper.setText(R.id.cb_item_search_user_follow,"关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.button_blue))
+                helper.setChecked(R.id.cb_item_search_user_follow,false)
+            }
+
+            1->{
+                helper.setText(R.id.cb_item_search_user_follow,"已关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setChecked(R.id.cb_item_search_user_follow,true)
+
+            }
+
+            2->{
+                helper.setText(R.id.cb_item_search_user_follow,"互相关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setChecked(R.id.cb_item_search_user_follow,true)
+
+            }
         }
 
         val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)

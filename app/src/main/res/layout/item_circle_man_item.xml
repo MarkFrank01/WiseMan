@@ -52,15 +52,14 @@
         android:layout_width="50dp"
         android:layout_height="16dp"
         android:layout_marginStart="5dp"
-        android:paddingStart="21dp"
-        android:background="@drawable/bg_level"
-        android:gravity="center_vertical"
-        android:textColor="@color/white_final"
+        android:background="@drawable/blue_12dp"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
         android:textSize="@dimen/text_size_text_3"
         app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
         app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
         app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
-        tools:text="1000"/>
+        tools:text="Lv.3"/>
 
     <TextView
         android:id="@+id/tv_item_search_user_card"

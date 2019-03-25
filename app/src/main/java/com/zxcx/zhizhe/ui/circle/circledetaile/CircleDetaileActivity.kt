@@ -13,7 +13,6 @@ import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
-import com.zxcx.zhizhe.wxapi.WXEntryActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -37,6 +36,7 @@ import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
+import com.zxcx.zhizhe.wxapi.WXEntryActivity
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
 /**
@@ -105,6 +105,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mPresenter.getCircleBasicInfo(circleID)
 //        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
+//        onRefresh()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mHuaTiPage = 0
         onRefresh()
     }
 

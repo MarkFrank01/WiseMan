@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
@@ -15,6 +17,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import kotlinx.android.synthetic.main.layout_circle_man_list.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -37,6 +40,8 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     private lateinit var mDialog1: UnFollowConfirmDialog
 
     private lateinit var createBean: CircleUserBean
+
+    private var orderType = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +70,12 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         return CircleManListPresenter(this)
     }
 
+    override fun setListener() {
+        iv_toolbar_right.setOnClickListener {
+            orderman()
+        }
+    }
+
     override fun getCircleMemberByCircleIdSuccess(list: MutableList<SearchUserBean>) {
         mRefreshLayout.finishRefresh()
         if (page == 0) {
@@ -86,16 +97,32 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
     override fun mFollowUserSuccess(bean: SearchUserBean) {
         val position = mAdapter.data.indexOf(bean)
-        mAdapter.data[position].isFollow = bean.isFollow
-        mAdapter.notifyItemChanged(position)
-        EventBus.getDefault().post(FollowUserRefreshEvent())
+        if (position != -1) {
+            mAdapter.data[position].followType = 1
+            mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
+            EventBus.getDefault().post(FollowUserRefreshEvent())
+            toastShow("关注成功")
+        } else {
+            bean.followType = 1
+            cb_item_search_user_follow_2.text = "已关注"
+            cb_item_search_user_follow_2.setTextColor(getColorForKotlin(R.color.text_color_3))
+        }
     }
 
     override fun unFollowUserSuccess(bean: SearchUserBean) {
         val position = mAdapter.data.indexOf(bean)
-        mAdapter.data[position].isFollow = false
-        mAdapter.notifyItemChanged(position)
-        EventBus.getDefault().post(FollowUserRefreshEvent())
+
+        if (position != -1) {
+            mAdapter.data[position].followType = 0
+            mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
+            EventBus.getDefault().post(FollowUserRefreshEvent())
+            toastShow("取消关注成功")
+        } else {
+            bean.followType = 0
+            cb_item_search_user_follow_2.text = "关注"
+            cb_item_search_user_follow_2.setTextColor(getColorForKotlin(R.color.button_blue))
+
+        }
     }
 
     override fun postSuccess(bean: CircleBean?) {
@@ -115,7 +142,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UnFollowConfirmEvent) {
-        mPresenter.unFollowUser(event.userId)
+//        mPresenter.unFollowUser(event.userId)
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
@@ -126,10 +153,11 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
                 if (checkLogin()) {
                     val bean = adapter.data[position] as SearchUserBean
                     if (cb.isChecked) {
-                        val bundle = Bundle()
-                        bundle.putInt("userId", bean.id)
-                        mDialog.arguments = bundle
-                        mDialog.show(mActivity.supportFragmentManager, "")
+//                        val bundle = Bundle()
+//                        bundle.putInt("userId", bean.id)
+//                        mDialog.arguments = bundle
+//                        mDialog.show(mActivity.supportFragmentManager, "")
+                        mPresenter.unFollowUser(bean.id)
                     } else {
                         mPresenter.followUser(bean.id)
                     }
@@ -143,9 +171,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
     private fun initData() {
         circleID = intent.getIntExtra("circleID", 0)
-        LogCat.e("circleID $circleID")
         createBean = intent.getParcelableExtra("create")
-        LogCat.e("SBBB ${createBean.avatar}")
     }
 
     private fun initView() {
@@ -153,7 +179,6 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         iv_toolbar_right.visibility = View.VISIBLE
         iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
 
-        val cb1: CheckBox = cb_item_search_user_follow_2
 
         ImageLoader.load(this, createBean.avatar, R.drawable.default_card, iv_item_search_user)
         tv_item_search_user_name.text = createBean.name
@@ -164,25 +189,13 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         tv_item_search_user_collect.text = createBean.collectNum.toString()
         cb_item_search_user_follow_2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         cb_item_search_user_follow_2.setOnClickListener {
-            cb_item_search_user_follow_2.isChecked = !cb_item_search_user_follow_2.isChecked
-            if (cb_item_search_user_follow_2.isChecked) {
-                val bundle = Bundle()
-                bundle.putInt("userId", createBean.id)
-                mDialog1.arguments = bundle
-                mDialog1.show(mActivity.supportFragmentManager, "")
-            }else{
+
+            if (createBean.followType == 0) {
                 mPresenter.followUser(createBean.id)
+            } else if (createBean.followType == 1) {
+                mPresenter.unFollowUser(createBean.id)
             }
 
-            //            cb1.isChecked = !cb1.isChecked
-//            if (cb1.isChecked){
-//                val bundle = Bundle()
-//                bundle.putInt("userId", createBean.id)
-//                mDialog1.arguments = bundle
-//                mDialog1.show(mActivity.supportFragmentManager, "")
-//            }else{
-//                mPresenter.followUser(createBean.id)
-//            }
         }
 
         when (createBean.followType) {
@@ -218,6 +231,19 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     }
 
     private fun getCircleMember() {
-        mPresenter.getCircleMemberByCircleId(0, circleID, page, Constants.PAGE_SIZE)
+        mPresenter.getCircleMemberByCircleId(orderType, circleID, page, Constants.PAGE_SIZE)
+    }
+
+    //排序人群
+    private fun orderman() {
+        XPopup.get(mActivity)
+                .asCustom(CirclePopup(this, "排序类型", arrayOf("默认排序", "最多创作", "最多关注", "最多点赞"),
+                        null, orderType,
+                        OnSelectListener { position, text ->
+                            orderType = position
+                            page = 0
+                            onRefresh()
+                        })
+                ).show()
     }
 }
