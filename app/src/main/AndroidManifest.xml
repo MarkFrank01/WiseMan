@@ -98,6 +98,13 @@
         <!--</provider>-->
 
         <receiver
+            android:name=".AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.OpenNotification"
             android:enabled="true">
             <intent-filter>
@@ -386,10 +393,7 @@
             android:name=".ui.circle.circlequestion.CircleQuestionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name=".pay.wx.WXEntryActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".pay.zfb.ZFBEntryActivity"
             android:launchMode="singleTask"
@@ -508,6 +512,14 @@
             android:name=".ui.my.invite.input.InputInviteActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+
+
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".wxapi.WXPayEntryActivity"/>
     </application>
 
 </manifest>

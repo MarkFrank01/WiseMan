@@ -13,6 +13,7 @@ import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
+import com.zxcx.zhizhe.wxapi.WXEntryActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -310,6 +311,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         change_order.setOnClickListener {
             //排序重新加载话题
             orderHuati()
+        }
+
+        //底部按钮交钱
+        bottom_bt.setOnClickListener {
+            mActivity.startActivity(WXEntryActivity::class.java){
+                it.putExtra("circleId",circleID)
+            }
         }
     }
 

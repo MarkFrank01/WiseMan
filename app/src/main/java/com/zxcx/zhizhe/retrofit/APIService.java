@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.retrofit;
 
+import com.zxcx.zhizhe.pay.wx.WXBean;
 import com.zxcx.zhizhe.service.version_update.entity.UpdateApk;
 import com.zxcx.zhizhe.ui.article.ArticleAndSubjectBean;
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean;
@@ -1179,4 +1180,16 @@ public interface APIService {
            @Query("consigneeAddress") String consigneeAddress,
            @Query("consigneeMobile") String consigneeMobile
     );
+
+
+    //支付!!!
+    /**
+     * 微信统一下单接口
+     */
+    @POST("/WxPay/getWxOrderPay")
+    Flowable<BaseBean<WXBean>> getWxOrderPay(
+            @Query("circleId") int circleId
+    );
+
+
 }
