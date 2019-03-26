@@ -85,7 +85,8 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 
 	override fun postSuccess(bean: SearchUserBean) {
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].isFollow = bean.isFollow
+//		mAdapter.data[position].isFollow = bean.isFollow
+        mAdapter.data[position].followType = 1
 		mAdapter.notifyItemChanged(position)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
@@ -96,7 +97,8 @@ class SearchUserFragment : MvpFragment<SearchUserPresenter>(), SearchUserContrac
 
 	override fun unFollowUserSuccess(bean: SearchUserBean) {
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].isFollow = false
+//		mAdapter.data[position].isFollow = false
+        mAdapter.data[position].followType = 0
 		mAdapter.notifyItemChanged(position)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}

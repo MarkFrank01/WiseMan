@@ -519,7 +519,9 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".wxapi.WXPayEntryActivity"/>
+        <activity android:name=".wxapi.WXPayEntryActivity"
+                  android:exported="true"
+                  android:launchMode="singleTop"/>
     </application>
 
 </manifest>

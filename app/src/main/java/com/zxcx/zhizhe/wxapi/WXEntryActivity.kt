@@ -30,71 +30,8 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         setContentView(R.layout.activity_entry_wxpay)
 
         initData()
-
-//        api = WXAPIFactory.createWXAPI(this, Constants.WX_APP_ID)
-//
-//        api.registerApp(Constants.WX_APP_ID)
-
-//        goto_send_btn.setOnClickListener {
-//            goto_send_btn.isEnabled = false
-//
-//            //待服务器那边处理
-//            //此均为测试写法
-//            var req = PayReq()
-//            req.appId = Constants.WX_APP_ID
-//            req.partnerId = "1900006771"
-//            req.prepayId = "Sign=WXPay"
-//            req.nonceStr = "18844964480834c91cef8b15e56b0a4d"
-//            req.timeStamp = "1550898756"
-//            req.packageValue = "Sign=WXPay"
-//            req.sign = "96C707EFD84B2EBE72889EBA07009EAD"
-//            req.extData = "app data" // optional
-//            api.sendReq(req)
-//
-//
-//            goto_send_btn.isEnabled = true
-//        }
-
         goto_send_btn.setOnClickListener {
-            //            mPresenter.getWxOrderPay(circleId)
-
-            Thread {
-                //                //使用正式的
-//                api = WXAPIFactory.createWXAPI(this, "wxac8cb0c3f9b06b05", false)
-//                api.registerApp("wxac8cb0c3f9b06b05")
-//
-//                var req = PayReq()
-//                req.appId = "wxac8cb0c3f9b06b05"
-//                req.partnerId = "1526397881"
-//                req.prepayId = "wx2514133485969684201fd5623868406246"
-//                req.nonceStr = "544728c51385f9f0e01907a0798ef0ec"
-//                req.timeStamp = "1550898756"
-//                req.packageValue = "Sign=WXPay"
-//                req.sign = "B3D15F5C0C10A6B9DF7CC32068057048"
-//                req.extData = "app data"
-////        api.sendReq(req)
-//
-//                LogCat.e("CNM"+req.checkArgs())
-//                LogCat.e("send return "+api.sendReq(req))
-
-                api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1", false)
-                api.registerApp("wxb4ba3c02aa476ea1")
-
-                var req = PayReq()
-                req.appId = "wxb4ba3c02aa476ea1"
-                req.partnerId = "1900006771"
-                req.prepayId = "wx25113721872209321da28db90063508880"
-                req.nonceStr = "544728c51385f9f0e01907a0798ef0ec"
-                req.timeStamp = "1553485041"
-                req.packageValue = "Sign=WXPay"
-                req.sign = "3E3F5CDD3158E8083680D52DBD623916"
-                req.extData = "app data"
-                api.sendReq(req)
-
-
-            }.start()
-
-
+            mPresenter.getWxOrderPay(circleId)
         }
 
     }
@@ -107,7 +44,9 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         toastShow("SUCCESS")
         LogCat.e("SIGN is " + bean.sign)
         LogCat.e("ID is " + bean.prepayId)
-        holdOnWXPay(bean.sign, bean.prepayId)
+        LogCat.e("noc is " + bean.nonceStr)
+        LogCat.e("time is " + bean.timestamp)
+        holdOnWXPay(bean.sign, bean.prepayId, bean.nonceStr, bean.timestamp)
     }
 
     override fun getDataSuccess(bean: WXBean?) {
@@ -117,51 +56,42 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         circleId = intent.getIntExtra("circleId", 0)
     }
 
-    fun holdOnWXPay(sign: String, prepayId: String) {
+    fun holdOnWXPay(sign: String, prepayId: String, nonceStr: String, timestamp: String) {
 
-//        //使用正式的
-//        api = WXAPIFactory.createWXAPI(this, "wxac8cb0c3f9b06b05", false)
-//        api.registerApp("wxac8cb0c3f9b06b05")
-//
-//        var req = PayReq()
-//        req.appId = "wxac8cb0c3f9b06b05"
-//        req.partnerId = "1526397881"
-//        req.prepayId = prepayId
-//        req.nonceStr = "544728c51385f9f0e01907a0798ef0ec"
-//        req.timeStamp = "1550898756"
-//        req.packageValue = "Sign=WXPay"
-//        req.sign = sign
-//        req.extData = "app data"
-////        api.sendReq(req)
-//
-//        LogCat.e("CNM"+req.checkArgs())
-//        LogCat.e("send return "+api.sendReq(req))
+        //使用正式的
+        api = WXAPIFactory.createWXAPI(this, "wxac8cb0c3f9b06b05")
+        api.registerApp("wxac8cb0c3f9b06b05")
 
-////使用测试的成功
-//        toastShow("准备起来")
-//        api = WXAPIFactory.createWXAPI(this, "wxb4ba3c02aa476ea1",false)
-//        api.registerApp( "wxb4ba3c02aa476ea1")
-//
+        var req = PayReq()
+        req.appId = "wxac8cb0c3f9b06b05"
+        req.partnerId = "1526397881"
+        req.prepayId = prepayId
+        req.nonceStr = nonceStr
+        req.timeStamp = timestamp
+        req.packageValue = "Sign=WXPay"
+        req.sign = sign
+        req.extData = "app data"
+        api.sendReq(req)
+
+//        api = WXAPIFactory.createWXAPI(this,"wxb4ba3c02aa476ea1")
+//        api.registerApp("wxb4ba3c02aa476ea1")
+
 //        var req = PayReq()
 //        req.appId = "wxb4ba3c02aa476ea1"
 //        req.partnerId = "1900006771"
-//        req.prepayId = "wx25113721872209321da28db90063508880"
-//        req.nonceStr = "544728c51385f9f0e01907a0798ef0ec"
-//        req.timeStamp = "1553485041"
+//        req.prepayId = "wx26134232987428d8d79267b91735270639"
+//        req.nonceStr = "209c7f47d8b9abe33ce18fbf8739501e"
+//        req.timeStamp = "1553578953"
 //        req.packageValue = "Sign=WXPay"
-//        req.sign = "3E3F5CDD3158E8083680D52DBD623916"
+//        req.sign = "A4A9BF87023D975BDB59DB2C35B80EF1"
 //        req.extData = "app data"
 //        api.sendReq(req)
 
-//        var req = PayReq()
-//        req.appId = Constants.WX_APP_ID
-//        req.partnerId = "1526397881"
-//        req.prepayId = prepayId
-//        req.nonceStr = "18844964480834c91cef8b15e56b0a4d"
-//        req.sign = sign
-//        req.timeStamp = "1550898756"
-//        req.packageValue = "Sign=WXPay"
-//        req.extData = "app data" // optional
-//        api.sendReq(req)
+
+        LogCat.e("CNM" + req.checkArgs())
+        LogCat.e("appId : " + "wxac8cb0c3f9b06b05" + " partnerId: " + "1526397881" + " prepayId: $prepayId" + " nonceStr: $nonceStr"
+                + " timestamp:  " + "Sign=WXPay" + " sign: $sign")
+
     }
+
 }

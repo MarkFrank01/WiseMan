@@ -201,7 +201,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     override fun setListener() {
 
-        //以下三个去同一个的地方
+        //以下四个去同一个的地方
         comment_bottom.setOnClickListener {
             mActivity.startActivity(CircleAnswerActivity::class.java){
                 it.putExtra("qaId",huatiID)
@@ -217,6 +217,13 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         }
 
         tv_comment_send.setOnClickListener {
+            mActivity.startActivity(CircleAnswerActivity::class.java){
+                it.putExtra("qaId",huatiID)
+                it.putExtra("CircleId",circleId)
+            }
+        }
+
+        et_comment.setOnClickListener {
             mActivity.startActivity(CircleAnswerActivity::class.java){
                 it.putExtra("qaId",huatiID)
                 it.putExtra("CircleId",circleId)

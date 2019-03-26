@@ -51,15 +51,14 @@
 		android:layout_width="50dp"
 		android:layout_height="16dp"
 		android:layout_marginStart="5dp"
-		android:paddingStart="21dp"
-		android:background="@drawable/bg_level"
-		android:gravity="center_vertical"
-		android:textColor="@color/white_final"
-		android:textSize="@dimen/text_size_text_3"
+		android:background="@drawable/blue_12dp"
+		android:gravity="center"
+        android:textColor="@color/button_blue"
+        android:textSize="@dimen/text_size_text_3"
 		app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
 		app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
 		app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
-		tools:text="1000"/>
+		tools:text="Lv.3"/>
 	
 	<TextView
 		android:id="@+id/tv_item_search_user_card"
@@ -126,11 +125,14 @@
 		tools:text="1000"/>
 	
 	<CheckBox
+        android:textColor="@color/button_blue"
+        android:gravity="center"
+        tools:text="关注"
 		android:id="@+id/cb_item_search_user_follow"
-		android:layout_width="24dp"
-		android:layout_height="24dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
 		android:layout_marginStart="8dp"
-		android:background="@drawable/selector_search_user_follow"
+		android:background="@drawable/bg_checkbox_select_attention1"
 		android:button="@null"
 		android:checked="false"
 		app:layout_constraintBottom_toBottomOf="parent"

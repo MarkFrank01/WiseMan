@@ -10,5 +10,7 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
  */
 class WXBean (
         @SerializedName("prepayId") var prepayId :String,
-        @SerializedName("sign") var sign:String
+        @SerializedName("sign") var sign:String,
+        @SerializedName("nonceStr")var nonceStr:String,
+        @SerializedName("timestamp")var timestamp:String
 ):RetrofitBean()
