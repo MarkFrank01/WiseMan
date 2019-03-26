@@ -22,7 +22,7 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:riv_oval="true"
-            tools:src="@drawable/iv_my_head_placeholder"/>
+            tools:src="@drawable/circle_top_default"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="24dp"
-                android:src="@drawable/c_circle"
+                android:src="@drawable/circle_search"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <ImageView
@@ -121,7 +121,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="25dp"
-                android:src="@drawable/rb_circle_rank"
+                android:src="@drawable/circle_message"
                 app:layout_constraintEnd_toStartOf="@id/iv_3"/>
 
             <ImageView
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/c_more"/>
+                    android:src="@drawable/right_normal"/>
             </RelativeLayout>
             <!--<android.support.v7.widget.RecyclerView-->
             <!--android:id="@+id/rv_circle_home_1"-->
@@ -256,7 +256,7 @@
                 android:layout_height="35dp"
                 android:background="@drawable/bg_choose_button"
                 android:drawablePadding="11dp"
-                android:drawableStart="@drawable/c_more_2"
+                android:drawableStart="@drawable/circle_change"
                 android:gravity="center|start"
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"

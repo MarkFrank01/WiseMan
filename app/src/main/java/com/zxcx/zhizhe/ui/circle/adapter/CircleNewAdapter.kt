@@ -32,6 +32,11 @@ class CircleNewAdapter(data: List<MultiItemEntity>) :
 
                 helper.setText(R.id.more_price, "￥" + item.price)
 
+                if (item.price =="0.00"){
+                    helper.setText(R.id.more_price,"限免")
+                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price_red)
+                }
+
                 helper.setText(R.id.tv_circle_title, item1.title)
                         .setText(R.id.more_circle_type, item1.classifyVO?.title)
                         .setText(R.id.more_circle_join_num, "加入" + item1.joinUserCount)
@@ -53,32 +58,32 @@ class CircleNewAdapter(data: List<MultiItemEntity>) :
                     }
 
                     1 -> {
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_1)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_1)
                     }
 
                     2 -> {
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_1)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_2)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_2)
                     }
 
                     3 -> {
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_1)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_2)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_3)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_3)
                     }
 
                     4 -> {
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_1)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_2)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_3)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_4)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_3)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_4)
                     }
                     5 -> {
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_1)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_2)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_3)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_4)
-                        ImageLoader.load(mContext, R.drawable.cb_card_details_collect_checked, star_5)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_3)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_4)
+                        ImageLoader.load(mContext, R.drawable.star_on, star_5)
                     }
                 }
 

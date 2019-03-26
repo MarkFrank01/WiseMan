@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.utils.ImageLoader;
 
 import java.util.List;
 
@@ -86,6 +87,11 @@ public class TJGridViewAdapter extends BaseAdapter {
          */
         int pos = position + curIndex * pageSize;
         viewHolder.tv.setText(mData.get(pos).getTitle());
+        if (mData.get(pos).type == 1) {
+            ImageLoader.load(mContext, R.drawable.circle_card_jx, viewHolder.iv);
+        }else {
+            ImageLoader.load(mContext,R.drawable.circle_arc_jx,viewHolder.iv);
+        }
 
         //通过类型展示图标
 

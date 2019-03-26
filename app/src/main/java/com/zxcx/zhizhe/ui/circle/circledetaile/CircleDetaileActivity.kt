@@ -167,11 +167,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             ll_join.visibility = View.VISIBLE
             ll_comment_input.isEnabled = false
             et_comment.isEnabled = false
+
+//            iv_toolbar_right1.visibility = View.GONE
         } else {
             bottom_bt.visibility = View.GONE
             ll_join.visibility = View.GONE
             ll_comment_input.isEnabled = true
             et_comment.isEnabled = true
+
+//            iv_toolbar_right1.visibility = View.VISIBLE
         }
 
         circlename = bean.title
@@ -663,32 +667,32 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             }
 
             1 -> {
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
+                ImageLoader.load(this, R.drawable.star_on_white, star_1)
             }
 
             2 -> {
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
+                ImageLoader.load(this, R.drawable.star_on_white, star_1)
+                ImageLoader.load(this, R.drawable.star_on_white, star_2)
             }
 
             3 -> {
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
+                ImageLoader.load(this, R.drawable.star_on_white, star_1)
+                ImageLoader.load(this, R.drawable.star_on_white, star_2)
+                ImageLoader.load(this, R.drawable.star_on_white, star_3)
             }
 
             4 -> {
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_4)
+                ImageLoader.load(this, R.drawable.star_on_white, star_1)
+                ImageLoader.load(this, R.drawable.star_on_white, star_2)
+                ImageLoader.load(this, R.drawable.star_on_white, star_3)
+                ImageLoader.load(this, R.drawable.star_on_white, star_4)
             }
             5 -> {
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_1)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_2)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_3)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_4)
-                ImageLoader.load(this, R.drawable.cb_card_details_collect_checked, star_5)
+                ImageLoader.load(this, R.drawable.star_on_white, star_1)
+                ImageLoader.load(this, R.drawable.star_on_white, star_2)
+                ImageLoader.load(this, R.drawable.star_on_white, star_3)
+                ImageLoader.load(this, R.drawable.star_on_white, star_4)
+                ImageLoader.load(this, R.drawable.star_on_white, star_5)
             }
         }
     }

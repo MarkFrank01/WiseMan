@@ -79,31 +79,31 @@
 
             <ImageView
                 android:id="@+id/star_1"
-                android:src="@drawable/cb_card_details_collect"
+                android:src="@drawable/star_off"
                 android:layout_width="9dp"
                 android:layout_height="9dp"/>
 
             <ImageView
                 android:id="@+id/star_2"
-                android:src="@drawable/cb_card_details_collect"
+                android:src="@drawable/star_off"
                 android:layout_width="9dp"
                 android:layout_height="9dp"/>
 
             <ImageView
                 android:id="@+id/star_3"
-                android:src="@drawable/cb_card_details_collect"
+                android:src="@drawable/star_off"
                 android:layout_width="9dp"
                 android:layout_height="9dp"/>
 
             <ImageView
                 android:id="@+id/star_4"
-                android:src="@drawable/cb_card_details_collect"
+                android:src="@drawable/star_off"
                 android:layout_width="9dp"
                 android:layout_height="9dp"/>
 
             <ImageView
                 android:id="@+id/star_5"
-                android:src="@drawable/cb_card_details_collect"
+                android:src="@drawable/star_off"
                 android:layout_width="9dp"
                 android:layout_height="9dp"/>
 
@@ -111,15 +111,15 @@
 
         <TextView
             android:id="@+id/more_price"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
-            android:background="@color/button_blue"
+            android:background="@drawable/circle_price"
             android:gravity="center"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="$ 40.0"/>
+            tools:text="$ 40.00"/>
 
         <TextView
             android:id="@+id/more_circle_type"
