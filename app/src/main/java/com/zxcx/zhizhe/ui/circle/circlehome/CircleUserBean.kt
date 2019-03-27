@@ -21,7 +21,11 @@ class CircleUserBean(
         @SerializedName("likeArticleCount") var likeNum: Int = 0, //0
         @SerializedName("collectedArticleCount") var collectNum: Int = 0, //0
 
-        @SerializedName("followType") var followType:Int = 0
+        @SerializedName("followType") var followType:Int = 0,
+        @SerializedName("authorCreateArticleCount")var authorCreateArticleCount:Int =0,
+        @SerializedName("authorFollowerCount") var authorFollowerCount:Int =0,
+        @SerializedName("likedUsersCount") var likedUsersCount:Int = 0
+
 
 //        @SerializedName("phoneNum")
 //        val phoneNum: String = "",

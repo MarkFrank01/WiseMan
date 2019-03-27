@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
+import com.zxcx.zhizhe.ui.circle.circlemanlist.detail.CircleManDetailActivity
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.*
@@ -161,6 +162,13 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
                     } else {
                         mPresenter.followUser(bean.id)
                     }
+                }
+            }
+            R.id.iv_item_search_user -> {
+                //去个人的信息
+                val bean = adapter.data[position] as SearchUserBean
+                mActivity.startActivity(CircleManDetailActivity::class.java){
+                    it.putExtra("userId",bean.id)
                 }
             }
         }

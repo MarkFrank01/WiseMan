@@ -100,7 +100,7 @@
         <receiver
             android:name=".AppRegister">
             <intent-filter>
-                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/>
             </intent-filter>
         </receiver>
 
@@ -513,15 +513,20 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".ui.circle.circlemanlist.detail.CircleManDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".wxapi.WXPayEntryActivity"
-                  android:exported="true"
-                  android:launchMode="singleTop"/>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>

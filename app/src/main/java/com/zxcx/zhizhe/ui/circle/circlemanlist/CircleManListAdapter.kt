@@ -31,6 +31,7 @@ class CircleManListAdapter(data:List<SearchUserBean>) :BaseQuickAdapter<SearchUs
 //        helper.setChecked(R.id.cb_item_search_user_follow, item.isFollow)
         helper.getView<View>(R.id.cb_item_search_user_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         helper.addOnClickListener(R.id.cb_item_search_user_follow)
+        helper.addOnClickListener(R.id.iv_item_search_user)
 
         when (item.followType) {
             0 -> {

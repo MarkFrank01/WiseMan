@@ -23,7 +23,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/bg_backbutton2">
+                android:background="@drawable/money_background">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -37,6 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
+                    android:hint="200"
                     android:id="@+id/et_my_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +47,6 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
-                    android:hint="200"
                     android:inputType="number"
                     android:maxLines="1"
                     android:textColor="@color/white"

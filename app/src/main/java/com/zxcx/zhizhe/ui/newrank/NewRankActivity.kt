@@ -8,6 +8,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.newrank.morerank.MoreRankActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
+import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -41,10 +42,27 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
     }
 
     override fun getTopTenRankSuccess(bean: List<UserRankBean>) {
+
+        tv_rank_first.text = bean[0].name
+        tv_rank_second.text = bean[1].name
+        tv_rank_third.text = bean[2].name
+
+        tv_rank_first_2.text = bean[0].intelligence.toString()
+        tv_rank_second_2.text = bean[1].intelligence.toString()
+        tv_rank_third_1.text = bean[2].intelligence.toString()
+
+        ImageLoader.load(mActivity,bean[0].imageUrl,R.drawable.default_header,iv_rank_first)
+        ImageLoader.load(mActivity,bean[1].imageUrl,R.drawable.default_header,iv_rank_second)
+        ImageLoader.load(mActivity,bean[2].imageUrl,R.drawable.default_header,iv_rank_third)
+
+
+
         mAdapter.setNewData(bean)
         mAdapter.remove(0)
         mAdapter.remove(0)
         mAdapter.remove(0)
+
+
     }
 
     override fun getDataSuccess(bean: List<UserRankBean>?) {

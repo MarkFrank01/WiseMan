@@ -17,11 +17,12 @@
             android:orientation="vertical">
 
             <android.support.constraint.ConstraintLayout
+                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
-                android:background="@drawable/bg_backbutton2">
+                android:background="@drawable/money_background">
 
                 <TextView
                     android:id="@+id/money_count"

@@ -9,6 +9,7 @@ import com.zxcx.zhizhe.ui.circle.bean.CheckBean;
 import com.zxcx.zhizhe.ui.circle.bean.CircleClassifyBean;
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean;
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean;
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean;
 import com.zxcx.zhizhe.ui.circle.circlemessage.MyCircleTabBean;
 import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext.BalanceBean;
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean;
@@ -531,6 +532,9 @@ public interface APIService {
      */
     @POST("/user/getAuthorInfo")
     Flowable<BaseBean<OtherUserInfoBean>> getAuthorInfo(@Query("authorId") int id);
+
+    @POST("/user/getAuthorInfo")
+    Flowable<BaseBean<CircleUserBean>> getAuthorInfo2(@Query("authorId") int id);
 
     /**
      * 获取其他用户创作列表
@@ -1181,6 +1185,15 @@ public interface APIService {
            @Query("consigneeMobile") String consigneeMobile
     );
 
+    /**
+     * 通过作者id获取个人创建的圈子
+     */
+    @POST("/circle/getCircleListByAuthorId")
+    Flowable<BaseArrayBean<CircleBean>> getCircleListByAuthorId(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize,
+            @Query("userId") int userId
+    );
 
     //支付!!!
     /**
