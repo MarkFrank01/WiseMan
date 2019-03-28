@@ -544,7 +544,7 @@
                             <View
                                 android:layout_width="80dp"
                                 android:layout_height="65dp"
-                                android:background="@color/button_blue"/>
+                                android:background="@drawable/circle_t2"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -567,7 +567,7 @@
                             <View
                                 android:layout_width="80dp"
                                 android:layout_height="65dp"
-                                android:background="@color/button_blue"/>
+                                android:background="@drawable/circle_t3"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -590,7 +590,7 @@
                             <View
                                 android:layout_width="80dp"
                                 android:layout_height="65dp"
-                                android:background="@color/button_blue"/>
+                                android:background="@drawable/circle_t1"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
