@@ -23,7 +23,7 @@ import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
-import com.zxcx.zhizhe.ui.my.selectAttention.interest.SelectInterestActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -142,7 +142,10 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 //以前
 //                mActivity.startActivity(SelectAttentionActivity::class.java, {})
                 //现在
-                mActivity.startActivity(SelectInterestActivity::class.java,{})
+//                mActivity.startActivity(SelectInterestActivity::class.java,{})
+
+                //emmmmmmmmmmmmmmmmm
+                mActivity.startActivity(NowSelectActivity::class.java){}
 
                 //方便测试
                 //微信吊起

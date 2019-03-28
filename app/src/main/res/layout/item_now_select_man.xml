@@ -1,0 +1,81 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_my_head"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="6dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/iv_my_head_placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_oval="true"/>
+
+        <TextView
+            android:id="@+id/tv_my_lv"
+            style="@style/tv_single"
+            android:layout_width="50dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="35dp"
+            android:background="@drawable/bg_level"
+            android:gravity="center_vertical"
+            android:paddingStart="21dp"
+            android:textColor="@color/white_final"
+            android:textSize="@dimen/text_size_text_3"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
+            app:layout_constraintStart_toStartOf="@+id/iv_my_head"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/tv_my_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:maxLength="8"
+            android:maxLines="1"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_2"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_my_head"
+            tools:text="怕是个傻子哦"/>
+
+        <ImageView
+            android:id="@+id/iv_item_card_officials"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/iv_card_detail_official"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_my_nick_name"
+            app:layout_constraintStart_toEndOf="@id/tv_my_nick_name"
+            app:layout_constraintTop_toTopOf="@id/tv_my_nick_name"/>
+
+        <TextView
+            android:id="@+id/tv_my_signature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/text_color_3"
+            android:textSize="@dimen/text_size_text_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_my_nick_name"
+            tools:text="999作品 999粉丝"/>
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

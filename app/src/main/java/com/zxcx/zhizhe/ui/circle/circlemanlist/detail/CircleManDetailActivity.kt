@@ -31,7 +31,7 @@ class CircleManDetailActivity : MvpActivity<CircleManDetailPresenter>(), CircleM
     private var mPage = 0
     private var userId = 0
 
-    private val titles = arrayOf("卡片", "圈子")
+    private val titles = arrayOf("Ta的创作", "Ta的圈子")
 
     private var mAdapter: ViewPagerAdapter2? = null
 

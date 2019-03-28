@@ -9,8 +9,12 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
  * @Description :
  */
 class WXBean (
-        @SerializedName("prepayId") var prepayId :String,
-        @SerializedName("sign") var sign:String,
+        @SerializedName("appid") var appid:String,
+        @SerializedName("partnerid") var partnerid:String,
+        @SerializedName("packageType") var packageType:String,
         @SerializedName("nonceStr")var nonceStr:String,
-        @SerializedName("timestamp")var timestamp:String
+        @SerializedName("timestamp")var timestamp:String,
+        @SerializedName("prepayId") var prepayId :String,
+        @SerializedName("sign") var sign:String
+
 ):RetrofitBean()

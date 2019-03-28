@@ -1,10 +1,12 @@
 package com.zxcx.zhizhe.ui.circle.circlemanlist.detail
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -12,6 +14,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import kotlinx.android.synthetic.main.fragment_man_circle.*
 
 /**
  * @author : MarkFrank01
@@ -44,7 +47,18 @@ class CircleManDetailCircleFragment: MvpFragment<CircleManDetailPresenter>(), Ci
 
     override fun getCircleListByAuthorIdSuccess(list: MutableList<CircleBean>) {
         if (mPage == 0){
+            mAdapter.setNewData(list as List<MultiItemEntity>?)
+        }else{
+            mAdapter.addData(list)
+        }
 
+        mPage++
+        if (list.size<Constants.PAGE_SIZE){
+            mAdapter.loadMoreEnd(false)
+        }else{
+            mAdapter.loadMoreComplete()
+            mAdapter.setEnableLoadMore(false)
+            mAdapter.setEnableLoadMore(true)
         }
     }
 
@@ -81,7 +95,13 @@ class CircleManDetailCircleFragment: MvpFragment<CircleManDetailPresenter>(), Ci
     }
 
     private fun initRecycleView(){
+        mAdapter = CircleManCircleAdapter(ArrayList())
+        mAdapter.onItemChildClickListener = this
 
+        rv_him_circle.layoutManager = object : GridLayoutManager(context, 2) {
+            override fun canScrollVertically() = false
+        }
+        rv_him_circle.adapter = mAdapter
     }
 
 

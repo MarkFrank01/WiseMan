@@ -9,7 +9,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.pay.wx.WXBean
 import com.zxcx.zhizhe.pay.wx.WXEntryContract
 import com.zxcx.zhizhe.pay.wx.WXPresenter
-import com.zxcx.zhizhe.utils.LogCat
 import kotlinx.android.synthetic.main.activity_entry_wxpay.*
 
 /**
@@ -42,11 +41,11 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
 
     override fun getWxOrderPaySuccess(bean: WXBean) {
         toastShow("SUCCESS")
-        LogCat.e("SIGN is " + bean.sign)
-        LogCat.e("ID is " + bean.prepayId)
-        LogCat.e("noc is " + bean.nonceStr)
-        LogCat.e("time is " + bean.timestamp)
-        holdOnWXPay(bean.sign, bean.prepayId, bean.nonceStr, bean.timestamp)
+//        LogCat.e("SIGN is " + bean.sign)
+//        LogCat.e("ID is " + bean.prepayId)
+//        LogCat.e("noc is " + bean.nonceStr)
+//        LogCat.e("time is " + bean.timestamp)
+        holdOnWXPay(bean.appid,bean.partnerid,bean.packageType,bean.nonceStr,bean.timestamp,bean.prepayId,bean.sign)
     }
 
     override fun getDataSuccess(bean: WXBean?) {
@@ -56,22 +55,35 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         circleId = intent.getIntExtra("circleId", 0)
     }
 
-    fun holdOnWXPay(sign: String, prepayId: String, nonceStr: String, timestamp: String) {
+    fun holdOnWXPay(appId:String,partnerId:String,packageType:String,nonceStr:String,timestamp:String,prepayId:String,sign:String) {
 
         //使用正式的
-        api = WXAPIFactory.createWXAPI(this, "wxac8cb0c3f9b06b05")
-        api.registerApp("wxac8cb0c3f9b06b05")
+        api = WXAPIFactory.createWXAPI(this, appId)
+        api.registerApp(appId)
 
         var req = PayReq()
-        req.appId = "wxac8cb0c3f9b06b05"
-        req.partnerId = "1526397881"
+        req.appId = appId
+        req.partnerId = partnerId
         req.prepayId = prepayId
         req.nonceStr = nonceStr
         req.timeStamp = timestamp
-        req.packageValue = "Sign=WXPay"
-        req.sign = sign
+        req.packageValue = packageType
+        req.sign =sign
         req.extData = "app data"
+
         api.sendReq(req)
+
+//        val request = PayReq()
+//        request.appId = "wxac8cb0c3f9b06b05"
+//        request.partnerId = "1526397881"
+//        request.prepayId = prepayId
+//        request.packageValue ="Sign=WXPay"
+//        request.nonceStr = nonceStr
+//        request.timeStamp = timestamp
+//        request.sign = sign
+//        request.extData = "app data"
+//
+//        api.sendReq(request)
 
 //        api = WXAPIFactory.createWXAPI(this,"wxb4ba3c02aa476ea1")
 //        api.registerApp("wxb4ba3c02aa476ea1")
@@ -88,9 +100,9 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
 //        api.sendReq(req)
 
 
-        LogCat.e("CNM" + req.checkArgs())
-        LogCat.e("appId : " + "wxac8cb0c3f9b06b05" + " partnerId: " + "1526397881" + " prepayId: $prepayId" + " nonceStr: $nonceStr"
-                + " timestamp:  " + "Sign=WXPay" + " sign: $sign")
+//        LogCat.e("CNM" + req.checkArgs())
+//        LogCat.e("appId : " + "wxac8cb0c3f9b06b05" + " partnerId: " + "1526397881" + " prepayId: $prepayId" + " nonceStr: $nonceStr"
+//                + " timestamp:  " + "Sign=WXPay" + " sign: $sign")
 
     }
 

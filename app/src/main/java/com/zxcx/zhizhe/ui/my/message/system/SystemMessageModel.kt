@@ -16,7 +16,7 @@ class SystemMessageModel(presenter: SystemMessageContract.Presenter) : BaseModel
 	}
 
 	fun getSystemMessage(page: Int, pageSize: Int) {
-		mDisposable = AppClient.getAPIService().getSystemMessageV16(page, pageSize)
+		mDisposable = AppClient.getAPIService().getSystemMessage(page, pageSize)
 				.compose(BaseRxJava.io_main())
 				.compose(BaseRxJava.handleArrayResult())
 				.subscribeWith(object : BaseSubscriber<List<SystemMessageBean>>(mPresenter) {

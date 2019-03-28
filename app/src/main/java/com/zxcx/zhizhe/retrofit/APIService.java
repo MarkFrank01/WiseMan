@@ -1195,6 +1195,34 @@ public interface APIService {
             @Query("userId") int userId
     );
 
+    //    /**
+    //     * 获取全部分类
+    //     */
+    //    @POST("/classifyCollection/getInterestedCollection")
+    //    Flowable<BaseArrayBean<ClassifyBean>> getClassify();
+    /**
+     * 关注分类
+     */
+    @POST("/interestRecommend/followClassify")
+    Flowable<BaseBean<ClassifyBean>> followClassify(
+            @Query("classifyList") List<Integer> classifyList
+    );
+
+    /**
+     * 获取兴趣选择的所有分类
+     */
+    @POST("/interestRecommend/getInterestRecommendForClassify")
+    Flowable<BaseArrayBean<ClassifyBean>> getInterestRecommendForClassify();
+
+    /**
+     * 获取感兴趣选择的用户
+     */
+    @POST("/interestRecommend/getInterestRecommendForUser")
+    Flowable<BaseArrayBean<SearchUserBean>> getInterestRecommendForUser(
+
+    );
+
+
     //支付!!!
     /**
      * 微信统一下单接口

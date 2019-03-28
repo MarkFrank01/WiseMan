@@ -93,6 +93,49 @@ class SystemMessageAdapter(data: List<SystemMessageBean>) : BaseQuickAdapter<Sys
 //                }
                 helper.addOnClickListener(R.id.tv_item_system_message_content)
             }
+
+            //新
+            MESSAGE_TYPE_SYSTEM_CIRCLE_PASS->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看圈子")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_UNPASS->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_IS_CLOSED->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_NOT_SUBMITTED->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_EDITING_PASS->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_EDITING_UNPASS->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
+
+            MESSAGE_TYPE_SYSTEM_CIRCLE_HAS_WITHDRAW->{
+                helper.getView<TextView>(R.id.tv_item_system_message_value).visibility = View.GONE
+                helper.setText(R.id.tv_item_system_message_action, "查看详情")
+                helper.setTextColor(R.id.tv_item_system_message_title, mContext.getColorForKotlin(R.color.text_color_1))
+            }
         }
     }
 
