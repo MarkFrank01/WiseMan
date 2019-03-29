@@ -1222,6 +1222,20 @@ public interface APIService {
 
     );
 
+    /**
+     * 用户设置顶部分类
+     */
+    @POST("/classifyCollection/setClassifyMenu")
+    Flowable<BaseBean<Object>> setClassifyMenu(
+            @Query("classifyIdList") List<Integer> classifyIdList
+    );
+
+    /**
+     * 获取导航所有分类列表
+     */
+    @POST("/classifyCollection/getAllNavClassify")
+    Flowable<BaseArrayBean<ClassifyBean>> getAllNavClassify();
+
 
     //支付!!!
     /**

@@ -287,11 +287,11 @@
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_first"
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
-                            android:layout_marginTop="7dp"
+                            android:layout_marginTop="8dp"
                             android:src="@drawable/iv_my_head_placeholder"
                             app:riv_oval="true"/>
                     </RelativeLayout>

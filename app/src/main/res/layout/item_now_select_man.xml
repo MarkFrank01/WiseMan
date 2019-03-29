@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
 
     <android.support.constraint.ConstraintLayout
@@ -21,6 +21,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:riv_oval="true"/>
+
+        <ImageView
+            android:id="@+id/iv_item_show_click"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/c_choose"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/iv_my_head"
+            app:layout_constraintTop_toTopOf="@+id/iv_my_head"/>
 
         <TextView
             android:id="@+id/tv_my_lv"
@@ -52,16 +61,6 @@
             app:layout_constraintTop_toBottomOf="@id/iv_my_head"
             tools:text="怕是个傻子哦"/>
 
-        <ImageView
-            android:id="@+id/iv_item_card_officials"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/iv_card_detail_official"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/tv_my_nick_name"
-            app:layout_constraintStart_toEndOf="@id/tv_my_nick_name"
-            app:layout_constraintTop_toTopOf="@id/tv_my_nick_name"/>
 
         <TextView
             android:id="@+id/tv_my_signature"

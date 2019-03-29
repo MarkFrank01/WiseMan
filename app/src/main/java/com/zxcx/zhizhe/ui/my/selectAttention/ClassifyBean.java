@@ -34,6 +34,9 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
     @SerializedName("follow")
     private boolean follow = false;
 
+    @SerializedName("inNav")
+    private boolean inNav = false;
+
 	private boolean isChecked = false;
 	
 	@Override
@@ -113,6 +116,14 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
 
     public void setFollow(boolean follow) {
         this.follow = follow;
+    }
+
+    public boolean isInNav() {
+        return inNav;
+    }
+
+    public void setInNav(boolean inNav) {
+        this.inNav = inNav;
     }
 }
 

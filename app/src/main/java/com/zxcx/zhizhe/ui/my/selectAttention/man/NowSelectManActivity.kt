@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Created on 2019/3/28
  * @Description :
  */
-class NowSelectManActivity:MvpActivity<NowSelectManPresenter>(),NowSelectManContract.View {
+class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManContract.View {
 
-    private lateinit var mAdapter:NowSelectManAdapter
+    private lateinit var mAdapter: NowSelectManAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class NowSelectManActivity:MvpActivity<NowSelectManPresenter>(),NowSelectManCont
         }
     }
 
-    private fun initView(){
+    private fun initView() {
         initToolBar()
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "完成"
@@ -63,16 +63,22 @@ class NowSelectManActivity:MvpActivity<NowSelectManPresenter>(),NowSelectManCont
 
     }
 
-    private fun initRecycleView(){
+    private fun initRecycleView() {
         mAdapter = NowSelectManAdapter(ArrayList())
 
-        val manage = GridLayoutManager(mActivity,3)
+        val manage = GridLayoutManager(mActivity, 3)
 
         rv_select_man.adapter = mAdapter
         rv_select_man.layoutManager = manage
 
         mAdapter.setOnItemChildClickListener { adapter, view, position ->
-
+            val bean = adapter.data[position] as SearchUserBean
+            if (bean.followType == 0) {
+                bean.followType = 1
+            } else if (bean.followType == 1||bean.followType == 2) {
+                bean.followType = 0
+            }
+            mAdapter.notifyItemChanged(position)
         }
     }
 }

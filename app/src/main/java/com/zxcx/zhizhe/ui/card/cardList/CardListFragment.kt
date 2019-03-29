@@ -15,8 +15,10 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.topchange.TopChangeActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_card_list.*
 
 /**
@@ -31,8 +33,14 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		super.onCreate(savedInstanceState)
 	}
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-	                          savedInstanceState: Bundle?): View? {
+    //标记！！！记住刷新
+    override fun onResume() {
+        super.onResume()
+        toastShow("ABC")
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.fragment_card_list, container, false)
 	}
@@ -43,7 +51,14 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		getCardCategory()
 	}
 
-	override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+    override fun setListener() {
+        //处理置顶的分类
+        change_top_more.setOnClickListener {
+            mActivity.startActivity(TopChangeActivity::class.java){}
+        }
+    }
+
+    override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
 		mAdapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
 		vp_card_list.adapter = mAdapter
 		tl_card_list.removeAllTabs()
