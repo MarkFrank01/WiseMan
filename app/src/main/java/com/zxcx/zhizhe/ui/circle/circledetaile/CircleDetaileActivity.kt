@@ -330,10 +330,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //                it.putExtra("circleName",circlename)
 //                it.putExtra("circlePrice",circleprice)
 //            }
-            mActivity.startActivity(SelectPayActivity::class.java){
-                it.putExtra("circleId",circleID)
-                it.putExtra("circleName",circlename)
-                it.putExtra("circlePrice",circleprice)
+            if (checkLogin()) {
+                mActivity.startActivity(SelectPayActivity::class.java) {
+                    it.putExtra("circleId", circleID)
+                    it.putExtra("circleName", circlename)
+                    it.putExtra("circlePrice", circleprice)
+                }
             }
         }
     }

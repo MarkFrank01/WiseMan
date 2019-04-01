@@ -50,6 +50,7 @@
                     android:src="@drawable/tv_rank_up"/>
 
                 <TextView
+                    android:id="@+id/tv_up_or_down"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -65,29 +66,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="42dp">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_rank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                </LinearLayout>
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/iv_my_head"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/iv_my_head_placeholder"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:riv_oval="true"/>
 
                 <TextView
                     android:id="@+id/tv_my_lv"
                     style="@style/tv_single"
                     android:layout_width="50dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="35dp"
-                    android:background="@drawable/bg_level"
-                    android:gravity="center_vertical"
-                    android:paddingStart="21dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
                     android:textColor="@color/white_final"
-                    android:textSize="@dimen/text_size_text_3"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
-                    app:layout_constraintStart_toStartOf="@+id/iv_my_head"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_my_head"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     tools:text="1000"/>
 
             </android.support.constraint.ConstraintLayout>
@@ -223,7 +234,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="80dp"
                     android:orientation="vertical">
 
@@ -234,11 +245,12 @@
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_second"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="12dp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/iv_my_head_placeholder"
                             app:riv_oval="true"/>
                     </RelativeLayout>
@@ -340,11 +352,12 @@
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_third"
-                            android:layout_width="45dp"
-                            android:layout_height="45dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="12dp"
+                            android:scaleType="fitXY"
                             android:src="@drawable/iv_my_head_placeholder"
                             app:riv_oval="true"/>
                     </RelativeLayout>

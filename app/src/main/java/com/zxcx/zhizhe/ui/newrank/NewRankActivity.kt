@@ -39,6 +39,10 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
     }
 
     override fun getMyRankSuccess(bean: UserRankBean) {
+//        iv_up_or_down
+        tv_up_or_down.text = bean.rankIndexFloat.toString()
+        ImageLoader.load(mActivity,bean.imageUrl,R.drawable.default_header,iv_up_or_down)
+
     }
 
     override fun getTopTenRankSuccess(bean: List<UserRankBean>) {

@@ -18,7 +18,7 @@ data class UserRankBean(
         @SerializedName("authenticationType")var authenticationType:Int = 0,
         @SerializedName("followType") var followType:Int = 0,
 
-        @SerializedName("follow") var isFollow: Boolean = false
-//        @SerializedName("rankIndexFloat") var rankIndexFloat:Int = 0
+        @SerializedName("follow") var isFollow: Boolean = false,
+        @SerializedName("rankIndexFloat") var rankIndexFloat:Int = 0
 ) : RetrofitBean()
 
