@@ -635,7 +635,7 @@ public interface APIService {
     /**
      * 获取个人信息,获取红点状态
      */
-    @POST("/mytabinfo/getMyTabInfo")
+    @POST("/myTabInfo/getMyTabInfo")
     Flowable<BaseBean<MyTabBean>> getMyTabInfo();
 
     /**
@@ -1246,5 +1246,11 @@ public interface APIService {
             @Query("circleId") int circleId
     );
 
-
+    /**
+     * 阿里获取签名
+     */
+    @POST("/alipay/getAlOrderPayForJoinCircle")
+    Flowable<BaseBean<String>> getAlOrderPayForJoinCircle(
+            @Query("circleId") int circleId
+    );
 }

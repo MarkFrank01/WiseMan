@@ -8,23 +8,24 @@ import android.os.Handler
 import android.os.Message
 import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
-import android.view.View
-import com.alipay.sdk.app.AuthTask
 import com.alipay.sdk.app.PayTask
 import com.zxcx.zhizhe.R
-import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.utils.LogCat
 
 /**
  * @author : MarkFrank01
  * @Created on 2019/2/23
  * @Description :
  */
-class ZFBEntryActivity : BaseActivity() {
+//class ZFBEntryActivity : BaseActivity() {
+class ZFBEntryActivity : MvpActivity<ZFBPresenter>(),ZFBContract.View {
+
 
     /**
      * 用于支付宝支付业务的入参 app_id。
      */
-    val APPID = ""
+    val APPID = "2019010862850729"
 
     /**
      * 用于支付宝账户登录授权业务的入参 pid。
@@ -47,7 +48,7 @@ class ZFBEntryActivity : BaseActivity() {
      * 工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1
      */
     val RSA2_PRIVATE = ""
-    val RSA_PRIVATE = ""
+    var RSA_PRIVATE = ""
 
     /**
      * 获取权限使用的RequestCode
@@ -56,6 +57,8 @@ class ZFBEntryActivity : BaseActivity() {
 
     private val SDK_PAY_FLAG = 1
     private val SDK_AUTH_FLAG = 2
+
+    private var circleId = 0
 
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
@@ -107,6 +110,54 @@ class ZFBEntryActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_entry_zfbpay)
         requestPermission()
+
+        initData()
+
+        mPresenter.getAlOrderPayForJoinCircle(circleId)
+    }
+
+    fun initData(){
+        circleId = intent.getIntExtra("circleId",0)
+    }
+
+    private fun open(){
+        if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
+            toastShow("错误: 需要配置 PayDemoActivity 中的 APPID 和 RSA_PRIVATE")
+            return
+        }
+
+        LogCat.e("appId is "+APPID)
+        LogCat.e("RSA is "+RSA_PRIVATE)
+
+        /*
+         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
+         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
+         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
+         *
+         * orderInfo 的获取必须来自服务端；
+         */
+//        var rsa2: Boolean = (RSA2_PRIVATE.length > 0)
+//        var params: Map<String, String> = OrderInfoUtil2_0.buildOrderParamMap(APPID, rsa2)
+//        var orderParam: String = OrderInfoUtil2_0.buildOrderParam(params)
+//
+//        val privateKey = if (rsa2) RSA2_PRIVATE else RSA_PRIVATE
+//        var sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2)
+//        val orderInfo: String = orderParam + "&" + sign
+
+        val payRunnable = Runnable {
+            val alipay = PayTask(this)
+            val result = alipay.payV2(RSA_PRIVATE, true)
+
+            val msg = Message()
+            msg.what = SDK_PAY_FLAG
+            msg.obj = result
+            mHandler.sendMessage(msg)
+        }
+
+        //必须异步调用
+        var payThread = Thread(payRunnable)
+        payThread.start()
+
     }
 
     private fun requestPermission() {
@@ -125,6 +176,23 @@ class ZFBEntryActivity : BaseActivity() {
 //            toastShow("支付宝所需权限不足")
 //        }
     }
+
+    override fun createPresenter(): ZFBPresenter {
+        return ZFBPresenter(this)
+    }
+
+    override fun getAlOrderPayForJoinCircle(key:String) {
+        RSA_PRIVATE = key
+        open()
+    }
+
+
+    override fun postSuccess(bean: ZFBBean?) {
+    }
+
+    override fun postFail(msg: String?) {
+    }
+
 
     /**
      * 权限获取回调
@@ -153,78 +221,78 @@ class ZFBEntryActivity : BaseActivity() {
         }
     }
 
-    fun payV2(v: View) {
-        if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
-            toastShow("错误: 需要配置 PayDemoActivity 中的 APPID 和 RSA_PRIVATE")
-            return
-        }
-
-        /*
-         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
-         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
-         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-         *
-         * orderInfo 的获取必须来自服务端；
-         */
-        var rsa2: Boolean = (RSA2_PRIVATE.length > 0)
-        var params: Map<String, String> = OrderInfoUtil2_0.buildOrderParamMap(APPID, rsa2)
-        var orderParam: String = OrderInfoUtil2_0.buildOrderParam(params)
-
-        val privateKey = if (rsa2) RSA2_PRIVATE else RSA_PRIVATE
-        var sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2)
-        val orderInfo: String = orderParam + "&" + sign
-
-        val payRunnable = Runnable {
-            val alipay = PayTask(this)
-            val result = alipay.payV2(orderInfo, true)
-
-            val msg = Message()
-            msg.what = SDK_PAY_FLAG
-            msg.obj = result
-            mHandler.sendMessage(msg)
-        }
-
-        //必须异步调用
-        var payThread = Thread(payRunnable)
-        payThread.start()
-    }
-
-    fun authV2(v: View) {
-        if (TextUtils.isEmpty(PID) || TextUtils.isEmpty(APPID)
-                || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))
-                || TextUtils.isEmpty(TARGET_ID)) {
-            toastShow("错误: 需要配置PARTNER |APP_ID| RSA_PRIVATE| TARGET_ID")
-            return
-        }
-        /*
-         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
-         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
-         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
-         *
-         * authInfo 的获取必须来自服务端；
-         */
-
-        var rsa2:Boolean = (RSA2_PRIVATE.length>0)
-        var authInfoMap:Map<String,String> = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2)
-        var info = OrderInfoUtil2_0.buildOrderParam(authInfoMap)
-
-        var privatekey = if (rsa2) RSA2_PRIVATE else RSA_PRIVATE
-        var sign = OrderInfoUtil2_0.getSign(authInfoMap,privatekey,rsa2)
-        var authInfo:String = info +"&"+sign
-        val authRunnable = Runnable {
-            // 构造AuthTask 对象
-            val authTask = AuthTask(this)
-            // 调用授权接口，获取授权结果
-            val result = authTask.authV2(authInfo, true)
-
-            val msg = Message()
-            msg.what = SDK_AUTH_FLAG
-            msg.obj = result
-            mHandler.sendMessage(msg)
-        }
-
-        //必须异步调用
-        val authThread = Thread(authRunnable)
-        authThread.start()
-    }
+//    fun payV2(v: View) {
+//        if (TextUtils.isEmpty(APPID) || (TextUtils.isEmpty(RSA_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))) {
+//            toastShow("错误: 需要配置 PayDemoActivity 中的 APPID 和 RSA_PRIVATE")
+//            return
+//        }
+//
+//        /*
+//         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
+//         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
+//         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
+//         *
+//         * orderInfo 的获取必须来自服务端；
+//         */
+//        var rsa2: Boolean = (RSA2_PRIVATE.length > 0)
+//        var params: Map<String, String> = OrderInfoUtil2_0.buildOrderParamMap(APPID, rsa2)
+//        var orderParam: String = OrderInfoUtil2_0.buildOrderParam(params)
+//
+//        val privateKey = if (rsa2) RSA2_PRIVATE else RSA_PRIVATE
+//        var sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2)
+//        val orderInfo: String = orderParam + "&" + sign
+//
+//        val payRunnable = Runnable {
+//            val alipay = PayTask(this)
+//            val result = alipay.payV2(orderInfo, true)
+//
+//            val msg = Message()
+//            msg.what = SDK_PAY_FLAG
+//            msg.obj = result
+//            mHandler.sendMessage(msg)
+//        }
+//
+//        //必须异步调用
+//        var payThread = Thread(payRunnable)
+//        payThread.start()
+//    }
+//
+//    fun authV2(v: View) {
+//        if (TextUtils.isEmpty(PID) || TextUtils.isEmpty(APPID)
+//                || (TextUtils.isEmpty(RSA2_PRIVATE) && TextUtils.isEmpty(RSA_PRIVATE))
+//                || TextUtils.isEmpty(TARGET_ID)) {
+//            toastShow("错误: 需要配置PARTNER |APP_ID| RSA_PRIVATE| TARGET_ID")
+//            return
+//        }
+//        /*
+//         * 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
+//         * 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
+//         * 防止商户私密数据泄露，造成不必要的资金损失，及面临各种安全风险；
+//         *
+//         * authInfo 的获取必须来自服务端；
+//         */
+//
+//        var rsa2:Boolean = (RSA2_PRIVATE.length>0)
+//        var authInfoMap:Map<String,String> = OrderInfoUtil2_0.buildAuthInfoMap(PID, APPID, TARGET_ID, rsa2)
+//        var info = OrderInfoUtil2_0.buildOrderParam(authInfoMap)
+//
+//        var privatekey = if (rsa2) RSA2_PRIVATE else RSA_PRIVATE
+//        var sign = OrderInfoUtil2_0.getSign(authInfoMap,privatekey,rsa2)
+//        var authInfo:String = info +"&"+sign
+//        val authRunnable = Runnable {
+//            // 构造AuthTask 对象
+//            val authTask = AuthTask(this)
+//            // 调用授权接口，获取授权结果
+//            val result = authTask.authV2(authInfo, true)
+//
+//            val msg = Message()
+//            msg.what = SDK_AUTH_FLAG
+//            msg.obj = result
+//            mHandler.sendMessage(msg)
+//        }
+//
+//        //必须异步调用
+//        val authThread = Thread(authRunnable)
+//        authThread.start()
+//    }
 }

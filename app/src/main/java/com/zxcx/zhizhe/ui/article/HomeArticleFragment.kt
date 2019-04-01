@@ -22,6 +22,7 @@ import com.zxcx.zhizhe.ui.article.attention.AttentionArticleFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardCategoryBean
 import com.zxcx.zhizhe.ui.search.search.HotSearchBean
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
+import com.zxcx.zhizhe.ui.topchange.TopChangeActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -77,12 +78,16 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     override fun onResume() {
         super.onResume()
         getSearchDefaultKeyword()
+        getArticleCategory()
     }
 
     override fun setListener() {
-        super.setListener()
         tv_home_article_search.setOnClickListener {
             mActivity.startActivity(SearchActivity::class.java) {}
+        }
+
+        change_top_more.setOnClickListener {
+            mActivity.startActivity(TopChangeActivity::class.java){}
         }
     }
 

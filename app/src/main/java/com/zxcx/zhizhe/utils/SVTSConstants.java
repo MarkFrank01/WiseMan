@@ -36,6 +36,7 @@ public class SVTSConstants {
 	public static final String fansNum = "fans_num";
 	public static final String level = "level";
 	public static final String actionType = "actionType";
+	public static final String rankNum = "rank_num";
 	
 	public static final String openId = "open_id";
 	public static final String isBindingQQ = "is_binding_qq";

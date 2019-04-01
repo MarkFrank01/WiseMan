@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Created on 2019/3/28
  * @Description :
  */
-class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManContract.View {
+class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManContract.View{
 
     private lateinit var mAdapter: NowSelectManAdapter
 
@@ -55,6 +55,7 @@ class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManC
         }
     }
 
+
     private fun initView() {
         initToolBar()
         tv_toolbar_right.visibility = View.VISIBLE
@@ -75,8 +76,10 @@ class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManC
             val bean = adapter.data[position] as SearchUserBean
             if (bean.followType == 0) {
                 bean.followType = 1
-            } else if (bean.followType == 1||bean.followType == 2) {
+                mPresenter.followUser(bean.id)
+            } else if (bean.followType == 1 || bean.followType == 2) {
                 bean.followType = 0
+                mPresenter.unFollowUser(bean.id)
             }
             mAdapter.notifyItemChanged(position)
         }

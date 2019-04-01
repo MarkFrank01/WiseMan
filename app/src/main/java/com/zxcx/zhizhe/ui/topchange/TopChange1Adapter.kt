@@ -1,6 +1,6 @@
 package com.zxcx.zhizhe.ui.topchange
 
-import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
@@ -11,7 +11,8 @@ import com.zxcx.zhizhe.utils.ScreenUtils
  * @Created on 2019/3/29
  * @Description :
  */
-class TopChange1Adapter(data:List<ClassifyBean>):BaseQuickAdapter<ClassifyBean,BaseViewHolder>(R.layout.item_top_change_1) {
+//class TopChange1Adapter(data:List<ClassifyBean>):BaseQuickAdapter<ClassifyBean,BaseViewHolder>(R.layout.item_top_change_1) {
+class TopChange1Adapter(data:List<ClassifyBean>):BaseItemDraggableAdapter<ClassifyBean,BaseViewHolder>(R.layout.item_top_change_1,data) {
 
     override fun convert(helper: BaseViewHolder, item: ClassifyBean) {
         helper.addOnClickListener(R.id.fl_item_select_card_bag)

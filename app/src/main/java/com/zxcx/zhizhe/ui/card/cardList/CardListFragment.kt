@@ -36,7 +36,8 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
     //标记！！！记住刷新
     override fun onResume() {
         super.onResume()
-        toastShow("ABC")
+//        toastShow("ABC")
+        getCardCategory()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +60,8 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
     }
 
     override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+        vp_card_list.removeAllViews()
+
 		mAdapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
 		vp_card_list.adapter = mAdapter
 		tl_card_list.removeAllTabs()

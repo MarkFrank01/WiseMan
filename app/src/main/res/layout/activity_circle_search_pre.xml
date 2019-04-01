@@ -8,7 +8,7 @@
     android:background="@color/background">
 
     <EditText
-        android:hint="圈内搜索"
+        android:hint="搜索"
         android:id="@+id/et_search"
         android:layout_width="0dp"
         android:layout_height="32dp"

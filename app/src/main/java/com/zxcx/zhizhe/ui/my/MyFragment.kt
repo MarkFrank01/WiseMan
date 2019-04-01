@@ -61,6 +61,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
     private var fansNum: Int = 0
     private var level: Int = 0
     private var actionType: Int = 0
+    private var rankNum:Int = 0
 
     private var advList: ArrayList<AdInfo> = ArrayList()
     private var mAdList: MutableList<ADBean> = mutableListOf()
@@ -254,6 +255,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         fansNum = SharedPreferencesUtil.getInt(SVTSConstants.fansNum, 0)
         level = SharedPreferencesUtil.getInt(SVTSConstants.level, 0)
         actionType = SharedPreferencesUtil.getInt(SVTSConstants.actionType,0)
+        rankNum = SharedPreferencesUtil.getInt(SVTSConstants.rankNum,0)
         refreshRedPoint()
     }
 
@@ -282,6 +284,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         fansNum = bean.fansCount
         level = bean.level
         actionType = bean.actionType
+        rankNum = bean.rankIndex
         SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writerStatus)
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
         SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, hasSystemMessage)
@@ -291,6 +294,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         SharedPreferencesUtil.saveData(SVTSConstants.noteNum, fansNum)
         SharedPreferencesUtil.saveData(SVTSConstants.level, level)
         SharedPreferencesUtil.saveData(SVTSConstants.actionType,actionType)
+        SharedPreferencesUtil.saveData(SVTSConstants.rankNum,rankNum)
         refreshRedPoint()
     }
 
@@ -349,6 +353,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         tv_my_top_read_num.text = readNum.toString()
         tv_my_top_creation_num.text = creationNum.toString()
         tv_my_top_fans_num.text = fansNum.toString()
+        tv_my_top_rank_num.text = rankNum.toString()
 
         if (actionType != 0 && actionType == 1) {
             iv_item_card_officials.visibility = View.VISIBLE

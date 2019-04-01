@@ -10,6 +10,7 @@ import android.view.View
 import butterknife.ButterKnife
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.selectmore.SelectDetailActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyCardBean
 import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionContract
@@ -25,6 +26,10 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 
 class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAttentionContract.View {
+
+    companion object {
+        const val BackBack = 1111
+    }
 
     private var mSelectedClassify: ClassifyBean? = null
     private var mSelectedLabel: ClassifyCardBean? = null
@@ -62,6 +67,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     private var mSingleLable: String = ""
     //存放单独的分类数据
     private var mSingleClassify: String = ""
+
+
+    //新 传递到下个的选择
+    private var listtoNext: MutableList<ClassifyCardBean> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,9 +125,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             if (it.id == classifyId) {
                 it.isChecked = true
                 mSelectedClassify = it
-                group_select_label.visibility = View.VISIBLE
+//                group_select_label.visibility = View.VISIBLE
                 mLabelAdapter.setNewData(it.dataList)
-                tv_select_label_2.visibility = View.VISIBLE
+                listtoNext = it.dataList
+//                tv_select_label_2.visibility = View.VISIBLE
                 tv_select_label_3.visibility = View.GONE
 
             }
@@ -200,14 +210,14 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 LogCat.e("单类别")
                 if (mPushData.size == 0) {
 //                    mTheFirst = mSingleClassify
-                    LogCat.e("+++"+mSelectedClassify?.id)
+                    LogCat.e("+++" + mSelectedClassify?.id)
                 }
             }
 
             intent.putExtra("labelName", mTheFirst)
             intent.putExtra("twoLabelName", mTheSecond)
             intent.putExtra("classifyId", mSelectedClassify?.id)
-            intent.putExtra("classifyName",mSelectedClassify?.title)
+            intent.putExtra("classifyName", mSelectedClassify?.title)
 
             LogCat.e("Push" + mTheFirst + "---------" + mTheSecond)
 
@@ -219,7 +229,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             val dialog = DeleteNewLabelDialog()
             dialog.mListener = {
                 mNewLabelName = ""
-                iv_select_label_new_label.visibility = View.VISIBLE
+//                iv_select_label_new_label.visibility = View.VISIBLE
                 iv_select_label_new_label_delete.visibility = View.GONE
                 cb_item_select_label_new_label.visibility = View.GONE
                 cb_item_select_label_new_label.text = ""
@@ -330,7 +340,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             }
 
             if (mPushData.size == 0) {
-                iv_select_label_new_label.visibility = View.VISIBLE
+//                iv_select_label_new_label.visibility = View.VISIBLE
                 cb_item_select_label_new_label.visibility = View.GONE
                 cb_item_select_label_new_label.text = ""
                 cb_item_select_label_new_label.isChecked = false
@@ -359,8 +369,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //        val manager = GridLayoutManager(mActivity, 4)
 //        val manager1 = GridLayoutManager(mActivity, 4)
 
-        val manager = GridLayoutManager(mActivity, 5)
-        val manager_other = GridLayoutManager(mActivity, 5)
+        val manager = GridLayoutManager(mActivity, 4)
+        val manager_other = GridLayoutManager(mActivity, 4)
         val manager1 = GridLayoutManager(mActivity, 4)
 
         //热门分类
@@ -396,11 +406,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             mSelectedLabel = null
             if (bean.isChecked) {
                 mSelectedClassify = bean
-                group_select_label.visibility = View.VISIBLE
+//                group_select_label.visibility = View.VISIBLE
                 if (mNewLabelName.isEmpty()) {
                     cb_item_select_label_new_label.visibility = View.GONE
 //                    iv_select_label_new_label_delete.visibility = View.GONE
-                    iv_select_label_new_label.visibility = View.VISIBLE
+//                    iv_select_label_new_label.visibility = View.VISIBLE
                 } else {
                     cb_item_select_label_new_label.visibility = View.VISIBLE
 //                    iv_select_label_new_label_delete.visibility = View.VISIBLE
@@ -411,12 +421,13 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 }
 
                 mLabelAdapter.setNewData(bean.dataList)
+                listtoNext = bean.dataList
 //                LogCat.e("bean.dataList" + bean.dataList.size)
-                if (bean.dataList.size == 0) {
-                    tv_select_label_2.visibility = View.GONE
-                } else {
-                    tv_select_label_2.visibility = View.VISIBLE
-                }
+//                if (bean.dataList.size == 0) {
+//                    tv_select_label_2.visibility = View.GONE
+//                } else {
+//                    tv_select_label_2.visibility = View.VISIBLE
+//                }
 
                 mSingleClassify = bean.title
                 tv_toolbar_right.isEnabled = true
@@ -440,6 +451,13 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
             }
             mSelectItem = -1
+
+//            mActivity.startActivity(SelectDetailActivity::class.java){
+//                it.putExtra("list",listtoNext as ArrayList)
+//            }
+            val intent = Intent(this, SelectDetailActivity::class.java)
+            intent.putExtra("list", listtoNext as ArrayList)
+            startActivityForResult(intent, BackBack)
         }
 
         //其它分类
@@ -462,11 +480,11 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             mSelectedLabel = null
             if (bean.isChecked) {
                 mSelectedClassify = bean
-                group_select_label.visibility = View.VISIBLE
+//                group_select_label.visibility = View.VISIBLE
                 if (mNewLabelName.isEmpty()) {
                     cb_item_select_label_new_label.visibility = View.GONE
 //                    iv_select_label_new_label_delete.visibility = View.GONE
-                    iv_select_label_new_label.visibility = View.VISIBLE
+//                    iv_select_label_new_label.visibility = View.VISIBLE
                 } else {
                     cb_item_select_label_new_label.visibility = View.VISIBLE
 //                    iv_select_label_new_label_delete.visibility = View.VISIBLE
@@ -476,11 +494,12 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     it.isChecked = false
                 }
                 mLabelAdapter.setNewData(bean.dataList)
-                if (bean.dataList.size == 0) {
-                    tv_select_label_2.visibility = View.GONE
-                } else {
-                    tv_select_label_2.visibility = View.VISIBLE
-                }
+                listtoNext = bean.dataList
+//                if (bean.dataList.size == 0) {
+//                    tv_select_label_2.visibility = View.GONE
+//                } else {
+//                    tv_select_label_2.visibility = View.VISIBLE
+//                }
 
                 mSingleClassify = bean.title
                 tv_toolbar_right.isEnabled = true
@@ -503,6 +522,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                 tv_toolbar_right.isEnabled = mSelectedClassify != null && (mSelectedLabel != null || mNewLabelSelect)
             }
             mSelectItem = -1
+
+            val intent = Intent(this, SelectDetailActivity::class.java)
+            intent.putExtra("list", listtoNext as ArrayList)
+            startActivityForResult(intent, BackBack)
         }
 
         //选择标签点击处理
@@ -569,6 +592,24 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 ////                iv_select_label_new_label2.visibility = View.GONE
 //                iv_select_label_new_label2.isEnabled = false
 //            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            when (requestCode) {
+                BackBack -> {
+                    val intent = Intent()
+                    intent.putExtra("labelName", "")
+                    intent.putExtra("twoLabelName", "")
+                    intent.putExtra("classifyId", "")
+                    intent.putExtra("classifyName", data.getStringExtra("labelName2"))
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
+            }
+
         }
     }
 }

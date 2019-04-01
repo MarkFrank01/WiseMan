@@ -37,6 +37,7 @@
 
 
         <com.zxcx.zhizhe.widget.CardListTabLayout
+            android:layout_marginEnd="50dp"
             android:id="@+id/tl_card_list"
             android:layout_width="match_parent"
             android:layout_height="40dp"

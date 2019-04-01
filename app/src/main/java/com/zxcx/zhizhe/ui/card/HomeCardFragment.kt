@@ -53,8 +53,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
-            private val titles = arrayOf("关注", "推荐", "列表")
-//    private val titles = arrayOf("推荐", "列表")
+//            private val titles = arrayOf("关注", "推荐", "列表")
+    private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -74,22 +74,22 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 -> {
-                        switchFragment(mAttentionFragment)
-                    }
-                    1 -> {
-                        switchFragment(mHotFragment)
-                    }
-                    2 -> {
-                        switchFragment(mListFragment)
-                    }
 //                    0 -> {
+//                        switchFragment(mAttentionFragment)
+//                    }
+//                    1 -> {
 //                        switchFragment(mHotFragment)
 //                    }
-//
-//                    1 -> {
+//                    2 -> {
 //                        switchFragment(mListFragment)
 //                    }
+                    0 -> {
+                        switchFragment(mHotFragment)
+                    }
+
+                    1 -> {
+                        switchFragment(mListFragment)
+                    }
                 }
                 val textView = tab.customView?.findViewById(R.id.tv_tab_home) as TextView
                 textView.paint.isFakeBoldText = true
@@ -144,7 +144,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 //现在
 //                mActivity.startActivity(SelectInterestActivity::class.java,{})
 
-                //emmmmmmmmmmmmmmmmm
+                //emmmmmmmmmmmmmmmmm 真正的现在正式使用
                 mActivity.startActivity(NowSelectActivity::class.java){}
 
                 //方便测试

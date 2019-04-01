@@ -127,6 +127,7 @@
 				tools:listitem="@layout/item_select_card_bag"/>
 			
 			<TextView
+                android:visibility="gone"
 				android:id="@+id/tv_select_label_3"
 				android:textStyle="bold"
 				android:layout_width="wrap_content"

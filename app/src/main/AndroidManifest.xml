@@ -529,6 +529,11 @@
             android:launchMode="singleTop"/>
 
         <activity
+            android:name=".pay.SelectPayActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".ui.my.selectAttention.now.NowSelectActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
@@ -540,6 +545,11 @@
 
         <activity
             android:name=".ui.topchange.TopChangeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.my.creation.newCreation.selectmore.SelectDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

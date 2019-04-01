@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="503dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_select_label_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:text="选择合适的分类和标签"
+                android:textColor="@color/text_color_1"
+                android:textSize="@dimen/text_size_text_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_select_label_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="合适的分类能让你的作品更容易被发现或推荐"
+                android:textColor="@color/text_color_d2"
+                android:textSize="@dimen/text_size_text_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_title"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                android:src="@color/button_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"
+                app:riv_oval="true"/>
+
+            <TextView
+                android:id="@+id/tv_select_label_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="32dp"
+                android:text="热搜"
+                android:textColor="@color/text_color_2"
+                android:textSize="@dimen/text_size_text_2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"/>
+
+            <TextView
+                android:textColor="@color/text_color_d2"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="32dp"
+                android:text="(可选)"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hint"
+                app:layout_constraintStart_toEndOf="@id/tv_select_label_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <com.zxcx.zhizhe.widget.TMoreLineFlexboxLayout
+                android:id="@+id/rv_hot_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="12.5dp"
+                android:paddingRight="12.5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_hot"
+                tools:layout_height="150dp"
+                app:showDividerHorizontal="middle"
+                app:showDividerVertical="middle"
+                app:alignContent="flex_start"
+                app:alignItems="center"
+                app:dividerDrawableHorizontal="@color/white"
+                app:dividerDrawableVertical="@color/white"
+                app:flexDirection="row"
+                app:flexWrap="wrap">
+
+            </com.zxcx.zhizhe.widget.TMoreLineFlexboxLayout>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="45dp"
+                android:src="@color/button_blue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_hot_label"
+                app:riv_oval="true"/>
+
+            <TextView
+                android:id="@+id/tv_select_label_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="40dp"
+                android:text="自定义"
+                android:textColor="@color/text_color_2"
+                android:textSize="@dimen/text_size_text_2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_hot_label"/>
+
+            <TextView
+                android:textColor="@color/text_color_d2"
+                android:textSize="@dimen/text_size_text_2"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="40dp"
+                android:text="(可选)"
+                app:layout_constraintTop_toBottomOf="@id/rv_hot_label"
+                app:layout_constraintStart_toEndOf="@id/tv_select_label_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/iv_select_label_new_label"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/select_unlabel"
+                android:scaleType="center"
+                android:src="@drawable/iv_select_label_new_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+
+            <CheckBox
+                android:id="@+id/cb_item_select_label_new_label"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_checkbox_select_attention"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/color_checkbox_text_select_attention"
+                android:textSize="@dimen/text_size_text_3"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+
+            <TextView
+                android:id="@+id/tv_delete_label"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/iv_delete_label"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/cb_item_select_label_new_label"
+                app:layout_constraintTop_toTopOf="@+id/cb_item_select_label_new_label"/>
+
+            <ImageView
+                android:id="@+id/iv_select_label_new_label2"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_checkbox_select_attention"
+                android:scaleType="center"
+                android:src="@drawable/iv_select_label_new_label"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/cb_item_select_label_new_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+
+            <CheckBox
+                android:id="@+id/cb_item_select_label_new_label2"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/bg_checkbox_select_attention"
+                android:button="@null"
+                android:checked="false"
+                android:gravity="center"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColor="@color/color_checkbox_text_select_attention"
+                android:textSize="@dimen/text_size_text_3"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/cb_item_select_label_new_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_select_label_3"/>
+
+            <TextView
+                android:id="@+id/tv_delete_label2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/iv_delete_label"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/cb_item_select_label_new_label2"
+                app:layout_constraintTop_toTopOf="@+id/cb_item_select_label_new_label2"/>
+
+
+            <ImageView
+                android:id="@+id/iv_select_label_new_label_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:src="@drawable/common_delete"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/cb_item_select_label_new_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cb_item_select_label_new_label"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

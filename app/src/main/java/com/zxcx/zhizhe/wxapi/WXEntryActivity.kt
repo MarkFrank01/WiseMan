@@ -9,7 +9,6 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.pay.wx.WXBean
 import com.zxcx.zhizhe.pay.wx.WXEntryContract
 import com.zxcx.zhizhe.pay.wx.WXPresenter
-import kotlinx.android.synthetic.main.activity_entry_wxpay.*
 
 /**
  * @author : MarkFrank01
@@ -29,9 +28,12 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         setContentView(R.layout.activity_entry_wxpay)
 
         initData()
-        goto_send_btn.setOnClickListener {
-            mPresenter.getWxOrderPay(circleId)
-        }
+
+        mPresenter.getWxOrderPay(circleId)
+//
+//        goto_send_btn.setOnClickListener {
+//            mPresenter.getWxOrderPay(circleId)
+//        }
 
     }
 
@@ -40,7 +42,7 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
     }
 
     override fun getWxOrderPaySuccess(bean: WXBean) {
-        toastShow("SUCCESS")
+//        toastShow("SUCCESS")
 //        LogCat.e("SIGN is " + bean.sign)
 //        LogCat.e("ID is " + bean.prepayId)
 //        LogCat.e("noc is " + bean.nonceStr)
@@ -72,6 +74,8 @@ class WXEntryActivity : MvpActivity<WXPresenter>(), WXEntryContract.View {
         req.extData = "app data"
 
         api.sendReq(req)
+
+        finish()
 
 //        val request = PayReq()
 //        request.appId = "wxac8cb0c3f9b06b05"
