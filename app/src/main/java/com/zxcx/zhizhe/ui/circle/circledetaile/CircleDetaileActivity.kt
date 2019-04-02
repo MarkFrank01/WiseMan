@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.pay.SelectPayActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -325,7 +326,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         //底部按钮交钱
         bottom_bt.setOnClickListener {
-//            mActivity.startActivity(WXEntryActivity::class.java){
+            //            mActivity.startActivity(WXEntryActivity::class.java){
 //                it.putExtra("circleId",circleID)
 //                it.putExtra("circleName",circlename)
 //                it.putExtra("circlePrice",circleprice)
@@ -428,18 +429,20 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //推荐即左右滑动的文章
     private fun loadTuiJianArticle(list: CircleBean) {
-        for (t in list.partialArticleList) {
-            LogCat.e("推荐的数据测试" + t.title)
-        }
+//        for (t in list.partialArticleList) {
+//            LogCat.e("推荐的数据测试" + t.title)
+//        }
 
         if (list.partialArticleList.size > 0) {
             list.partialArticleList.forEach {
-                mClassifyData.add(ContentBean(it.title, it.styleType))
+                mClassifyData.add(ContentBean(it.name, it.cardType))
             }
 
             gv_circle_classify2.pageSize = 4
             gv_circle_classify2.setGridItemClickListener { pos, position, str ->
-
+                val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+                intent.putExtra("cardBean", list.partialArticleList[position])
+                mActivity.startActivity(intent)
             }
             gv_circle_classify2.init(mClassifyData)
         }

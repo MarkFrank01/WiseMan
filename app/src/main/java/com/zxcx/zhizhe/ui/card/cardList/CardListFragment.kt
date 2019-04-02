@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.topchange.TopChangeActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -37,7 +38,10 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
     override fun onResume() {
         super.onResume()
 //        toastShow("ABC")
-        getCardCategory()
+        if (SharedPreferencesUtil.getBoolean("saveOnce",false)) {
+            getCardCategory()
+            SharedPreferencesUtil.saveData("saveOnce",false)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -72,6 +76,10 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 			textView?.text = it.name
 			tl_card_list.addTab(tab)
 		}
+
+        if (list.isEmpty()){
+            LogCat.e("加入新的")
+        }
 	}
 
 	override fun getDataFail(msg: String?) {

@@ -107,6 +107,67 @@
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_time"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/show_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_background_30dp"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_xf_1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="15dp"
+                android:scaleType="center"
+                android:src="@drawable/card_xf"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/show_2"
+            android:visibility="gone"
+            android:layout_width="127dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_background_30dp"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/iv_xf_2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="15dp"
+                android:scaleType="center"
+                android:src="@drawable/card_xf"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:riv_oval="true"/>
+
+            <TextView
+                android:id="@+id/tv_xf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_2"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_xf_2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="小崔说科技"/>
+
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.constraint.ConstraintLayout>
 
     <FrameLayout

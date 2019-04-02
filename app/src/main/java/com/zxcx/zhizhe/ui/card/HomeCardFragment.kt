@@ -110,9 +110,12 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
         para.width = screenWidth * 1 / 2
         tl_home.layoutParams = para
 
-        tl_home.getTabAt(2)?.select()
-        tl_home.getTabAt(0)?.select()
+//        tl_home.getTabAt(2)?.select()
+//        tl_home.getTabAt(0)?.select()
+//        tl_home.getTabAt(1)?.select()
+
         tl_home.getTabAt(1)?.select()
+        tl_home.getTabAt(0)?.select()
 
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
         lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)

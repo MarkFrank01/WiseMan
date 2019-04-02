@@ -603,7 +603,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
                     val intent = Intent()
                     intent.putExtra("labelName", "")
                     intent.putExtra("twoLabelName", "")
-                    intent.putExtra("classifyId", "")
+                    intent.putExtra("classifyId", mSelectedClassify?.id)
                     intent.putExtra("classifyName", data.getStringExtra("labelName2"))
                     setResult(Activity.RESULT_OK, intent)
                     finish()

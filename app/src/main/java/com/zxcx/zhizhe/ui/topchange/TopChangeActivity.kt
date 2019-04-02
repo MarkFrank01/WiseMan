@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_top_change.*
 
 /**
@@ -54,6 +55,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
     override fun setClassifyMenuSuccess() {
         toastShow("设置成功")
 //        finish()
+        SharedPreferencesUtil.saveData("saveOnce",true)
     }
 
     override fun getAllNavClassifySuccess(list: MutableList<ClassifyBean>) {

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.card.cardDetails
 
+import android.support.constraint.ConstraintLayout
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
@@ -38,6 +39,21 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.getView<TextView>(R.id.tv_item_card_details_like).isEnabled = item.isLike
 
         helper.setText(R.id.tv_item_card_details_time,item.distanceTime)
+
+        helper.setText(R.id.tv_xf,item.relatedCircleTitle)
+
+        if (item.showOther1){
+            helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
+        }else{
+            helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.GONE
+        }
+
+        if (item.showOther2&&item.relatedCircleTitle.isNotEmpty()&&item.relatedCircleTitle!=""){
+            helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.VISIBLE
+        }else{
+            helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.GONE
+            helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
+        }
 
         if(item.labelName!=""&&item.labelName.isNotEmpty()) {
             helper.getView<TextView>(R.id.tv_item_card_details_label).visibility = View.VISIBLE
@@ -87,6 +103,9 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.addOnClickListener(R.id.cb_item_card_details_like)
         helper.addOnClickListener(R.id.iv_item_card_details_share)
 
+        helper.addOnClickListener(R.id.show_1)
+        helper.addOnClickListener(R.id.show_2)
+
         //是否广告
         helper.setGone(R.id.tv_item_card_details_author, item.adUrl.isEmpty())
         helper.setGone(R.id.cb_item_card_details_follow, item.adUrl.isEmpty())
@@ -96,5 +115,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         if (item.authorType != 0 && item.cardType == 1) {
             helper.getView<ImageView>(R.id.iv_item_card_officials).visibility = View.VISIBLE
         }
+
+
     }
 }

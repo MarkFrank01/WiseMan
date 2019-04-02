@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.ScreenUtils
@@ -23,7 +25,7 @@ class CardListTabLayout : TabLayout {
     private val DEFAULT_NORMAL_TEXT_SIZE_SP = ScreenUtils.dip2px(15f)
     private var mNormalTextSize = DEFAULT_NORMAL_TEXT_SIZE_SP
     //选中字体大小
-    private val DEFAULT_SELECT_TEXT_SIZE_SP = ScreenUtils.dip2px(22f)
+    private val DEFAULT_SELECT_TEXT_SIZE_SP = ScreenUtils.dip2px(15f)
     private var mSelectTextSize = DEFAULT_SELECT_TEXT_SIZE_SP
     //字体颜色
     private val DEFAULT_NORMAL_TEXT_COLOR = context.getColorForKotlin(R.color.text_color_3)
@@ -148,11 +150,17 @@ class CardListTabLayout : TabLayout {
                     notSelectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mNormalTextSize.toFloat())
                     notSelectedChild?.typeface = Typeface.DEFAULT
                     mNormalTextColor?.let { notSelectedChild?.setTextColor(it) }
+
+                    var imageView = tabLayout.getTabAt(index)?.customView?.findViewById<ImageView>(R.id.show_select)
+                    imageView?.visibility = View.GONE
                 }
                 val selectedChild = tabLayout.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
                 selectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize.toFloat())
                 selectedChild?.typeface = Typeface.DEFAULT_BOLD
                 mSelectTextColor?.let { selectedChild?.setTextColor(it) }
+
+                var imageViewSelect = tabLayout.getTabAt(position)?.customView?.findViewById<ImageView>(R.id.show_select)
+                imageViewSelect?.visibility = View.VISIBLE
 
             }
         }

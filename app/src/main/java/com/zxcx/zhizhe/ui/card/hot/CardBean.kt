@@ -40,13 +40,18 @@ class CardBean(
         @SerializedName("authorAuthenticationType") var authorType: Int = 0,
         @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
-        @SerializedName("distanceTime") var distanceTime:String = "",
-        @SerializedName("remask") var title:String = "",
-        @SerializedName("circleFix")var circleFix:Boolean = false,
+        @SerializedName("distanceTime") var distanceTime: String = "",
+        @SerializedName("remask") var title: String = "",
+        @SerializedName("circleFix") var circleFix: Boolean = false,
 
-        var showTitle:String = "",
-        var showNumTitle:String = "",
-        var mIfCheckOrNot:Boolean = false
+
+        var showTitle: String = "",
+        var showNumTitle: String = "",
+        var mIfCheckOrNot: Boolean = false,
+        var showOther1:Boolean = true,
+        var showOther2:Boolean = false,
+        @SerializedName("relatedCircleId") var relatedCircleId: Int = 0,
+        @SerializedName("relatedCircleTitle") var relatedCircleTitle: String = ""
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
@@ -61,7 +66,7 @@ class CardBean(
         labelName = string
     }
 
-    fun getSecondLabelName():String{
+    fun getSecondLabelName(): String {
         return "#$secondCollectionTitle"
     }
 

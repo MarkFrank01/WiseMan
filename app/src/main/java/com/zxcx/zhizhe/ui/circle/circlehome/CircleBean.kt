@@ -3,9 +3,9 @@ package com.zxcx.zhizhe.ui.circle.circlehome
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.bean.CircleIWaitContentBean
 import com.zxcx.zhizhe.ui.circle.bean.CircleItemBean
-import com.zxcx.zhizhe.ui.circle.circledetaile.CircleTJBean
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
@@ -96,7 +96,7 @@ class CircleBean(
     var showTitle:String = ""
 
     //推荐的文章
-    var partialArticleList:MutableList<CircleTJBean> = ArrayList()
+    var partialArticleList:MutableList<CardBean> = ArrayList()
 
     //
     @SerializedName("owner")

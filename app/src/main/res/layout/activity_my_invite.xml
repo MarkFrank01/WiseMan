@@ -13,9 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
-            android:layout_marginStart="18dp"
-            android:background="@drawable/bg_background_12dp"
+            android:background="@drawable/my_ewm_bg"
             android:orientation="vertical">
 
             <ImageView
@@ -23,7 +21,7 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="36dp"
-                android:src="@color/button_blue"/>
+                android:src="@drawable/my_ewm"/>
 
             <TextView
                 android:id="@+id/copy_my_invite_text"
@@ -62,7 +60,8 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_marginStart="18dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="56dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -90,6 +89,26 @@
 
             </LinearLayout>
 
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/empty_invite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="40dp"
+                android:layout_gravity="center"
+                android:text="暂无邀请"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

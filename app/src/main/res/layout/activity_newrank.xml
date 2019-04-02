@@ -119,6 +119,7 @@
                     android:paddingTop="20dp">
 
                     <TextView
+                        android:id="@+id/iv_zhili"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color_1"
@@ -145,6 +146,7 @@
                     android:paddingTop="20dp">
 
                     <TextView
+                        android:id="@+id/chaoguo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color_1"
@@ -171,6 +173,7 @@
                     android:paddingTop="20dp">
 
                     <TextView
+                        android:id="@+id/shangban"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_color_1"
@@ -232,13 +235,14 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_marginTop="80dp"
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rank_second">
@@ -286,13 +290,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
                     android:layout_marginTop="42dp"
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rank_first">
@@ -339,13 +344,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
                     android:layout_marginTop="80dp"
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rank_third">

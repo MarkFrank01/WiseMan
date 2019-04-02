@@ -78,7 +78,10 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
     override fun onResume() {
         super.onResume()
         getSearchDefaultKeyword()
-        getArticleCategory()
+        if (SharedPreferencesUtil.getBoolean("saveOnce",false)) {
+            getArticleCategory()
+            SharedPreferencesUtil.saveData("saveOnce",false)
+        }
     }
 
     override fun setListener() {

@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.SharedElementCallback
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
@@ -57,6 +58,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
     private var mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
     private var mSourceName = ""
     private var commentFragment: CommentFragment? = null
+
+    private var showOther: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -274,6 +277,26 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                                 }
                             }
                         }
+            }
+
+            R.id.show_1 -> {
+                val ll = view as ConstraintLayout
+                if (!showOther) {
+                    ll.visibility = View.GONE
+                    bean.showOther1 = false
+                    bean.showOther2 = true
+                }
+                mAdapter.notifyItemChanged(position)
+            }
+
+            R.id.show_2 -> {
+                val ll = view as ConstraintLayout
+                if (showOther) {
+                    ll.visibility = View.GONE
+                    bean.showOther1 = true
+                    bean.showOther2 = false
+                }
+                mAdapter.notifyItemChanged(position)
             }
         }
     }
