@@ -20,11 +20,22 @@ class MyInvitePresenter(view: MyInviteContract.View) : BasePresenter<MyInviteCon
         mModel.getInvitationHistory()
     }
 
+    fun getInvitationInfo() {
+        mModel.getInvitationInfo()
+    }
+
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
         if (mView != null) {
             mView.getInvitationHistorySuccess(list)
         }
     }
+
+    override fun getInvitationInfoSuccess(bean: InviteBean) {
+        if (mView!=null){
+            mView.getInvitationInfoSuccess(bean)
+        }
+    }
+
 
     override fun showLoading() {
         mView.showLoading()

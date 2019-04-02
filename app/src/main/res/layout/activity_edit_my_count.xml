@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/ed_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="请输入有效的支付宝账号"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/text_color_2"
+            android:textColorHint="@color/text_color_d2"
+            android:textCursorDrawable="@drawable/edit_cursor_color"
+            android:textSize="17sp"
+            android:theme="@style/link_edit_text"/>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/ed_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="联系人"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/text_color_2"
+            android:textColorHint="@color/text_color_d2"
+            android:textCursorDrawable="@drawable/edit_cursor_color"
+            android:textSize="17sp"
+            android:theme="@style/link_edit_text"/>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/ed_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:ellipsize="end"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="手机号"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/text_color_2"
+            android:textColorHint="@color/text_color_d2"
+            android:textCursorDrawable="@drawable/edit_cursor_color"
+            android:textSize="17sp"
+            android:theme="@style/link_edit_text"/>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+</LinearLayout>

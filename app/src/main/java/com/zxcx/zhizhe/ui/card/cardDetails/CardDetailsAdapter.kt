@@ -42,17 +42,25 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
 
         helper.setText(R.id.tv_xf,item.relatedCircleTitle)
 
+
+
         if (item.showOther1){
             helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
+            helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.GONE
         }else{
             helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.GONE
+            helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.VISIBLE
         }
 
-        if (item.showOther2&&item.relatedCircleTitle.isNotEmpty()&&item.relatedCircleTitle!=""){
+        if (item.showOther2){
             helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.VISIBLE
         }else{
             helper.getView<ConstraintLayout>(R.id.show_2).visibility = View.GONE
             helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
+        }
+
+        if (item.relatedCircleTitle.isEmpty()||item.relatedCircleTitle==""){
+            helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.GONE
         }
 
         if(item.labelName!=""&&item.labelName.isNotEmpty()) {

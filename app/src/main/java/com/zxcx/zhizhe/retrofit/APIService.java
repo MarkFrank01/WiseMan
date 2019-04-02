@@ -23,6 +23,7 @@ import com.zxcx.zhizhe.ui.my.invite.InviteBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
+import com.zxcx.zhizhe.ui.my.money.MoneyBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean;
@@ -1165,13 +1166,13 @@ public interface APIService {
      * 邀请码活动-获取邀请码详情信息
      */
     @POST("/activity/getInvitationInfo")
-    Flowable<BaseArrayBean<InviteBean>> getInvitationInfo();
+    Flowable<BaseBean<InviteBean>> getInvitationInfo();
 
     /**
      * 邀请码活动-填写邀请码
      */
     @POST("/activity/inputInvitationCode")
-    Flowable<InviteBean> inputInvitationCode(
+    Flowable<BaseBean<InviteBean>> inputInvitationCode(
             @Query("invitationCode") String invitationCode
     );
 
@@ -1253,4 +1254,29 @@ public interface APIService {
     Flowable<BaseBean<String>> getAlOrderPayForJoinCircle(
             @Query("circleId") int circleId
     );
+
+    /**
+     * 绑定支付宝账号
+     */
+    @POST("/account/bindingAlipay")
+    Flowable<BaseBean<Object>> bindingAlipay(
+            @Query("withdrawalAmount") String withdrawalAmount,
+            @Query("contact") String contact,
+            @Query("phone") String phone
+    );
+
+    /**
+     * 获取账号信息(see money)
+     */
+    @POST("/account/getAccountDetails")
+    Flowable<BaseBean<MoneyBean>> getAccountDetails();
+
+    /**
+     * 申请提现
+     */
+    @POST("/account/applyForWithdrawal")
+    Flowable<BaseBean<Object>> applyForWithdrawal(
+            @Query("withdrawalAmount") String withdrawalAmount
+    );
+
 }

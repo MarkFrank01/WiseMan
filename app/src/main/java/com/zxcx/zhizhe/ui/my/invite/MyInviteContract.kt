@@ -11,9 +11,11 @@ import com.zxcx.zhizhe.mvpBase.IGetPresenter
 interface MyInviteContract {
     interface View : GetView<MutableList<InviteBean>> {
         fun getInvitationHistorySuccess(list: MutableList<InviteBean>)
+        fun getInvitationInfoSuccess(bean: InviteBean)
     }
 
     interface Presenter : IGetPresenter<MutableList<InviteBean>> {
         fun getInvitationHistorySuccess(list: MutableList<InviteBean>)
+        fun getInvitationInfoSuccess(bean:InviteBean)
     }
 }

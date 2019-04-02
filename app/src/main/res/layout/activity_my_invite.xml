@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/man_num"
                     android:gravity="center"
                     android:textColor="@color/text_color_3"
                     android:textSize="12sp"

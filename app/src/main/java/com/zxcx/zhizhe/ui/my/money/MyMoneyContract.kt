@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.money
 
-import com.zxcx.zhizhe.mvpBase.GetView
+import com.zxcx.zhizhe.mvpBase.INullGetPostPresenter
+import com.zxcx.zhizhe.mvpBase.NullGetPostView
 
 /**
  * @author : MarkFrank01
@@ -9,4 +10,13 @@ import com.zxcx.zhizhe.mvpBase.GetView
  */
 interface MyMoneyContract {
 
+    interface View:NullGetPostView<MoneyBean>{
+        fun getAccountDetailsSuccess(bean:MoneyBean)
+        fun applyForWithdrawalSuccess()
+    }
+
+    interface Presenter:INullGetPostPresenter<MoneyBean>{
+        fun getAccountDetailsSuccess(bean: MoneyBean)
+        fun applyForWithdrawalSuccess()
+    }
 }

@@ -20,7 +20,7 @@ class MyInviteModel(presenter: MyInviteContract.Presenter) : BaseModel<MyInviteC
         mDisposable = AppClient.getAPIService().invitationHistory
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
-                .subscribeWith(object :BaseSubscriber<MutableList<InviteBean>>(mPresenter){
+                .subscribeWith(object : BaseSubscriber<MutableList<InviteBean>>(mPresenter) {
                     override fun onNext(t: MutableList<InviteBean>) {
                         mPresenter?.getInvitationHistorySuccess(t)
                     }
@@ -28,4 +28,15 @@ class MyInviteModel(presenter: MyInviteContract.Presenter) : BaseModel<MyInviteC
         addSubscription(mDisposable)
     }
 
+    fun getInvitationInfo() {
+        mDisposable = AppClient.getAPIService().invitationInfo
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<InviteBean>(mPresenter){
+                    override fun onNext(t: InviteBean) {
+                        mPresenter?.getInvitationInfoSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }

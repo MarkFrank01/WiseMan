@@ -281,21 +281,18 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 
             R.id.show_1 -> {
                 val ll = view as ConstraintLayout
-                if (!showOther) {
-                    ll.visibility = View.GONE
-                    bean.showOther1 = false
-                    bean.showOther2 = true
-                }
+                ll.visibility = View.GONE
+                bean.showOther1 = false
+                bean.showOther2 = true
                 mAdapter.notifyItemChanged(position)
             }
 
             R.id.show_2 -> {
                 val ll = view as ConstraintLayout
-                if (showOther) {
-                    ll.visibility = View.GONE
-                    bean.showOther1 = true
-                    bean.showOther2 = false
-                }
+
+                ll.visibility = View.GONE
+                bean.showOther1 = true
+                bean.showOther2 = false
                 mAdapter.notifyItemChanged(position)
             }
         }

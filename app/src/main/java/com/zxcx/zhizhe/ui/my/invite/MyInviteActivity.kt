@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_invite)
@@ -33,6 +32,7 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         tv_toolbar_right.text = "填写邀请码"
 
         mPresenter.getInvitationHistory()
+        mPresenter.getInvitationInfo()
     }
 
     override fun setListener() {
@@ -57,6 +57,11 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
         LogCat.e("list size is " + list.size)
+    }
+
+    override fun getInvitationInfoSuccess(bean: InviteBean) {
+        copy_my_invite_text.text = bean.invitationCode
+        man_num.text = "" + bean.alreadyInviteesTotal + "/" + bean.inviteesTotal
     }
 
     override fun getDataSuccess(bean: MutableList<InviteBean>?) {
