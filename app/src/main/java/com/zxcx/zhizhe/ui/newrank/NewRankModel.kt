@@ -44,7 +44,7 @@ class NewRankModel(presenter:NewRankContract.Presenter):BaseModel<NewRankContrac
 
     //获取圈子顶部的广告
     fun getAD(){
-        mDisposable = AppClient.getAPIService().getAD("404")
+        mDisposable = AppClient.getAPIService().getAD("400")
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter){

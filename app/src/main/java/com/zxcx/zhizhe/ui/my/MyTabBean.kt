@@ -23,5 +23,6 @@ data class MyTabBean(
 		@SerializedName("totalIntelligenceValue") var totalIntelligenceValue: Int,
 		@SerializedName("writerStatus") var writerStatus: Int,
         @SerializedName("authenticationType") var actionType: Int,//0
-        @SerializedName("rankIndex") var rankIndex:Int
+        @SerializedName("rankIndex") var rankIndex:Int,
+        @SerializedName("onRankCount") var onRankCount:Int
 ) : RetrofitBean()

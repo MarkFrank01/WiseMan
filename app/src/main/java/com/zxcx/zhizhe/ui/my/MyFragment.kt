@@ -284,7 +284,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         fansNum = bean.fansCount
         level = bean.level
         actionType = bean.actionType
-        rankNum = bean.rankIndex
+        rankNum = bean.onRankCount
         SharedPreferencesUtil.saveData(SVTSConstants.writerStatus, writerStatus)
         SharedPreferencesUtil.saveData(SVTSConstants.hasDynamicMessage, hasDynamicMessage)
         SharedPreferencesUtil.saveData(SVTSConstants.hasSystemMessage, hasSystemMessage)
