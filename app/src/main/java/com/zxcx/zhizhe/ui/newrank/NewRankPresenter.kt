@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.newrank
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.rank.UserRankBean
+import com.zxcx.zhizhe.ui.welcome.ADBean
 
 /**
  * @author : MarkFrank01
@@ -23,6 +24,14 @@ class NewRankPresenter(view: NewRankContract.View) : BasePresenter<NewRankContra
 
     fun getTopTenRank() {
         mModel.getTopTenRank()
+    }
+
+    fun getAD(){
+        mModel.getAD()
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        mView.getADSuccess(list)
     }
 
     override fun getMyRankSuccess(bean: UserRankBean) {

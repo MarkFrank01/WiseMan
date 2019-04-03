@@ -56,6 +56,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
         toastShow("设置成功")
 //        finish()
         SharedPreferencesUtil.saveData("saveOnce",true)
+        SharedPreferencesUtil.saveData("saveOnce2",true)
     }
 
     override fun getAllNavClassifySuccess(list: MutableList<ClassifyBean>) {

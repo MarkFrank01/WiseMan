@@ -75,7 +75,7 @@
                     <TextView
                         android:gravity="start"
                         android:id="@+id/question_desc"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingEnd="18dp"
@@ -85,7 +85,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/question_pic"
-                        tools:text="小米的叫MIUI、华为的叫EMUI，另外的一些却叫OS，比如Color OS。既然都是安卓系统，为啥命名不同？其实叫OS的安卓系统，归类到UI中。命名为“OS”只是厂商认为他们对系统进行了深度修改定制命名为“OS”只是厂商认为他们对系统。"/>
+                        tools:text="小对系为他小对系为他们dsdsadsd对系统小对系为他们dsdsadsd对系统小对系为他们dsdsadsd对系统们dsdsadsd对系统。"/>
 
                     <TextView
                         android:id="@+id/question_time"

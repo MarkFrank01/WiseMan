@@ -13,6 +13,7 @@ import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
 import kotlinx.android.synthetic.main.activity_circle_answer.*
@@ -66,6 +67,16 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
     private lateinit var mPhotosSnpl: BGASortableNinePhotoLayout
 
     private lateinit var mOSSDialog: OSSDialog22
+    private lateinit var mOSSDialog2: OSSDialog22
+    private lateinit var mOSSDialog3: OSSDialog22
+    private lateinit var mOSSDialog4: OSSDialog22
+    private lateinit var mOSSDialog5: OSSDialog22
+    private lateinit var mOSSDialog6: OSSDialog22
+
+    private var numImage = 0
+
+    //尝试本地处理的集合
+    private var mCashImgs: ArrayList<String> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +86,21 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         mOSSDialog = OSSDialog22()
         mOSSDialog.setUploadListener(this)
 
+        mOSSDialog2 = OSSDialog22()
+        mOSSDialog2.setUploadListener(this)
+
+        mOSSDialog3 = OSSDialog22()
+        mOSSDialog3.setUploadListener(this)
+
+        mOSSDialog4 = OSSDialog22()
+        mOSSDialog4.setUploadListener(this)
+
+        mOSSDialog5 = OSSDialog22()
+        mOSSDialog5.setUploadListener(this)
+
+        mOSSDialog6 = OSSDialog22()
+        mOSSDialog6.setUploadListener(this)
+
         initData()
         initView()
 
@@ -83,12 +109,16 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
             description = question_desc.text.toString().trim()
+            mCashImgs = mAllImgs
 
-            if (mAllImgs.size>0){
+            LogCat.e("mAllImages" +mAllImgs.size)
+
+            if (mAllImgs.size > 0) {
                 uploadImageToOSS(mAllImgs[0])
-            }else{
+
+            } else {
                 tv_toolbar_right.isEnabled = false
-                mPresenter.createAnswer(circleId,qaId,description,mPushImgs)
+                mPresenter.createAnswer(circleId, qaId, description, mPushImgs)
             }
 
 //            mPresenter.createAnswer(circleId,qaId,description,mPushImgs)
@@ -102,6 +132,47 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         mOSSDialog.arguments = bundle
         mOSSDialog.show(supportFragmentManager, "")
     }
+
+    private fun uploadImageToOSS2(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog2.arguments = bundle
+        mOSSDialog2.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS3(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog3.arguments = bundle
+        mOSSDialog3.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS4(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog4.arguments = bundle
+        mOSSDialog4.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS5(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog5.arguments = bundle
+        mOSSDialog5.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS6(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog6.arguments = bundle
+        mOSSDialog6.show(supportFragmentManager, "")
+    }
+
 
     override fun createPresenter(): CircleAnswerPresenter {
         return CircleAnswerPresenter(this)
@@ -122,14 +193,50 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
     override fun getDataSuccess(bean: QuestionBean?) {
     }
 
-    var num = 1
     override fun uploadSuccess(url: String) {
+        LogCat.e("url is "+url)
         mPushImgs.add(url)
 
-        if (num == mAllImgs.size) {
-            toastShow("图片全部上传完毕")
+        when (mCashImgs.size) {
+            1 -> {
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            2 -> {
+                uploadImageToOSS2(mAllImgs[1])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            3 -> {
+                uploadImageToOSS3(mAllImgs[2])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            4 -> {
+                uploadImageToOSS4(mAllImgs[3])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            5 -> {
+                uploadImageToOSS5(mAllImgs[4])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            6 -> {
+                uploadImageToOSS6(mAllImgs[5])
+                mCashImgs.remove(mCashImgs[0])
+            }
+        }
+
+        if (mCashImgs.size == 0) {
+//            toastShow("图片全部上传完毕")
             mPresenter.createAnswer(circleId, qaId, description, mPushImgs)
         }
+
+//        if (numImage == mAllImgs.size) {
+//            toastShow("图片全部上传完毕")
+//            mPresenter.createAnswer(circleId, qaId, description, mPushImgs)
+//        }
     }
 
     override fun uploadFail(message: String?) {
@@ -150,7 +257,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
                 .currentPosition(position)
                 .isFromTakePhoto(false)
                 .build()
-        startActivityForResult(photoPickerPreviewIntent,RC_PHOTO_PREVIEW)
+        startActivityForResult(photoPickerPreviewIntent, RC_PHOTO_PREVIEW)
     }
 
     override fun onClickAddNinePhotoItem(sortableNinePhotoLayout: BGASortableNinePhotoLayout?, view: View?, position: Int, models: java.util.ArrayList<String>?) {
@@ -174,18 +281,18 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
             for (i in BGAPhotoPickerActivity.getSelectedPhotos(data).iterator()) {
                 mAllImgs.add(i)
             }
-        }else if (requestCode == RC_PHOTO_PREVIEW&&data!=null){
+        } else if (requestCode == RC_PHOTO_PREVIEW && data != null) {
             mPhotosSnpl.data = BGAPhotoPickerPreviewActivity.getSelectedPhotos(data)
 
-            for (i in BGAPhotoPickerActivity.getSelectedPhotos(data).iterator()){
+            for (i in BGAPhotoPickerActivity.getSelectedPhotos(data).iterator()) {
                 mAllImgs.add(i)
             }
         }
     }
 
     private fun initData() {
-        qaId = intent.getIntExtra("qaId",qaId)
-        circleId = intent.getIntExtra("CircleId",circleId)
+        qaId = intent.getIntExtra("qaId", qaId)
+        circleId = intent.getIntExtra("CircleId", circleId)
     }
 
     private fun initView() {

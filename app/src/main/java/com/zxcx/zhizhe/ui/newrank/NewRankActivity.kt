@@ -2,18 +2,18 @@ package com.zxcx.zhizhe.ui.newrank
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.newrank.morerank.MoreRankActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_newrank.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -25,8 +25,13 @@ import kotlinx.android.synthetic.main.toolbar.*
 class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         BaseQuickAdapter.OnItemChildClickListener,BaseQuickAdapter.OnItemClickListener {
 
+
     private var mUserId:Int = 0
     private lateinit var mAdapter: NewRankAdapter
+
+    //广告块的数据
+    private var mAdList: MutableList<ADBean> = mutableListOf()
+    private var imageList: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,8 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
 
         initRecyclerView()
         onRefresh()
+        initADView()
+        mPresenter.getAD()
     }
 
     override fun createPresenter(): NewRankPresenter {
@@ -78,6 +85,24 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         mAdapter.remove(0)
 
 
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+
+        LogCat.e("圈子获取广告成功 ${list.size}")
+
+        if (list.size > 0) {
+            mAdList = list
+            imageList.clear()
+            mAdList.forEach {
+                imageList.add(it.titleImage)
+            }
+            fl_banner_circle.visibility = View.VISIBLE
+            banner_circle.setImages(imageList)
+            banner_circle.start()
+        } else {
+            fl_banner_circle.visibility = View.GONE
+        }
     }
 
     override fun getDataSuccess(bean: List<UserRankBean>?) {
@@ -123,5 +148,60 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
             mPresenter.getMyRank()
         }
         mPresenter.getTopTenRank()
+    }
+
+    private fun initADView(){
+        banner_circle.setImageLoader(GlideBannerImageLoader())
+        banner_circle.setIndicatorGravity(BannerConfig.RIGHT)
+        banner_circle.setOnBannerListener {
+            val adUrl = mAdList[it].behavior
+            val adTitle = mAdList[it].description
+//            val adImage = mAdList[it].titleImage
+            val adImage = mAdList[it].shareImage
+            val shareDescription = mAdList[it].shareDescription
+            mActivity.startActivity(WebViewActivity::class.java) {
+                it.putExtra("isAD", true)
+                it.putExtra("title", adTitle)
+                it.putExtra("url", adUrl)
+                it.putExtra("imageUrl", adImage)
+                it.putExtra("shareDescription", shareDescription)
+            }
+        }
+
+        banner_circle.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                val newPosition = position % 3
+                val ad = mAdList[newPosition]
+
+
+                if (mAdList.size > 0) {
+
+                    if (iv_ad_label_circle != null) {
+
+                        when (ad.styleType) {
+
+                            0 -> {
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_0)
+                            }
+                            1 -> {
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_1)
+                            }
+                            2 -> {
+                                iv_ad_label_circle.setImageResource(R.drawable.iv_ad_label_2)
+                            }
+                        }
+                    }
+                }
+            }
+
+        })
     }
 }

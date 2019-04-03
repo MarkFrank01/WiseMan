@@ -190,7 +190,35 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <com.zxcx.zhizhe.widget.Rounded6FrameLayout
+                android:id="@+id/fl_banner_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                app:layout_scrollFlags="scroll">
+
+                <com.zxcx.zhizhe.ui.rank.ADBanner
+                    android:id="@+id/banner_circle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+                    app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+                    app:indicator_height="5dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="5dp"/>
+
+                <ImageView
+                    android:id="@+id/iv_ad_label_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:src="@drawable/iv_ad_label_1"/>
+            </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
+
             <com.zxcx.zhizhe.widget.CardRoundedImageView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
                 android:layout_marginEnd="12dp"

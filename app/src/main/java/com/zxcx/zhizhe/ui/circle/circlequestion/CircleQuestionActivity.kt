@@ -34,9 +34,12 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 
 //////////////////////////
 
-
-
     private lateinit var mOSSDialog: OSSDialog22
+    private lateinit var mOSSDialog2: OSSDialog22
+    private lateinit var mOSSDialog3: OSSDialog22
+    private lateinit var mOSSDialog4: OSSDialog22
+    private lateinit var mOSSDialog5: OSSDialog22
+    private lateinit var mOSSDialog6: OSSDialog22
 
     //圈子ID
     private var circleID = 0
@@ -77,12 +80,31 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     //描述
     private var my_desc:String = ""
 
+    //尝试本地处理的集合
+    private var mCashImgs: java.util.ArrayList<String> = arrayListOf()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_question)
 
         mOSSDialog = OSSDialog22()
         mOSSDialog.setUploadListener(this)
+
+        mOSSDialog2 = OSSDialog22()
+        mOSSDialog2.setUploadListener(this)
+
+        mOSSDialog3 = OSSDialog22()
+        mOSSDialog3.setUploadListener(this)
+
+        mOSSDialog4 = OSSDialog22()
+        mOSSDialog4.setUploadListener(this)
+
+        mOSSDialog5 = OSSDialog22()
+        mOSSDialog5.setUploadListener(this)
+
+        mOSSDialog6 = OSSDialog22()
+        mOSSDialog6.setUploadListener(this)
 
         initData()
         initView()
@@ -110,10 +132,45 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     override fun getDataSuccess(bean: QuestionBean?) {
     }
 
-    var num = 1
     override fun uploadSuccess(url: String) {
+        LogCat.e("url is "+url)
         mPushImgs.add(url)
-        LogCat.e("${num}Url is " + url)
+
+        when (mCashImgs.size) {
+            1 -> {
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            2 -> {
+                uploadImageToOSS2(mAllImgs[1])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            3 -> {
+                uploadImageToOSS3(mAllImgs[2])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            4 -> {
+                uploadImageToOSS4(mAllImgs[3])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            5 -> {
+                uploadImageToOSS5(mAllImgs[4])
+                mCashImgs.remove(mCashImgs[0])
+            }
+
+            6 -> {
+                uploadImageToOSS6(mAllImgs[5])
+                mCashImgs.remove(mCashImgs[0])
+            }
+        }
+
+        if (mCashImgs.size == 0){
+//            toastShow("图片全部上传完毕")
+            mPresenter.pushQuestion(circleID,my_question,my_desc,mPushImgs)
+        }
 
         //待思考处理
 //        if (num<mAllImgs.size){
@@ -121,11 +178,11 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
 //            uploadImageToOSS(mAllImgs[num])
 //            num++
 //        }
-
-        if (num==mAllImgs.size){
-            toastShow("图片全部上传完毕")
-            mPresenter.pushQuestion(circleID,my_question,my_desc,mPushImgs)
-        }
+//
+//        if (num==mAllImgs.size){
+//            toastShow("图片全部上传完毕")
+//            mPresenter.pushQuestion(circleID,my_question,my_desc,mPushImgs)
+//        }
 
 //        if (num == mAllImgs.size){
 ////            mPresenter.pushQuestion(circleID,)
@@ -175,6 +232,11 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
             my_question = question_title.text.toString().trim()
             my_desc = question_desc.text.toString().trim()
 
+            mCashImgs = mAllImgs
+
+            LogCat.e("mAllImages" +mAllImgs.size)
+
+
             if (mAllImgs.size>0) {
                 uploadImageToOSS(mAllImgs[0])
             }else{
@@ -195,13 +257,13 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         }
     }
 
-    private fun uploadUrlsToOSS(path: ArrayList<String>) {
-        val bundle = Bundle()
-        bundle.putInt("OSSAction", 3)
-        bundle.putStringArrayList("photoList", path)
-        mOSSDialog.arguments = bundle
-        mOSSDialog.show(supportFragmentManager, "")
-    }
+//    private fun uploadUrlsToOSS(path: ArrayList<String>) {
+//        val bundle = Bundle()
+//        bundle.putInt("OSSAction", 3)
+//        bundle.putStringArrayList("photoList", path)
+//        mOSSDialog.arguments = bundle
+//        mOSSDialog.show(supportFragmentManager, "")
+//    }
 
     private fun uploadImageToOSS(path: String) {
         val bundle = Bundle()
@@ -211,6 +273,45 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         mOSSDialog.show(supportFragmentManager, "")
     }
 
+    private fun uploadImageToOSS2(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog2.arguments = bundle
+        mOSSDialog2.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS3(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog3.arguments = bundle
+        mOSSDialog3.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS4(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog4.arguments = bundle
+        mOSSDialog4.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS5(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog5.arguments = bundle
+        mOSSDialog5.show(supportFragmentManager, "")
+    }
+
+    private fun uploadImageToOSS6(path: String) {
+        val bundle = Bundle()
+        bundle.putInt("OSSAction", 1)
+        bundle.putString("filePath", path)
+        mOSSDialog6.arguments = bundle
+        mOSSDialog6.show(supportFragmentManager, "")
+    }
 
     private fun initView() {
         mPhotosSnpl = findViewById(R.id.snpl_moment_add_photos)

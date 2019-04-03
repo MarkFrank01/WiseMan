@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.rank.UserRankBean
+import com.zxcx.zhizhe.ui.welcome.ADBean
 
 /**
  * @author : MarkFrank01
@@ -36,6 +37,19 @@ class NewRankModel(presenter:NewRankContract.Presenter):BaseModel<NewRankContrac
                 .subscribeWith(object : BaseSubscriber<List<UserRankBean>>(mPresenter) {
                     override fun onNext(t: List<UserRankBean>) {
                         mPresenter?.getTopTenRankSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //获取圈子顶部的广告
+    fun getAD(){
+        mDisposable = AppClient.getAPIService().getAD("404")
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object : BaseSubscriber<MutableList<ADBean>>(mPresenter){
+                    override fun onNext(list: MutableList<ADBean>) {
+                        mPresenter?.getADSuccess(list)
                     }
                 })
         addSubscription(mDisposable)
