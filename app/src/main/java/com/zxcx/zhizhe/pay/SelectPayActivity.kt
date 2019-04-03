@@ -55,6 +55,7 @@ class SelectPayActivity : BaseActivity() {
                 mActivity.startActivity(WXEntryActivity::class.java){
                     it.putExtra("circleId",circleId)
                 }
+                finish()
             }
 
             if (payZFB){
@@ -62,6 +63,7 @@ class SelectPayActivity : BaseActivity() {
                 mActivity.startActivity(ZFBEntryActivity::class.java){
                     it.putExtra("circleId",circleId)
                 }
+                finish()
             }
         }
     }

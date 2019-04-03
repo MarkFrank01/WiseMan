@@ -113,6 +113,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         super.onResume()
         mHuaTiPage = 0
         onRefresh()
+        mPresenter.getCircleBasicInfo(circleID)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,7 +1,5 @@
 package com.zxcx.zhizhe.wxapi;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +11,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zxcx.zhizhe.R;
+import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.utils.Constants;
 
 /**
@@ -20,7 +19,7 @@ import com.zxcx.zhizhe.utils.Constants;
  * @Created on 2019/3/25
  * @Description :
  */
-public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
 
     private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
 
@@ -52,10 +51,27 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         Log.e("SB", "onPayFinish, errstr = " + resp.errStr);
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("回调");
-            builder.setMessage(resp.errCode+"...");
-            builder.show();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("回调");
+//            builder.setMessage(resp.errCode+"...");
+//            builder.show();
+
+            if (resp.errCode == 0){
+                toastShow("支付成功");
+                finish();
+            }
+
+            if (resp.errCode == -1){
+                toastShow("支付错误");
+                finish();
+            }
+
+            if (resp.errCode == -2){
+                toastShow("取消支付");
+                finish();
+            }
+
+
         }
     }
 }

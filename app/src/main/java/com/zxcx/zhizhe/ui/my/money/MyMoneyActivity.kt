@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.my.money.bill.BillActivity
 import com.zxcx.zhizhe.ui.my.money.editcount.EditMyCountActivity
 import com.zxcx.zhizhe.ui.my.money.tx.GetMoneyActivity
 import com.zxcx.zhizhe.utils.LogCat
@@ -39,6 +40,10 @@ class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(),MyMoneyContract.View{
         //去编辑支付宝
         load_more_load_end_view.setOnClickListener {
             mActivity.startActivity(EditMyCountActivity::class.java){}
+        }
+
+        tv_toolbar_right.setOnClickListener {
+            mActivity.startActivity(BillActivity::class.java){}
         }
     }
 

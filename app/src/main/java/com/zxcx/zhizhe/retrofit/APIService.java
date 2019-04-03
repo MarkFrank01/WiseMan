@@ -1284,11 +1284,17 @@ public interface APIService {
      * 获取账单明细
      */
     @POST("/account/getBillingDetails")
-    Flowable<BaseArrayBean<BillBean>> getBillingDetails();
+    Flowable<BaseArrayBean<BillBean>> getBillingDetails(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
 
     /**
      * 获取提现明细
      */
     @POST("/account/getCashWithdrawalDetails")
-    Flowable<BaseArrayBean<BillBean>> getCashWithdrawalDetails();
+    Flowable<BaseArrayBean<BillBean>> getCashWithdrawalDetails(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize
+    );
 }

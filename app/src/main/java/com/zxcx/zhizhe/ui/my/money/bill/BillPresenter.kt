@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.money.bill
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.utils.LogCat
 
 /**
  * @author : MarkFrank01
@@ -16,12 +17,12 @@ class BillPresenter(view: BillContract.View) : BasePresenter<BillContract.View>(
         mModel = BillModel(this)
     }
 
-    fun getBillingDetails() {
-        mModel.getBillingDetails()
+    fun getBillingDetails(page:Int,pageSize:Int){
+        mModel.getBillingDetails(page, pageSize)
     }
 
-    fun getCashWithdrawalDetails() {
-        mModel.getCashWithdrawalDetails()
+    fun getCashWithdrawalDetails(page: Int,pageSize: Int){
+        mModel.getCashWithdrawalDetails(page, pageSize)
     }
 
     override fun showLoading() {

@@ -75,11 +75,13 @@ class ZFBEntryActivity : MvpActivity<ZFBPresenter>(),ZFBContract.View {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                        showAlert(this@PayDemoActivity, getString(R.string.pay_success) + payResult)
-                        toastShow("成功哦")
+                        toastShow("支付成功")
+                        finish()
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
 //                        showAlert(this@PayDemoActivity, getString(R.string.pay_failed) + payResult)
-                        toastShow("失败")
+                        toastShow("取消支付")
+                        finish()
                     }
                 }
                 SDK_AUTH_FLAG -> {
@@ -216,7 +218,7 @@ class ZFBEntryActivity : MvpActivity<ZFBPresenter>(),ZFBContract.View {
                 }
 
                 //所需的权限均正常获取
-                toastShow("支付宝 SDK 所需的权限已经正常获取")
+//                toastShow("支付宝 SDK 所需的权限已经正常获取")
             }
         }
     }

@@ -29,7 +29,7 @@
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="19dp"
-                    android:src="@color/button_blue"/>
+                    android:src="@drawable/message_qa"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -49,8 +49,8 @@
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:layout_above="@id/tv_tab_message_1"
-                        android:layout_marginBottom="-5dp"
-                        android:layout_marginLeft="-5dp"
+                        android:layout_marginBottom="-10dp"
+                        android:layout_marginLeft="-3dp"
                         android:layout_toRightOf="@id/tv_tab_message_1"
                         android:src="@drawable/point_red"
                         android:visibility="gone"/>
@@ -68,7 +68,7 @@
                     android:layout_height="11dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="20dp"
-                    android:src="@color/button_blue"/>
+                    android:src="@drawable/right_normal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +84,7 @@
                     android:layout_height="18dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="19dp"
-                    android:src="@color/button_blue"/>
+                    android:src="@drawable/message_zan"/>
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -100,15 +100,15 @@
                         android:textSize="17sp"/>
 
                     <ImageView
+                        android:visibility="gone"
                         android:id="@+id/iv_tab_red_point_2"
                         android:layout_width="8dp"
                         android:layout_height="8dp"
                         android:layout_above="@id/tv_tab_message_2"
-                        android:layout_marginBottom="-5dp"
-                        android:layout_marginLeft="-5dp"
-                        android:layout_toRightOf="@id/tv_tab_message_2"
-                        android:src="@drawable/point_red"
-                        android:visibility="gone"/>
+                        android:layout_marginBottom="-10dp"
+                        android:layout_marginStart="-3dp"
+                        android:layout_toEndOf="@id/tv_tab_message_2"
+                        android:src="@drawable/point_red"/>
                 </RelativeLayout>
 
 
@@ -123,7 +123,7 @@
                     android:layout_height="11dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="20dp"
-                    android:src="@color/button_blue"/>
+                    android:src="@drawable/right_normal"/>
             </LinearLayout>
 
             <View

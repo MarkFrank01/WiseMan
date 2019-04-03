@@ -17,8 +17,8 @@ class BillModel(presenter:BillContract.Presenter):BaseModel<BillContract.Present
     }
 
     //获取账单
-    fun getBillingDetails(){
-        mDisposable = AppClient.getAPIService().billingDetails
+    fun getBillingDetails(page:Int,pageSize:Int){
+        mDisposable = AppClient.getAPIService().getBillingDetails(page,pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<BillBean>>(mPresenter){
@@ -30,8 +30,8 @@ class BillModel(presenter:BillContract.Presenter):BaseModel<BillContract.Present
     }
 
     //获取提现明细
-    fun getCashWithdrawalDetails(){
-        mDisposable = AppClient.getAPIService().cashWithdrawalDetails
+    fun getCashWithdrawalDetails(page: Int,pageSize: Int){
+        mDisposable = AppClient.getAPIService().getCashWithdrawalDetails(page,pageSize)
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleArrayResult())
                 .subscribeWith(object :BaseSubscriber<MutableList<BillBean>>(mPresenter){
