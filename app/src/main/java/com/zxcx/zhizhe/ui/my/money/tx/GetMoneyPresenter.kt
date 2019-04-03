@@ -1,32 +1,30 @@
-package com.zxcx.zhizhe.ui.my.money
+package com.zxcx.zhizhe.ui.my.money.tx
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.my.money.MoneyBean
 
 /**
  * @author : MarkFrank01
- * @Created on 2019/3/22
+ * @Created on 2019/4/3
  * @Description :
  */
-class MyMoneyPresenter (view:MyMoneyContract.View):BasePresenter<MyMoneyContract.View>(),MyMoneyContract.Presenter{
+class GetMoneyPresenter(view: GetMoneyContract.View) : BasePresenter<GetMoneyContract.View>(), GetMoneyContract.Presenter {
 
-    private val mModel:MyMoneyModel
+    private val mModel: GetMoneyModel
 
     init {
         attachView(view)
-        mModel = MyMoneyModel(this)
+        mModel = GetMoneyModel(this)
     }
 
-    fun getAccountDetails(){
-        mModel.getAccountDetails()
-    }
-
-    override fun getAccountDetailsSuccess(bean: MoneyBean) {
-        if (mView!=null){
-            mView.getAccountDetailsSuccess(bean)
-        }
+    fun applyForWithdrawal(money: String) {
+        mModel.applyForWithdrawal(money)
     }
 
     override fun applyForWithdrawalSuccess() {
+        if (mView != null) {
+            mView.applyForWithdrawalSuccess()
+        }
     }
 
     override fun showLoading() {
@@ -49,4 +47,5 @@ class MyMoneyPresenter (view:MyMoneyContract.View):BasePresenter<MyMoneyContract
 
     override fun startLogin() {
     }
+
 }

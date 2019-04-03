@@ -37,7 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
-                    android:hint="200"
+                    android:hint="0"
                     android:id="@+id/et_my_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,6 +49,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:maxLines="1"
+                    android:maxLength="5"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textCursorDrawable="@drawable/edit_cursor_color_white"

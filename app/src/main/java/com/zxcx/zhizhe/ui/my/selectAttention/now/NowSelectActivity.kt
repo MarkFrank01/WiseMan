@@ -54,7 +54,7 @@ class NowSelectActivity : MvpActivity<NowSelectPresenter>(), NowSelectContract.V
     }
 
     override fun followClassifySuccess() {
-        toastShow("关注成功")
+//        toastShow("关注成功")
         mActivity.startActivity(NowSelectManActivity::class.java){}
         finish()
 

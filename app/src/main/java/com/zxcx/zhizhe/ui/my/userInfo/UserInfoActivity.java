@@ -9,7 +9,7 @@ import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
-import com.zxcx.zhizhe.ui.my.selectAttention.interest.SelectInterestActivity;
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity;
 import com.zxcx.zhizhe.ui.my.userInfo.userSafety.UserSafetyActivity;
 import com.zxcx.zhizhe.utils.ImageLoader;
 import com.zxcx.zhizhe.utils.SVTSConstants;
@@ -129,7 +129,9 @@ public class UserInfoActivity extends BaseActivity {
 	public void onMLlUserInfoAttentionClicked() {
 		//兴趣选择页面
 //		Intent intent = new Intent(mActivity, SelectAttentionActivity.class);
-        Intent intent = new Intent(mActivity, SelectInterestActivity.class);
+//        Intent intent = new Intent(mActivity, SelectInterestActivity.class);
+        Intent intent = new Intent(mActivity, NowSelectActivity.class);
+
 		startActivity(intent);
 	}
 	

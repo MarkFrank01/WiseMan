@@ -67,6 +67,9 @@ class CardListTabLayout : TabLayout {
 //			val lp = customViewParent.layoutParams as ViewGroup.LayoutParams
 //			lp.width = tab.customView?.measuredWidth ?: ViewGroup.LayoutParams.WRAP_CONTENT
 //			customViewParent.layoutParams = lp
+
+            val img = tab.customView?.findViewById<ImageView>(R.id.show_select)
+            img?.visibility = View.VISIBLE
         }
     }
 
@@ -115,6 +118,9 @@ class CardListTabLayout : TabLayout {
                         selectedChild.typeface = Typeface.DEFAULT_BOLD
                     }
                 }
+
+//                var imageViewSelect = tabLayout?.getTabAt(position)?.customView?.findViewById<ImageView>(R.id.show_select)
+//                imageViewSelect?.visibility = View.VISIBLE
             }
 
 //

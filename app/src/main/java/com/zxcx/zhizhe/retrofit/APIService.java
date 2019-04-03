@@ -24,6 +24,7 @@ import com.zxcx.zhizhe.ui.my.message.dynamic.DynamicMessageBean;
 import com.zxcx.zhizhe.ui.my.message.dynamic.dynamicList.DynamicMessageListBean;
 import com.zxcx.zhizhe.ui.my.message.system.SystemMessageBean;
 import com.zxcx.zhizhe.ui.my.money.MoneyBean;
+import com.zxcx.zhizhe.ui.my.money.bill.BillBean;
 import com.zxcx.zhizhe.ui.my.note.NoteBean;
 import com.zxcx.zhizhe.ui.my.note.noteDetails.NoteDetailsBean;
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean;
@@ -385,7 +386,7 @@ public interface APIService {
      *
      * @param tabType 标签类型 0阅读 1点赞 3收藏
      */
-    @POST("/mytabinfo/getRecommendArticleWhenNoContent")
+    @POST("/myTabInfo/getRecommendArticleWhenNoContent")
     Flowable<BaseBean<CardBean>> getEmptyRecommendCard(
             @Query("tabType") int tabType);
 
@@ -571,7 +572,7 @@ public interface APIService {
     /**
      * 获取我关注的和关注我的
      */
-    @POST("/mytabinfo/getRecommendUserWhenNoContent")
+    @POST("/myTabInfo/getRecommendUserWhenNoContent")
     Flowable<BaseArrayBean<SearchUserBean>> getEmptyFollowUser();
 
     /**
@@ -1279,4 +1280,15 @@ public interface APIService {
             @Query("withdrawalAmount") String withdrawalAmount
     );
 
+    /**
+     * 获取账单明细
+     */
+    @POST("/account/getBillingDetails")
+    Flowable<BaseArrayBean<BillBean>> getBillingDetails();
+
+    /**
+     * 获取提现明细
+     */
+    @POST("/account/getCashWithdrawalDetails")
+    Flowable<BaseArrayBean<BillBean>> getCashWithdrawalDetails();
 }
