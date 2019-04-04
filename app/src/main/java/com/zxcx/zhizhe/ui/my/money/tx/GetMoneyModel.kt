@@ -27,7 +27,7 @@ class GetMoneyModel(presenter:GetMoneyContract.Presenter):BaseModel<GetMoneyCont
                     }
 
                     override fun onError(t: Throwable?) {
-                        mPresenter?.nomoreMoney()
+                        mPresenter?.nomoreMoney(t?.message.toString())
                     }
                 })
         addSubscription(mDisposable)

@@ -80,8 +80,8 @@ class GetMoneyActivity : MvpActivity<GetMoneyPresenter>(), GetMoneyContract.View
         finish()
     }
 
-    override fun nomoreMoney() {
-        toastShow("余额不足")
+    override fun nomoreMoney(msg: String) {
+        toastShow(msg)
     }
 
 

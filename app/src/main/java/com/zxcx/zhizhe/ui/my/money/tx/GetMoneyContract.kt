@@ -13,11 +13,11 @@ class GetMoneyContract {
 
     interface View: NullGetPostView<MoneyBean> {
         fun applyForWithdrawalSuccess()
-        fun nomoreMoney()
+        fun nomoreMoney(msg:String)
     }
 
     interface Presenter:INullGetPostPresenter<MoneyBean>{
         fun applyForWithdrawalSuccess()
-        fun nomoreMoney()
+        fun nomoreMoney(msg:String)
     }
 }

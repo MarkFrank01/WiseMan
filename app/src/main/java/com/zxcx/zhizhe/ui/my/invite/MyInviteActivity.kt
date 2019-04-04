@@ -23,11 +23,11 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Created on 2019/3/23
  * @Description :
  */
-class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View ,
-        BaseQuickAdapter.OnItemChildClickListener{
+class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View,
+        BaseQuickAdapter.OnItemChildClickListener {
 
 
-    private lateinit var mAdapter:MyInviteAdapter
+    private lateinit var mAdapter: MyInviteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +66,11 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
         LogCat.e("list size is " + list.size)
         mAdapter.setNewData(list)
+
+        if (list.size < 1) {
+            show_empty_1.visibility = View.VISIBLE
+            show_empty_2.visibility = View.VISIBLE
+        }
     }
 
     override fun getInvitationInfoSuccess(bean: InviteBean) {
@@ -113,10 +118,10 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
                 ).show()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         mAdapter = MyInviteAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
-        rv_my_invite.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
+        rv_my_invite.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         rv_my_invite.adapter = mAdapter
     }
 }

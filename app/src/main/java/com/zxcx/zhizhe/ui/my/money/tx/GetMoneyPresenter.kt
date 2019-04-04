@@ -28,9 +28,9 @@ class GetMoneyPresenter(view: GetMoneyContract.View) : BasePresenter<GetMoneyCon
         }
     }
 
-    override fun nomoreMoney() {
+    override fun nomoreMoney(msg: String) {
         if (mView!=null){
-            mView.nomoreMoney()
+            mView.nomoreMoney(msg)
         }
     }
 
