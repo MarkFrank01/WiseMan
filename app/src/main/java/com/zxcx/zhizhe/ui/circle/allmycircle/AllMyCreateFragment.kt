@@ -16,6 +16,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.OwnerAddActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
@@ -25,6 +26,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.PublishDialog
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomGBPopup
@@ -219,8 +221,21 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                     }
 
                     "限免中" -> {
-
+                        mActivity.startActivity(CircleDetaileActivity::class.java) {
+                            it.putExtra("circleID", circleBean.id)
+                        }
                     }
+
+                    "已上线" ->{
+                        mActivity.startActivity(CircleDetaileActivity::class.java) {
+                            it.putExtra("circleID", circleBean.id)
+                        }
+                    }
+
+                    "再编辑审核中" ->{
+                        shenheing(circleBean.modifiedTime)
+                    }
+
                 }
             }
 
@@ -232,6 +247,9 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter
+
+        mAllmyCircleAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAllmyCircleAdapter.setOnLoadMoreListener(this,rv_my_circle_all)
 
         mAllmyCircleAdapter.onItemChildClickListener = this
 

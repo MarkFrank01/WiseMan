@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_my_circle.*
 
@@ -75,7 +76,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when (view.id) {
-            R.id.cb_item_select_join_circle2 -> {
+            R.id.cb_item_select_join_circle2,R.id.iv_item_circle_classify_icon,R.id.tv_item_circle_classify_title,R.id.tv_item_circle_classify_desc -> {
                 val bean = adapter.data[position] as CircleBean
                 mActivity.startActivity(CircleDetaileActivity::class.java) {
                     it.putExtra("circleID", bean.id)
@@ -92,6 +93,9 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         mAllmyCircleAdapter = AllMyCircleAdapter(ArrayList())
         mAllmyCircleAdapter.onItemClickListener = this
         mAllmyCircleAdapter.onItemChildClickListener = this
+
+        mAllmyCircleAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAllmyCircleAdapter.setOnLoadMoreListener(this,rv_my_circle_all)
 
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter

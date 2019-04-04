@@ -38,6 +38,9 @@ class AllMyCircleAdapter(data:List<CircleBean>):
             checkBox.text = "进圈"
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
             helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+            helper.addOnClickListener(R.id.iv_item_circle_classify_icon)
+            helper.addOnClickListener(R.id.tv_item_circle_classify_title)
+            helper.addOnClickListener(R.id.tv_item_circle_classify_desc)
         }else{
             checkBox.text = "续费"
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.red))

@@ -69,6 +69,21 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
                 helper.setText(R.id.cb_item_select_join_circle2, "已上线")
                         .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.button_blue))
             }
+
+            3 -> {
+                helper.setText(R.id.cb_item_select_join_circle2, "再编辑审核中")
+                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.text_color_3))
+            }
+
+//            4->{
+//                helper.setText(R.id.cb_item_select_join_circle2, "续费")
+//                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.red))
+//            }
+//
+//            5->{
+//                helper.setText(R.id.cb_item_select_join_circle2, "进圈")
+//                        .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.button_blue))
+//            }
         }
 
         helper.addOnClickListener(R.id.cb_item_select_join_circle2)
