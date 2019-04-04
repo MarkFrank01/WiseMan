@@ -16,7 +16,7 @@ class BillBean {
     @SerializedName("billType")
     var billType: Int = -10
     @SerializedName("createTime")
-    var createTime: String = ""
+    var createTime: Long = 0
     @SerializedName("id")
     var id: Int = 0
     @SerializedName("relatedCircle")

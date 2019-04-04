@@ -130,3 +130,54 @@ fun Int.getFormatNumber(): String {
 		return df.format(dou) + "w"
 	}
 }
+
+/**
+ * String转成Int
+ */
+fun String?.parseInt(defaultValue: Int = 0): Int {
+    if (this.isNullOrEmpty()) return defaultValue
+    return tryCatch(defaultValue) {
+        this!!.toInt()
+    }
+}
+
+/**
+ * String转成Double
+ */
+fun String?.parseDouble(defaultValue: Double = 0.0): Double {
+    if (this.isNullOrEmpty()) return defaultValue
+    return tryCatch(defaultValue) {
+        this!!.toDouble()
+    }
+}
+
+/**
+ * String转成Float
+ */
+fun String?.parseFloat(defaultValue: Float = 0f): Float {
+    if (this.isNullOrEmpty()) return defaultValue
+    return tryCatch(defaultValue) {
+        this!!.toFloat()
+    }
+}
+
+/**
+ * String转成Long
+ */
+fun String?.parseLong(defaultValue: Long = 0): Long {
+    if (this.isNullOrEmpty()) return defaultValue
+    return tryCatch(defaultValue) {
+        this!!.toLong()
+    }
+}
+
+/**
+ * 当需要返回值try的时候使用
+ */
+inline fun <T> tryCatch(default: T, block: () -> T): T {
+    return try {
+        block()
+    } catch (_: Exception) {
+        default
+    }
+}

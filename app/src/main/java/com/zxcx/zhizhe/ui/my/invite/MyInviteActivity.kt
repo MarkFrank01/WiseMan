@@ -4,7 +4,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
@@ -21,7 +23,11 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Created on 2019/3/23
  * @Description :
  */
-class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View {
+class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View ,
+        BaseQuickAdapter.OnItemChildClickListener{
+
+
+    private lateinit var mAdapter:MyInviteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,8 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         initToolBar()
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "填写邀请码"
+
+        initRecyclerView()
 
         mPresenter.getInvitationHistory()
         mPresenter.getInvitationInfo()
@@ -57,6 +65,7 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
         LogCat.e("list size is " + list.size)
+        mAdapter.setNewData(list)
     }
 
     override fun getInvitationInfoSuccess(bean: InviteBean) {
@@ -67,6 +76,9 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
     override fun getDataSuccess(bean: MutableList<InviteBean>?) {
     }
 
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+
+    }
 
     //粘贴板
     private fun putTextInto(context: Context, text: String) {
@@ -99,5 +111,12 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
                             }
                         })
                 ).show()
+    }
+
+    private fun initRecyclerView(){
+        mAdapter = MyInviteAdapter(ArrayList())
+        mAdapter.onItemChildClickListener = this
+        rv_my_invite.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
+        rv_my_invite.adapter = mAdapter
     }
 }

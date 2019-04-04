@@ -25,6 +25,10 @@ class GetMoneyModel(presenter:GetMoneyContract.Presenter):BaseModel<GetMoneyCont
                     override fun onNext(t: BaseBean<*>?) {
                         mPresenter?.applyForWithdrawalSuccess()
                     }
+
+                    override fun onError(t: Throwable?) {
+                        mPresenter?.nomoreMoney()
+                    }
                 })
         addSubscription(mDisposable)
     }

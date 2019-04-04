@@ -49,6 +49,46 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="小崔说科技"/>
 
+    <LinearLayout
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/star_1"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_2"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_3"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_4"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_5"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+    </LinearLayout>
+
     <TextView
         android:ellipsize="end"
         android:maxLength="15"
@@ -57,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:lineSpacingExtra="5dp"
         android:textColor="@color/text_color_2"
         android:textSize="12sp"

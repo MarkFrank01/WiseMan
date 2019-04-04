@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.my.money.MoneyBean
  */
 class GetMoneyPresenter(view: GetMoneyContract.View) : BasePresenter<GetMoneyContract.View>(), GetMoneyContract.Presenter {
 
+
     private val mModel: GetMoneyModel
 
     init {
@@ -24,6 +25,12 @@ class GetMoneyPresenter(view: GetMoneyContract.View) : BasePresenter<GetMoneyCon
     override fun applyForWithdrawalSuccess() {
         if (mView != null) {
             mView.applyForWithdrawalSuccess()
+        }
+    }
+
+    override fun nomoreMoney() {
+        if (mView!=null){
+            mView.nomoreMoney()
         }
     }
 

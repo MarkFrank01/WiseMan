@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.retrofit.RetrofitBean
 data class InviteBean(
         @SerializedName("avatar") var avatar: String,
         @SerializedName("hasReceiveReward") var hasReceiveReward: Boolean,
-        @SerializedName("invitedTime") var invitedTime: String,
+        @SerializedName("invitedTime") var invitedTime: Long,
         @SerializedName("name") var name: String,
         @SerializedName("userId") var userId:Int,
 

@@ -62,11 +62,12 @@
             <LinearLayout
                 android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:layout_marginStart="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="我的邀请记录"
@@ -80,6 +81,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:layout_marginEnd="18dp"
                     android:id="@+id/man_num"
                     android:gravity="center"
                     android:textColor="@color/text_color_3"
@@ -91,13 +93,17 @@
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:visibility="gone"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="30dp"
+                android:id="@+id/rv_my_invite"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:id="@+id/show_empty_1"
+                android:visibility="gone"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/empty_invite"
@@ -105,6 +111,8 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:id="@+id/show_empty_2"
+                android:visibility="gone"
                 android:layout_marginBottom="40dp"
                 android:layout_gravity="center"
                 android:text="暂无邀请"

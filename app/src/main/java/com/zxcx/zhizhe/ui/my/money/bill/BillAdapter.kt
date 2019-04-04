@@ -20,7 +20,7 @@ class BillAdapter(data: List<BillBean>) : BaseQuickAdapter<BillBean, BaseViewHol
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 
         helper.setText(R.id.tv_name, item.relatedUser?.name)
-        helper.setText(R.id.tv_desc, item.createTime + "加入")
+        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入")
         helper.setText(R.id.tv_money, item.amount)
 
         when (item.sourcesOfFunds) {

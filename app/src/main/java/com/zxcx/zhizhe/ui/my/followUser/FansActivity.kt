@@ -104,7 +104,7 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 	override fun postSuccess(bean: SearchUserBean) {
 		val position = mAdapter.data.indexOf(bean)
 //		mAdapter.data[position].isFollow = true
-        mAdapter.data[position].followType = 1
+        mAdapter.data[position].followType = 2
 		mAdapter.notifyItemChanged(position)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}

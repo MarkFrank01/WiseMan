@@ -360,8 +360,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 }
 
                 R.id.circle_detail_more -> {
-                    val bean = adapter.data[position] as CircleDetailBean
-                    manageHTowner(bean.circleFix, bean.id, position)
+                    if (mCircleImOwner) {
+                        val bean = adapter.data[position] as CircleDetailBean
+                        manageHTowner(bean.circleFix, bean.id, position)
+                    }
                 }
             }
         }

@@ -104,14 +104,14 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 //        toastShow("刷新成功")
         circle_hint_login.visibility = View.VISIBLE
         circle_hint_login_dec.visibility = View.VISIBLE
-        ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
+//        ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LoginEvent) {
         circle_hint_login.visibility = View.GONE
         circle_hint_login_dec.visibility = View.GONE
-        ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
+//        ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
@@ -437,11 +437,11 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         if (checkLogin1()) {
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
-            ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
+//            ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
         } else {
             circle_hint_login.visibility = View.VISIBLE
             circle_hint_login_dec.visibility = View.VISIBLE
-            ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
+//            ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
 
         }
 //        mPresenter.getMyJoinCircleList(0, 3)

@@ -1,13 +1,12 @@
 package com.zxcx.zhizhe.utils;
 
-import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
-import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.FragmentActivity;
+
 import com.zxcx.zhizhe.App;
 import com.zxcx.zhizhe.event.LogoutEvent;
 import com.zxcx.zhizhe.event.UserInfoChangeSuccessEvent;
@@ -15,9 +14,15 @@ import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean;
 import com.zxcx.zhizhe.ui.my.creation.ApplyReviewActivity;
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog;
 import com.zxcx.zhizhe.ui.my.userInfo.UserInfoBean;
-import java.text.DecimalFormat;
-import java.util.Date;
+
 import org.greenrobot.eventbus.EventBus;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_review;
+import static com.zxcx.zhizhe.ui.my.MyTabBeanKt.writer_status_writer;
 
 /**
  * 项目相关操作封装
@@ -138,5 +143,13 @@ public class ZhiZheUtils {
 			return df.format(dou) + "w";
 		}
 	}
-	
+
+    /**
+     * 传入时间戳变成时间
+     */
+    public static String timeChange(long num){
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(new Date(Long.parseLong(String.valueOf(num))));
+    }
 }

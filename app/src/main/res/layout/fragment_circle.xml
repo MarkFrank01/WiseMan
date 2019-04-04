@@ -22,7 +22,7 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:riv_oval="true"
-            tools:src="@drawable/circle_top_default"/>
+            android:src="@drawable/circle_top_default"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
