@@ -22,6 +22,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.ui.circle.circlemanlist.CircleManListActivity
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleIntroductionActivity
+import com.zxcx.zhizhe.ui.circle.circlemore.CirclePingFenActivity
 import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleQuestionDetailActivity
@@ -512,6 +513,13 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                 it.putExtra("info", mIntroduction)
                             }
                         }
+
+                        1 -> {
+                            startActivity(CirclePingFenActivity::class.java){
+                                it.putExtra("circleId",circleID)
+                            }
+                        }
+
                         3 -> {
                             showshare()
                         }
