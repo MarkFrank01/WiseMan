@@ -8,10 +8,12 @@
 
 
     <RelativeLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:id="@+id/rv_circle_mesqa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

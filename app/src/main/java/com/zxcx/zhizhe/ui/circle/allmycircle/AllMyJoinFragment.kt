@@ -50,6 +50,10 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
+
+        val emptyView = EmptyView.getEmptyView(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data)
+        mAllmyCircleAdapter.emptyView = emptyView
+
         mRefreshLayout.finishRefresh()
         if (mCreatePage == 0) {
             mAllmyCircleAdapter.setNewData(list)
@@ -100,8 +104,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         rv_my_circle_all.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_my_circle_all.adapter = mAllmyCircleAdapter
 
-        val emptyView = EmptyView.getEmptyView(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data)
-        mAllmyCircleAdapter.emptyView = emptyView
+
     }
 
     fun onRefresh() {

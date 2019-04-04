@@ -14,8 +14,19 @@ class BillDescAdapter(data:List<BillBean>):BaseQuickAdapter<BillBean,BaseViewHol
 
     override fun convert(helper: BaseViewHolder, item: BillBean) {
 
-        helper.setText(R.id.tv_name, item.targetUser?.name)
-        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入")
+//        helper.setText(R.id.tv_name, item.targetUser?.name)
+        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime))
         helper.setText(R.id.tv_money, item.amount)
+        when(item.billType){
+
+            -1->{
+                helper.setText(R.id.tv_name, "提现到账")
+            }
+
+            0->{
+                helper.setText(R.id.tv_name, "申请提现")
+            }
+
+        }
     }
 }

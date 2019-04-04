@@ -28,6 +28,10 @@ class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(),MyMoneyContract.View{
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "账单"
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         mPresenter.getAccountDetails()
     }
 

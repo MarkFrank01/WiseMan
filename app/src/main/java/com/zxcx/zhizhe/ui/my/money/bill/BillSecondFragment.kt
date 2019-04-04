@@ -10,6 +10,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_bill_2.*
 
 /**
@@ -85,5 +86,8 @@ class BillSecondFragment : RefreshMvpFragment<BillPresenter>(), BillContract.Vie
         rv_bill_second.adapter = mAdapter
 
         mAdapter.onItemChildClickListener = this
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_bill_second)
     }
 }

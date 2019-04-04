@@ -277,10 +277,12 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         }
 
         show_1.setOnClickListener {
+            LogCat.e("??? Title "+cardBean.relatedCircleTitle)
             if (!showOther&&cardBean.relatedCircleTitle.isNotEmpty()&&cardBean.relatedCircleTitle!="") {
                 show_1.visibility = View.GONE
                 show_2.visibility = View.VISIBLE
                 showOther = true
+                tv_xf.text = cardBean.relatedCircleTitle
             }
 
         }
