@@ -55,8 +55,8 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
     override fun setClassifyMenuSuccess() {
         toastShow("设置成功")
 //        finish()
-        SharedPreferencesUtil.saveData("saveOnce",true)
-        SharedPreferencesUtil.saveData("saveOnce2",true)
+        SharedPreferencesUtil.saveData("saveOnce", true)
+        SharedPreferencesUtil.saveData("saveOnce2", true)
     }
 
     override fun getAllNavClassifySuccess(list: MutableList<ClassifyBean>) {
@@ -86,6 +86,12 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
             tv_select_label_change_2.visibility = View.VISIBLE
 
             mCanChoose = true
+
+            mNewHotClassify.forEach {
+                it.isChecked = true
+            }
+            mAdapter1.notifyDataSetChanged()
+
         }
 
         tv_select_label_change_2.setOnClickListener {
@@ -100,6 +106,11 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
             mPresenter.setClassifyMenu(idList)
 
             mCanChoose = false
+
+            mNewHotClassify.forEach {
+                it.isChecked = false
+            }
+            mAdapter1.notifyDataSetChanged()
 
             tv_select_label_change_1.visibility = View.VISIBLE
             tv_select_label_change_2.visibility = View.GONE
@@ -123,7 +134,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 
         mAdapter1.enableDragItem(mItemTouchHelper)
 
-        val listener = object  :OnItemDragListener{
+        val listener = object : OnItemDragListener {
             override fun onItemDragMoving(source: RecyclerView.ViewHolder?, from: Int, target: RecyclerView.ViewHolder?, to: Int) {
             }
 

@@ -9,6 +9,8 @@
     android:layout_marginRight="7.5dp">
 
     <ImageView
+        android:id="@+id/can_show_cancel"
+        android:visibility="gone"
         android:layout_marginTop="13dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/top_delete"
