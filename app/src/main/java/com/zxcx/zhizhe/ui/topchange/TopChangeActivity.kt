@@ -160,6 +160,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 //            mAdapter1.notifyItemChanged(position)
             if (mCanChoose) {
 
+                bean.isChecked = false
                 mAdapter2.addData(bean)
                 mAdapter1.remove(position)
 
@@ -172,6 +173,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
             val bean = adapter.data[position] as ClassifyBean
 
             if (mCanChoose) {
+                bean.isChecked = true
                 mAdapter1.addData(bean)
                 mAdapter2.remove(position)
 

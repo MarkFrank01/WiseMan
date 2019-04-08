@@ -29,6 +29,7 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
         tv_toolbar_right.isEnabled = false
 
         vci_invite.focus()
+        mPresenter?.receiveMineInvitationUser()
     }
 
 
@@ -52,6 +53,23 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
     override fun inputInvitationCodeSuccess(bean: InviteBean) {
         toastShow("填写完成")
         finish()
+    }
+
+    override fun receiveMineInvitationUser(bean: InviteBean) {
+//            invite_me.visibility = View.VISIBLE
+//            ImageLoader.load(mActivity, bean.avatar, R.drawable.default_header, invite_img)
+//            invite_name.text = bean.name
+//            invite_time.text = ZhiZheUtils.timeChange(bean.invitedTime)
+//
+//            if (bean.hasReceiveReward) {
+//                invite_get.text = "已奖励"
+//                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white))
+//                invite_get.setBackgroundResource(R.drawable.bg_backbutton2_grey)
+//            } else {
+//                invite_get.text = "领取奖励"
+//                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white_2))
+//                invite_get.setBackgroundResource(R.drawable.bg_backbutton2)
+//            }
     }
 
     override fun getDataSuccess(bean: InviteBean?) {

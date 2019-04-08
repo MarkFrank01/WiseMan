@@ -277,8 +277,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         }
 
         show_1.setOnClickListener {
-            LogCat.e("??? Title "+cardBean.relatedCircleTitle)
-            if (!showOther&&cardBean.relatedCircleTitle.isNotEmpty()&&cardBean.relatedCircleTitle!="") {
+            LogCat.e("??? Title " + cardBean.relatedCircleTitle)
+            if (!showOther && cardBean.relatedCircleTitle.isNotEmpty() && cardBean.relatedCircleTitle != "") {
                 show_1.visibility = View.GONE
                 show_2.visibility = View.VISIBLE
                 showOther = true
@@ -288,7 +288,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         }
 
         show_2.setOnClickListener {
-            if (showOther&&cardBean.relatedCircleTitle.isNotEmpty()&&cardBean.relatedCircleTitle!=""){
+            if (showOther && cardBean.relatedCircleTitle.isNotEmpty() && cardBean.relatedCircleTitle != "") {
                 show_1.visibility = View.VISIBLE
                 show_2.visibility = View.GONE
                 showOther = false
@@ -419,6 +419,14 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             tv_article_details_label2.visibility = View.VISIBLE
             tv_article_details_label2.text = cardBean.getSecondLabelName()
         }
+
+        //是否显示圈子的标志
+//        if (!StringUtils.isEmpty(cardBean.relatedCircleTitle)) {
+//            show_1.visibility = View.VISIBLE
+//        } else {
+//            show_1.visibility = View.GONE
+//
+//        }
 
         cb_article_details_follow.expandViewTouchDelegate(ScreenUtils.dip2px(8f))
         iv_article_details_comment.expandViewTouchDelegate(ScreenUtils.dip2px(10f))

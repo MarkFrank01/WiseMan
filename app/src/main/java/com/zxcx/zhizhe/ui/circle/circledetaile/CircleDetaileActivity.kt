@@ -27,15 +27,14 @@ import com.zxcx.zhizhe.ui.circle.circleowner.ownermanage.OwnerManageContentActiv
 import com.zxcx.zhizhe.ui.circle.circlequestion.CircleQuestionActivity
 import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleQuestionDetailActivity
 import com.zxcx.zhizhe.ui.circle.circlesearch.inside.CircleInsidePreActivity
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.getColorForKotlin
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.ui.my.money.MoneyBean
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
@@ -48,6 +47,7 @@ import kotlinx.android.synthetic.main.layout_circle_detail.*
  */
 class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), CircleDetaileContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+
 
 
     private var circleID: Int = 0
@@ -91,7 +91,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //存放一些支付信息所必须的数据
     var circlename: String = ""
     var circleprice: String = ""
-    var circleendtime: String = ""
+    var circleendtime: Long = 0
     var circleyue: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +106,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         mRefreshLayout = refresh_layout
 
         mPresenter.getCircleBasicInfo(circleID)
+        mPresenter.getAccountDetails()
 //        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
 //        onRefresh()
     }
@@ -182,6 +183,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         circlename = bean.title
         circleprice = bean.price
+        circleendtime = bean.memberExpirationTime.toLong()
         mImageUrl = bean.titleImage
         labelName = bean.classifytitle
         classifyId = bean.classifyId
@@ -263,7 +265,25 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
     }
 
+    //付费加入接口
+    override fun joinCircleByZzbForAndroidSuccess() {
+
+    }
+
+    override fun getAccountDetailsSuccess(bean: MoneyBean) {
+        circleyue = bean.accountMoney
+    }
+
     override fun getDataSuccess(bean: MutableList<CircleBean>?) {
+    }
+
+    override fun postSuccess() {
+        toastShow("加入成功")
+        finish()
+    }
+
+    override fun postFail(msg: String?) {
+        toastShow(msg)
     }
 
     override fun setListener() {
@@ -332,13 +352,20 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //                it.putExtra("circleName",circlename)
 //                it.putExtra("circlePrice",circleprice)
 //            }
-            if (checkLogin()) {
-                mActivity.startActivity(SelectPayActivity::class.java) {
-                    it.putExtra("circleId", circleID)
-                    it.putExtra("circleName", circlename)
-                    it.putExtra("circlePrice", circleprice)
-                }
-            }
+
+            //方便测试
+//            if (checkLogin()) {
+//                mActivity.startActivity(SelectPayActivity::class.java) {
+//                    it.putExtra("circleId", circleID)
+//                    it.putExtra("circleName", circlename)
+//                    it.putExtra("circlePrice", circleprice)
+//                }
+//            }
+
+            //现在
+//            LogCat.e("circleName "+circlename+"circleprice "+circleprice+" circleenndTime"+circleendtime+" eyu "+circleyue)
+            JoinCircle(circlename,"￥ "+circleprice+"($circleprice 智者币)",ZhiZheUtils.timeChange(circleendtime)+"到期",circleyue)
+
         }
     }
 
@@ -679,6 +706,32 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                             onRefresh()
                         })
                 ).show()
+    }
+
+    //加入圈子
+    private fun JoinCircle(t1:String,t2:String,t3:String,t4:String){
+
+        if (t4.parseFloat()>0) {
+            XPopup.get(mActivity)
+                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入",-1,
+                            OnSelectListener { position, text ->
+                                mPresenter.joinCircleByZzbForAndroid(circleID)
+                            })
+                    ).show()
+        }else{
+            XPopup.get(mActivity)
+                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换",-1,
+                            OnSelectListener { position, text ->
+                                if (checkLogin()) {
+                                    mActivity.startActivity(SelectPayActivity::class.java) {
+                                        it.putExtra("circleId", circleID)
+                                        it.putExtra("circleName", circlename)
+                                        it.putExtra("circlePrice", circleprice)
+                                    }
+                                }
+                            })
+                    ).show()
+        }
     }
 
     //评分显示

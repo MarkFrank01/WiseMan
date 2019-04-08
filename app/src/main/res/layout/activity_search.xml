@@ -38,7 +38,6 @@
 		android:id="@+id/tv_search_cancel"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="10dp"
 		android:padding="10dp"
 		android:text="@string/common_cancel"
 		android:textColor="@color/button_blue"

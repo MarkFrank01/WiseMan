@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.circle.circledetaile
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.my.money.MoneyBean
 
 /**
  * @author : MarkFrank01
@@ -16,6 +17,14 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
     init {
         attachView(view)
         mModel = CircleDetaileModel(this)
+    }
+
+    fun joinCircleByZzbForAndroid(circleId: Int) {
+        mModel.joinCircleByZzbForAndroid(circleId)
+    }
+
+    fun getAccountDetails() {
+        mModel.getAccountDetails()
     }
 
     fun getCircleBasicInfo(circleId: Int) {
@@ -68,6 +77,26 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
         if (mView != null) {
             mView.getCircleQAByCircleIdSuccess(bean)
         }
+    }
+
+    override fun joinCircleByZzbForAndroidSuccess() {
+        if (mView != null) {
+            mView.joinCircleByZzbForAndroidSuccess()
+        }
+    }
+
+    override fun getAccountDetailsSuccess(bean: MoneyBean) {
+        if (mView != null) {
+            mView.getAccountDetailsSuccess(bean)
+        }
+    }
+
+    override fun postSuccess() {
+        mView.postSuccess()
+    }
+
+    override fun postFail(msg: String?) {
+        mView.postFail(msg)
     }
 
     override fun showLoading() {

@@ -33,4 +33,16 @@ class InputInviteModel(presenter:InputInviteContract.Presenter):BaseModel<InputI
         addSubscription(mDisposable)
     }
 
+    //邀请我的人
+    fun receiveMineInvitationUser(){
+        mDisposable = AppClient.getAPIService().receiveMineInvitationUser()
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<InviteBean>(mPresenter){
+                    override fun onNext(t: InviteBean) {
+                        mPresenter?.receiveMineInvitationUser(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
+              android:background="@color/background"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -41,6 +42,62 @@
             app:box_bg_focus="@drawable/verification_edit_bg"
             app:box_bg_normal="@drawable/verification_edit_bg"
             app:child_h_padding="6dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/invite_me"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/invite_img"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            tools:src="@drawable/logo"/>
+
+        <TextView
+            android:id="@+id/invite_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_color_1"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="东芝电脑"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:id="@+id/invite_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/text_color_3"
+            tools:text="2019.03.01 16:42"/>
+
+        <CheckBox
+            android:id="@+id/invite_get"
+            style="@style/tv_single"
+            android:layout_width="72dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_backbutton2"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_text_3"
+            tools:text="领取奖励"/>
 
     </LinearLayout>
 

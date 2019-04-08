@@ -13,10 +13,12 @@ interface InputInviteContract {
     interface View:GetView<InviteBean>{
         fun inputInvitationCodeSuccess(bean:InviteBean)
         fun errormsg(msg:String)
+        fun receiveMineInvitationUser(bean:InviteBean)
     }
 
     interface Presenter:IGetPresenter<InviteBean>{
         fun inputInvitationCodeSuccess(bean:InviteBean)
         fun errormsg(msg:String)
+        fun receiveMineInvitationUser(bean:InviteBean)
     }
 }

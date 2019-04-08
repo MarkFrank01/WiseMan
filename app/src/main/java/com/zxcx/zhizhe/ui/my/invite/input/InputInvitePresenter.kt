@@ -10,7 +10,6 @@ import com.zxcx.zhizhe.ui.my.invite.InviteBean
  */
 class InputInvitePresenter(view: InputInviteContract.View) : BasePresenter<InputInviteContract.View>(), InputInviteContract.Presenter {
 
-
     private val mModel: InputInviteModel
 
     init {
@@ -18,8 +17,18 @@ class InputInvitePresenter(view: InputInviteContract.View) : BasePresenter<Input
         mModel = InputInviteModel(this)
     }
 
-    fun inputInvitationCode(code:String){
+    fun inputInvitationCode(code: String) {
         mModel.inputInvitationCode(code)
+    }
+
+    fun receiveMineInvitationUser() {
+        mModel.receiveMineInvitationUser()
+    }
+
+    override fun receiveMineInvitationUser(bean: InviteBean) {
+        if (mView != null) {
+            mView.receiveMineInvitationUser(bean)
+        }
     }
 
     override fun inputInvitationCodeSuccess(bean: InviteBean) {
@@ -29,7 +38,7 @@ class InputInvitePresenter(view: InputInviteContract.View) : BasePresenter<Input
     }
 
     override fun errormsg(msg: String) {
-        if (mView!=null){
+        if (mView != null) {
             mView.errormsg(msg)
         }
     }

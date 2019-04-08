@@ -61,6 +61,10 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
         change_top_more.setOnClickListener {
             mActivity.startActivity(TopChangeActivity::class.java){}
         }
+
+        show_empty_view.setOnClickListener {
+            mActivity.startActivity(TopChangeActivity::class.java){}
+        }
     }
 
     override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
@@ -79,6 +83,13 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 
         if (list.isEmpty()){
             LogCat.e("加入新的")
+            vp_card_list.visibility =View.GONE
+            show_empty_view.visibility = View.VISIBLE
+            change_top_more.visibility = View.GONE
+        }else{
+            vp_card_list.visibility =View.VISIBLE
+            show_empty_view.visibility = View.GONE
+            change_top_more.visibility = View.VISIBLE
         }
 	}
 

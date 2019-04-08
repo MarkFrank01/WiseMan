@@ -1178,6 +1178,12 @@ public interface APIService {
     );
 
     /**
+     * 邀请码活动-获取邀请我的人
+     */
+    @POST("/activity/receiveMineInvitationUser")
+    Flowable<BaseBean<InviteBean>> receiveMineInvitationUser();
+
+    /**
      * 设置中奖后的 收货信息
      */
     @POST("/activity/submitWinningInfo")
@@ -1296,5 +1302,13 @@ public interface APIService {
     Flowable<BaseArrayBean<BillBean>> getCashWithdrawalDetails(
             @Query("pageIndex") int pageIndex,
             @Query("pageSize") int pageSize
+    );
+
+    /**
+     * 智力币进圈 安卓
+     */
+    @POST("/circle/joinCircleByZzbForAndroid")
+    Flowable<BaseBean<Object>> joinCircleByZzbForAndroid(
+            @Query("circleId") int circleId
     );
 }

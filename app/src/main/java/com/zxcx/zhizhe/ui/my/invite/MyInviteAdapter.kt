@@ -30,7 +30,7 @@ class MyInviteAdapter(data:List<InviteBean>):BaseQuickAdapter<InviteBean,BaseVie
             helper.getView<CheckBox>(R.id.invite_get).setBackgroundResource(R.drawable.bg_backbutton2_grey)
         }else{
             helper.setText(R.id.invite_get,"领取奖励")
-            helper.setTextColor(R.id.invite_get,mContext.getColorForKotlin(R.color.white))
+            helper.setTextColor(R.id.invite_get,mContext.getColorForKotlin(R.color.white_2))
             helper.getView<CheckBox>(R.id.invite_get).setBackgroundResource(R.drawable.bg_backbutton2)
         }
     }

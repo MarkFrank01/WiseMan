@@ -115,6 +115,9 @@ class CircleBean(
     @SerializedName("unpassReason")
     var unpassReason:String = ""
 
+    @SerializedName("memberExpirationTime")
+    var memberExpirationTime:String = ""
+
     override fun getItemType(): Int {
         return CIRCLE_HOME_1
     }

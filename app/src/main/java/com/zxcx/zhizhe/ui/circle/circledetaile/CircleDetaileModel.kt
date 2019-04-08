@@ -2,11 +2,10 @@ package com.zxcx.zhizhe.ui.circle.circledetaile
 
 import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
-import com.zxcx.zhizhe.retrofit.AppClient
-import com.zxcx.zhizhe.retrofit.BaseSubscriber
-import com.zxcx.zhizhe.retrofit.HintBean
+import com.zxcx.zhizhe.retrofit.*
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.my.money.MoneyBean
 
 /**
  * @author : MarkFrank01
@@ -100,4 +99,33 @@ class CircleDetaileModel(presenter: CircleDetaileContract.Presenter):BaseModel<C
         addSubscription(mDisposable)
     }
 
+    //获取自己的余额
+    fun getAccountDetails(){
+        mDisposable = AppClient.getAPIService().accountDetails
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object :BaseSubscriber<MoneyBean>(mPresenter){
+                    override fun onNext(t: MoneyBean) {
+                        mPresenter?.getAccountDetailsSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //Android用智者币进圈
+    fun joinCircleByZzbForAndroid(circleId:Int){
+        mDisposable = AppClient.getAPIService().joinCircleByZzbForAndroid(circleId)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(object :NullPostSubscriber<BaseBean<*>>(mPresenter){
+                    override fun onNext(t: BaseBean<*>?) {
+                        mPresenter?.postSuccess()
+                    }
+
+                    override fun onError(t: Throwable?) {
+                        mPresenter?.postFail(t?.message.toString())
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }
