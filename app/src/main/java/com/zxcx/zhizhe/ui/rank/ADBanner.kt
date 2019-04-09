@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.youth.banner.Banner
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ScreenUtils
 
 /**
@@ -22,7 +23,7 @@ class ADBanner(context: Context, attrs: AttributeSet) : Banner(context, attrs) {
 
 //        LogCat.e("Base"+(ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2))
 //        LogCat.e("HeightSize is $heightSize")
-//        LogCat.e("widthMeasureSpec${ScreenUtils.getDisplayWidth()},Utils${ScreenUtils.dip2px(20f)},jisuan$heightSize")
+        LogCat.e("widthMeasureSpec${ScreenUtils.getDisplayWidth()},Utils${ScreenUtils.dip2px(20f)},jisuan$heightSize")
 //        LogCat.e("bili:${heightSize.toFloat()/ScreenUtils.getDisplayWidth().toFloat()}")
 
         val heightSpec = View.MeasureSpec.makeMeasureSpec(heightSize.toInt(), View.MeasureSpec.EXACTLY)

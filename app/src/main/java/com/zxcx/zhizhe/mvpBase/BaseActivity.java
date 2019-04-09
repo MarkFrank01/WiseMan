@@ -199,7 +199,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 		Toast toast = new Toast(this);
 		toast.setView(linearLayout);
 		tvToast.setText(text);
-		toast.setDuration(Toast.LENGTH_LONG);
+		toast.setDuration(Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}

@@ -14,7 +14,7 @@
 		android:id="@+id/iv_toolbar_back"
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		android:paddingStart="20dp"
+		android:paddingStart="12dp"
 		android:paddingEnd="10dp"
 		android:src="@drawable/common_back"
 		android:visibility="visible"/>

@@ -13,10 +13,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.expandViewTouchDelegate
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.activity_circle_man_detail.*
 
 /**
@@ -38,7 +35,7 @@ class CircleManDetailActivity : MvpActivity<CircleManDetailPresenter>(), CircleM
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_circle_man_detail)
-        tl_list.setupWithViewPager(vp_list)
+        tl_card_list.setupWithViewPager(vp_list)
 
         initData()
         initView()
@@ -59,6 +56,7 @@ class CircleManDetailActivity : MvpActivity<CircleManDetailPresenter>(), CircleM
         tv_my_lv.text = "Lv." + bean.level.toString()
         tv_my_nick_name.text = bean.name
         tv_my_signature.text = bean.signature
+        LogCat.e("SIGN is "+bean.signature)
         tv_him_create_num.text = bean.authorCreateArticleCount.toString()
         tv_him_notice_num.text = bean.fansNum.toString()
         tv_him_zan_num.text = bean.likedUsersCount.toString()
@@ -88,14 +86,25 @@ class CircleManDetailActivity : MvpActivity<CircleManDetailPresenter>(), CircleM
 
     private fun initView() {
         mAdapter = supportFragmentManager?.let { ViewPagerAdapter2(it) }
-        vp_list.adapter = mAdapter
+//        vp_list.adapter = mAdapter
 
-        for (i in titles.indices) {
-            val tab = tl_list.newTab()
-            tab.setCustomView(R.layout.tab_new_two)
+//        for (i in titles.indices) {
+//            val tab = tl_list.newTab()
+//            tab.setCustomView(R.layout.tab_new_two)
+//            val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
+//            textView?.text = titles[i]
+//            tl_list.addTab(tab)
+//        }
+
+        vp_list.removeAllViews()
+        vp_list.adapter = mAdapter
+        tl_card_list.removeAllTabs()
+        titles.forEach {
+            val tab = tl_card_list.newTab()
+            tab.setCustomView(R.layout.tab_card_list_2)
             val textView = tab.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
-            textView?.text = titles[i]
-            tl_list.addTab(tab)
+            textView?.text = it
+            tl_card_list.addTab(tab)
         }
 
         cb_other_user_follow.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
@@ -124,6 +133,31 @@ class CircleManDetailActivity : MvpActivity<CircleManDetailPresenter>(), CircleM
 
     class ViewPagerAdapter2(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
+        override fun getItem(position: Int): Fragment {
+            return if (position == 0) {
+                CircleManDetailCardFragment()
+            } else {
+                CircleManDetailCircleFragment()
+            }
+        }
+
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+
+            return if (position == 0) {
+                super.instantiateItem(container, position) as CircleManDetailCardFragment
+            } else {
+                super.instantiateItem(container, position) as CircleManDetailCircleFragment
+            }
+
+        }
+
+        override fun getCount(): Int {
+            return 2
+        }
+
+    }
+
+    class CardListViewPagerAdapter(val list:MutableList<String>,fm: FragmentManager):FragmentStatePagerAdapter(fm){
         override fun getItem(position: Int): Fragment {
             return if (position == 0) {
                 CircleManDetailCardFragment()

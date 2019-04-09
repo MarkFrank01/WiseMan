@@ -26,8 +26,8 @@
                     android:id="@+id/iv_toolbar_back"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingStart="20dp"
                     android:paddingEnd="10dp"
+                    android:paddingStart="20dp"
                     android:src="@drawable/common_back"
                     android:visibility="visible"/>
 
@@ -40,8 +40,8 @@
                     android:id="@+id/cb_other_user_follow"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="20dp"
                     android:background="@drawable/selector_other_user_follow"
                     android:button="@null"
                     android:checked="false"/>
@@ -249,13 +249,31 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="1000dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <com.zxcx.zhizhe.widget.CardListTabLayout
+                    android:id="@+id/tl_card_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginStart="4dp"
+                    app:tabBackground="@color/translate"
+                    app:tabGravity="fill"
+                    app:tabIndicatorHeight="0dp"
+                    app:tabMaxWidth="100dp"
+                    app:tabMinWidth="20dp"
+                    app:tabMode="scrollable"
+                    app:tabPaddingBottom="0dp"
+                    app:tabPaddingEnd="0dp"
+                    app:tabPaddingStart="0dp"
+                    app:tabPaddingTop="0dp"/>
 
                 <com.zxcx.zhizhe.widget.NewTabLayout
                     android:id="@+id/tl_list"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:visibility="gone"
                     app:tabBackground="@color/translate"
                     app:tabGravity="fill"
                     app:tabIndicatorHeight="0dp"
@@ -270,7 +288,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/vp_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="500dp"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -92,7 +92,11 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
         mAdapter = CircleManCardAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
 
-        rv_man_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+//        rv_man_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_man_card.layoutManager = object :LinearLayoutManager(context){
+                override fun canScrollVertically() = false
+        }
+
         rv_man_card.adapter = mAdapter
     }
 
