@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.topchange
 
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -26,9 +27,14 @@ class TopChange1Adapter(data:List<ClassifyBean>):BaseItemDraggableAdapter<Classi
         helper.setText(R.id.cb_item_select_card_bag,item.title)
         if (item.isChecked){
             helper.getView<ImageView>(R.id.can_show_cancel).visibility = View.VISIBLE
+            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(10,0,0,0)
         }else{
             helper.getView<ImageView>(R.id.can_show_cancel).visibility = View.GONE
+            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(0,0,0,0)
+
         }
+
+
 //        helper.setChecked(R.id.cb_item_select_card_bag,item.isFollow)
 //        var checkBox = helper.getView<CheckBox>(R.id.cb_item_select_card_bag)
 //

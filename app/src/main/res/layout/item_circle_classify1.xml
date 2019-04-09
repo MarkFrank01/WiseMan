@@ -92,12 +92,14 @@
     </LinearLayout>
 
     <TextView
+        android:maxLength="15"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:id="@+id/tv_item_circle_classify_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="12dp"
-        android:lineSpacingExtra="5dp"
         android:textColor="@color/text_color_2"
         android:textSize="12sp"
         android:transitionName="cardTitle"

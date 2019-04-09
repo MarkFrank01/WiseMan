@@ -12,8 +12,10 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleClassifyAdapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_circle_tuijian.*
@@ -92,7 +94,11 @@ class CircleTuiActivity : RefreshMvpActivity<CircleTuiPresenter>(), CircleTuiCon
         }
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CircleBean
+        mActivity.startActivity(CircleDetaileActivity::class.java){
+            it.putExtra("circleID",bean.id)
+        }
     }
 
     override fun onLoadMoreRequested() {
