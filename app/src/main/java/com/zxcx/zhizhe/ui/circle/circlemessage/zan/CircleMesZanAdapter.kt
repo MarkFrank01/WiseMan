@@ -38,6 +38,8 @@ class CircleMesZanAdapter(data: List<MyCircleTabBean>) : BaseMultiItemQuickAdapt
                 ImageLoader.load(mContext, item.relatedCircleTitleImage, R.drawable.default_card, relateImg)
 
                 helper.setText(R.id.message_man_name_2, item.relatedCircleTitle)
+
+                helper.addOnClickListener(R.id.message_ll_2)
             }
 
             MESSAGE_TYPE_CIRCLE_DYNAMIC_LIST_QUESTION -> {
@@ -57,6 +59,8 @@ class CircleMesZanAdapter(data: List<MyCircleTabBean>) : BaseMultiItemQuickAdapt
                 ImageLoader.load(mContext, item.relatedCircleTitleImage, R.drawable.default_card, circleImg)
 
                 helper.setText(R.id.message_circle_title, item.relatedCircleTitle)
+
+                helper.addOnClickListener(R.id.message_ll_2)
             }
 
             MESSAGE_TYPE_CIRCLE_DYNAMIC_LIST_ANSWER -> {
@@ -73,6 +77,8 @@ class CircleMesZanAdapter(data: List<MyCircleTabBean>) : BaseMultiItemQuickAdapt
                 ImageLoader.load(mContext,item.relatedCircleTitleImage, R.drawable.default_card,circleImg)
 
                 helper.setText(R.id.message_circle_title,item.relatedCircleTitle)
+
+                helper.addOnClickListener(R.id.message_ll_2)
             }
         }
     }

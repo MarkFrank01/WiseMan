@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_circle_classify.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -174,8 +175,8 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
         iv_toolbar_right.setImageResource(R.drawable.c_more_2)
 
         mAdapter = CircleClassifyAdapter(ArrayList())
-//        mAdapter.setLoadMoreView(CustomLoadMoreView())
-//        mAdapter.setOnLoadMoreListener(this,rv_circle_classify)
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_circle_classify)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 

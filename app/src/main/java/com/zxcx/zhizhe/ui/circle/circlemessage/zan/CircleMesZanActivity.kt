@@ -63,7 +63,12 @@ class CircleMesZanActivity :MvpActivity<CircleMesZanPresenter>(),CircleMesZanCon
     override fun getDataSuccess(bean: MyCircleTabBean?) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as MyCircleTabBean
+//        mActivity.startActivity(CircleQuestionDetailActivity::class.java){
+//            it.putExtra("huatiId",bean.relatedQaId)
+//            it.putExtra("CircleId",bean.relatedCircleId)
+//        }
     }
 
     override fun onLoadMoreRequested() {

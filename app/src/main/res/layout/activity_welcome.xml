@@ -29,16 +29,17 @@
 		android:visibility="gone"/>
 
     <TextView
-        android:textStyle="bold"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="102dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/bg_backbutton2_grey"
+        android:background="@drawable/bg_backbutton2_black"
         android:gravity="center"
         android:text="广告"/>
 

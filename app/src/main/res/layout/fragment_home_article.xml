@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_marginBottom="6dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="6dp"
         android:background="@drawable/bg_home_search"
         android:drawablePadding="5dp"
-        android:drawableStart="@drawable/et_search"
+        android:drawableStart="@drawable/search_inside"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:paddingStart="6dp"
@@ -32,11 +32,13 @@
         tools:text="6"/>
 
     <RelativeLayout
+        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <com.zxcx.zhizhe.widget.CardListTabLayout
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="50dp"
             android:id="@+id/tl_card_list"
             android:layout_width="match_parent"
@@ -54,8 +56,8 @@
 
         <ImageView
             android:id="@+id/change_top_more"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
             android:layout_alignParentEnd="true"
             android:src="@drawable/liebiao_more"
             android:layout_width="20dp"

@@ -7,7 +7,7 @@
               android:orientation="horizontal"
               android:paddingLeft="88dp"
               android:paddingRight="88dp"
-              android:paddingTop="15dp">
+              android:paddingTop="13dp">
 
     <ImageView
         android:visibility="gone"
@@ -34,7 +34,7 @@
             android:ellipsize="end"
             android:lines="1"
             android:text="wjc"
-            android:textSize="16sp"/>
+            android:textSize="17sp"/>
 
         <View
             android:layout_marginTop="10dp"

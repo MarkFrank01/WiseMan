@@ -22,8 +22,8 @@
         android:transitionName="cardImage"
         app:hasShade="true"
         app:layout_constraintDimensionRatio="4:3"
-        app:riv_corner_radius_top_left="6dp"
-        app:riv_corner_radius_top_right="6dp"
+        app:riv_corner_radius_top_left="12dp"
+        app:riv_corner_radius_top_right="12dp"
         app:shade="@drawable/shade_top_6dp"
         tools:src="@drawable/iv_item_home_card_icon"/>
 

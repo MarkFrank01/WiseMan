@@ -21,7 +21,7 @@
 			android:layout_width="40dp"
 			android:layout_height="40dp"
 			android:layout_marginTop="2dp"
-			android:layout_marginStart="10dp"
+			android:layout_marginStart="4dp"
 			android:layout_gravity="start|center_vertical"
 			android:padding="10dp"
 			android:scaleType="center"
@@ -29,9 +29,13 @@
 		
 		<android.support.design.widget.TabLayout
 			android:id="@+id/tl_home"
-			android:layout_width="136dp"
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
+            app:tabMaxWidth="90dp"
+            app:tabMinWidth="30dp"
+            app:tabPaddingStart="12dp"
+            app:tabPaddingEnd="8dp"
 			app:tabBackground="@color/translate"
 			app:tabIndicatorColor="@color/translate"
 			app:tabMode="fixed"
@@ -43,11 +47,11 @@
 			android:layout_width="40dp"
 			android:layout_height="40dp"
 			android:layout_marginTop="2dp"
-			android:layout_marginEnd="10dp"
+			android:layout_marginEnd="4dp"
 			android:layout_gravity="end|center_vertical"
 			android:padding="10dp"
 			android:scaleType="center"
-			android:src="@drawable/iv_home_search"/>
+			android:src="@drawable/circle_search"/>
 	
 	</FrameLayout>
 	

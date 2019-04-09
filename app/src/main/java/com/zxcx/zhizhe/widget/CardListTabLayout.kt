@@ -158,7 +158,7 @@ class CardListTabLayout : TabLayout {
                     mNormalTextColor?.let { notSelectedChild?.setTextColor(it) }
 
                     var imageView = tabLayout.getTabAt(index)?.customView?.findViewById<ImageView>(R.id.show_select)
-                    imageView?.visibility = View.GONE
+                    imageView?.visibility = View.INVISIBLE
                 }
                 val selectedChild = tabLayout.getTabAt(position)?.customView?.findViewById<TextView>(R.id.tv_tab_card_list)
                 selectedChild?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize.toFloat())

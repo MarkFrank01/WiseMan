@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleClassifyAdapter
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.activity_circle_tuijian.*
 
@@ -117,6 +118,9 @@ class CircleTuiActivity : RefreshMvpActivity<CircleTuiPresenter>(), CircleTuiCon
 
         val view = EmptyView.getEmptyView(mActivity, "暂无圈子", R.drawable.no_circle_data)
         mCircleTuiAdapter.emptyView = view
+
+        mCircleTuiAdapter.setLoadMoreView(CustomLoadMoreView())
+        mCircleTuiAdapter.setOnLoadMoreListener(this,rv_circle_classify)
 
         rv_circle_classify.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_circle_classify.adapter = mCircleTuiAdapter

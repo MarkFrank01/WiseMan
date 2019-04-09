@@ -5,6 +5,6 @@
         android:color="@color/text_color_hint"
         android:width="0.5dp"/>
 
-    <corners android:radius="6dp"/>
+    <corners android:radius="17.5dp"/>
 
 </shape>

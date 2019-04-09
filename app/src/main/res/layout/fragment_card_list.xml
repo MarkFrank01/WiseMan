@@ -14,6 +14,7 @@
         android:orientation="horizontal">
 
         <com.zxcx.zhizhe.widget.CardListTabLayout
+            android:layout_marginStart="4dp"
             android:layout_marginEnd="50dp"
             android:id="@+id/tl_card_list"
             android:layout_width="match_parent"
@@ -31,8 +32,8 @@
 
         <ImageView
             android:id="@+id/change_top_more"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
             android:layout_alignParentEnd="true"
             android:src="@drawable/liebiao_more"
             android:layout_width="20dp"

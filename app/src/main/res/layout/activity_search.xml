@@ -19,7 +19,7 @@
 		android:background="@drawable/bg_home_search"
 		android:cursorVisible="true"
 		android:drawablePadding="5dp"
-		android:drawableStart="@drawable/et_search"
+		android:drawableStart="@drawable/search_inside"
 		android:gravity="center_vertical"
 		android:imeOptions="actionSearch"
 		android:inputType="text"

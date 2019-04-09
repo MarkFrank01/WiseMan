@@ -30,11 +30,13 @@ class CircleNewAdapter(data: List<MultiItemEntity>) :
                 val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
                 ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
-                helper.setText(R.id.more_price, "￥" + item.price)
 
                 if (item.price =="0.00"){
                     helper.setText(R.id.more_price,"限免")
                     helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price_red)
+                }else{
+                    helper.setText(R.id.more_price, "￥" + item.price)
+                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price)
                 }
 
                 helper.setText(R.id.tv_circle_title, item1.title)
