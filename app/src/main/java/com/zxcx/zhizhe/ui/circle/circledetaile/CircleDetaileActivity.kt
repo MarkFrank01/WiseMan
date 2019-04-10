@@ -431,7 +431,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                 when (state) {
                     State.EXPANDED -> {
-                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.colorPrimary))
                         LogCat.e("展开状态")
                         detail_time.visibility = View.VISIBLE
                         detail_star.visibility = View.VISIBLE
@@ -439,7 +438,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     }
 
                     State.COLLAPSED -> {
-                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
                         LogCat.e("折叠状态")
                         detail_time.visibility = View.GONE
                         detail_star.visibility = View.GONE

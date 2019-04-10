@@ -253,6 +253,7 @@
             </RelativeLayout>
 
             <Button
+                style="?android:attr/borderlessButtonStyle"
                 android:id="@+id/more_change"
                 android:layout_width="106dp"
                 android:layout_height="35dp"
@@ -263,7 +264,7 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="20dp"
                 android:text="换一批"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="43dp"
                 android:textColor="@color/button_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
