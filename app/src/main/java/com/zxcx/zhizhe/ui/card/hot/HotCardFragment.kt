@@ -148,9 +148,9 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
-        if (mPage == 0&&list.size>=4) {
-            list[4].cardType = CardBean.Article_TOUTIAO
-        }
+//        if (mPage == 0&&list.size>=4) {
+//            list[4].cardType = CardBean.Article_TOUTIAO
+//        }
         loadService.showSuccess()
         if (mPage == 0) {
             (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
@@ -272,7 +272,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 //            mActivity.startActivity(mIntent)
 //        }
 //
-        if (position != 4) {
             val bean = adapter.data[position] as CardBean
             val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
             val cardTitle = view.findViewById<TextView>(R.id.tv_item_card_title)
@@ -291,7 +290,6 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
             intent.putExtra("sourceName", this::class.java.name)
             mActivity.startActivity(intent, bundle)
             mCurrentPosition = position
-        }
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

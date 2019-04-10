@@ -18,8 +18,8 @@
 
     <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/iv_item_circle_classify_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
@@ -42,7 +42,7 @@
         android:layout_marginTop="15dp"
         android:lineSpacingExtra="5dp"
         android:textColor="@color/text_color_1"
-        android:textSize="14sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:transitionName="cardTitle"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title">
@@ -92,6 +92,7 @@
     </LinearLayout>
 
     <TextView
+        android:layout_marginTop="2dp"
         android:maxLength="15"
         android:maxLines="1"
         android:ellipsize="end"
@@ -100,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="12dp"
-        android:textColor="@color/text_color_2"
+        android:textColor="@color/text_color_3"
         android:textSize="12sp"
         android:transitionName="cardTitle"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
@@ -167,7 +168,7 @@
     <CheckBox
         android:id="@+id/cb_item_select_join_circle"
         style="@style/tv_single"
-        android:layout_width="60dp"
+        android:layout_width="76dp"
         android:layout_height="30dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/bg_checkbox_select_attention1"

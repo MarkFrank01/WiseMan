@@ -15,6 +15,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.pay.SelectPayActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -37,6 +38,7 @@ import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
+import com.zxcx.zhizhe.widget.gridview.GridItemClickListener
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
 import kotlinx.android.synthetic.main.layout_circle_detail.*
 
@@ -47,7 +49,6 @@ import kotlinx.android.synthetic.main.layout_circle_detail.*
  */
 class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), CircleDetaileContract.View, BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
-
 
 
     private var circleID: Int = 0
@@ -364,7 +365,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
             //现在
 //            LogCat.e("circleName "+circlename+"circleprice "+circleprice+" circleenndTime"+circleendtime+" eyu "+circleyue)
-            JoinCircle(circlename,"￥ "+circleprice+"($circleprice 智者币)",ZhiZheUtils.timeChange(circleendtime)+"到期",circleyue)
+            JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
 
         }
     }
@@ -469,11 +470,32 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             }
 
             gv_circle_classify2.pageSize = 4
-            gv_circle_classify2.setGridItemClickListener { pos, position, str ->
-                val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-                intent.putExtra("cardBean", list.partialArticleList[position])
-                mActivity.startActivity(intent)
-            }
+//            gv_circle_classify2.setGridItemClickListener { pos, position, str ->
+//                val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+//                intent.putExtra("cardBean", list.partialArticleList[position])
+//                mActivity.startActivity(intent)
+//            }
+            gv_circle_classify2.setGridItemClickListener(object : GridItemClickListener {
+
+                override fun click(pos: Int, position: Int, str: String?) {
+                }
+
+                override fun click_type(pos: Int, position: Int, str: String?, type: Int) {
+                    if (type == 2) {
+//                        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
+//                        intent.putExtra("cardBean", list.partialArticleList[position])
+//                        mActivity.startActivity(intent)
+
+                        mActivity.startActivity(ArticleDetailsActivity::class.java){
+                            it.putExtra("cardBean",list.partialArticleList[position])
+                        }
+                    }else if (type == 1){
+                        mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+                            it.putExtra("cardBean", list.partialArticleList[position])
+                        }
+                    }
+                }
+            })
             gv_circle_classify2.init(mClassifyData)
         }
     }
@@ -544,8 +566,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         }
 
                         1 -> {
-                            startActivity(CirclePingFenActivity::class.java){
-                                it.putExtra("circleId",circleID)
+                            startActivity(CirclePingFenActivity::class.java) {
+                                it.putExtra("circleId", circleID)
                             }
                         }
 
@@ -709,18 +731,18 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     //加入圈子
-    private fun JoinCircle(t1:String,t2:String,t3:String,t4:String){
+    private fun JoinCircle(t1: String, t2: String, t3: String, t4: String) {
 
-        if (t4.parseFloat()>0) {
+        if (t4.parseFloat() > 0) {
             XPopup.get(mActivity)
-                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入",-1,
+                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
                             OnSelectListener { position, text ->
                                 mPresenter.joinCircleByZzbForAndroid(circleID)
                             })
                     ).show()
-        }else{
+        } else {
             XPopup.get(mActivity)
-                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换",-1,
+                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
                             OnSelectListener { position, text ->
                                 if (checkLogin()) {
                                     mActivity.startActivity(SelectPayActivity::class.java) {

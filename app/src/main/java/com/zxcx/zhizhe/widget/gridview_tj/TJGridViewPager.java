@@ -99,6 +99,8 @@ public class TJGridViewPager extends RelativeLayout {
                     if (gridItemClickListener == null) return;
                     int position = pos + curIndex * pageSize;
                     gridItemClickListener.click(pos, position, mData.get(position).getTitle());
+                    gridItemClickListener.click_type(pos, position, mData.get(position).getTitle(),mData.get(position).getType());
+
                 }
             });
             //true if the callback consumed the long click, false otherwise

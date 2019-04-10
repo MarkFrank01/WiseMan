@@ -25,6 +25,7 @@ import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.gridview.GridItemClickListener
 import com.zxcx.zhizhe.widget.gridview.Model
 import io.reactivex.functions.Function
 import kotlinx.android.synthetic.main.fragment_circle.*
@@ -198,14 +199,17 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
         } else {
             gv_circle_classify.pageSize = 10
-            gv_circle_classify.setGridItemClickListener { pos, position, str ->
+            gv_circle_classify.setGridItemClickListener(object :GridItemClickListener{
+                override fun click(pos: Int, position: Int, str: String?) {
+                    mActivity.startActivity(CircleClassifyActivity::class.java) {
+                        it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
+                        it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+                    }                }
 
-                mActivity.startActivity(CircleClassifyActivity::class.java) {
-                    it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
-                    it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
+                override fun click_type(pos: Int, position: Int, str: String?, type: Int) {
                 }
+            })
 
-            }
             gv_circle_classify.init(mClassifyData)
         }
     }

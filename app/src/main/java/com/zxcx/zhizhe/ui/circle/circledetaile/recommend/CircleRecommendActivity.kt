@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.startActivity
@@ -87,7 +88,7 @@ class CircleRecommendActivity : RefreshMvpActivity<CircleRecommendPresenter>(), 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as CardBean
         if (bean.cardType == 1){
-            mActivity.startActivity(ArticleDetailsActivity::class.java) {
+            mActivity.startActivity(SingleCardDetailsActivity::class.java) {
                 it.putExtra("cardBean", bean)
             }
         }else if (bean.cardType == 2){
