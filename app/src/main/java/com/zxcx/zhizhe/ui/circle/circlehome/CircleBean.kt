@@ -118,8 +118,10 @@ class CircleBean(
     @SerializedName("memberExpirationTime")
     var memberExpirationTime:String = ""
 
+    var ItemTP = 2
+
     override fun getItemType(): Int {
-        return CIRCLE_HOME_1
+        return ItemTP
     }
 
     companion object {

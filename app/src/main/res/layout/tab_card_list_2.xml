@@ -19,6 +19,7 @@
 		tools:text="Ta的圈子"/>
 
     <ImageView
+        android:visibility="invisible"
         android:id="@+id/show_select"
         android:layout_marginStart="65dp"
         android:layout_marginBottom="13dp"

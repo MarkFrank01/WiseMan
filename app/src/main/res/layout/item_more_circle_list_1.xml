@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginStart="12dp"
         android:background="@drawable/bg_background_6dp"
         android:elevation="5dp"
         android:orientation="vertical"
@@ -43,25 +43,6 @@
             app:riv_corner_radius_top_right="6dp"
             app:shade="@drawable/shade_top_6dp"
             tools:src="@drawable/iv_item_home_card_icon"/>
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <TextView
-                android:textSize="12sp"
-                android:id="@+id/more_price"
-                android:layout_width="43dp"
-                android:layout_height="18dp"
-                android:background="@drawable/circle_price"
-                android:gravity="center"
-                android:textColor="@color/white"
-                tools:text="$ 40"/>
-        </android.support.constraint.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_circle_title"
@@ -87,11 +68,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,116 +79,131 @@
 
             <ImageView
                 android:id="@+id/star_1"
-                android:src="@drawable/star_off_white"
                 android:layout_width="9dp"
-                android:layout_height="9dp"/>
+                android:layout_height="9dp"
+                android:src="@drawable/star_off_white"/>
 
             <ImageView
                 android:id="@+id/star_2"
-                android:src="@drawable/star_off_white"
                 android:layout_width="9dp"
-                android:layout_height="9dp"/>
+                android:layout_height="9dp"
+                android:src="@drawable/star_off_white"/>
 
             <ImageView
                 android:id="@+id/star_3"
-                android:src="@drawable/star_off_white"
                 android:layout_width="9dp"
-                android:layout_height="9dp"/>
+                android:layout_height="9dp"
+                android:src="@drawable/star_off_white"/>
 
             <ImageView
                 android:id="@+id/star_4"
-                android:src="@drawable/star_off_white"
                 android:layout_width="9dp"
-                android:layout_height="9dp"/>
+                android:layout_height="9dp"
+                android:src="@drawable/star_off_white"/>
 
             <ImageView
                 android:id="@+id/star_5"
-                android:src="@drawable/star_off_white"
                 android:layout_width="9dp"
-                android:layout_height="9dp"/>
+                android:layout_height="9dp"
+                android:src="@drawable/star_off_white"/>
 
         </LinearLayout>
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/more_price"
+                android:layout_width="43dp"
+                android:layout_height="18dp"
+                android:background="@drawable/circle_price"
+                android:gravity="center"
+                android:textColor="@color/white"
+                tools:text="$ 40"/>
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
-            android:layout_marginEnd="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon">
 
 
             <TextView
-                android:gravity="start"
-                android:layout_weight="1"
                 android:id="@+id/more_circle_type"
                 style="@style/tv_card_category"
                 android:layout_marginBottom="9dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:gravity="start"
                 android:textSize="12sp"
                 tools:text="职场"/>
 
             <TextView
-                android:gravity="end"
-                android:layout_weight="1"
                 android:id="@+id/more_circle_join_num"
                 style="@style/tv_card_category"
                 android:layout_marginBottom="9dp"
                 android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:textSize="12sp"
                 tools:text="话题200+"/>
 
             <TextView
-                android:gravity="end"
-                android:layout_weight="1"
                 android:id="@+id/more_circle_huati_num"
                 style="@style/tv_card_category"
                 android:layout_marginBottom="9dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:gravity="end"
                 android:textSize="12sp"
                 tools:text="话题7.8k"/>
 
         </LinearLayout>
+        <!---->
+        <!--<TextView-->
+        <!--android:id="@+id/more_circle_type"-->
+        <!--style="@style/tv_card_category"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginStart="10dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:textSize="12sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
+        <!--tools:text="职场"/>-->
 
         <!--<TextView-->
-            <!--android:id="@+id/more_circle_type"-->
-            <!--style="@style/tv_card_category"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginStart="10dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:textSize="12sp"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
-            <!--tools:text="职场"/>-->
+        <!--android:id="@+id/more_circle_join_num"-->
+        <!--style="@style/tv_card_category"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:textSize="12sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@id/more_circle_type"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
+        <!--tools:text="话题200+"/>-->
 
         <!--<TextView-->
-            <!--android:id="@+id/more_circle_join_num"-->
-            <!--style="@style/tv_card_category"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginStart="20dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:textSize="12sp"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintStart_toEndOf="@id/more_circle_type"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
-            <!--tools:text="话题200+"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/more_circle_huati_num"-->
-            <!--style="@style/tv_card_category"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginStart="20dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:textSize="12sp"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintStart_toEndOf="@id/more_circle_join_num"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
-            <!--tools:text="话题7.8k"/>-->
+        <!--android:id="@+id/more_circle_huati_num"-->
+        <!--style="@style/tv_card_category"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:textSize="12sp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@id/more_circle_join_num"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/iv_item_card_icon"-->
+        <!--tools:text="话题7.8k"/>-->
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_item_card_title"

@@ -68,9 +68,9 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
     private val map: ArrayMap<String, ArrayList<CircleBean>> = ArrayMap()
 
     //记录前三个圈子的ID
-    private var id_1:Int = 0
-    private var id_2:Int = 0
-    private var id_3:Int = 0
+    private var id_1: Int = 0
+    private var id_2: Int = 0
+    private var id_3: Int = 0
 
     override fun createPresenter(): CirclePresenter {
         return CirclePresenter(this)
@@ -117,12 +117,22 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
-        if (list.size<1){
+        if (list.size < 1) {
             mCircleListPage = 0
             getCircleById()
-        }else{
+        } else {
             mCircleNewAdapter.data.clear()
-            mCircleNewAdapter.data.addAll(list)
+            for (bean in list.indices) {
+                if (bean % 2 == 0) {
+                    list[bean].ItemTP = 1
+                    mCircleNewAdapter.data.add(list[bean])
+                } else {
+                    list[bean].ItemTP = 2
+                    mCircleNewAdapter.data.add(list[bean])
+                }
+            }
+//            mCircleNewAdapter.data.addAll(list)
+
             mCircleNewAdapter.notifyDataSetChanged()
             mCircleListPage++
         }
@@ -199,12 +209,13 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
         } else {
             gv_circle_classify.pageSize = 10
-            gv_circle_classify.setGridItemClickListener(object :GridItemClickListener{
+            gv_circle_classify.setGridItemClickListener(object : GridItemClickListener {
                 override fun click(pos: Int, position: Int, str: String?) {
                     mActivity.startActivity(CircleClassifyActivity::class.java) {
                         it.putExtra("circleClassifyActivityID", mClassifySAVEData[position].id)
                         it.putExtra("circleClassifyActivityTitle", mClassifySAVEData[position].title)
-                    }                }
+                    }
+                }
 
                 override fun click_type(pos: Int, position: Int, str: String?, type: Int) {
                 }
@@ -287,13 +298,13 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
             //正式时为搜索功能
 //            mActivity.startActivity(CircleSearchPreActivity::class.java){}
-            mActivity.startActivity(SearchActivity::class.java){}
+            mActivity.startActivity(SearchActivity::class.java) {}
         }
         //圈子的消息
         iv_2.setOnClickListener {
             if (checkLogin()) {
 //                mActivity.startActivity(MessageActivity::class.java) {}
-                mActivity.startActivity(CircleMessageActivity::class.java){}
+                mActivity.startActivity(CircleMessageActivity::class.java) {}
             }
         }
         //圈子外面的搜索
@@ -314,7 +325,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         }
 
         to_more_tuijian.setOnClickListener {
-            mActivity.startActivity(CircleTuiActivity::class.java){}
+            mActivity.startActivity(CircleTuiActivity::class.java) {}
 
 //            mActivity.startActivity(CircleClassifyActivity::class.java){
 //                it.putExtra("circleClassifyActivityID", 0)
@@ -324,20 +335,20 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
         //直接进入自己的圈子
         circle_image1.setOnClickListener {
-            mActivity.startActivity(CircleDetaileActivity::class.java){
-                it.putExtra("circleID",id_1)
+            mActivity.startActivity(CircleDetaileActivity::class.java) {
+                it.putExtra("circleID", id_1)
             }
         }
 
         circle_image2.setOnClickListener {
-            mActivity.startActivity(CircleDetaileActivity::class.java){
-                it.putExtra("circleID",id_2)
+            mActivity.startActivity(CircleDetaileActivity::class.java) {
+                it.putExtra("circleID", id_2)
             }
         }
 
         circle_image3.setOnClickListener {
-            mActivity.startActivity(CircleDetaileActivity::class.java){
-                it.putExtra("circleID",id_3)
+            mActivity.startActivity(CircleDetaileActivity::class.java) {
+                it.putExtra("circleID", id_3)
             }
         }
     }

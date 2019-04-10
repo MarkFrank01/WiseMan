@@ -5,7 +5,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:gravity="center"
               android:orientation="vertical"
-              android:paddingBottom="10dp"
+              android:paddingBottom="13dp"
               android:paddingTop="10dp">
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_height="26dp" />
 
     <TextView
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:textColor="@color/text_color_2"

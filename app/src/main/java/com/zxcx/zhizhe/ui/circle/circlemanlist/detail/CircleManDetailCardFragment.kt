@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_man_card.*
 
 /**
@@ -91,6 +92,9 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
     private fun initRecycleView(){
         mAdapter = CircleManCardAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_man_card)
 
 //        rv_man_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_man_card.layoutManager = object :LinearLayoutManager(context){

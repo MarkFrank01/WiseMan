@@ -14,6 +14,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_man_circle.*
 
 /**
@@ -97,6 +98,9 @@ class CircleManDetailCircleFragment: MvpFragment<CircleManDetailPresenter>(), Ci
     private fun initRecycleView(){
         mAdapter = CircleManCircleAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_him_circle)
 
         rv_him_circle.layoutManager = object : GridLayoutManager(context, 2) {
             override fun canScrollVertically() = false

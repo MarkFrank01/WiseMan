@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.layout_circle_man_list.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -175,6 +176,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     }
 
     override fun onLoadMoreRequested() {
+        getCircleMember()
     }
 
     private fun initData() {
@@ -230,7 +232,13 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         mAdapter.onItemChildClickListener = this
 
         rv_circle_man.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
+//        rv_circle_man.layoutManager = object :LinearLayoutManager(mActivity){
+//            override fun canScrollVertically() = false
+//        }
         rv_circle_man.adapter = mAdapter
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_circle_man)
     }
 
     fun onRefresh() {

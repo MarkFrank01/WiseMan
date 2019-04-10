@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -249,7 +250,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <com.zxcx.zhizhe.widget.CardListTabLayout
@@ -285,10 +286,15 @@
                     app:tabPaddingStart="0dp"
                     app:tabPaddingTop="0dp"/>
 
-                <android.support.v4.view.ViewPager
+                <com.zxcx.zhizhe.widget.WrapContentHeightViewPager
                     android:id="@+id/vp_list"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"/>
+                    android:layout_height="wrap_content"/>
+
+                <!--<android.support.v4.view.ViewPager-->
+                    <!--android:id="@+id/vp_list"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"/>-->
             </LinearLayout>
 
         </LinearLayout>
