@@ -117,6 +117,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
+        more_change.visibility = View.VISIBLE
+
         if (list.size < 1) {
             mCircleListPage = 0
             getCircleById()

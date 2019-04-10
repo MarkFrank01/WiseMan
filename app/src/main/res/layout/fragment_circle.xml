@@ -253,6 +253,7 @@
             </RelativeLayout>
 
             <Button
+                android:visibility="gone"
                 style="?android:attr/borderlessButtonStyle"
                 android:id="@+id/more_change"
                 android:layout_width="106dp"
