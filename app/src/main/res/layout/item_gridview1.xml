@@ -4,15 +4,15 @@
               android:layout_height="wrap_content"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="horizontal"
-              android:paddingBottom="10dp"
-              android:paddingTop="10dp">
+              android:paddingBottom="9dp"
+              android:paddingTop="9dp">
 
     <ImageView
         android:layout_marginStart="12dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/imageView"
-        android:layout_width="26dp"
-        android:layout_height="26dp" />
+        android:layout_width="23dp"
+        android:layout_height="23dp" />
 
     <TextView
         android:layout_marginStart="8dp"

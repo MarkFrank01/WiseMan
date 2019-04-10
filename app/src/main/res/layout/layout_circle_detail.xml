@@ -34,13 +34,15 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
+                    android:background="@color/shade"
                     android:id="@+id/detail_src_img"
+                    app:layout_constraintDimensionRatio="4:3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.5"
-                    tools:src="@mipmap/ic_launcher"/>
+                    tools:src="@color/black"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -107,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="155dp"
+                    android:layout_marginTop="163dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -152,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="170dp"
+                    android:layout_marginTop="176dp"
                     android:text="圈主活跃"
                     android:textColor="@color/white"
                     android:textSize="10sp"/>
@@ -163,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
-                    android:layout_marginTop="170dp"
+                    android:layout_marginTop="172dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -286,6 +288,7 @@
 
 
                 <LinearLayout
+                    android:layout_marginTop="3dp"
                     android:id="@+id/detail_to_man_list"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -403,6 +406,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="16dp"
                     android:id="@+id/ll_join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -430,6 +434,7 @@
                         tools:text="111111111111111111111111111111111111111111111111为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"/>
 
                     <TextView
+                        android:layout_marginTop="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -448,14 +453,14 @@
                             android:layout_width="5dp"
                             android:layout_height="5dp"
                             android:layout_gravity="end"
-                            android:layout_marginStart="19dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="8dp"
                             android:src="@drawable/grey_round"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
+                            android:layout_marginEnd="12dp"
                             android:layout_marginStart="31dp"
                             android:drawablePadding="5dp"
                             android:lineSpacingExtra="5dp"
@@ -475,8 +480,8 @@
                             android:layout_width="5dp"
                             android:layout_height="5dp"
                             android:layout_gravity="end"
-                            android:layout_marginStart="19dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="8dp"
                             android:src="@drawable/grey_round"/>
 
                         <TextView
@@ -502,8 +507,8 @@
                             android:layout_width="5dp"
                             android:layout_height="5dp"
                             android:layout_gravity="end"
-                            android:layout_marginStart="19dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginStart="17dp"
+                            android:layout_marginTop="8dp"
                             android:src="@drawable/grey_round"/>
 
                         <TextView
@@ -520,6 +525,7 @@
 
 
                     <TextView
+                        android:layout_marginTop="13dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -614,6 +620,7 @@
                     android:background="@color/line"/>
 
                 <LinearLayout
+                    android:layout_marginTop="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal">
@@ -622,7 +629,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="3dp"
-                        android:layout_marginStart="10dp"
                         android:layout_marginTop="3dp"
                         android:gravity="center"
                         android:paddingEnd="10dp"
@@ -652,11 +658,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="14dp"
                         android:src="@drawable/right_normal"/>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -682,9 +689,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center"
                         android:paddingEnd="10dp"
                         android:paddingStart="12dp"
@@ -703,7 +708,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="20dp"
+                        android:layout_marginEnd="14dp"
                         android:src="@drawable/huati_order"/>
                 </LinearLayout>
 
@@ -761,6 +766,8 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:visibility="gone"
+            android:maxLines="1"
             android:id="@+id/bottom_bt"
             android:layout_width="160dp"
             android:layout_height="40dp"
@@ -768,13 +775,10 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/bg_backbutton2"
-            android:paddingEnd="30dp"
-            android:paddingStart="30dp"
             android:textColor="@color/white"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="交钱把"/>
+            tools:text="立即加入 ￥18.00"/>
 
         <LinearLayout
             android:id="@+id/ll_comment_input"
@@ -786,8 +790,8 @@
             <TextView
                 android:id="@+id/et_comment"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="20dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="12dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_home_search"
                 android:gravity="center_vertical"
@@ -808,7 +812,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:enabled="false"
-                android:padding="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingEnd="2dp"
+                android:paddingStart="6dp"
                 android:text="提问"
                 android:textColor="@color/color_text_enable_blue"
                 android:textSize="@dimen/text_size_text_2"

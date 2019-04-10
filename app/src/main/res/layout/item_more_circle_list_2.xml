@@ -32,6 +32,7 @@
         android:stateListAnimator="@animator/anim_home_card_press">
 
         <com.zxcx.zhizhe.widget.CardRoundedImageView
+            android:background="@color/shade"
             android:id="@+id/iv_item_card_icon"
             android:layout_width="match_parent"
             android:layout_height="95dp"
