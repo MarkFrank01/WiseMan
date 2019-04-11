@@ -500,7 +500,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -670,8 +670,7 @@
                     <com.zxcx.zhizhe.widget.gridview_tj.TJGridViewPager
                         android:id="@+id/gv_circle_classify2"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="#FFFFFF"/>
+                        android:layout_height="200dp"/>
 
                 </LinearLayout>
 

@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/tv_circle_classify_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/text_color_3"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:text="推荐"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/to_content_circle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="2dp"
         android:layout_marginEnd="6dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
         android:background="@drawable/bg_background_6dp"
         android:elevation="5dp"
         android:orientation="vertical"
         android:stateListAnimator="@animator/anim_home_card_press">
 
+
         <com.zxcx.zhizhe.widget.CardRoundedImageView
-            android:background="@color/shade"
             android:id="@+id/iv_item_card_icon"
             android:layout_width="match_parent"
             android:layout_height="95dp"
+            android:background="@color/shade"
             android:scaleType="fitXY"
             android:transitionName="cardImage"
             app:hasShade="true"
@@ -110,18 +101,20 @@
 
         </LinearLayout>
 
-            <TextView
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textSize="12sp"
-                android:id="@+id/more_price"
-                android:layout_width="43dp"
-                android:layout_height="18dp"
-                android:background="@drawable/circle_price"
-                android:gravity="center"
-                android:textColor="@color/white"
-                tools:text="$ 40"/>
+
+
+        <TextView
+            android:id="@+id/more_price"
+            android:layout_width="43dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/circle_price"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_item_card_icon"
+            app:layout_constraintTop_toTopOf="@id/iv_item_card_icon"
+            tools:text="$ 40"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -244,7 +237,12 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_title"/>
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"/>
+
+    <View
+        android:layout_marginStart="10dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toEndOf="@id/to_content_circle"
+        android:layout_width="10dp"
+        android:layout_height="20dp"/>
+
 </LinearLayout>

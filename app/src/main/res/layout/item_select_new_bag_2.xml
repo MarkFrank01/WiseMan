@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:background="@drawable/select_unlabel"
         android:button="@null"
-        android:checked="true"
+        android:checked="false"
         android:clickable="false"
         android:maxLength="8"
         android:padding="10dp"
