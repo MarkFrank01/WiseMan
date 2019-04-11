@@ -3,10 +3,14 @@ package com.zxcx.zhizhe.ui.circle.allmycircle
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.view.View
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_all_mycircle.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * @author : MarkFrank01
@@ -24,8 +28,16 @@ class AllMyCircleActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_mycircle)
         initToolBar("我的圈子")
+        iv_toolbar_right.visibility = View.VISIBLE
+        iv_toolbar_right.setImageResource(R.drawable.circle_add)
 
         initView()
+    }
+
+    override fun setListener() {
+        iv_toolbar_right.setOnClickListener {
+            mActivity.startActivity(CreateCircleActivity::class.java) {}
+        }
     }
 
     private fun initView(){

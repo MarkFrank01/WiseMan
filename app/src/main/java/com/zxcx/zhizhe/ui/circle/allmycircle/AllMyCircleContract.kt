@@ -10,7 +10,11 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
  * @Description :
  */
 class AllMyCircleContract {
-    interface View : GetView<MutableList<CircleBean>>
+    interface View : GetView<MutableList<CircleBean>>{
+        fun emptyCircle(bean:MutableList<CircleBean>)
+    }
 
-    interface Presenter : IGetPresenter<MutableList<CircleBean>>
+    interface Presenter : IGetPresenter<MutableList<CircleBean>>{
+        fun emptyCircle(bean:MutableList<CircleBean>)
+    }
 }

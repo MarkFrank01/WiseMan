@@ -94,6 +94,9 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 //        LogCat.e("toBeAddedInfoVO"+list[0].toBeAddedInfoVO?.deadline)
     }
 
+    override fun emptyCircle(bean: MutableList<CircleBean>) {
+    }
+
     override fun onLoadMoreRequested() {
         onRefresh()
     }
@@ -203,11 +206,11 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                 LogCat.e(checkBox.text.toString() + " 测试")
                 when (typetext) {
                     "已关闭" -> {
-                        guanbi(circleBean.modifiedTime,circleBean.unpassReason)
+                        guanbi(circleBean.modifiedTime, circleBean.unpassReason)
                     }
 
                     "未通过" -> {
-                        wtg(circleBean.modifiedTime,circleBean.unpassReason)
+                        wtg(circleBean.modifiedTime, circleBean.unpassReason)
                     }
 
                     "待提交" -> {
@@ -226,13 +229,13 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                         }
                     }
 
-                    "已上线" ->{
+                    "已上线" -> {
                         mActivity.startActivity(CircleDetaileActivity::class.java) {
                             it.putExtra("circleID", circleBean.id)
                         }
                     }
 
-                    "再编辑审核中" ->{
+                    "再编辑审核中" -> {
                         shenheing(circleBean.modifiedTime)
                     }
 
@@ -249,7 +252,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
         rv_my_circle_all.adapter = mAllmyCircleAdapter
 
         mAllmyCircleAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAllmyCircleAdapter.setOnLoadMoreListener(this,rv_my_circle_all)
+        mAllmyCircleAdapter.setOnLoadMoreListener(this, rv_my_circle_all)
 
         mAllmyCircleAdapter.onItemChildClickListener = this
 
@@ -286,18 +289,18 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
     }
 
     //关闭时
-    private fun guanbi(text_content: String,text_content2: String){
+    private fun guanbi(text_content: String, text_content2: String) {
         XPopup.get(mActivity)
-                .asCustom(CircleBottomGBPopup(mActivity,text_content,text_content2,-1, OnSelectListener { position, text ->
+                .asCustom(CircleBottomGBPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
 
                 })
                 ).show()
     }
 
     //未通过时
-    private fun wtg(text_content: String,text_content2: String){
+    private fun wtg(text_content: String, text_content2: String) {
         XPopup.get(mActivity)
-                .asCustom(CircleBottomWTGPopup(mActivity,text_content,text_content2,-1, OnSelectListener { position, text ->
+                .asCustom(CircleBottomWTGPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
 
                 })
                 ).show()

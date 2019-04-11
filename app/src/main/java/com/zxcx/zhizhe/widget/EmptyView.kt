@@ -6,16 +6,20 @@ import android.support.annotation.DrawableRes
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.allmycircle.EmptyCircleAdapter
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.item_other_user_creation.view.*
 import kotlinx.android.synthetic.main.layout_no_data.view.*
 import kotlinx.android.synthetic.main.layout_no_data_and_card.view.*
+import kotlinx.android.synthetic.main.layout_no_data_and_circle.view.*
 
 /**
  * Created by anm on 2017/12/15.
@@ -93,4 +97,18 @@ object EmptyView {
 
 		return emptyView
 	}
+
+    @JvmStatic
+    fun getEmptyViewAndCircle(activity: Activity,str1: String,@DrawableRes imgRes: Int,list:MutableList<CircleBean>){
+        val emptyView = LayoutInflater.from(activity).inflate(R.layout.layout_no_data_and_circle, null)
+        emptyView.tv_no_data_and_card_circle.text = str1
+        emptyView.iv_no_data_and_card_circle.setImageResource(imgRes)
+
+        var mAdapter:EmptyCircleAdapter = EmptyCircleAdapter(ArrayList())
+        mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+
+        }
+
+
+    }
 }

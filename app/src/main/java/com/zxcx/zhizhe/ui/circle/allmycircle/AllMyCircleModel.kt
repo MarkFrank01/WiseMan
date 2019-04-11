@@ -43,4 +43,16 @@ class AllMyCircleModel(presenter:AllMyCircleContract.Presenter):BaseModel<AllMyC
         addSubscription(mDisposable)
     }
 
+    //获取推荐圈子，当加入的圈子为空的时候
+    fun getRecommendCircleListWhenNoData(){
+        mDisposable = AppClient.getAPIService().recommendCircleListWhenNoData
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object :BaseSubscriber<MutableList<CircleBean>>(mPresenter){
+                    override fun onNext(t: MutableList<CircleBean>) {
+                        mPresenter?.emptyCircle(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }

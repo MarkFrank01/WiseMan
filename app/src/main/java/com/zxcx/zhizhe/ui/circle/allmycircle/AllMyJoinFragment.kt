@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircleAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -39,6 +40,8 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
         onRefresh()
+
+        mPresenter.getRecommendCircleListWhenNoData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -49,10 +52,18 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         return AlllMyCirclePresenter(this)
     }
 
+    override fun emptyCircle(bean: MutableList<CircleBean>) {
+        LogCat.e("empty size is "+bean.size)
+    }
+
     override fun getDataSuccess(list: MutableList<CircleBean>) {
 
         val emptyView = EmptyView.getEmptyView(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data)
         mAllmyCircleAdapter.emptyView = emptyView
+
+        if (mCreatePage == 0&&list.size<1){
+            mPresenter.getRecommendCircleListWhenNoData()
+        }
 
         mRefreshLayout.finishRefresh()
         if (mCreatePage == 0) {

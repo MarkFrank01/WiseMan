@@ -758,6 +758,12 @@ public interface APIService {
     );
 
     /**
+     * 获取推荐圈子，当加入的圈子为空的时候
+     */
+    @POST("/circle/getRecommendCircleListWhenNoData")
+    Flowable<BaseArrayBean<CircleBean>> getRecommendCircleListWhenNoData();
+
+    /**
      * 获取我加入的圈子
      */
     @POST("/circle/getMyJoinCircleList")

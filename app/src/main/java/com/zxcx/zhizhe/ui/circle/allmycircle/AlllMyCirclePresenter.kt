@@ -10,6 +10,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
  */
 class AlllMyCirclePresenter(view:AllMyCircleContract.View):BasePresenter<AllMyCircleContract.View>(),AllMyCircleContract.Presenter{
 
+
     private val mModel : AllMyCircleModel
 
     init {
@@ -23,6 +24,10 @@ class AlllMyCirclePresenter(view:AllMyCircleContract.View):BasePresenter<AllMyCi
 
     fun getMyCreate(page: Int,pageSize: Int){
         mModel.getMyCreateCircleList(page,pageSize)
+    }
+
+    fun getRecommendCircleListWhenNoData(){
+        mModel.getRecommendCircleListWhenNoData()
     }
 
     override fun getDataFail(msg: String?) {
@@ -39,6 +44,10 @@ class AlllMyCirclePresenter(view:AllMyCircleContract.View):BasePresenter<AllMyCi
 
     override fun getDataSuccess(bean: MutableList<CircleBean>?) {
         mView.getDataSuccess(bean)
+    }
+
+    override fun emptyCircle(bean: MutableList<CircleBean>) {
+        mView.emptyCircle(bean)
     }
 
     override fun startLogin() {
