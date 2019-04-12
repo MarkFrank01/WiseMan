@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:layout_marginTop="20dp">
+        android:layout_height="@dimen/toolbar_height">
 
         <TextView
             android:id="@+id/tv_toolbar_back"
@@ -55,7 +55,6 @@
             android:textSize="@dimen/text_size_text_1"/>
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/tv_toolbar_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -66,19 +65,19 @@
             android:paddingStart="10dp"
             android:text="下一步"
             android:textColor="@color/color_text_enable_blue"
-            android:textSize="@dimen/text_size_text_1"/>
+            android:textSize="@dimen/text_size_text_1"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->

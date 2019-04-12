@@ -102,7 +102,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         initData()
         initRecycleView()
         initView()
-        initToolBar()
 
         mRefreshLayout = refresh_layout
 
@@ -128,7 +127,20 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     override fun initStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar.keyboardEnable(true)
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.translate)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(false)
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.translate)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(false)
+        }
         mImmersionBar.init()
     }
 
@@ -288,6 +300,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun setListener() {
+
+        iv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
+
         //去圈子成员列表
 
         detail_to_man_list.setOnClickListener {
@@ -435,6 +452,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         detail_time.visibility = View.VISIBLE
                         detail_star.visibility = View.VISIBLE
                         detail_num.visibility = View.VISIBLE
+
+                        iv_toolbar_back.setImageResource(R.drawable.circle_back_white)
                     }
 
                     State.COLLAPSED -> {
@@ -442,6 +461,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         detail_time.visibility = View.GONE
                         detail_star.visibility = View.GONE
                         detail_num.visibility = View.GONE
+
+                        iv_toolbar_back.setImageResource(R.drawable.common_back)
                     }
                     else -> {
                         //中间状态

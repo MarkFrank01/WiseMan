@@ -147,7 +147,20 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     override fun initStatusBar() {
         mImmersionBar = ImmersionBar.with(this)
-        mImmersionBar.keyboardEnable(true)
+        if (!Constants.IS_NIGHT) {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .statusBarDarkFont(true, 0.2f)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        } else {
+            mImmersionBar
+                    .statusBarColor(R.color.background)
+                    .flymeOSStatusBarFontColor(R.color.text_color_1)
+                    .keyboardEnable(true)
+                    .fitsSystemWindows(true)
+        }
         mImmersionBar.init()
     }
 

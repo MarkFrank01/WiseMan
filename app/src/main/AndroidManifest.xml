@@ -378,8 +378,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.circle.circledetaile.CircleDetaileActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.circle.circlemanlist.CircleManListActivity"
