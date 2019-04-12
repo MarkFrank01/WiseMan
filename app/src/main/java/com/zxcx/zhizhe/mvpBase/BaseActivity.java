@@ -193,8 +193,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 	
 	public void toastShow(String text) {
 //        Toast.makeText(mActivity, resId, Toast.LENGTH_SHORT).show();
-		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
-			.inflate(R.layout.toast, null);
+
+//		LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
+//			.inflate(R.layout.toast, null);
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
+                .inflate(R.layout.toast_yes, null);
 		TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
 		Toast toast = new Toast(this);
 		toast.setView(linearLayout);
@@ -210,7 +213,15 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 	}
 	
 	public void toastError(String text) {
-		toastShow(text);
+        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(mActivity)
+                .inflate(R.layout.toast_error, null);
+        TextView tvToast = linearLayout.findViewById(R.id.tv_toast);
+        Toast toast = new Toast(this);
+        toast.setView(linearLayout);
+        tvToast.setText(text);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
 	}
 	
 	@Override
