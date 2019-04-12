@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.circle.allmycircle
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.dynamic_content
@@ -15,15 +14,15 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
  * @Created on 2019/4/11
  * @Description :
  */
-class EmptyCircleAdapter(data: List<MultiItemEntity>) :
-        BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder>(data) {
+class EmptyCircleAdapter(data: List<CircleBean>) :
+        BaseMultiItemQuickAdapter<CircleBean, BaseViewHolder>(data) {
 
     init {
         addItemType(dynamic_content, R.layout.item_more_circle_list_empty)
 
     }
 
-    override fun convert(helper: BaseViewHolder, item: MultiItemEntity) {
+    override fun convert(helper: BaseViewHolder, item: CircleBean) {
         val item1 = item as CircleBean
         val imageUrl = ZhiZheUtils.getHDImageUrl(item1.titleImage)
         val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)

@@ -91,7 +91,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         initADView()
         mPresenter.getAD()
         mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
-        mPresenter.getIndexCircleList()
+//        mPresenter.getIndexCircleList()
         getCircleById()
     }
 
@@ -452,6 +452,8 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
     private fun initView() {
         if (checkLogin1()) {
+            mPresenter.getIndexCircleList()
+
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
 //            ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)

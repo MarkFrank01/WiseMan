@@ -3,6 +3,7 @@ package com.zxcx.zhizhe.widget
 import android.app.Activity
 import android.content.Context
 import android.support.annotation.DrawableRes
+import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -99,7 +100,7 @@ object EmptyView {
 	}
 
     @JvmStatic
-    fun getEmptyViewAndCircle(activity: Activity,str1: String,@DrawableRes imgRes: Int,list:MutableList<CircleBean>){
+    fun getEmptyViewAndCircle(activity: Activity,str1: String,@DrawableRes imgRes: Int,list:MutableList<CircleBean>):View{
         val emptyView = LayoutInflater.from(activity).inflate(R.layout.layout_no_data_and_circle, null)
         emptyView.tv_no_data_and_card_circle.text = str1
         emptyView.iv_no_data_and_card_circle.setImageResource(imgRes)
@@ -109,6 +110,11 @@ object EmptyView {
 
         }
 
+        emptyView.rv_empty_circle.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
+        emptyView.rv_empty_circle.adapter = mAdapter
 
+        mAdapter.setNewData(list)
+
+        return emptyView
     }
 }

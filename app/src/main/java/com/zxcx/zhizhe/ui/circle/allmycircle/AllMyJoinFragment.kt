@@ -54,12 +54,16 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
 
     override fun emptyCircle(bean: MutableList<CircleBean>) {
         LogCat.e("empty size is "+bean.size)
+
+
+        val emptyView = EmptyView.getEmptyViewAndCircle(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data,bean)
+        mAllmyCircleAdapter.emptyView = emptyView
     }
 
     override fun getDataSuccess(list: MutableList<CircleBean>) {
-
-        val emptyView = EmptyView.getEmptyView(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data)
-        mAllmyCircleAdapter.emptyView = emptyView
+//
+//        val emptyView = EmptyView.getEmptyView(mActivity, "找不到小伙伴吗？看看圈子推荐", R.drawable.no_circle_data)
+//        mAllmyCircleAdapter.emptyView = emptyView
 
         if (mCreatePage == 0&&list.size<1){
             mPresenter.getRecommendCircleListWhenNoData()
