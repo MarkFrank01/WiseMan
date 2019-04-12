@@ -17,7 +17,7 @@
         android:paddingLeft="18dp"
         android:paddingBottom="20dp"
         android:paddingRight="18dp"
-        android:background="@android:color/white"
+        android:background="@color/background"
         android:lines="1"
         android:textSize="15sp"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
     <com.zxcx.zhizhe.widget.BottomListPopup.VerticalRecyclerView
         android:layout_marginBottom="4dp"
         android:id="@+id/recyclerView1"
-        android:background="@color/white"
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"/>

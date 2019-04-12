@@ -123,6 +123,10 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
 
 //            mPresenter.createAnswer(circleId,qaId,description,mPushImgs)
         }
+
+        tv_toolbar_back.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun uploadImageToOSS(path: String) {

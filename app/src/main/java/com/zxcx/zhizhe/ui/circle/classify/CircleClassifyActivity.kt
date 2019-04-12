@@ -15,9 +15,11 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.ui.circle.adapter.CircleClassifyAdapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
@@ -135,23 +137,30 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
         when (view.id) {
             R.id.cb_item_select_join_circle -> {
                 val bean = adapter.data[position] as CircleBean
-                bean.hasJoin = !bean.hasJoin
-                mAdapter.notifyItemChanged(position)
-
-                if (bean.hasJoin) {
-                    //加入圈子
-                    LogCat.e("Join" + bean.id)
-//                    mPresenter.setjoinCircle(bean.id, 0)
-                } else {
-                    //取消加入
-                    LogCat.e("Cancel+" + bean.id)
-//                    mPresenter.setjoinCircle(bean.id,1)
-                    val bundle = Bundle()
-                    bundle.putInt("circleId", bean.id)
-                    mDialog.arguments = bundle
-                    mDialog.show(mActivity.supportFragmentManager, "")
+                mActivity.startActivity(CircleDetaileActivity::class.java){
+                    it.putExtra("circleID",bean.id)
                 }
+
             }
+//            R.id.cb_item_select_join_circle -> {
+//                val bean = adapter.data[position] as CircleBean
+//                bean.hasJoin = !bean.hasJoin
+//                mAdapter.notifyItemChanged(position)
+//
+//                if (bean.hasJoin) {
+//                    //加入圈子
+//                    LogCat.e("Join" + bean.id)
+////                    mPresenter.setjoinCircle(bean.id, 0)
+//                } else {
+//                    //取消加入
+//                    LogCat.e("Cancel+" + bean.id)
+////                    mPresenter.setjoinCircle(bean.id,1)
+//                    val bundle = Bundle()
+//                    bundle.putInt("circleId", bean.id)
+//                    mDialog.arguments = bundle
+//                    mDialog.show(mActivity.supportFragmentManager, "")
+//                }
+//            }
         }
     }
 
@@ -176,7 +185,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 
         mAdapter = CircleClassifyAdapter(ArrayList())
         mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this,rv_circle_classify)
+        mAdapter.setOnLoadMoreListener(this, rv_circle_classify)
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 

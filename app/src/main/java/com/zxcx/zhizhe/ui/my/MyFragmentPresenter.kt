@@ -22,7 +22,9 @@ class MyFragmentPresenter(view:MyFragmentContract.View): BasePresenter<MyFragmen
     }
 
     override fun getADSuccess(list: MutableList<ADBean>) {
-        mView.getADSuccess(list)
+        if (mView!=null) {
+            mView.getADSuccess(list)
+        }
     }
 
     override fun showLoading() {
