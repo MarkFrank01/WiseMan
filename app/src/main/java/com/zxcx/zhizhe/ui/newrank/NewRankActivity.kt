@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.newrank.morerank.MoreRankActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
@@ -33,6 +34,20 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
     private var mAdList: MutableList<ADBean> = mutableListOf()
     private var imageList: MutableList<String> = mutableListOf()
 
+    override fun onResume() {
+        super.onResume()
+
+        if (checkLogin1()){
+            iv_up_or_down.visibility = View.VISIBLE
+            show_rank.visibility = View.VISIBLE
+            tv_to_login.visibility = View.GONE
+        }else{
+            iv_up_or_down.visibility = View.GONE
+            show_rank.visibility = View.GONE
+            tv_to_login.visibility = View.VISIBLE
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_newrank)
@@ -45,6 +60,10 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         onRefresh()
         initADView()
         mPresenter.getAD()
+    }
+
+    fun checkLogin1(): Boolean {
+        return SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0
     }
 
     override fun createPresenter(): NewRankPresenter {
@@ -129,6 +148,10 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
             intent.putExtra("title","智者榜单说明")
             intent.putExtra("url","http://192.168.1.153:8043/pages/list-explain.html")
             startActivity(intent)
+        }
+
+        tv_to_login.setOnClickListener {
+            mActivity.startActivity(LoginActivity::class.java){}
         }
     }
 

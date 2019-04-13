@@ -450,6 +450,12 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        LogCat.e("触发刷新")
+        initView()
+    }
+
     private fun initView() {
         if (checkLogin1()) {
             mPresenter.getIndexCircleList()
@@ -460,6 +466,10 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
         } else {
             circle_hint_login.visibility = View.VISIBLE
             circle_hint_login_dec.visibility = View.VISIBLE
+
+            circle_image1.visibility = View.GONE
+            circle_image2.visibility = View.GONE
+            circle_image3.visibility = View.GONE
 //            ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
 
         }

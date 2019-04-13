@@ -216,15 +216,20 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         }
 
         ll_my_rank.setOnClickListener {
-            mActivity.startActivity(NewRankActivity::class.java){}
+                mActivity.startActivity(NewRankActivity::class.java) {}
+
         }
 
         ll_my_count.setOnClickListener {
-            mActivity.startActivity(MyMoneyActivity::class.java){}
+            if (checkLogin()) {
+                mActivity.startActivity(MyMoneyActivity::class.java) {}
+            }
         }
 
        my_ewm.setOnClickListener {
-            mActivity.startActivity(MyInviteActivity::class.java){}
+           if (checkLogin()) {
+               mActivity.startActivity(MyInviteActivity::class.java) {}
+           }
        }
     }
 
@@ -234,9 +239,10 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         tv_my_lv.visibility = View.GONE
         tv_my_signature.text = ""
         iv_my_head.setImageResource(R.drawable.iv_my_head_placeholder)
-        tv_my_top_read_num.text = "0"
-        tv_my_top_creation_num.text = "0"
-        tv_my_top_fans_num.text = "0"
+        tv_my_top_read_num.text = "-"
+        tv_my_top_creation_num.text = "-"
+        tv_my_top_fans_num.text = "-"
+        tv_my_top_rank_num.text = "-"
     }
 
     private fun setViewLogin() {

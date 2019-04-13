@@ -67,6 +67,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="42dp">
 
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_my_head"
+                    android:layout_width="73dp"
+                    android:layout_height="73dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/iv_my_head_placeholder"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_oval="true"/>
+
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -75,17 +89,6 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                 </LinearLayout>
-
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/iv_my_head"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/iv_my_head_placeholder"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:riv_oval="true"/>
 
                 <TextView
                     android:id="@+id/tv_my_lv"
@@ -97,14 +100,26 @@
                     android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_my_head"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_my_head"
                     tools:text="1000"/>
-
             </android.support.constraint.ConstraintLayout>
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_to_login"
+                android:textStyle="bold"
+                android:textColor="@color/button_blue"
+                android:text="登录查看排名"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="52dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
+                android:id="@+id/show_rank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -219,13 +234,13 @@
             </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
 
             <com.zxcx.zhizhe.widget.CardRoundedImageView
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="88dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:scaleType="centerCrop"
                 android:src="@color/button_blue"
+                android:visibility="gone"
                 app:hasShade="true"
                 app:riv_corner_radius_bottom_left="6dp"
                 app:riv_corner_radius_bottom_right="6dp"
@@ -258,35 +273,49 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_gravity="center"
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rank_second">
+                        android:layout_gravity="center">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_second"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerInParent="true"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
                             android:layout_marginTop="12dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/iv_my_head_placeholder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:riv_oval="true"/>
-                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rank_second"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </RelativeLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
 
                     <TextView
                         android:id="@+id/tv_rank_second"
@@ -319,28 +348,43 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="42dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_gravity="center"
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rank_first">
+                        android:layout_gravity="center">
+
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_first"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="8dp"
                             android:src="@drawable/iv_my_head_placeholder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:riv_oval="true"/>
-                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rank_first"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </RelativeLayout>
+
+                    </android.support.constraint.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/tv_rank_first"
@@ -373,29 +417,41 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <RelativeLayout
-                        android:layout_gravity="center"
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rank_third">
+                        android:layout_gravity="center">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_rank_third"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
                             android:layout_alignParentTop="true"
                             android:layout_centerInParent="true"
                             android:layout_marginTop="12dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/iv_my_head_placeholder"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:riv_oval="true"/>
-                    </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rank_third"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                        </RelativeLayout>
+                    </android.support.constraint.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/tv_rank_third"

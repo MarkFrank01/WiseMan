@@ -16,24 +16,47 @@ class BillAdapter(data: List<BillBean>) : BaseQuickAdapter<BillBean, BaseViewHol
 
     override fun convert(helper: BaseViewHolder, item: BillBean) {
         val imageView = helper.getView<ImageView>(R.id.iv_user)
-        val imageUrl = ZhiZheUtils.getHDImageUrl(item.relatedUser?.avatar)
+        val imageUrl = ZhiZheUtils.getHDImageUrl(item.targetUser?.avatar)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 
-        helper.setText(R.id.tv_name, item.relatedUser?.name)
-        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入")
+        helper.setText(R.id.tv_name, item.targetUser?.name)
+
+//        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入" + item.relatedCircle?.title)
         helper.setText(R.id.tv_money, item.amount)
 
-        when (item.sourcesOfFunds) {
+        when (item.billType) {
+            -2 -> {
+                helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入" + item.relatedCircle?.title)
+            }
+
+            -1 -> {
+                helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "进圈扣款")
+            }
+
             0 -> {
-                helper.setText(R.id.tv_type,"来源IOS内购")
+                helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "提现")
             }
 
             1 -> {
-                helper.setText(R.id.tv_type,"来源Android支付宝")
+                helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入")
+            }
+
+            2->{
+                helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "系统奖励")
+            }
+        }
+
+        when (item.sourcesOfFunds) {
+            0 -> {
+                helper.setText(R.id.tv_type, "来源IOS内购")
+            }
+
+            1 -> {
+                helper.setText(R.id.tv_type, "来源Android支付宝")
             }
 
             2 -> {
-                helper.setText(R.id.tv_type,"来源Android微信")
+                helper.setText(R.id.tv_type, "来源Android微信")
             }
         }
     }

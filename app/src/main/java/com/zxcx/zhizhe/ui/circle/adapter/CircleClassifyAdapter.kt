@@ -37,7 +37,6 @@ class CircleClassifyAdapter(data:List<CircleBean>):
         val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle)
         if (item.hasJoin){
             checkBox.text = "已加入"
-            checkBox.isEnabled = false
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.text_color_d2))
         }else{
             checkBox.text = "￥"+item.price

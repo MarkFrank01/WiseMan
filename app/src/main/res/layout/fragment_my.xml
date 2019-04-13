@@ -116,7 +116,7 @@
                     android:id="@+id/tv_my_top_read_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="-"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/text_size_text_1"/>
 
@@ -144,7 +144,7 @@
                     android:id="@+id/tv_my_top_creation_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="-"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/text_size_text_1"/>
 
@@ -172,7 +172,7 @@
                     android:id="@+id/tv_my_top_fans_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="-"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/text_size_text_1"/>
 
@@ -200,7 +200,7 @@
                     android:id="@+id/tv_my_top_rank_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="-"
                     android:textColor="@color/text_color_1"
                     android:textSize="@dimen/text_size_text_1"/>
 
