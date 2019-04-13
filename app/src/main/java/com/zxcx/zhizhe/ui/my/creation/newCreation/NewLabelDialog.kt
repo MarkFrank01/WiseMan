@@ -35,9 +35,11 @@ class NewLabelDialog : CommonDialog() {
 			this.dismiss()
 		}
 		tv_dialog_confirm.setOnClickListener {
-			mListener.invoke(et_dialog_note_title.text.toString())
-			Utils.closeInputMethod(et_dialog_note_title)
-			dismiss()
+            if (et_dialog_note_title.text.toString().length>1) {
+                mListener.invoke(et_dialog_note_title.text.toString())
+                Utils.closeInputMethod(et_dialog_note_title)
+                dismiss()
+            }
 		}
 		et_dialog_note_title.afterTextChanged {
 			tv_dialog_confirm.isEnabled = it.isNotEmpty()

@@ -13,14 +13,14 @@ import kotlinx.android.synthetic.main.activity_image_load_mode.*
  */
 
 class ImageLoadModeActivity : BaseActivity() {
-	private var imageLoadMode: Int = 0  //0-仅WIFI下加载高清图，1-所有网络加载高清图，2-永远不加载高清图
+	private var imageLoadMode: Int = 1  //0-仅WIFI下加载高清图，1-所有网络加载高清图，2-永远不加载高清图
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_image_load_mode)
 		initToolBar("图片加载")
 
-		imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 0)
+		imageLoadMode = SharedPreferencesUtil.getInt(SVTSConstants.imageLoadMode, 1)
 		when (imageLoadMode) {
 			0 -> cb_image_load_mode_wifi.isChecked = true
 			1 -> cb_image_load_mode_all.isChecked = true
@@ -55,6 +55,7 @@ class ImageLoadModeActivity : BaseActivity() {
 			if (isChecked) {
 				imageLoadMode = 1
 				SharedPreferencesUtil.saveData(SVTSConstants.imageLoadMode, imageLoadMode)
+                cb_image_load_mode_wifi.isChecked = false
 			} else {
 				cb_image_load_mode_wifi.isChecked = true
 			}

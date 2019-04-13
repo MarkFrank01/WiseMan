@@ -34,15 +34,41 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@null"
-                    android:src="@drawable/bt_start_create"/>
+                    android:src="@drawable/bt_in_card"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="开始创作"
-                    android:textColor="#999999"
+                    android:layout_marginTop="10dp"
+                    android:text="卡片创作"
+                    android:textColor="@color/text_color_3"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/publish_dialog_shendu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:paddingTop="40dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@null"
+                    android:src="@drawable/bt_in_shendu"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="文章创作"
+                    android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -60,15 +86,15 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@null"
-                    android:src="@drawable/bt_copy_link"/>
+                    android:src="@drawable/bt_in_link"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="黏贴作品链接"
-                    android:textColor="#999999"
+                    android:layout_marginTop="10dp"
+                    android:text="一键发布"
+                    android:textColor="@color/text_color_3"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -76,16 +102,21 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/publish_dialog_ivMenu"
-            android:layout_width="15dp"
-            android:layout_height="40dp"
+        <LinearLayout
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/publish_dialog_ivMenu"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:contentDescription="@null"
-            android:src="@drawable/iv_home_create_cancel"/>
+            android:src="@drawable/bt_in_cancel"/>
+        </LinearLayout>
+
     </RelativeLayout>
 
     <LinearLayout

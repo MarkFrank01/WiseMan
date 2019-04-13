@@ -39,13 +39,23 @@ class CardBean(
         //新增
         @SerializedName("authorAuthenticationType") var authorType: Int = 0,
         @SerializedName("secondCollectionId") var secondCollectionId: Int = 0,
-        @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = ""
+        @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
+        @SerializedName("distanceTime") var distanceTime: String = "",
+        @SerializedName("remask") var title: String = "",
+        @SerializedName("circleFix") var circleFix: Boolean = false,
 
+
+        var showTitle: String = "",
+        var showNumTitle: String = "",
+        var mIfCheckOrNot: Boolean = false,
+        var showOther1:Boolean = true,
+        var showOther2:Boolean = false,
+        @SerializedName("relatedCircleId") var relatedCircleId: Int = 0,
+        @SerializedName("relatedCircleTitle") var relatedCircleTitle: String = ""
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
         return cardType
-
     }
 
     fun getLabelName(): String {
@@ -56,7 +66,7 @@ class CardBean(
         labelName = string
     }
 
-    fun getSecondLabelName():String{
+    fun getSecondLabelName(): String {
         return "#$secondCollectionTitle"
     }
 
@@ -106,6 +116,8 @@ class CardBean(
             source.readParcelable<ADBean>(ADBean::class.java.classLoader),
             source.readInt(),
             source.readInt(),
+            source.readString(),
+            source.readString(),
             source.readString()
     )
 
@@ -142,6 +154,8 @@ class CardBean(
         writeInt(authorType)
         writeInt(secondCollectionId)
         writeString(secondCollectionTitle)
+        writeString(distanceTime)
+        writeString(title)
     }
 
     companion object {
@@ -154,6 +168,7 @@ class CardBean(
         val Article = 1
         val Article_LONG = 2
         val Article_LINK = 3
+        val Article_TOUTIAO = 4
     }
 }
 

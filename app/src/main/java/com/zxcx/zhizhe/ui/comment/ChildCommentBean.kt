@@ -11,7 +11,9 @@ class ChildCommentBean(
 		@SerializedName("content") var content: String = "",
 		@SerializedName("hasLike") var hasLike: Boolean = false,
 		@SerializedName("id") var id: Int = 0,
-		@SerializedName("likeCount") var likeCount: Int = 0
+		@SerializedName("likeCount") var likeCount: Int = 0,
+        @SerializedName("authorAuthenticationType")var authorAuthenticationType:Int = 0,
+        @SerializedName("distanceTime") var distanceTime:String = "" //时间
 ) : MultiItemEntity {
 
 	companion object {

@@ -1,5 +1,7 @@
 package com.zxcx.zhizhe.ui.card
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -7,16 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.uuch.adlibrary.AdConstant
+import com.uuch.adlibrary.AdManager
+import com.uuch.adlibrary.bean.AdInfo
+import com.youth.banner.transformer.DepthPageTransformer
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GotoCardListEvent
-import com.zxcx.zhizhe.mvpBase.BaseFragment
+import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.service.DownloadService
+import com.zxcx.zhizhe.service.version_update.entity.UpdateApk
+import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
 import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
+import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.ui.welcome.ADBean
+import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.*
 import kotlinx.android.synthetic.main.fragment_home_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -26,14 +37,24 @@ import org.greenrobot.eventbus.ThreadMode
  * 首页-卡片Fragment
  */
 
-class HomeCardFragment : BaseFragment() {
+//class HomeCardFragment : BaseFragment() {
+class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View {
+
 
     private val mHotFragment = HotCardFragment()
     private val mAttentionFragment = AttentionCardFragment()
     private val mListFragment = CardListFragment()
     private var mCurrentFragment = Fragment()
 
-    private val titles = arrayOf("关注", "推荐", "列表")
+    private var advList: ArrayList<AdInfo> = ArrayList()
+    private var updateImageList: ArrayList<AdInfo> = ArrayList()
+    private var mAdList: MutableList<ADBean> = mutableListOf()
+
+    private var lastADTime: Long = 0
+    private var lastADID: Int = 0
+
+//            private val titles = arrayOf("关注", "推荐", "列表")
+    private val titles = arrayOf("推荐", "列表")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,13 +74,20 @@ class HomeCardFragment : BaseFragment() {
         tl_home.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
+//                    0 -> {
+//                        switchFragment(mAttentionFragment)
+//                    }
+//                    1 -> {
+//                        switchFragment(mHotFragment)
+//                    }
+//                    2 -> {
+//                        switchFragment(mListFragment)
+//                    }
                     0 -> {
-                        switchFragment(mAttentionFragment)
-                    }
-                    1 -> {
                         switchFragment(mHotFragment)
                     }
-                    2 -> {
+
+                    1 -> {
                         switchFragment(mListFragment)
                     }
                 }
@@ -82,7 +110,29 @@ class HomeCardFragment : BaseFragment() {
         para.width = screenWidth * 1 / 2
         tl_home.layoutParams = para
 
+//        tl_home.getTabAt(2)?.select()
+//        tl_home.getTabAt(0)?.select()
+//        tl_home.getTabAt(1)?.select()
+
         tl_home.getTabAt(1)?.select()
+        tl_home.getTabAt(0)?.select()
+
+        lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeCardLastOpenedTime, 0)
+        lastADID = SharedPreferencesUtil.getInt(SVTSConstants.homeCardLastOpenedID, 0)
+
+
+
+        onRefreshAD(lastADTime, lastADID.toLong())
+        mPresenter.getCheckUpdateApk(1)
+//        showFirstDialog("")
+//        val adManager = AdManager(activity,advList)
+//        adManager.setOverScreen(true)
+//                .setPageTransformer(DepthPageTransformer())
+//                .setOnImageClickListener { view, advInfo ->
+//                    toastShow("get AD")
+//                }
+//
+//        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
     }
 
     override fun setListener() {
@@ -92,7 +142,19 @@ class HomeCardFragment : BaseFragment() {
         }
         iv_home_interests.setOnClickListener {
             if (checkLogin()) {
-                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+                //以前
+//                mActivity.startActivity(SelectAttentionActivity::class.java, {})
+                //现在
+//                mActivity.startActivity(SelectInterestActivity::class.java,{})
+
+                //emmmmmmmmmmmmmmmmm 真正的现在正式使用
+                mActivity.startActivity(NowSelectActivity::class.java){}
+
+                //方便测试
+                //微信吊起
+//                mActivity.startActivity(WXEntryActivity::class.java,{})
+                //支付宝吊起
+//                mActivity.startActivity(ZFBEntryActivity::class.java,{})
             }
         }
     }
@@ -136,6 +198,117 @@ class HomeCardFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: GotoCardListEvent) {
         //去往卡片列表页
-        tl_home.getTabAt(2)?.select()
+        tl_home.getTabAt(1)?.select()
+    }
+
+
+    override fun createPresenter(): HomeCardPresenter {
+        return HomeCardPresenter(this)
+    }
+
+    override fun getADSuccess(list: MutableList<ADBean>) {
+
+        var title = ""
+        var url = ""
+        var id1: Int = 0
+        var time = ""
+
+        if (list.size > 0) {
+            mAdList = list
+            mAdList.forEach {
+                addAdImageData(it.titleImage)
+                title = it.description
+                url = it.behavior
+                id1 = it.id
+            }
+
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedTime, System.currentTimeMillis())
+            SharedPreferencesUtil.saveData(SVTSConstants.homeCardLastOpenedID, id1)
+
+            showImageDialog(title, url)
+        }
+
+    }
+
+    override fun getCheckUpdateSuccess(info: UpdateApk) {
+        val apkCode = info.version
+        val needUpdate = info.type
+        val url = info.apkDownloadURL
+        val versionCode = AppUtils.getVersionName(mActivity)
+
+        if (versionCode.toString() != apkCode) {
+            LogCat.e("需要更新")
+            addUpdateApkImageData(info.newFeatureImg)
+            if (needUpdate == 0) {
+                showUpdateDialog(url)
+            } else if (needUpdate == 1) {
+                showUpdateDialog(url, needUpdate)
+            }
+        } else {
+            LogCat.e("最新")
+        }
+    }
+
+    override fun getDataSuccess(bean: MutableList<CardBean>?) {
+    }
+
+    private fun onRefreshAD(lastADTime: Long, lastADID: Long) {
+        mPresenter.getAD(lastADTime, lastADID)
+    }
+
+
+    private fun addUpdateApkImageData(url: String) {
+        val adInfo = AdInfo()
+        adInfo.activityImg = url
+        updateImageList.add(adInfo)
+    }
+
+    private fun showUpdateDialog(url: String) {
+
+        val updateManager = AdManager(activity, updateImageList)
+        updateManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    goToDownload(mActivity, url)
+                }
+                .setWidthPerHeight(0.83f)
+        updateManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun showUpdateDialog(url: String, type: Int) {
+
+        val updateManager = AdManager(activity, updateImageList)
+        updateManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { view, advInfo ->
+                    goToDownload(mActivity, url)
+                }
+                .setDialogCloseable(false)
+        updateManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun addAdImageData(url: String) {
+        val adInfo = AdInfo()
+        adInfo.activityImg = url
+        advList.add(adInfo)
+    }
+
+    private fun showImageDialog(title: String, url: String) {
+        val adManager = AdManager(activity, advList)
+        adManager.setOverScreen(true)
+                .setPageTransformer(DepthPageTransformer())
+                .setOnImageClickListener { _, _ ->
+                    val intent = Intent(context, WebViewActivity::class.java)
+                    intent.putExtra("title", title)
+                    intent.putExtra("url", url)
+                    startActivity(intent)
+                }
+        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+    }
+
+    private fun goToDownload(context: Context, downLoadUrl: String) {
+        val intent = Intent(context.applicationContext, DownloadService::class.java)
+        intent.putExtra("downloadUrl", downLoadUrl)
+        context.startService(intent)
     }
 }

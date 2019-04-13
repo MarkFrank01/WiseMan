@@ -7,17 +7,19 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
+import com.zxcx.zhizhe.event.GotoCardListEvent
 import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.article.HomeArticleFragment
 import com.zxcx.zhizhe.ui.card.HomeCardFragment
+import com.zxcx.zhizhe.ui.circle.circlehome.CircleFragment
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.my.MyFragment
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
+import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
-import com.zxcx.zhizhe.ui.rank.RankFragment
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
@@ -37,9 +39,13 @@ class MainActivity : BaseActivity() {
     private var mCurrentFragment = Fragment()
     private var mHomeCardFragment = HomeCardFragment()
     private var mHomeArticleFragment = HomeArticleFragment()
-    private var mRankFragment = RankFragment()
+//    private var mRankFragment = RankFragment()
+    private var mCircleFragment = CircleFragment()
     private var mMyFragment: MyFragment? = MyFragment()
     private var mIsReenter = false
+
+    //////
+//    var advList:ArrayList<AdInfo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,29 @@ class MainActivity : BaseActivity() {
         } else {
             home_tab_card.performClick()
         }
+
+        EventBus.getDefault().post(GotoCardListEvent())
+
+//        showFirstDialog()
+//        val adManager = AdManager(this,advList)
+//        adManager.setOverScreen(true)
+//                .setPageTransformer(DepthPageTransformer())
+//                .setOnImageClickListener { view, advInfo ->
+//                    toastShow("get AD")
+//                }
+//
+//        adManager.showAdDialog(AdConstant.ANIM_DOWN_TO_UP)
+        val num = ((Math.random() * 9 + 1) * 100000).toInt()
+        //android_设备型号_系统版本_app版本_渠道号_生成时毫秒时间戳_随机数
+//        val maidian = "android_"+android.os.Build.MODEL+"_"+
+//                android.os.Build.VERSION.SDK_INT+"_"+
+//                AppUtils.getVersionName(mActivity)+"_"+
+//                System.currentTimeMillis()+"_"+
+//                getStringRanom(6)
+
+//        SharedPreferencesUtil.saveData("maidian",maidian)
+
+//        LogCat.e("maidian---"+SharedPreferencesUtil.getString("maidian",""))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -84,6 +113,26 @@ class MainActivity : BaseActivity() {
 
     override fun setListener() {
         super.setListener()
+
+//        iv_home_creation.setOnClickListener {
+//            if (checkLogin()) {
+//                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+//                    writer_status_writer -> {
+//                        //选择模板
+//                        mActivity.startActivity(TemplateCardActivity::class.java) {}
+//                    }
+//                    else -> {
+//                        val dialog = CreationAgreementDialog()
+//                        dialog.mListener = {
+//                            mActivity.startActivity(TemplateCardActivity::class.java){}
+//                        }
+//                        dialog.show(mActivity.supportFragmentManager,"")
+//                    }
+//                }
+//            }
+//        }
+
+        //暂时注释，可能版本仍需确认
 //        iv_home_creation.setOnClickListener {
 //            if (checkLogin()) {
 //                when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
@@ -125,26 +174,47 @@ class MainActivity : BaseActivity() {
                 mHomeDialog.outDia()
             }
 
+            mHomeDialog.setShenDuClickListener {
+                if (checkLogin()) {
+                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                        writer_status_writer -> {
+                            //创作界面
+                            mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                        }
+
+                        else -> {
+                            val dialog = CreationAgreementDialog()
+                            dialog.mListener = {
+                                mActivity.startActivity(CreationEditorLongActivity::class.java) {}
+                            }
+                            dialog.show(mActivity.supportFragmentManager, "")
+                        }
+                    }
+                }
+                mHomeDialog.outDia()
+            }
+
             mHomeDialog.setHuishouClickListener {
 
-                mActivity.startActivity(PasteLinkActivity::class.java) {}
+                if (checkLogin()) {
+                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
+                        writer_status_writer -> {
+                            //一键转载
+                            mActivity.startActivity(PasteLinkActivity::class.java) {}
+                        }
 
-//                if (checkLogin()) {
-//                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-//                        writer_status_writer -> {
-//                            //黏贴作品链接
-//                            mActivity.startActivity(PasteLinkActivity::class.java) {}
-//                        }
-//
-//                        else -> {
-//                            val dialog = CreationAgreementDialog()
-//                            dialog.mListener = {
-//                                mActivity.startActivity(PasteLinkActivity::class.java) {}
-//                            }
-//                            dialog.show(mActivity.supportFragmentManager, "")
-//                        }
-//                    }
-//                }
+                        else -> {
+                            val dialog = CreationAgreementDialog()
+                            dialog.mListener = {
+                                mActivity.startActivity(PasteLinkActivity::class.java) {}
+                            }
+                            dialog.show(mActivity.supportFragmentManager,"")
+                        }
+                    }
+                }
+
+//                mActivity.startActivity(PasteLinkActivity::class.java) {}
+
                 mHomeDialog.outDia()
             }
 
@@ -153,9 +223,10 @@ class MainActivity : BaseActivity() {
 
         home_tab_card.setOnClickListener { switchFragment(mHomeCardFragment) }
         home_tab_article.setOnClickListener { switchFragment(mHomeArticleFragment) }
-        home_tab_rank.setOnClickListener {
-            switchFragment(mRankFragment)
-        }
+//        home_tab_rank.setOnClickListener {
+//            switchFragment(mRankFragment)
+//        }
+        home_tab_rank.setOnClickListener { switchFragment(mCircleFragment) }
         home_tab_my.setOnClickListener { switchFragment(mMyFragment) }
     }
 
@@ -231,4 +302,32 @@ class MainActivity : BaseActivity() {
             }
         }
     }
+
+    ////////////////////////////
+//    private fun showFirstDialog() {
+//        val adInfo = AdInfo()
+//        adInfo.activityImg = "https://raw.githubusercontent.com/yipianfengye/android-adDialog/master/images/testImage1.png"
+//        advList.add(adInfo)
+//    }
+
+//    fun getStringRanom(length:Int):String{
+//        var num = ""
+//        val random = Random()
+//
+//        //参数length，表示生成几位随机数
+//        for (i in 0 until length) {
+//
+//            val charOrNum = if (random.nextInt(2) % 2 === 0) "char" else "num"
+//            //输出字母还是数字
+//            if ("char".equals(charOrNum, ignoreCase = true)) {
+//                //输出是大写字母还是小写字母
+//                val temp = if (random.nextInt(2) % 2 === 0) 65 else 97
+//                num += (random.nextInt(26) + temp).toChar()
+//            } else if ("num".equals(charOrNum, ignoreCase = true)) {
+//                num += random.nextInt(10)
+//            }
+//        }
+//
+//        return num
+//    }
 }

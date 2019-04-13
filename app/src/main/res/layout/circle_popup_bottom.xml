@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/ll_ll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/background"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        tools:text="排序选项"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/tv_title1"
+        android:textColor="@color/text_color_3"
+        android:paddingTop="12dp"
+        android:paddingLeft="18dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="18dp"
+        android:background="@color/background"
+        android:lines="1"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:visibility="gone"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <com.zxcx.zhizhe.widget.BottomListPopup.VerticalRecyclerView
+        android:layout_marginBottom="4dp"
+        android:id="@+id/recyclerView1"
+        android:background="@color/background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"/>
+
+</LinearLayout>

@@ -7,7 +7,7 @@ import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
-import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationActivity
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SVTSConstants
@@ -20,9 +20,11 @@ import org.greenrobot.eventbus.EventBus
  * 创作长文预览页面
  */
 
-class CreationPreviewActivity : BaseActivity() {
+//class CreationPreviewActivity : BaseActivity() {
+class CreationPreviewActivity : MvpActivity<CreationPreviewPresenter>(),CreationPreviewContract.View {
 
-	private var id = ""
+
+    private var id = ""
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -44,6 +46,10 @@ class CreationPreviewActivity : BaseActivity() {
 
 	override fun setListener() {
 		tv_toolbar_back.setOnClickListener {
+
+            //删除
+            mPresenter.deleteNote(id.toInt())
+
 			onBackPressed()
 		}
 
@@ -90,4 +96,11 @@ class CreationPreviewActivity : BaseActivity() {
 	fun submitFail() {
 		toastError("提交审核失败")
 	}
+
+    override fun createPresenter(): CreationPreviewPresenter {
+        return CreationPreviewPresenter(this)
+    }
+
+    override fun getDataSuccess(bean: List<String>?) {
+    }
 }

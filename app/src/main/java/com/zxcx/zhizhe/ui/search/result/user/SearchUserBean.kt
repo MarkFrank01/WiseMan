@@ -13,9 +13,14 @@ class SearchUserBean(
 		@SerializedName("likeArticleCount") var likeNum: Int = 0, //0
 		@SerializedName("collectedArticleCount") var collectNum: Int = 0, //0
 		@SerializedName("name") var name: String?,
-		@SerializedName("follow") var isFollow: Boolean = false
+		@SerializedName("follow") var isFollow: Boolean = false,
+        @SerializedName("authorAuthenticationType") var authorAuthenticationType:Int = 0,
 
-) : RetrofitBean() {
+        //
+        @SerializedName("latestCircleId")   var latestCircleId: String? =null,
+        @SerializedName("latestcircleTitle") var latestcircleTitle: String? =null,
+        @SerializedName("followType") var followType:Int = 0
+        ) : RetrofitBean() {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false

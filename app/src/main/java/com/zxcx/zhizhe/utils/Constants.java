@@ -40,5 +40,15 @@ public class Constants {
 	//上榜排名
 	public static final int MISSION_HAS_RANK = 8;
 	public static boolean IS_NIGHT = SharedPreferencesUtil.getBoolean(SVTSConstants.isNight, false);
-	
+
+	//埋点
+	public static final String MD = SharedPreferencesUtil.getString("maidian","");
+
+    /**
+     * 重要：微信APP_ID
+     */
+    public static final String WX_APP_ID = "wxac8cb0c3f9b06b05";
+
+
+
 }

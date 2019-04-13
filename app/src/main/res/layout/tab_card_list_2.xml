@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:paddingBottom="8dp"
+	android:paddingStart="10dp"
+    android:paddingEnd="2dp"
+	android:orientation="vertical">
+	
+	<TextView
+		android:id="@+id/tv_tab_card_list"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom"
+		android:textColor="@color/text_color_3"
+		android:textSize="15sp"
+		tools:text="Ta的圈子"/>
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/show_select"
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="13dp"
+        android:layout_gravity="bottom|end|start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/select_point"/>
+
+</FrameLayout>

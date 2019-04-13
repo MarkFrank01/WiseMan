@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <com.zxcx.zhizhe.widget.Rounded6FrameLayout
+       android:layout_marginStart="12dp"
+       android:layout_marginEnd="12dp"
+       android:id="@+id/circle_home_image"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <com.zxcx.zhizhe.ui.rank.ADBanner
+           android:layout_width="match_parent"
+           android:layout_height="0dp"
+           app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+           app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+           app:indicator_height="5dp"
+           app:indicator_margin="5dp"
+           app:indicator_width="5dp"/>
+
+   </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
+
+
+</android.support.constraint.ConstraintLayout>

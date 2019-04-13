@@ -52,7 +52,9 @@ class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 
         tv_review_details_title.text = bean.name
         tv_review_details_category.text = bean.categoryName
-        tv_review_details_label.text = bean.getLabelName()
+        if (bean.labelName!=""&&bean.labelName.isNotEmpty()) {
+            tv_review_details_label.text = bean.getLabelName()
+        }
 
         if (bean.secondCollectionTitle != "" && bean.secondCollectionTitle.isNotEmpty()) {
             tv_review_details_label2.visibility = View.VISIBLE
@@ -81,7 +83,7 @@ class ReviewCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
             tv_review_details_title.text = cardBean.name
         if (!StringUtils.isEmpty(cardBean.categoryName))
             tv_review_details_category.text = cardBean.categoryName
-        if (!StringUtils.isEmpty(cardBean.getLabelName()))
+        if (!StringUtils.isEmpty(cardBean.labelName))
             tv_review_details_label.text = cardBean.getLabelName()
         if (!StringUtils.isEmpty(cardBean.imageUrl)) {
             val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)

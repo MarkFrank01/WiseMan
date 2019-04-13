@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <TextView
+        android:id="@+id/tv_man_list_num1"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:text="圈主"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="18dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="20dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_item_search_user"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"
+            tools:src="@drawable/default_header"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_user_name"
+            style="@style/tv_single"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:maxLength="8"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"
+            app:layout_constraintStart_toEndOf="@id/iv_item_search_user"
+            app:layout_constraintTop_toTopOf="@id/iv_item_search_user"
+            tools:text="打印纸的规格"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/iv_item_card_officials"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/iv_card_detail_official"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_search_user_name"
+            app:layout_constraintStart_toEndOf="@id/tv_item_search_user_name"
+            app:layout_constraintTop_toTopOf="@id/tv_item_search_user_name"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_user_level"
+            style="@style/tv_single"
+            android:layout_width="50dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="5dp"
+            android:paddingStart="21dp"
+            android:background="@drawable/bg_level"
+            android:gravity="center_vertical"
+            android:textColor="@color/white_final"
+            android:textSize="@dimen/text_size_text_3"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
+            app:layout_constraintStart_toEndOf="@id/iv_item_card_officials"
+            app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_user_card"
+            style="@style/tv_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="10dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/tv_item_rank_user_card"
+            android:gravity="center"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/text_size_text_4"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+            app:layout_constraintStart_toEndOf="@id/iv_item_search_user"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_user_fans"
+            style="@style/tv_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="12dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/tv_item_rank_user_fans"
+            android:gravity="center"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/text_size_text_4"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+            app:layout_constraintStart_toEndOf="@id/tv_item_search_user_card"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/tv_item_search_user_like"
+            style="@style/tv_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="12dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/tv_item_rank_user_like"
+            android:gravity="center"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/text_size_text_4"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+            app:layout_constraintStart_toEndOf="@id/tv_item_search_user_fans"
+            tools:text="1000"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_item_search_user_collect"
+            style="@style/tv_single"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="12dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/tv_item_rank_user_collect"
+            android:gravity="center"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/text_size_text_4"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_search_user"
+            app:layout_constraintStart_toEndOf="@id/tv_item_search_user_like"
+            tools:text="1000"/>
+
+        <CheckBox
+            android:id="@+id/cb_item_search_user_follow_2"
+            style="@style/tv_single"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/bg_checkbox_select_attention1"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="@color/button_blue"
+            android:textSize="@dimen/text_size_text_3"
+            tools:text="进圈"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--<CheckBox-->
+            <!--android:id="@+id/cb_item_search_user_follow"-->
+            <!--style="@style/tv_single"-->
+            <!--android:layout_marginEnd="18dp"-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:background="@drawable/bg_checkbox_select_attention1"-->
+            <!--android:button="@null"-->
+            <!--android:checked="true"-->
+            <!--android:clickable="false"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="@color/button_blue"-->
+            <!--tools:text="进圈"-->
+            <!--android:textSize="@dimen/text_size_text_3"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"/>-->
+
+    </android.support.constraint.ConstraintLayout>
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"/>
+
+    <TextView
+        android:id="@+id/tv_man_list_num"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="20dp"
+        android:text="成员"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_circle_man"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            tools:listitem="@layout/item_circle_man_item"/>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

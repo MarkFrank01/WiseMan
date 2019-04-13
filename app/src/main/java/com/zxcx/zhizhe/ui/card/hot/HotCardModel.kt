@@ -4,6 +4,7 @@ import com.zxcx.zhizhe.mvpBase.BaseModel
 import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.utils.Constants
 
 class HotCardModel(present: HotCardContract.Presenter) : BaseModel<HotCardContract.Presenter>() {
@@ -23,6 +24,18 @@ class HotCardModel(present: HotCardContract.Presenter) : BaseModel<HotCardContra
 				})
 		addSubscription(mDisposable)
 	}
+
+    fun getAD(){
+        mDisposable = AppClient.getAPIService().getAD("401")
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object :BaseSubscriber<MutableList<ADBean>>(mPresenter){
+                    override fun onNext(list: MutableList<ADBean>) {
+                        mPresenter?.getADSuccess(list)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }
 
 

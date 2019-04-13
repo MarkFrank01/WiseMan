@@ -15,6 +15,11 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.mvpBase.IGetPresenter
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
+import com.zxcx.zhizhe.ui.topchange.TopChangeActivity
+import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.fragment_card_list.*
 
 /**
@@ -29,8 +34,18 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		super.onCreate(savedInstanceState)
 	}
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-	                          savedInstanceState: Bundle?): View? {
+    //标记！！！记住刷新
+    override fun onResume() {
+        super.onResume()
+//        toastShow("ABC")
+        if (SharedPreferencesUtil.getBoolean("saveOnce",false)) {
+            getCardCategory()
+            SharedPreferencesUtil.saveData("saveOnce",false)
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
 		// Inflate the layout for this fragment
 		return inflater.inflate(R.layout.fragment_card_list, container, false)
 	}
@@ -41,7 +56,20 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		getCardCategory()
 	}
 
-	override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+    override fun setListener() {
+        //处理置顶的分类
+        change_top_more.setOnClickListener {
+            mActivity.startActivity(TopChangeActivity::class.java){}
+        }
+
+        show_empty_view.setOnClickListener {
+            mActivity.startActivity(TopChangeActivity::class.java){}
+        }
+    }
+
+    override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
+        vp_card_list.removeAllViews()
+
 		mAdapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
 		vp_card_list.adapter = mAdapter
 		tl_card_list.removeAllTabs()
@@ -52,6 +80,17 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 			textView?.text = it.name
 			tl_card_list.addTab(tab)
 		}
+
+        if (list.isEmpty()){
+            LogCat.e("加入新的")
+            vp_card_list.visibility =View.GONE
+            show_empty_view.visibility = View.VISIBLE
+            change_top_more.visibility = View.GONE
+        }else{
+            vp_card_list.visibility =View.VISIBLE
+            show_empty_view.visibility = View.GONE
+            change_top_more.visibility = View.VISIBLE
+        }
 	}
 
 	override fun getDataFail(msg: String?) {
@@ -81,7 +120,10 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
 		override fun instantiateItem(container: ViewGroup, position: Int): Any {
 			val fragment = super.instantiateItem(container, position) as CardListItemFragment
 			fragments.put(position, fragment)
-			return fragment
+//            LogCat.e("ChangeItem"+position)
+            SharedPreferencesUtil.saveData(SVTSConstants.adTypePosition, position)
+
+            return fragment
 		}
 
 		override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

@@ -24,7 +24,7 @@ import com.zxcx.zhizhe.event.LoginEvent
 import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivity
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
@@ -119,8 +119,11 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 	override fun getDataSuccess(bean: LoginBean) {
 		if (!bean.user.hasAttention) {
 //			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
-			startActivity(SelectAttentionActivity::class.java) {}
-		}
+//			startActivity(SelectAttentionActivity::class.java) {}
+//            startActivity(SelectInterestActivity::class.java){}
+            mActivity.startActivity(NowSelectActivity::class.java){}
+
+        }
 		ZhiZheUtils.saveLoginData(bean)
 		//极光统计
 		val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)
@@ -245,7 +248,11 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 				userIcon = platDB.userIcon
 				userId = platDB.userId
 				userName = platDB.userName
-				mPresenter.channelLogin(channelType, userId, jpushID, appType, appChannel, appVersion)
+
+                val Uid = platDB.get("unionid")
+                LogCat.e("UID" + Uid)
+                LogCat.e("登录前ID"+userId)
+				mPresenter.channelLogin(channelType, Uid, jpushID, appType, appChannel, appVersion,userId)
 			}
 		}
 

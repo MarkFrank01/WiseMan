@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/con_click"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginEnd="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_background_12dp"
+    android:elevation="4dp"
+    android:orientation="vertical"
+    android:stateListAnimator="@animator/anim_home_card_press">
+
+    <com.zxcx.zhizhe.widget.CardRoundedImageView
+        android:id="@+id/iv_item_circle_classify_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:scaleType="centerCrop"
+        android:transitionName="cardImage"
+        app:hasShade="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:riv_corner_radius="2dp"
+        app:shade="@color/shade"
+        tools:src="@drawable/iv_item_home_card_icon"/>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="15dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_1"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="小崔说科技"/>
+
+    <LinearLayout
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/star_1"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_2"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_3"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_4"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+        <ImageView
+            android:id="@+id/star_5"
+            android:src="@drawable/star_off"
+            android:layout_width="9dp"
+            android:layout_height="9dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_2"
+        android:textSize="12sp"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        tools:text="为你解读最新最全的科技资…"/>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_d2"
+        android:textSize="12sp"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
+        tools:text="科技"/>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_d2"
+        android:textSize="12sp"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/tv_item_circle_classify_type"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
+        tools:text="加入1.3W"/>
+
+    <TextView
+        android:id="@+id/tv_item_circle_classify_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="5dp"
+        android:textColor="@color/text_color_d2"
+        android:textSize="12sp"
+        android:transitionName="cardTitle"
+        app:layout_constraintStart_toEndOf="@id/tv_item_circle_classify_join"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_desc"
+        tools:text="话题7.8K"/>
+
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_statue"
+        android:textSize="15sp"
+        android:layout_marginEnd="18dp"
+        tools:text="审核中"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/cb_item_select_join_circle2"
+        style="@style/tv_single"
+        android:layout_marginEnd="18dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_checkbox_select_attention1"
+        android:button="@null"
+        android:checked="true"
+        android:clickable="false"
+        android:gravity="center"
+        android:textColor="@color/button_blue"
+        tools:text="进圈"
+        android:textSize="@dimen/text_size_text_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"/>
+
+    <TextView
+        android:textSize="10sp"
+        android:layout_marginEnd="26dp"
+        tools:text="会员还剩365天"
+        app:layout_constraintTop_toBottomOf="@+id/cb_item_select_join_circle2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>

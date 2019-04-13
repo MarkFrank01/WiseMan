@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/circle_image"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:riv_oval="true"
+            android:src="@drawable/circle_top_default"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/circle_image">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/circle_image1"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/iv_my_head_placeholder"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/circle_image"
+                app:riv_oval="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/circle_image2"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/iv_my_head_placeholder"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/circle_image1"
+                app:riv_oval="true"/>
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/circle_image3"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/iv_my_head_placeholder"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/circle_image2"
+                app:riv_oval="true"/>
+
+            <ImageView
+                android:id="@+id/iv_circle_to_my"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/c_more"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/circle_image3"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/circle_hint_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="立即登录"
+            android:textColor="@color/button_blue"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/circle_image"/>
+
+        <TextView
+            android:id="@+id/circle_hint_login_dec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="找到和你志同道合的一群人"
+            android:textColor="@color/text_color_3"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/circle_image"
+            app:layout_constraintTop_toBottomOf="@id/circle_hint_login"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/circle_search"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/circle_message"
+                app:layout_constraintEnd_toStartOf="@id/iv_3"/>
+
+            <ImageView
+                android:id="@+id/iv_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="25dp"
+                android:src="@drawable/rb_circle_rank"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/iv_2"/>
+
+        </LinearLayout>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/circle_image"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <ScrollView
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <com.zxcx.zhizhe.widget.Rounded6FrameLayout
+                android:id="@+id/fl_banner_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:layout_scrollFlags="scroll">
+
+                <com.zxcx.zhizhe.ui.rank.ADBanner
+                    android:id="@+id/banner_circle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+                    app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+                    app:indicator_height="5dp"
+                    app:indicator_margin="5dp"
+                    app:indicator_width="5dp"/>
+
+                <ImageView
+                    android:id="@+id/iv_ad_label_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:src="@drawable/iv_ad_label_1"/>
+            </com.zxcx.zhizhe.widget.Rounded6FrameLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:id="@+id/ll_gv_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/fl_banner_circle">
+
+                <com.zxcx.zhizhe.widget.gridview.GridViewPager
+                    android:id="@+id/gv_circle_classify"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="8dp"
+                android:id="@+id/rl_to_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                app:layout_constraintTop_toBottomOf="@id/ll_gv_circle">
+
+                <TextView
+                    android:id="@+id/tv_circle_classify_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="推荐"
+                    android:textColor="@color/text_color_1"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/to_more_tuijian"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/right_normal"/>
+            </RelativeLayout>
+            <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/rv_circle_home_1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/fl_banner_circle">-->
+
+            <!--</android.support.v7.widget.RecyclerView>-->
+            <RelativeLayout
+                android:id="@+id/more_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                app:layout_constraintTop_toBottomOf="@id/rl_to_more">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:src="@drawable/c_test"
+                    android:visibility="gone"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_circle_home_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
+
+            <Button
+                android:visibility="gone"
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/more_change"
+                android:layout_width="106dp"
+                android:layout_height="35dp"
+                android:background="@drawable/bg_change_other"
+                android:drawablePadding="11dp"
+                android:drawableStart="@drawable/circle_change"
+                android:gravity="center|start"
+                android:paddingEnd="10dp"
+                android:paddingStart="20dp"
+                android:text="换一批"
+                android:layout_marginBottom="43dp"
+                android:textColor="@color/button_blue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/more_rv"/>
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="44dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/more_change"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

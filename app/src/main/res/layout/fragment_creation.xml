@@ -15,6 +15,6 @@
 			android:id="@+id/rv_creation"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			tools:listitem="@layout/item_card"/>
+			tools:listitem="@layout/item_my_card"/>
 	</com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

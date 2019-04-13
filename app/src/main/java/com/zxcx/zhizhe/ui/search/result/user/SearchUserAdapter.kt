@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.search.result.user
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -26,8 +27,35 @@ class SearchUserAdapter(data: List<SearchUserBean>) : BaseQuickAdapter<SearchUse
 		helper.setText(R.id.tv_item_search_user_like, item.likeNum.toString())
 		helper.setText(R.id.tv_item_search_user_collect, item.collectNum.toString())
 		helper.setText(R.id.tv_item_search_user_level, mContext.getString(R.string.tv_level, item.level))
-		helper.setChecked(R.id.cb_item_search_user_follow, item.isFollow)
+//		helper.setChecked(R.id.cb_item_search_user_follow, item.isFollow)
 		helper.getView<View>(R.id.cb_item_search_user_follow).expandViewTouchDelegate(ScreenUtils.dip2px(10f))
 		helper.addOnClickListener(R.id.cb_item_search_user_follow)
+
+        when (item.followType) {
+            0 -> {
+                helper.setText(R.id.cb_item_search_user_follow,"关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.button_blue))
+                helper.setChecked(R.id.cb_item_search_user_follow,false)
+            }
+
+            1->{
+                helper.setText(R.id.cb_item_search_user_follow,"已关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setChecked(R.id.cb_item_search_user_follow,true)
+
+            }
+
+            2->{
+                helper.setText(R.id.cb_item_search_user_follow,"互相关注")
+                helper.setTextColor(R.id.cb_item_search_user_follow,mContext.getColorForKotlin(R.color.text_color_3))
+                helper.setChecked(R.id.cb_item_search_user_follow,true)
+
+            }
+        }
+
+        val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+        if (item.authorAuthenticationType!=0&&item.authorAuthenticationType==1){
+            imageVIP.visibility = View.VISIBLE
+        }
 	}
 }

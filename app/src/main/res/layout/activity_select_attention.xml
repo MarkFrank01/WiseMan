@@ -17,7 +17,7 @@
 		android:layout_marginTop="20dp"
 		android:layout_marginStart="20dp"
 		android:layout_below="@id/toolbar"
-		android:text="选择你感兴趣的卡包"
+		android:text="选择你感兴趣的内容"
 		android:textColor="@color/text_color_1"
 		android:textSize="@dimen/text_size_title_1"/>
 	

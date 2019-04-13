@@ -9,14 +9,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.mob.sdk'
 
 android {
-    compileSdkVersion 27
+    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion 28
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.zxcx.zhizhe"
         minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 6
-        versionName "1.2.3"
+        targetSdkVersion 28
+        versionCode 10
+        versionName "1.3.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         android.compileOptions.sourceCompatibility 1.8
@@ -60,8 +61,8 @@ android {
         }
         release {
             buildConfigField 'boolean', 'LOG', 'false'
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -80,11 +81,11 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
     //百分比布局
-    implementation 'com.android.support:percent:27.1.1'
+    implementation 'com.android.support:percent:28.0.0'
 
     //自动换行布局
     implementation 'com.google.android:flexbox:0.3.2'
@@ -93,7 +94,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     //MD设计库
-    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:28.0.0'
 
     //去除方法数限制
     implementation 'com.android.support:multidex:1.0.3'
@@ -229,6 +230,29 @@ dependencies {
 
     /*//Android工具类
         compile 'com.blankj:utilcode:1.9.12'*/
+    implementation 'cn.yipianfengye.android:ad-library:1.0'
+
+    implementation files('lib/jsoup-1.11.3.jar')
+
+    //超级弹框
+    implementation 'com.lxj:xpopup:1.0.9'
+
+    //微信支付
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    //支付宝支付
+    implementation files('lib/alipaySdk-15.5.9-20181123210601.aar')
+
+    //测试图片选择器(将废弃，测试使用)
+//    implementation 'com.github.HuanTanSheng:EasyPhotos:2.3.6'
+//
+//    //朋友圈九宫格控件(将废弃，测试使用)
+//    implementation 'com.github.razerdp:PhotoContents:1.4.5'
+
+
+    //采用此作为图片选择和九宫图
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
 }
 
 kapt {

@@ -33,6 +33,17 @@
 		app:layout_constraintStart_toEndOf="@id/iv_item_dynamic_message"
 		app:layout_constraintTop_toTopOf="@id/iv_item_dynamic_message"
 		tools:text="浪得一笔雕凿"/>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_item_card_officials"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/iv_card_detail_official"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_dynamic_message_name"
+        app:layout_constraintStart_toEndOf="@id/tv_item_dynamic_message_name"
+        app:layout_constraintTop_toTopOf="@id/tv_item_dynamic_message_name"/>
 	
 	<TextView
 		android:id="@+id/tv_item_dynamic_message_date"
@@ -41,9 +52,9 @@
 		android:layout_height="wrap_content"
 		android:textColor="@color/text_color_d2"
 		android:textSize="@dimen/text_size_text_3"
-		app:layout_constraintBottom_toBottomOf="@id/iv_item_dynamic_message"
+		app:layout_constraintBottom_toBottomOf="@id/iv_item_card_officials"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/iv_item_dynamic_message"
+		app:layout_constraintTop_toTopOf="@id/iv_item_card_officials"
 		tools:text="15:10"/>
 	
 	<TextView

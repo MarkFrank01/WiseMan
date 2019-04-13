@@ -96,7 +96,9 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
         ImageLoader.load(mActivity, imageUrl, R.drawable.default_card, iv_item_card_details_icon)
         tv_item_card_details_title.text = mCardBean.name
         tv_item_card_details_category.text = mCardBean.categoryName
-        tv_item_card_details_label.text = mCardBean.getLabelName()
+        if (mCardBean.labelName!=""&&mCardBean.labelName.isNotEmpty()) {
+            tv_item_card_details_label.text = mCardBean.getLabelName()
+        }
         if (mCardBean.secondCollectionTitle.isNotEmpty()) {
             tv_item_card_details_label2.visibility = View.VISIBLE
             tv_item_card_details_label2.text = mCardBean.getSecondLabelName()
@@ -136,6 +138,8 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
         val fromHtml = HtmlCompat.fromHtml(mActivity, mCardBean.content, 0)
         tv_item_card_details_content.movementMethod = LinkMovementMethod.getInstance()
         tv_item_card_details_content.text = fromHtml
+
+        tv_item_card_details_time.text = mCardBean.distanceTime
     }
 
     override fun createPresenter(): CardDetailsPresenter {
@@ -323,6 +327,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
                 .doOnSubscribe { subscription -> showLoading() }
                 .map {
                     iv_share_qr.visibility = View.VISIBLE
+                    iv_share_qr_bg.visibility = View.VISIBLE
                     iv_common_close.visibility = View.GONE
                     it
                 }
@@ -341,6 +346,7 @@ class SingleCardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetai
                 .observeOn(AndroidSchedulers.mainThread())
                 .map {
                     iv_share_qr.visibility = View.GONE
+                    iv_share_qr_bg.visibility = View.GONE
                     iv_common_close.visibility = View.VISIBLE
                     it
                 }

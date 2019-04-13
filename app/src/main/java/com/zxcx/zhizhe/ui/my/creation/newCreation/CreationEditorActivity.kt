@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +53,12 @@ class CreationEditorActivity : BaseActivity(),
     //第二标签
     private var twolabelName = ""
 
+    //分类名称
+    private var classifyName = ""
+
+    //卡片字数
+    private var mStrLength = 0
+
     companion object {
         const val CODE_SELECT_LABEL = 110
     }
@@ -65,7 +70,7 @@ class CreationEditorActivity : BaseActivity(),
 
         initEditor()
         iv_creation_editor_add_image.visibility = View.GONE
-        iv_creation_editor_more.visibility = View.VISIBLE
+//        iv_creation_editor_more.visibility = View.VISIBLE
 
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)
@@ -109,6 +114,9 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     override fun setListener() {
+
+
+
         tv_toolbar_back.setOnClickListener {
             onBackPressed()
         }
@@ -126,6 +134,20 @@ class CreationEditorActivity : BaseActivity(),
             }, 500)
         }
 
+        //新的保存
+        tv_toolbar_save.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("uploadingText", "正在保存草稿")
+                bundle.putString("successText", "保存成功")
+                bundle.putString("failText", "保存失败")
+                mUploadingDialog.arguments = bundle
+                mUploadingDialog.show(supportFragmentManager, "")
+                Handler().postDelayed({
+                    // editor.saveDraft()
+                    editor.twoSaveDraft()
+                }, 500)
+        }
+
         iv_creation_editor_add_image.setOnClickListener {
             getContentImage()
         }
@@ -140,6 +162,10 @@ class CreationEditorActivity : BaseActivity(),
 
         iv_creation_editor_revocation.setOnClickListener {
             editor.rollback()
+        }
+
+        iv_creation_editor_preview.setOnClickListener {
+            editor.editPreview()
         }
 
         iv_creation_editor_more.setOnClickListener {
@@ -329,16 +355,24 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun preview(previewId: String) {
         if (isCard) {
-            startActivity(PreviewCardDetailsActivity::class.java) {
-                val cardBean = CardBean()
-                cardBean.id = previewId.toInt()
-                it.putExtra("cardBean", cardBean)
+
+            if (mStrLength<=160) {
+                startActivity(PreviewCardDetailsActivity::class.java) {
+                    val cardBean = CardBean()
+                    cardBean.id = previewId.toInt()
+                    it.putExtra("cardBean", cardBean)
+                }
             }
         } else {
             startActivity(CreationPreviewActivity::class.java) {
                 it.putExtra("id", previewId)
             }
         }
+    }
+
+    @JavascriptInterface
+    fun andNum(strLength: Int){
+        mStrLength = strLength
     }
 
     @JavascriptInterface
@@ -385,6 +419,7 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun showToolBar() {
         runOnUiThread {
+            iv_creation_editor_add_image.isEnabled = true
             iv_creation_editor_add_image.isClickable = true
             iv_creation_editor_bold.isClickable = true
             iv_creation_editor_center.isClickable = true
@@ -420,6 +455,7 @@ class CreationEditorActivity : BaseActivity(),
     fun judgeSubmit(isEnable: Boolean) {
         runOnUiThread {
             tv_toolbar_right.isEnabled = isEnable
+            tv_toolbar_save.isEnabled = isEnable
         }
     }
 
@@ -430,6 +466,22 @@ class CreationEditorActivity : BaseActivity(),
             iv_creation_editor_add_image.visibility = if (isCard) View.GONE else View.VISIBLE
         }
     }
+
+    @JavascriptInterface
+    fun hiddenPictuer(){
+        runOnUiThread{
+            iv_creation_editor_add_image.isEnabled = false
+        }
+    }
+
+    @JavascriptInterface
+    fun showPictuer(){
+        runOnUiThread {
+            iv_creation_editor_add_image.isEnabled = true
+        }
+    }
+
+
 
     @JavascriptInterface
     fun confirmSave(isNeedSave: Boolean) {
@@ -509,9 +561,11 @@ class CreationEditorActivity : BaseActivity(),
                     classifyId = data.getIntExtra("classifyId", 0)
 
                     twolabelName = data.getStringExtra("twoLabelName")
-                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
+                    classifyName = data.getStringExtra("classifyName")
+
+//                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
 //					editor.setLabel(labelName, classifyId)
-                    editor.twoSetLabel(labelName, twolabelName, classifyId)
+                    editor.twoSetLabel(labelName, twolabelName, classifyId,classifyName)
                 }
                 Constants.CLIP_IMAGE -> {
                     //图片裁剪完成

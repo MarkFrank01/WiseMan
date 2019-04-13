@@ -81,7 +81,9 @@ class RejectCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 
 		tv_reject_details_title.text = bean.name
 		tv_reject_details_category.text = bean.categoryName
-		tv_reject_details_label.text = bean.getLabelName()
+        if (bean.labelName!=""&&bean.labelName.isNotEmpty()) {
+            tv_reject_details_label.text = bean.getLabelName()
+        }
         if (bean.secondCollectionTitle.isNotEmpty()){
             tv_reject_details_label2.visibility = View.VISIBLE
             tv_reject_details_label2.text = bean.getSecondLabelName()
@@ -116,7 +118,7 @@ class RejectCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectD
 			tv_reject_details_title.text = cardBean.name
 		if (!StringUtils.isEmpty(cardBean.categoryName))
 			tv_reject_details_category.text = cardBean.categoryName
-		if (!StringUtils.isEmpty(cardBean.getLabelName()))
+		if (!StringUtils.isEmpty(cardBean.labelName))
 			tv_reject_details_label.text = cardBean.getLabelName()
 		if (!StringUtils.isEmpty(cardBean.imageUrl)) {
 			val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)

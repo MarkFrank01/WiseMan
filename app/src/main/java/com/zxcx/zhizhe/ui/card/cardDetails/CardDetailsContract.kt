@@ -12,6 +12,7 @@ interface CardDetailsContract {
 
 	interface Presenter : IGetPostPresenter<CardBean, CardBean> {
 		fun followSuccess(bean: CardBean)
+        fun deleteSuccess()
 	}
 }
 

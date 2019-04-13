@@ -1,15 +1,16 @@
 package com.zxcx.zhizhe.ui.my.selectAttention
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
-import java.io.Serializable
 
 /**
  * Created by anm on 2017/8/30.
  */
 
-class ClassifyCardBean : RetrofitBean(), MultiItemEntity, Serializable {
+class ClassifyCardBean() : RetrofitBean(), MultiItemEntity, Parcelable {
 
 	@SerializedName("interested")
 	var isChecked: Boolean = false
@@ -19,8 +20,18 @@ class ClassifyCardBean : RetrofitBean(), MultiItemEntity, Serializable {
 	var imageUrl: String? = null
 	@SerializedName("title")
 	var name: String? = null
+    @SerializedName("follow")
+    var follow:Boolean = false
 
-	override fun getItemType(): Int {
+    constructor(parcel: Parcel) : this() {
+        isChecked = parcel.readByte() != 0.toByte()
+        id = parcel.readInt()
+        imageUrl = parcel.readString()
+        name = parcel.readString()
+        follow = parcel.readByte() != 0.toByte()
+    }
+
+    override fun getItemType(): Int {
 		return TYPE_CARD_BAG
 	}
 
@@ -39,8 +50,26 @@ class ClassifyCardBean : RetrofitBean(), MultiItemEntity, Serializable {
 		return id
 	}
 
-	companion object {
 
-		const val TYPE_CARD_BAG = 2
-	}
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeByte(if (isChecked) 1 else 0)
+        parcel.writeInt(id)
+        parcel.writeString(imageUrl)
+        parcel.writeString(name)
+        parcel.writeByte(if (follow) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object {
+        const val TYPE_CARD_BAG = 2
+
+        @JvmField
+        val CREATOR: Parcelable.Creator<ClassifyCardBean> = object : Parcelable.Creator<ClassifyCardBean> {
+            override fun createFromParcel(source: Parcel): ClassifyCardBean = ClassifyCardBean(source)
+            override fun newArray(size: Int): Array<ClassifyCardBean?> = arrayOfNulls(size)
+        }
+    }
 }

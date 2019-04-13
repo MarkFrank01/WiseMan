@@ -12,8 +12,8 @@ class PasteModel(presenter: PasteLinkContract.Presenter) : BaseModel<PasteLinkCo
     }
 
     //提交所有链接
-    fun pushLinkList(articleLinks: List<String>) {
-        mDisposable = AppClient.getAPIService().pushArticleLink(articleLinks)
+    fun pushLinkList(articleLinks: List<String>, title: String) {
+        mDisposable = AppClient.getAPIService().pushArticleLink(articleLinks, title)
                 .compose(BaseRxJava.handlePostResult())
                 .compose(BaseRxJava.io_main_loading(mPresenter))
                 .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {

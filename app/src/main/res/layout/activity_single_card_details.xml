@@ -66,13 +66,22 @@
 					app:autoSizeTextType="uniform"
 					app:layout_constraintTop_toBottomOf="@id/iv_item_card_details_icon"
 					tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
-				
+
+                <TextView
+                    android:text="1s"
+                    android:id="@+id/tv_item_card_details_time"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
+                    style="@style/tv_card_label"/>
+
 				<TextView
 					android:id="@+id/tv_item_card_details_category"
 					style="@style/tv_card_category"
 					android:layout_marginTop="6dp"
-					android:layout_marginStart="20dp"
-					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="12dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_time"
 					app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
 					tools:text="数码产品"/>
 				
@@ -86,6 +95,8 @@
 					app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_category"
 					app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
 					tools:text="#数码产品"/>
+
+
 
                 <TextView
                     android:id="@+id/tv_item_card_details_label2"
@@ -113,7 +124,7 @@
 					app:autoSizeStepGranularity="1px"
 					app:autoSizeTextType="uniform"
 					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_label"/>
+					app:layout_constraintTop_toBottomOf="@id/tv_item_card_details_time"/>
 			</android.support.constraint.ConstraintLayout>
 			
 			<FrameLayout
@@ -253,17 +264,26 @@
 			android:translationZ="11dp"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="parent"/>
-		
-		<ImageView
-			android:id="@+id/iv_share_qr"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
-			android:background="@drawable/bg_background_12dp"
-			android:scaleType="fitXY"
-			android:src="@drawable/iv_dialog_share_qr"
-			android:visibility="gone"
-			app:layout_constraintBottom_toBottomOf="parent"/>
-	
-	</android.support.constraint.ConstraintLayout>
+
+        <View
+            android:translationZ="10dp"
+            android:visibility="gone"
+            android:id="@+id/iv_share_qr_bg"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_background_12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <ImageView
+            android:id="@+id/iv_share_qr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:translationZ="10dp"
+            android:visibility="gone"
+            android:src="@drawable/iv_dialog_share_qr2"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>

@@ -22,15 +22,17 @@
 			android:layout_height="48dp"
 			android:layout_alignParentBottom="true">
 			
-			<ImageView
+			<TextView
+                android:textSize="17sp"
+                android:textColor="@color/text_color_3"
+                android:text="编辑"
 				android:id="@+id/iv_note_details_edit"
-				android:layout_width="38dp"
+				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:layout_marginStart="25dp"
 				android:padding="10dp"
 				android:gravity="center"
-				android:scaleType="center"
-				android:src="@drawable/iv_note_details_edit"/>
+				android:scaleType="center"/>
 			
 			<View
 				android:layout_width="0dp"

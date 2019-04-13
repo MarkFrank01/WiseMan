@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="12dp"
+    android:gravity="center">
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_item_dynamic_message_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:background="@color/bg_home_search"
+        android:textColor="@color/text_color_d2"
+        android:textSize="@dimen/text_size_text_3"
+        tools:text="2017/12/13"/>
+</LinearLayout>

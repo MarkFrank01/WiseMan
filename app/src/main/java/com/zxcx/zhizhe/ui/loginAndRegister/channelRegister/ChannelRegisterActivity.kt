@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.event.PhoneConfirmEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginBean
 import com.zxcx.zhizhe.ui.loginAndRegister.login.PhoneConfirmDialog
-import com.zxcx.zhizhe.ui.my.selectAttention.SelectAttentionActivity
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -104,8 +104,11 @@ class ChannelRegisterActivity : MvpActivity<ChannelRegisterPresenter>(), Channel
 	override fun getDataSuccess(bean: LoginBean) {
 		if (!bean.user.hasAttention) {
 //			SharedPreferencesUtil.saveData(SVTSConstants.isFirstLogin, false)
-			startActivity(SelectAttentionActivity::class.java) {}
-		}
+//			startActivity(SelectAttentionActivity::class.java) {}
+//            startActivity(SelectInterestActivity::class.java){}
+            mActivity.startActivity(NowSelectActivity::class.java){}
+
+        }
 		ZhiZheUtils.saveLoginData(bean)
 		//极光统计
 		val lEvent = cn.jiguang.analytics.android.api.LoginEvent("defult", true)

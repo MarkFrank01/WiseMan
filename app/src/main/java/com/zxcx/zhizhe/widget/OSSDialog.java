@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -40,13 +38,17 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by anm on 2017/5/27.
  * OSS图片上传弹窗封装
  */
 
 public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean> {
-	
+
 	@BindView(R.id.iv_loading)
 	ImageView mIvLoading;
 	Unbinder unbinder;
@@ -57,15 +59,15 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 	private OSSTokenBean mOSSTokenBean;
 	private OSSUploadListener mUploadListener;
 	private OSSDeleteListener mDeleteListener;
-	
+
 	public void setUploadListener(OSSUploadListener uploadListener) {
 		mUploadListener = uploadListener;
 	}
-	
+
 	public void setDeleteListener(OSSDeleteListener deleteListener) {
 		mDeleteListener = deleteListener;
 	}
-	
+
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -75,13 +77,13 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 		unbinder = ButterKnife.bind(this, view);
 		return view;
 	}
-	
+
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 //		((AnimationDrawable) mIvLoading.getDrawable()).start();
 		setCancelable(false);
-		
+
 		mOSSAction = getArguments().getInt("OSSAction");
 		mFilePath = getArguments().getString("filePath");
 		mFolderName = getArguments().getString("folderName");
@@ -95,11 +97,11 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			getDataSuccess(mOSSTokenBean);
 		}
 	}
-	
+
 	@Override
 	public void onStart() {
 		super.onStart();
-		
+
 		Dialog dialog = getDialog();
 		if (dialog != null) {
 			Window window = dialog.getWindow();
@@ -112,14 +114,14 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			window.setAttributes(lp);
 		}
 	}
-	
+
 	@Override
 	public void onDestroyView() {
 //		((AnimationDrawable) mIvLoading.getDrawable()).stop();
 		super.onDestroyView();
 		unbinder.unbind();
 	}
-	
+
 	public void getOSS(String uuid) {
 		mDisposable = AppClient.getAPIService().getOSS(uuid)
 			.compose(BaseRxJava.INSTANCE.handleResult())
@@ -132,7 +134,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			});
 		addSubscription(mDisposable);
 	}
-	
+
 	@Override
 	public void getDataSuccess(OSSTokenBean bean) {
 		mOSSTokenBean = bean;
@@ -142,20 +144,20 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			deleteImageFromOSS(mUrl);
 		}
 	}
-	
+
 	@Override
 	public void getDataFail(String msg) {
 		toastShow(msg);
 		dismiss();
 	}
-	
+
 	private void uploadFileToOSS(String filePath) {
 		int userId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0);
 		final String fileName = mFolderName + userId + FileUtil.getRandomImageName();
 		final String bucketName = getString(R.string.bucket_name);
 		final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
 		// 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
-		
+
 		OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(
 			mOSSTokenBean.getAccessKeyId(), mOSSTokenBean.getAccessKeySecret(),
 			mOSSTokenBean.getSecurityToken());
@@ -179,7 +181,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 					}
 					dismiss();
 				}
-				
+
 				@Override
 				public void onFailure(PutObjectRequest request, ClientException clientExcepion,
 					ServiceException serviceException) {
@@ -207,7 +209,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 				}
 			});
 	}
-	
+
 	private void deleteImageFromOSS(String url) {
 		final String bucketName = getString(R.string.bucket_name);
 		final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
@@ -222,7 +224,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 			dismiss();
 			return;
 		}
-		
+
 		// 在移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的`访问控制`章节
 		OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(
 			mOSSTokenBean.getAccessKeyId(), mOSSTokenBean.getAccessKeySecret(),
@@ -240,7 +242,7 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 					}
 					dismiss();
 				}
-				
+
 				@Override
 				public void onFailure(DeleteObjectRequest request, ClientException clientExcepion,
 					ServiceException serviceException) {
@@ -257,21 +259,21 @@ public class OSSDialog extends BaseDialog implements IGetPresenter<OSSTokenBean>
 					}
 					dismiss();
 				}
-				
+
 			});
 	}
-	
+
 	public interface OSSUploadListener {
-		
+
 		void uploadSuccess(String url);
-		
+
 		void uploadFail(String message);
 	}
-	
+
 	public interface OSSDeleteListener {
-		
+
 		void deleteSuccess();
-		
+
 		void deleteFail();
 	}
 }

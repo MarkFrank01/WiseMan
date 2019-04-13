@@ -19,9 +19,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
 		mModel.smsCodeLogin(phone, smsCode, jpushRID, appType, appChannel, appVersion);
 	}
 
-	public void channelLogin(int channelType, String openId, String jpushRID, int appType,
-		String appChannel, String appVersion) {
-		mModel.channelLogin(channelType, openId, jpushRID, appType, appChannel, appVersion);
+	public void channelLogin(int channelType, String uid, String jpushRID, int appType,
+		String appChannel, String appVersion,String openId) {
+		mModel.channelLogin(channelType, uid, jpushRID, appType, appChannel, appVersion,openId);
 	}
 
 	@Override

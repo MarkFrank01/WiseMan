@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:paddingBottom="8dp"
 	android:paddingStart="10dp"
-	android:paddingEnd="10dp"
+    android:paddingEnd="2dp"
 	android:orientation="vertical">
 	
 	<TextView
@@ -17,5 +17,15 @@
 		android:textColor="@color/text_color_3"
 		android:textSize="15sp"
 		tools:text="推荐"/>
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/show_select"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="13dp"
+        android:layout_gravity="bottom|end|start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/select_point"/>
 
 </FrameLayout>

@@ -13,8 +13,19 @@ import com.zxcx.zhizhe.utils.ScreenUtils
 class ADBanner(context: Context, attrs: AttributeSet) : Banner(context, attrs) {
 
 	override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) / 2
-		val heightSpec = View.MeasureSpec.makeMeasureSpec(heightSize, View.MeasureSpec.EXACTLY)
+//		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) / 2
+        //16：6
+//		val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 3f /8f
+
+        //16:4
+        val heightSize = (ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2) * 1f / 4f
+
+//        LogCat.e("Base"+(ScreenUtils.getDisplayWidth() - ScreenUtils.dip2px(20f) * 2))
+//        LogCat.e("HeightSize is $heightSize")
+//        LogCat.e("widthMeasureSpec${ScreenUtils.getDisplayWidth()},Utils${ScreenUtils.dip2px(20f)},jisuan$heightSize")
+//        LogCat.e("bili:${heightSize.toFloat()/ScreenUtils.getDisplayWidth().toFloat()}")
+
+        val heightSpec = View.MeasureSpec.makeMeasureSpec(heightSize.toInt(), View.MeasureSpec.EXACTLY)
 		super.onMeasure(widthMeasureSpec, heightSpec)
 	}
 

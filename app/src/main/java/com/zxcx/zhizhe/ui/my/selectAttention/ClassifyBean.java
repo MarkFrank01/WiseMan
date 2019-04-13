@@ -23,7 +23,20 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
 	private int id;
 	@SerializedName("collectionData")
 	private List<ClassifyCardBean> dataList;
-	
+
+	//
+    @SerializedName("isHit")
+    private int isHit;
+
+    @SerializedName("cover")
+    private String cover;
+
+    @SerializedName("follow")
+    private boolean follow = false;
+
+    @SerializedName("inNav")
+    private boolean inNav = false;
+
 	private boolean isChecked = false;
 	
 	@Override
@@ -80,5 +93,37 @@ public class ClassifyBean extends RetrofitBean implements MultiItemEntity, Seria
 	public void setChecked(boolean checked) {
 		isChecked = checked;
 	}
+
+    public int getIsHit() {
+        return isHit;
+    }
+
+    public void setIsHit(int isHit) {
+        this.isHit = isHit;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public boolean isFollow() {
+        return follow;
+    }
+
+    public void setFollow(boolean follow) {
+        this.follow = follow;
+    }
+
+    public boolean isInNav() {
+        return inNav;
+    }
+
+    public void setInNav(boolean inNav) {
+        this.inNav = inNav;
+    }
 }
 

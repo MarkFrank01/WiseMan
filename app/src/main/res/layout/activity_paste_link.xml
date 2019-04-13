@@ -31,7 +31,7 @@
             android:id="@+id/tv_toolbar_right"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:enabled="false"
             android:gravity="center"
             android:paddingEnd="10dp"
@@ -43,16 +43,83 @@
     </LinearLayout>
 
     <LinearLayout
-        android:fitsSystemWindows="true"
+        android:id="@+id/rv_link"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp">
+
+        <!--android:fitsSystemWindows="true"-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_past_link"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             tools:listitem="@layout/item_past_link"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rv_link"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/grey_round"/>
+
+            <TextView
+                android:textColor="@color/text_color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="31dp"
+                android:drawablePadding="5dp"
+                android:lineSpacingExtra="5dp"
+                android:text="黏贴自己其他平台的作品链接后在此页面提交审核，审核通过后作品将以投稿者ID按照智者文章形式自动发布"
+                android:textSize="@dimen/sp_12"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/grey_round"/>
+
+            <TextView
+                android:id="@+id/link_ZHIZHE"
+                android:textColor="@color/text_color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawablePadding="5dp"
+                android:lineSpacingExtra="5dp"
+                android:text="投稿需对黏贴复制的内容负责，禁止抄袭搬运，更多详情请查阅"
+                android:textSize="@dimen/sp_12"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -63,7 +130,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/bg_continue_add">
+        android:background="@drawable/bg_continue_add"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="match_parent"

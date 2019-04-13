@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:text="圈子简介"
+            android:textColor="@color/text_color_1"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="12sp"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/text_color_2"
+            android:textSize="17sp"
+            tools:text="111111111111111111111111111111111111111111111111为你解读最新最全的科技资讯和前沿为你解读最新最全的科技资"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="26dp"
+            android:text="付费说明"
+            android:textColor="@color/text_color_1"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/grey_round"/>
+
+            <TextView
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="31dp"
+                android:drawablePadding="5dp"
+                android:lineSpacingExtra="5dp"
+                android:text="所有圈子价格均为年费，即付费之日至1年内均可在付费圈子自由浏览和交流;"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/grey_round"/>
+
+            <TextView
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="31dp"
+                android:drawablePadding="5dp"
+                android:lineSpacingExtra="5dp"
+                android:text="因虚拟服务或商品的特殊性，一经支付恕不退款;"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/grey_round"/>
+
+            <TextView
+                android:textColor="@color/text_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="31dp"
+                android:drawablePadding="5dp"
+                android:lineSpacingExtra="5dp"
+                android:text="圈主发表的观点不代表官方立场。若发现违法违规请及时举报至官方"
+                android:textSize="15sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/create_xieyi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="32dp"
+        android:textSize="12sp"
+        tools:text="更多详情，点击了解圈子"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+</LinearLayout>

@@ -35,6 +35,8 @@ public class SVTSConstants {
 	public static final String noteNum = "note_num";
 	public static final String fansNum = "fans_num";
 	public static final String level = "level";
+	public static final String actionType = "actionType";
+	public static final String rankNum = "rank_num";
 	
 	public static final String openId = "open_id";
 	public static final String isBindingQQ = "is_binding_qq";
@@ -48,5 +50,19 @@ public class SVTSConstants {
 	public static final String adImageUrl = "ad_image_url";
 	public static final String adUrl = "ad_url";
 	public static final String adTitle = "ad_title";
-	
+
+	public static final String adTypePosition = "ad_type_position";
+	public static final String adTypePositionLong = "ad_type_position_long";
+
+	public static final String ad_is_load = "ad_is_load";
+
+    public static final String homeCardLastOpenedTime = "homeCardLastOpenedTime";
+	public static final String homeArticleLastOpenedTime = "homeArticleLastOpenedTime";
+	public static final String homeRankLastOpenedTime = "homeRankLastOpenedTime";
+	public static final String homeMyLastOpenedTime = "homeCardLastOpenedTime";
+
+	public static final String homeCardLastOpenedID = "homeCardLastOpenedID";
+	public static final String homeArticleLastOpenedID = "homeArticleLastOpenedID";
+	public static final String homeRankLastOpenedID = "homeRankLastOpenedID";
+	public static final String homeMyLastOpenedID = "homeMyLastOpenedID";
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/refresh_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".ui.card.cardList.CardListItemFragment">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background">
+
+        <android.support.design.widget.AppBarLayout
+            style="@style/Widget.Design.AppBarLayout.NoElevation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            app:layout_scrollFlags="scroll">
+
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/fl_banner_long"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="13dp"
+                app:layout_scrollFlags="scroll">
+
+                <com.zxcx.zhizhe.ui.rank.ADBanner
+                    android:id="@+id/banner_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:indicator_drawable_selected="@drawable/indicator_drawable_selected"
+                    app:indicator_drawable_unselected="@drawable/indicator_drawable_unselected"
+                    app:indicator_margin="5dp"
+                    app:indicator_height="5dp"
+                    app:indicator_width="5dp"/>
+
+                <ImageView
+                    android:id="@+id/iv_ad_label_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|bottom"
+                    android:src="@drawable/iv_ad_label_long_0"/>
+
+            </FrameLayout>
+
+            <View
+                android:id="@+id/fl_line"
+                android:layout_marginTop="15dp"
+                android:background="@color/bg_card_bag"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rv_card_list_item"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:listitem="@layout/item_card"/>-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_card_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/item_article"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

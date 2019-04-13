@@ -23,12 +23,20 @@ class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHol
 
 		helper.setText(R.id.tv_item_card_title, item.name)
 		helper.setText(R.id.tv_item_card_category, item.categoryName)
-		helper.setText(R.id.tv_item_card_label, item.getLabelName())
+//		helper.setText(R.id.tv_item_card_label, item.getLabelName())
 		helper.setText(R.id.tv_item_card_read, item.readNum.toString())
 		helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
-        if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()){
+        if (item.labelName!=""||item.labelName.isNotEmpty()) {
+            helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.VISIBLE
+            helper.setText(R.id.tv_item_card_label, item.getLabelName())
+        }else{
+            helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
+        }
+
+        if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()&&item.labelName==""){
             helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+            helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
             helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
         }
 
@@ -39,5 +47,7 @@ class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHol
 				R.string.card_category_transition_name, helper.adapterPosition)
 		helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
 				R.string.card_label_transition_name, helper.adapterPosition)
+
+        helper.setText(R.id.tv_item_card_time,item.distanceTime)
 	}
 }

@@ -7,6 +7,7 @@ import android.view.View
 import butterknife.ButterKnife
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
+import com.zxcx.zhizhe.event.HomeClickRefreshEvent
 import com.zxcx.zhizhe.event.SelectAttentionEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import kotlinx.android.synthetic.main.activity_select_attention.*
@@ -73,6 +74,7 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 	override fun postSuccess() {
 		EventBus.getDefault().post(SelectAttentionEvent())
 		toastShow(R.string.user_info_change)
+        EventBus.getDefault().post(HomeClickRefreshEvent())
 		finish()
 	}
 
@@ -110,6 +112,9 @@ class SelectAttentionActivity : MvpActivity<SelectAttentionPresenter>(), SelectA
 				}
 			}
 		}
+//        val manager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+
+
 		rv_select_attention.adapter = mAdapter
 		rv_select_attention.layoutManager = manager
 	}

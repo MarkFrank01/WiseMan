@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.card.hot
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.welcome.ADBean
 
 class HotCardPresenter(view: HotCardContract.View) : BasePresenter<HotCardContract.View>(), HotCardContract.Presenter {
 
@@ -15,11 +16,23 @@ class HotCardPresenter(view: HotCardContract.View) : BasePresenter<HotCardContra
 		mModel.getHotCard(lastRefresh, page)
 	}
 
+    fun getAD(){
+        mModel.getAD()
+    }
+
 	override fun getDataSuccess(s: MutableList<CardBean>) {
-		mView.getDataSuccess(s)
+        if (mView!=null) {
+            mView.getDataSuccess(s)
+        }
 	}
 
-	override fun getDataFail(msg: String) {
+    override fun getADSuccess(list: MutableList<ADBean>) {
+        if (mView!=null) {
+            mView.getADSuccess(list)
+        }
+    }
+
+    override fun getDataFail(msg: String) {
 		mView.toastFail(msg)
 	}
 

@@ -37,6 +37,19 @@ class CreationModel(presenter: CreationContract.Presenter) : BaseModel<CreationC
 				})
 		addSubscription(mDisposable)
 	}
+
+    fun deleteLink(cardId: Int){
+        mDisposable = AppClient.getAPIService().deleteLink(cardId)
+                .compose(BaseRxJava.io_main_loading(mPresenter))
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(object : NullPostSubscriber<BaseBean<*>>(mPresenter) {
+
+                    override fun onNext(bean: BaseBean<*>) {
+                        mPresenter?.postSuccess()
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }
 
 

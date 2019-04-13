@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <EditText
+        android:hint="搜索"
+        android:id="@+id/et_search"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="2dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="32dp"
+        android:background="@drawable/bg_home_search"
+        android:cursorVisible="true"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/et_search"
+        android:gravity="center_vertical"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/text_color_1"
+        android:textColorHint="@color/text_color_d2"
+        android:textCursorDrawable="@drawable/bg_edit_cursor"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toStartOf="@id/tv_search_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/tv_search_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        android:text="@string/common_cancel"
+        android:textColor="@color/text_color_1"
+        android:textSize="@dimen/text_size_text_1"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_search"/>
+
+    <ImageView
+        android:id="@+id/iv_search_input_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:padding="10dp"
+        android:src="@drawable/iv_search_clear"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/et_search"
+        app:layout_constraintEnd_toEndOf="@id/et_search"
+        app:layout_constraintTop_toTopOf="@id/et_search"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -6,25 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="18dp"
     android:background="@drawable/bg_background_12dp"
-    android:elevation="5dp"
+    android:elevation="4dp"
     android:orientation="vertical"
     android:stateListAnimator="@animator/anim_home_card_press">
 
-    <com.zxcx.zhizhe.widget.CardImageView
+    <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/iv_item_card_icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
         android:scaleType="centerCrop"
         android:transitionName="cardImage"
         app:hasShade="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:riv_corner_radius="2dp"
         app:shade="@color/shade"
         tools:src="@drawable/iv_item_home_card_icon"/>
 
@@ -32,8 +33,8 @@
         android:id="@+id/tv_item_card_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="15dp"
         android:lineSpacingExtra="5dp"
         android:textColor="@color/text_color_1"
@@ -45,36 +46,46 @@
         tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
 
     <TextView
-        android:id="@+id/tv_item_card_category"
+        android:id="@+id/tv_item_card_time"
         style="@style/tv_card_category"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:text="1s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"/>
+
+    <TextView
+        android:id="@+id/tv_item_card_category"
+        style="@style/tv_card_category"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_card_time"
         app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"
         tools:text="数码产品"/>
 
     <TextView
         android:id="@+id/tv_item_card_label"
         style="@style/tv_card_label"
-        android:paddingBottom="12dp"
-        android:paddingEnd="12dp"
+        android:paddingBottom="10dp"
         android:paddingStart="12dp"
-        android:paddingTop="20dp"
+        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_item_card_category"
         app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"
         tools:text="#数码产品"/>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_item_card_label2"
         style="@style/tv_card_label"
-        android:paddingBottom="12dp"
-        android:paddingEnd="12dp"
-        android:paddingStart="5dp"
-        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:paddingStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:paddingTop="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_item_card_label"
         app:layout_constraintTop_toBottomOf="@+id/iv_item_card_icon"

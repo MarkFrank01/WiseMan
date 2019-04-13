@@ -46,8 +46,8 @@
 		<RadioButton
 			android:id="@+id/home_tab_rank"
 			style="@style/BottomTab"
-			android:drawableTop="@drawable/selector_home_rank"
-			android:text="@string/home_rank"/>
+			android:drawableTop="@drawable/selector_home_circle"
+			android:text="@string/home_circle"/>
 		
 		<RadioButton
 			android:id="@+id/home_tab_my"

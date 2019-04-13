@@ -40,11 +40,15 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
 
                 helper.setText(R.id.tv_item_card_title, item.name)
                 helper.setText(R.id.tv_item_card_category, item.categoryName)
-                helper.setText(R.id.tv_item_card_label, item.getLabelName())
-                if (item.getSecondLabelName()!=""&&item.getSecondLabelName().isNotEmpty()) {
-                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
-                    helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
+                if (item.labelName!=""&&item.labelName.isNotEmpty()) {
+                    helper.setText(R.id.tv_item_card_label, item.getLabelName())
+                }else{
+                    helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
                 }
+//                if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()) {
+//                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
+//                    helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
+//                }
                 helper.setText(R.id.tv_item_card_read, item.readNum.toString())
                 helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
@@ -55,11 +59,14 @@ class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean
                         R.string.card_category_transition_name)
                 helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
                         R.string.card_label_transition_name)
+
+                helper.setText(R.id.tv_item_card_time,item.distanceTime)
             }
 
             CardBean.Article_LINK -> {
                 helper.setText(R.id.tv_item_card_link,item.content)
-
+                        .setText(R.id.tv_item_card_title,item.name)
+                        .setText(R.id.tv_item_link_time,item.distanceTime)
             }
         }
     }

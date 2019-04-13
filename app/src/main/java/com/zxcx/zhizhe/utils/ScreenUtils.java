@@ -148,7 +148,7 @@ public class ScreenUtils {
 		float h = 0;
 		Bitmap bitmap = null;
 		Resources res = viewGroup.getContext().getResources();
-		Bitmap QRBitmap = BitmapFactory.decodeResource(res, R.drawable.iv_dialog_share_qr);
+		Bitmap QRBitmap = BitmapFactory.decodeResource(res, R.drawable.iv_dialog_share_qr2);
 		Paint paint = new Paint();
 		paint.setColor(ContextCompat.getColor(viewGroup.getContext(), R.color.background));
 		// 获取scrollview实际高度

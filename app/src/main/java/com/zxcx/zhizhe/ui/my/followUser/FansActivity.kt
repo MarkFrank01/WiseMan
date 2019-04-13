@@ -12,7 +12,6 @@ import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
 import com.zxcx.zhizhe.loadCallback.NetworkErrorCallback
 import com.zxcx.zhizhe.mvpBase.MvpActivity
-import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
@@ -104,7 +103,8 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 
 	override fun postSuccess(bean: SearchUserBean) {
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].isFollow = true
+//		mAdapter.data[position].isFollow = true
+        mAdapter.data[position].followType = 2
 		mAdapter.notifyItemChanged(position)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
@@ -115,7 +115,8 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 
 	override fun unFollowUserSuccess(bean: SearchUserBean) {
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].isFollow = false
+//		mAdapter.data[position].isFollow = false
+        mAdapter.data[position].followType = 0
 		mAdapter.notifyItemChanged(position)
 		EventBus.getDefault().post(FollowUserRefreshEvent())
 	}
@@ -154,10 +155,10 @@ class FansActivity : MvpActivity<FollowUserPresenter>(), FollowUserContract.View
 		mAdapter.setOnLoadMoreListener(this, rv_follow_user)
 		rv_follow_user.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_follow_user.adapter = mAdapter
-		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "点击创作 让更多的人知道你", R.drawable.no_data, View.OnClickListener {
+		val emptyView = EmptyView.getEmptyViewAndClick(mActivity, "暂无内容", "", R.drawable.no_data, View.OnClickListener {
 			if (ZhiZheUtils.isWriter(mActivity)) {
-				val intent = Intent(mActivity, CreationEditorActivity::class.java)
-				startActivity(intent)
+//				val intent = Intent(mActivity, CreationEditorActivity::class.java)
+//				startActivity(intent)
 			}
 		})
 		mAdapter.emptyView = emptyView

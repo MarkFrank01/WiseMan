@@ -1,104 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/background"
-	android:orientation="vertical">
-	
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/toolbar_height">
-		
-		<TextView
-			android:id="@+id/tv_toolbar_back"
-			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:layout_marginStart="10dp"
-			android:paddingStart="10dp"
-			android:paddingEnd="10dp"
-			android:gravity="center"
-			android:text="@string/common_cancel"
-			android:textColor="@color/text_color_1"
-			android:textSize="@dimen/text_size_text_1"/>
-		
-		<Space
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"/>
-		
-		<TextView
-			android:id="@+id/tv_toolbar_right"
-			android:layout_width="wrap_content"
-			android:layout_height="match_parent"
-			android:layout_marginStart="10dp"
-			android:paddingStart="10dp"
-			android:paddingEnd="10dp"
-			android:enabled="false"
-			android:gravity="center"
-			android:text="发布"
-			android:textColor="@color/color_text_enable_blue"
-			android:textSize="@dimen/text_size_text_1"/>
-	
-	</LinearLayout>
-	
-	<com.zxcx.zhizhe.richeditor.RichEditor
-		android:id="@+id/editor"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"/>
-	
-	<LinearLayout
-		android:id="@+id/ll_creation_editor_bottom"
-		android:background="@drawable/bg_creation_editor_bottom"
-		android:layout_width="match_parent"
-		android:layout_height="44dp">
-		
-		<ImageView
-			android:id="@+id/iv_creation_editor_add_image"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:clickable="false"
-			android:scaleType="centerInside"
-			android:src="@drawable/iv_add_image_no_clickable"/>
-		
-		<ImageView
-			android:id="@+id/iv_creation_editor_bold"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:clickable="false"
-			android:scaleType="centerInside"
-			android:src="@drawable/iv_bold_no_clickable"/>
-		
-		<ImageView
-			android:id="@+id/iv_creation_editor_center"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:clickable="false"
-			android:scaleType="centerInside"
-			android:src="@drawable/iv_center_no_clickable"/>
-		
-		<ImageView
-			android:id="@+id/iv_creation_editor_revocation"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:clickable="false"
-			android:scaleType="centerInside"
-			android:src="@drawable/iv_revocation_no_clickable"/>
-		
-		<ImageView
-			android:id="@+id/iv_creation_editor_more"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:clickable="false"
-			android:scaleType="centerInside"
-			android:src="@drawable/iv_toolbar_more"
-			android:visibility="gone"/>
-	</LinearLayout>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height">
+
+        <TextView
+            android:id="@+id/tv_toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="@string/common_cancel"
+            android:textColor="@color/text_color_1"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_toolbar_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="存为草稿"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"/>
+
+        <TextView
+            android:id="@+id/tv_toolbar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:text="发布"
+            android:textColor="@color/color_text_enable_blue"
+            android:textSize="@dimen/text_size_text_1"/>
+
+    </LinearLayout>
+
+    <com.zxcx.zhizhe.richeditor.RichEditor
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:id="@+id/ll_creation_editor_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_creation_editor_bottom">
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_add_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_add_image_no_clickable"/>
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_bold"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_bold_no_clickable"/>
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_center_no_clickable"/>
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_revocation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_revocation_no_clickable"/>
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_preview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_new_preview"/>
+
+
+        <ImageView
+            android:id="@+id/iv_creation_editor_more"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:scaleType="centerInside"
+            android:src="@drawable/iv_toolbar_more"
+            android:visibility="gone"/>
+    </LinearLayout>
 
 </LinearLayout>

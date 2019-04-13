@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.comment
 
+import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,8 +31,15 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		val item = bean as CommentBean
 		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)
 		val imageUrl = ZhiZheUtils.getHDImageUrl(item.userImageUrl)
-		ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
+        val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+
+        if (item.authorAuthenticationType!=0&&item.authorAuthenticationType == 1){
+            imageVIP.visibility = View.VISIBLE
+        }
+
+        ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 		helper.setText(R.id.tv_item_comment_name, item.userName)
+        helper.setText(R.id.tv_item_comment_distanceTime,item.distanceTime)
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
@@ -73,8 +81,16 @@ class CommentAdapter(data: MutableList<MultiItemEntity>) : BaseMultiItemQuickAda
 		val item = bean as ChildCommentBean
 		val imageView = helper.getView<ImageView>(R.id.iv_item_comment)
 		val imageUrl = ZhiZheUtils.getHDImageUrl(item.userImageUrl)
+
+        val imageVIP = helper.getView<ImageView>(R.id.iv_item_card_officials)
+
+        if (item.authorAuthenticationType!=0&&item.authorAuthenticationType == 1){
+            imageVIP.visibility = View.VISIBLE
+        }
+
 		ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 		helper.setText(R.id.tv_item_comment_name, item.userName)
+        helper.setText(R.id.tv_item_comment_distanceTime,item.distanceTime)
 		helper.setText(R.id.tv_item_comment_like_num, item.likeCount.toString())
 		helper.setText(R.id.tv_item_comment_content, item.content)
 		helper.setChecked(R.id.cb_item_comment_like, item.hasLike)
