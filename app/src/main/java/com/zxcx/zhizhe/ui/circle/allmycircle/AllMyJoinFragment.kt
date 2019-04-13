@@ -41,7 +41,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
         initRecycleView()
         onRefresh()
 
-        mPresenter.getRecommendCircleListWhenNoData()
+//        mPresenter.getRecommendCircleListWhenNoData()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -87,6 +87,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
     }
 
     override fun onLoadMoreRequested() {
+        onRefresh()
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

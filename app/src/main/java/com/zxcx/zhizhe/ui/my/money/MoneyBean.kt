@@ -8,5 +8,8 @@ import com.google.gson.annotations.SerializedName
  * @Description :
  */
 class MoneyBean {
-    @SerializedName("accountMoney")var accountMoney:String =""
+    @SerializedName("accountMoney")
+    var accountMoney: String = ""
+    @SerializedName("hasBeenWithdrawnThisMonth")
+    var hasBeenWithdrawnThisMonth: Boolean = false
 }

@@ -206,11 +206,11 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                 LogCat.e(checkBox.text.toString() + " 测试")
                 when (typetext) {
                     "已关闭" -> {
-                        guanbi(circleBean.modifiedTime, circleBean.unpassReason)
+                        guanbi(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason)
                     }
 
                     "未通过" -> {
-                        wtg(circleBean.modifiedTime, circleBean.unpassReason)
+                        wtg(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason)
                     }
 
                     "待提交" -> {
@@ -220,7 +220,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                     }
 
                     "审核中" -> {
-                        shenheing(circleBean.modifiedTime)
+                        shenheing(ZhiZheUtils.timeChange(circleBean.modifiedTime))
                     }
 
                     "限免中" -> {
@@ -236,7 +236,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                     }
 
                     "再编辑审核中" -> {
-                        shenheing(circleBean.modifiedTime)
+                        shenheing(ZhiZheUtils.timeChange(circleBean.modifiedTime))
                     }
 
                 }

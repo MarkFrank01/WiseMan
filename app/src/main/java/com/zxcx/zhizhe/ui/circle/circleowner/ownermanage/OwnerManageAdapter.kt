@@ -63,12 +63,17 @@ class OwnerManageAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardB
                     easySwipeMenuLayout.resetStatus()
                     mListener.onContentClick(mData.indexOf(item))
                 }
+
+                var iv_top_or_cancel = helper.getView<ImageView>(R.id.iv_top)
                 helper.getView<View>(R.id.iv_top).setOnClickListener {
                     easySwipeMenuLayout.resetStatus()
-                    LogCat.e("??"+item.circleFix)
                     if (item.circleFix){
+                        LogCat.e("现在是置顶"+item.name)
+                        ImageLoader.load(mContext,R.drawable.iv_cancel,iv_top_or_cancel)
                         mListener.onCancelTopClick(mData.indexOf((item)))
                     }else {
+                        LogCat.e("现在是取消"+item.name)
+                        ImageLoader.load(mContext,R.drawable.iv_top,iv_top_or_cancel)
                         mListener.onTopClick(mData.indexOf(item))
                     }
                 }

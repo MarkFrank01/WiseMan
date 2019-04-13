@@ -137,6 +137,7 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
         rv_content.scrollToPosition(0)
         mPresenter.setArticleFixTop(circleID,mAdapter.data[position].id,1)
 
+        mAdapter.data[position].circleFix = true
         mAdapter.add(0,mAdapter.data[position])
         mAdapter.remove(position+1)
 
@@ -149,6 +150,8 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
         mPresenter.setArticleFixTop(circleID,mAdapter.data[position].id,0)
         mPage = 0
         mPresenter.getArticleByCircleId(circleID, type, mPage, mPageSize)
+        mAdapter.data[position].circleFix = false
+        mAdapter.notifyItemChanged(position)
 //        toastShow("取消置顶ing")
 
     }

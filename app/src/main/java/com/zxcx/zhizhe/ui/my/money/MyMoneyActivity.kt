@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Description :
  */
 //class MyMoneyActivity :BaseActivity(){
-class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(),MyMoneyContract.View{
+class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(), MyMoneyContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +38,16 @@ class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(),MyMoneyContract.View{
     override fun setListener() {
         //去提现
         goto_tx.setOnClickListener {
-            mActivity.startActivity(GetMoneyActivity::class.java){}
+            mActivity.startActivity(GetMoneyActivity::class.java) {}
         }
 
         //去编辑支付宝
         load_more_load_end_view.setOnClickListener {
-            mActivity.startActivity(EditMyCountActivity::class.java){}
+            mActivity.startActivity(EditMyCountActivity::class.java) {}
         }
 
         tv_toolbar_right.setOnClickListener {
-            mActivity.startActivity(BillActivity::class.java){}
+            mActivity.startActivity(BillActivity::class.java) {}
         }
     }
 
@@ -56,8 +56,11 @@ class MyMoneyActivity : MvpActivity<MyMoneyPresenter>(),MyMoneyContract.View{
     }
 
     override fun getAccountDetailsSuccess(bean: MoneyBean) {
-        LogCat.e("money is "+bean.accountMoney)
+        LogCat.e("money is " + bean.accountMoney)
         money_count.text = bean.accountMoney
+        if (bean.hasBeenWithdrawnThisMonth) {
+            goto_tx.isEnabled = false
+        }
     }
 
     override fun applyForWithdrawalSuccess() {

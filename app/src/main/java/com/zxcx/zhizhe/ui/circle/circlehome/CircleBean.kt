@@ -110,7 +110,7 @@ class CircleBean(
     var circleActiveDistanceTime:String = ""
 
     @SerializedName("modifiedTime")
-    var modifiedTime:String = ""
+    var modifiedTime:Long = 0
 
     @SerializedName("unpassReason")
     var unpassReason:String = ""

@@ -454,6 +454,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         detail_num.visibility = View.VISIBLE
 
                         iv_toolbar_back.setImageResource(R.drawable.circle_back_white)
+                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.white))
+                        iv_toolbar_right1.setImageResource(R.drawable.cd_search)
+                        iv_toolbar_right2.setImageResource(R.drawable.circle_more_white)
                     }
 
                     State.COLLAPSED -> {
@@ -463,6 +466,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         detail_num.visibility = View.GONE
 
                         iv_toolbar_back.setImageResource(R.drawable.common_back)
+                        toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
+                        iv_toolbar_right1.setImageResource(R.drawable.circle_search)
+                        iv_toolbar_right2.setImageResource(R.drawable.iv_toolbar_more)
+
                     }
                     else -> {
                         //中间状态

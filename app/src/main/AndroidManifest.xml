@@ -377,6 +377,7 @@
             android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:theme="@style/ImageTranslucentTheme"
             android:name=".ui.circle.circledetaile.CircleDetaileActivity"
             android:screenOrientation="portrait"/>
 

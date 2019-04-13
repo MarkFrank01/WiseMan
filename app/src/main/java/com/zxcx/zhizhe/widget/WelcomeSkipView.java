@@ -23,7 +23,7 @@ import com.zxcx.zhizhe.utils.ScreenUtils;
 
 public class WelcomeSkipView extends android.support.v7.widget.AppCompatTextView {
 	
-	public int countdown = 5;
+	public int countdown = 3;
 	private String text = "跳过";
 	private Paint backgroundPaint = new Paint();
 	private Paint circlePaint = new Paint();
