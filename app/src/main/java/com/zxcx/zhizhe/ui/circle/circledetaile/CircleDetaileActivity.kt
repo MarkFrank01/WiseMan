@@ -752,26 +752,28 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //加入圈子
     private fun JoinCircle(t1: String, t2: String, t3: String, t4: String) {
 
-        if (t4.parseFloat() > 0) {
-            XPopup.get(mActivity)
-                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
-                            OnSelectListener { position, text ->
-                                mPresenter.joinCircleByZzbForAndroid(circleID)
-                            })
-                    ).show()
-        } else {
-            XPopup.get(mActivity)
-                    .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
-                            OnSelectListener { position, text ->
-                                if (checkLogin()) {
-                                    mActivity.startActivity(SelectPayActivity::class.java) {
-                                        it.putExtra("circleId", circleID)
-                                        it.putExtra("circleName", circlename)
-                                        it.putExtra("circlePrice", circleprice)
+        if (checkLogin()) {
+            if (t4.parseFloat() > 0) {
+                XPopup.get(mActivity)
+                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
+                                OnSelectListener { position, text ->
+                                    mPresenter.joinCircleByZzbForAndroid(circleID)
+                                })
+                        ).show()
+            } else {
+                XPopup.get(mActivity)
+                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
+                                OnSelectListener { position, text ->
+                                    if (checkLogin()) {
+                                        mActivity.startActivity(SelectPayActivity::class.java) {
+                                            it.putExtra("circleId", circleID)
+                                            it.putExtra("circleName", circlename)
+                                            it.putExtra("circlePrice", circleprice)
+                                        }
                                     }
-                                }
-                            })
-                    ).show()
+                                })
+                        ).show()
+            }
         }
     }
 
