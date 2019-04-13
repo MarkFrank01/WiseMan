@@ -21,7 +21,7 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="60dp"
                 android:src="@drawable/my_ewm"/>
 
             <TextView
@@ -30,12 +30,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="16dp"
                 android:text="ADMNA"
                 android:textSize="36dp"/>
 
             <TextView
-                android:layout_marginTop="5dp"
                 android:textColor="@color/button_blue"
                 android:textSize="12sp"
                 android:layout_gravity="center"
@@ -46,7 +45,7 @@
             <RelativeLayout
                 android:id="@+id/share_to_invite"
                 android:background="@drawable/bg_backbutton2"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
                 android:layout_width="164dp"
                 android:layout_height="44dp">
@@ -62,35 +61,35 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="40dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_marginTop="58dp">
 
                 <TextView
-                    android:layout_marginStart="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
                     android:text="我的邀请记录"
                     android:textColor="@color/text_color_1"
                     android:textSize="17sp"
                     android:textStyle="bold"/>
 
                 <Space
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
 
                 <TextView
-                    android:layout_marginEnd="18dp"
                     android:id="@+id/man_num"
-                    android:gravity="center"
-                    android:textColor="@color/text_color_3"
-                    android:textSize="12sp"
-                    android:text="0/10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:gravity="center"
+                    android:text="0/10"
+                    android:textColor="@color/text_color_3"
+                    android:textSize="12sp"/>
 
             </LinearLayout>
 

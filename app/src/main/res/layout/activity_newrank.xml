@@ -92,9 +92,9 @@
 
                 <TextView
                     android:id="@+id/tv_my_lv"
-                    style="@style/tv_single"
                     android:layout_width="50dp"
                     android:layout_height="20dp"
+                    android:layout_marginTop="78dp"
                     android:gravity="center"
                     android:textColor="@color/white_final"
                     android:textSize="17sp"
@@ -102,21 +102,21 @@
                     app:layout_constraintBottom_toBottomOf="@+id/iv_my_head"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_my_head"
-                    tools:text="1000"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="100"/>
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/tv_to_login"
-                android:textStyle="bold"
-                android:textColor="@color/button_blue"
-                android:text="登录查看排名"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="52dp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="52dp"
+                android:layout_marginTop="28dp"
+                android:text="登录查看排名"
+                android:textColor="@color/button_blue"
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/show_rank"

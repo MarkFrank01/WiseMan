@@ -78,7 +78,7 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         iv_zhili.text = bean.intelligence.toString()
         chaoguo.text = bean.percentageOfUsersExceeded.toString()+"%"
         shangban.text = bean.onRankCount.toString()
-        tv_my_lv.text = bean.rankIndex.toString()
+        tv_my_lv.text = "No."+bean.rankIndex.toString()
 
     }
 

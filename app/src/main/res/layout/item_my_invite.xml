@@ -42,7 +42,7 @@
         android:id="@+id/invite_get"
         style="@style/tv_single"
         android:layout_width="72dp"
-        android:layout_height="30dp"
+        android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:background="@drawable/bg_backbutton2"

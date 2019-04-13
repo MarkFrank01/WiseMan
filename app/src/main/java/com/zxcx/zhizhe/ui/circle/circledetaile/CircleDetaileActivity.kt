@@ -130,6 +130,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         if (!Constants.IS_NIGHT) {
             mImmersionBar
                     .statusBarColor(R.color.translate)
+                    .transparentStatusBar()
                     .statusBarDarkFont(true, 0.2f)
                     .flymeOSStatusBarFontColor(R.color.text_color_1)
                     .keyboardEnable(true)
@@ -453,7 +454,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         detail_star.visibility = View.VISIBLE
                         detail_num.visibility = View.VISIBLE
 
-                        iv_toolbar_back.setImageResource(R.drawable.circle_back_white)
+                        iv_toolbar_back.setImageResource(R.drawable.common_back_white)
                         toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.white))
                         iv_toolbar_right1.setImageResource(R.drawable.cd_search)
                         iv_toolbar_right2.setImageResource(R.drawable.circle_more_white)
