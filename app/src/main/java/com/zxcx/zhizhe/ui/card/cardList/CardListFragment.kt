@@ -59,11 +59,15 @@ class CardListFragment : BaseFragment(), IGetPresenter<MutableList<CardCategoryB
     override fun setListener() {
         //处理置顶的分类
         change_top_more.setOnClickListener {
-            mActivity.startActivity(TopChangeActivity::class.java){}
+            if (checkLogin()) {
+                mActivity.startActivity(TopChangeActivity::class.java) {}
+            }
         }
 
         show_empty_view.setOnClickListener {
-            mActivity.startActivity(TopChangeActivity::class.java){}
+            if (checkLogin()) {
+                mActivity.startActivity(TopChangeActivity::class.java) {}
+            }
         }
     }
 

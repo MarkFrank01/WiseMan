@@ -90,7 +90,9 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
         }
 
         change_top_more.setOnClickListener {
-            mActivity.startActivity(TopChangeActivity::class.java){}
+            if (checkLogin()) {
+                mActivity.startActivity(TopChangeActivity::class.java) {}
+            }
         }
     }
 

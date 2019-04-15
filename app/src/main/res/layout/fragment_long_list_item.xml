@@ -51,6 +51,7 @@
             </FrameLayout>
 
             <View
+                android:visibility="gone"
                 android:id="@+id/fl_line"
                 android:layout_marginTop="15dp"
                 android:background="@color/bg_card_bag"

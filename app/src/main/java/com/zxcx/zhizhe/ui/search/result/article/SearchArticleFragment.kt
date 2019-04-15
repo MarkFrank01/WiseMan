@@ -52,6 +52,9 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 	}
 
 	override fun getDataSuccess(list: MutableList<CardBean>) {
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)
+        mAdapter.emptyView = emptyView
+
 		mAdapter.mKeyword = mKeyword
 		if (mPage == 0) {
 			mAdapter.setNewData(list)
@@ -88,7 +91,6 @@ class SearchArticleFragment : MvpFragment<SearchCardPresenter>(), SearchCardCont
 		rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
 		rv_search_result.adapter = mAdapter
 		rv_search_result.addItemDecoration(ArticleItemDecoration())
-		val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)
-		mAdapter.emptyView = emptyView
+
 	}
 }

@@ -9,6 +9,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.dynamic_content
 import com.zxcx.zhizhe.ui.circle.circlehome.dynamic_date
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
@@ -34,13 +35,21 @@ class CircleNewAdapter(data: List<MultiItemEntity>) :
                 ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
 
-                if (item.price =="0.00"){
-                    helper.setText(R.id.more_price,"限免")
-                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price_red)
-                }else{
-                    helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
-                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price)
+                helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
+                helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price)
+
+                if (item.statusType == 1) {
+                    helper.setText(R.id.more_price, "限免")
+                    helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price_red)
                 }
+
+//                if (item.price =="0.00"){
+//                    helper.setText(R.id.more_price,"限免")
+//                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price_red)
+//                }else{
+//                    helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
+//                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price)
+//                }
 
                 helper.setText(R.id.tv_circle_title, item1.title)
                         .setText(R.id.more_circle_type, item1.classifyVO?.title)
@@ -101,14 +110,22 @@ class CircleNewAdapter(data: List<MultiItemEntity>) :
                 val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
                 ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
+                helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
+                helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price)
 
-                if (item.price =="0.00"){
-                    helper.setText(R.id.more_price,"限免")
-                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price_red)
-                }else{
-                    helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
-                    helper.setBackgroundRes(R.id.more_price,R.drawable.circle_price)
+                if (item.statusType == 1) {
+                    LogCat.e("!!! ??")
+                    helper.setText(R.id.more_price, "限免")
+                    helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price_red)
                 }
+
+//                if (item.price == "0.00") {
+//                    helper.setText(R.id.more_price, "限免")
+//                    helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price_red)
+//                } else {
+//                    helper.setText(R.id.more_price, "￥" + item.price.toFloat().toInt())
+//                    helper.setBackgroundRes(R.id.more_price, R.drawable.circle_price)
+//                }
 
                 helper.setText(R.id.tv_circle_title, item1.title)
                         .setText(R.id.more_circle_type, item1.classifyVO?.title)

@@ -206,7 +206,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             mClassifySAVEData.add(it)
         }
 
-        if (mClassifyPage < 3) {
+        if (mClassifyPage < 1) {
             mClassifyPage++
             mPresenter.getClassify(mClassifyPage, mClassifyPageSize)
         } else {

@@ -78,7 +78,7 @@ class CircleBean(
     val creater:CircleUserBean? = null
 
     @SerializedName("statusType")
-    val statusType:Int = -11
+    var statusType:Int = -11
 
     @SerializedName("toBeAddedInfoVO")
     val toBeAddedInfoVO:CircleIWaitContentBean? =null

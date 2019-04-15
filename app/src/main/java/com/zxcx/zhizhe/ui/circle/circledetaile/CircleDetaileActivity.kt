@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpActivity
 import com.zxcx.zhizhe.pay.SelectPayActivity
 import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
+import com.zxcx.zhizhe.ui.card.share.ShareDialog
 import com.zxcx.zhizhe.ui.circle.adapter.CircleDetaileAdapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.recommend.CircleRecommendActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
@@ -37,7 +38,6 @@ import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
-import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import com.zxcx.zhizhe.widget.gridview.GridItemClickListener
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
 import kotlinx.android.synthetic.main.layout_circle_detail.*
@@ -185,14 +185,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             ll_comment_input.isEnabled = false
             et_comment.isEnabled = false
 
-//            iv_toolbar_right1.visibility = View.GONE
+            iv_toolbar_right1.visibility = View.GONE
         } else {
             bottom_bt.visibility = View.GONE
             ll_join.visibility = View.GONE
             ll_comment_input.isEnabled = true
             et_comment.isEnabled = true
 
-//            iv_toolbar_right1.visibility = View.VISIBLE
+            iv_toolbar_right1.visibility = View.VISIBLE
         }
 
         circlename = bean.title
@@ -342,10 +342,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         iv_toolbar_right2.setOnClickListener {
-            if (mCircleImOwner) {
-                chooseMoreOwner()
+            if (hasJoinBoolean) {
+                if (mCircleImOwner) {
+                    chooseMoreOwner()
+                } else {
+                    chooseMore()
+                }
             } else {
-                chooseMore()
+                showshare()
             }
         }
 
@@ -664,27 +668,35 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //分享
     //弹出分享四兄弟
     private fun showshare() {
-        XPopup.get(mActivity)
-                .asCustom(CircleBottomSharePopup(this,
-                        OnSelectListener { position, text ->
-                            when (position) {
-                                1 -> {
-                                    toastShow("微信")
-                                }
-
-                                2 -> {
-                                    toastShow("朋友圈")
-                                }
-
-                                3 -> {
-                                    toastShow("球球号")
-                                }
-                                4 -> {
-                                    toastShow("微博")
-                                }
-                            }
-                        })
-                ).show()
+        val shareCardDialog = ShareDialog()
+        val bundle = Bundle()
+        bundle.putString("title", circlename)
+        bundle.putString("text", mIntroduction)
+        bundle.putString("url", "http://120.77.180.183:7080/circle-share.html?id=" + circleID)
+        bundle.putString("imageUrl", mImageUrl)
+        shareCardDialog.arguments = bundle
+        shareCardDialog.show(supportFragmentManager, "")
+//        XPopup.get(mActivity)
+//                .asCustom(CircleBottomSharePopup(this,
+//                        OnSelectListener { position, text ->
+//                            when (position) {
+//                                1 -> {
+//                                    toastShow("微信")
+//                                }
+//
+//                                2 -> {
+//                                    toastShow("朋友圈")
+//                                }
+//
+//                                3 -> {
+//                                    toastShow("球球号")
+//                                }
+//                                4 -> {
+//                                    toastShow("微博")
+//                                }
+//                            }
+//                        })
+//                ).show()
     }
 
     //举报圈子
