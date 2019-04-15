@@ -27,7 +27,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="54dp"
                     android:src="@drawable/my_ewm"/>
 
                 <TextView
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="22dp"
                     android:text="ADMNA"
                     android:textColor="@color/text_color_2"
                     android:textSize="36dp"/>
@@ -54,7 +54,7 @@
                     android:layout_height="44dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/bg_backbutton2">
+                    android:background="@drawable/bg_backbutton3">
 
                     <TextView
                         android:layout_width="wrap_content"
