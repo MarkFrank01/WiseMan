@@ -42,5 +42,6 @@ class MyFragmentPresenter(view:MyFragmentContract.View): BasePresenter<MyFragmen
     }
 
     override fun startLogin() {
+        mView.startLogin()
     }
 }

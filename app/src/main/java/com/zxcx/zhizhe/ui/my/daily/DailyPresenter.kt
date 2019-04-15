@@ -40,6 +40,7 @@ class DailyPresenter(view: DailyContract.View) : BasePresenter<DailyContract.Vie
     }
 
     override fun startLogin() {
+        mView.startLogin()
     }
 
 }

@@ -68,6 +68,7 @@ class SelectInterestPresenter(view:SelectInterestContract.View):BasePresenter<Se
     }
 
     override fun startLogin() {
+        mView.startLogin()
     }
 
 }
