@@ -33,6 +33,11 @@ class AllMyCircleAdapter(data:List<CircleBean>):
         helper.setText(R.id.tv_item_circle_classify_topic,"话题"+item.qaCount)
         helper.setText(R.id.tv_item_circle_classify_type,item.classifytitle)
 
+        if (item.endServiceDistanceTime!=""&&item.endServiceDistanceTime.isNotEmpty()){
+            helper.setText(R.id.time_to_end,item.endServiceDistanceTime)
+        }
+
+
         val checkBox = helper.getView<CheckBox>(R.id.cb_item_select_join_circle2)
         if (item.hasJoin){
             checkBox.text = "进圈"

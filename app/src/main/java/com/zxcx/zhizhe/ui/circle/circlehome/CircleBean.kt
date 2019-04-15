@@ -118,6 +118,14 @@ class CircleBean(
     @SerializedName("memberExpirationTime")
     var memberExpirationTime:String = ""
 
+    //圈子消失的时间，待提交的时间
+    @SerializedName("circleExpiredDistanceTime")
+    var circleExpiredDistanceTime:String = ""
+
+    //会员到期的时间
+    @SerializedName("endServiceDistanceTime")
+    var endServiceDistanceTime:String = ""
+
     var ItemTP = 2
 
     override fun getItemType(): Int {

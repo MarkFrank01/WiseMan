@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 
@@ -31,6 +32,11 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
         helper.setText(R.id.tv_item_circle_classify_join, "加入" + item.joinUserCount)
         helper.setText(R.id.tv_item_circle_classify_topic, "话题" + item.qaCount)
         helper.setText(R.id.tv_item_circle_classify_type,item.classifytitle)
+
+        LogCat.e("?????"+item.circleExpiredDistanceTime)
+        if (item.circleExpiredDistanceTime!=""&&item.circleExpiredDistanceTime.isNotEmpty()) {
+            helper.setText(R.id.time_to_chuli, "剩余" + item.circleExpiredDistanceTime + "天")
+        }
 
 
 //        helper.getView<CheckBox>(R.id.cb_item_select_join_circle2).visibility = View.GONE
