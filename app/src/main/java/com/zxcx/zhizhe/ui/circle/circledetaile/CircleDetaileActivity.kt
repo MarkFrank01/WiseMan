@@ -513,10 +513,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //                        intent.putExtra("cardBean", list.partialArticleList[position])
 //                        mActivity.startActivity(intent)
 
-                        mActivity.startActivity(ArticleDetailsActivity::class.java){
-                            it.putExtra("cardBean",list.partialArticleList[position])
+                        mActivity.startActivity(ArticleDetailsActivity::class.java) {
+                            it.putExtra("cardBean", list.partialArticleList[position])
                         }
-                    }else if (type == 1){
+                    } else if (type == 1) {
                         mActivity.startActivity(SingleCardDetailsActivity::class.java) {
                             it.putExtra("cardBean", list.partialArticleList[position])
                         }
@@ -596,6 +596,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                             startActivity(CirclePingFenActivity::class.java) {
                                 it.putExtra("circleId", circleID)
                             }
+                        }
+
+                        2 -> {
+                            xufei(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
                         }
 
                         3 -> {
@@ -764,6 +768,33 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             if (t4.parseFloat() > 0) {
                 XPopup.get(mActivity)
                         .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
+                                OnSelectListener { position, text ->
+                                    mPresenter.joinCircleByZzbForAndroid(circleID)
+                                })
+                        ).show()
+            } else {
+                XPopup.get(mActivity)
+                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
+                                OnSelectListener { position, text ->
+                                    if (checkLogin()) {
+                                        mActivity.startActivity(SelectPayActivity::class.java) {
+                                            it.putExtra("circleId", circleID)
+                                            it.putExtra("circleName", circlename)
+                                            it.putExtra("circlePrice", circleprice)
+                                        }
+                                    }
+                                })
+                        ).show()
+            }
+        }
+    }
+
+    //续费
+    private fun xufei(t1: String, t2: String, t3: String, t4: String) {
+        if (checkLogin()) {
+            if (t4.parseFloat() > 0) {
+                XPopup.get(mActivity)
+                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即续费", -1,
                                 OnSelectListener { position, text ->
                                     mPresenter.joinCircleByZzbForAndroid(circleID)
                                 })
