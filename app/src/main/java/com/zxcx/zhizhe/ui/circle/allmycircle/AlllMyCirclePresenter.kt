@@ -51,6 +51,7 @@ class AlllMyCirclePresenter(view:AllMyCircleContract.View):BasePresenter<AllMyCi
     }
 
     override fun startLogin() {
+        mView.startLogin()
     }
 
 }

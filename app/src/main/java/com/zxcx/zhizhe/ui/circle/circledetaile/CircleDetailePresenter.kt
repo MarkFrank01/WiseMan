@@ -114,6 +114,7 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
     }
 
     override fun startLogin() {
+        mView.startLogin()
     }
 
 }
