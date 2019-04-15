@@ -565,6 +565,8 @@ class CreationEditorActivity : BaseActivity(),
 
 //                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
 //					editor.setLabel(labelName, classifyId)
+                    LogCat.e("labelName is "+labelName +"twolabelName is "+twolabelName)
+                    LogCat.e("classifyName"+classifyName+" classifyId"+classifyId)
                     editor.twoSetLabel(labelName, twolabelName, classifyId,classifyName)
                 }
                 Constants.CLIP_IMAGE -> {

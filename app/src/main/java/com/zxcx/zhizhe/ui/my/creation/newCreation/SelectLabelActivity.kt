@@ -457,6 +457,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //            }
             val intent = Intent(this, SelectDetailActivity::class.java)
             intent.putExtra("list", listtoNext as ArrayList)
+            intent.putExtra("classifyName",mSelectedClassify?.title)
             startActivityForResult(intent, BackBack)
         }
 
@@ -601,10 +602,10 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
             when (requestCode) {
                 BackBack -> {
                     val intent = Intent()
-                    intent.putExtra("labelName", "")
-                    intent.putExtra("twoLabelName", "")
+                    intent.putExtra("labelName", data.getStringExtra("labelName"))
+                    intent.putExtra("twoLabelName", data.getStringExtra("labelName2"))
                     intent.putExtra("classifyId", mSelectedClassify?.id)
-                    intent.putExtra("classifyName", data.getStringExtra("labelName2"))
+                    intent.putExtra("classifyName", mSelectedClassify?.title)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
                 }

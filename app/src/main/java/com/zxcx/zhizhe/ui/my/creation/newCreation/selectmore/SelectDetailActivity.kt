@@ -46,8 +46,10 @@ class SelectDetailActivity : BaseActivity() {
     private var mPushData: MutableList<String> = ArrayList()
     //存放单独的官方类别数据
     private var mSingleLable: String = ""
+
     //存放单独的分类数据
     private var mSingleClassify: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +63,9 @@ class SelectDetailActivity : BaseActivity() {
 
     private fun initData() {
         mCollectionList = intent.getParcelableArrayListExtra<ClassifyCardBean>("list")
-        LogCat.e("SIZE IS" + mCollectionList.size)
+        mSingleClassify = intent.getStringExtra("classifyName")
+
+        LogCat.e("mSingleClassify is "+mSingleClassify)
     }
 
     private fun initView() {
@@ -73,8 +77,32 @@ class SelectDetailActivity : BaseActivity() {
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            //            toastShow("text is " + textBack)
             val intent = Intent()
+
+            if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
+                LogCat.e("单官方")
+                mTheFirst = mSingleLable
+            }
+
+            LogCat.e("SIZE" + mPushData.size)
+            if (mPushData.size == 1) {
+
+                LogCat.e("单标签或者是")
+
+                if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
+                    LogCat.e("单官方和单自定义")
+                    mTheSecond = mPushData[0]
+                } else if (mSingleLable == "") {
+                    LogCat.e("单自定义")
+                    mTheFirst = mPushData[0]
+                }
+            } else if (mPushData.size > 1) {
+                LogCat.e("双标签")
+                mTheFirst = mPushData[0]
+                mTheSecond = mPushData[1]
+            }
+
+            intent.putExtra("labelName", mTheFirst)
             intent.putExtra("labelName2", mTheSecond)
             setResult(Activity.RESULT_OK, intent)
             finish()
@@ -196,18 +224,28 @@ class SelectDetailActivity : BaseActivity() {
             checkBox.setOnClickListener {
 
 
-                if (checkBox.isChecked) {
+                if (checkBox.isChecked && mPushData.size < 2) {
                     checkBox.setBackgroundResource(R.drawable.select_label)
                     checkBox.setTextColor(mActivity.getColorForKotlin(R.color.white))
-                    mTheSecond = mCollectionList[i].name.toString()
+//                    mTheSecond = mCollectionList[i].name.toString()
+
+                    mPushData.add(mCollectionList[i].name+"")
 
                     LogCat.e("选中的位置是" + i)
+
+                    mSingleLable = mCollectionList[i].name.toString()
 
                 } else {
                     checkBox.setBackgroundResource(R.drawable.select_unlabel)
                     checkBox.setTextColor(mActivity.getColorForKotlin(R.color.text_color_2))
 
+                    if (mPushData.find { it == checkBox.text.toString().trim() } != null) {
+                        mPushData.remove(mCollectionList[i].name+"")
+                    }
+//                    mPushData.remove(checkBox.toString().trim())
                     LogCat.e("取消选中的位置是" + i)
+
+                    mSingleLable = ""
                 }
             }
 
