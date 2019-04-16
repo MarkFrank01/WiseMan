@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
+import com.gyf.barlibrary.ImmersionBar;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseActivity;
 import com.zxcx.zhizhe.mvpBase.BaseRxJava;
@@ -21,7 +20,12 @@ import com.zxcx.zhizhe.utils.SharedPreferencesUtil;
 import com.zxcx.zhizhe.utils.StringUtils;
 import com.zxcx.zhizhe.utils.Utils;
 import com.zxcx.zhizhe.widget.WelcomeSkipView;
+
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 启动广告页
@@ -70,6 +74,9 @@ public class WelcomeActivity extends BaseActivity implements IGetPresenter<List<
 	@Override
 	public void initStatusBar() {
 		//覆盖父类修改状态栏方法
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.keyboardEnable(true);
+        mImmersionBar.init();
 	}
 	
 	@Override
