@@ -62,6 +62,10 @@ public class CirclePopup extends BottomPopupView {
                     holder.setVisible(R.id.iv_image, false);
                 }
 
+                if (position == data.length-1){
+                    holder.setVisible(R.id.line,false);
+                }
+
                 if (checkedPosition != -1) {
 //                    holder.setVisible(R.id.check_view,position == checkedPosition);
 //                    holder.<CheckView>getView(R.id.check_view).setColor(getResources().getColor(R.color.black));

@@ -1,6 +1,5 @@
 package com.zxcx.zhizhe.ui.my.invite
 
-import android.view.View
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -35,6 +34,6 @@ class MyInviteAdapter(data:List<InviteBean>):BaseQuickAdapter<InviteBean,BaseVie
             helper.getView<CheckBox>(R.id.invite_get).setBackgroundResource(R.drawable.bg_backbutton2)
         }
 
-        helper.getView<CheckBox>(R.id.invite_get).visibility = View.GONE
+//        helper.getView<CheckBox>(R.id.invite_get).visibility = View.GONE
     }
 }

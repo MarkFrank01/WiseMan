@@ -30,16 +30,17 @@
                 app:expandedTitleMarginStart="10dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
+                <com.zxcx.zhizhe.widget.CardRoundedImageView
                     android:id="@+id/detail_src_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.5"
                     app:layout_constraintDimensionRatio="4:3"
-                    tools:src="@color/black"/>
+                    app:hasShade="true"
+                    app:shade="@drawable/shade_top_6dp_black"
+                    tools:src="@drawable/iv_item_home_card_icon"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -429,7 +430,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="12sp"
+                        android:layout_marginEnd="12dp"
                         android:layout_marginStart="12dp"
                         android:lineSpacingExtra="5dp"
                         android:textSize="17sp"
@@ -616,6 +617,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_marginTop="5dp"
@@ -677,6 +679,7 @@
                 </LinearLayout>
 
                 <View
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_marginTop="5dp"

@@ -37,6 +37,7 @@ import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
+import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinXFPopup
 import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import com.zxcx.zhizhe.widget.gridview.GridItemClickListener
 import com.zxcx.zhizhe.widget.gridview_tj.ContentBean
@@ -806,14 +807,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         if (checkLogin()) {
             if (t4.parseFloat() > 0) {
                 XPopup.get(mActivity)
-                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即续费", -1,
+                        .asCustom(CircleJoinXFPopup(this, t1, t2, t3, t4, "立即续费", -1,
                                 OnSelectListener { position, text ->
                                     mPresenter.joinCircleByZzbForAndroid(circleID)
                                 })
                         ).show()
             } else {
                 XPopup.get(mActivity)
-                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
+                        .asCustom(CircleJoinXFPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
                                 OnSelectListener { position, text ->
                                     if (checkLogin()) {
                                         mActivity.startActivity(SelectPayActivity::class.java) {

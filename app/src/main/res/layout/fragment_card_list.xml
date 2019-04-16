@@ -15,11 +15,9 @@
 
         <com.zxcx.zhizhe.widget.CardListTabLayout
             android:layout_marginStart="4dp"
-            android:layout_marginEnd="50dp"
             android:id="@+id/tl_card_list"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            app:tabBackground="@color/translate"
             app:tabGravity="fill"
             app:tabIndicatorHeight="0dp"
             app:tabMaxWidth="100dp"
@@ -29,6 +27,12 @@
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
             app:tabPaddingTop="0dp"/>
+
+        <ImageView
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/top_bg"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"/>
 
         <ImageView
             android:id="@+id/change_top_more"

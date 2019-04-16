@@ -68,6 +68,7 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         mAdapter.setNewData(list)
 
         if (list.size < 1) {
+            rv_my_invite.visibility = View.GONE
             show_empty_1.visibility = View.VISIBLE
             show_empty_2.visibility = View.VISIBLE
         }

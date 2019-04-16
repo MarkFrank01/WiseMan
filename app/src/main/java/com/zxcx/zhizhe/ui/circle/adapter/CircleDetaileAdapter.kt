@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
 import android.view.View
+import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
@@ -35,7 +36,12 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
 
 
         helper.setText(R.id.circle_detail_text, itemBean.title)
-        helper.setText(R.id.circle_detail_content, itemBean.description)
+        if (itemBean.description!=""&&item.description.isNotEmpty()) {
+            helper.setText(R.id.circle_detail_content, itemBean.description)
+            helper.addOnClickListener(R.id.circle_detail_content)
+        }else{
+            helper.getView<TextView>(R.id.circle_detail_content).visibility = View.GONE
+        }
         helper.setText(R.id.circle_detail_time,itemBean.distanceTime)
         helper.setText(R.id.tv_item_card_read1,""+itemBean.likeCount)
         helper.setText(R.id.tv_item_card_comment1,""+itemBean.commentCount)
@@ -45,7 +51,6 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         helper.addOnClickListener(R.id.circle_detail_img)
 
         helper.addOnClickListener(R.id.circle_detail_more)
-        helper.addOnClickListener(R.id.circle_detail_content)
     }
 
 

@@ -90,6 +90,7 @@
     </LinearLayout>
 
     <TextView
+        android:maxLines="1"
         android:ellipsize="end"
         android:maxLength="15"
         android:id="@+id/tv_item_circle_classify_desc"
