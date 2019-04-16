@@ -358,8 +358,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //        }
 
         goto_jx.setOnClickListener {
-            mActivity.startActivity(CircleRecommendActivity::class.java) {
-                it.putExtra("circleID", circleID)
+            if (hasJoinBoolean) {
+                mActivity.startActivity(CircleRecommendActivity::class.java) {
+                    it.putExtra("circleID", circleID)
+                }
             }
         }
 
@@ -512,17 +514,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 }
 
                 override fun click_type(pos: Int, position: Int, str: String?, type: Int) {
-                    if (type == 2) {
-//                        val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
-//                        intent.putExtra("cardBean", list.partialArticleList[position])
-//                        mActivity.startActivity(intent)
-
-                        mActivity.startActivity(ArticleDetailsActivity::class.java) {
-                            it.putExtra("cardBean", list.partialArticleList[position])
-                        }
-                    } else if (type == 1) {
-                        mActivity.startActivity(SingleCardDetailsActivity::class.java) {
-                            it.putExtra("cardBean", list.partialArticleList[position])
+                    if (hasJoinBoolean) {
+                        if (type == 2) {
+                            mActivity.startActivity(ArticleDetailsActivity::class.java) {
+                                it.putExtra("cardBean", list.partialArticleList[position])
+                            }
+                        } else if (type == 1) {
+                            mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+                                it.putExtra("cardBean", list.partialArticleList[position])
+                            }
                         }
                     }
                 }
