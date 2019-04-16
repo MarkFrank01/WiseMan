@@ -104,7 +104,7 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
             }
 
             R.id.con_click -> {
-                toastShow("续费")
+//                toastShow("续费")
             }
         }
     }

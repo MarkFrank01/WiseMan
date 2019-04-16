@@ -34,7 +34,6 @@ import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
-import com.zxcx.zhizhe.widget.DefaultRefreshHeader
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinXFPopup
@@ -122,6 +121,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK && requestCode == 1 && data != null) {
+            mHuaTiPage = 0
             onRefresh()
         }
     }
@@ -147,8 +147,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout?) {
-        mHuaTiPage = 0
-        onRefresh()
+
     }
 
     override fun createPresenter(): CircleDetailePresenter {
@@ -256,10 +255,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
-            (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
-            mRefreshLayout.finishRefresh()
+//            (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
+//            mRefreshLayout.finishRefresh()
             mAdapter.setNewData(list)
-            rv_circle_detail.scrollToPosition(0)
 
 //            mHuaTiPage++
 //            onRefresh()
@@ -267,11 +265,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             mAdapter.addData(list)
         }
 
-        mAdapter.notifyDataSetChanged()
+//        mAdapter.notifyDataSetChanged()
+//        rv_circle_detail.scrollToPosition(0)
 
         mHuaTiPage++
 
-        if (list.isEmpty()) {
+        if (list.size<Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false)
         } else {
             mAdapter.loadMoreComplete()

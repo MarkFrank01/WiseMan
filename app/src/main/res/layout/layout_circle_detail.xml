@@ -39,7 +39,7 @@
                     app:layout_collapseParallaxMultiplier="0.5"
                     app:layout_constraintDimensionRatio="4:3"
                     app:hasShade="true"
-                    app:shade="@drawable/shade_top_6dp_black"
+                    app:shade="@drawable/shade_top_6dp_black_no"
                     tools:src="@drawable/iv_item_home_card_icon"/>
 
                 <android.support.v7.widget.Toolbar
@@ -292,6 +292,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="3dp"
+                    android:layout_marginBottom="6dp"
                     android:orientation="horizontal">
 
                     <com.makeramen.roundedimageview.RoundedImageView
@@ -307,10 +308,10 @@
                         app:riv_oval="true"/>
 
                     <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="11dp"
                         android:background="@drawable/grey_round"
                         android:scaleType="centerCrop"
                         app:layout_constraintStart_toStartOf="parent"
@@ -408,10 +409,11 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginBottom="10dp"
                     android:id="@+id/ll_join"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:visibility="gone">
 
@@ -441,7 +443,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="19dp"
                         android:text="付费说明"
                         android:textColor="@color/text_color_1"
                         android:textSize="17sp"
@@ -503,7 +505,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginTop="8dp"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -532,7 +533,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:layout_marginStart="12dp"
-                        android:layout_marginTop="13dp"
+                        android:layout_marginTop="15dp"
                         android:text="会员权益"
                         android:textColor="@color/text_color_1"
                         android:textSize="17sp"
@@ -674,7 +675,7 @@
                     <com.zxcx.zhizhe.widget.gridview_tj.TJGridViewPager
                         android:id="@+id/gv_circle_classify2"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                        android:layout_height="185dp"/>
 
                 </LinearLayout>
 
@@ -686,6 +687,7 @@
                     android:background="@color/line"/>
 
                 <LinearLayout
+                    android:layout_marginTop="23dp"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal">

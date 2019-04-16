@@ -8,6 +8,8 @@ import com.makeramen.roundedimageview.RoundedImageView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.widget.CardRoundedImageView
 
 /**
  * @author : MarkFrank01
@@ -24,11 +26,12 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
     override fun convert(helper: BaseViewHolder, item: CircleDetailBean) {
         val itemBean = item as CircleDetailBean
 
-        val imageView = helper.getView<RoundedImageView>(R.id.circle_detail_img)
         if(itemBean.qaImageEntityList.isNotEmpty()){
+            val imageView = helper.getView<RoundedImageView>(R.id.circle_detail_img)
+            helper.getView<CardRoundedImageView>(R.id.circle_detail_img).visibility = View.VISIBLE
             ImageLoader.load(mContext, itemBean.qaImageEntityList[0], R.drawable.default_card, imageView)
-        }else{
-            imageView.visibility = View.GONE
+
+            LogCat.e("IMAGE URL is "+itemBean.qaImageEntityList[0])
         }
 
         val UserImageView = helper.getView<RoundedImageView>(R.id.circle_detail_pushuser)
