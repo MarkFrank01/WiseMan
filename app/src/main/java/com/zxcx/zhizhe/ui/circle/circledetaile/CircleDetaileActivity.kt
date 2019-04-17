@@ -88,6 +88,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //推荐文章的数据
     private var mClassifyData: MutableList<ContentBean> = mutableListOf()
+    //推荐文章的第一次加载
+    private var mFirstTJ = true
 
     //存放一些支付信息所必须的数据
     var circlename: String = ""
@@ -105,8 +107,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mRefreshLayout = refresh_layout
 
-        mPresenter.getCircleBasicInfo(circleID)
-        mPresenter.getAccountDetails()
+        //此处两个位置尝试放入多次加载
+//        mPresenter.getCircleBasicInfo(circleID)
+//        mPresenter.getAccountDetails()
+
 //        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
 //        onRefresh()
     }
@@ -115,6 +119,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         super.onResume()
         mHuaTiPage = 0
         onRefresh()
+        mPresenter.getAccountDetails()
+        mPresenter.getCircleBasicInfo(circleID)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -171,8 +177,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         creater = bean.creater!!
 
+
         loadJoinUserImg(bean)
-        loadTuiJianArticle(bean)
+        if (mFirstTJ) {
+            loadTuiJianArticle(bean)
+            mFirstTJ = false
+        }
 
         toolbar_title_1.text = bean.title
 
