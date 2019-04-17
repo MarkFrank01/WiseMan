@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import butterknife.ButterKnife
+import com.gyf.barlibrary.ImmersionBar
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.MainActivity
@@ -44,6 +45,9 @@ class GuidePageActivity : BaseActivity() {
 
     override fun initStatusBar() {
         //覆盖父类修改状态栏方法
+        mImmersionBar = ImmersionBar.with(this)
+        mImmersionBar.keyboardEnable(true)
+        mImmersionBar.init()
     }
 
     private fun initImgData() {
