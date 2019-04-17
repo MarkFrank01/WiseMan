@@ -39,6 +39,6 @@
     <color name="bg_link_edit_text">#EEEEEE</color>
     <color name="bg_link_text">#D2D2D2</color>
 
-    <color name="bg_show_window">#FF030303</color>
+    <color name="bg_show_window">#030303</color>
     <color name="color_bac">#0000004d</color>
 </resources>

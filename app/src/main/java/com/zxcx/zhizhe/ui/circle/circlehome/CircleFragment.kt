@@ -462,7 +462,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
             circle_hint_login.visibility = View.GONE
             circle_hint_login_dec.visibility = View.GONE
-//            ImageLoader.load(mActivity, R.drawable.c_circle_default, R.drawable.default_card, circle_image)
+            ImageLoader.load(mActivity, R.drawable.circle_top_default, circle_image)
         } else {
             circle_hint_login.visibility = View.VISIBLE
             circle_hint_login_dec.visibility = View.VISIBLE
@@ -470,7 +470,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
             circle_image1.visibility = View.GONE
             circle_image2.visibility = View.GONE
             circle_image3.visibility = View.GONE
-//            ImageLoader.load(mActivity, R.drawable.iv_my_head_placeholder, R.drawable.default_card, circle_image)
+            ImageLoader.load(mActivity, R.drawable.default_header, circle_image)
 
         }
 //        mPresenter.getMyJoinCircleList(0, 3)

@@ -25,7 +25,6 @@ import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
-import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
@@ -151,7 +150,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 //                mActivity.startActivity(SelectInterestActivity::class.java,{})
 
                 //emmmmmmmmmmmmmmmmm 真正的现在正式使用
-                mActivity.startActivity(NowSelectActivity::class.java) {}
+//                mActivity.startActivity(NowSelectActivity::class.java) {}
 
                 //方便测试
                 //微信吊起
@@ -159,7 +158,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 //支付宝吊起
 //                mActivity.startActivity(ZFBEntryActivity::class.java,{})
                 //测试奇怪的弹出窗口
-//                showWindow()
+                showWindow()
             }
         }
     }
@@ -321,9 +320,13 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     //此处测试弹出窗口
     private fun showWindow() {
         XPopup.get(mActivity)
-                .asCustom(InviteCenterPopup(mActivity, OnSelectListener { position, text ->
-
-                })
+                .asCustom(InviteCenterPopup(mActivity,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                LogCat.e("text is $text" )
+                                toastShow("进行校验")
+                            }
+                        })
                 ).show()
     }
 }
