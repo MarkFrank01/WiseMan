@@ -96,7 +96,7 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     //弹出分享四兄弟
     private fun showshare() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleBottomSharePopup(this,
                         OnSelectListener { position, text ->
                             when (position) {

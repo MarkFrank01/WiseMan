@@ -252,7 +252,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
     //排序人群
     private fun orderman() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "排序类型", arrayOf("默认排序", "最多创作", "最多关注", "最多点赞"),
                         null, orderType,
                         OnSelectListener { position, text ->

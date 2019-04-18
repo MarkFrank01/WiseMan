@@ -53,7 +53,7 @@ public class CirclePopup extends BottomPopupView {
 
         final CommonAdapter<String> adapter = new CommonAdapter<String>(R.layout.adapter_text, Arrays.asList(data)) {
             @Override
-            protected void convert(@NonNull ViewHolder holder, @NonNull String s, int position) {
+            protected void bind(@NonNull ViewHolder holder, @NonNull String s, int position) {
                 holder.setText(R.id.tv_text, s);
                 if (iconIds != null && iconIds.length > position) {
                     holder.setVisible(R.id.iv_image, true);
@@ -73,6 +73,8 @@ public class CirclePopup extends BottomPopupView {
                             getResources().getColor(R.color.button_blue) : getResources().getColor(R.color.toolbar_title));
                 }
             }
+
+
         };
         adapter.setOnItemClickListener(new MultiItemTypeAdapter.SimpleOnItemClickListener() {
             @Override

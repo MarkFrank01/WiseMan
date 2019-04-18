@@ -282,7 +282,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     //审核中时
     private fun shenheing(text_content: String) {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleBottomPopup(mActivity, text_content, -1, OnSelectListener { position, text ->
                 })
                 ).show()
@@ -290,7 +290,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     //关闭时
     private fun guanbi(text_content: String, text_content2: String) {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleBottomGBPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
 
                 })
@@ -299,7 +299,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 
     //未通过时
     private fun wtg(text_content: String, text_content2: String) {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleBottomWTGPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
 
                 })

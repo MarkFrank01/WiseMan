@@ -235,7 +235,7 @@ dependencies {
     implementation files('lib/jsoup-1.11.3.jar')
 
     //超级弹框
-    implementation 'com.lxj:xpopup:1.0.9'
+    implementation 'com.lxj:xpopup:1.6.9'
 
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'

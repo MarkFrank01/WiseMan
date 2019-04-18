@@ -177,7 +177,7 @@ class OwnerManageContentActivity : RefreshMvpActivity<OwnerManageContentPresente
 
     //移除时的提示
     private fun deleteHint(index:Int){
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(BottomInfoPopup(this,"移除后将导致圈内可阅读作品减少，是否继续？",-1,
                        OnSelectListener { position, text ->
                             if (position == 2){

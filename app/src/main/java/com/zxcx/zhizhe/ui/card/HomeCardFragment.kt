@@ -55,6 +55,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
     private var lastADTime: Long = 0
     private var lastADID: Int = 0
 
+
     //            private val titles = arrayOf("关注", "推荐", "列表")
     private val titles = arrayOf("推荐", "列表")
 
@@ -319,14 +320,15 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 
     //此处测试弹出窗口
     private fun showWindow() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(InviteCenterPopup(mActivity,
                         OnSelectListener { position, text ->
                             if (position == 2) {
-                                LogCat.e("text is $text" )
+                                LogCat.e("text is $text")
                                 toastShow("进行校验")
                             }
                         })
                 ).show()
+
     }
 }

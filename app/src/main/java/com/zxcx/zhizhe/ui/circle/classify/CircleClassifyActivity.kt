@@ -220,7 +220,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 //                }).show()
 
         //目前
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "排序选项", arrayOf("默认排序", "最高星级", "最多加入", "最多话题"),
                         null, mSelectPosition,
                         OnSelectListener { position, text ->

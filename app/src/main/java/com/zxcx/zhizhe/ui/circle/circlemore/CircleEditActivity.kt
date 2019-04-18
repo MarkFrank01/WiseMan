@@ -339,7 +339,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
 
     //选择价钱
     private fun chooseMoney() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "付费进圈", arrayOf("￥ 98.00", "￥ 40.00", "￥ 18.00"),
                         null, -1,
                         OnSelectListener { position, text ->
@@ -356,7 +356,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
 
     //限时免费
     private fun chooseFreeTime() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "限时免费", arrayOf("3个月", "1个月", "无"),
                         null, -1,
                         OnSelectListener { position, text ->
@@ -373,7 +373,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
 
     //检查退出
     private fun showCancel() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(BottomInfoPopup(this, "还有编辑未完成，是否退出？", -1,
                         OnSelectListener { position, text ->
                             if (position == 2) {
@@ -385,7 +385,7 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
 
     //提示时间
     private fun hintTime(){
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleEditBottomPopup(this, OnSelectListener { position, text ->
 
                      })

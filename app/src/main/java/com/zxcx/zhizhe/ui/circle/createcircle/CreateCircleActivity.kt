@@ -370,7 +370,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 //                circle_tv_level_name.text = text
 //            }
 //        }.show()
-        XPopup.get(this)
+        XPopup.Builder(this)
 //                .asCustom(CustomPopup(this))
                 .asBottomList("", arrayOf("黄金", "白银", "青铜", "黑铁"),
                         null, -1
@@ -464,7 +464,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     //选择价钱
     private fun chooseMoney() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "付费进圈", arrayOf("￥ 98.00", "￥ 40.00", "￥ 18.00"),
                         null, -1,
                         OnSelectListener { position, text ->
@@ -481,7 +481,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     //限时免费
     private fun chooseFreeTime() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "限时免费", arrayOf("3个月", "1个月", "无"),
                         null, -1,
                         OnSelectListener { position, text ->
@@ -498,7 +498,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     //检查退出
     private fun showCancel() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(BottomInfoPopup(this, "还有编辑未完成，是否退出？", -1,
                         OnSelectListener { position, text ->
                             if (position == 2) {
@@ -510,7 +510,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
     //下一步操作提示
     private fun showNextHint() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(BottomInfoPopup(this, "下一步操作至少需要8张卡片及4篇文章才能提交审核，是否继续？", -1,
                         OnSelectListener { position, text ->
                             if (position == 2){

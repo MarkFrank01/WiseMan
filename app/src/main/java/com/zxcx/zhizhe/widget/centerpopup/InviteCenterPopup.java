@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.widget.centerpopup;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class InviteCenterPopup extends CenterPopupView{
         return R.layout.invite_center_popup;
     }
 
+
     @Override
     protected void initPopupContent() {
         super.initPopupContent();
@@ -51,6 +53,11 @@ public class InviteCenterPopup extends CenterPopupView{
 
         tv.setOnClickListener(v->{
             mSelectListener.onSelect(2,textContent);
+            postDelayed(this::dismiss,10);
+        });
+
+        ImageView cancel = findViewById(R.id.cancel);
+        cancel.setOnClickListener(v->{
             postDelayed(this::dismiss,10);
         });
     }

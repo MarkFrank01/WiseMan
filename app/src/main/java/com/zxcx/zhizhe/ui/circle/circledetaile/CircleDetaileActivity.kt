@@ -363,10 +363,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             }
         }
 
-//        bottom_bt.setOnClickListener {
-//            showjoinhit(circlename, circleprice, "", "")
-//        }
-
         goto_jx.setOnClickListener {
             if (hasJoinBoolean) {
                 mActivity.startActivity(CircleRecommendActivity::class.java) {
@@ -453,6 +449,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         rv_circle_detail.layoutManager = object : GridLayoutManager(this, 1) {
             override fun canScrollVertically() = false
         }
+        //若滑动冲突采用此方式
 //        rv_circle_detail.isNestedScrollingEnabled = false
 //        rv_circle_detail.setHasFixedSize(true)
 //        rv_circle_detail.isFocusable = false
@@ -503,9 +500,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //推荐即左右滑动的文章
     private fun loadTuiJianArticle(list: CircleBean) {
-//        for (t in list.partialArticleList) {
-//            LogCat.e("推荐的数据测试" + t.title)
-//        }
 
         if (list.partialArticleList.size > 0) {
             list.partialArticleList.forEach {
@@ -518,6 +512,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //                intent.putExtra("cardBean", list.partialArticleList[position])
 //                mActivity.startActivity(intent)
 //            }
+
+            //1为卡片 2为长文
             gv_circle_classify2.setGridItemClickListener(object : GridItemClickListener {
 
                 override fun click(pos: Int, position: Int, str: String?) {
@@ -596,7 +592,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //游客或者会员的情况
     private fun chooseMore() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "更多", arrayOf("圈子介绍", "圈子评分", "会员续费", "分享圈子", "举报圈子"),
                         null, -1, OnSelectListener { position, text ->
                     when (position) {
@@ -628,7 +624,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //圈主的情况
     private fun chooseMoreOwner() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "更多", arrayOf("内容管理", "编辑圈子", "圈子介绍", "分享圈子"),
                         null, -1, OnSelectListener { position, text ->
                     when (position) {
@@ -668,7 +664,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //提醒你加入交钱
     private fun showjoinhit(circlename: String, circleprice: String, circleendtime: String, circleyue: String) {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CircleBottomPopup2(this, OnSelectListener { position, text ->
 
                 })
@@ -711,7 +707,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //举报圈子
     private fun jubaoCircle() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "举报类型", arrayOf("政治敏感", "垃圾广告", "恶意攻击", "色情低俗", "其它"), null, -1,
                         OnSelectListener { position, text ->
                             mPresenter.reportCircle(circleID, position)
@@ -729,7 +725,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             3
         }
 
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(HuatiManagePopup(this, type, circleFix, -1,
                         OnSelectListener { position, text ->
                             when (position) {
@@ -760,7 +756,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //删除话题
     private fun deleteHuaTi(qaId: Int) {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(BottomInfoPopup(this, "该操作将删除此话题和所有关联回复，是否继续？", -1,
                         OnSelectListener { position, text ->
                             if (position == 2) {
@@ -772,7 +768,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //排序话题
     private fun orderHuati() {
-        XPopup.get(mActivity)
+        XPopup.Builder(mActivity)
                 .asCustom(CirclePopup(this, "排序类型", arrayOf("默认排序", "只看圈主", "只看我的", "最新话题"),
                         null, mHuaTiOrder,
                         OnSelectListener { position, text ->
@@ -788,14 +784,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         if (checkLogin()) {
             if (t4.parseFloat() > 0) {
-                XPopup.get(mActivity)
+                XPopup.Builder(mActivity)
                         .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
                                 OnSelectListener { position, text ->
                                     mPresenter.joinCircleByZzbForAndroid(circleID)
                                 })
                         ).show()
             } else {
-                XPopup.get(mActivity)
+                XPopup.Builder(mActivity)
                         .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
                                 OnSelectListener { position, text ->
                                     if (checkLogin()) {
@@ -815,14 +811,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     private fun xufei(t1: String, t2: String, t3: String, t4: String) {
         if (checkLogin()) {
             if (t4.parseFloat() > 0) {
-                XPopup.get(mActivity)
+                XPopup.Builder(mActivity)
                         .asCustom(CircleJoinXFPopup(this, t1, t2, t3, t4, "立即续费", -1,
                                 OnSelectListener { position, text ->
                                     mPresenter.joinCircleByZzbForAndroid(circleID)
                                 })
                         ).show()
             } else {
-                XPopup.get(mActivity)
+                XPopup.Builder(mActivity)
                         .asCustom(CircleJoinXFPopup(this, t1, t2, t3, t4, "充值并兑换", -1,
                                 OnSelectListener { position, text ->
                                     if (checkLogin()) {

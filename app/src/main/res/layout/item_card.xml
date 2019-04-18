@@ -10,7 +10,7 @@
     android:layout_marginStart="12dp"
     android:layout_marginTop="16dp"
     android:background="@drawable/bg_background_12dp"
-    android:elevation="5dp"
+    android:elevation="3dp"
     android:orientation="vertical"
     android:stateListAnimator="@animator/anim_home_card_press">
 
