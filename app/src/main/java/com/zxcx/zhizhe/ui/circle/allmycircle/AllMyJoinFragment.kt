@@ -105,6 +105,10 @@ class AllMyJoinFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCirc
 
             R.id.con_click -> {
 //                toastShow("续费")
+                val bean = adapter.data[position] as CircleBean
+                mActivity.startActivity(CircleDetaileActivity::class.java) {
+                    it.putExtra("circleID", bean.id)
+                }
             }
         }
     }

@@ -25,10 +25,12 @@ import com.zxcx.zhizhe.ui.card.attention.AttentionCardFragment
 import com.zxcx.zhizhe.ui.card.cardList.CardListFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.hot.HotCardFragment
+import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.search.search.SearchActivity
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.centerpopup.CircleCenterPopup
 import com.zxcx.zhizhe.widget.centerpopup.InviteCenterPopup
 import kotlinx.android.synthetic.main.fragment_home_card.*
 import org.greenrobot.eventbus.EventBus
@@ -151,7 +153,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
 //                mActivity.startActivity(SelectInterestActivity::class.java,{})
 
                 //emmmmmmmmmmmmmmmmm 真正的现在正式使用
-//                mActivity.startActivity(NowSelectActivity::class.java) {}
+                mActivity.startActivity(NowSelectActivity::class.java) {}
 
                 //方便测试
                 //微信吊起
@@ -159,7 +161,8 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 //支付宝吊起
 //                mActivity.startActivity(ZFBEntryActivity::class.java,{})
                 //测试奇怪的弹出窗口
-                showWindow()
+//                showWindow()
+//                showWindow2()
             }
         }
     }
@@ -330,5 +333,18 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                         })
                 ).show()
 
+    }
+
+    //此处测试弹出圈子邀请码的窗口
+    private fun showWindow2(){
+        XPopup.Builder(mActivity)
+                .asCustom(CircleCenterPopup(mActivity,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                LogCat.e("text is $text")
+                                toastShow("进行校验")
+                            }
+                        })
+                ).show()
     }
 }

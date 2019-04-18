@@ -46,9 +46,14 @@ class AllMyCircleAdapter(data:List<CircleBean>):
             helper.addOnClickListener(R.id.iv_item_circle_classify_icon)
             helper.addOnClickListener(R.id.tv_item_circle_classify_title)
             helper.addOnClickListener(R.id.tv_item_circle_classify_desc)
+            helper.addOnClickListener(R.id.con_click)
         }else{
             checkBox.text = "续费"
             checkBox.setTextColor(mContext.getColorForKotlin(R.color.red))
+            helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+            helper.addOnClickListener(R.id.iv_item_circle_classify_icon)
+            helper.addOnClickListener(R.id.tv_item_circle_classify_title)
+            helper.addOnClickListener(R.id.tv_item_circle_classify_desc)
             helper.addOnClickListener(R.id.con_click)
         }
 

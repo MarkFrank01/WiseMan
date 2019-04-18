@@ -199,7 +199,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 //            }
 
             //    val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-            R.id.cb_item_select_join_circle2 -> {
+            R.id.cb_item_select_join_circle2,R.id.con_click -> {
                 val circleBean = adapter.data[position] as CircleBean
                 val checkBox = view.findViewById<CheckBox>(R.id.cb_item_select_join_circle2)
                 var typetext = checkBox.text.toString()

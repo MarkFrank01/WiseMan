@@ -133,6 +133,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
+            android:launchMode="singleTask"
             android:name=".ui.welcome.GuidePageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>

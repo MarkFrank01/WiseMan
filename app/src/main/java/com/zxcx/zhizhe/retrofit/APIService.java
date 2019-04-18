@@ -1190,6 +1190,14 @@ public interface APIService {
     Flowable<BaseBean<InviteBean>> receiveMineInvitationUser();
 
     /**
+     * 邀请码活动-领取邀请码奖励
+     */
+    @POST("/activity/receiveInvitationCodeReward")
+    Flowable<BaseBean<InviteBean>> receiveInvitationCodeReward(
+        @Query("subjectUserId") int subjectUserId
+    );
+
+    /**
      * 设置中奖后的 收货信息
      */
     @POST("/activity/submitWinningInfo")

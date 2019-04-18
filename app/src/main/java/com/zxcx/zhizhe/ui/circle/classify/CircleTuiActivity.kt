@@ -80,18 +80,18 @@ class CircleTuiActivity : RefreshMvpActivity<CircleTuiPresenter>(), CircleTuiCon
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when (view.id) {
-            R.id.cb_item_select_join_circle -> {
-                val bean = adapter.data[position] as CircleBean
-                bean.hasJoin = !bean.hasJoin
-                mCircleTuiAdapter.notifyItemChanged(position)
-
-                if (bean.hasJoin) {
-                    //加入圈子
-//                    mPresenter.setjoinCircle(bean.id, 0)
-                }
-            }
-        }
+//        when (view.id) {
+//            R.id.cb_item_select_join_circle,R.id.con_click -> {
+//                val bean = adapter.data[position] as CircleBean
+//                bean.hasJoin = !bean.hasJoin
+//                mCircleTuiAdapter.notifyItemChanged(position)
+//
+////                if (bean.hasJoin) {
+////                    //加入圈子
+////                    mPresenter.setjoinCircle(bean.id, 0)
+////                }
+//            }
+//        }
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

@@ -135,7 +135,7 @@ class CircleClassifyActivity : RefreshMvpActivity<CircleClassifyPresenter>(), Ci
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         when (view.id) {
-            R.id.cb_item_select_join_circle -> {
+            R.id.cb_item_select_join_circle,R.id.con_click -> {
                 val bean = adapter.data[position] as CircleBean
                 mActivity.startActivity(CircleDetaileActivity::class.java){
                     it.putExtra("circleID",bean.id)

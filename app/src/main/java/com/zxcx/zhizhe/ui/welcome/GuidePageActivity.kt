@@ -25,7 +25,7 @@ class GuidePageActivity : BaseActivity() {
     /**
      * 3张引导页面的图片
      */
-    private val mImgIds = intArrayOf(R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3)
+    private val mImgIds = intArrayOf(R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3,R.drawable.guide_1)
     /**
      * 图片资源容器
      */
@@ -55,6 +55,7 @@ class GuidePageActivity : BaseActivity() {
             val imageView = ImageView(applicationContext)
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             imageView.setImageResource(imgId)
+
 
             mImageViews.add(imageView)
         }
@@ -105,6 +106,36 @@ class GuidePageActivity : BaseActivity() {
                 if (position == mImgIds.size - 1 && positionOffset == 0f && positionOffsetPixels == 0 && isScrolling) {
                     isScrolling = false
                     jumpToIndexActivity(false)
+                }
+
+                when (position) {
+                    0 -> {
+                        iv1.setImageResource(R.drawable.bg_backbutton)
+                        iv2.setImageResource(R.drawable.bg_backbutton4)
+                        iv3.setImageResource(R.drawable.bg_backbutton4)
+                        iv4.setImageResource(R.drawable.bg_backbutton4)
+                    }
+
+                    1 -> {
+                        iv1.setImageResource(R.drawable.bg_backbutton4)
+                        iv2.setImageResource(R.drawable.bg_backbutton)
+                        iv3.setImageResource(R.drawable.bg_backbutton4)
+                        iv4.setImageResource(R.drawable.bg_backbutton4)
+                    }
+
+                    2 -> {
+                        iv1.setImageResource(R.drawable.bg_backbutton4)
+                        iv2.setImageResource(R.drawable.bg_backbutton4)
+                        iv3.setImageResource(R.drawable.bg_backbutton)
+                        iv4.setImageResource(R.drawable.bg_backbutton4)
+                    }
+
+                    3 -> {
+                        iv1.setImageResource(R.drawable.bg_backbutton4)
+                        iv2.setImageResource(R.drawable.bg_backbutton4)
+                        iv3.setImageResource(R.drawable.bg_backbutton4)
+                        iv4.setImageResource(R.drawable.bg_backbutton)
+                    }
                 }
             }
 

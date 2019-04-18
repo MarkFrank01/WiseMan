@@ -32,9 +32,21 @@ class MyInviteModel(presenter: MyInviteContract.Presenter) : BaseModel<MyInviteC
         mDisposable = AppClient.getAPIService().invitationInfo
                 .compose(BaseRxJava.io_main())
                 .compose(BaseRxJava.handleResult())
-                .subscribeWith(object :BaseSubscriber<InviteBean>(mPresenter){
+                .subscribeWith(object : BaseSubscriber<InviteBean>(mPresenter) {
                     override fun onNext(t: InviteBean) {
                         mPresenter?.getInvitationInfoSuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    fun receiveInvitationCodeReward(id: Int) {
+        mDisposable = AppClient.getAPIService().receiveInvitationCodeReward(id)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleResult())
+                .subscribeWith(object : BaseSubscriber<InviteBean>(mPresenter) {
+                    override fun onNext(t: InviteBean) {
+                        mPresenter?.receiveInvitationCodeReward(t)
                     }
                 })
         addSubscription(mDisposable)

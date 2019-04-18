@@ -24,6 +24,10 @@ class MyInvitePresenter(view: MyInviteContract.View) : BasePresenter<MyInviteCon
         mModel.getInvitationInfo()
     }
 
+    fun receiveInvitationCodeReward(id: Int) {
+        mModel.receiveInvitationCodeReward(id)
+    }
+
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
         if (mView != null) {
             mView.getInvitationHistorySuccess(list)
@@ -31,8 +35,14 @@ class MyInvitePresenter(view: MyInviteContract.View) : BasePresenter<MyInviteCon
     }
 
     override fun getInvitationInfoSuccess(bean: InviteBean) {
-        if (mView!=null){
+        if (mView != null) {
             mView.getInvitationInfoSuccess(bean)
+        }
+    }
+
+    override fun receiveInvitationCodeReward(bean: InviteBean) {
+        if (mView != null) {
+            mView.receiveInvitationCodeReward(bean)
         }
     }
 

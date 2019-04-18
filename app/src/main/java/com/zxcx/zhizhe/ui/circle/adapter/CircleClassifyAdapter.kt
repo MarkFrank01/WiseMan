@@ -44,6 +44,7 @@ class CircleClassifyAdapter(data:List<CircleBean>):
         }
 
         helper.addOnClickListener(R.id.cb_item_select_join_circle)
+        helper.addOnClickListener(R.id.con_click)
 
         //圈子评分
         var num = item.overallRating

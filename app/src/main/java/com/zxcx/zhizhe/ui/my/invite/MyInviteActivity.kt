@@ -79,11 +79,23 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         man_num.text = "" + bean.alreadyInviteesTotal + "/" + bean.inviteesTotal
     }
 
+    override fun receiveInvitationCodeReward(bean: InviteBean) {
+        toastShow("领取成功")
+    }
+
+
     override fun getDataSuccess(bean: MutableList<InviteBean>?) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as InviteBean
+        when(view.id){
+            R.id.invite_get->{
+                mPresenter.receiveInvitationCodeReward(bean.userId)
+                bean.hasReceiveReward = true
+                mAdapter.notifyItemChanged(position)
+            }
+        }
     }
 
     //粘贴板

@@ -95,6 +95,7 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
         }
 
         helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+        helper.addOnClickListener(R.id.con_click)
 
 
         var num = item.overallRating
