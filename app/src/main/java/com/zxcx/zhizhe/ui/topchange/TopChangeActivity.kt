@@ -172,14 +172,14 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
         mAdapter2.setOnItemChildClickListener { adapter, view, position ->
             val bean = adapter.data[position] as ClassifyBean
 
-            if (mCanChoose) {
+//            if (mCanChoose) {
                 bean.isChecked = true
                 mAdapter1.addData(bean)
                 mAdapter2.remove(position)
 
                 mAdapter1.notifyDataSetChanged()
                 mAdapter2.notifyDataSetChanged()
-            }
+//            }
         }
 
 

@@ -25,7 +25,7 @@ class GuidePageActivity : BaseActivity() {
     /**
      * 3张引导页面的图片
      */
-    private val mImgIds = intArrayOf(R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3,R.drawable.guide_1)
+    private val mImgIds = intArrayOf(R.drawable.guide1, R.drawable.guide2, R.drawable.guide3,R.drawable.guide4)
     /**
      * 图片资源容器
      */
