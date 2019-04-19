@@ -18,6 +18,8 @@ import cn.smssdk.EventHandler
 import cn.smssdk.SMSSDK
 import com.google.gson.JsonParser
 import com.jakewharton.rxbinding2.view.RxView
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.meituan.android.walle.WalleChannelReader
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.LoginEvent
@@ -27,6 +29,7 @@ import com.zxcx.zhizhe.ui.loginAndRegister.channelRegister.ChannelRegisterActivi
 import com.zxcx.zhizhe.ui.my.selectAttention.now.NowSelectActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_login.*
@@ -174,11 +177,13 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 		}
 
 		tv_login_send_code.setOnClickListener {
-			val confirmDialog = PhoneConfirmDialog()
-			val bundle = Bundle()
-			bundle.putString("phone", et_login_phone.text.toString())
-			confirmDialog.arguments = bundle
-			confirmDialog.show(mActivity.supportFragmentManager, "")
+            showphone()
+
+//			val confirmDialog = PhoneConfirmDialog()
+//			val bundle = Bundle()
+//			bundle.putString("phone", et_login_phone.text.toString())
+//			confirmDialog.arguments = bundle
+//			confirmDialog.show(mActivity.supportFragmentManager, "")
 		}
 
 		tv_login_resend_code.setOnClickListener {
@@ -191,24 +196,30 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 		}
 
 		RxView.clicks(iv_login_qq).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
-			channelType = 1
-			val qq = ShareSDK.getPlatform(QQ.NAME)
-			qq.platformActionListener = mChannelLoginListener
-			qq.showUser(null)
+            showQQ()
+
+//			channelType = 1
+//			val qq = ShareSDK.getPlatform(QQ.NAME)
+//			qq.platformActionListener = mChannelLoginListener
+//			qq.showUser(null)
 		}
 
 		RxView.clicks(iv_login_wechat).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
-			channelType = 2
-			val wechat = ShareSDK.getPlatform(Wechat.NAME)
-			wechat.platformActionListener = mChannelLoginListener
-			wechat.showUser(null)
+            showWechat()
+
+//			channelType = 2
+//			val wechat = ShareSDK.getPlatform(Wechat.NAME)
+//			wechat.platformActionListener = mChannelLoginListener
+//			wechat.showUser(null)
 		}
 
 		RxView.clicks(iv_login_weibo).throttleFirst(2000, TimeUnit.MILLISECONDS).subscribe {
-			channelType = 3
-			val weibo = ShareSDK.getPlatform(SinaWeibo.NAME)
-			weibo.platformActionListener = mChannelLoginListener
-			weibo.showUser(null)
+            showWeiBo()
+
+//			channelType = 3
+//			val weibo = ShareSDK.getPlatform(SinaWeibo.NAME)
+//			weibo.platformActionListener = mChannelLoginListener
+//			weibo.showUser(null)
 		}
 
 		et_login_phone.afterTextChanged {
@@ -313,4 +324,61 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 			}
 		}
 	}
+
+    //手机接受验证码确认
+    private fun showphone(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this,getString(R.string.tv_dialog_phone_confirm_title, et_login_phone.text.toString()),-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2){
+                                EventBus.getDefault().post(PhoneConfirmEvent())
+                            }
+                        })
+                ).show()
+    }
+
+    //球球号提示
+    private fun showQQ(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this,"“智者”想要打开“QQ”",-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2){
+                                channelType = 1
+                                val qq = ShareSDK.getPlatform(QQ.NAME)
+                                qq.platformActionListener = mChannelLoginListener
+                                qq.showUser(null)
+                            }
+                        })
+                ).show()
+    }
+
+    //微信提示
+    private fun showWechat(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this,"“智者”想要打开“微信”",-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2){
+                                channelType = 2
+                                val wechat = ShareSDK.getPlatform(Wechat.NAME)
+                                wechat.platformActionListener = mChannelLoginListener
+                                wechat.showUser(null)
+                            }
+                        })
+                ).show()
+    }
+
+    //微博提示
+    private fun showWeiBo(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this,"“智者”想要打开“微博”",-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2){
+                                channelType = 3
+                                val weibo = ShareSDK.getPlatform(SinaWeibo.NAME)
+                                weibo.platformActionListener = mChannelLoginListener
+                                weibo.showUser(null)
+                            }
+                        })
+                ).show()
+    }
 }

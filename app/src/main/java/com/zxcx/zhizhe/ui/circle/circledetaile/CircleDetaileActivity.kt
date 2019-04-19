@@ -536,6 +536,19 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                 it.putExtra("cardBean", list.partialArticleList[position])
                             }
                         }
+                    }else{
+                        LogCat.e("boolean is "+list.partialArticleList[position].circlePrivate)
+                        if (!list.partialArticleList[position].circlePrivate) {
+                            if (type == 2) {
+                                mActivity.startActivity(ArticleDetailsActivity::class.java) {
+                                    it.putExtra("cardBean", list.partialArticleList[position])
+                                }
+                            } else if (type == 1) {
+                                mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+                                    it.putExtra("cardBean", list.partialArticleList[position])
+                                }
+                            }
+                        }
                     }
                 }
             })
