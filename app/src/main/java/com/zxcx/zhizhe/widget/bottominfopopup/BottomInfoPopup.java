@@ -43,6 +43,7 @@ public class BottomInfoPopup extends BottomPopupView{
 
         TextView t1 = findViewById(R.id.info_cancel);
         t1.setOnClickListener(v->{
+            selectListener.onSelect(3,"完成2");
             postDelayed(this::dismiss,10);
         });
 

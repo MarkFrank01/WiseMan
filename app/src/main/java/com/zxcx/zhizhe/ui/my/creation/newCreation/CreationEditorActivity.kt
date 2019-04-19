@@ -13,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import com.gyf.barlibrary.ImmersionBar
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
@@ -27,6 +29,7 @@ import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog
 import com.zxcx.zhizhe.widget.PermissionDialog
 import com.zxcx.zhizhe.widget.UploadingDialog
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_creation_editor.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -116,7 +119,6 @@ class CreationEditorActivity : BaseActivity(),
     override fun setListener() {
 
 
-
         tv_toolbar_back.setOnClickListener {
             onBackPressed()
         }
@@ -129,23 +131,23 @@ class CreationEditorActivity : BaseActivity(),
             mUploadingDialog.arguments = bundle
             mUploadingDialog.show(supportFragmentManager, "")
             Handler().postDelayed({
-//                editor.submitDraft()
+                //                editor.submitDraft()
                 editor.twoSubmitDraft()
             }, 500)
         }
 
         //新的保存
         tv_toolbar_save.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putString("uploadingText", "正在保存草稿")
-                bundle.putString("successText", "保存成功")
-                bundle.putString("failText", "保存失败")
-                mUploadingDialog.arguments = bundle
-                mUploadingDialog.show(supportFragmentManager, "")
-                Handler().postDelayed({
-                    // editor.saveDraft()
-                    editor.twoSaveDraft()
-                }, 500)
+            val bundle = Bundle()
+            bundle.putString("uploadingText", "正在保存草稿")
+            bundle.putString("successText", "保存成功")
+            bundle.putString("failText", "保存失败")
+            mUploadingDialog.arguments = bundle
+            mUploadingDialog.show(supportFragmentManager, "")
+            Handler().postDelayed({
+                // editor.saveDraft()
+                editor.twoSaveDraft()
+            }, 500)
         }
 
         iv_creation_editor_add_image.setOnClickListener {
@@ -183,7 +185,7 @@ class CreationEditorActivity : BaseActivity(),
                 mUploadingDialog.arguments = bundle
                 mUploadingDialog.show(supportFragmentManager, "")
                 Handler().postDelayed({
-//                    editor.saveDraft()
+                    //                    editor.saveDraft()
                     editor.twoSaveDraft()
                 }, 500)
             }
@@ -356,7 +358,7 @@ class CreationEditorActivity : BaseActivity(),
     fun preview(previewId: String) {
         if (isCard) {
 
-            if (mStrLength<=160) {
+            if (mStrLength <= 160) {
                 startActivity(PreviewCardDetailsActivity::class.java) {
                     val cardBean = CardBean()
                     cardBean.id = previewId.toInt()
@@ -371,7 +373,7 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     @JavascriptInterface
-    fun andNum(strLength: Int){
+    fun andNum(strLength: Int) {
         mStrLength = strLength
     }
 
@@ -389,15 +391,16 @@ class CreationEditorActivity : BaseActivity(),
     fun confirmExit(isBold: Boolean) {
         runOnUiThread {
             if (checkLogin()) {
-                val dialog = CanNotSaveDialog()
-                dialog.mCancelListener = {
-                }
-                dialog.mConfirmListener = {
-                    print("adfadsfs")
-                    Utils.closeInputMethod(mActivity)
-                    finish()
-                }
-                dialog.show(supportFragmentManager, "")
+                saveOrnot()
+//                val dialog = CanNotSaveDialog()
+//                dialog.mCancelListener = {
+//                }
+//                dialog.mConfirmListener = {
+//                    print("adfadsfs")
+//                    Utils.closeInputMethod(mActivity)
+//                    finish()
+//                }
+//                dialog.show(supportFragmentManager, "")
             }
         }
     }
@@ -468,19 +471,18 @@ class CreationEditorActivity : BaseActivity(),
     }
 
     @JavascriptInterface
-    fun hiddenPictuer(){
-        runOnUiThread{
+    fun hiddenPictuer() {
+        runOnUiThread {
             iv_creation_editor_add_image.isEnabled = false
         }
     }
 
     @JavascriptInterface
-    fun showPictuer(){
+    fun showPictuer() {
         runOnUiThread {
             iv_creation_editor_add_image.isEnabled = true
         }
     }
-
 
 
     @JavascriptInterface
@@ -499,7 +501,7 @@ class CreationEditorActivity : BaseActivity(),
                 mUploadingDialog.arguments = bundle
                 mUploadingDialog.show(supportFragmentManager, "")
                 Handler().postDelayed({
-//                    editor.saveDraft()
+                    //                    editor.saveDraft()
                     editor.twoSaveDraft()
                 }, 500)
             }
@@ -565,9 +567,9 @@ class CreationEditorActivity : BaseActivity(),
 
 //                    Log.e("Two", labelName + "+" + twolabelName + "+" + classifyId)
 //					editor.setLabel(labelName, classifyId)
-                    LogCat.e("labelName is "+labelName +"twolabelName is "+twolabelName)
-                    LogCat.e("classifyName"+classifyName+" classifyId"+classifyId)
-                    editor.twoSetLabel(labelName, twolabelName, classifyId,classifyName)
+                    LogCat.e("labelName is " + labelName + "twolabelName is " + twolabelName)
+                    LogCat.e("classifyName" + classifyName + " classifyId" + classifyId)
+                    editor.twoSetLabel(labelName, twolabelName, classifyId, classifyName)
                 }
                 Constants.CLIP_IMAGE -> {
                     //图片裁剪完成
@@ -599,5 +601,35 @@ class CreationEditorActivity : BaseActivity(),
 
     override fun uploadFail(message: String?) {
         toastError(message)
+    }
+
+    //是否退出编辑
+    private fun saveOrnot() {
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this, "有未编辑完的内容，是否退出编辑", -1,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                Utils.closeInputMethod(mActivity)
+                                finish()
+                            }
+                        })
+                ).show()
+    }
+
+    //是否保存
+    private fun toSave(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this, "有未编辑完内容，是否存为草稿", -1,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                editor.twoSaveDraft()
+                            }
+
+                            if (position == 3){
+                                Utils.closeInputMethod(mActivity)
+                                finish()
+                            }
+                        })
+                ).show()
     }
 }
