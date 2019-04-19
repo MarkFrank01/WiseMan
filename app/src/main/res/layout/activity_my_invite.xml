@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
               android:background="@color/background"
               android:orientation="vertical">
 
@@ -36,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="22dp"
-                    android:text="ADMNA"
+                    tools:text="ADMNA"
                     android:textColor="@color/text_color_2"
                     android:textSize="36dp"/>
 

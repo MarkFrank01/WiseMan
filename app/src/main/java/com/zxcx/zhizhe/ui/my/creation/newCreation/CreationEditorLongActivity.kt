@@ -3,11 +3,14 @@ package com.zxcx.zhizhe.ui.my.creation.newCreation
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -71,6 +74,17 @@ class CreationEditorLongActivity : BaseActivity(),
         initEditor()
         iv_creation_editor_add_image.visibility = View.GONE
 //        iv_creation_editor_more.visibility = View.VISIBLE
+
+        var rq = arrayOf(Manifest.permission.CAMERA)
+
+        //获取权限
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  rq, 1000)
+        } else {
+            //说明已经获取到摄像头权限了 想干嘛干嘛
+//            toastShow("成功获取相机权限")
+            LogCat.e("已经成功获取相机权限")
+        }
 
         mOSSDialog = OSSDialog()
         mOSSDialog.setUploadListener(this)

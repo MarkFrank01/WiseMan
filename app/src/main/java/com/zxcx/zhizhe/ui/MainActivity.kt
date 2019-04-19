@@ -1,9 +1,13 @@
 package com.zxcx.zhizhe.ui
 
+import android.Manifest
 import android.app.SharedElementCallback
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.ChangeNightModeEvent
@@ -21,6 +25,7 @@ import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
 import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
@@ -84,6 +89,17 @@ class MainActivity : BaseActivity() {
 //        SharedPreferencesUtil.saveData("maidian",maidian)
 
 //        LogCat.e("maidian---"+SharedPreferencesUtil.getString("maidian",""))
+
+        var rq = arrayOf(Manifest.permission.CAMERA)
+
+        //获取权限
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  rq, 1000)
+        } else {
+            //说明已经获取到摄像头权限了 想干嘛干嘛
+//            toastShow("成功获取相机权限")
+            LogCat.e("成功获取相机的权限")
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

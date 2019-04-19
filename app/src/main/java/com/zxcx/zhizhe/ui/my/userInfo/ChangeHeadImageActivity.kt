@@ -3,8 +3,11 @@ package com.zxcx.zhizhe.ui.my.userInfo
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zxcx.zhizhe.R
@@ -37,6 +40,17 @@ class ChangeHeadImageActivity : BaseActivity(), GetPicBottomDialog.GetPicDialogL
 
 		iv_toolbar_right.visibility = View.VISIBLE
 		iv_toolbar_right.setImageResource(R.drawable.iv_toolbar_more)
+
+        var rq = arrayOf(Manifest.permission.CAMERA)
+
+        //获取权限
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  rq, 1000)
+        } else {
+            //说明已经获取到摄像头权限了 想干嘛干嘛
+//            toastShow("成功获取相机权限")
+            LogCat.e("成功获取相机的权限")
+        }
 
 		val imageUrl = SharedPreferencesUtil.getString(SVTSConstants.imgUrl, "")
 		ImageLoader.load(this, imageUrl, R.drawable.iv_my_head_placeholder, iv_head_image)

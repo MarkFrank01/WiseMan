@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.zxcx.zhizhe.R;
 import com.zxcx.zhizhe.mvpBase.BaseDialog;
 import com.zxcx.zhizhe.utils.FileUtil;
+import com.zxcx.zhizhe.utils.LogCat;
 import com.zxcx.zhizhe.utils.ScreenUtils;
 
 import java.io.File;
@@ -90,9 +91,12 @@ public class GetPicBottomDialog extends BaseDialog {
 				tempUri = FileProvider
 					.getUriForFile(getActivity(), getActivity().getPackageName() + ".fileProvider",
 						file);
+                LogCat.e("URL is "+tempUri);
 			} else {
 				tempUri = Uri.fromFile(file);
-			}
+                LogCat.e("URL2 is "+tempUri);
+
+            }
 			mUriType = UriType.file;
 		} catch (IOException e) {
 			e.printStackTrace();
