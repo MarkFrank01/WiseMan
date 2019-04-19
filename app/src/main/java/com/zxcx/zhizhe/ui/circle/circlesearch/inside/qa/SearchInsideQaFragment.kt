@@ -10,7 +10,9 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.circle.circlequestiondetail.CircleQuestionDetailActivity
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_search_inside_qa.*
@@ -41,7 +43,7 @@ class SearchInsideQaFragment : MvpFragment<SearchInsideQaPresenter>(), SearchIns
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_search_inside_qa,container,false)
+        return inflater.inflate(R.layout.fragment_search_inside_qa, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,17 +76,26 @@ class SearchInsideQaFragment : MvpFragment<SearchInsideQaPresenter>(), SearchIns
         mPresenter?.searchCircleQA(mPage, Constants.PAGE_SIZE, circleId, mKeyword)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CircleDetailBean
+        when (view.id) {
+            R.id.tiwen_con -> {
+                mActivity.startActivity(CircleQuestionDetailActivity::class.java) {
+                    it.putExtra("huatiId", bean.id)
+                    it.putExtra("CircleId", circleId)
+                }
+            }
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         mAdapter = SearchInsideQaAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
         mAdapter.setLoadMoreView(CustomLoadMoreView())
-        mAdapter.setOnLoadMoreListener(this,rv_search_result)
+        mAdapter.setOnLoadMoreListener(this, rv_search_result)
         rv_search_result.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_search_result.adapter = mAdapter
         val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容，换个关键词试试", R.drawable.iv_need_login)

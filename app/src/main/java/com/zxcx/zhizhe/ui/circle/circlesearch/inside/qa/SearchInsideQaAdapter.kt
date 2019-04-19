@@ -50,6 +50,7 @@ class SearchInsideQaAdapter (data: List<CircleDetailBean>) : BaseMultiItemQuickA
         helper.addOnClickListener(R.id.circle_detail_img)
 
         helper.addOnClickListener(R.id.circle_detail_more)
+        helper.addOnClickListener(R.id.tiwen_con)
     }
 
 }
