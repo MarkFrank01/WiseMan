@@ -43,6 +43,7 @@ class CardBean(
         @SerializedName("distanceTime") var distanceTime: String = "",
         @SerializedName("remask") var title: String = "",
         @SerializedName("circleFix") var circleFix: Boolean = false,
+        @SerializedName("circlePrivate") var circlePrivate:Boolean = false,
 
 
         var showTitle: String = "",

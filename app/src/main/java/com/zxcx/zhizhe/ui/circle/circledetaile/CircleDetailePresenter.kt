@@ -66,11 +66,15 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
 
 
     override fun getCircleBasicInfoSuccess(bean: CircleBean) {
-        mView.getCircleBasicInfoSuccess(bean)
+        if (mView!=null) {
+            mView.getCircleBasicInfoSuccess(bean)
+        }
     }
 
     override fun getCircleMemberByCircleIdSuccess(bean: MutableList<CircleBean>) {
-        mView.getCircleMemberByCircleIdSuccess(bean)
+        if (mView!=null) {
+            mView.getCircleMemberByCircleIdSuccess(bean)
+        }
     }
 
     override fun getCircleQAByCircleIdSuccess(bean: MutableList<CircleDetailBean>) {

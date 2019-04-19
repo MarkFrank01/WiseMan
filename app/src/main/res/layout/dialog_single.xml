@@ -46,7 +46,7 @@
 			android:layout_weight="1"
 			android:paddingTop="16dp"
 			android:paddingBottom="12dp"
-			android:paddingEnd="20dp"
+			android:paddingEnd="16dp"
 			android:gravity="center_vertical|end"
 			android:text="@string/common_confirm"
 			android:textColor="@color/button_blue"

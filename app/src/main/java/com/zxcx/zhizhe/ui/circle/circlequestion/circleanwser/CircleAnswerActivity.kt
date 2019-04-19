@@ -134,7 +134,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog.arguments = bundle
-        mOSSDialog.show(supportFragmentManager, "")
+        mOSSDialog.show(supportFragmentManager, "1")
     }
 
     private fun uploadImageToOSS2(path: String) {
@@ -142,7 +142,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog2.arguments = bundle
-        mOSSDialog2.show(supportFragmentManager, "")
+        mOSSDialog2.show(supportFragmentManager, "2")
     }
 
     private fun uploadImageToOSS3(path: String) {
@@ -150,7 +150,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog3.arguments = bundle
-        mOSSDialog3.show(supportFragmentManager, "")
+        mOSSDialog3.show(supportFragmentManager, "3")
     }
 
     private fun uploadImageToOSS4(path: String) {
@@ -158,7 +158,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog4.arguments = bundle
-        mOSSDialog4.show(supportFragmentManager, "")
+        mOSSDialog4.show(supportFragmentManager, "4")
     }
 
     private fun uploadImageToOSS5(path: String) {
@@ -166,7 +166,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog5.arguments = bundle
-        mOSSDialog5.show(supportFragmentManager, "")
+        mOSSDialog5.show(supportFragmentManager, "5")
     }
 
     private fun uploadImageToOSS6(path: String) {
@@ -174,7 +174,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
         bundle.putInt("OSSAction", 1)
         bundle.putString("filePath", path)
         mOSSDialog6.arguments = bundle
-        mOSSDialog6.show(supportFragmentManager, "")
+        mOSSDialog6.show(supportFragmentManager, "6")
     }
 
 
@@ -198,22 +198,25 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
     }
 
     override fun uploadSuccess(url: String) {
-        LogCat.e("url is "+url)
+//        LogCat.e("url is "+url)
         mPushImgs.add(url)
 
         when (mCashImgs.size) {
             1 -> {
+                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
                 mCashImgs.remove(mCashImgs[0])
             }
 
             2 -> {
                 uploadImageToOSS2(mAllImgs[1])
                 mCashImgs.remove(mCashImgs[0])
+                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
             }
 
             3 -> {
                 uploadImageToOSS3(mAllImgs[2])
                 mCashImgs.remove(mCashImgs[0])
+                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------"+mCashImgs[1])
             }
 
             4 -> {

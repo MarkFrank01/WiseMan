@@ -267,11 +267,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         if (mHuaTiPage == 0) {
 //            (mRefreshLayout.refreshHeader as DefaultRefreshHeader).setSuccess(true)
 //            mRefreshLayout.finishRefresh()
+            LogCat.e("????")
+            mAdapter.data.clear()
             mAdapter.setNewData(list)
 
 //            mHuaTiPage++
 //            onRefresh()
         } else {
+            LogCat.e("!!!")
             mAdapter.addData(list)
         }
 
@@ -280,7 +283,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         mHuaTiPage++
 
-        if (list.size<Constants.PAGE_SIZE) {
+        if (list.size < Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false)
         } else {
             mAdapter.loadMoreComplete()
@@ -368,6 +371,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 mActivity.startActivity(CircleRecommendActivity::class.java) {
                     it.putExtra("circleID", circleID)
                 }
+            } else {
+                JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
             }
         }
 
@@ -396,6 +401,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             //现在
 //            LogCat.e("circleName "+circlename+"circleprice "+circleprice+" circleenndTime"+circleendtime+" eyu "+circleyue)
             JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
+
 
         }
     }
