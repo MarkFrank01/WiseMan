@@ -195,7 +195,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
                 if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
                     LogCat.e("单官方和单自定义")
-                    mTheSecond = mPushData[0]
+//                    mTheSecond = mPushData[0]
+                    mTheFirst = mPushData[0]
+                    mTheSecond = ""
                 } else if (mSingleLable == "") {
                     LogCat.e("单自定义")
                     mTheFirst = mPushData[0]
@@ -526,6 +528,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
             val intent = Intent(this, SelectDetailActivity::class.java)
             intent.putExtra("list", listtoNext as ArrayList)
+            intent.putExtra("classifyName",mSelectedClassify?.title)
             startActivityForResult(intent, BackBack)
         }
 

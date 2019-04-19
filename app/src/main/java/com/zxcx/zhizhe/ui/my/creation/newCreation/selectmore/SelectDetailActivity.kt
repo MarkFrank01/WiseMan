@@ -91,7 +91,8 @@ class SelectDetailActivity : BaseActivity() {
 
                 if (mSingleLable != "" && mSingleLable.isNotEmpty()) {
                     LogCat.e("单官方和单自定义")
-                    mTheSecond = mPushData[0]
+//                    mTheSecond = mPushData[0]
+                    mTheFirst = mPushData[0]
                 } else if (mSingleLable == "") {
                     LogCat.e("单自定义")
                     mTheFirst = mPushData[0]

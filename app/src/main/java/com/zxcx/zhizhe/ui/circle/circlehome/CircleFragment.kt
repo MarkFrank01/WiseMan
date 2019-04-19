@@ -121,7 +121,7 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
         if (list.size < 1) {
             mCircleListPage = 0
-            getCircleById()
+//            getCircleById()
         } else {
             mCircleNewAdapter.data.clear()
             for (bean in list.indices) {
