@@ -2,9 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stroke
-        android:color="@color/text_color_hint"
+        android:color="@color/color_checkbox_bg_select_attention"
         android:width="0.5dp"/>
-        <!--android:color="@color/color_checkbox_bg_select_attention"-->
 
 
     <corners android:radius="16dp"/>

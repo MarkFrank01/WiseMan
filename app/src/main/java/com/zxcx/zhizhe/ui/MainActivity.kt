@@ -23,11 +23,9 @@ import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorLongActivity
 import com.zxcx.zhizhe.ui.my.pastelink.PasteLinkActivity
-import com.zxcx.zhizhe.ui.my.writer_status_writer
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.SVTSConstants
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.PublishDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -172,8 +170,8 @@ class MainActivity : BaseActivity() {
             mHomeDialog.setFabuClickListener {
                 //                toastShow("开始创作")
                 if (checkLogin()) {
-                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                        writer_status_writer -> {
+                    when (!Utils.getIsFirstLaunchApp()) {
+                        true -> {
                             //创作界面
                             mActivity.startActivity(CreationEditorActivity::class.java) {}
                         }
@@ -192,8 +190,8 @@ class MainActivity : BaseActivity() {
 
             mHomeDialog.setShenDuClickListener {
                 if (checkLogin()) {
-                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                        writer_status_writer -> {
+                    when (!Utils.getIsFirstLaunchApp()) {
+                        true -> {
                             //创作界面
                             mActivity.startActivity(CreationEditorLongActivity::class.java) {}
                         }
@@ -213,8 +211,8 @@ class MainActivity : BaseActivity() {
             mHomeDialog.setHuishouClickListener {
 
                 if (checkLogin()) {
-                    when (SharedPreferencesUtil.getInt(SVTSConstants.writerStatus, 0)) {
-                        writer_status_writer -> {
+                    when (!Utils.getIsFirstLaunchApp()) {
+                        true -> {
                             //一键转载
                             mActivity.startActivity(PasteLinkActivity::class.java) {}
                         }

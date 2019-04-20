@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.circleowner.ownercreate
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -123,6 +124,26 @@ class OwnerCreateManageActivity : BaseActivity() {
         }
 
 
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        //避免恢复视图状态
+    }
+
+    override fun recreate() {
+        val intent = Intent()
+        intent.putExtra("isNight", true)
+        setIntent(intent)
+        try {//避免重启太快 恢复
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (fragment in supportFragmentManager.fragments) {
+                fragmentTransaction.remove(fragment)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
+        }
+
+        super.recreate()
     }
 
     override fun setListener() {
