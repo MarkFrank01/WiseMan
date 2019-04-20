@@ -280,6 +280,7 @@
     </ScrollView>
 
     <android.support.constraint.ConstraintLayout
+        android:visibility="gone"
         android:layout_gravity="bottom|end"
         android:id="@+id/show_1"
         android:layout_width="40dp"

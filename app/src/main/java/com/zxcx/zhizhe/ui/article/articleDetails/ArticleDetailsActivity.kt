@@ -149,8 +149,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         tv_article_details_date.text = date
         tv_article_details_time.text = cardBean.distanceTime
         tv_article_details_category.text = cardBean.categoryName
-        tv_article_details_label.text = cardBean.getLabelName()
-        if (cardBean.secondCollectionTitle.isNotEmpty()) {
+        if (cardBean.labelName!=""&&cardBean.labelName.isNotEmpty()) {
+            tv_article_details_label.text = cardBean.getLabelName()
+        }
+        if (cardBean.secondCollectionTitle.isNotEmpty()&&cardBean.secondCollectionTitle!="") {
             tv_article_details_label2.visibility = View.VISIBLE
             tv_article_details_label2.text = cardBean.getSecondLabelName()
         }
@@ -192,6 +194,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         if (bean.authorType != 0 && bean.authorType == 1) {
             iv_item_card_officials.visibility = View.VISIBLE
         }
+
+        if (cardBean.relatedCircleTitle.isNotEmpty()&&cardBean.relatedCircleTitle!=""){
+            show_1.visibility = View.VISIBLE
+        }
     }
 
     override fun postSuccess(bean: CardBean) {
@@ -202,8 +208,10 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         tv_article_details_date.text = date
         tv_article_details_time.text = cardBean.distanceTime
         tv_article_details_category.text = cardBean.categoryName
-        tv_article_details_label.text = cardBean.getLabelName()
-        if (cardBean.secondCollectionTitle.isNotEmpty()) {
+        if (cardBean.labelName!=""&&cardBean.labelName.isNotEmpty()) {
+            tv_article_details_label.text = cardBean.getLabelName()
+        }
+        if (cardBean.secondCollectionTitle.isNotEmpty()&&cardBean.secondCollectionTitle!="") {
             tv_article_details_label2.visibility = View.VISIBLE
             tv_article_details_label2.text = cardBean.getSecondLabelName()
         }
@@ -409,7 +417,7 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             tv_article_details_time.text = cardBean.distanceTime
         if (!StringUtils.isEmpty(cardBean.categoryName))
             tv_article_details_category.text = cardBean.categoryName
-        if (!StringUtils.isEmpty(cardBean.getLabelName()))
+        if (!StringUtils.isEmpty(cardBean.labelName))
             tv_article_details_label.text = cardBean.getLabelName()
         if (!StringUtils.isEmpty(cardBean.imageUrl)) {
             val imageUrl = ZhiZheUtils.getHDImageUrl(cardBean.imageUrl)
