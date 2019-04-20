@@ -82,6 +82,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     //存放限免的类型
     private var limitedTimeType = 0
 
+    //底部限免保存
+    private var statusType = 0
+
     //排序话题时的标注
     private var mSelectPosition = 0
 
@@ -212,6 +215,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         labelName = bean.classifytitle
         classifyId = bean.classifyId
         limitedTimeType = bean.limitedTimeType
+
+        statusType = bean.statusType
 
         //存储数据
         mIntroduction = bean.sign
@@ -475,8 +480,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
                         iv_toolbar_back.setImageResource(R.drawable.common_back_white)
                         toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.white))
-                        iv_toolbar_right1.setImageResource(R.drawable.cd_search)
-                        iv_toolbar_right2.setImageResource(R.drawable.circle_more_white)
+                        if (hasJoinBoolean) {
+                            iv_toolbar_right1.setImageResource(R.drawable.cd_search)
+                            iv_toolbar_right2.setImageResource(R.drawable.circle_more_white)
+                        }else{
+                            iv_toolbar_right2.setImageResource(R.drawable.share_right_white)
+                        }
                     }
 
                     State.COLLAPSED -> {
@@ -487,8 +496,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
                         iv_toolbar_back.setImageResource(R.drawable.common_back)
                         toolbar_title_1.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
-                        iv_toolbar_right1.setImageResource(R.drawable.circle_search)
-                        iv_toolbar_right2.setImageResource(R.drawable.iv_toolbar_more)
+                        if (hasJoinBoolean) {
+                            iv_toolbar_right1.setImageResource(R.drawable.circle_search)
+                            iv_toolbar_right2.setImageResource(R.drawable.iv_toolbar_more)
+                        }else{
+                            iv_toolbar_right2.setImageResource(R.drawable.share_right)
+                        }
 
                     }
                     else -> {
@@ -803,12 +816,21 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         if (checkLogin()) {
             if (t4.parseFloat() > 0) {
-                XPopup.Builder(mActivity)
-                        .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
-                                OnSelectListener { position, text ->
-                                    mPresenter.joinCircleByZzbForAndroid(circleID)
-                                })
-                        ).show()
+                if (statusType == 1){
+                    XPopup.Builder(mActivity)
+                            .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "限免加入", -1,
+                                    OnSelectListener { position, text ->
+                                        mPresenter.joinCircleByZzbForAndroid(circleID)
+                                    })
+                            ).show()
+                }else {
+                    XPopup.Builder(mActivity)
+                            .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "立即加入", -1,
+                                    OnSelectListener { position, text ->
+                                        mPresenter.joinCircleByZzbForAndroid(circleID)
+                                    })
+                            ).show()
+                }
             } else {
                 XPopup.Builder(mActivity)
                         .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "充值并兑换", -1,

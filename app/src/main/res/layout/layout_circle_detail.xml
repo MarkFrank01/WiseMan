@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:layout_marginTop="175dp"
+                    android:layout_marginTop="173dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -151,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="11dp"
-                    android:layout_marginTop="188dp"
+                    android:layout_marginTop="186dp"
                     android:text="圈主活跃"
                     android:textColor="@color/white"
                     android:textSize="10sp"/>
