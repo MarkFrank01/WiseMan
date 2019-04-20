@@ -190,8 +190,8 @@
 
                     <ImageView
                         android:id="@+id/iv_to_name"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="22dp"
                         android:layout_marginTop="10dp"
@@ -232,8 +232,8 @@
 
                     <ImageView
                         android:id="@+id/iv_to_name2"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="22dp"
                         android:layout_marginTop="10dp"
@@ -299,7 +299,7 @@
                     android:layout_marginStart="18dp"
                     android:text="圈子分类"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/text_color_1"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -317,8 +317,8 @@
                     tools:text="科技"/>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="18dp"
                     android:src="@drawable/c_more"/>
@@ -347,7 +347,7 @@
                     android:layout_marginStart="18dp"
                     android:text="付费进圈"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/text_color_1"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -365,8 +365,8 @@
                     tools:text="黄金"/>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="18dp"
                     android:src="@drawable/c_more"/>
@@ -395,7 +395,7 @@
                     android:layout_marginStart="18dp"
                     android:text="限时免费"
                     android:textSize="17sp"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/text_color_1"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -413,8 +413,8 @@
                     tools:text="黄金"/>
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="18dp"
                     android:src="@drawable/c_more"/>

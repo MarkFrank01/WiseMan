@@ -4,7 +4,6 @@
     <stroke
         android:color="@color/text_color_hint"
         android:width="0.5dp"/>
-    <solid android:color="@color/strip"/>
     <corners android:radius="16dp"/>
 
 </shape>

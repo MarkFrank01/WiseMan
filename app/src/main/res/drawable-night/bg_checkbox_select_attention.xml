@@ -5,6 +5,6 @@
         android:color="@color/color_checkbox_bg_select_attention"
         android:width="0.5dp"/>
 
-    <corners android:radius="6dp"/>
+    <corners android:radius="16dp"/>
 
 </shape>

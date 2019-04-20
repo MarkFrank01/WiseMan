@@ -232,7 +232,7 @@ class SelectDetailActivity : BaseActivity() {
 
                     mPushData.add(mCollectionList[i].name+"")
 
-                    LogCat.e("选中的位置是" + i)
+//                    LogCat.e("选中的位置是" + i)
 
                     mSingleLable = mCollectionList[i].name.toString()
 
