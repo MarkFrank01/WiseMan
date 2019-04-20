@@ -769,6 +769,8 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:elevation="1dp"
+            style="?android:attr/borderlessButtonStyle"
             android:id="@+id/bottom_bt"
             android:layout_width="160dp"
             android:layout_height="40dp"
