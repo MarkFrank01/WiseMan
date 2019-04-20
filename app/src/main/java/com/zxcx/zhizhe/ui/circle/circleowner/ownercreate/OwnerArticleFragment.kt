@@ -16,6 +16,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleAdapter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_owner_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -125,6 +126,9 @@ BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,Ba
 
         rv_create_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_create_card.adapter = mAdapter
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_create_card)
     }
 
     fun onRefresh(){

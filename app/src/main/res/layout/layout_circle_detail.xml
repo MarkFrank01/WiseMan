@@ -316,8 +316,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img1"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="10dp"
                         android:scaleType="centerCrop"
@@ -329,8 +329,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img2"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
                         android:scaleType="centerCrop"
@@ -342,8 +342,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img3"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
                         android:scaleType="centerCrop"
@@ -355,8 +355,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img4"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
                         android:scaleType="centerCrop"
@@ -368,8 +368,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img5"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
                         android:scaleType="centerCrop"
@@ -381,8 +381,8 @@
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/detail_round_img6"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="12dp"
                         android:scaleType="centerCrop"
@@ -401,7 +401,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="14dp"
                         android:src="@drawable/right_normal"/>
                 </LinearLayout>
 
