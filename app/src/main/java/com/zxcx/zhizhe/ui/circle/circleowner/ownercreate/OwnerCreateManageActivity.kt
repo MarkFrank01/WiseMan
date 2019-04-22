@@ -114,7 +114,7 @@ class OwnerCreateManageActivity : BaseActivity() {
         }
 
         //之后调整为8和4
-        if (mCardNum >= 1 && mArcNum >= 1) {
+        if (mCardNum >= 4 && mArcNum >= 2) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         }else{

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.my.money.bill
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -48,12 +49,12 @@ class BillActivity : BaseActivity() {
                     }
                 }
                 val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = true
+//                textView.paint.isFakeBoldText = true
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
                 val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = false
+//                textView.paint.isFakeBoldText = false
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -62,7 +63,27 @@ class BillActivity : BaseActivity() {
         switchFragment(mBillFirstFragment)
         tl_circle.getTabAt(0)?.select()
         val textView = tl_circle.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
-        textView.paint.isFakeBoldText = true
+//        textView.paint.isFakeBoldText = true
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        //避免恢复视图状态
+    }
+
+    override fun recreate() {
+        val intent = Intent()
+        intent.putExtra("isNight", true)
+        setIntent(intent)
+        try {//避免重启太快 恢复
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (fragment in supportFragmentManager.fragments) {
+                fragmentTransaction.remove(fragment)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
+        }
+
+        super.recreate()
     }
 
     private fun switchFragment(newFragment: Fragment) {

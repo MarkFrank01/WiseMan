@@ -84,6 +84,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             val transaction = supportFragmentManager.beginTransaction()
             transaction.remove(commentFragment).commitAllowingStateLoss()
             commentFragment = null
+
+            mPresenter.getCardDetails(cardBean.id)
         } else {
             if (isUnCollect) {
                 EventBus.getDefault().post(UnCollectEvent(cardBean.id))

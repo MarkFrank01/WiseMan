@@ -21,7 +21,7 @@
 		android:layout_weight="1"
 		android:gravity="left|center_vertical"
 		android:text="@string/year"
-		android:textColor="@color/button_blue"
+		android:textColor="@color/text_color_3"
 		android:textSize="12sp"/>
 	
 	<com.zxcx.zhizhe.widget.DatePickerView
@@ -36,7 +36,7 @@
 		android:layout_weight="1"
 		android:gravity="left|center_vertical"
 		android:text="@string/month"
-		android:textColor="@color/button_blue"
+		android:textColor="@color/text_color_3"
 		android:textSize="12sp"/>
 	
 	<com.zxcx.zhizhe.widget.DatePickerView
@@ -51,7 +51,7 @@
 		android:layout_weight="1"
 		android:gravity="left|center_vertical"
 		android:text="@string/day"
-		android:textColor="@color/button_blue"
+		android:textColor="@color/text_color_3"
 		android:textSize="12sp"/>
 	
 	<com.zxcx.zhizhe.widget.DatePickerView

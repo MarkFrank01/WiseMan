@@ -440,6 +440,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     }
                 }
             }
+        }else{
+            toastError("加入后查看")
         }
     }
 
@@ -825,7 +827,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     private fun JoinCircle(t1: String, t2: String, t3: String, t4: String) {
 
         if (checkLogin()) {
-            if (t4.parseFloat() > 0) {
+            if (t4.parseFloat() > 0||statusType == 1) {
                 if (statusType == 1){
                     XPopup.Builder(mActivity)
                             .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "限免加入", -1,

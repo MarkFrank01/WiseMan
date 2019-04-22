@@ -11,6 +11,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_bill_2.*
 
 /**
@@ -50,6 +51,9 @@ class BillSecondFragment : RefreshMvpFragment<BillPresenter>(), BillContract.Vie
     }
 
     override fun getDataSuccess(list: MutableList<BillBean>) {
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无更多明细",R.drawable.no_more)
+        mAdapter.emptyView = emptyView
+
         mRefreshLayout.finishRefresh()
 
         if (mPage == 0) {

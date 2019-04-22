@@ -12,6 +12,7 @@ import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.activity_edit_my_count.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.util.regex.Pattern
 
 /**
  * @author : MarkFrank01
@@ -19,6 +20,9 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Description :
  */
 class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContract.View{
+
+    private var phoneRules = "^1\\d{10}$"
+    private var phonePattern = Pattern.compile(phoneRules)
 
     var text1 = ""
     var text2 = ""
@@ -70,7 +74,8 @@ class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContra
 
     val textWatcher3:TextWatcher = object :TextWatcher{
         override fun afterTextChanged(s: Editable?) {
-            checkIN3 = s.toString().trim()!=""
+//            checkIN3 = s.toString().trim()!=""
+            checkIN3 = checkPhoe()
             if (checkIN1&&checkIN2&&checkIN3){
                 tv_toolbar_right.isEnabled = true
                 tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
@@ -142,5 +147,9 @@ class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContra
     }
 
     override fun getDataSuccess(bean: InviteBean?) {
+    }
+
+    private fun checkPhoe():Boolean{
+        return phonePattern.matcher(ed_3.text.toString().trim()).matches()
     }
 }
