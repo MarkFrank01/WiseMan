@@ -26,5 +26,7 @@ class NewRankAdapter(data:List<UserRankBean>):BaseQuickAdapter<UserRankBean,Base
 
         helper.setText(R.id.tv_item_user_name,item.name)
         helper.setText(R.id.tv_item_rank_num_zl,item.intelligence.toString())
+
+        helper.addOnClickListener(R.id.con_la)
     }
 }

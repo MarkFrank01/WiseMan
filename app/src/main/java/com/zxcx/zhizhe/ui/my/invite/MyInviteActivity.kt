@@ -43,8 +43,16 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         mPresenter.getInvitationInfo()
     }
 
+
+
     override fun setListener() {
         copy_my_invite_text.setOnClickListener {
+            var text = copy_my_invite_text.text.toString().trim()
+            putTextInto(this, text)
+            toastShow("复制成功")
+        }
+
+        sb_wenan.setOnClickListener {
             var text = copy_my_invite_text.text.toString().trim()
             putTextInto(this, text)
             toastShow("复制成功")

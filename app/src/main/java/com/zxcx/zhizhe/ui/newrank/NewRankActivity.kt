@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.circle.circlemanlist.detail.CircleManDetailActivity
 import com.zxcx.zhizhe.ui.loginAndRegister.login.LoginActivity
 import com.zxcx.zhizhe.ui.newrank.morerank.MoreRankActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
@@ -24,10 +25,10 @@ import kotlinx.android.synthetic.main.toolbar.*
  * @Description :
  */
 class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
-        BaseQuickAdapter.OnItemChildClickListener,BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
 
 
-    private var mUserId:Int = 0
+    private var mUserId: Int = 0
     private lateinit var mAdapter: NewRankAdapter
 
     //广告块的数据
@@ -37,11 +38,11 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
     override fun onResume() {
         super.onResume()
 
-        if (checkLogin1()){
+        if (checkLogin1()) {
             iv_up_or_down.visibility = View.VISIBLE
             show_rank.visibility = View.VISIBLE
             tv_to_login.visibility = View.GONE
-        }else{
+        } else {
             iv_up_or_down.visibility = View.GONE
             show_rank.visibility = View.GONE
             tv_to_login.visibility = View.VISIBLE
@@ -74,11 +75,11 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
 //        iv_up_or_down
         tv_up_or_down.text = bean.rankChange.toString()
 //        ImageLoader.load(mActivity,bean.imageUrl,R.drawable.default_header,iv_up_or_down)
-        ImageLoader.load(mActivity,bean.imageUrl,R.drawable.default_header,iv_my_head)
+        ImageLoader.load(mActivity, bean.imageUrl, R.drawable.default_header, iv_my_head)
         iv_zhili.text = bean.intelligence.toString()
-        chaoguo.text = bean.percentageOfUsersExceeded.toString()+"%"
+        chaoguo.text = bean.percentageOfUsersExceeded.toString() + "%"
         shangban.text = bean.onRankCount.toString()
-        tv_my_lv.text = "No."+bean.rankIndex.toString()
+        tv_my_lv.text = "No." + bean.rankIndex.toString()
 
     }
 
@@ -92,9 +93,9 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         tv_rank_second_2.text = bean[1].intelligence.toString()
         tv_rank_third_1.text = bean[2].intelligence.toString()
 
-        ImageLoader.load(mActivity,bean[0].imageUrl,R.drawable.default_header,iv_rank_first)
-        ImageLoader.load(mActivity,bean[1].imageUrl,R.drawable.default_header,iv_rank_second)
-        ImageLoader.load(mActivity,bean[2].imageUrl,R.drawable.default_header,iv_rank_third)
+        ImageLoader.load(mActivity, bean[0].imageUrl, R.drawable.default_header, iv_rank_first)
+        ImageLoader.load(mActivity, bean[1].imageUrl, R.drawable.default_header, iv_rank_second)
+        ImageLoader.load(mActivity, bean[2].imageUrl, R.drawable.default_header, iv_rank_third)
 
 
 
@@ -127,7 +128,15 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
     override fun getDataSuccess(bean: List<UserRankBean>?) {
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when (view.id) {
+            R.id.con_la -> {
+                val bean = adapter.data[position] as UserRankBean
+                mActivity.startActivity(CircleManDetailActivity::class.java){
+                    it.putExtra("userId",bean.id)
+                }
+            }
+        }
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -135,23 +144,23 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
 
     override fun setListener() {
         load_more_load_end_view.setOnClickListener {
-            mActivity.startActivity(MoreRankActivity::class.java){}
+            mActivity.startActivity(MoreRankActivity::class.java) {}
         }
 
         last_week_rank.setOnClickListener {
-            mActivity.startActivity(MoreRankActivity::class.java){}
+            mActivity.startActivity(MoreRankActivity::class.java) {}
 
         }
 
         iv_toolbar_right.setOnClickListener {
-            val intent = Intent(this,WebViewActivity::class.java)
-            intent.putExtra("title","智者榜单说明")
-            intent.putExtra("url","http://192.168.1.153:8043/pages/list-explain.html")
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("title", "榜单说明")
+            intent.putExtra("url", "http://192.168.1.153:8043/pages/list-explain.html")
             startActivity(intent)
         }
 
         tv_to_login.setOnClickListener {
-            mActivity.startActivity(LoginActivity::class.java){}
+            mActivity.startActivity(LoginActivity::class.java) {}
         }
     }
 
@@ -165,15 +174,15 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         rv_ht_rank.adapter = mAdapter
     }
 
-    private fun onRefresh(){
+    private fun onRefresh() {
         mUserId = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
-        if (mUserId != 0){
+        if (mUserId != 0) {
             mPresenter.getMyRank()
         }
         mPresenter.getTopTenRank()
     }
 
-    private fun initADView(){
+    private fun initADView() {
         banner_circle.setImageLoader(GlideBannerImageLoader())
         banner_circle.setIndicatorGravity(BannerConfig.RIGHT)
         banner_circle.setOnBannerListener {

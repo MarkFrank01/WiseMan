@@ -1,10 +1,12 @@
 package com.zxcx.zhizhe.ui.my.money.editcount
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.invite.InviteBean
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import kotlinx.android.synthetic.main.activity_edit_my_count.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -28,6 +30,14 @@ class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContra
 //        tv_toolbar_right.isEnabled = false
         tv_toolbar_right.text = "完成"
         tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            //延迟弹出软键盘
+            Handler().postDelayed({Utils.showInputMethod(ed_1)},100)
+        }
     }
 
     override fun setListener() {

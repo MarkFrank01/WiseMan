@@ -7,9 +7,11 @@ import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.circle.circlemanlist.detail.CircleManDetailActivity
 import com.zxcx.zhizhe.ui.rank.UserRankBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.activity_more_rank.*
 
@@ -94,6 +96,13 @@ class MoreRankActivity : MvpActivity<MoreRankPresenter>(), MoreRankContract.View
                 }else{
                     LogCat.e("name is "+bean.name)
                     mPresenter.followUser(bean.id,position)
+                }
+            }
+
+            R.id.tv_item_rank_user_rank,R.id.iv_item_rank_user,R.id.tv_user_name,R.id.tv_user_rank_level->{
+                val bean = adapter.data[position] as UserRankBean
+                mActivity.startActivity(CircleManDetailActivity::class.java){
+                    it.putExtra("userId",bean.id)
                 }
             }
         }

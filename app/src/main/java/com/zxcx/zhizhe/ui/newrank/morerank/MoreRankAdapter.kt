@@ -53,5 +53,11 @@ class MoreRankAdapter(data: List<UserRankBean>) : BaseQuickAdapter<UserRankBean,
         }
 
         helper.addOnClickListener(R.id.cb_item_search_user_follow)
+        helper.addOnClickListener(R.id.tv_item_rank_user_rank)
+        helper.addOnClickListener(R.id.iv_item_rank_user)
+        helper.addOnClickListener(R.id.tv_user_name)
+        helper.addOnClickListener(R.id.tv_user_rank_level)
+
+
     }
 }

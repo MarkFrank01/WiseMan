@@ -5,9 +5,14 @@ import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.invite.InviteBean
+import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.utils.getColorForKotlin
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_input_invite.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.util.concurrent.TimeUnit
 
 /**
  * @author : MarkFrank01
@@ -28,7 +33,10 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
         tv_toolbar_right.text = "完成"
         tv_toolbar_right.isEnabled = false
 
-        vci_invite.focus()
+
+        Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe {
+            vci_invite.focus()
+        }
         mPresenter?.receiveMineInvitationUser()
     }
 
@@ -56,20 +64,20 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
     }
 
     override fun receiveMineInvitationUser(bean: InviteBean) {
-//            invite_me.visibility = View.VISIBLE
-//            ImageLoader.load(mActivity, bean.avatar, R.drawable.default_header, invite_img)
-//            invite_name.text = bean.name
-//            invite_time.text = ZhiZheUtils.timeChange(bean.invitedTime)
-//
-//            if (bean.hasReceiveReward) {
-//                invite_get.text = "已奖励"
-//                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white))
-//                invite_get.setBackgroundResource(R.drawable.bg_backbutton2_grey)
-//            } else {
-//                invite_get.text = "领取奖励"
-//                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white_2))
-//                invite_get.setBackgroundResource(R.drawable.bg_backbutton2)
-//            }
+            invite_me.visibility = View.VISIBLE
+            ImageLoader.load(mActivity, bean.avatar, R.drawable.default_header, invite_img)
+            invite_name.text = bean.name
+            invite_time.text = ZhiZheUtils.timeChange(bean.invitedTime)
+
+            if (bean.hasReceiveReward) {
+                invite_get.text = "已奖励"
+                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white))
+                invite_get.setBackgroundResource(R.drawable.bg_backbutton2_grey)
+            } else {
+                invite_get.text = "领取奖励"
+                invite_get.setTextColor(mActivity.getColorForKotlin(R.color.white_2))
+                invite_get.setBackgroundResource(R.drawable.bg_backbutton2)
+            }
     }
 
     override fun getDataSuccess(bean: InviteBean?) {
