@@ -11,11 +11,11 @@
 
 
     <LinearLayout
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatEditText
@@ -36,19 +36,19 @@
             android:theme="@style/link_edit_text"/>
 
         <View
-            android:layout_marginTop="5dp"
-            android:background="@color/line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/line"/>
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatEditText
@@ -69,18 +69,18 @@
             android:theme="@style/link_edit_text"/>
 
         <View
-            android:layout_marginTop="5dp"
-            android:background="@color/line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/line"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatEditText
@@ -101,10 +101,19 @@
             android:theme="@style/link_edit_text"/>
 
         <View
-            android:layout_marginTop="5dp"
-            android:background="@color/line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/line"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="16dp"
+        android:text="智者平台目前仅支持支付宝提现，如有不便敬请谅解"
+        android:textColor="@color/text_color_3"
+        android:textSize="12sp"/>
 
 </LinearLayout>

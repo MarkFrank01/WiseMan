@@ -2,6 +2,8 @@ package com.zxcx.zhizhe.ui.my.money.editcount
 
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -22,6 +24,70 @@ class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContra
     var text2 = ""
     var text3 = ""
 
+    var checkIN1 = false
+    var checkIN2 = false
+    var checkIN3 = false
+
+    val textWatcher1:TextWatcher = object :TextWatcher{
+        override fun afterTextChanged(s: Editable?) {
+            checkIN1 = s.toString().trim()!=""
+            if (checkIN1&&checkIN2&&checkIN3){
+                tv_toolbar_right.isEnabled = true
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+
+            }else{
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+                tv_toolbar_right.isEnabled = false
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+
+    val textWatcher2:TextWatcher = object :TextWatcher{
+        override fun afterTextChanged(s: Editable?) {
+            checkIN2 = s.toString().trim()!=""
+            if (checkIN1&&checkIN2&&checkIN3){
+                tv_toolbar_right.isEnabled = true
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+
+            }else{
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+                tv_toolbar_right.isEnabled = false
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+
+    val textWatcher3:TextWatcher = object :TextWatcher{
+        override fun afterTextChanged(s: Editable?) {
+            checkIN3 = s.toString().trim()!=""
+            if (checkIN1&&checkIN2&&checkIN3){
+                tv_toolbar_right.isEnabled = true
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+
+            }else{
+                tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+                tv_toolbar_right.isEnabled = false
+            }
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_my_count)
@@ -29,7 +95,12 @@ class EditMyCountActivity :MvpActivity<EditMyCountPresenter>(),EditMyCountContra
         tv_toolbar_right.visibility = View.VISIBLE
 //        tv_toolbar_right.isEnabled = false
         tv_toolbar_right.text = "完成"
-        tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
+        tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
+        tv_toolbar_right.isEnabled  = false
+
+        ed_1.addTextChangedListener(textWatcher1)
+        ed_2.addTextChangedListener(textWatcher2)
+        ed_3.addTextChangedListener(textWatcher3)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

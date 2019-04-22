@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my.money.tx
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -8,6 +9,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.money.MoneyBean
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 import com.zxcx.zhizhe.utils.parseFloat
 import kotlinx.android.synthetic.main.activity_get_money.*
@@ -70,6 +72,14 @@ class GetMoneyActivity : MvpActivity<GetMoneyPresenter>(), GetMoneyContract.View
 
         et_my_money.addTextChangedListener(textWatcher1)
     }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            Handler().postDelayed({Utils.showInputMethod(et_my_money)},100)
+        }
+    }
+
 
     override fun createPresenter(): GetMoneyPresenter {
         return GetMoneyPresenter(this)
