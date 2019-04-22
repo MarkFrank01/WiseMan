@@ -327,10 +327,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         //去圈子成员列表
 
         detail_to_man_list.setOnClickListener {
-            //            toastShow("to man list")
-            mActivity.startActivity(CircleManListActivity::class.java) {
-                it.putExtra("circleID", circleID)
-                it.putExtra("create", creater)
+            if (checkLogin()) {
+                if (hasJoinBoolean) {
+                    mActivity.startActivity(CircleManListActivity::class.java) {
+                        it.putExtra("circleID", circleID)
+                        it.putExtra("create", creater)
+                    }
+                } else {
+                    JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
+                }
             }
         }
 
@@ -469,6 +474,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     private fun initView() {
+        change_order.expandViewTouchDelegate(ScreenUtils.dip2px(20f))
+        detail_to_man_list.expandViewTouchDelegate(ScreenUtils.dip2px(20f))
+        goto_jx.expandViewTouchDelegate(ScreenUtils.dip2px(20f))
+
+
         detail_circle_appbar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
                 when (state) {

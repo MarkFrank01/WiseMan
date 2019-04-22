@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_top_change.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * @author : MarkFrank01
@@ -115,6 +116,7 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
             tv_select_label_change_1.visibility = View.VISIBLE
             tv_select_label_change_2.visibility = View.GONE
         }
+
     }
 
     override fun getDataSuccess(bean: MutableList<ClassifyBean>?) {
@@ -194,6 +196,23 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 
     private fun initView() {
         initToolBar("所有分类")
+//        iv_toolbar_back.setOnClickListener {
+//            mCheckedList = mNewHotClassify as ArrayList<ClassifyBean>
+//
+//            if (mCheckedList.size>0) {
+//                val idList = mutableListOf<Int>()
+//                mCheckedList.forEach {
+//                    idList.add(it.id)
+//                }
+//                LogCat.e("size is " + idList.size)
+//                mPresenter.setClassifyMenu(idList)
+//            }
+//            onBackPressed()
+//        }
+
+        tv_toolbar_right.setOnClickListener {
+            toastShow("!!!")
+        }
 
     }
 }
