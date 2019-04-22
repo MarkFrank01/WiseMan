@@ -25,12 +25,14 @@ import com.zxcx.zhizhe.retrofit.APIService
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
 import com.zxcx.zhizhe.ui.card.share.ShareDialog
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GoodView
+import com.zxcx.zhizhe.widget.MyScrollView
 import kotlinx.android.synthetic.main.activity_article_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -40,7 +42,8 @@ import org.greenrobot.eventbus.ThreadMode
  * 长文详情页
  */
 
-class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View {
+class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDetailsContract.View , MyScrollView.OnScrollListener{
+
 
     private var mWebView: WebView? = null
     private var mUserId: Int = 0
@@ -195,8 +198,11 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
             iv_item_card_officials.visibility = View.VISIBLE
         }
 
-        if (cardBean.relatedCircleTitle.isNotEmpty()&&cardBean.relatedCircleTitle!=""){
-            show_1.visibility = View.VISIBLE
+        if (bean.relatedCircleTitle.isNotEmpty()&&bean.relatedCircleTitle!=""){
+            if (!bean.circlePrivate) {
+                LogCat.e("circleprivate  " + bean.circlePrivate)
+                show_1.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -300,6 +306,9 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
                 show_1.visibility = View.VISIBLE
                 show_2.visibility = View.GONE
                 showOther = false
+                mActivity.startActivity(CircleDetaileActivity::class.java){
+                    it.putExtra("circleID",cardBean.relatedCircleId)
+                }
             }
         }
 
@@ -443,6 +452,22 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         iv_article_details_share.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         initWebView()
         initLoadSir()
+
+        fl_card_details.viewTreeObserver.addOnGlobalLayoutListener {
+            onScroll(sv_card_details.scrollY)
+        }
+        sv_card_details.setOnScrollListener(this)
+    }
+
+    override fun onScroll(scrollY: Int) {
+//        var moveTop = Math.max(scrollY, ll_card_details_top.top)
+//        toastShow("??"+moveTop)
+        if (scrollY>=100){
+//            toastShow("111")
+            show_top.visibility = View.VISIBLE
+        }else{
+            show_top.visibility = View.GONE
+        }
     }
 
     private fun initWebView() {

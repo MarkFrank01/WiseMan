@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <ScrollView
+    <com.zxcx.zhizhe.widget.MyScrollView
         android:layout_marginBottom="35dp"
         android:id="@+id/sv_card_details"
         android:layout_width="match_parent"
@@ -277,7 +277,7 @@
 				<!--tv_article_details_collect,cb_article_details_like,-->
 				<!--tv_article_details_like,iv_article_details_share"/>-->
         </android.support.constraint.ConstraintLayout>
-    </ScrollView>
+    </com.zxcx.zhizhe.widget.MyScrollView>
 
     <android.support.constraint.ConstraintLayout
         android:visibility="gone"

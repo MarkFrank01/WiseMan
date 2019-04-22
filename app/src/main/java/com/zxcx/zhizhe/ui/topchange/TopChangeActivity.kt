@@ -33,6 +33,9 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 
     //收集数据
     private var mCheckedList = ArrayList<ClassifyBean>()
+    //SB返回保存
+    private var mCheckedList_back = ArrayList<ClassifyBean>()
+    private var backYES = false
 
     //是否是编辑的状态
     private var mCanChoose = false
@@ -54,10 +57,16 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
     }
 
     override fun setClassifyMenuSuccess() {
-        toastShow("设置成功")
+
 //        finish()
         SharedPreferencesUtil.saveData("saveOnce", true)
         SharedPreferencesUtil.saveData("saveOnce2", true)
+
+        if (backYES){
+            onBackPressed()
+        }else{
+            toastShow("设置成功")
+        }
     }
 
     override fun getAllNavClassifySuccess(list: MutableList<ClassifyBean>) {
@@ -196,23 +205,21 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 
     private fun initView() {
         initToolBar("所有分类")
-//        iv_toolbar_back.setOnClickListener {
-//            mCheckedList = mNewHotClassify as ArrayList<ClassifyBean>
-//
-//            if (mCheckedList.size>0) {
-//                val idList = mutableListOf<Int>()
-//                mCheckedList.forEach {
-//                    idList.add(it.id)
-//                }
-//                LogCat.e("size is " + idList.size)
-//                mPresenter.setClassifyMenu(idList)
-//            }
-//            onBackPressed()
-//        }
+        iv_toolbar_back.setOnClickListener {
+            backYES = true
 
-        tv_toolbar_right.setOnClickListener {
-            toastShow("!!!")
+            mCheckedList_back = mNewHotClassify as ArrayList<ClassifyBean>
+
+            if (mCheckedList_back.size>0) {
+                val idList = mutableListOf<Int>()
+                mCheckedList_back.forEach {
+                    idList.add(it.id)
+                }
+                LogCat.e("size is " + idList.size)
+                mPresenter.setClassifyMenu(idList)
+            }
+
+
         }
-
     }
 }
