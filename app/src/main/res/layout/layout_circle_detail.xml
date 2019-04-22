@@ -398,6 +398,7 @@
                         android:layout_weight="1"/>
 
                     <ImageView
+                        android:layout_marginBottom="1dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -707,6 +708,7 @@
                         android:layout_weight="1"/>
 
                     <ImageView
+                        android:layout_marginBottom="1dp"
                         android:id="@+id/change_order"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
