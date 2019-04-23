@@ -142,28 +142,38 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
             }
 
             2 -> {
-                uploadImageToOSS2(mAllImgs[1])
+                LogCat.e("mAllImgs[1]"+mAllImgs[1])
+//                uploadImageToOSS2(mAllImgs[1])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS2(mCashImgs[0])
             }
 
             3 -> {
-                uploadImageToOSS3(mAllImgs[2])
+                LogCat.e("mAllImgs[2]"+mAllImgs[2])
+//                uploadImageToOSS3(mAllImgs[2])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS3(mCashImgs[0])
             }
 
             4 -> {
-                uploadImageToOSS4(mAllImgs[3])
+                LogCat.e("mAllImgs[3]"+mAllImgs[3])
+//                uploadImageToOSS4(mAllImgs[3])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS4(mCashImgs[0])
             }
 
             5 -> {
-                uploadImageToOSS5(mAllImgs[4])
+                LogCat.e("mAllImgs[4]"+mAllImgs[4])
+//                uploadImageToOSS5(mAllImgs[4])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS5(mCashImgs[0])
             }
 
             6 -> {
-                uploadImageToOSS6(mAllImgs[5])
+                LogCat.e("mAllImgs[5]"+mAllImgs[5])
+//                uploadImageToOSS6(mAllImgs[5])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS6(mCashImgs[0])
             }
         }
 

@@ -203,30 +203,34 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
 
         when (mCashImgs.size) {
             1 -> {
-                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
+//                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
                 mCashImgs.remove(mCashImgs[0])
             }
 
             2 -> {
-                uploadImageToOSS2(mAllImgs[1])
+//                uploadImageToOSS2(mAllImgs[1])
                 mCashImgs.remove(mCashImgs[0])
-                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
+                uploadImageToOSS2(mCashImgs[0])
+//                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------")
             }
 
             3 -> {
-                uploadImageToOSS3(mAllImgs[2])
+//                uploadImageToOSS3(mAllImgs[2])
                 mCashImgs.remove(mCashImgs[0])
-                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------"+mCashImgs[1])
+                uploadImageToOSS3(mCashImgs[0])
+//                LogCat.e("Size is "+mCashImgs.size+"---------------"+mCashImgs[0]+"---------"+mCashImgs[1])
             }
 
             4 -> {
-                uploadImageToOSS4(mAllImgs[3])
+//                uploadImageToOSS4(mAllImgs[3])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS4(mCashImgs[0])
             }
 
             5 -> {
-                uploadImageToOSS5(mAllImgs[4])
+//                uploadImageToOSS5(mAllImgs[4])
                 mCashImgs.remove(mCashImgs[0])
+                uploadImageToOSS5(mCashImgs[0])
             }
 
             6 -> {
