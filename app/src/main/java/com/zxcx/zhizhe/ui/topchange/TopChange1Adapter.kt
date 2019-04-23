@@ -1,7 +1,6 @@
 package com.zxcx.zhizhe.ui.topchange
 
 import android.view.View
-import android.widget.CheckBox
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -22,7 +21,7 @@ class TopChange1Adapter(data:List<ClassifyBean>):BaseItemDraggableAdapter<Classi
         helper.addOnClickListener(R.id.fl_item_select_card_bag)
         val para = helper.itemView.layoutParams
         val screenWidth = ScreenUtils.getDisplayWidth()
-        para.width = ((screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4)-12
+        para.width = ((screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4)-6
 //        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4
         LogCat.e("para.width"+para.width)
         helper.itemView.layoutParams = para
@@ -30,10 +29,10 @@ class TopChange1Adapter(data:List<ClassifyBean>):BaseItemDraggableAdapter<Classi
         helper.setText(R.id.cb_item_select_card_bag,item.title)
         if (item.isChecked){
             helper.getView<ImageView>(R.id.can_show_cancel).visibility = View.VISIBLE
-            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(10,0,0,0)
+//            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(10,0,0,0)
         }else{
             helper.getView<ImageView>(R.id.can_show_cancel).visibility = View.GONE
-            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(0,0,0,0)
+//            helper.getView<CheckBox>(R.id.cb_item_select_card_bag).setPadding(0,0,0,0)
 
         }
 

@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/can_show_cancel"
-        android:visibility="gone"
         android:layout_marginTop="13dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/top_delete"
@@ -18,6 +17,7 @@
         android:layout_height="10dp"/>
 
     <CheckBox
+        android:paddingStart="10dp"
         android:id="@+id/cb_item_select_card_bag"
         style="@style/tv_single"
         android:layout_width="match_parent"

@@ -16,6 +16,7 @@
         android:layout_height="10dp"/>
 
     <CheckBox
+        android:paddingStart="10dp"
         android:id="@+id/cb_item_select_card_bag"
         style="@style/tv_single"
         android:layout_width="match_parent"
