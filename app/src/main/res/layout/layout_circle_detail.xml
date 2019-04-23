@@ -825,8 +825,7 @@
                 android:paddingTop="8dp"
                 android:text="提问"
                 android:textColor="@color/color_text_enable_blue"
-                android:textSize="@dimen/text_size_text_2"
-                android:textStyle="bold"/>
+                android:textSize="@dimen/text_size_text_2"/>
 
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>

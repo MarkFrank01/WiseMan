@@ -7,7 +7,7 @@
               android:orientation="horizontal"
               android:paddingLeft="88dp"
               android:paddingRight="88dp"
-              android:paddingTop="13dp">
+              android:paddingTop="12dp">
 
     <ImageView
         android:visibility="gone"
@@ -39,7 +39,7 @@
 
         <View
             android:id="@+id/line"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="13dp"
             android:background="@color/line"
             android:layout_width="wrap_content"
             android:layout_height="1dp"/>

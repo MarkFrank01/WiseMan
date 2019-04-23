@@ -217,6 +217,8 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
                 }
                 LogCat.e("size is " + idList.size)
                 mPresenter.setClassifyMenu(idList)
+            }else{
+                onBackPressed()
             }
 
 
