@@ -116,7 +116,11 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         ImageLoader.load(this,bean.usersVO.avater,R.drawable.default_card,question_push)
 
         question_title.text = bean.title
-        question_desc.text = bean.description
+        if (bean.description.isNotEmpty()&&bean.description!="") {
+            question_desc.text = bean.description
+        }else{
+            question_desc.visibility = View.GONE
+        }
         question_time.text = bean.distanceTime
         circle_detail_username.text = bean.usersVO.name
         tv_item_card_read1.text = ""+bean.pv

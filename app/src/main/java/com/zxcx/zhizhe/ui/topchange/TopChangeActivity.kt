@@ -210,16 +210,16 @@ class TopChangeActivity : MvpActivity<TopChangePresenter>(), TopChangeContract.V
 
             mCheckedList_back = mNewHotClassify as ArrayList<ClassifyBean>
 
-            if (mCheckedList_back.size>0) {
+//            if (mCheckedList_back.size>0) {
                 val idList = mutableListOf<Int>()
                 mCheckedList_back.forEach {
                     idList.add(it.id)
                 }
                 LogCat.e("size is " + idList.size)
                 mPresenter.setClassifyMenu(idList)
-            }else{
-                onBackPressed()
-            }
+//            }else{
+//                onBackPressed()
+//            }
 
 
         }
