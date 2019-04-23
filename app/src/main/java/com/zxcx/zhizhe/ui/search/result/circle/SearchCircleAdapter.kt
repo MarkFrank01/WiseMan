@@ -38,6 +38,7 @@ class SearchCircleAdapter (data: List<CircleBean>) :
         helper.setText(R.id.tv_item_circle_classify_desc, item.sign)
         helper.setText(R.id.tv_item_circle_classify_join, "加入" + item.joinUserCount)
         helper.setText(R.id.tv_item_circle_classify_topic, "话题" + item.qaCount)
+        helper.setText(R.id.tv_item_circle_classify_type,item.classifytitle)
 
 //        helper.getView<CheckBox>(R.id.cb_item_select_join_circle2).visibility = View.GONE
 
@@ -80,8 +81,50 @@ class SearchCircleAdapter (data: List<CircleBean>) :
         }
 
         helper.addOnClickListener(R.id.cb_item_select_join_circle2)
+        helper.addOnClickListener(R.id.con_click)
 
+        //圈子评分
+        var num = item.overallRating
+        val star_1 = helper.getView<ImageView>(R.id.star_1)
+        val star_2 = helper.getView<ImageView>(R.id.star_2)
+        val star_3 = helper.getView<ImageView>(R.id.star_3)
+        val star_4 = helper.getView<ImageView>(R.id.star_4)
+        val star_5 = helper.getView<ImageView>(R.id.star_5)
 
+        when (num) {
+            0 -> {
+
+            }
+
+            1 -> {
+                ImageLoader.load(mContext, R.drawable.star_on, star_1)
+            }
+
+            2 -> {
+                ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                ImageLoader.load(mContext, R.drawable.star_on, star_2)
+            }
+
+            3 -> {
+                ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                ImageLoader.load(mContext, R.drawable.star_on, star_3)
+            }
+
+            4 -> {
+                ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                ImageLoader.load(mContext, R.drawable.star_on, star_3)
+                ImageLoader.load(mContext, R.drawable.star_on, star_4)
+            }
+            5 -> {
+                ImageLoader.load(mContext, R.drawable.star_on, star_1)
+                ImageLoader.load(mContext, R.drawable.star_on, star_2)
+                ImageLoader.load(mContext, R.drawable.star_on, star_3)
+                ImageLoader.load(mContext, R.drawable.star_on, star_4)
+                ImageLoader.load(mContext, R.drawable.star_on, star_5)
+            }
+        }
     }
 
 }
