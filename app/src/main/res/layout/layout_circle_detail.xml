@@ -717,7 +717,35 @@
                         android:src="@drawable/huati_order"/>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_marginBottom="44dp"
+                    android:visibility="gone"
+                    android:id="@+id/when_no_data"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/no_comment"
+                    android:layout_gravity="center"
+                    android:layout_width="120dp"
+                    android:layout_height="80dp"/>
+
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:text="抢先发布话题"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/button_blue"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
                 <RelativeLayout
+                    android:id="@+id/show_rv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:descendantFocusability="blocksDescendants">
@@ -757,7 +785,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"/>
+                    android:layout_height="50dp"/>
 
             </LinearLayout>
 

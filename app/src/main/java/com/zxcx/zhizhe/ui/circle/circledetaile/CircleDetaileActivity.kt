@@ -265,6 +265,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
+        if (mHuaTiPage==0&&list.size<1){
+            rv_circle_detail.visibility = View.GONE
+            when_no_data.visibility = View.VISIBLE
+        }else{
+            rv_circle_detail.visibility = View.VISIBLE
+            when_no_data.visibility = View.GONE
+        }
+
 //        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
 //        mAdapter.emptyView = emptyView
 
@@ -335,6 +343,14 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     }
                 } else {
                     JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
+                }
+            }
+        }
+
+        when_no_data.setOnClickListener {
+            if (hasJoinBoolean) {
+                mActivity.startActivity(CircleQuestionActivity::class.java) {
+                    it.putExtra("circleID", circleID)
                 }
             }
         }

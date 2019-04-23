@@ -10,10 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.ZhiZheUtils
-import com.zxcx.zhizhe.utils.expandViewTouchDelegate
+import com.zxcx.zhizhe.utils.*
 
 /**
  * Created by anm on 2017/6/26.
@@ -59,7 +56,11 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
             helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
         }
 
-        if (item.relatedCircleTitle.isEmpty()||item.relatedCircleTitle==""){
+        if (item.relatedCircleId!=0){
+            LogCat.e("item.relatedCircleId"+item.relatedCircleId)
+            helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.VISIBLE
+        }else{
+            LogCat.e("SB"+item.relatedCircleId)
             helper.getView<ConstraintLayout>(R.id.show_1).visibility = View.GONE
         }
 

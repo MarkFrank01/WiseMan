@@ -22,6 +22,7 @@ import com.zxcx.zhizhe.event.*
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.card.label.LabelActivity
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.comment.CommentFragment
 import com.zxcx.zhizhe.ui.my.followUser.UnFollowConfirmDialog
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
@@ -294,6 +295,9 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
                 bean.showOther1 = true
                 bean.showOther2 = false
                 mAdapter.notifyItemChanged(position)
+                mActivity.startActivity(CircleDetaileActivity::class.java){
+                    it.putExtra("circleID",bean.relatedCircleId)
+                }
             }
         }
     }

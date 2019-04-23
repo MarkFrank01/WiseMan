@@ -42,17 +42,18 @@ class CardBean(
         @SerializedName("secondCollectionTitle") var secondCollectionTitle: String = "",
         @SerializedName("distanceTime") var distanceTime: String = "",
         @SerializedName("remask") var title: String = "",
-        @SerializedName("circleFix") var circleFix: Boolean = false,
-        @SerializedName("circlePrivate") var circlePrivate:Boolean = false,
 
+        @SerializedName("relatedCircleId") var relatedCircleId: Int = 0,
+        @SerializedName("relatedCircleTitle") var relatedCircleTitle: String = "",
 
         var showTitle: String = "",
         var showNumTitle: String = "",
         var mIfCheckOrNot: Boolean = false,
         var showOther1:Boolean = true,
         var showOther2:Boolean = false,
-        @SerializedName("relatedCircleId") var relatedCircleId: Int = 0,
-        @SerializedName("relatedCircleTitle") var relatedCircleTitle: String = ""
+
+        @SerializedName("circleFix") var circleFix: Boolean = false,
+        @SerializedName("circlePrivate") var circlePrivate:Boolean = false
 
 ) : RetrofitBean(), Parcelable, MultiItemEntity {
     override fun getItemType(): Int {
@@ -119,7 +120,10 @@ class CardBean(
             source.readInt(),
             source.readString(),
             source.readString(),
+            source.readString(),
+            source.readInt(),
             source.readString()
+
     )
 
     override fun describeContents() = 0
@@ -157,6 +161,8 @@ class CardBean(
         writeString(secondCollectionTitle)
         writeString(distanceTime)
         writeString(title)
+        writeInt(relatedCircleId)
+        writeString(relatedCircleTitle)
     }
 
     companion object {
