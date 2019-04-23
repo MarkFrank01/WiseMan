@@ -589,6 +589,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                                     it.putExtra("cardBean", list.partialArticleList[position])
                                 }
                             }
+                        }else{
+                            toastError("加入后查看")
                         }
                     }
                 }

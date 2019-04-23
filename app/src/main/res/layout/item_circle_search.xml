@@ -18,8 +18,8 @@
 
     <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/iv_item_circle_classify_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="18dp"
@@ -92,6 +92,7 @@
     </LinearLayout>
 
     <TextView
+        android:layout_marginTop="3dp"
         android:ellipsize="end"
         android:maxLength="15"
         android:id="@+id/tv_item_circle_classify_desc"
