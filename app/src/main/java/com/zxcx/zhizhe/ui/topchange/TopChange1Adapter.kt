@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseItemDraggableAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.my.selectAttention.ClassifyBean
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ScreenUtils
 
 /**
@@ -21,7 +22,9 @@ class TopChange1Adapter(data:List<ClassifyBean>):BaseItemDraggableAdapter<Classi
         helper.addOnClickListener(R.id.fl_item_select_card_bag)
         val para = helper.itemView.layoutParams
         val screenWidth = ScreenUtils.getDisplayWidth()
-        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4
+        para.width = ((screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4)-12
+//        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4
+        LogCat.e("para.width"+para.width)
         helper.itemView.layoutParams = para
 
         helper.setText(R.id.cb_item_select_card_bag,item.title)

@@ -17,7 +17,8 @@ class TopChange2Adapter(data:List<ClassifyBean>):BaseQuickAdapter<ClassifyBean,B
         helper.addOnClickListener(R.id.fl_item_select_card_bag)
         val para = helper.itemView.layoutParams
         val screenWidth = ScreenUtils.getDisplayWidth()
-        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4
+        para.width = ((screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4)-12
+//        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((10 * 2).toFloat())) / 4
         helper.itemView.layoutParams = para
 
         helper.setText(R.id.cb_item_select_card_bag,item.title)
