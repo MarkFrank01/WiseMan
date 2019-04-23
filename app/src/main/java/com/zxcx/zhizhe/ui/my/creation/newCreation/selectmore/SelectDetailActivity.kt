@@ -240,11 +240,34 @@ class SelectDetailActivity : BaseActivity() {
                     checkBox.setBackgroundResource(R.drawable.select_unlabel)
                     checkBox.setTextColor(mActivity.getColorForKotlin(R.color.text_color_2))
 
-                    if (mPushData.find { it == checkBox.text.toString().trim() } != null) {
-                        mPushData.remove(mCollectionList[i].name+"")
+//                    if (mPushData.find { it == checkBox.text.toString().trim() } != null) {
+//                        mPushData.remove(mCollectionList[i].name+"")
+//                        LogCat.e("SBBB"+checkBox.text.toString().trim())
+//                        LogCat.e("取消选中的位置是" + i)
+//                    }
+
+//                    var iterator:Iterator<Int> = arrayListOf<>()
+                    val iterator = mPushData.iterator()
+
+                    if (mPushData.size>0) {
+
+                        while (iterator.hasNext()){
+                            var str = iterator.next()
+                            if ("#"+str == checkBox.text.toString().trim()){
+                                iterator.remove()
+                            }
+                        }
+
+//                        mPushData.forEach {
+//                            LogCat.e("in" + it + "--------" + checkBox.text.toString().trim())
+//                            if ("#" + it == checkBox.text.toString().trim()) {
+//                                mPushData.remove(it)
+//                                LogCat.e("SBBB" + checkBox.text.toString().trim())
+//                                LogCat.e("取消选中的位置是" + i)
+//                            }
+//                        }
                     }
 //                    mPushData.remove(checkBox.toString().trim())
-                    LogCat.e("取消选中的位置是" + i)
 
                     mSingleLable = ""
                 }
