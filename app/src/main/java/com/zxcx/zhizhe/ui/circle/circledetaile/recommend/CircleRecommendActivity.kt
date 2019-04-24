@@ -139,7 +139,7 @@ class CircleRecommendActivity : RefreshMvpActivity<CircleRecommendPresenter>(), 
 
     fun order() {
         XPopup.Builder(mActivity)
-                .asCustom(CirclePopup(this, "筛选查看", arrayOf("默认排序", "只看卡片", "只看长文"),
+                .asCustom(CirclePopup(this, "筛选查看", arrayOf("默认排序", "只看卡片", "只看文章"),
                         null, mSelectPosition,
                         OnSelectListener { position, text ->
                             mSelectPosition = position

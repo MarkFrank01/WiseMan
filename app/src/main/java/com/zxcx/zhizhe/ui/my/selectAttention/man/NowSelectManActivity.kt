@@ -50,7 +50,7 @@ class NowSelectManActivity : MvpActivity<NowSelectManPresenter>(), NowSelectManC
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            toastShow("设置成功")
+            toastShow("保存成功")
             finish()
         }
     }

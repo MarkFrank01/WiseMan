@@ -239,7 +239,7 @@
                         android:layout_height="15dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="22dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="14dp"
                         android:src="@drawable/c_more"/>
 
                 </RelativeLayout>
@@ -282,6 +282,7 @@
                 </LinearLayout>
 
                 <View
+                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginEnd="18dp"
@@ -290,9 +291,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginTop="5dp"
                 android:id="@+id/ll_circle_choose_circle"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="38dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -339,8 +341,8 @@
             <LinearLayout
                 android:id="@+id/create_push_level"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="19dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -387,8 +389,8 @@
             <LinearLayout
                 android:id="@+id/create_push_check"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="19dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -473,6 +475,7 @@
                 android:visibility="gone"/>
 
             <TextView
+                android:textColor="@color/text_color_d2"
                 android:id="@+id/create_xieyi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
