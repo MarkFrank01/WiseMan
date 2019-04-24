@@ -13,7 +13,7 @@
         style="@style/tv_single"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/bg_checkbox_select_attention"
         android:button="@null"
         android:checked="true"
