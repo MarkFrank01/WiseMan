@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="36dp"
     android:layout_marginBottom="15dp"
-    android:layout_marginLeft="7.5dp"
-    android:layout_marginRight="7.5dp">
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp">
 
     <CheckBox
         android:id="@+id/cb_item_select_card_bag"

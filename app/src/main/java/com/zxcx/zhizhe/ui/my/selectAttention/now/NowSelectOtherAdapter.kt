@@ -19,7 +19,8 @@ class NowSelectOtherAdapter(data:List<ClassifyBean>):BaseQuickAdapter<ClassifyBe
         helper.addOnClickListener(R.id.fl_item_select_card_bag)
         val para = helper.itemView.layoutParams
         val screenWidth = ScreenUtils.getDisplayWidth()
-        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 4
+//        para.width = (screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 4
+        para.width = ((screenWidth - ScreenUtils.dip2px((15 * 2).toFloat()) - ScreenUtils.dip2px((20 * 2).toFloat())) / 4)-6
         helper.itemView.layoutParams = para
 
         helper.setText(R.id.cb_item_select_card_bag,item.title)
