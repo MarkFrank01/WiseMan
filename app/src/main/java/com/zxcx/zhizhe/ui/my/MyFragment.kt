@@ -362,7 +362,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
         tv_my_top_rank_num.text = rankNum.toString()
 
         if (actionType != 0 && actionType == 1) {
-            iv_item_card_officials.visibility = View.VISIBLE
+//            iv_item_card_officials.visibility = View.VISIBLE
         }
     }
 

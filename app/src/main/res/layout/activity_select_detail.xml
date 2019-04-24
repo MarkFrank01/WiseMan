@@ -151,7 +151,7 @@
             <CheckBox
                 android:id="@+id/cb_item_select_label_new_label"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_checkbox_select_attention"
@@ -180,7 +180,7 @@
             <ImageView
                 android:id="@+id/iv_select_label_new_label2"
                 android:layout_width="72dp"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_checkbox_select_attention"
@@ -193,7 +193,7 @@
             <CheckBox
                 android:id="@+id/cb_item_select_label_new_label2"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/bg_checkbox_select_attention"
