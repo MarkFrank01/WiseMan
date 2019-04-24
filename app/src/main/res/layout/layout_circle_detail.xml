@@ -764,10 +764,10 @@
                 </RelativeLayout>
 
                 <FrameLayout
+                    android:visibility="gone"
                     android:id="@+id/load_more_load_end_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_load_more_end"
@@ -778,7 +778,7 @@
                         android:drawablePadding="2dp"
                         android:paddingBottom="28dp"
                         android:paddingTop="28dp"
-                        android:text="去列表看看有没有感兴趣的"
+                        android:text="加入查看更多"
                         android:textColor="@color/text_color_d2"
                         android:textSize="@dimen/text_size_text_3"/>
                 </FrameLayout>

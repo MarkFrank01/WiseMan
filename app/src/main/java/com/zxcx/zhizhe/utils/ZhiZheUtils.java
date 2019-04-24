@@ -149,7 +149,8 @@ public class ZhiZheUtils {
      */
     public static String timeChange(long num){
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd ");
         return sdf.format(new Date(Long.parseLong(String.valueOf(num))));
     }
 }

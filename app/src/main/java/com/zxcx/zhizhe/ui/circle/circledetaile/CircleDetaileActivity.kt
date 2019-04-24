@@ -199,6 +199,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             et_comment.isEnabled = false
 
             iv_toolbar_right1.visibility = View.GONE
+            ll_comment_input.visibility = View.INVISIBLE
+
+//            load_more_load_end_view.visibility = View.VISIBLE
         } else {
             bottom_bt.visibility = View.GONE
             ll_join.visibility = View.GONE
@@ -206,6 +209,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             et_comment.isEnabled = true
 
             iv_toolbar_right1.visibility = View.VISIBLE
+            ll_comment_input.visibility = View.VISIBLE
+
+//            load_more_load_end_view.visibility = View.GONE
         }
 
         circlename = bean.title
@@ -248,7 +254,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun reportCircleSuccess() {
-        toastShow("举报成功")
+        toastShow("感谢反馈")
     }
 
     override fun setQAFixTopSuccess() {
@@ -393,18 +399,26 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         }
 
         goto_jx.setOnClickListener {
-            if (hasJoinBoolean) {
-                mActivity.startActivity(CircleRecommendActivity::class.java) {
-                    it.putExtra("circleID", circleID)
+            if (checkLogin()) {
+                if (hasJoinBoolean) {
+                    mActivity.startActivity(CircleRecommendActivity::class.java) {
+                        it.putExtra("circleID", circleID)
+                    }
+                } else {
+                    JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
                 }
-            } else {
-                JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
             }
         }
 
         change_order.setOnClickListener {
             //排序重新加载话题
-            orderHuati()
+            if (checkLogin()) {
+                if (hasJoinBoolean) {
+                    orderHuati()
+                }else{
+                    JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)
+                }
+            }
         }
 
         //底部按钮交钱
