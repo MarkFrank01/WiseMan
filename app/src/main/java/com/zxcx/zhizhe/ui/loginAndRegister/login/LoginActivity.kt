@@ -271,15 +271,15 @@ class LoginActivity : MvpActivity<LoginPresenter>(), LoginContract.View {
 			throwable.printStackTrace()
 			mActivity.runOnUiThread {
 				if (throwable is WechatClientNotExistException) {
-					toastShow("请先安装微信客户端")
+					toastError("请先安装微信客户端")
 				} else {
-					toastShow("登录失败")
+					toastError("登录失败")
 				}
 			}
 		}
 
 		override fun onCancel(platform: Platform, i: Int) {
-			mActivity.runOnUiThread { toastShow("登录取消") }
+			mActivity.runOnUiThread { toastError("登录取消") }
 		}
 	}
 

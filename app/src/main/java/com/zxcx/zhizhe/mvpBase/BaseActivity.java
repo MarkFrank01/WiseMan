@@ -258,7 +258,7 @@ public class BaseActivity extends AppCompatActivity implements BaseView, Callbac
 	}
 	
 	public void toastFail(String msg) {
-		toastShow(msg);
+		toastError(msg);
 	}
 	
 	@Override

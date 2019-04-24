@@ -164,6 +164,6 @@ public class BaseFragment extends Fragment implements BaseView {
 	}
 	
 	public void toastFail(String msg) {
-		toastShow(msg);
+		toastError(msg);
 	}
 }
