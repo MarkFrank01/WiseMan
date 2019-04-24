@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_circle_name.*
 
 /**
@@ -36,6 +38,14 @@ class CreateCircleNameActivity : MvpActivity<CreateCircleNamePresenter>(), Creat
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
 
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            //延迟弹出软键盘
+            Handler().postDelayed({Utils.showInputMethod(create_title)},100)
+        }
     }
 
     override fun createPresenter(): CreateCircleNamePresenter {

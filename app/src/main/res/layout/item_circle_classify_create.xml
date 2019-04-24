@@ -171,7 +171,7 @@
     <CheckBox
         android:id="@+id/cb_item_select_join_circle2"
         style="@style/tv_single"
-        android:layout_width="60dp"
+        android:layout_width="76dp"
         android:layout_height="30dp"
         android:layout_marginEnd="18dp"
         android:background="@drawable/bg_checkbox_select_attention1"

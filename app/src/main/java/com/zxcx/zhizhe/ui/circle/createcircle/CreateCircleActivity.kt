@@ -190,12 +190,12 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             }
         }
 
-        iv_to_name.setOnClickListener {
+        rl_to_name.setOnClickListener {
             val intent = Intent(this, CreateCircleNameActivity::class.java)
             startActivityForResult(intent, CreateCircleActivity.CODE_CREATE_NAME)
         }
 
-        iv_to_name2.setOnClickListener {
+        rv_to_name2.setOnClickListener {
             val intent = Intent(this, CreateCircleDescActivity::class.java)
             startActivityForResult(intent, CreateCircleActivity.CODE_DESC)
         }
