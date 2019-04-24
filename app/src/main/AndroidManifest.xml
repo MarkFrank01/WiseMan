@@ -133,8 +133,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
-            android:launchMode="singleTask"
             android:name=".ui.welcome.GuidePageActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
@@ -337,18 +337,22 @@
         <activity
             android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:theme="@style/AppTheme.FullScreen"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.my.creation.newCreation.CreationPreviewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.my.creation.newCreation.PreviewCardDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
+            android:theme="@style/AppTheme.FullScreen"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.my.pastelink.PasteLinkActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:launchMode="singleTask"/>
         <activity
             android:name="com.zxcx.zhizhe.mvp.template.TemplateCardActivity"
             android:screenOrientation="portrait"/>
@@ -366,28 +370,35 @@
 
         <activity
             android:name=".ui.circle.allmycircle.AllMyCircleActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.circle.createcircle.CreateCircleActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"/>
         <activity
-            android:theme="@style/ImageTranslucentTheme"
             android:name=".ui.circle.circledetaile.CircleDetaileActivity"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageTranslucentTheme"/>
 
         <activity
             android:name=".ui.circle.circlemanlist.CircleManListActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.rank.RankActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity

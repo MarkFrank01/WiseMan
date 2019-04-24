@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
+    android:id="@+id/con_click"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/con_click"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
+    android:layout_marginBottom="10dp"
     android:layout_marginEnd="12dp"
     android:layout_marginStart="12dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="10dp"
     android:background="@drawable/bg_background_12dp"
     android:elevation="4dp"
     android:orientation="vertical"
@@ -20,15 +20,15 @@
         android:id="@+id/iv_item_circle_classify_icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginBottom="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
         android:scaleType="centerCrop"
         android:transitionName="cardImage"
         app:hasShade="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:riv_corner_radius="2dp"
         app:shade="@color/shade"
         tools:src="@drawable/iv_item_home_card_icon"/>
@@ -50,55 +50,59 @@
         tools:text="小崔说科技"/>
 
     <LinearLayout
-        android:layout_marginStart="12dp"
-        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title">
 
         <ImageView
             android:id="@+id/star_1"
-            android:src="@drawable/star_off"
             android:layout_width="9dp"
-            android:layout_height="9dp"/>
+            android:layout_height="9dp"
+            android:src="@drawable/star_off"/>
 
         <ImageView
             android:id="@+id/star_2"
-            android:src="@drawable/star_off"
             android:layout_width="9dp"
-            android:layout_height="9dp"/>
+            android:layout_height="9dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/star_off"/>
 
         <ImageView
             android:id="@+id/star_3"
-            android:src="@drawable/star_off"
             android:layout_width="9dp"
-            android:layout_height="9dp"/>
+            android:layout_height="9dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/star_off"/>
 
         <ImageView
             android:id="@+id/star_4"
-            android:src="@drawable/star_off"
             android:layout_width="9dp"
-            android:layout_height="9dp"/>
+            android:layout_height="9dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/star_off"/>
 
         <ImageView
             android:id="@+id/star_5"
-            android:src="@drawable/star_off"
             android:layout_width="9dp"
-            android:layout_height="9dp"/>
+            android:layout_height="9dp"
+            android:layout_marginStart="2dp"
+            android:src="@drawable/star_off"/>
 
     </LinearLayout>
 
     <TextView
-        android:maxLines="1"
-        android:ellipsize="end"
         android:id="@+id/tv_item_circle_classify_desc"
         android:layout_width="145dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
+        android:ellipsize="end"
         android:lineSpacingExtra="5dp"
+        android:maxLines="1"
         android:textColor="@color/text_color_2"
         android:textSize="12sp"
         android:transitionName="cardTitle"
@@ -153,43 +157,43 @@
 
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_statue"
-        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
-        tools:text="审核中"
+        android:layout_marginTop="18dp"
+        android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="18dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        tools:text="审核中"/>
 
     <CheckBox
         android:id="@+id/cb_item_select_join_circle2"
         style="@style/tv_single"
-        android:layout_marginEnd="18dp"
         android:layout_width="60dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="18dp"
         android:background="@drawable/bg_checkbox_select_attention1"
         android:button="@null"
         android:checked="true"
         android:clickable="false"
         android:gravity="center"
         android:textColor="@color/button_blue"
-        tools:text="进圈"
         android:textSize="@dimen/text_size_text_3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        tools:text="进圈"/>
 
     <TextView
         android:id="@+id/time_to_chuli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
         android:layout_marginTop="3dp"
         android:textSize="10sp"
-        android:layout_marginEnd="26dp"
-        tools:text="会员还剩365天"
-        app:layout_constraintTop_toBottomOf="@+id/cb_item_select_join_circle2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@+id/cb_item_select_join_circle2"
+        tools:text="会员还剩365天"/>
 
 </android.support.constraint.ConstraintLayout>
