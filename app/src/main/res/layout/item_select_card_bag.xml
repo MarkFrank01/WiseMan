@@ -11,7 +11,7 @@
 	<CheckBox
 		android:id="@+id/cb_item_select_card_bag"
 		style="@style/tv_single"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="2dp"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@drawable/bg_checkbox_select_attention"
