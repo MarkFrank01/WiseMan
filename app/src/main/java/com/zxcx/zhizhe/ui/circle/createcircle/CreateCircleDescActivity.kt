@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
+import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_circle_desc.*
 
 /**
@@ -34,6 +36,14 @@ class CreateCircleDescActivity:BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_circle_desc)
         create_title.addTextChangedListener(textWatcher1)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            //延迟弹出软键盘
+            Handler().postDelayed({ Utils.showInputMethod(create_title)},100)
+        }
     }
 
     override fun setListener() {
