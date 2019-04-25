@@ -1,12 +1,14 @@
 package com.zxcx.zhizhe.ui.circle.circlequestion
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
@@ -239,6 +241,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         tv_toolbar_right.setOnClickListener {
 //            toastShow("All size is "+mAllImgs.size)
 //            uploadUrlsToOSS(mAllImgs)
+            hideKB()
             my_question = question_title.text.toString().trim()
             my_desc = question_desc.text.toString().trim()
 
@@ -380,5 +383,10 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         startActivityForResult(photoPickerIntent, RC_CHOOSE_PHOTO)
     }
 
-
+    private fun hideKB(){
+        var imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive&&currentFocus!=null){
+            imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
+    }
 }

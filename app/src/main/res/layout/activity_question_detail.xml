@@ -34,6 +34,8 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp"
                         android:gravity="start"
                         android:paddingStart="18dp"
                         android:paddingEnd="18dp"
@@ -60,7 +62,7 @@
 
 
                     <com.zxcx.zhizhe.ui.rank.ADBanner2
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="14dp"
                         android:id="@+id/question_pic"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -202,8 +204,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="6dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="12dp"
                         android:background="@color/line"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/question_time"/>

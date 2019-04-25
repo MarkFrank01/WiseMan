@@ -1,12 +1,14 @@
 package com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity
 import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout
@@ -108,6 +110,7 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
+            hideKB()
             description = question_desc.text.toString().trim()
             mCashImgs = mAllImgs
 
@@ -328,5 +331,12 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
                 .pauseOnScroll(false)
                 .build()
         startActivityForResult(photoPickerIntent, RC_CHOOSE_PHOTO)
+    }
+
+    private fun hideKB(){
+        var imm :InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive&&currentFocus!=null){
+            imm.hideSoftInputFromWindow(currentFocus.windowToken,InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 }
