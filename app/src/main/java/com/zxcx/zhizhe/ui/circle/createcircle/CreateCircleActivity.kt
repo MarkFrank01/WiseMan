@@ -244,9 +244,10 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
             if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
 //                toastShow("填写好了")
-                val bundle = Bundle()
-                mDialog.arguments = bundle
-                mDialog.show(mActivity.supportFragmentManager, "")
+//                val bundle = Bundle()
+//                mDialog.arguments = bundle
+//                mDialog.show(mActivity.supportFragmentManager, "")
+                showSave()
 
             } else {
                 toastShow("信息未填写完")
@@ -446,7 +447,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     }
 
     override fun getDataSuccess(bean: CircleBean?) {
-        toastShow("提交成功")
+        toastShow("保存成功")
         finish()
     }
 
@@ -532,5 +533,17 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                 ).show()
     }
 
+    //保存提示和操作
+    private fun showSave(){
+        XPopup.Builder(mActivity)
+                .asCustom(BottomInfoPopup(this,"创建圈子后您还需补充完善才可进入审核，是否先提交？",-1,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                EventBus.getDefault().post(PushCreateCircleListEvent())
+                            }
+
+                        })
+                ).show()
+    }
 
 }
