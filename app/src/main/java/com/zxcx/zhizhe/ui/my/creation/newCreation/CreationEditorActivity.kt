@@ -502,24 +502,45 @@ class CreationEditorActivity : BaseActivity(),
     @JavascriptInterface
     fun confirmSave(isNeedSave: Boolean) {
         if (isNeedSave) {
-            val dialog = NeedSaveDialog()
-            dialog.mCancelListener = {
-                Utils.closeInputMethod(mActivity)
-                finish()
-            }
-            dialog.mConfirmListener = {
-                val bundle = Bundle()
-                bundle.putString("uploadingText", "正在保存草稿")
-                bundle.putString("successText", "保存成功")
-                bundle.putString("failText", "保存失败")
-                mUploadingDialog.arguments = bundle
-                mUploadingDialog.show(supportFragmentManager, "")
-                Handler().postDelayed({
-                    //                    editor.saveDraft()
-                    editor.twoSaveDraft()
-                }, 500)
-            }
-            dialog.show(supportFragmentManager, "")
+            XPopup.Builder(mActivity)
+                    .asCustom(BottomInfoPopup(this,"有未编辑完内容，是否存为草稿",-1,
+                            OnSelectListener { position, text ->
+                                if (position == 2){
+                                    val bundle = Bundle()
+                                    bundle.putString("uploadingText", "正在保存草稿")
+                                    bundle.putString("successText", "保存成功")
+                                    bundle.putString("failText", "保存失败")
+                                    mUploadingDialog.arguments = bundle
+                                    mUploadingDialog.show(supportFragmentManager, "")
+                                    Handler().postDelayed({
+                                        //                    editor.saveDraft()
+                                        editor.twoSaveDraft()
+                                    }, 500)
+                                }else if (position == 3){
+                                    Utils.closeInputMethod(mActivity)
+                                    finish()
+                                }
+                            })
+                    ).show()
+
+//            val dialog = NeedSaveDialog()
+//            dialog.mCancelListener = {
+//                Utils.closeInputMethod(mActivity)
+//                finish()
+//            }
+//            dialog.mConfirmListener = {
+//                val bundle = Bundle()
+//                bundle.putString("uploadingText", "正在保存草稿")
+//                bundle.putString("successText", "保存成功")
+//                bundle.putString("failText", "保存失败")
+//                mUploadingDialog.arguments = bundle
+//                mUploadingDialog.show(supportFragmentManager, "")
+//                Handler().postDelayed({
+//                    //                    editor.saveDraft()
+//                    editor.twoSaveDraft()
+//                }, 500)
+//            }
+//            dialog.show(supportFragmentManager, "")
         } else {
             Utils.closeInputMethod(mActivity)
             finish()

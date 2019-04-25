@@ -9,6 +9,8 @@ import cn.sharesdk.sina.weibo.SinaWeibo
 import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.wechat.friends.Wechat
 import cn.sharesdk.wechat.utils.WechatClientNotExistException
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.RemoveBindingEvent
 import com.zxcx.zhizhe.mvpBase.MvpActivity
@@ -16,6 +18,7 @@ import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.SVTSConstants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_user_safety.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -91,12 +94,21 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
         ll_user_safety_wechat_bind.setOnClickListener {
             if (isBindingWechat) {
                 //解绑微信
-                channelType = 2
-                val dialog = RemoveBindingDialog()
-                val bundle = Bundle()
-                bundle.putString("channel", "微信")
-                dialog.arguments = bundle
-                dialog.show(supportFragmentManager, "")
+                XPopup.Builder(mActivity)
+                        .asCustom(BottomInfoPopup(this,"是否解除微信绑定",-1,
+                                OnSelectListener { position, text ->
+                                    if (position == 2){
+                                        channelType = 2
+                                        EventBus.getDefault().post(RemoveBindingEvent())
+                                    }
+                                })
+                        ).show()
+//                channelType = 2
+//                val dialog = RemoveBindingDialog()
+//                val bundle = Bundle()
+//                bundle.putString("channel", "微信")
+//                dialog.arguments = bundle
+//                dialog.show(supportFragmentManager, "")
             } else {
                 //绑定微信
                 channelType = 2
@@ -109,12 +121,22 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
         ll_user_safety_qq_bind.setOnClickListener {
             if (isBindingQQ) {
                 //解绑QQ
-                channelType = 1
-                val dialog = RemoveBindingDialog()
-                val bundle = Bundle()
-                bundle.putString("channel", "QQ")
-                dialog.arguments = bundle
-                dialog.show(supportFragmentManager, "")
+                XPopup.Builder(mActivity)
+                        .asCustom(BottomInfoPopup(this,"是否解除QQ绑定",-1,
+                                OnSelectListener { position, text ->
+                                    if (position == 2){
+                                        channelType = 1
+                                        EventBus.getDefault().post(RemoveBindingEvent())
+                                    }
+                                })
+                        ).show()
+
+//                channelType = 1
+//                val dialog = RemoveBindingDialog()
+//                val bundle = Bundle()
+//                bundle.putString("channel", "QQ")
+//                dialog.arguments = bundle
+//                dialog.show(supportFragmentManager, "")
             } else {
                 //绑定QQ
                 channelType = 1
@@ -127,12 +149,21 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
         ll_user_safety_weibo_bind.setOnClickListener {
             if (isBindingWeibo) {
                 //解绑微博
-                channelType = 3
-                val dialog = RemoveBindingDialog()
-                val bundle = Bundle()
-                bundle.putString("channel", "微博")
-                dialog.arguments = bundle
-                dialog.show(supportFragmentManager, "")
+                XPopup.Builder(mActivity)
+                        .asCustom(BottomInfoPopup(this,"是否解除微博绑定",-1,
+                                OnSelectListener { position, text ->
+                                        if (position == 2){
+                                            channelType = 3
+                                            EventBus.getDefault().post(RemoveBindingEvent())
+                                        }
+                                })
+                        ).show()
+//                channelType = 3
+//                val dialog = RemoveBindingDialog()
+//                val bundle = Bundle()
+//                bundle.putString("channel", "微博")
+//                dialog.arguments = bundle
+//                dialog.show(supportFragmentManager, "")
             } else {
                 //绑定微博
                 channelType = 3
@@ -177,15 +208,15 @@ class UserSafetyActivity : MvpActivity<UserSafetyPresenter>(), UserSafetyContrac
             throwable.printStackTrace()
             runOnUiThread {
                 if (throwable is WechatClientNotExistException) {
-                    toastShow("请先安装微信客户端")
+                    toastError("请先安装微信客户端")
                 } else {
-                    toastShow("授权失败")
+                    toastError("授权失败")
                 }
             }
         }
 
         override fun onCancel(platform: Platform, i: Int) {
-            runOnUiThread { toastShow("授权取消") }
+            runOnUiThread { toastError("授权取消") }
         }
     }
 }

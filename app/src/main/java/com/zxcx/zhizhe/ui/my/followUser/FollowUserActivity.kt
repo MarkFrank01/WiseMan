@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.FollowUserRefreshEvent
 import com.zxcx.zhizhe.event.UnFollowConfirmEvent
@@ -14,6 +16,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.otherUser.OtherUserActivity
 import com.zxcx.zhizhe.ui.search.result.user.SearchUserBean
 import com.zxcx.zhizhe.utils.Constants
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_follow_user.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -118,10 +121,18 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 		cb.isChecked = !cb.isChecked
 		val bean = adapter.data[position] as SearchUserBean
 		if (cb.isChecked) {
-			val bundle = Bundle()
-			bundle.putInt("userId", bean.id)
-			mDialog.arguments = bundle
-			mDialog.show(mActivity.supportFragmentManager, "")
+            XPopup.Builder(mActivity)
+                    .asCustom(BottomInfoPopup(this,"是否取消对该用户的关注",-1,
+                            OnSelectListener { position, text ->
+                                if (position == 2){
+                                    mPresenter.unFollowUser(bean.id)
+                                }
+                            })
+                    ).show()
+//			val bundle = Bundle()
+//			bundle.putInt("userId", bean.id)
+//			mDialog.arguments = bundle
+//			mDialog.show(mActivity.supportFragmentManager, "")
 		} else {
 			mPresenter.followUser(bean.id)
 		}

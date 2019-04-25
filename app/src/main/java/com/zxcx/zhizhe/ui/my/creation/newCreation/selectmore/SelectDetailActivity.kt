@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.FrameLayout
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.ui.my.creation.newCreation.NewLabelDialog
@@ -17,6 +19,7 @@ import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ScreenUtils
 import com.zxcx.zhizhe.utils.expandViewTouchDelegate
 import com.zxcx.zhizhe.utils.getColorForKotlin
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import kotlinx.android.synthetic.main.activity_select_detail.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -65,7 +68,7 @@ class SelectDetailActivity : BaseActivity() {
         mCollectionList = intent.getParcelableArrayListExtra<ClassifyCardBean>("list")
         mSingleClassify = intent.getStringExtra("classifyName")
 
-        LogCat.e("mSingleClassify is "+mSingleClassify)
+        LogCat.e("mSingleClassify is " + mSingleClassify)
     }
 
     private fun initView() {
@@ -151,37 +154,49 @@ class SelectDetailActivity : BaseActivity() {
         }
 
         tv_delete_label.setOnClickListener {
-            //            toastShow("1")
-            mPushData.remove(cb_item_select_label_new_label.text.toString())
-//            LogCat.e("cb_item_select_label_new_label ${mPushData.size}")
-            if (mPushData.size > 0) {
-                iv_select_label_new_label2.visibility = View.VISIBLE
-                cb_item_select_label_new_label2.visibility = View.GONE
-                cb_item_select_label_new_label2.isChecked = false
-                tv_delete_label2.visibility = View.GONE
-                cb_item_select_label_new_label.text = cb_item_select_label_new_label2.text.toString()
-                cb_item_select_label_new_label2.text = ""
-            }
 
-            if (mPushData.size == 0) {
-//                iv_select_label_new_label.visibility = View.VISIBLE
-                cb_item_select_label_new_label.visibility = View.GONE
-                cb_item_select_label_new_label.text = ""
-                cb_item_select_label_new_label.isChecked = false
-                tv_delete_label.visibility = View.GONE
-            }
+            XPopup.Builder(mActivity)
+                    .asCustom(BottomInfoPopup(this, "是否删除自定义标签", -1,
+                            OnSelectListener { position, text ->
+                                if (position == 2) {
+                                    mPushData.remove(cb_item_select_label_new_label.text.toString())
+                                    if (mPushData.size > 0) {
+                                        iv_select_label_new_label2.visibility = View.VISIBLE
+                                        cb_item_select_label_new_label2.visibility = View.GONE
+                                        cb_item_select_label_new_label2.isChecked = false
+                                        tv_delete_label2.visibility = View.GONE
+                                        cb_item_select_label_new_label.text = cb_item_select_label_new_label2.text.toString()
+                                        cb_item_select_label_new_label2.text = ""
+                                    }
+
+                                    if (mPushData.size == 0) {
+//                                        iv_select_label_new_label.visibility = View.VISIBLE
+                                        cb_item_select_label_new_label.visibility = View.GONE
+                                        cb_item_select_label_new_label.text = ""
+                                        cb_item_select_label_new_label.isChecked = false
+                                        tv_delete_label.visibility = View.GONE
+                                    }
+                                }
+                            })
+                    ).show()
         }
 
         tv_delete_label2.setOnClickListener {
-            //            toastShow("2")
-            mPushData.remove(cb_item_select_label_new_label2.text.toString())
-//            LogCat.e("cb_item_select_label_new_label2 ${mPushData.size}")
-            iv_select_label_new_label2.visibility = View.VISIBLE
-            cb_item_select_label_new_label2.visibility = View.GONE
-            cb_item_select_label_new_label2.text = ""
-            cb_item_select_label_new_label2.isChecked = false
 
-            tv_delete_label2.visibility = View.GONE
+            XPopup.Builder(mActivity)
+                    .asCustom(BottomInfoPopup(this, "是否删除自定义标签", -1,
+                            OnSelectListener { position, text ->
+                                if (position == 2) {
+                                    mPushData.remove(cb_item_select_label_new_label2.text.toString())
+                                    iv_select_label_new_label2.visibility = View.VISIBLE
+                                    cb_item_select_label_new_label2.visibility = View.GONE
+                                    cb_item_select_label_new_label2.text = ""
+                                    cb_item_select_label_new_label2.isChecked = false
+
+                                    tv_delete_label2.visibility = View.GONE
+                                }
+                            })
+                    ).show()
         }
 
         //选中自定义的标签时
@@ -230,7 +245,7 @@ class SelectDetailActivity : BaseActivity() {
                     checkBox.setTextColor(mActivity.getColorForKotlin(R.color.white))
 //                    mTheSecond = mCollectionList[i].name.toString()
 
-                    mPushData.add(mCollectionList[i].name+"")
+                    mPushData.add(mCollectionList[i].name + "")
 
 //                    LogCat.e("选中的位置是" + i)
 
@@ -249,11 +264,11 @@ class SelectDetailActivity : BaseActivity() {
 //                    var iterator:Iterator<Int> = arrayListOf<>()
                     val iterator = mPushData.iterator()
 
-                    if (mPushData.size>0) {
+                    if (mPushData.size > 0) {
 
-                        while (iterator.hasNext()){
+                        while (iterator.hasNext()) {
                             var str = iterator.next()
-                            if ("#"+str == checkBox.text.toString().trim()){
+                            if ("#" + str == checkBox.text.toString().trim()) {
                                 iterator.remove()
                             }
                         }

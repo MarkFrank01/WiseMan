@@ -5,6 +5,8 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import butterknife.ButterKnife
 import com.bumptech.glide.load.MultiTransformation
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.pixplicity.htmlcompat.HtmlCompat
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.CommitCardReviewEvent
@@ -14,6 +16,7 @@ import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.my.creation.newCreation.CreationEditorActivity
 import com.zxcx.zhizhe.utils.*
+import com.zxcx.zhizhe.widget.bottominfopopup.BottomInfoPopup
 import jp.wasabeef.glide.transformations.ColorFilterTransformation
 import kotlinx.android.synthetic.main.activity_draft_card_details.*
 import org.greenrobot.eventbus.EventBus
@@ -149,11 +152,19 @@ class DraftCardDetailsActivity : MvpActivity<RejectDetailsPresenter>(), RejectDe
         }
 
         iv_draft_details_commit.setOnClickListener {
-            val dialog = SubmitCreationDialog()
-            dialog.mListener = {
-                mPresenter.submitReview(cardBean.id, 0)
-            }
-            dialog.show(supportFragmentManager, "")
+            XPopup.Builder(mActivity)
+                    .asCustom(BottomInfoPopup(this,"是否发布作品",-1,
+                            OnSelectListener { position, text ->
+                                if (position == 2){
+                                    mPresenter.submitReview(cardBean.id,0)
+                                }
+                            })
+                    ).show()
+//            val dialog = SubmitCreationDialog()
+//            dialog.mListener = {
+//                mPresenter.submitReview(cardBean.id, 0)
+//            }
+//            dialog.show(supportFragmentManager, "")
         }
     }
 }
