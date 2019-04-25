@@ -1,11 +1,15 @@
 package com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean
+import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_circle_answer_child.*
 
 /**
@@ -70,6 +74,7 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
     }
 
     override fun createAnswerSuccess() {
+        hideKB()
         toastShow("回复成功")
         onBackPressed()
     }
@@ -83,6 +88,14 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
     override fun getDataSuccess(bean: QuestionBean?) {
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            //延迟弹出键盘
+            Handler().postDelayed({Utils.showInputMethod(question_desc)},100)
+        }
+    }
+
     private fun initData(){
         qaId = intent.getIntExtra("qaId",0)
         circleId = intent.getIntExtra("CircleId",0)
@@ -94,5 +107,12 @@ class CircleAnswerChildActivity : MvpActivity<CircleAnswerChildPresenter>(), Cir
         question_desc.addTextChangedListener(textWatcher1)
         tv_toolbar_right.isEnabled = false
         tv_toolbar_title.text = "回复：$titleName"
+    }
+
+    private fun hideKB(){
+        var imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive&&currentFocus!=null){
+            imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
     }
 }

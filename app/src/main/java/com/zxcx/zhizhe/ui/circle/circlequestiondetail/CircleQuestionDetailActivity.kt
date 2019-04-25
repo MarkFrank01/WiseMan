@@ -17,7 +17,6 @@ import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerChildAc
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
 import kotlinx.android.synthetic.main.activity_question_detail.*
-import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * @author : MarkFrank01
@@ -241,8 +240,8 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     private fun initView(){
         initToolBar()
-        iv_toolbar_right.visibility = View.VISIBLE
-        iv_toolbar_right.setImageResource(R.drawable.c_more_2)
+//        iv_toolbar_right.visibility = View.VISIBLE
+//        iv_toolbar_right.setImageResource(R.drawable.c_more_2)
     }
 
     private fun initData(){

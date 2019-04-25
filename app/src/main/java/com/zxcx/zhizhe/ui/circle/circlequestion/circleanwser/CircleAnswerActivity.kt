@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -16,6 +17,7 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlequestion.QuestionBean
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.Utils
 import com.zxcx.zhizhe.widget.GetPicBottomDialog
 import com.zxcx.zhizhe.widget.OSSDialog22
 import kotlinx.android.synthetic.main.activity_circle_answer.*
@@ -331,6 +333,14 @@ class CircleAnswerActivity : MvpActivity<CircleAnswerPresenter>(), CircleAnswerC
                 .pauseOnScroll(false)
                 .build()
         startActivityForResult(photoPickerIntent, RC_CHOOSE_PHOTO)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus){
+            //延迟弹出软键盘
+            Handler().postDelayed({Utils.showInputMethod(question_desc)},100)
+        }
     }
 
     private fun hideKB(){
