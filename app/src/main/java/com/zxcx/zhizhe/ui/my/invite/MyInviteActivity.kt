@@ -7,14 +7,11 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.lxj.xpopup.XPopup
-import com.lxj.xpopup.interfaces.OnSelectListener
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.my.invite.input.InputInviteActivity
 import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.startActivity
-import com.zxcx.zhizhe.widget.bottomsharepopup.CircleBottomSharePopup
 import kotlinx.android.synthetic.main.activity_my_invite.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -116,27 +113,34 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     //弹出分享四兄弟
     private fun showshare() {
-        XPopup.Builder(mActivity)
-                .asCustom(CircleBottomSharePopup(this,
-                        OnSelectListener { position, text ->
-                            when (position) {
-                                1 -> {
-                                    toastShow("微信")
-                                }
+//        val shareCardDialog = ShareDialog()
+//        val bundle  = Bundle()
+//        bundle.putString("title","好友邀请你加入智者")
+//        bundle.putString("text","你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
+//        bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
 
-                                2 -> {
-                                    toastShow("朋友圈")
-                                }
 
-                                3 -> {
-                                    toastShow("球球号")
-                                }
-                                4 -> {
-                                    toastShow("微博")
-                                }
-                            }
-                        })
-                ).show()
+//        XPopup.Builder(mActivity)
+//                .asCustom(CircleBottomSharePopup(this,
+//                        OnSelectListener { position, text ->
+//                            when (position) {
+//                                1 -> {
+//                                    toastShow("微信")
+//                                }
+//
+//                                2 -> {
+//                                    toastShow("朋友圈")
+//                                }
+//
+//                                3 -> {
+//                                    toastShow("球球号")
+//                                }
+//                                4 -> {
+//                                    toastShow("微博")
+//                                }
+//                            }
+//                        })
+//                ).show()
     }
 
     private fun initRecyclerView() {

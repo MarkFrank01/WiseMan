@@ -5,15 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.*
+import android.text.style.AbsoluteSizeSpan
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_circle_name.*
+
+
 
 /**
  * @author : MarkFrank01
@@ -56,6 +59,8 @@ class CreateCircleNameActivity : MvpActivity<CreateCircleNamePresenter>(), Creat
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_circle_name)
         tv_toolbar_right.isEnabled = false
+
+        setEditTextHintSize(create_title,"给圈子起个简洁好记的名字",17)
         create_title.addTextChangedListener(textWatcher1)
     }
 
@@ -116,4 +121,11 @@ class CreateCircleNameActivity : MvpActivity<CreateCircleNamePresenter>(), Creat
         }
     }
 
+
+    fun setEditTextHintSize(editText: EditText, hintText: String, size: Int) {
+        val ss = SpannableString(hintText)//定义hint的值
+        val ass = AbsoluteSizeSpan(size, true)//设置字体大小 true表示单位是sp
+        ss.setSpan(ass, 0, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        editText.hint = SpannedString(ss)
+    }
 }

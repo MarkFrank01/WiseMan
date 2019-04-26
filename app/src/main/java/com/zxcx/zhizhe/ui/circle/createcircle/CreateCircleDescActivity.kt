@@ -5,9 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
+import android.text.*
+import android.text.style.AbsoluteSizeSpan
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
 import com.zxcx.zhizhe.utils.Utils
@@ -37,6 +38,7 @@ class CreateCircleDescActivity:BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_circle_desc)
+        setEditTextHintSize(create_title,"你希望如何跟别人介绍你的圈子,让大家了解你的资历或背景",17)
         create_title.addTextChangedListener(textWatcher1)
     }
 
@@ -67,5 +69,12 @@ class CreateCircleDescActivity:BaseActivity() {
         if (imm.isActive&&currentFocus!=null){
             imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
+    }
+
+    fun setEditTextHintSize(editText: EditText, hintText: String, size: Int) {
+        val ss = SpannableString(hintText)//定义hint的值
+        val ass = AbsoluteSizeSpan(size, true)//设置字体大小 true表示单位是sp
+        ss.setSpan(ass, 0, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        editText.hint = SpannedString(ss)
     }
 }

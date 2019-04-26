@@ -18,8 +18,8 @@
 
     <com.zxcx.zhizhe.widget.CardRoundedImageView
         android:id="@+id/iv_item_circle_classify_icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="18dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
@@ -50,6 +50,8 @@
         tools:text="小崔说科技"/>
 
     <LinearLayout
+        android:id="@+id/ll_star"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -99,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:lineSpacingExtra="5dp"
         android:maxLines="1"
@@ -107,7 +109,7 @@
         android:textSize="12sp"
         android:transitionName="cardTitle"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
+        app:layout_constraintTop_toBottomOf="@+id/ll_star"
         tools:text="为你解读最新最全的科技资…"/>
 
     <TextView
@@ -189,11 +191,11 @@
         android:id="@+id/time_to_chuli"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="35dp"
         android:layout_marginTop="3dp"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cb_item_select_join_circle2"
-        tools:text="会员还剩365天"/>
+        tools:text="还剩35天"/>
 
 </android.support.constraint.ConstraintLayout>

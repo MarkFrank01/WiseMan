@@ -15,6 +15,8 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleAdapter
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_owner_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -75,6 +77,10 @@ class OwnerAddCardFragment :RefreshMvpFragment<OwnerAddPresenter>(),OwnerAddCont
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无相关作品, 赶紧创作吧",R.drawable.need_add)
+        mAdapter.emptyView = emptyView
+
+
         mRefreshLayout.finishRefresh()
         if (mPage == 0){
             mAdapter.setNewData(list)
@@ -124,6 +130,9 @@ class OwnerAddCardFragment :RefreshMvpFragment<OwnerAddPresenter>(),OwnerAddCont
 
         rv_create_card.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,false)
         rv_create_card.adapter = mAdapter
+
+        mAdapter.setLoadMoreView(CustomLoadMoreView())
+        mAdapter.setOnLoadMoreListener(this,rv_create_card)
     }
 
     fun onRefresh(){

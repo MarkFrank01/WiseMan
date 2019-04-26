@@ -447,7 +447,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
     }
 
     override fun getDataSuccess(bean: CircleBean?) {
-        toastShow("保存成功")
+        toastShow("提交成功，等待审核")
         finish()
     }
 
