@@ -327,8 +327,8 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
 
         val intent = Intent(mActivity, ClipImageActivity::class.java)
         intent.putExtra("path", path)
-        intent.putExtra("aspectX", 4)
-        intent.putExtra("aspectY", 3)
+        intent.putExtra("aspectX", 16)
+        intent.putExtra("aspectY", 9)
         startActivityForResult(intent, Constants.CLIP_IMAGE)
     }
 
