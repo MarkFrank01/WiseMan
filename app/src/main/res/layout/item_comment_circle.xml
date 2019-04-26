@@ -4,14 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iv_item_comment"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="@color/text_color_3"
+        android:textColor="@color/text_color_1"
         android:textSize="@dimen/text_size_text_2"
         app:layout_constraintStart_toEndOf="@id/iv_item_comment"
         app:layout_constraintTop_toTopOf="parent"
@@ -112,10 +113,10 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="40dp"
 
-        app:bga_npl_itemCornerRadius="0dp"
+        app:bga_npl_itemCornerRadius="2dp"
         app:bga_npl_itemSpanCount="3"
         app:bga_npl_itemWhiteSpacing="12dp"
-        app:bga_npl_itemWidth="64dp"
+        app:bga_npl_itemWidth="80dp"
         app:bga_npl_otherWhiteSpacing="64dp"
         app:bga_npl_placeholderDrawable="@mipmap/bga_pp_ic_holder_light"
         app:bga_npl_showAsLargeWhenOnlyOne="true"
@@ -140,11 +141,12 @@
         tools:text="和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和和"/>
 
     <TextView
+        android:drawablePadding="5dp"
         android:id="@+id/tv_item_comment_expand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:drawableEnd="@drawable/common_into"
+        android:drawableEnd="@drawable/blue_arrow"
         android:gravity="center"
         android:text="查看回复"
         android:textColor="@color/text_color_3"

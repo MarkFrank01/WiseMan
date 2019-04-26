@@ -275,7 +275,7 @@
                 android:layout_marginBottom="10dp"
                 android:enabled="false"
                 android:padding="10dp"
-                android:text="提问"
+                android:text="回答"
                 android:textColor="@color/color_text_enable_blue"
                 android:textSize="@dimen/text_size_text_2"
                 android:textStyle="bold"/>

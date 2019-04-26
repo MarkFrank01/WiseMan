@@ -56,9 +56,11 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
         tvExpand.setTextColor(mContext.getColorForKotlin(R.color.button_blue))
 
         if (item.isExpanded) {
-            TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_collapse, tvExpand)
+//            TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_collapse, tvExpand)
+            TextViewUtils.setTextRightDrawable(mContext, R.drawable.blue_arrow, tvExpand)
         } else {
-            TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_expand, tvExpand)
+//            TextViewUtils.setTextRightDrawable(mContext, R.drawable.common_expand, tvExpand)
+            TextViewUtils.setTextRightDrawable(mContext, R.drawable.blue_arrow, tvExpand)
         }
         tvExpand.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         tvExpand.setOnClickListener {

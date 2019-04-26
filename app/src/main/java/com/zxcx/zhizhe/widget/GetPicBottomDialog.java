@@ -130,8 +130,8 @@ public class GetPicBottomDialog extends BaseDialog {
 			Window window = dialog.getWindow();
 			window.setBackgroundDrawableResource(R.color.translate);
 			window.getDecorView()
-				.setPadding(ScreenUtils.dip2px(20), 0, ScreenUtils.dip2px(20),
-					ScreenUtils.dip2px(20));
+				.setPadding(ScreenUtils.dip2px(10), 0, ScreenUtils.dip2px(10),
+					ScreenUtils.dip2px(10));
 			WindowManager.LayoutParams lp = window.getAttributes();
 			lp.gravity = Gravity.BOTTOM;
 			lp.width = WindowManager.LayoutParams.MATCH_PARENT;

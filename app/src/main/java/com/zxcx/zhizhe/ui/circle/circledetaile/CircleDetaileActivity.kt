@@ -202,6 +202,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             ll_comment_input.visibility = View.INVISIBLE
 
 //            load_more_load_end_view.visibility = View.VISIBLE
+            iv_toolbar_right2.setImageResource(R.drawable.share_right_white)
         } else {
             bottom_bt.visibility = View.GONE
             ll_join.visibility = View.GONE
@@ -212,6 +213,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             ll_comment_input.visibility = View.VISIBLE
 
 //            load_more_load_end_view.visibility = View.GONE
+            iv_toolbar_right2.setImageResource(R.drawable.circle_more_white)
         }
 
         circlename = bean.title

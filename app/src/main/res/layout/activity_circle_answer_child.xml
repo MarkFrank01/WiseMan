@@ -70,6 +70,7 @@
         android:layout_marginTop="10dp"
         android:background="@null"
         android:hint="回复评论"
+        android:textColorHint="@color/text_color_d2"
         android:inputType="textMultiLine"
         android:maxLines="6"
         android:textColor="@color/text_color_1"
