@@ -280,6 +280,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/no2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"
@@ -348,6 +349,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/no1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="42dp"
@@ -417,6 +419,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/no3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="80dp"

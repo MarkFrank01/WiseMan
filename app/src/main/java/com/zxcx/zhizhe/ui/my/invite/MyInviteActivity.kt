@@ -9,8 +9,11 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpActivity
+import com.zxcx.zhizhe.ui.card.share.ShareDialog2
 import com.zxcx.zhizhe.ui.my.invite.input.InputInviteActivity
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.SVTSConstants
+import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
 import kotlinx.android.synthetic.main.activity_my_invite.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -113,12 +116,13 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     //弹出分享四兄弟
     private fun showshare() {
-//        val shareCardDialog = ShareDialog()
-//        val bundle  = Bundle()
-//        bundle.putString("title","好友邀请你加入智者")
-//        bundle.putString("text","你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
-//        bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
-
+        val shareCardDialog = ShareDialog2()
+        val bundle  = Bundle()
+        bundle.putString("title","好友邀请你加入智者")
+        bundle.putString("text","你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
+        bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
+        shareCardDialog.arguments = bundle
+        shareCardDialog.show(supportFragmentManager,"")
 
 //        XPopup.Builder(mActivity)
 //                .asCustom(CircleBottomSharePopup(this,

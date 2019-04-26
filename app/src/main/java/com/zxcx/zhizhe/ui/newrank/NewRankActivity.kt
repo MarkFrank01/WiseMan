@@ -27,6 +27,9 @@ import kotlinx.android.synthetic.main.toolbar.*
 class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
 
+    private var id1 = 0
+    private var id2 = 0
+    private var id3 = 0
 
     private var mUserId: Int = 0
     private lateinit var mAdapter: NewRankAdapter
@@ -97,11 +100,32 @@ class NewRankActivity : MvpActivity<NewRankPresenter>(), NewRankContract.View,
         ImageLoader.load(mActivity, bean[1].imageUrl, R.drawable.default_header, iv_rank_second)
         ImageLoader.load(mActivity, bean[2].imageUrl, R.drawable.default_header, iv_rank_third)
 
+        no1.setOnClickListener {
+            mActivity.startActivity(CircleManDetailActivity::class.java){
+                it.putExtra("userId",id1)
+            }
+        }
+
+        no2.setOnClickListener {
+            mActivity.startActivity(CircleManDetailActivity::class.java){
+                it.putExtra("userId",id2)
+            }
+        }
+
+        no3.setOnClickListener {
+            mActivity.startActivity(CircleManDetailActivity::class.java){
+                it.putExtra("userId",id3)
+            }
+        }
+
 
 
         mAdapter.setNewData(bean)
+        id1 = bean[0].id
         mAdapter.remove(0)
+        id2 = bean[0].id
         mAdapter.remove(0)
+        id3 = bean[0].id
         mAdapter.remove(0)
 
 
