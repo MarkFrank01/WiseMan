@@ -115,18 +115,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="32dp"
                     android:src="@drawable/empty_invite"
                     android:visibility="gone"/>
 
                 <TextView
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/show_empty_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="40dp"
-                    android:text="暂无邀请"
-                    android:visibility="gone"/>
+                    android:text="暂无邀请"/>
 
 
             </LinearLayout>

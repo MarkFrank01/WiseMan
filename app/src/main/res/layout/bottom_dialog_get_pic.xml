@@ -18,22 +18,23 @@
 			android:id="@+id/tv_dialog_camera"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:paddingTop="20dp"
-			android:paddingBottom="20dp"
+			android:paddingTop="16dp"
+			android:paddingBottom="14dp"
 			android:gravity="center"
 			android:text="拍照"
 			android:textColor="@color/text_color_2"
 			android:textSize="@dimen/text_size_text_1"/>
 		
 		<View
+            android:visibility="gone"
 			style="@style/line"/>
 		
 		<TextView
 			android:id="@+id/tv_dialog_album"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:paddingTop="20dp"
-			android:paddingBottom="20dp"
+			android:paddingTop="16dp"
+			android:paddingBottom="18dp"
 			android:gravity="center"
 			android:text="从相册中添加"
 			android:textColor="@color/text_color_2"
@@ -46,8 +47,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="8dp"
-		android:paddingTop="20dp"
-		android:paddingBottom="20dp"
+		android:paddingTop="17dp"
+		android:paddingBottom="18dp"
 		android:background="@drawable/bg_dialog"
 		android:gravity="center"
 		android:text="取消"

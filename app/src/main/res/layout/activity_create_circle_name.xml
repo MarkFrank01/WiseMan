@@ -85,6 +85,7 @@
 
     <TextView
         android:visibility="gone"
+        android:layout_marginTop="9dp"
         android:id="@+id/tv_check2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,6 +97,7 @@
 
     <TextView
         android:visibility="gone"
+        android:layout_marginTop="9dp"
         android:id="@+id/tv_check3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,6 +109,7 @@
 
     <TextView
         android:visibility="gone"
+        android:layout_marginTop="9dp"
         android:id="@+id/tv_check4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

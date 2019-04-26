@@ -27,10 +27,11 @@
                 android:background="@drawable/money_background">
 
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/money_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@color/white_2"
                     android:textSize="48sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -201,7 +202,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="37dp"
                 android:background="@drawable/bg_backbutton">
 
                 <TextView
@@ -228,7 +229,7 @@
                     android:drawableEnd="@drawable/tv_load_more_end_into"
                     android:drawablePadding="2dp"
                     android:paddingBottom="28dp"
-                    android:paddingTop="28dp"
+                    android:paddingTop="24dp"
                     android:text="编辑支付宝"
                     android:textColor="@color/text_color_3"
                     android:textSize="@dimen/text_size_text_3"/>
