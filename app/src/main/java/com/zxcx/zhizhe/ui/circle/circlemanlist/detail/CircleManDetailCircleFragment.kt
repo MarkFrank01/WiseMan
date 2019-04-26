@@ -10,10 +10,12 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_man_circle.*
 
@@ -79,7 +81,11 @@ class CircleManDetailCircleFragment: MvpFragment<CircleManDetailPresenter>(), Ci
         onRefresh()
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CircleBean
+        mActivity.startActivity(CircleDetaileActivity::class.java){
+            it.putExtra("circleID", bean.id)
+        }
     }
 
     private fun onRefresh(){

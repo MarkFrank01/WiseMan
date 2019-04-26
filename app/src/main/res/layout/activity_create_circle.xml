@@ -119,7 +119,7 @@
             <LinearLayout
                 android:id="@+id/mycircle_pic"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="203dp">
 
                 <ImageView
                     android:id="@+id/mycircle_pic_pic"
@@ -131,7 +131,7 @@
 
 
             <LinearLayout
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="6dp"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="vertical">
@@ -231,7 +231,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginEnd="12dp"
                         android:layout_marginStart="18dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="9dp"
                         android:text="你希望如何跟别人介绍你的圈子"
                         android:textColor="@color/text_color_1"
                         android:textSize="17sp"/>
@@ -242,7 +242,7 @@
                         android:layout_height="15dp"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="22dp"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="13dp"
                         android:src="@drawable/c_more"/>
 
                 </RelativeLayout>
@@ -294,7 +294,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/ll_circle_choose_circle"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
@@ -345,7 +345,7 @@
                 android:id="@+id/create_push_level"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="21dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -393,7 +393,7 @@
                 android:id="@+id/create_push_check"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="21dp"
                 android:orientation="horizontal">
 
                 <TextView

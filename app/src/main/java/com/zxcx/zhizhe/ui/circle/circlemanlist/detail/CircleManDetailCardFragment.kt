@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
+import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
+import com.zxcx.zhizhe.utils.startActivity
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import kotlinx.android.synthetic.main.fragment_man_card.*
 
@@ -22,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_man_card.*
  * @Description :
  */
 class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), CircleManDetailContract.View,
-        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
+        BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener,BaseQuickAdapter.OnItemClickListener {
+
 
     private var mPage = 0
     private var userId = 0
@@ -81,6 +85,19 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
     }
 
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val bean = adapter.data[position] as CardBean
+        if (bean.cardType == 1) {
+            mActivity.startActivity(SingleCardDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+        } else {
+            mActivity.startActivity(ArticleDetailsActivity::class.java) {
+                it.putExtra("cardBean", bean)
+            }
+        }
+    }
+
     fun onRefresh(){
         getHimCard()
     }
@@ -91,6 +108,7 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
 
     private fun initRecycleView(){
         mAdapter = CircleManCardAdapter(ArrayList())
+        mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
         mAdapter.setLoadMoreView(CustomLoadMoreView())

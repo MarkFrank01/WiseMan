@@ -73,7 +73,6 @@
             android:id="@+id/tv_item_card_details_label"
             style="@style/tv_card_label"
             android:paddingBottom="12dp"
-            android:paddingEnd="12dp"
             android:paddingStart="6dp"
             android:paddingTop="6dp"
             app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_category"
@@ -81,13 +80,13 @@
             tools:text="#数码产品"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_item_card_details_label2"
             style="@style/tv_card_label"
             android:paddingBottom="12dp"
             android:paddingEnd="12dp"
             android:paddingStart="6dp"
             android:paddingTop="6dp"
-            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/tv_item_card_details_label"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_card_details_title"
             tools:text="#数码产品"/>
