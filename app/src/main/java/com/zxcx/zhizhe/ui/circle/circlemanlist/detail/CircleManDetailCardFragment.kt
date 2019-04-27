@@ -16,7 +16,7 @@ import com.zxcx.zhizhe.ui.circle.circlehome.CircleUserBean
 import com.zxcx.zhizhe.utils.Constants
 import com.zxcx.zhizhe.utils.SharedPreferencesUtil
 import com.zxcx.zhizhe.utils.startActivity
-import com.zxcx.zhizhe.widget.CustomLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import kotlinx.android.synthetic.main.fragment_man_card.*
 
 /**
@@ -56,6 +56,9 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
     }
 
     override fun getOtherUserCreationSuccess(list: MutableList<CardBean>) {
+        val emptyView = EmptyView.getEmptyView(mActivity, "暂无内容", R.drawable.no_data)
+        mAdapter.emptyView = emptyView
+
         if (mPage == 0){
             mAdapter.setNewData(list)
         }else{
@@ -111,7 +114,7 @@ class CircleManDetailCardFragment : MvpFragment<CircleManDetailPresenter>(), Cir
         mAdapter.onItemClickListener = this
         mAdapter.onItemChildClickListener = this
 
-        mAdapter.setLoadMoreView(CustomLoadMoreView())
+//        mAdapter.setLoadMoreView(CustomLoadMoreView())
         mAdapter.setOnLoadMoreListener(this,rv_man_card)
 
 //        rv_man_card.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)

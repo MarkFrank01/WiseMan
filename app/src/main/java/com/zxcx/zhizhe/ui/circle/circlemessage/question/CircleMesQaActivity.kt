@@ -39,7 +39,7 @@ class CircleMesQaActivity : MvpActivity<CircleMesQaPresenter>(), CircleMesQaCont
     }
 
     override fun getQuestionMessageListSuccess(list: MutableList<MyCircleTabBean>) {
-        val  emptyView = EmptyView.getEmptyView(mActivity,"暂时没有动态",R.drawable.no_data)
+        val  emptyView = EmptyView.getEmptyView(mActivity,"暂时没有动态",R.drawable.no_comment)
         mAdapter.emptyView = emptyView
 
         if (page == 0){

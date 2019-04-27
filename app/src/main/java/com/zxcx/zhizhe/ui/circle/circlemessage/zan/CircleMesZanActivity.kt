@@ -39,7 +39,7 @@ class CircleMesZanActivity :MvpActivity<CircleMesZanPresenter>(),CircleMesZanCon
     }
 
     override fun getLikeMessageListSuccess(list: MutableList<MyCircleTabBean>) {
-        val  emptyView = EmptyView.getEmptyView(mActivity,"暂时没有动态",R.drawable.no_data)
+        val  emptyView = EmptyView.getEmptyView(mActivity,"暂时没有动态",R.drawable.no_comment)
         mAdapter.emptyView = emptyView
 
         if (page == 0){

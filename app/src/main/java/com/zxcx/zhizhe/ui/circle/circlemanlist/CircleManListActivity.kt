@@ -232,9 +232,10 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         mAdapter.onItemChildClickListener = this
 
         rv_circle_man.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
-//        rv_circle_man.layoutManager = object :LinearLayoutManager(mActivity){
-//            override fun canScrollVertically() = false
-//        }
+        rv_circle_man.layoutManager = object :LinearLayoutManager(mActivity){
+            override fun canScrollVertically() = false
+        }
+
         rv_circle_man.adapter = mAdapter
 
         mAdapter.setLoadMoreView(CustomLoadMoreView())

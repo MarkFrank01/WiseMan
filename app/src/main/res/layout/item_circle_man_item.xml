@@ -24,7 +24,6 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:layout_marginStart="10dp"
         android:gravity="center"
         android:maxLength="8"
@@ -132,6 +131,7 @@
         tools:text="1000"/>
 
     <CheckBox
+        android:layout_marginTop="5dp"
         android:id="@+id/cb_item_search_user_follow"
         style="@style/tv_single"
         android:layout_marginEnd="18dp"
@@ -145,7 +145,7 @@
         android:textColor="@color/button_blue"
         tools:text="进圈"
         android:textSize="15sp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

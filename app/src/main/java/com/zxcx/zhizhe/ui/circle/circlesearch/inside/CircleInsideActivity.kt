@@ -3,7 +3,6 @@ package com.zxcx.zhizhe.ui.circle.circlesearch.inside
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.view.View
 import android.widget.TextView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.BaseActivity
@@ -138,7 +137,7 @@ class CircleInsideActivity : BaseActivity() {
             onBackPressed()
         }
         app_bar_layout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            iv_search_result_search.visibility = if (verticalOffset < 0) View.VISIBLE else View.GONE
+//            iv_search_result_search.visibility = if (verticalOffset < 0) View.VISIBLE else View.GONE
         }
     }
 
