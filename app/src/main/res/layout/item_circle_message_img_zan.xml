@@ -73,11 +73,12 @@
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:background="@color/strip"
+        android:background="@drawable/bg_strip_6dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/message_comment">
 
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/message_qa_img"
             android:layout_marginStart="12dp"
             android:layout_gravity="center"

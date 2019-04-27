@@ -56,7 +56,8 @@ class CircleMesZanAdapter(data: List<MyCircleTabBean>) : BaseMultiItemQuickAdapt
                 helper.setText(R.id.message_man_name_2, item.relatedQaTitle)
 
                 val circleImg = helper.getView<ImageView>(R.id.message_circle_img)
-                ImageLoader.load(mContext, item.relatedCircleTitleImage, R.drawable.default_card, circleImg)
+//                ImageLoader.load(mContext, item.relatedCircleTitleImage, R.drawable.default_card, circleImg)
+                ImageLoader.load(mContext,R.drawable.circle_msg,circleImg)
 
                 helper.setText(R.id.message_circle_title, item.relatedCircleTitle)
 
@@ -74,7 +75,8 @@ class CircleMesZanAdapter(data: List<MyCircleTabBean>) : BaseMultiItemQuickAdapt
                 helper.setText(R.id.message_man_name_2,"我 ："+item.relatedCommentTitle)
 
                 val circleImg = helper.getView<ImageView>(R.id.message_circle_img)
-                ImageLoader.load(mContext,item.relatedCircleTitleImage, R.drawable.default_card,circleImg)
+//                ImageLoader.load(mContext,item.relatedCircleTitleImage, R.drawable.default_card,circleImg)
+                ImageLoader.load(mContext,R.drawable.circle_msg,circleImg)
 
                 helper.setText(R.id.message_circle_title,item.relatedCircleTitle)
 
