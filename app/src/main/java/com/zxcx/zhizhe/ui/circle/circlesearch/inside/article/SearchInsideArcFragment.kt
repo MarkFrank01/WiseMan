@@ -11,7 +11,7 @@ import com.zxcx.zhizhe.event.AddCardDetailsListEvent
 import com.zxcx.zhizhe.event.UpdateCardListEvent
 import com.zxcx.zhizhe.event.UpdateCardListPositionEvent
 import com.zxcx.zhizhe.mvpBase.MvpFragment
-import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
+import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.circlesearch.inside.card.SearchInsideContract
 import com.zxcx.zhizhe.ui.circle.circlesearch.inside.card.SearchInsidePresenter
@@ -107,11 +107,16 @@ class SearchInsideArcFragment  : MvpFragment<SearchInsidePresenter>(), SearchIns
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        mActivity.startActivity(CardDetailsActivity::class.java) {
-            it.putExtra("list", mAdapter.data as ArrayList)
-            it.putExtra("currentPosition", position)
-            it.putExtra("sourceName", this::class.java.name)
+
+        val bean = adapter.data[position] as CardBean
+        mActivity.startActivity(ArticleDetailsActivity::class.java) {
+            it.putExtra("cardBean", bean)
         }
+//        mActivity.startActivity(CardDetailsActivity::class.java) {
+//            it.putExtra("list", mAdapter.data as ArrayList)
+//            it.putExtra("currentPosition", position)
+//            it.putExtra("sourceName", this::class.java.name)
+//        }
     }
 
     private fun initRecyclerView() {
