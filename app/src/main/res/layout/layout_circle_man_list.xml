@@ -23,7 +23,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="18dp"
+        android:paddingTop="12dp"
         android:paddingBottom="16dp"
         android:paddingStart="12dp"
         android:paddingEnd="20dp">
@@ -146,9 +146,10 @@
 
         <CheckBox
             android:id="@+id/cb_item_search_user_follow_2"
+            android:layout_marginTop="5dp"
             style="@style/tv_single"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_width="76dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="18dp"
             android:background="@drawable/bg_checkbox_select_attention1"
             android:button="@null"
@@ -182,6 +183,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <View
+        android:visibility="gone"
         android:background="@color/line"
         android:layout_width="match_parent"
         android:layout_height="6dp"/>
@@ -190,7 +192,7 @@
         android:id="@+id/tv_man_list_num"
         android:layout_marginTop="16dp"
         android:layout_marginStart="12dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="22dp"
         android:text="成员"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

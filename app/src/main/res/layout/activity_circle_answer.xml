@@ -67,6 +67,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:hint="对题主说几句，分享你的经验"
+                android:textColorHint="@color/text_color_d2"
                 android:inputType="textMultiLine"
                 android:maxLines="6"
                 android:textColor="@color/text_color_1"

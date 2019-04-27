@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.circle.adapter
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -54,6 +55,12 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         helper.addOnClickListener(R.id.circle_detail_img)
 
         helper.addOnClickListener(R.id.circle_detail_more)
+        if (itemBean.isOwner){
+            helper.getView<ImageView>(R.id.circle_detail_more).visibility = View.VISIBLE
+        }else{
+            helper.getView<ImageView>(R.id.circle_detail_more).visibility = View.GONE
+
+        }
     }
 
 

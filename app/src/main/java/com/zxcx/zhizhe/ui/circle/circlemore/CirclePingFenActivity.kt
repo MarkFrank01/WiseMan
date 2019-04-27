@@ -34,7 +34,7 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStarCount(5)
                 .setStarSpace(20)
                 .setShowStroke(true)
-                .setStarStrokeWidth(3)
+                .setStarStrokeWidth(1)
                 .setStarStrokeColor(Color.parseColor("#D2D2D2"))
 //                .setStarFillColor(R.color.white)
 //                .setStarCoverColor(R.color.button_blue)
@@ -42,7 +42,8 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStartColor(R.color.white)
                 .setEndColor(Color.parseColor("#0088AA"))
                 .setCanTouch(true)
-                .setDefaultPathData()
+                .setPathDataId(R.string.star_select)
+//                .setDefaultPathData()
                 .setCoverDir(CBRatingBar.CoverDir.leftToRight)
                 .setOnStarTouchListener(object :CBRatingBar.OnStarTouchListener{
                     override fun onStarTouch(touchCount: Int) {
@@ -55,7 +56,7 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStarCount(5)
                 .setStarSpace(20)
                 .setShowStroke(true)
-                .setStarStrokeWidth(3)
+                .setStarStrokeWidth(1)
                 .setStarStrokeColor(Color.parseColor("#D2D2D2"))
 //                .setStarFillColor(R.color.white)
 //                .setStarCoverColor(R.color.button_blue)
@@ -63,7 +64,8 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStartColor(R.color.white)
                 .setEndColor(Color.parseColor("#0088AA"))
                 .setCanTouch(true)
-                .setDefaultPathData()
+                .setPathDataId(R.string.star_select)
+//                .setDefaultPathData()
                 .setCoverDir(CBRatingBar.CoverDir.leftToRight)
                 .setOnStarTouchListener(object :CBRatingBar.OnStarTouchListener{
                     override fun onStarTouch(touchCount: Int) {
