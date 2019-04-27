@@ -98,6 +98,10 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                     helper.setTextColor(R.id.tv_item_card_comment,mContext.getColorForKotlin(R.color.text_color_d2))
                 }
 
+             cb.setOnCheckedChangeListener { buttonView, isChecked ->
+                 cb.isChecked = !item.circleFix
+             }
+
 //                cb.setOnCheckedChangeListener(null)
 //            }
 

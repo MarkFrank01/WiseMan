@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.mvpBase.MvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
@@ -54,11 +53,23 @@ class CircleManDetailCircleFragment : MvpFragment<CircleManDetailPresenter>(), C
         val emptyView = EmptyView.getEmptyView(mActivity, "该用户暂无圈子动态", R.drawable.no_circle_data)
         mAdapter.emptyView = emptyView
 
-        if (mPage == 0) {
-            mAdapter.setNewData(list as List<MultiItemEntity>?)
-        } else {
-            mAdapter.addData(list)
+        if (list.size>1){
+            for (bean in list.indices){
+                if (bean%2==0){
+                    list[bean].ItemTP = 1
+                    mAdapter.data.add(list[bean])
+                }else{
+                    list[bean].ItemTP = 2
+                    mAdapter.data.add(list[bean])
+                }
+            }
         }
+
+//        if (mPage == 0) {
+//            mAdapter.setNewData(list as List<MultiItemEntity>?)
+//        } else {
+//            mAdapter.addData(list)
+//        }
 
         mPage++
         if (list.size < Constants.PAGE_SIZE) {

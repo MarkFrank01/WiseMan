@@ -30,7 +30,7 @@
             android:textSize="@dimen/text_size_title_2"
             tools:text="19999999999"/>
 
-        <com.zxcx.zhizhe.widget.VerificationCodeInput
+        <com.zxcx.zhizhe.widget.VerificationCodeInput2
             android:id="@+id/vci_invite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

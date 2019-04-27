@@ -38,6 +38,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="22dp"
                     tools:text="ADMNA"
+                    android:textStyle="bold"
                     android:textColor="@color/text_color_2"
                     android:textSize="36dp"/>
 
@@ -55,7 +56,7 @@
                     android:layout_height="44dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
-                    android:background="@drawable/bg_backbutton3">
+                    android:background="@drawable/ewm_button">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -120,6 +121,7 @@
                     android:visibility="gone"/>
 
                 <TextView
+                    android:textColor="@color/text_color_3"
                     android:visibility="gone"
                     android:layout_marginTop="8dp"
                     android:id="@+id/show_empty_2"
