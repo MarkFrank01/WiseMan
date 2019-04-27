@@ -34,7 +34,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
     private var mCurrentFragment = Fragment()
 
     //圈子的ID
-    private var circleId:Int = 0
+    private var circleId: Int = 0
 
     //检测卡片的数量
     private var mCardNum = 0
@@ -85,7 +85,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event:GetBackNumAndDataEvent2){
+    fun onMessageEvent(event: GetBackNumAndDataEvent2) {
         if (event.type == 0) {
             mCardNum = event.contentList.size
             mCardList = event.contentList
@@ -95,10 +95,10 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         }
 
         //之后调整为8和4
-        if (mCardNum >= 1 || mArcNum >= 1) {
+        if (mCardNum >= 4 || mArcNum >= 2) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
-        }else{
+        } else {
             tv_toolbar_right.isEnabled = false
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
         }
@@ -106,7 +106,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            mPresenter.setCircleArticle(circleId,mAllUnLock,mAllLock)
+            mPresenter.setCircleArticle(circleId, mAllUnLock, mAllLock)
         }
     }
 
@@ -116,19 +116,19 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
 
     override fun setArcSuccess(bean: MutableList<CardBean>) {
         toastShow("提交成功，等待审核")
-        startActivity(AllMyCircleActivity::class.java){}
+        startActivity(AllMyCircleActivity::class.java) {}
         finish()
     }
 
     override fun checkCircleArticleBalanceSuccess(bean: BalanceBean) {
-        LogCat.e("Balance card: "+bean.cardCount+ " Arc"+bean.articleCount)
+        LogCat.e("Balance card: " + bean.cardCount + " Arc" + bean.articleCount)
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>?) {
     }
 
-    private fun initData(){
-        circleId = intent.getIntExtra("circleId",0)
+    private fun initData() {
+        circleId = intent.getIntExtra("circleId", 0)
 
         listcdCard = intent.getParcelableArrayListExtra<CardBean>("listCard")
         listcdArc = intent.getParcelableArrayListExtra<CardBean>("listArc")
@@ -140,13 +140,13 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        show_first_tv.text = "在此页面选择4张卡片在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择" + listcdCard.size / 2  + "张卡片在圈外公开阅读"
                         switchFragment(mNextCardFragment)
                         EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
                     }
                     1 -> {
                         switchFragment(mNextArcFragment)
-                        show_first_tv.text = "在此页面选择2篇文章在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择"+listcdArc.size/2+"篇文章在圈外公开阅读"
                         EventBus.getDefault().post(GetNextArcEvent(0, listcdArc))
 
                     }
@@ -188,13 +188,13 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         val fm = supportFragmentManager
         val transaction = fm.beginTransaction()
 
-        if (mCurrentFragment == newFragment){
-            if (newFragment == mNextCardFragment){
+        if (mCurrentFragment == newFragment) {
+            if (newFragment == mNextCardFragment) {
                 EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
-            }else if (newFragment == mNextArcFragment){
+            } else if (newFragment == mNextArcFragment) {
                 EventBus.getDefault().post(GetNextArcEvent(0, listcdArc))
             }
-        }else {
+        } else {
             if (newFragment.isAdded) {
                 //.setCustomAnimations(R.anim.fragment_anim_left_in,R.anim.fragment_anim_right_out)
                 transaction.hide(mCurrentFragment).show(newFragment).commitAllowingStateLoss()

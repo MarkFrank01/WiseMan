@@ -123,7 +123,7 @@ class OwnerAddActivity : BaseActivity() {
     }
 
     private fun initView() {
-        show_first_tv.text = "在此页面选择4张卡片在圈外公开阅读"
+        show_first_tv.text = "在此页面选择符合圈子分类的8张卡片"
 
         for (i in titles.indices) {
             val tab = tl_circle.newTab()
@@ -136,12 +136,12 @@ class OwnerAddActivity : BaseActivity() {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        show_first_tv.text = "在此页面选择4张卡片在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择符合圈子分类的8张卡片"
                         switchFragment(mOwnerAddCardFragment)
                     }
                     1 -> {
                         switchFragment(mOwnerAddArticleFragment)
-                        show_first_tv.text = "在此页面选择2篇文章在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择符合圈子分类的4篇文章"
                     }
                 }
                 val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
