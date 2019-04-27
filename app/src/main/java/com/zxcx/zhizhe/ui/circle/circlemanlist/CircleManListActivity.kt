@@ -76,6 +76,12 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
         iv_toolbar_right.setOnClickListener {
             orderman()
         }
+
+        owner.setOnClickListener {
+            mActivity.startActivity(CircleManDetailActivity::class.java){
+                it.putExtra("userId", createBean.id)
+            }
+        }
     }
 
     override fun getCircleMemberByCircleIdSuccess(list: MutableList<SearchUserBean>) {
@@ -165,7 +171,7 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
                     }
                 }
             }
-            R.id.iv_item_search_user -> {
+            R.id.iv_item_search_user,R.id.tv_item_search_user_name -> {
                 //去个人的信息
                 val bean = adapter.data[position] as SearchUserBean
                 mActivity.startActivity(CircleManDetailActivity::class.java){
