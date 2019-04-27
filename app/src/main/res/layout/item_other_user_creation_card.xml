@@ -68,10 +68,10 @@
 
         <com.zxcx.zhizhe.widget.CardRoundedImageView
             android:id="@+id/iv_item_card_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="18dp"
             android:scaleType="centerCrop"
             android:transitionName="cardImage"
             app:hasShade="true"

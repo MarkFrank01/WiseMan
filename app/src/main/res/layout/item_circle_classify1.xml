@@ -96,14 +96,14 @@
 
     <TextView
         android:id="@+id/tv_item_circle_classify_desc"
-        android:layout_width="140dp"
+        android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/text_color_3"
+        android:textColor="@color/text_color_2"
         android:textSize="12sp"
         android:transitionName="cardTitle"
         app:layout_constraintStart_toEndOf="@id/iv_item_circle_classify_icon"
