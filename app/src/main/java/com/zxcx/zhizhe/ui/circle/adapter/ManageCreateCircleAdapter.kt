@@ -99,7 +99,7 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
                 }
 
              cb.setOnCheckedChangeListener { buttonView, isChecked ->
-                 cb.isChecked = !item.circleFix
+                 cb.isChecked = item.circleFix
              }
 
 //                cb.setOnCheckedChangeListener(null)

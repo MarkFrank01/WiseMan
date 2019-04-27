@@ -35,7 +35,7 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStarSpace(20)
                 .setShowStroke(true)
                 .setStarStrokeWidth(1)
-                .setStarStrokeColor(Color.parseColor("#D2D2D2"))
+                .setStarStrokeColor(Color.parseColor("#999999"))
 //                .setStarFillColor(R.color.white)
 //                .setStarCoverColor(R.color.button_blue)
                 .setUseGradient(true)
@@ -43,7 +43,7 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setEndColor(Color.parseColor("#0088AA"))
                 .setCanTouch(true)
                 .setPathDataId(R.string.star_select)
-//                .setDefaultPathData()
+                .setDefaultPathData()
                 .setCoverDir(CBRatingBar.CoverDir.leftToRight)
                 .setOnStarTouchListener(object :CBRatingBar.OnStarTouchListener{
                     override fun onStarTouch(touchCount: Int) {
@@ -57,7 +57,7 @@ class CirclePingFenActivity:MvpActivity<CirclePingFenPresenter>(),CirclePingFenC
                 .setStarSpace(20)
                 .setShowStroke(true)
                 .setStarStrokeWidth(1)
-                .setStarStrokeColor(Color.parseColor("#D2D2D2"))
+                .setStarStrokeColor(Color.parseColor("#999999"))
 //                .setStarFillColor(R.color.white)
 //                .setStarCoverColor(R.color.button_blue)
                 .setUseGradient(true)

@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.circleowner.owneradd
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -58,6 +59,26 @@ class OwnerAddActivity : BaseActivity() {
         initView()
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        //避免恢复视图状态
+    }
+
+    override fun recreate() {
+        val intent = Intent()
+        intent.putExtra("isNight", true)
+        setIntent(intent)
+        try {//避免重启太快 恢复
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (fragment in supportFragmentManager.fragments) {
+                fragmentTransaction.remove(fragment)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
+        }
+
+        super.recreate()
+    }
+
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
@@ -102,6 +123,8 @@ class OwnerAddActivity : BaseActivity() {
     }
 
     private fun initView() {
+        show_first_tv.text = "在此页面选择4张卡片在圈外公开阅读"
+
         for (i in titles.indices) {
             val tab = tl_circle.newTab()
             tab.setCustomView(R.layout.tab_creation)
