@@ -9,7 +9,6 @@
 	android:paddingTop="8dp"
 	android:paddingStart="12dp"
 	android:paddingEnd="12dp"
-    android:layout_marginBottom="3dp"
 	android:background="@color/background"
 	android:orientation="vertical"
 	android:stateListAnimator="@animator/anim_home_card_press">

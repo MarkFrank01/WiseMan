@@ -33,6 +33,7 @@
         tools:text="笔记本笔记本笔记本笔记本笔记本笔记本笔记本笔记本"/>
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/circle_detail_more"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"

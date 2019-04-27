@@ -2,7 +2,6 @@ package com.zxcx.zhizhe.ui.circle.circleowner.owneradd
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -120,16 +119,16 @@ class OwnerAddCardFragment :RefreshMvpFragment<OwnerAddPresenter>(),OwnerAddCont
             listBackCard.remove(bean)
         }
 
-        val mCheckStates = SparseBooleanArray()
-        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            var pos:Int = buttonView.tag as Int
-            if (isChecked){
-                mCheckStates.put(pos,true)
-            }else{
-                mCheckStates.delete(pos)
-            }
-        }
-        cb.isChecked = mCheckStates.get(position,false)
+//        val mCheckStates = SparseBooleanArray()
+//        cb.setOnCheckedChangeListener { buttonView, isChecked ->
+//            var pos:Int = buttonView.tag as Int
+//            if (isChecked){
+//                mCheckStates.put(pos,true)
+//            }else{
+//                mCheckStates.delete(pos)
+//            }
+//        }
+//        cb.isChecked = mCheckStates.get(position,false)
 
 
         EventBus.getDefault().post(GetBackNumAndDataEvent(0,mBackList,listBackCard))

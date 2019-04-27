@@ -176,6 +176,7 @@ class CardBean(
         val Article_LONG = 2
         val Article_LINK = 3
         val Article_TOUTIAO = 4
+        val Article_GG = 5
     }
 }
 

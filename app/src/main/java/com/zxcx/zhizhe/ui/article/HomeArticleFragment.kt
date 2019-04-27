@@ -98,7 +98,7 @@ class HomeArticleFragment : MvpFragment<HomeArticlePresenter>(), HomeArticleCont
 
     override fun getDataSuccess(list: MutableList<CardCategoryBean>) {
         vp_article_list.adapter = fragmentManager?.let { CardListViewPagerAdapter(list, it) }
-        vp_article_list.offscreenPageLimit = list.size
+//        vp_article_list.offscreenPageLimit = list.size
         tl_card_list.removeAllTabs()
         list.forEach {
             val tab = tl_card_list.newTab()

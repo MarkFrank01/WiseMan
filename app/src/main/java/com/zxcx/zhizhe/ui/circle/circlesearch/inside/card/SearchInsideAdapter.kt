@@ -15,7 +15,7 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
  * @Created on 2019/3/20
  * @Description :
  */
-class SearchInsideAdapter (data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_search_card, data) {
+class SearchInsideAdapter (data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_search_card2, data) {
 
     var mKeyword = ""
 
