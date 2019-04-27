@@ -81,7 +81,7 @@
             android:id="@+id/message_qa_img"
             android:layout_marginStart="12dp"
             android:layout_gravity="center"
-            android:src="@color/button_blue"
+            android:src="@drawable/zfb"
             android:layout_width="23dp"
             android:layout_height="23dp"/>
 
