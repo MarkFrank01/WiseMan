@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
+    android:layout_marginStart="33dp"
     android:orientation="vertical">
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/text_color_1"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="1dp"
         android:textColor="@color/text_color_3"
         tools:text="2019.03.01 16:42"/>
 
@@ -44,7 +44,7 @@
         android:layout_width="72dp"
         android:layout_height="24dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/bg_backbutton2"
         android:button="@null"
         android:checked="true"

@@ -17,6 +17,7 @@ data class InviteBean(
 
         @SerializedName("alreadyInviteesTotal") var alreadyInviteesTotal:Int,
         @SerializedName("invitationCode") var invitationCode:String,
-        @SerializedName("inviteesTotal") var inviteesTotal:Int
+        @SerializedName("inviteesTotal") var inviteesTotal:Int,
+        @SerializedName("uniqueCode") var uniqueCode:String
 
 ) : RetrofitBean()

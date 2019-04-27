@@ -32,6 +32,7 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
         tv_toolbar_right.visibility = View.VISIBLE
         tv_toolbar_right.text = "完成"
         tv_toolbar_right.isEnabled = false
+        tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.text_color_d2))
 
 
         Observable.timer(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread()).subscribe {
@@ -84,6 +85,6 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
     }
 
     override fun errormsg(msg: String) {
-        toastShow("邀请码不正确")
+        toastError("邀请码不正确")
     }
 }

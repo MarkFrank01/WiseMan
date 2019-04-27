@@ -13,6 +13,8 @@ import com.zxcx.zhizhe.utils.ZhiZheUtils
 import com.zxcx.zhizhe.utils.getColorForKotlin
 
 
+
+
 //class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_other_user_creation, data) {
 class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(data) {
 
@@ -28,79 +30,91 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
     }
 
     override fun convert(helper: BaseViewHolder, item: CardBean) {
-                if (item.showTitle!=""&&item.showTitle.isNotEmpty()){
-                    helper.getView<TextView>(R.id.tv_daily_title).visibility = View.VISIBLE
-                    helper.setText(R.id.tv_daily_title,item.showTitle)
-                }else{
-                    helper.getView<TextView>(R.id.tv_daily_title).visibility = View.GONE
-                }
+        if (item.showTitle != "" && item.showTitle.isNotEmpty()) {
+            helper.getView<TextView>(R.id.tv_daily_title).visibility = View.VISIBLE
+            helper.setText(R.id.tv_daily_title, item.showTitle)
+        } else {
+            helper.getView<TextView>(R.id.tv_daily_title).visibility = View.GONE
+        }
 
-                if (item.showNumTitle!=""&&item.showNumTitle.isNotEmpty()){
-                    helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.VISIBLE
-                    helper.setText(R.id.tv_daily_title_num,item.showNumTitle)
-                }else{
-                    helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.GONE
+        if (item.showNumTitle != "" && item.showNumTitle.isNotEmpty()) {
+            helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.VISIBLE
+            helper.setText(R.id.tv_daily_title_num, item.showNumTitle)
+        } else {
+            helper.getView<TextView>(R.id.tv_daily_title_num).visibility = View.GONE
 
-                }
+        }
 
 //        when (helper.itemViewType) {
         //多类型item加入此选择即可
 //            CardBean.Article, CardBean.Article_LONG -> {
-                val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
-                val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
-                ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
+        val imageView = helper.getView<ImageView>(R.id.iv_item_card_icon)
+        val imageUrl = ZhiZheUtils.getHDImageUrl(item.imageUrl)
+        ImageLoader.load(mContext, imageUrl, R.drawable.default_card, imageView)
 
-                helper.setText(R.id.tv_item_card_title, item.name)
-                helper.setText(R.id.tv_item_card_category, item.categoryName)
-                if (item.labelName!=""&&item.labelName.isNotEmpty()) {
-                    helper.setText(R.id.tv_item_card_label, item.getLabelName())
-                }else{
-                    helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
-                }
+        helper.setText(R.id.tv_item_card_title, item.name)
+        helper.setText(R.id.tv_item_card_category, item.categoryName)
+        if (item.labelName != "" && item.labelName.isNotEmpty()) {
+            helper.setText(R.id.tv_item_card_label, item.getLabelName())
+        } else {
+            helper.getView<TextView>(R.id.tv_item_card_label).visibility = View.GONE
+        }
 //                if (item.secondCollectionTitle!=""&&item.secondCollectionTitle.isNotEmpty()) {
 //                    helper.getView<TextView>(R.id.tv_item_card_label2).visibility = View.VISIBLE
 //                    helper.setText(R.id.tv_item_card_label2,item.getSecondLabelName())
 //                }
-                helper.setText(R.id.tv_item_card_read, item.readNum.toString())
-                helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
+        helper.setText(R.id.tv_item_card_read, item.readNum.toString())
+        helper.setText(R.id.tv_item_card_comment, item.commentNum.toString())
 
-                imageView.transitionName = mContext.getString(R.string.card_img_transition_name)
-                helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
-                        R.string.card_title_transition_name)
-                helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
-                        R.string.card_category_transition_name)
-                helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
-                        R.string.card_label_transition_name)
+        imageView.transitionName = mContext.getString(R.string.card_img_transition_name)
+        helper.getView<TextView>(R.id.tv_item_card_title).transitionName = mContext.getString(
+                R.string.card_title_transition_name)
+        helper.getView<TextView>(R.id.tv_item_card_category).transitionName = mContext.getString(
+                R.string.card_category_transition_name)
+        helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
+                R.string.card_label_transition_name)
 
-                helper.setText(R.id.tv_item_card_time,item.distanceTime)
+        helper.setText(R.id.tv_item_card_time, item.distanceTime)
 
-                val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
-                if (!item.circleFix!!){
-                    cb.isChecked = false
-                    helper.addOnClickListener(R.id.cb_choose_push_manage)
-                }else{
+        val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
+        if (!item.circleFix!!) {
+            cb.isChecked = false
+            helper.addOnClickListener(R.id.cb_choose_push_manage)
+        } else {
 //                    cb.isChecked = true
 //                    cb.isEnabled = false
-                    cb.visibility = View.GONE
+            cb.visibility = View.GONE
 //                    helper.getView<LinearLayout>(R.id.con_ll).setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_bac))
-                    //					contentView.tv_sort_default.setTextColor(context.getColorForKotlin(R.color.button_blue))
+            //					contentView.tv_sort_default.setTextColor(context.getColorForKotlin(R.color.button_blue))
 
-                    helper.setTextColor(R.id.tv_item_card_title,mContext.getColorForKotlin(R.color.text_color_d2))
-                    helper.setTextColor(R.id.tv_item_card_category,mContext.getColorForKotlin(R.color.text_color_d2))
-                    helper.setTextColor(R.id.tv_item_card_label,mContext.getColorForKotlin(R.color.text_color_d2))
-                    helper.setTextColor(R.id.tv_item_card_time,mContext.getColorForKotlin(R.color.text_color_d2))
+            helper.setTextColor(R.id.tv_item_card_title, mContext.getColorForKotlin(R.color.text_color_d2))
+            helper.setTextColor(R.id.tv_item_card_category, mContext.getColorForKotlin(R.color.text_color_d2))
+            helper.setTextColor(R.id.tv_item_card_label, mContext.getColorForKotlin(R.color.text_color_d2))
+            helper.setTextColor(R.id.tv_item_card_time, mContext.getColorForKotlin(R.color.text_color_d2))
 
 
-                    helper.addOnClickListener(R.id.con)
+            helper.addOnClickListener(R.id.con)
 //                    helper.setTextColor(R.id.iv_item_card_read,mContext.getColorForKotlin(R.color.text_color_d2))
-                    helper.setTextColor(R.id.tv_item_card_read,mContext.getColorForKotlin(R.color.text_color_d2))
+            helper.setTextColor(R.id.tv_item_card_read, mContext.getColorForKotlin(R.color.text_color_d2))
 //                    helper.setTextColor(R.id.iv_item_card_comment,mContext.getColorForKotlin(R.color.text_color_d2))
-                    helper.setTextColor(R.id.tv_item_card_comment,mContext.getColorForKotlin(R.color.text_color_d2))
-                }
+            helper.setTextColor(R.id.tv_item_card_comment, mContext.getColorForKotlin(R.color.text_color_d2))
+        }
 
-             cb.setOnCheckedChangeListener { buttonView, isChecked ->
-                 cb.isChecked = item.circleFix
-             }
+//            cb.setOnCheckedChangeListener { buttonView, isChecked ->
+//                LogCat.e("????")
+//                cb.isChecked = !item.circleFix
+//            }
+
+//        val mCheckStates = SparseBooleanArray()
+//        cb.setOnCheckedChangeListener { buttonView, isChecked ->
+//            var pos:Int = buttonView.tag as Int
+//            if (isChecked){
+//                mCheckStates.put(pos,true)
+//            }else{
+//                mCheckStates.delete(pos)
+//            }
+//        }
+//        cb.isChecked(mCheckStates.get(po))
 
 //                cb.setOnCheckedChangeListener(null)
 //            }

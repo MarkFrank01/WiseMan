@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="135dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginTop="160dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -45,8 +45,18 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/text_color_1"
+        android:textSize="17sp"
+        android:text="我的被邀请记录"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:visibility="gone"
+        android:layout_marginTop="32dp"
         android:id="@+id/invite_me"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

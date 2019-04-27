@@ -5,6 +5,7 @@ import com.zxcx.zhizhe.mvpBase.BaseRxJava
 import com.zxcx.zhizhe.retrofit.AppClient
 import com.zxcx.zhizhe.retrofit.BaseSubscriber
 import com.zxcx.zhizhe.ui.my.invite.InviteBean
+import com.zxcx.zhizhe.utils.LogCat
 
 /**
  * @author : MarkFrank01
@@ -40,7 +41,11 @@ class InputInviteModel(presenter:InputInviteContract.Presenter):BaseModel<InputI
                 .compose(BaseRxJava.handleResult())
                 .subscribeWith(object :BaseSubscriber<InviteBean>(mPresenter){
                     override fun onNext(t: InviteBean) {
-                        mPresenter?.receiveMineInvitationUser(t)
+                        var str = t.name+""
+                        LogCat.e(str)
+                        if (str.isNotEmpty()&&str!="null") {
+                            mPresenter?.receiveMineInvitationUser(t)
+                        }
                     }
                 })
         addSubscription(mDisposable)
