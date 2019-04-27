@@ -272,7 +272,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
-        LogCat.e("MPAGE is "+mHuaTiPage)
 
         if (mHuaTiPage==0&&list.size<1){
             rv_circle_detail.visibility = View.GONE
@@ -281,6 +280,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             rv_circle_detail.visibility = View.VISIBLE
             when_no_data.visibility = View.GONE
         }
+
+//        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
+//        mAdapter.emptyView = emptyView
 
         list.forEach {
             it.isOwner = mCircleImOwner
@@ -292,12 +294,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             mAdapter.data.clear()
             mAdapter.setNewData(list)
 
-
+//            mHuaTiPage++
+//            onRefresh()
         } else {
             LogCat.e("!!!")
             mAdapter.addData(list)
         }
 
+//        mAdapter.notifyDataSetChanged()
+//        rv_circle_detail.scrollToPosition(0)
 
         mHuaTiPage++
 
