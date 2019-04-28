@@ -336,23 +336,23 @@
             android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.creation.creationDetails.ReviewCardDetailsActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.creation.newCreation.CreationPreviewActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.my.creation.newCreation.PreviewCardDetailsActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"
-            android:launchMode="singleTask"/>
+            android:theme="@style/AppTheme.FullScreen"/>
         <activity
             android:name=".ui.my.pastelink.PasteLinkActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:launchMode="singleTask"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name="com.zxcx.zhizhe.mvp.template.TemplateCardActivity"
             android:screenOrientation="portrait"/>
@@ -370,21 +370,21 @@
 
         <activity
             android:name=".ui.circle.allmycircle.AllMyCircleActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.circle.createcircle.CreateCircleActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            android:launchMode="singleTask"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".ui.circle.createcircle.SelectCircleLabelActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.circle.createcircle.ManageCreateCircleActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.circle.circledetaile.CircleDetaileActivity"
             android:launchMode="singleTask"
@@ -572,6 +572,11 @@
 
         <activity
             android:name=".ui.my.money.bill.BillActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.circle.circlequestiondetail.jump.JumpActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>

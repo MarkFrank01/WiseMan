@@ -73,6 +73,8 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
         helper.setText(R.id.tv_item_card_time, item.distanceTime)
 
         val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
+//        cb.setOnCheckedChangeListener(null)
+
         if (!item.circleFix!!) {
             cb.isChecked = false
             helper.addOnClickListener(R.id.cb_choose_push_manage)
@@ -96,31 +98,32 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
             helper.setTextColor(R.id.tv_item_card_comment, mContext.getColorForKotlin(R.color.text_color_d2))
         }
 
-        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-            cb.isChecked = !item.circleFix
+
+
+        if (item.mIfCheckOrNot){
+            LogCat.e("111111111")
+            cb.isChecked = true
+        }else{
+            LogCat.e("222222222222222")
+            cb.isChecked =false
         }
 
-        cb.expandViewTouchDelegate(ScreenUtils.dip2px(50f))
-
-//        val mCheckStates = SparseBooleanArray()
+//        cb.isChecked = cb.isChecked
 //        cb.setOnCheckedChangeListener { buttonView, isChecked ->
-//            var pos:Int = buttonView.tag as Int
 //            if (isChecked){
-//                mCheckStates.put(pos,true)
+//                LogCat.e("111111111")
 //            }else{
-//                mCheckStates.delete(pos)
+//                LogCat.e("2222222222")
 //            }
 //        }
-//        cb.isChecked(mCheckStates.get(po))
 
-//                cb.setOnCheckedChangeListener(null)
-//            }
-
-//            CardBean.Article_LINK -> {
-//                helper.setText(R.id.tv_item_card_link,item.content)
-//                        .setText(R.id.tv_item_card_title,item.name)
-//                        .setText(R.id.tv_item_link_time,item.distanceTime)
-//            }
+//        cb.setOnCheckedChangeListener { buttonView, isChecked ->
+////            cb.isChecked = !item.circleFix
+//            LogCat.e("isChecked is "+isChecked+"-------"+"cb"+cb.isChecked)
 //        }
+
+        cb.expandViewTouchDelegate(ScreenUtils.dip2px(200f))
+
+
     }
 }

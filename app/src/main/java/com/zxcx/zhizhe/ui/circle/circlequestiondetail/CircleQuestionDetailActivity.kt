@@ -185,6 +185,10 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
                     mPresenter.unlikeQAOrQAComment_comment(huatiID,commentId)
                 }
             }
+
+            R.id.tv_item_comment_expand->{
+                toastShow("展开")
+            }
         }
     }
 

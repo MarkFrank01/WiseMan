@@ -117,7 +117,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
         helper.addOnClickListener(R.id.show_2)
 
         //是否广告
-        helper.setGone(R.id.tv_item_card_details_author, item.adUrl.isEmpty())
+//        helper.setGone(R.id.tv_item_card_details_author, item.adUrl.isEmpty())
         helper.setGone(R.id.cb_item_card_details_follow, item.adUrl.isEmpty())
         helper.setGone(R.id.tv_item_card_details_goto_ad, item.adUrl.isNotEmpty())
 

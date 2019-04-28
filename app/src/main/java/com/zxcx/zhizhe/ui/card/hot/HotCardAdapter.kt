@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
@@ -70,6 +71,15 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
                         R.string.card_category_transition_name, helper.adapterPosition)
                 helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
                         R.string.card_label_transition_name, helper.adapterPosition)
+
+                if (item.cardType == 4){
+                    LogCat.e("DO it 1")
+                    helper.getView<ImageView>(R.id.iv_item_card_read).visibility = View.GONE
+                    helper.getView<TextView>(R.id.tv_item_card_read).visibility = View.GONE
+                    helper.getView<ImageView>(R.id.iv_item_card_comment).visibility = View.GONE
+                    helper.getView<TextView>(R.id.tv_item_card_comment).visibility = View.GONE
+                    helper.getView<TextView>(R.id.ad_tv).visibility = View.VISIBLE
+                }
             }
 
             CardBean.Article_TOUTIAO -> {
@@ -110,6 +120,14 @@ class HotCardAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean,
                         R.string.card_category_transition_name, helper.adapterPosition)
                 helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
                         R.string.card_label_transition_name, helper.adapterPosition)
+
+                if (item.cardType == 4){
+                    helper.getView<ImageView>(R.id.iv_item_card_read).visibility = View.GONE
+                    helper.getView<TextView>(R.id.tv_item_card_read).visibility = View.GONE
+                    helper.getView<ImageView>(R.id.iv_item_card_comment).visibility = View.GONE
+                    helper.getView<TextView>(R.id.tv_item_card_comment).visibility = View.GONE
+                    helper.getView<TextView>(R.id.ad_tv).visibility = View.VISIBLE
+                }
 
 //                val roundImage = helper.getView<CardRoundedImageView>(R.id.iv_toutiao)
 //                roundImage.setImageResource(R.drawable.toutiao)

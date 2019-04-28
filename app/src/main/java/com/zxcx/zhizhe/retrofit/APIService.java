@@ -1164,7 +1164,13 @@ public interface APIService {
     Flowable<BaseBean<Object>> checkEnterTheTopThree();
 
     /**
-     * 邀请码活动-获取邀请历史记录
+     * 活动-邀请码活动-获取邀请历史记录
+     */
+    @POST("/activity/getActivityInvitationHistory")
+    Flowable<BaseArrayBean<InviteBean>> getActivityInvitationHistory();
+
+    /**
+     * 常规-邀请码活动-获取邀请历史记录
      */
     @POST("/activity/getInvitationHistory")
     Flowable<BaseArrayBean<InviteBean>> getInvitationHistory();

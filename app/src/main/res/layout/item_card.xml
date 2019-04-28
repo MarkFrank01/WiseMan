@@ -130,4 +130,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
         tools:text="100"/>
+
+    <TextView
+        android:id="@+id/ad_tv"
+        android:visibility="gone"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_card_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_card_category"
+        android:textColor="@color/text_color_d2"
+        android:text="广告"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </android.support.constraint.ConstraintLayout>

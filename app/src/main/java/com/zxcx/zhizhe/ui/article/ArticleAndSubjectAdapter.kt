@@ -2,6 +2,7 @@ package com.zxcx.zhizhe.ui.article
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -19,11 +20,13 @@ class ArticleAndSubjectAdapter(data: List<ArticleAndSubjectBean>?, private val m
 
     init {
         addItemType(ArticleAndSubjectBean.TYPE_ARTICLE, R.layout.item_article)
+        addItemType(5, R.layout.item_article)
         addItemType(ArticleAndSubjectBean.TYPE_SUBJECT, R.layout.item_subject)
     }
 
     override fun convert(helper: BaseViewHolder, item: ArticleAndSubjectBean) {
         when (helper.itemViewType) {
+            5 -> initArticleView(helper, item)
             ArticleAndSubjectBean.TYPE_ARTICLE -> initArticleView(helper, item)
             ArticleAndSubjectBean.TYPE_SUBJECT -> initSubjectView(helper, item)
         }
@@ -52,6 +55,14 @@ class ArticleAndSubjectAdapter(data: List<ArticleAndSubjectBean>?, private val m
                 R.string.card_category_transition_name)
         helper.getView<TextView>(R.id.tv_item_card_label).transitionName = mContext.getString(
                 R.string.card_label_transition_name)
+
+        if (item.cardType == 5){
+            helper.getView<ImageView>(R.id.iv_item_card_read).visibility = View.GONE
+            helper.getView<TextView>(R.id.tv_item_card_read).visibility = View.GONE
+            helper.getView<ImageView>(R.id.iv_item_card_comment).visibility = View.GONE
+            helper.getView<TextView>(R.id.tv_item_card_comment).visibility = View.GONE
+            helper.getView<TextView>(R.id.ad_tv).visibility = View.VISIBLE
+        }
     }
 
     private fun initSubjectView(helper: BaseViewHolder, bean: ArticleAndSubjectBean) {

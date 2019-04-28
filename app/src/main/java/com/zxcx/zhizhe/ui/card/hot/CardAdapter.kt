@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.utils.ImageLoader
+import com.zxcx.zhizhe.utils.LogCat
 import com.zxcx.zhizhe.utils.ZhiZheUtils
 
 /**
@@ -49,5 +50,14 @@ class CardAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, BaseViewHol
 				R.string.card_label_transition_name, helper.adapterPosition)
 
         helper.setText(R.id.tv_item_card_time,item.distanceTime)
+
+        if (item.cardType == 4){
+            LogCat.e("DO it 1")
+            helper.getView<ImageView>(R.id.iv_item_card_read).visibility = View.GONE
+            helper.getView<TextView>(R.id.tv_item_card_read).visibility = View.GONE
+            helper.getView<ImageView>(R.id.iv_item_card_comment).visibility = View.GONE
+            helper.getView<TextView>(R.id.tv_item_card_comment).visibility = View.GONE
+            helper.getView<TextView>(R.id.ad_tv).visibility = View.VISIBLE
+        }
 	}
 }

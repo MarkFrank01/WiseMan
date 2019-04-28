@@ -109,15 +109,78 @@ class OwnerAddCardFragment :RefreshMvpFragment<OwnerAddPresenter>(),OwnerAddCont
         val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
         val bean = adapter.data[position] as CardBean
 
-        if (cb.isChecked){
+        if (cb.isChecked) {
+            bean.mIfCheckOrNot = true
             mNumberCard++
             mBackList.add(bean.id)
             listBackCard.add(bean)
-        }else{
+        } else {
+            bean.mIfCheckOrNot = false
             mNumberCard--
             mBackList.remove(bean.id)
             listBackCard.remove(bean)
         }
+
+
+//        cb.setOnCheckedChangeListener(null)
+//        cb.isChecked = cb.isChecked
+
+//        if (cb.isChecked){
+//            LogCat.e("select true")
+//            bean.mIfCheckOrNot = true
+//
+//            mNumberCard++
+//            mBackList.forEach {
+//                if (it!=bean.id){
+//                    mBackList.add(bean.id)
+//                }
+//            }
+//            listBackCard.forEach {
+//                if (it!=bean){
+//                    listBackCard.add(bean)
+//                }
+//            }
+//
+//        }else{
+//            LogCat.e("select false")
+//            bean.mIfCheckOrNot =  false
+//
+//            mNumberCard--
+//            mBackList.forEach {
+//                if (it == bean.id){
+//                    mBackList.remove(bean.id)
+//                }
+//            }
+//            listBackCard.forEach {
+//                if (it==bean){
+//                    listBackCard.remove(bean)
+//                }
+//            }
+//        }
+
+//        cb.setOnCheckedChangeListener { buttonView, isChecked ->
+//            if (bean.mIfCheckOrNot){
+//                LogCat.e("111111111")
+//
+//                mAdapter.notifyItemChanged(position)
+////                cb.isChecked = true
+//            }else{
+//                LogCat.e("2222222222")
+//
+//                mAdapter.notifyItemChanged(position)
+//                cb.isChecked = false
+//            }
+//        }
+
+//        if (cb.isChecked){
+//            mNumberCard++
+//            mBackList.add(bean.id)
+//            listBackCard.add(bean)
+//        }else{
+//            mNumberCard--
+//            mBackList.remove(bean.id)
+//            listBackCard.remove(bean)
+//        }
 
 //        val mCheckStates = SparseBooleanArray()
 //        cb.setOnCheckedChangeListener { buttonView, isChecked ->

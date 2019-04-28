@@ -63,6 +63,9 @@ class CircleQuestionDetailCommentAdapter(data: MutableList<MultiItemEntity>) : B
             TextViewUtils.setTextRightDrawable(mContext, R.drawable.blue_arrow, tvExpand)
         }
         tvExpand.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+        //跳转
+//        helper.addOnClickListener(R.id.tv_item_comment_expand)
+        //此处展开子项
         tvExpand.setOnClickListener {
             val pos = helper.adapterPosition
             if (item.isExpanded) {

@@ -10,37 +10,40 @@ import com.zxcx.zhizhe.ui.card.hot.CardBean;
  */
 
 public class ArticleAndSubjectBean extends RetrofitBean implements MultiItemEntity {
-	
-	public static final int TYPE_ARTICLE = 1;
-	public static final int TYPE_SUBJECT = 2;
-	
-	@SerializedName("articleContent")
-	private CardBean mCardBean;
-	@SerializedName("topicVO")
-	private SubjectBean mSubjectBean;
-	
-	public CardBean getCardBean() {
-		return mCardBean;
-	}
-	
-	public void setCardBean(CardBean cardBean) {
-		mCardBean = cardBean;
-	}
-	
-	public SubjectBean getSubjectBean() {
-		return mSubjectBean;
-	}
-	
-	public void setSubjectBean(SubjectBean subjectBean) {
-		mSubjectBean = subjectBean;
-	}
-	
-	@Override
-	public int getItemType() {
-		if (mCardBean == null) {
-			return TYPE_SUBJECT;
-		} else {
-			return TYPE_ARTICLE;
-		}
-	}
+
+    public static final int TYPE_ARTICLE = 1;
+    public static final int TYPE_SUBJECT = 2;
+
+    @SerializedName("articleContent")
+    private CardBean mCardBean;
+    @SerializedName("topicVO")
+    private SubjectBean mSubjectBean;
+
+    public CardBean getCardBean() {
+        return mCardBean;
+    }
+
+    public void setCardBean(CardBean cardBean) {
+        mCardBean = cardBean;
+    }
+
+    public SubjectBean getSubjectBean() {
+        return mSubjectBean;
+    }
+
+    public void setSubjectBean(SubjectBean subjectBean) {
+        mSubjectBean = subjectBean;
+    }
+
+    @Override
+    public int getItemType() {
+        if (mCardBean == null) {
+            return TYPE_SUBJECT;
+        } else {
+            if (mCardBean.getItemType() == 5) {
+                return 5;
+            } else
+                return TYPE_ARTICLE;
+        }
+    }
 }

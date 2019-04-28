@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.circleowner.owneradd.addnext
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -79,6 +80,26 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         mPresenter.checkCircleArticleBalance(circleId)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        //避免恢复视图状态
+    }
+
+    override fun recreate() {
+        val intent = Intent()
+        intent.putExtra("isNight", true)
+        setIntent(intent)
+        try {//避免重启太快 恢复
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (fragment in supportFragmentManager.fragments) {
+                fragmentTransaction.remove(fragment)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
+        }
+
+        super.recreate()
+    }
+
     override fun onDestroy() {
         EventBus.getDefault().unregister(this)
         super.onDestroy()
@@ -95,7 +116,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         }
 
         //之后调整为8和4
-        if (mCardNum >= 4 || mArcNum >= 2) {
+        if (mCardNum >= 4 && mArcNum >= 2) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         } else {

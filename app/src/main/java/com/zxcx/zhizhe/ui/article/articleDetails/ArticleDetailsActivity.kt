@@ -206,6 +206,18 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
                 show_1.visibility = View.VISIBLE
             }
         }
+
+        if (cardBean.cardType == 5){
+            cb_article_details_follow.visibility = View.GONE
+            iv_article_details_comment.visibility = View.GONE
+            tv_article_details_comment.visibility = View.GONE
+            cb_article_details_collect.visibility = View.GONE
+            tv_article_details_collect.visibility = View.GONE
+            cb_article_details_like.visibility = View.GONE
+            tv_article_details_like.visibility = View.GONE
+            iv_article_details_share.visibility = View.GONE
+            tv_item_card_details_goto_ad.visibility = View.VISIBLE
+        }
     }
 
     override fun postSuccess(bean: CardBean) {
@@ -316,6 +328,15 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
 
         show_top.setOnClickListener {
             sv_card_details.smoothScrollTo(0, 0)
+        }
+
+        tv_item_card_details_goto_ad.setOnClickListener {
+            mActivity.startActivity(WebViewActivity::class.java){
+                it.putExtra("url", cardBean.adUrl)
+                it.putExtra("title", cardBean.name)
+                it.putExtra("imageUrl", cardBean.imageUrl)
+                it.putExtra("isAD", true)
+            }
         }
     }
 

@@ -209,6 +209,14 @@ class ArticleListItemFragment : MvpFragment<ArticleListItemPresenter>(), Article
             val intent = Intent(mActivity, ArticleDetailsActivity::class.java)
             intent.putExtra("cardBean", bean.cardBean)
             mActivity.startActivity(intent, bundle)
+        }else if (bean.itemType == 5){
+            LogCat.e("SB")
+            mActivity.startActivity(WebViewActivity::class.java){
+                it.putExtra("url", bean.cardBean.adUrl)
+                it.putExtra("title", bean.cardBean.name)
+                it.putExtra("imageUrl", bean.cardBean.imageUrl)
+                it.putExtra("isAD", true)
+            }
         }
     }
 
