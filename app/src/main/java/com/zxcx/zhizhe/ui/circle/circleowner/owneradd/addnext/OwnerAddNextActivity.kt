@@ -85,6 +85,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
     }
 
     override fun recreate() {
+        LogCat.e("生效")
         val intent = Intent()
         intent.putExtra("isNight", true)
         setIntent(intent)
@@ -116,7 +117,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         }
 
         //之后调整为8和4
-        if (mCardNum >= 4 && mArcNum >= 2) {
+        if (mCardNum < listcdCard.size / 2 && mArcNum < listcdArc.size / 2) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         } else {
@@ -143,6 +144,7 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
 
     override fun checkCircleArticleBalanceSuccess(bean: BalanceBean) {
         LogCat.e("Balance card: " + bean.cardCount + " Arc" + bean.articleCount)
+        tl_circle_next.getTabAt(0)?.select()
     }
 
     override fun getDataSuccess(bean: MutableList<CardBean>?) {
@@ -156,29 +158,28 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
     }
 
     private fun initView() {
-
         tl_circle_next.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
                     0 -> {
-                        show_first_tv.text = "在此页面选择" + listcdCard.size / 2  + "张卡片在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择" + listcdCard.size / 2 + "张卡片在圈外公开阅读"
                         switchFragment(mNextCardFragment)
                         EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
                     }
                     1 -> {
                         switchFragment(mNextArcFragment)
-                        show_first_tv.text = "在此页面选择"+listcdArc.size/2+"篇文章在圈外公开阅读"
+                        show_first_tv.text = "在此页面选择" + listcdArc.size / 2 + "篇文章在圈外公开阅读"
                         EventBus.getDefault().post(GetNextArcEvent(0, listcdArc))
 
                     }
                 }
-                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = true
+//                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//                textView.paint.isFakeBoldText = true
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
-                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = false
+//                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//                textView.paint.isFakeBoldText = false
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -196,12 +197,13 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
         }
 
         switchFragment(mNextCardFragment)
-        tl_circle_next.getTabAt(0)?.select()
+//        tl_circle_next.getTabAt(0)?.select()
+        tl_circle_next.getTabAt(1)?.select()
         EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
 
-
-        val textView = tl_circle_next.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
-        textView.paint.isFakeBoldText = true
+//
+//        val textView = tl_circle_next.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//        textView.paint.isFakeBoldText = true
 
     }
 
@@ -223,6 +225,20 @@ class OwnerAddNextActivity : MvpActivity<OwnerAddNextPresenter>(), OwnerAddNextC
                 transaction.hide(mCurrentFragment).add(R.id.fl_circle, newFragment).commitAllowingStateLoss()
             }
             mCurrentFragment = newFragment
+        }
+    }
+
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        if (mCurrentFragment == mNextCardFragment){
+            postponeEnterTransition()
+            onActivityReenter()
+        }
+    }
+
+    public fun onActivityReenter() {
+        when(mCurrentFragment){
+            mNextCardFragment -> mNextCardFragment.onActivityReenter()
         }
     }
 }

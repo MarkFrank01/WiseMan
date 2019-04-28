@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
@@ -27,7 +28,7 @@ class OwnerAddNextCardFragment : BaseFragment(),
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     //存放卡片的数量值
-    private var mNumberCard:Int =0
+    private var mNumberCard: Int = 0
 
     //传递值
     private var mBackList: MutableList<Int> = ArrayList()
@@ -35,7 +36,7 @@ class OwnerAddNextCardFragment : BaseFragment(),
     private lateinit var mAdapter: ManageCreateCircleNextAddAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_owner_next_add_card,container,false)
+        return inflater.inflate(R.layout.fragment_owner_next_add_card, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +46,7 @@ class OwnerAddNextCardFragment : BaseFragment(),
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event:GetNextCardEvent){
+    fun onMessageEvent(event: GetNextCardEvent) {
         mAdapter.setNewData(event.cardBeanList)
     }
 
@@ -64,22 +65,33 @@ class OwnerAddNextCardFragment : BaseFragment(),
         val cb = view.findViewById<CheckBox>(R.id.cb_choose_push_manage)
         val bean = adapter.data[position] as CardBean
 
-        if (cb.isChecked){
+        if (cb.isChecked) {
             mNumberCard++
             mBackList.add(bean.id)
-        }else{
+        } else {
             mNumberCard--
             mBackList.remove(bean.id)
         }
 
-        EventBus.getDefault().post(GetBackNumAndDataEvent2(0,mBackList))
+        EventBus.getDefault().post(GetBackNumAndDataEvent2(0, mBackList))
     }
 
-    private fun initRecycleView(){
+    private fun initRecycleView() {
         mAdapter = ManageCreateCircleNextAddAdapter(ArrayList())
         mAdapter.onItemChildClickListener = this
 
-        rv_create_next_add.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
+        rv_create_next_add.layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false)
         rv_create_next_add.adapter = mAdapter
+    }
+
+    fun onActivityReenter() {
+        rv_create_next_add.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                rv_create_next_add.viewTreeObserver.removeOnPreDrawListener(this)
+                rv_create_next_add.requestLayout()
+                mActivity.startPostponedEnterTransition()
+                return true
+            }
+        })
     }
 }

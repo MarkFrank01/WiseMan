@@ -144,13 +144,13 @@ class OwnerAddActivity : BaseActivity() {
                         show_first_tv.text = "在此页面选择符合圈子分类的4篇文章"
                     }
                 }
-                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = true
+//                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//                textView.paint.isFakeBoldText = true
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
-                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
-                textView.paint.isFakeBoldText = false
+//                val textView = tab.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//                textView.paint.isFakeBoldText = false
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -158,8 +158,8 @@ class OwnerAddActivity : BaseActivity() {
         })
         switchFragment(mOwnerAddCardFragment)
         tl_circle.getTabAt(0)?.select()
-        val textView = tl_circle.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
-        textView.paint.isFakeBoldText = true
+//        val textView = tl_circle.getTabAt(0)?.customView?.findViewById(R.id.tv_tab_creation) as TextView
+//        textView.paint.isFakeBoldText = true
     }
 
     private fun switchFragment(newFragment: Fragment) {
