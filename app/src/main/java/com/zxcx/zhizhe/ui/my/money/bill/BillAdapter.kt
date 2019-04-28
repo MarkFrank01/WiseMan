@@ -16,10 +16,10 @@ class BillAdapter(data: List<BillBean>) : BaseQuickAdapter<BillBean, BaseViewHol
 
     override fun convert(helper: BaseViewHolder, item: BillBean) {
         val imageView = helper.getView<ImageView>(R.id.iv_user)
-        val imageUrl = ZhiZheUtils.getHDImageUrl(item.targetUser?.avatar)
+        val imageUrl = ZhiZheUtils.getHDImageUrl(item.relatedUser?.avatar)
         ImageLoader.load(mContext, imageUrl, R.drawable.default_header, imageView)
 
-        helper.setText(R.id.tv_name, item.targetUser?.name)
+        helper.setText(R.id.tv_name, item.relatedUser?.name)
 
 //        helper.setText(R.id.tv_desc, ZhiZheUtils.timeChange(item.createTime) + "加入" + item.relatedCircle?.title)
         helper.setText(R.id.tv_money, item.amount)

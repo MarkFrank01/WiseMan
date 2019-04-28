@@ -27,6 +27,7 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         BaseQuickAdapter.OnItemChildClickListener {
 
 
+
     private lateinit var mAdapter: MyInviteAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,10 +40,8 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
         initRecyclerView()
 
-        mPresenter.getInvitationHistory()
         mPresenter.getInvitationInfo()
     }
-
 
 
     override fun setListener() {
@@ -52,11 +51,11 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
             toastShow("复制成功")
         }
 
-        sb_wenan.setOnClickListener {
-            var text = copy_my_invite_text.text.toString().trim()
-            putTextInto(this, text)
-            toastShow("复制成功")
-        }
+//        sb_wenan.setOnClickListener {
+//            var text = copy_my_invite_text.text.toString().trim()
+//            putTextInto(this, text)
+//            toastShow("复制成功")
+//        }
 
         share_to_invite.setOnClickListener {
             showshare()
@@ -82,9 +81,29 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         }
     }
 
+    override fun getActivityInvitationHistorySuccess(list: MutableList<InviteBean>) {
+        mAdapter.setNewData(list)
+
+        if (list.size < 1) {
+            rv_my_invite.visibility = View.GONE
+            show_empty_1.visibility = View.VISIBLE
+            show_empty_2.visibility = View.VISIBLE
+        }
+    }
+
     override fun getInvitationInfoSuccess(bean: InviteBean) {
         copy_my_invite_text.text = bean.invitationCode
-        man_num.text = "" + bean.alreadyInviteesTotal + "/" + bean.inviteesTotal
+        desc_ms.text = bean.description
+        if (bean.hasLimitPeople == 1) {
+            man_num.text = "" + bean.alreadyInviteesTotal + "/" + bean.inviteesTotal
+        }
+
+        if (bean.invitationType == 0) {
+            mPresenter.getInvitationHistory()
+        }else{
+            mPresenter.getActivityInvitationHistory(0,10,bean.aiId)
+        }
+
     }
 
     override fun receiveInvitationCodeReward(bean: InviteBean) {
@@ -97,8 +116,8 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val bean = adapter.data[position] as InviteBean
-        when(view.id){
-            R.id.invite_get->{
+        when (view.id) {
+            R.id.invite_get -> {
                 mPresenter.receiveInvitationCodeReward(bean.userId)
                 bean.hasReceiveReward = true
                 mAdapter.notifyItemChanged(position)
@@ -117,12 +136,12 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
     //弹出分享四兄弟
     private fun showshare() {
         val shareCardDialog = ShareDialog2()
-        val bundle  = Bundle()
-        bundle.putString("title","好友邀请你加入智者")
-        bundle.putString("text","你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
+        val bundle = Bundle()
+        bundle.putString("title", "好友邀请你加入智者")
+        bundle.putString("text", "你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
         bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
         shareCardDialog.arguments = bundle
-        shareCardDialog.show(supportFragmentManager,"")
+        shareCardDialog.show(supportFragmentManager, "")
 
 //        XPopup.Builder(mActivity)
 //                .asCustom(CircleBottomSharePopup(this,

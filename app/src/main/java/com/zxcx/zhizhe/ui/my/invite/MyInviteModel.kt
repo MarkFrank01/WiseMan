@@ -28,6 +28,18 @@ class MyInviteModel(presenter: MyInviteContract.Presenter) : BaseModel<MyInviteC
         addSubscription(mDisposable)
     }
 
+    fun getActivityInvitationHistory(page:Int,pageSize:Int,aiId:Int) {
+        mDisposable = AppClient.getAPIService().getActivityInvitationHistory(page,pageSize, aiId)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handleArrayResult())
+                .subscribeWith(object : BaseSubscriber<MutableList<InviteBean>>(mPresenter) {
+                    override fun onNext(t: MutableList<InviteBean>) {
+                        mPresenter?.getActivityInvitationHistorySuccess(t)
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
     fun getInvitationInfo() {
         mDisposable = AppClient.getAPIService().invitationInfo
                 .compose(BaseRxJava.io_main())

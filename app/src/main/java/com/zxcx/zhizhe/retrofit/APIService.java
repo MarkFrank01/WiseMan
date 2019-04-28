@@ -1167,7 +1167,11 @@ public interface APIService {
      * 活动-邀请码活动-获取邀请历史记录
      */
     @POST("/activity/getActivityInvitationHistory")
-    Flowable<BaseArrayBean<InviteBean>> getActivityInvitationHistory();
+    Flowable<BaseArrayBean<InviteBean>> getActivityInvitationHistory(
+            @Query("pageIndex") int pageIndex,
+            @Query("pageSize") int pageSize,
+            @Query("aiId") int aiId
+    );
 
     /**
      * 常规-邀请码活动-获取邀请历史记录

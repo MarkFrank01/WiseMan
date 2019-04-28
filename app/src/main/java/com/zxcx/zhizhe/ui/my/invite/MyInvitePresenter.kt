@@ -9,11 +9,16 @@ import com.zxcx.zhizhe.mvpBase.BasePresenter
  */
 class MyInvitePresenter(view: MyInviteContract.View) : BasePresenter<MyInviteContract.View>(), MyInviteContract.Presenter {
 
+
     private val mModel: MyInviteModel
 
     init {
         attachView(view)
         mModel = MyInviteModel(this)
+    }
+
+    fun getActivityInvitationHistory(page:Int,pageSize:Int,aiId:Int) {
+        mModel.getActivityInvitationHistory(page, pageSize, aiId)
     }
 
     fun getInvitationHistory() {
@@ -26,6 +31,12 @@ class MyInvitePresenter(view: MyInviteContract.View) : BasePresenter<MyInviteCon
 
     fun receiveInvitationCodeReward(id: Int) {
         mModel.receiveInvitationCodeReward(id)
+    }
+
+    override fun getActivityInvitationHistorySuccess(list: MutableList<InviteBean>) {
+        if (mView != null) {
+            mView.getActivityInvitationHistorySuccess(list)
+        }
     }
 
     override fun getInvitationHistorySuccess(list: MutableList<InviteBean>) {
