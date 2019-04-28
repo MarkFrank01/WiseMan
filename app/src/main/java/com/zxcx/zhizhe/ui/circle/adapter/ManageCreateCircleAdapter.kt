@@ -122,7 +122,7 @@ class ManageCreateCircleAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapte
 //            LogCat.e("isChecked is "+isChecked+"-------"+"cb"+cb.isChecked)
 //        }
 
-        cb.expandViewTouchDelegate(ScreenUtils.dip2px(200f))
+        cb.expandViewTouchDelegate(ScreenUtils.dip2px(2000f))
 
 
     }
