@@ -1,9 +1,11 @@
 package com.zxcx.zhizhe.ui.circle.circlequestiondetail
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -61,7 +63,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         super.onResume()
         mPage = 0
         mPresenter.getAnswerList(huatiID,mPage)
-
+        hideKB()
     }
 
     override fun createPresenter(): CircleQuestionDetailPresenter {
@@ -280,4 +282,10 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     }
 
+    private fun hideKB(){
+        var imm : InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive&&currentFocus!=null){
+            imm.hideSoftInputFromWindow(currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        }
+    }
 }

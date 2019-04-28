@@ -198,7 +198,7 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginTop="10dp"
                         android:text="给圈子起个简洁好记的名字"
-                        android:textColor="@color/text_color_1"
+                        android:textColor="@color/text_color_d2"
                         android:textSize="17sp"/>
 
                     <ImageView
@@ -244,7 +244,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:text="你希望如何跟别人介绍你的圈子"
-                        android:textColor="@color/text_color_1"
+                        android:textColor="@color/text_color_d2"
                         android:textSize="17sp"/>
 
                     <ImageView

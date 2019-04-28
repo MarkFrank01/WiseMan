@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/translate"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_background_12dp"
+        android:layout_width="260dp"
+        android:layout_height="310dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="新人领红包"
+            android:textColor="@color/text_color_1"
+            android:textSize="17sp"/>
+
+        <ImageView
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/red_envelope"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_gravity="center"
+            android:text="打开可获得5智者币仅限新注册用户"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/input_commit"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_backbutton"
+            android:layout_width="196dp"
+            android:layout_height="41dp">
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_centerInParent="true"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="领取红包"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_cancel_popup"
+        android:layout_width="16dp"
+        android:layout_height="16dp"/>
+
+</LinearLayout>

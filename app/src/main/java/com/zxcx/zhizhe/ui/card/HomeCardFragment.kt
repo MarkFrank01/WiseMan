@@ -32,6 +32,7 @@ import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.centerpopup.CircleCenterPopup
 import com.zxcx.zhizhe.widget.centerpopup.InviteCenterPopup
+import com.zxcx.zhizhe.widget.centerpopup.tan.NewManTanPopup
 import kotlinx.android.synthetic.main.fragment_home_card.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -163,6 +164,7 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                 //测试奇怪的弹出窗口
 //                showWindow()
 //                showWindow2()
+//                showRedBao()
             }
         }
     }
@@ -344,6 +346,17 @@ class HomeCardFragment : MvpFragment<HomeCardPresenter>(), HomeCardContract.View
                                 LogCat.e("text is $text")
                                 toastShow("进行校验")
                             }
+                        })
+                ).show()
+    }
+
+
+    //红包
+    private fun showRedBao(){
+        XPopup.Builder(mActivity)
+                .asCustom(NewManTanPopup(mActivity,"666",
+                        OnSelectListener { position, text ->
+                            toastShow("666")
                         })
                 ).show()
     }

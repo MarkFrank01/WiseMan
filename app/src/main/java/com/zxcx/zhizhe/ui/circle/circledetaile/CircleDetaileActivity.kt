@@ -59,7 +59,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     //话题的数据
     private var mHuaTiPage = 0
-    private var mHuaTiPageSize = 5
+    private var mHuaTiPageSize = 10
     private var mHuaTiOrder = 0
 
     //存放自己是否加入圈子
@@ -100,6 +100,9 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     var circleendtime: Long = 0
     var circleyue: String = ""
 
+    var isLoad:Boolean = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_circle_detail)
@@ -115,13 +118,16 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 //        mPresenter.getAccountDetails()
 
 //        mPresenter.getCircleQ|AByCircleId(mHuaTiOrder,circleID,mHuaTiPage,mHuaTiPageSize)
-//        onRefresh()
     }
 
     override fun onResume() {
         super.onResume()
-        mHuaTiPage = 0
-        onRefresh()
+        if (!isLoad) {
+            LogCat.e("疑点2")
+            LogCat.e("是否加载")
+            mHuaTiPage = 0
+            onRefresh()
+        }
         mPresenter.getAccountDetails()
         mPresenter.getCircleBasicInfo(circleID)
     }
@@ -130,8 +136,10 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK && requestCode == 1 && data != null) {
+            LogCat.e("疑点1")
             mHuaTiPage = 0
             onRefresh()
+            isLoad = true
         }
     }
 
@@ -288,23 +296,19 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             it.isOwner = mCircleImOwner
         }
 
+        mHuaTiPage++
+
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
-            LogCat.e("????")
-            mAdapter.data.clear()
-            mAdapter.setNewData(list)
-
-//            mHuaTiPage++
-//            onRefresh()
+//            mAdapter.data.clear()
+            mAdapter.addData(list)
         } else {
-            LogCat.e("!!!")
             mAdapter.addData(list)
         }
 
 //        mAdapter.notifyDataSetChanged()
 //        rv_circle_detail.scrollToPosition(0)
 
-        mHuaTiPage++
 
         if (list.size < Constants.PAGE_SIZE) {
             mAdapter.loadMoreEnd(false)
@@ -480,6 +484,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     }
 
     override fun onLoadMoreRequested() {
+        LogCat.e("疑点3")
         onRefresh()
     }
 
@@ -852,6 +857,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                 .asCustom(CirclePopup(this, "排序类型", arrayOf("默认排序", "只看圈主", "只看我的", "最新话题"),
                         null, mHuaTiOrder,
                         OnSelectListener { position, text ->
+
+
                             mHuaTiOrder = position
                             mHuaTiPage = 0
                             onRefresh()

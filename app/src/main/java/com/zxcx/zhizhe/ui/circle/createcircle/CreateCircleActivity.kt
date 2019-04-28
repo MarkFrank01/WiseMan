@@ -423,9 +423,11 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                 }
                 CreateCircleActivity.CODE_CREATE_NAME -> {
                     tv_to_name.text = data.getStringExtra("circle_title")
+                    tv_to_name.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
                 }
                 CreateCircleActivity.CODE_DESC -> {
                     tv_to_name2.text = data.getStringExtra("circle_desc")
+                    tv_to_name2.setTextColor(mActivity.getColorForKotlin(R.color.text_color_1))
                 }
             }
         }

@@ -121,6 +121,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
     }
 
     override fun pushQuestionSuccess() {
+        hideKB()
         toastShow("提交成功")
         val intent = Intent()
         setResult(Activity.RESULT_OK,intent)
@@ -268,6 +269,7 @@ class CircleQuestionActivity : MvpActivity<CircleQuestionPresenter>(), CircleQue
         }
 
         tv_toolbar_back.setOnClickListener {
+            hideKB()
             onBackPressed()
         }
     }
