@@ -72,6 +72,9 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
     //新 传递到下个的选择
     private var listtoNext: MutableList<ClassifyCardBean> = ArrayList()
 
+    //传递分类
+    private var mPustClassifyTitle:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_label)
@@ -433,6 +436,8 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 
                 mSingleClassify = bean.title
                 tv_toolbar_right.isEnabled = true
+
+                mPustClassifyTitle = bean.title
             } else {
                 mSelectedClassify = null
                 group_select_label.visibility = View.GONE
@@ -459,7 +464,7 @@ class SelectLabelActivity : MvpActivity<SelectAttentionPresenter>(), SelectAtten
 //            }
             val intent = Intent(this, SelectDetailActivity::class.java)
             intent.putExtra("list", listtoNext as ArrayList)
-            intent.putExtra("classifyName",mSelectedClassify?.title)
+            intent.putExtra("classifyName",mPustClassifyTitle)
             startActivityForResult(intent, BackBack)
         }
 

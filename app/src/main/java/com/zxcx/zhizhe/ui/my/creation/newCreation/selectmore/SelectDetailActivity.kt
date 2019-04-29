@@ -53,6 +53,8 @@ class SelectDetailActivity : BaseActivity() {
     //存放单独的分类数据
     private var mSingleClassify: String = ""
 
+    //第二个是否有
+    private var hasNum2 = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,43 +116,48 @@ class SelectDetailActivity : BaseActivity() {
 
         //自定义部分
         iv_select_label_new_label.setOnClickListener {
-            val dialog = NewLabelDialog()
-            dialog.mListener = {
-                mNewLabelName = it
-                iv_select_label_new_label.visibility = View.GONE
+            if (mPushData.size < 2) {
+                val dialog = NewLabelDialog()
+                dialog.mListener = {
+                    mNewLabelName = it
+                    iv_select_label_new_label.visibility = View.INVISIBLE
 //                iv_select_label_new_label_delete.visibility = View.VISIBLE
-                cb_item_select_label_new_label.visibility = View.VISIBLE
-                tv_delete_label.visibility = View.VISIBLE
-                tv_delete_label.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
-                cb_item_select_label_new_label.text = it
-                cb_item_select_label_new_label.isChecked = true
+                    cb_item_select_label_new_label.visibility = View.VISIBLE
+                    tv_delete_label.visibility = View.VISIBLE
+                    tv_delete_label.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+                    cb_item_select_label_new_label.text = it
+                    cb_item_select_label_new_label.isChecked = true
 
 //                mPushData.add(it)
 
-                mCustomSecond = true
-                if (mSingleLable == "") {
-                    iv_select_label_new_label2.visibility = View.VISIBLE
-                }
+                    mCustomSecond = true
+                    if (!hasNum2) {
+                        iv_select_label_new_label2.visibility = View.VISIBLE
+                    }
 //                mTheSecond = it
+                }
+                dialog.show(supportFragmentManager, "")
             }
-            dialog.show(supportFragmentManager, "")
         }
 
         iv_select_label_new_label2.setOnClickListener {
-            val dialog2 = NewLabelDialog()
-            dialog2.mListener = {
-                mNewLabelName2 = it
-                iv_select_label_new_label2.visibility = View.GONE
+            if (mPushData.size < 2) {
+                val dialog2 = NewLabelDialog()
+                dialog2.mListener = {
+                    mNewLabelName2 = it
+                    iv_select_label_new_label2.visibility = View.INVISIBLE
 //                iv_select_label_new_label_delete.visibility = View.VISIBLE
-                cb_item_select_label_new_label2.visibility = View.VISIBLE
-                tv_delete_label2.visibility = View.VISIBLE
-                tv_delete_label2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
-                cb_item_select_label_new_label2.text = it
-                cb_item_select_label_new_label2.isChecked = true
+                    cb_item_select_label_new_label2.visibility = View.VISIBLE
+                    tv_delete_label2.visibility = View.VISIBLE
+                    tv_delete_label2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
+                    cb_item_select_label_new_label2.text = it
+                    cb_item_select_label_new_label2.isChecked = true
 
 //                mPushData.add(it)
+                    hasNum2 = true
+                }
+                dialog2.show(supportFragmentManager, "")
             }
-            dialog2.show(supportFragmentManager, "")
         }
 
         tv_delete_label.setOnClickListener {
@@ -160,22 +167,27 @@ class SelectDetailActivity : BaseActivity() {
                             OnSelectListener { position, text ->
                                 if (position == 2) {
                                     mPushData.remove(cb_item_select_label_new_label.text.toString())
-                                    if (mPushData.size > 0) {
-                                        iv_select_label_new_label2.visibility = View.VISIBLE
-                                        cb_item_select_label_new_label2.visibility = View.GONE
-                                        cb_item_select_label_new_label2.isChecked = false
-                                        tv_delete_label2.visibility = View.GONE
-                                        cb_item_select_label_new_label.text = cb_item_select_label_new_label2.text.toString()
-                                        cb_item_select_label_new_label2.text = ""
-                                    }
+//                                    if (mPushData.size > 0) {
+                                    iv_select_label_new_label.visibility = View.VISIBLE
+//                                        iv_select_label_new_label2.visibility = View.VISIBLE
+//                                        cb_item_select_label_new_label2.visibility = View.GONE
+//                                        cb_item_select_label_new_label2.isChecked = false
+//                                    tv_delete_label2.visibility = View.INVISIBLE
+//                                        cb_item_select_label_new_label.text = cb_item_select_label_new_label2.text.toString()
+                                    cb_item_select_label_new_label.text = ""
+                                    cb_item_select_label_new_label.visibility = View.INVISIBLE
+                                    cb_item_select_label_new_label.isChecked = false
+                                    tv_delete_label.visibility = View.INVISIBLE
+//                                    }
 
-                                    if (mPushData.size == 0) {
-//                                        iv_select_label_new_label.visibility = View.VISIBLE
-                                        cb_item_select_label_new_label.visibility = View.GONE
-                                        cb_item_select_label_new_label.text = ""
-                                        cb_item_select_label_new_label.isChecked = false
-                                        tv_delete_label.visibility = View.GONE
-                                    }
+//                                    if (mPushData.size == 0) {
+//                                        iv_select_label_new_label2.visibility = View.VISIBLE
+////                                        iv_select_label_new_label.visibility = View.VISIBLE
+//                                        cb_item_select_label_new_label.visibility = View.GONE
+//                                        cb_item_select_label_new_label.text = ""
+//                                        cb_item_select_label_new_label.isChecked = false
+//                                        tv_delete_label.visibility = View.GONE
+//                                    }
                                 }
                             })
                     ).show()
@@ -189,11 +201,14 @@ class SelectDetailActivity : BaseActivity() {
                                 if (position == 2) {
                                     mPushData.remove(cb_item_select_label_new_label2.text.toString())
                                     iv_select_label_new_label2.visibility = View.VISIBLE
-                                    cb_item_select_label_new_label2.visibility = View.GONE
+//                                    iv_select_label_new_label.visibility = View.VISIBLE
+                                    cb_item_select_label_new_label2.visibility = View.INVISIBLE
                                     cb_item_select_label_new_label2.text = ""
                                     cb_item_select_label_new_label2.isChecked = false
 
-                                    tv_delete_label2.visibility = View.GONE
+                                    tv_delete_label2.visibility = View.INVISIBLE
+
+                                    hasNum2 = false
                                 }
                             })
                     ).show()
