@@ -102,6 +102,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
     var isLoad:Boolean = false
 
+    var ISNULL = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -289,9 +291,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         if (mHuaTiPage==0&&list.size<1){
             rv_circle_detail.visibility = View.GONE
             when_no_data.visibility = View.VISIBLE
+            ISNULL = true
         }else{
             rv_circle_detail.visibility = View.VISIBLE
             when_no_data.visibility = View.GONE
+            ISNULL = false
         }
 
 //        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)

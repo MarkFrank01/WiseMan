@@ -454,6 +454,10 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.circle.circlemore.CircleEditActivity2"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.circle.circlequestiondetail.CircleQuestionDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>

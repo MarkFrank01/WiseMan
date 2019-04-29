@@ -19,6 +19,7 @@ import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity
+import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity2
 import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.OwnerAddActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
@@ -315,7 +316,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
         XPopup.Builder(mActivity)
                 .asCustom(CircleBottomWTGPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
                     if (position == 2) {
-                        mActivity.startActivity(CircleEditActivity::class.java) {
+                        mActivity.startActivity(CircleEditActivity2::class.java) {
                             it.putExtra("title", circleBean.title)
                             it.putExtra("levelType", circleBean.price)
                             it.putExtra("sign", circleBean.sign)
@@ -323,6 +324,7 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
                             it.putExtra("labelName", circleBean.classifytitle)
                             it.putExtra("classifyId", circleBean.classifyId)
                             it.putExtra("limitedTimeType", circleBean.limitedTimeType)
+                            it.putExtra("nn",circleBean.price)
 
                             it.putExtra("circleId", circleBean.id)
                         }

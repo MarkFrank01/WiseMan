@@ -150,7 +150,7 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
         }
 
         //之后调整为8和4
-        if (mCardNum < listcdCard.size / 2 && mArcNum < listcdArc.size / 2) {
+        if (mCardNum >= listcdCard.size / 2 && mArcNum >= listcdArc.size / 2) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         }else{
