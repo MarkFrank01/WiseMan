@@ -1,5 +1,8 @@
 package com.zxcx.zhizhe.ui.circle.circlehome
 
+import android.annotation.SuppressLint
+import android.os.Parcel
+import android.os.Parcelable
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.google.gson.annotations.SerializedName
 import com.zxcx.zhizhe.retrofit.RetrofitBean
@@ -14,10 +17,11 @@ import com.zxcx.zhizhe.ui.welcome.ADBean
  * @Created on 2019/1/21
  * @Description :
  */
+@SuppressLint("ParcelCreator")
 class CircleBean(
 
 
-) : RetrofitBean(), MultiItemEntity {
+) : RetrofitBean(), MultiItemEntity,Parcelable {
 
     //标记
     @Deprecated("暂时不用")
@@ -128,6 +132,36 @@ class CircleBean(
 
     var ItemTP = 2
 
+    constructor(parcel: Parcel) : this() {
+        mCircleType = parcel.readInt()
+        id = parcel.readInt()
+        title = parcel.readString()
+        hasJoin = parcel.readByte() != 0.toByte()
+        sign = parcel.readString()
+        titleImage = parcel.readString()
+        classifytitle = parcel.readString()
+        classifyId = parcel.readInt()
+        createrName = parcel.readString()
+        joinUserCount = parcel.readInt()
+        qaCount = parcel.readInt()
+        likeCount = parcel.readInt()
+        price = parcel.readString()
+        statusType = parcel.readInt()
+        articleCount = parcel.readInt()
+        overallRating = parcel.readInt()
+        newTitle = parcel.readString()
+        showTitle = parcel.readString()
+        owner = parcel.readByte() != 0.toByte()
+        limitedTimeType = parcel.readInt()
+        circleActiveDistanceTime = parcel.readString()
+        modifiedTime = parcel.readLong()
+        unpassReason = parcel.readString()
+        memberExpirationTime = parcel.readString()
+        circleExpiredDistanceTime = parcel.readString()
+        endServiceDistanceTime = parcel.readString()
+        ItemTP = parcel.readInt()
+    }
+
     override fun getItemType(): Int {
         return ItemTP
     }
@@ -138,5 +172,37 @@ class CircleBean(
         const val CIRCLE_HOME_2 = 2
         const val CIRCLE_HOME_3 = 3
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(mCircleType)
+        parcel.writeInt(id)
+        parcel.writeString(title)
+        parcel.writeByte(if (hasJoin) 1 else 0)
+        parcel.writeString(sign)
+        parcel.writeString(titleImage)
+        parcel.writeString(classifytitle)
+        parcel.writeInt(classifyId)
+        parcel.writeString(createrName)
+        parcel.writeInt(joinUserCount)
+        parcel.writeInt(qaCount)
+        parcel.writeInt(likeCount)
+        parcel.writeString(price)
+        parcel.writeInt(statusType)
+        parcel.writeInt(articleCount)
+        parcel.writeInt(overallRating)
+        parcel.writeString(newTitle)
+        parcel.writeString(showTitle)
+        parcel.writeByte(if (owner) 1 else 0)
+        parcel.writeInt(limitedTimeType)
+        parcel.writeString(circleActiveDistanceTime)
+        parcel.writeLong(modifiedTime)
+        parcel.writeString(unpassReason)
+        parcel.writeString(memberExpirationTime)
+        parcel.writeString(circleExpiredDistanceTime)
+        parcel.writeString(endServiceDistanceTime)
+        parcel.writeInt(ItemTP)
+    }
+
+    override fun describeContents() = 0
 
 }

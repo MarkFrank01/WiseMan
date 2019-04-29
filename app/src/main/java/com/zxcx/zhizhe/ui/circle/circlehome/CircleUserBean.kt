@@ -54,6 +54,9 @@ class CircleUserBean(
             parcel.readInt(),
             parcel.readInt(),
             parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
             parcel.readInt()
             ) {
     }
@@ -63,6 +66,15 @@ class CircleUserBean(
         writeString(avatar)
         writeString(name)
         writeString(signature)
+        writeInt(level)
+        writeInt(cardNum)
+        writeInt(fansNum)
+        writeInt(likeNum)
+        writeInt(collectNum)
+        writeInt(followType)
+        writeInt(authorCreateArticleCount)
+        writeInt(authorFollowerCount)
+        writeInt(likedUsersCount)
     }
 
     override fun describeContents() = 0

@@ -33,8 +33,20 @@ class AllMyCircleAdapter(data:List<CircleBean>):
         helper.setText(R.id.tv_item_circle_classify_topic,"话题"+item.qaCount)
         helper.setText(R.id.tv_item_circle_classify_type,item.classifytitle)
 
-        if (item.endServiceDistanceTime!=""&&item.endServiceDistanceTime.isNotEmpty()){
-            helper.setText(R.id.time_to_end,item.endServiceDistanceTime)
+
+
+        when(item.statusType){
+            4->{
+                if (item.endServiceDistanceTime!=""&&item.endServiceDistanceTime.isNotEmpty()){
+                    helper.setText(R.id.time_to_end,item.endServiceDistanceTime)
+                }
+            }
+
+            5->{
+                if (item.endServiceDistanceTime!=""&&item.endServiceDistanceTime.isNotEmpty()){
+                    helper.setText(R.id.time_to_end,item.endServiceDistanceTime)
+                }
+            }
         }
 
 

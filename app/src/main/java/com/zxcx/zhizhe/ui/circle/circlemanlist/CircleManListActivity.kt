@@ -37,6 +37,12 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     private var circleID: Int = 0
     private var page = 0
 
+    var level = 0
+    var card_num = 0
+    var fans_num = 0
+    var like_num = 0
+    var collect_num = 0
+
     private lateinit var mAdapter: CircleManListAdapter
     private lateinit var mDialog: UnFollowConfirmDialog
     private lateinit var mDialog1: UnFollowConfirmDialog
@@ -188,6 +194,11 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
     private fun initData() {
         circleID = intent.getIntExtra("circleID", 0)
         createBean = intent.getParcelableExtra("create")
+        level = intent.getIntExtra("level",0)
+        card_num = intent.getIntExtra("card_num",0)
+        fans_num = intent.getIntExtra("fans_num",0)
+        like_num = intent.getIntExtra("like_num",0)
+        collect_num = intent.getIntExtra("collect_num",0)
     }
 
     private fun initView() {
@@ -198,11 +209,12 @@ class CircleManListActivity : RefreshMvpActivity<CircleManListPresenter>(), Circ
 
         ImageLoader.load(this, createBean.avatar, R.drawable.default_card, iv_item_search_user)
         tv_item_search_user_name.text = createBean.name
-        tv_item_search_user_level.text = this.getString(R.string.tv_level, createBean.level)
-        tv_item_search_user_card.text = createBean.cardNum.toString()
-        tv_item_search_user_fans.text = createBean.fansNum.toString()
-        tv_item_search_user_like.text = createBean.likeNum.toString()
-        tv_item_search_user_collect.text = createBean.collectNum.toString()
+
+        tv_item_search_user_level.text = this.getString(R.string.tv_level, level)
+        tv_item_search_user_card.text = card_num.toString()
+        tv_item_search_user_fans.text = fans_num.toString()
+        tv_item_search_user_like.text = like_num.toString()
+        tv_item_search_user_collect.text = collect_num.toString()
         cb_item_search_user_follow_2.expandViewTouchDelegate(ScreenUtils.dip2px(10f))
         cb_item_search_user_follow_2.setOnClickListener {
 

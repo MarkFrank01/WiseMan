@@ -10,6 +10,8 @@ import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.LogCat
+import com.zxcx.zhizhe.utils.ScreenUtils
+import com.zxcx.zhizhe.utils.expandViewTouchDelegate
 import com.zxcx.zhizhe.widget.CardRoundedImageView
 
 /**
@@ -52,7 +54,11 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         helper.setText(R.id.circle_detail_username,itemBean.usersVO.name)
 
         helper.addOnClickListener(R.id.circle_detail_text)
+        var textView = helper.getView<TextView>(R.id.circle_detail_text)
+        textView.expandViewTouchDelegate(ScreenUtils.dip2px(2000f))
+
         helper.addOnClickListener(R.id.circle_detail_img)
+
 
         helper.addOnClickListener(R.id.circle_detail_more)
         if (itemBean.isOwner){

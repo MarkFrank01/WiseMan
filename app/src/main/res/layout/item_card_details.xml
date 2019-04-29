@@ -210,7 +210,7 @@
         android:layout_width="12dp"
         android:layout_height="12dp"
         android:layout_marginStart="2dp"
-        android:src="@drawable/iv_card_detail_official"
+        android:src="@drawable/blue_right"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/fl_item_card_details_author"
         app:layout_constraintStart_toEndOf="@+id/fl_item_card_details_author"
@@ -308,6 +308,7 @@
         app:layout_constraintTop_toTopOf="@+id/fl_item_card_details_author"/>
 
     <TextView
+        android:visibility="gone"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="20dp"
         android:id="@+id/tv_item_card_details_goto_ad"

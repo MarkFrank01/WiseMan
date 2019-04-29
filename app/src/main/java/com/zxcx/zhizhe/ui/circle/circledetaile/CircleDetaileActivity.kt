@@ -354,6 +354,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     mActivity.startActivity(CircleManListActivity::class.java) {
                         it.putExtra("circleID", circleID)
                         it.putExtra("create", creater)
+                        it.putExtra("level",creater.level)
+                        it.putExtra("card_num",creater.cardNum)
+                        it.putExtra("fans_num",creater.fansNum)
+                        it.putExtra("like_num",creater.likeNum)
+                        it.putExtra("collect_num",creater.collectNum)
                     }
                 } else {
                     JoinCircle(circlename, "￥ " + circleprice + "($circleprice 智者币)", ZhiZheUtils.timeChange(circleendtime) + "到期", circleyue)

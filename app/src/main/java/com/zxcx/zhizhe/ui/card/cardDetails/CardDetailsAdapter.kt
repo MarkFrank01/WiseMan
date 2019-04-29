@@ -137,7 +137,7 @@ class CardDetailsAdapter(data: List<CardBean>) : BaseQuickAdapter<CardBean, Base
             helper.getView<CheckBox>(R.id.cb_item_card_details_like).visibility = View.GONE
             helper.getView<TextView>(R.id.tv_item_card_details_like).visibility = View.GONE
             helper.getView<ImageView>(R.id.iv_item_card_details_share).visibility = View.GONE
-
+            helper.getView<ImageView>(R.id.iv_item_card_officials).visibility = View.VISIBLE
         }
     }
 }

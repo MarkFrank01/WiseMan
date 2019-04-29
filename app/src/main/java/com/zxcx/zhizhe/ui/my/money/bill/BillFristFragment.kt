@@ -59,7 +59,7 @@ class BillFristFragment : RefreshMvpFragment<BillPresenter>(), BillContract.View
     }
 
     override fun getDataSuccess(list: MutableList<BillBean>) {
-        val emptyView = EmptyView.getEmptyView(mActivity,"暂无更多明细",R.drawable.no_more)
+        val emptyView = EmptyView.getEmptyView(mActivity,"暂无更多明细",R.drawable.no_more2)
         mAdapter.emptyView = emptyView
 
         mRefreshLayout.finishRefresh()
