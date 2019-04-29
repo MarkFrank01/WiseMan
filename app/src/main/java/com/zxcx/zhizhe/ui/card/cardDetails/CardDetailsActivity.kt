@@ -32,6 +32,7 @@ import com.zxcx.zhizhe.utils.GlideOptions.bitmapTransform
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.GoodView
 import com.zxcx.zhizhe.widget.PermissionDialog
+import com.zxcx.zhizhe.widget.rightback.SlidingLayout
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -84,8 +85,8 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 //        }
 
 //        //测试右滑动返回
-//        val rootView = SlidingLayout(this)
-//        rootView.bindActivity(this)
+        val rootView = SlidingLayout(this)
+        rootView.bindActivity(this)
     }
 
     override fun onBackPressed() {

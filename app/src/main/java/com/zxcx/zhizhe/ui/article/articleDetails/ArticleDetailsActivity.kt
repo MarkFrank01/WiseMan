@@ -33,6 +33,7 @@ import com.zxcx.zhizhe.ui.welcome.WebViewActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.GoodView
 import com.zxcx.zhizhe.widget.MyScrollView
+import com.zxcx.zhizhe.widget.rightback.SlidingLayout
 import kotlinx.android.synthetic.main.activity_article_details.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -71,6 +72,8 @@ class ArticleDetailsActivity : MvpActivity<ArticleDetailsPresenter>(), ArticleDe
         initView()
 
         mPresenter.getCardDetails(cardBean.id)
+        val rootView = SlidingLayout(this)
+        rootView.bindActivity(this)
     }
 
     override fun initStatusBar() {
