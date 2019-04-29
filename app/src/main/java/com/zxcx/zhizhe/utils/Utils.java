@@ -181,11 +181,11 @@ public class Utils {
 
     //请求是否有活动的存在
     public static Boolean gethasEWM(){
-        return SharedPreferencesUtil.getBoolean(SVTSConstants.hasEWM, true);
+        return SharedPreferencesUtil.getBoolean(SVTSConstants.hasEWM, false);
     }
 
-    public static void sethasEWM() {
-        SharedPreferencesUtil.saveData(SVTSConstants.isFirstTan, false);
+    public static void sethasEWM(Boolean value) {
+        SharedPreferencesUtil.saveData(SVTSConstants.isFirstTan, value);
     }
 
     public static String getAppVersionName(Context context) {

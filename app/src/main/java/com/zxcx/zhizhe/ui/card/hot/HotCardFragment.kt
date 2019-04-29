@@ -92,7 +92,7 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
         //正常流程
         if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0){
-            if (Utils.getIsFirstTan()){
+            if (Utils.getIsFirstTan()&&Utils.gethasEWM()){
                 showWindow()
                 Utils.setIsFirstTan()
             }

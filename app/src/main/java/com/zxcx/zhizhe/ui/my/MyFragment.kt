@@ -376,11 +376,13 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
     override fun getInvitationInfoSuccess(bean: InviteBean) {
         LogCat.e("有活动")
         my_ewm.visibility = View.VISIBLE
+        Utils.sethasEWM(true)
     }
 
     override fun ewmError(msg: String) {
         LogCat.e("还没活动")
         my_ewm.visibility = View.INVISIBLE
+        Utils.sethasEWM(false)
     }
 
 }
