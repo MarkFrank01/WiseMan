@@ -8,10 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.makeramen.roundedimageview.RoundedImageView
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetailBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.ScreenUtils
-import com.zxcx.zhizhe.utils.expandViewTouchDelegate
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CardRoundedImageView
 
 /**
@@ -66,6 +63,11 @@ class CircleDetaileAdapter(data: List<CircleDetailBean>) : BaseMultiItemQuickAda
         }else{
             helper.getView<ImageView>(R.id.circle_detail_more).visibility = View.GONE
 
+        }
+        var id = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+
+        if (id == itemBean.usersVO.id){
+            helper.getView<ImageView>(R.id.circle_detail_more).visibility = View.VISIBLE
         }
     }
 

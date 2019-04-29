@@ -91,6 +91,8 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
 
 
         onRefreshAD(lastADTime,lastADID.toLong())
+
+        ll_my_night_model.visibility =View.GONE
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

@@ -9,6 +9,6 @@ import com.google.gson.annotations.SerializedName
  */
 class CircleDetailItemBean(
         @SerializedName("avatar")var avater :String,
-        @SerializedName("name")var name:String
-
+        @SerializedName("name")var name:String,
+        @SerializedName("id") var id: Int = 0
 )

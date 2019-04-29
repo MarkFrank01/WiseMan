@@ -33,6 +33,7 @@ import com.zxcx.zhizhe.ui.my.money.MoneyBean
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.BottomListPopup.CirclePopup
 import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup
+import com.zxcx.zhizhe.widget.BottomListPopup.HuatiManagePopup2
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleBottomPopup2
 import com.zxcx.zhizhe.widget.bottomdescpopup.CircleJoinPopup
@@ -305,18 +306,21 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
             it.isOwner = mCircleImOwner
         }
 
-        mHuaTiPage++
 
         mRefreshLayout.finishRefresh()
         if (mHuaTiPage == 0) {
 //            mAdapter.data.clear()
-            mAdapter.addData(list)
+            mAdapter.setNewData(list)
+            LogCat.e("11111111111111111")
         } else {
             mAdapter.addData(list)
+            LogCat.e("22222222222222")
         }
 
 //        mAdapter.notifyDataSetChanged()
 //        rv_circle_detail.scrollToPosition(0)
+
+        mHuaTiPage++
 
 
         if (list.size < Constants.PAGE_SIZE) {
@@ -489,6 +493,12 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     if (mCircleImOwner) {
                         val bean = adapter.data[position] as CircleDetailBean
                         manageHTowner(bean.circleFix, bean.id, position)
+                    }else if (hasJoinBoolean){
+                        val bean = adapter.data[position] as CircleDetailBean
+                        var id = SharedPreferencesUtil.getInt(SVTSConstants.userId, 0)
+                        if (id == bean.usersVO.id) {
+                            manageHTowner2(bean.circleFix, bean.id, position)
+                        }
                     }
                 }
             }
@@ -826,6 +836,39 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
 
         XPopup.Builder(mActivity)
                 .asCustom(HuatiManagePopup(this, type, circleFix, -1,
+                        OnSelectListener { position, text ->
+                            when (position) {
+                                0 -> {
+                                    rv_circle_detail.scrollToPosition(0)
+                                    mAdapter.add(0, mAdapter.data[weizhi])
+                                    mAdapter.remove(weizhi + 1)
+                                    mPresenter.setQAFixTop(id, 1)
+                                }
+                                1 -> {
+                                    deleteHuaTi(id)
+                                }
+                                2 -> {
+                                    mPresenter.setQAFixTop(id, 0)
+                                    rv_circle_detail.scrollToPosition(0)
+                                    mHuaTiPage = 0
+                                    onRefresh()
+                                }
+
+                            }
+                        })
+                ).show()
+    }
+
+    private fun manageHTowner2(circleFix: Boolean, id: Int, weizhi: Int) {
+        var type = -1
+        type = if (circleFix) {
+            2
+        } else {
+            3
+        }
+
+        XPopup.Builder(mActivity)
+                .asCustom(HuatiManagePopup2(this, type, circleFix, -1,
                         OnSelectListener { position, text ->
                             when (position) {
                                 0 -> {

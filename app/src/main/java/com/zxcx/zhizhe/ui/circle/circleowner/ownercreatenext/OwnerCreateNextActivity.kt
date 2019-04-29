@@ -150,7 +150,7 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
         }
 
         //之后调整为8和4
-        if (mCardNum >= listcdCard.size / 2 && mArcNum >= listcdArc.size / 2) {
+        if ((mCardNum > listcdCard.size-listcdCard.size / 2) && (mArcNum > listcdCard.size-listcdArc.size / 2)) {
             tv_toolbar_right.isEnabled = true
             tv_toolbar_right.setTextColor(mActivity.getColorForKotlin(R.color.button_blue))
         }else{
@@ -191,14 +191,16 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
                 when (tab.position) {
                     0 -> {
 //                        show_first_tv.text = "在此页面选择4张卡片在圈外公开阅读"
-                        show_first_tv.text = "在此页面选择" + listcdCard.size / 2 + "张卡片在圈外公开阅读"
+                        var size1 = listcdCard.size-listcdCard.size / 2
+                        show_first_tv.text = "在此页面选择" +size1 + "张卡片在圈外公开阅读"
                         switchFragment(mNextCardFragment)
                         EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
                     }
                     1 -> {
                         switchFragment(mNextArticleFragment)
 //                        show_first_tv.text = "在此页面选择2篇文章在圈外公开阅读"
-                        show_first_tv.text = "在此页面选择" + listcdArc.size / 2 + "篇文章在圈外公开阅读"
+                        var size = listcdCard.size-listcdArc.size / 2
+                        show_first_tv.text = "在此页面选择" + size + "篇文章在圈外公开阅读"
                         EventBus.getDefault().post(GetNextArcEvent(0, listcdArc))
 
                     }
