@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerActivit
 import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerChildActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
+import com.zxcx.zhizhe.widget.GoodView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 
 /**
@@ -44,6 +45,9 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     //CircleId
     private var circleId = 0
+
+    //likeCount
+    private var likeCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,6 +131,7 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         tv_item_card_read1.text = ""+bean.pv
         tv_item_card_comment1.text = ""+bean.commentCount
         tv_item_card_dianzan.text = ""+bean.likeCount
+        likeCount = bean.likeCount
     }
 
     override fun getDataSuccess(bean: MutableList<CircleCommentBean>) {
@@ -137,6 +142,13 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
 
     override fun unlikeSuccess() {
     }
+
+    override fun likeCreateSuccess() {
+    }
+
+    override fun unlikeCreateSuccess() {
+    }
+
 
     override fun postSuccess(bean: CircleCommentBean) {
     }
@@ -209,6 +221,27 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
     }
 
     override fun setListener() {
+
+        iv_item_card_dianzan.expandViewTouchDelegate(ScreenUtils.dip2px(20f))
+        iv_item_card_dianzan.setOnClickListener {
+            if (iv_item_card_dianzan.isChecked){
+                val goodView = GoodView(this)
+                goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+                goodView.setText("+1")
+                goodView.show(iv_item_card_dianzan)
+                likeCount += 1
+                tv_item_card_dianzan.text = ""+likeCount
+                mPresenter.likeQA(huatiID)
+            }else{
+                val goodView = GoodView(this)
+                goodView.setTextColor(getColorForKotlin(R.color.button_blue))
+                goodView.setText("-1")
+                goodView.show(iv_item_card_dianzan)
+                likeCount -= 1
+                tv_item_card_dianzan.text = ""+likeCount
+                mPresenter.unlikeQA(huatiID)
+            }
+        }
 
         //以下四个去同一个的地方
         comment_bottom.setOnClickListener {

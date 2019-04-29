@@ -125,7 +125,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         if (!isLoad) {
             LogCat.e("疑点2")
             LogCat.e("是否加载")
-            mHuaTiPage = 0
+//            mHuaTiPage = 0
             onRefresh()
         }
         mPresenter.getAccountDetails()

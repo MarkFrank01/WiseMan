@@ -18,6 +18,14 @@ class CircleQuestionDetailPresenter(view: CircleQuestionDetailContract.View) : B
         mModel = CircleQuestionDetailModel(this)
     }
 
+    fun likeQA(qaId: Int) {
+        mModel.likeQA(qaId)
+    }
+
+    fun unlikeQA(qaId: Int) {
+        mModel.unlikeQA(qaId)
+    }
+
     fun getAnswerList(qaId: Int, page: Int) {
         mModel.getAnswerList(qaId, page)
     }
@@ -43,6 +51,18 @@ class CircleQuestionDetailPresenter(view: CircleQuestionDetailContract.View) : B
     override fun unlikeSuccess() {
         if (mView != null) {
             mView.unlikeSuccess()
+        }
+    }
+
+    override fun likeCreateSuccess() {
+        if (mView != null) {
+            mView.likeCreateSuccess()
+        }
+    }
+
+    override fun unlikeCreateSuccess() {
+        if (mView != null) {
+            mView.unlikeCreateSuccess()
         }
     }
 

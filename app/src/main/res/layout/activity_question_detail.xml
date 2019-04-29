@@ -177,13 +177,14 @@
                         app:layout_constraintTop_toTopOf="@+id/circle_detail_username"
                         tools:text="100"/>
 
-                    <ImageView
+                    <CheckBox
                         android:id="@+id/iv_item_card_dianzan"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_marginEnd="3dp"
                         android:layout_marginStart="12dp"
-                        android:src="@drawable/cb_card_details_like"
+                        android:background="@drawable/selector_cb_card_details_like"
+                        android:button="@null"
                         app:layout_constraintBottom_toBottomOf="@+id/circle_detail_username"
                         app:layout_constraintEnd_toStartOf="@+id/tv_item_card_dianzan"
                         app:layout_constraintTop_toTopOf="@+id/circle_detail_username"/>

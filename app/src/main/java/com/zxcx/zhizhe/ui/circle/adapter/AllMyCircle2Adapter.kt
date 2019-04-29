@@ -53,6 +53,11 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
 
                 helper.setText(R.id.cb_item_select_join_circle2, "待提交")
                         .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.red))
+
+                LogCat.e("?????"+item.circleExpiredDistanceTime)
+                if (item.circleExpiredDistanceTime!=""&&item.circleExpiredDistanceTime.isNotEmpty()) {
+                    helper.setText(R.id.time_to_chuli, "剩余" + item.circleExpiredDistanceTime + "天")
+                }
             }
 
             0 -> {
@@ -61,12 +66,6 @@ class AllMyCircle2Adapter(data: List<CircleBean>) :
             }
 
             1 -> {
-                LogCat.e("?????"+item.circleExpiredDistanceTime)
-                if (item.circleExpiredDistanceTime!=""&&item.circleExpiredDistanceTime.isNotEmpty()) {
-                    helper.setText(R.id.time_to_chuli, "剩余" + item.circleExpiredDistanceTime + "天")
-                }
-
-
                 helper.setText(R.id.cb_item_select_join_circle2, "限免中")
                         .setTextColor(R.id.cb_item_select_join_circle2, mContext.getColorForKotlin(R.color.button_blue))
                 helper.addOnClickListener(R.id.cb_item_select_join_circle2)

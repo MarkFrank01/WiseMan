@@ -78,5 +78,30 @@ class CircleQuestionDetailModel(presenter: CircleQuestionDetailContract.Presente
     }
 
 
+    //话题赞
+    fun likeQA(qaId: Int){
+        mDisposable = AppClient.getAPIService().likeQAOrQAComment_qa(qaId,1)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(object :PostSubscriber<BaseBean<*>>(mPresenter){
+                    override fun onNext(t: BaseBean<*>?) {
+                        mPresenter?.likeCreateSuccess()
+                    }
+                })
+        addSubscription(mDisposable)
+    }
+
+    //话题取消赞
+    fun unlikeQA(qaId: Int){
+        mDisposable = AppClient.getAPIService().likeQAOrQAComment_qa(qaId,0)
+                .compose(BaseRxJava.handlePostResult())
+                .compose(BaseRxJava.io_main())
+                .subscribeWith(object :PostSubscriber<BaseBean<*>>(mPresenter){
+                    override fun onNext(t: BaseBean<*>?) {
+                        mPresenter?.unlikeCreateSuccess()
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 
 }

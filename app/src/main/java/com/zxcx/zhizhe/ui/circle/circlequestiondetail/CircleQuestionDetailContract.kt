@@ -15,6 +15,9 @@ class CircleQuestionDetailContract {
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
         fun likeSuccess()
         fun unlikeSuccess()
+
+        fun likeCreateSuccess()
+        fun unlikeCreateSuccess()
     }
 
     interface Presenter: IGetPostPresenter<MutableList<CircleCommentBean>,CircleCommentBean> {
@@ -22,5 +25,8 @@ class CircleQuestionDetailContract {
         fun getBasicQuestionSuccess(bean:CircleDetailBean)
         fun likeSuccess()
         fun unlikeSuccess()
+
+        fun likeCreateSuccess()
+        fun unlikeCreateSuccess()
     }
 }
