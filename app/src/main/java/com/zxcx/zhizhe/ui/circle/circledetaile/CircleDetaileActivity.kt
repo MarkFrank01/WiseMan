@@ -106,6 +106,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     var ISNULL = false
 
 
+    var isCheckChange = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_circle_detail)
@@ -289,46 +291,53 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
     override fun getCircleQAByCircleIdSuccess(list: MutableList<CircleDetailBean>) {
         LogCat.e("getCircleQAByCircleIdSuccess~ " + list.size)
 
-        if (mHuaTiPage==0&&list.size<1){
-            rv_circle_detail.visibility = View.GONE
-            when_no_data.visibility = View.VISIBLE
-            ISNULL = true
-        }else{
+        if (mHuaTiPage == 0 && list.size < 1) {
+
+
+            if (isCheckChange) {
+                toastShow("暂无内容")
+            }else{
+                rv_circle_detail.visibility = View.GONE
+                when_no_data.visibility = View.VISIBLE
+                ISNULL = true
+            }
+        } else {
             rv_circle_detail.visibility = View.VISIBLE
             when_no_data.visibility = View.GONE
             ISNULL = false
-        }
+
 
 //        val emptyView = EmptyView.getEmptyView2(mActivity, "暂无内容", R.drawable.no_data)
 //        mAdapter.emptyView = emptyView
 
-        list.forEach {
-            it.isOwner = mCircleImOwner
-        }
+            list.forEach {
+                it.isOwner = mCircleImOwner
+            }
 
 
-        mRefreshLayout.finishRefresh()
-        if (mHuaTiPage == 0) {
+            mRefreshLayout.finishRefresh()
+            if (mHuaTiPage == 0) {
 //            mAdapter.data.clear()
-            mAdapter.setNewData(list)
-            LogCat.e("11111111111111111")
-        } else {
-            mAdapter.addData(list)
-            LogCat.e("22222222222222")
-        }
+                mAdapter.setNewData(list)
+                LogCat.e("11111111111111111")
+            } else {
+                mAdapter.addData(list)
+                LogCat.e("22222222222222")
+            }
 
 //        mAdapter.notifyDataSetChanged()
 //        rv_circle_detail.scrollToPosition(0)
 
-        mHuaTiPage++
+            mHuaTiPage++
 
 
-        if (list.size < Constants.PAGE_SIZE) {
-            mAdapter.loadMoreEnd(false)
-        } else {
-            mAdapter.loadMoreComplete()
-            mAdapter.setEnableLoadMore(false)
-            mAdapter.setEnableLoadMore(true)
+            if (list.size < Constants.PAGE_SIZE) {
+                mAdapter.loadMoreEnd(false)
+            } else {
+                mAdapter.loadMoreComplete()
+                mAdapter.setEnableLoadMore(false)
+                mAdapter.setEnableLoadMore(true)
+            }
         }
     }
 
@@ -915,10 +924,11 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                         null, mHuaTiOrder,
                         OnSelectListener { position, text ->
 
-
                             mHuaTiOrder = position
                             mHuaTiPage = 0
                             onRefresh()
+
+                            isCheckChange = true
                         })
                 ).show()
     }
