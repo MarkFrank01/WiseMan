@@ -182,12 +182,13 @@
         android:clickable="false"
         android:gravity="center"
         android:textColor="@color/button_blue"
-        android:textSize="@dimen/text_size_text_3"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_circle_classify_title"
         tools:text="进圈"/>
 
     <TextView
+        android:textColor="@color/text_color_3"
         android:id="@+id/time_to_chuli"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

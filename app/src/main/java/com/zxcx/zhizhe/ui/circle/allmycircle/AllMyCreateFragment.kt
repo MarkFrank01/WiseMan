@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.circle.adapter.AllMyCircle2Adapter
 import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
+import com.zxcx.zhizhe.ui.circle.circlemore.CircleEditActivity
 import com.zxcx.zhizhe.ui.circle.circleowner.owneradd.OwnerAddActivity
 import com.zxcx.zhizhe.ui.circle.createcircle.CreateCircleActivity
 import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
@@ -199,18 +200,18 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
 //            }
 
             //    val cardImg = view.findViewById<ImageView>(R.id.iv_item_card_icon)
-            R.id.cb_item_select_join_circle2,R.id.con_click -> {
+            R.id.cb_item_select_join_circle2, R.id.con_click -> {
                 val circleBean = adapter.data[position] as CircleBean
                 val checkBox = view.findViewById<CheckBox>(R.id.cb_item_select_join_circle2)
                 var typetext = checkBox.text.toString()
                 LogCat.e(checkBox.text.toString() + " 测试")
                 when (typetext) {
                     "已关闭" -> {
-                        guanbi(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason)
+                        guanbi(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason, circleBean)
                     }
 
                     "未通过" -> {
-                        wtg(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason)
+                        wtg(ZhiZheUtils.timeChange(circleBean.modifiedTime), circleBean.unpassReason, circleBean)
                     }
 
                     "待提交" -> {
@@ -289,19 +290,43 @@ class AllMyCreateFragment : RefreshMvpFragment<AlllMyCirclePresenter>(), AllMyCi
     }
 
     //关闭时
-    private fun guanbi(text_content: String, text_content2: String) {
+    private fun guanbi(text_content: String, text_content2: String, circleBean: CircleBean) {
         XPopup.Builder(mActivity)
                 .asCustom(CircleBottomGBPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
+                    mActivity.startActivity(CircleEditActivity::class.java) {
+                        if (position == 2) {
+                            it.putExtra("title", circleBean.title)
+                            it.putExtra("levelType", circleBean.price)
+                            it.putExtra("sign", circleBean.sign)
+                            it.putExtra("mImageUrl", circleBean.titleImage)
+                            it.putExtra("labelName", circleBean.classifytitle)
+                            it.putExtra("classifyId", circleBean.classifyId)
+                            it.putExtra("limitedTimeType", circleBean.limitedTimeType)
 
+                            it.putExtra("circleId", circleBean.id)
+                        }
+                    }
                 })
                 ).show()
     }
 
     //未通过时
-    private fun wtg(text_content: String, text_content2: String) {
+    private fun wtg(text_content: String, text_content2: String, circleBean: CircleBean) {
         XPopup.Builder(mActivity)
                 .asCustom(CircleBottomWTGPopup(mActivity, text_content, text_content2, -1, OnSelectListener { position, text ->
+                    if (position == 2) {
+                        mActivity.startActivity(CircleEditActivity::class.java) {
+                            it.putExtra("title", circleBean.title)
+                            it.putExtra("levelType", circleBean.price)
+                            it.putExtra("sign", circleBean.sign)
+                            it.putExtra("mImageUrl", circleBean.titleImage)
+                            it.putExtra("labelName", circleBean.classifytitle)
+                            it.putExtra("classifyId", circleBean.classifyId)
+                            it.putExtra("limitedTimeType", circleBean.limitedTimeType)
 
+                            it.putExtra("circleId", circleBean.id)
+                        }
+                    }
                 })
                 ).show()
     }

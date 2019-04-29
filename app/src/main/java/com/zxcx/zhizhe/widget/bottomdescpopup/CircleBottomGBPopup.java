@@ -55,6 +55,7 @@ public class CircleBottomGBPopup extends BottomPopupView {
 
         Button bt = findViewById(R.id.bottom_bt);
         bt.setOnClickListener(v -> {
+            selectListener.onSelect(2,"666");
             postDelayed(this::dismiss,10);
         });
     }

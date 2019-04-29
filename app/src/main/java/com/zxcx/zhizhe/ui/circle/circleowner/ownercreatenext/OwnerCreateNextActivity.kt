@@ -134,7 +134,7 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
 
     override fun setListener() {
         tv_toolbar_right.setOnClickListener {
-            toastShow("ready")
+//            toastShow("ready")
             mPresenter.createCircleNew(title, mImageUrl, classifyId, sign, levelType, limitedTimeType)
         }
     }

@@ -8,9 +8,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.ui.card.hot.CardBean
-import com.zxcx.zhizhe.utils.ImageLoader
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.ZhiZheUtils
+import com.zxcx.zhizhe.utils.*
 
 
 //class CreationAdapter(data: List<CardBean>) : BaseMultiItemQuickAdapter<CardBean, BaseViewHolder>(R.layout.item_other_user_creation, data) {
@@ -85,6 +83,9 @@ class ManageCreateCircleNextAdapter(data: List<CardBean>) : BaseMultiItemQuickAd
             LogCat.e("222222222222222")
             cb.isChecked = false
         }
+
+        cb.expandViewTouchDelegate(ScreenUtils.dip2px(2000f))
+
 
 //                val cb = helper.getView<CheckBox>(R.id.cb_choose_push_manage)
 //                if (!item.circleFix!!){

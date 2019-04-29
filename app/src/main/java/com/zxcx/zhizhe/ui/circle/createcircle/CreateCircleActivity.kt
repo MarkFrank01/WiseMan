@@ -242,7 +242,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
             title = tv_to_name.text.toString().trim()
             sign = tv_to_name2.text.toString().trim()
 
-            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != 0 && limitedTimeType != 0) {
+            if (title != "" && mImageUrl != "" && classifyId != 0 && sign != "" && levelType != -1 && limitedTimeType != -1) {
 //                toastShow("填写好了")
 //                val bundle = Bundle()
 //                mDialog.arguments = bundle
@@ -476,7 +476,7 @@ class CreateCircleActivity : MvpActivity<CreateCirclePresenter>(), CreateCircleC
                             when (position) {
                                 0 -> levelType = 3
                                 1 -> levelType = 2
-                                3 -> levelType = 1
+                                2 -> levelType = 1
                             }
                         })
                 ).show()

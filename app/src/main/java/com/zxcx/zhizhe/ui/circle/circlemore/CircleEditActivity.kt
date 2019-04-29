@@ -66,10 +66,10 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
     private var sign = ""
 
     //（新）价格选择
-    private var levelType = 0
+    private var levelType = -1
 
     //(新)限时免费
-    private var limitedTimeType = 0
+    private var limitedTimeType = -1
 
     private var mSelectPosition = 0
     private var mSelectPosition2 = 0
@@ -288,12 +288,12 @@ class CircleEditActivity : MvpActivity<CircleEditPresenter>(), CircleEditContrac
 
     private fun initData() {
         title = intent.getStringExtra("title")
-        levelType = intent.getIntExtra("levelType", 0)
+//        levelType = intent.getIntExtra("levelType", 0)
         sign = intent.getStringExtra("sign")
         mImageUrl = intent.getStringExtra("mImageUrl")
         labelName = intent.getStringExtra("labelName")
         classifyId = intent.getIntExtra("classifyId", 0)
-        limitedTimeType = intent.getIntExtra("limitedTimeType", 0)
+//        limitedTimeType = intent.getIntExtra("limitedTimeType", 0)
 
         circleId = intent.getIntExtra("circleId",0)
     }
