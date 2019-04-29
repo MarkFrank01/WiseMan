@@ -179,6 +179,14 @@ public class Utils {
         SharedPreferencesUtil.saveData(SVTSConstants.isFirstTan, false);
     }
 
+    //请求是否有活动的存在
+    public static Boolean gethasEWM(){
+        return SharedPreferencesUtil.getBoolean(SVTSConstants.hasEWM, true);
+    }
+
+    public static void sethasEWM() {
+        SharedPreferencesUtil.saveData(SVTSConstants.isFirstTan, false);
+    }
 
     public static String getAppVersionName(Context context) {
         try {

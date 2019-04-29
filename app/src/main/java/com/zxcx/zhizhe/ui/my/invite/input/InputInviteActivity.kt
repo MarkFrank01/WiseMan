@@ -65,6 +65,7 @@ class InputInviteActivity: MvpActivity<InputInvitePresenter>(),InputInviteContra
     }
 
     override fun receiveMineInvitationUser(bean: InviteBean) {
+            my_invite.visibility = View.VISIBLE
             invite_me.visibility = View.VISIBLE
             ImageLoader.load(mActivity, bean.avatar, R.drawable.default_header, invite_img)
             invite_name.text = bean.name

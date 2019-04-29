@@ -139,7 +139,9 @@ class MyInviteActivity : MvpActivity<MyInvitePresenter>(), MyInviteContract.View
         val bundle = Bundle()
         bundle.putString("title", "好友邀请你加入智者")
         bundle.putString("text", "你的好友刚刚在智者跟你分享了一个邀请哦，快跟他一起体验吧")
-        bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
+//        bundle.putString("url", "http://120.77.180.183:7080/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
+        bundle.putString("url", "http://mp.zz-park.com/invite-share.html?id=" + SharedPreferencesUtil.getInt(SVTSConstants.userId, 0))
+
         shareCardDialog.arguments = bundle
         shareCardDialog.show(supportFragmentManager, "")
 

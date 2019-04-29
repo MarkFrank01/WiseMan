@@ -1,12 +1,11 @@
 package com.zxcx.zhizhe.ui.welcome
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.zxcx.zhizhe.service.version_update.update_utils.AppUtils
-import com.zxcx.zhizhe.utils.LogCat
-import com.zxcx.zhizhe.utils.SharedPreferencesUtil
-import com.zxcx.zhizhe.utils.Utils
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.ui.MainActivity
+import com.zxcx.zhizhe.utils.*
 import java.util.*
 
 /**
@@ -18,7 +17,12 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivity(WelcomeActivity::class.java) {}
+        val adImageUrl = SharedPreferencesUtil.getString(SVTSConstants.adImageUrl, "")
+        if (!StringUtils.isEmpty(adImageUrl)) {
+            startActivity(WelcomeActivity::class.java) {}
+        }else{
+            gotoMainActivity()
+        }
 
         val maidian = "android_" + android.os.Build.MODEL + "_" +
                 android.os.Build.VERSION.SDK_INT + "_" +
@@ -35,6 +39,24 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun gotoMainActivity() {
+        if (isFirstLaunchApp()) {
+            val intent = Intent(this, GuidePageActivity::class.java)
+            startActivity(intent)
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            val bundle = getIntent().getBundleExtra("push")
+            if (bundle != null) {
+                intent.putExtra("push", bundle)
+            }
+            startActivity(intent)
+        }
+        finish()
+    }
+
+    private fun isFirstLaunchApp(): Boolean {
+        return Utils.getIsFirstLaunchApp()
+    }
 
     fun getStringRandom(length: Int): String {
         var num = ""

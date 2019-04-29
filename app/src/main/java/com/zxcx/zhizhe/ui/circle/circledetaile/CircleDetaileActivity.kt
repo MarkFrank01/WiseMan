@@ -768,7 +768,7 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         val bundle = Bundle()
         bundle.putString("title", circlename)
         bundle.putString("text", mIntroduction)
-        bundle.putString("url", "http://120.77.180.183:7080/circle-share.html?id=" + circleID)
+        bundle.putString("url", "http://mp.zz-park.com/circle-share.html?id=" + circleID)
         bundle.putString("imageUrl", mImageUrl)
         shareCardDialog.arguments = bundle
         shareCardDialog.show(supportFragmentManager, "")

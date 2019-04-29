@@ -46,6 +46,8 @@
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
+        android:id="@+id/my_invite"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textColor="@color/text_color_1"
