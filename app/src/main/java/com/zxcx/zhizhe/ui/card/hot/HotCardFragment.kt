@@ -14,6 +14,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadSir
+import com.lxj.xpopup.XPopup
+import com.lxj.xpopup.interfaces.OnSelectListener
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.youth.banner.BannerConfig
 import com.zxcx.zhizhe.R
@@ -27,12 +29,13 @@ import com.zxcx.zhizhe.loadCallback.LoginTimeoutCallback
 import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.cardDetails.CardDetailsActivity
 import com.zxcx.zhizhe.ui.my.daily.DailyActivity
+import com.zxcx.zhizhe.ui.my.invite.InviteBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 import com.zxcx.zhizhe.ui.welcome.WebViewActivity
-import com.zxcx.zhizhe.utils.GlideBannerImageLoader
-import com.zxcx.zhizhe.utils.startActivity
+import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CustomLoadMoreView
 import com.zxcx.zhizhe.widget.DefaultRefreshHeader
+import com.zxcx.zhizhe.widget.centerpopup.InviteCenterPopup
 import kotlinx.android.synthetic.main.fragment_hot.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,6 +48,8 @@ import java.util.*
 
 class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.View,
         BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
+
+
 
     private lateinit var mAdapter: HotCardAdapter
     private var mPage = 0
@@ -84,6 +89,17 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         mHidden = false
         initADView()
         onRefreshAD()
+
+        //正常流程
+        if (SharedPreferencesUtil.getInt(SVTSConstants.userId, 0) != 0){
+            if (Utils.getIsFirstTan()){
+                showWindow()
+                Utils.setIsFirstTan()
+            }
+        }
+
+        //测试弹窗
+//        showWindow()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -145,6 +161,16 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
 
     override fun onLoadMoreRequested() {
         getHotCard()
+    }
+
+    override fun inputInvitationCodeSuccess(bean: InviteBean) {
+        toastShow("填写完成")
+    }
+
+    override fun errormsg(msg: String) {
+        LogCat.e("????"+msg)
+//        toastShow(msg)
+        showWindow_check(msg)
     }
 
     override fun getDataSuccess(list: MutableList<CardBean>) {
@@ -347,4 +373,29 @@ class HotCardFragment : RefreshMvpFragment<HotCardPresenter>(), HotCardContract.
         return sharedElements
     }
 
+    private fun showWindow() {
+        XPopup.Builder(mActivity)
+                .asCustom(InviteCenterPopup(mActivity,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+//                                LogCat.e("text is $text")
+//                                toastShow("进行校验")
+                                mPresenter.inputInvitationCode(text)
+                            }
+                        })
+                ).show()
+
+    }
+
+    private fun showWindow_check(hint:String) {
+        XPopup.Builder(mActivity)
+                .asCustom(InviteCenterPopup(mActivity,hint,
+                        OnSelectListener { position, text ->
+                            if (position == 2) {
+                                mPresenter.inputInvitationCode(text)
+                            }
+                        })
+                ).show()
+
+    }
 }

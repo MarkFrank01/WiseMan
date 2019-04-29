@@ -20,6 +20,7 @@ public class InviteCenterPopup extends CenterPopupView{
 
     private String textContent;
     private OnSelectListener mSelectListener;
+    private String textHint="";
 
     public InviteCenterPopup(@NonNull Context context) {
         super(context);
@@ -27,6 +28,12 @@ public class InviteCenterPopup extends CenterPopupView{
 
     public InviteCenterPopup(@NonNull Context context, OnSelectListener selectListener) {
         super(context);
+        mSelectListener = selectListener;
+    }
+
+    public InviteCenterPopup(@NonNull Context context, String textHint,OnSelectListener selectListener) {
+        super(context);
+        this.textHint = textHint;
         mSelectListener = selectListener;
     }
 
@@ -40,6 +47,8 @@ public class InviteCenterPopup extends CenterPopupView{
     protected void initPopupContent() {
         super.initPopupContent();
         RelativeLayout rl = findViewById(R.id.input_commit);
+        TextView hint = findViewById(R.id.hint_error_type);
+
         TextView tv = findViewById(R.id.tv_text);
         tv.setEnabled(false);
 
@@ -60,5 +69,12 @@ public class InviteCenterPopup extends CenterPopupView{
         cancel.setOnClickListener(v->{
             postDelayed(this::dismiss,10);
         });
+
+        if (!textHint.equals("")){
+            hint.setVisibility(VISIBLE);
+            hint.setText(textHint);
+        }else {
+            hint.setVisibility(INVISIBLE);
+        }
     }
 }

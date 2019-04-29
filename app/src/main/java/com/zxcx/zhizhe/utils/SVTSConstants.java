@@ -7,6 +7,7 @@ package com.zxcx.zhizhe.utils;
 public class SVTSConstants {
 	
 	public static final String isFirstLaunchApp = "is_first_launch_app";
+	public static final String isFirstTan = "is_first_tan";
 	public static final String isFirstLogin = "is_first_login";
 	public static final String isNight = "is_night";
 	public static final String imageLoadMode = "image_load_mode";

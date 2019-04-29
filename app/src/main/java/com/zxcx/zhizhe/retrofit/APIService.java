@@ -53,7 +53,10 @@ import retrofit2.http.Query;
 
 public interface APIService {
 
-    String API_SERVER_URL = "http://120.77.180.183:8043";
+    //正式服务器
+    String API_SERVER_URL = "http://mb.zhi-zhe.com";
+
+//    String API_SERVER_URL = "http://120.77.180.183:8043";
 
 //    String API_SERVER_URL = "http://120.78.189.141:8043";
 //		String API_SERVER_URL = "http://www.zhi-zhe.com:8043";

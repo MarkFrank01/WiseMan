@@ -46,7 +46,8 @@ object BaseRxJava {
 				if (Constants.RESULT_OK == result.code) {
 					result.data
 				} else {
-					throw RuntimeException(result.code.toString() + result.message)
+//					throw RuntimeException(result.code.toString() + result.message)
+					throw RuntimeException(result.message)
 				}
 			}
 		}
