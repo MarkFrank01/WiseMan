@@ -885,7 +885,8 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
                     XPopup.Builder(mActivity)
                             .asCustom(CircleJoinPopup(this, t1, t2, t3, t4, "限免加入", -1,
                                     OnSelectListener { position, text ->
-                                        mPresenter.joinCircleByZzbForAndroid(circleID)
+//                                        mPresenter.joinCircleByZzbForAndroid(circleID)
+                                        mPresenter.freeAddCircle(circleID)
                                     })
                             ).show()
                 }else {

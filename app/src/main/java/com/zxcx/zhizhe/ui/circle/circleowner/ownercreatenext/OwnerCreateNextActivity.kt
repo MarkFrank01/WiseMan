@@ -1,5 +1,6 @@
 package com.zxcx.zhizhe.ui.circle.circleowner.ownercreatenext
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -100,11 +101,32 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
 
 
         initView()
-        val runAB = Runnable {
-            tl_circle_next.getTabAt(0)?.select()
+//        val runAB = Runnable {
+//            tl_circle_next.getTabAt(0)?.select()
+//        }
+//        var runPlease = Thread(runAB)
+//        runPlease.start()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        //避免恢复视图状态
+    }
+
+    override fun recreate() {
+        LogCat.e("生效")
+        val intent = Intent()
+        intent.putExtra("isNight", true)
+        setIntent(intent)
+        try {//避免重启太快 恢复
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            for (fragment in supportFragmentManager.fragments) {
+                fragmentTransaction.remove(fragment)
+            }
+            fragmentTransaction.commitAllowingStateLoss()
+        } catch (e: Exception) {
         }
-        var runPlease = Thread(runAB)
-        runPlease.start()
+
+        super.recreate()
     }
 
     override fun onDestroy() {
@@ -205,7 +227,7 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
         }
 
         switchFragment(mNextCardFragment)
-        tl_circle_next.getTabAt(1)?.select()
+        tl_circle_next.getTabAt(0)?.select()
         EventBus.getDefault().post(GetNextCardEvent(0, listcdCard))
 
 
@@ -272,4 +294,17 @@ class OwnerCreateNextActivity : MvpActivity<OwnerCreateNextPresenter>(),OwnerCre
         mPresenter.setCircleArticle(bean.id,mAllUnLock,mAllLock)
     }
 
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        if (mCurrentFragment == mNextCardFragment){
+            postponeEnterTransition()
+            onActivityReenter()
+        }
+    }
+
+    public fun onActivityReenter() {
+        when(mCurrentFragment){
+            mNextCardFragment -> mNextCardFragment.onActivityReenter()
+        }
+    }
 }

@@ -1338,4 +1338,10 @@ public interface APIService {
     Flowable<BaseBean<Object>> joinCircleByZzbForAndroid(
             @Query("circleId") int circleId
     );
+
+    //限免加入
+    @POST("/circle/joinCircleByFreeLimitedTimeForAndroid")
+    Flowable<BaseBean<Object>> joinCircleByFreeLimitedTimeForAndroid(
+            @Query("circleId") int circleId
+    );
 }

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zxcx.zhizhe.R
@@ -91,5 +92,16 @@ class OwnerCreateNextCardFragment :BaseFragment(),
 
         rv_create_next.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false)
         rv_create_next.adapter = mAdapter
+    }
+
+    fun onActivityReenter() {
+        rv_create_next.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                rv_create_next.viewTreeObserver.removeOnPreDrawListener(this)
+                rv_create_next.requestLayout()
+                mActivity.startPostponedEnterTransition()
+                return true
+            }
+        })
     }
 }

@@ -23,6 +23,10 @@ class CircleDetailePresenter(view: CircleDetaileContract.View) : BasePresenter<C
         mModel.joinCircleByZzbForAndroid(circleId)
     }
 
+    fun freeAddCircle(circleId: Int){
+        mModel.freeAddCircle(circleId)
+    }
+
     fun getAccountDetails() {
         mModel.getAccountDetails()
     }

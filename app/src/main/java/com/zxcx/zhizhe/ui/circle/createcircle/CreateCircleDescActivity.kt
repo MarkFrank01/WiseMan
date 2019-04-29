@@ -26,6 +26,11 @@ class CreateCircleDescActivity:BaseActivity() {
     val textWatcher1:TextWatcher = object  :TextWatcher{
         override fun afterTextChanged(s: Editable?) {
             tv_check1.text = "${s.toString().length}/300"
+            if (s.toString().trim().length>10){
+                tv_toolbar_right.isEnabled = true
+            }else{
+                tv_toolbar_right.isEnabled = false
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -40,6 +45,7 @@ class CreateCircleDescActivity:BaseActivity() {
         setContentView(R.layout.activity_create_circle_desc)
         setEditTextHintSize(create_title,"你希望如何跟别人介绍你的圈子,让大家了解你的资历或背景",17)
         create_title.addTextChangedListener(textWatcher1)
+        tv_toolbar_right.isEnabled = false
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

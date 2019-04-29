@@ -128,4 +128,21 @@ class CircleDetaileModel(presenter: CircleDetaileContract.Presenter):BaseModel<C
                 })
         addSubscription(mDisposable)
     }
+
+    //free
+    fun freeAddCircle(circleId: Int){
+        mDisposable = AppClient.getAPIService().joinCircleByFreeLimitedTimeForAndroid(circleId)
+                .compose(BaseRxJava.io_main())
+                .compose(BaseRxJava.handlePostResult())
+                .subscribeWith(object :NullPostSubscriber<BaseBean<*>>(mPresenter){
+                    override fun onNext(t: BaseBean<*>?) {
+                        mPresenter?.postSuccess()
+                    }
+
+                    override fun onError(t: Throwable?) {
+                        mPresenter?.postFail(t?.message.toString())
+                    }
+                })
+        addSubscription(mDisposable)
+    }
 }
