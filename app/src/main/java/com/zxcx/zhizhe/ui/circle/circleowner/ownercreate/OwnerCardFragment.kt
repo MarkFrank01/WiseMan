@@ -112,10 +112,12 @@ class OwnerCardFragment :RefreshMvpFragment<OwnerCreateManagePresenter>(),OwnerC
         val bean = adapter.data[position] as CardBean
 
         if (cb.isChecked){
+            bean.mIfCheckOrNot = true
             mNumberCard++
             mBackList.add(bean.id)
             listBackCard.add(bean)
         }else{
+            bean.mIfCheckOrNot = false
             mNumberCard--
             mBackList.remove(bean.id)
             listBackCard.remove(bean)

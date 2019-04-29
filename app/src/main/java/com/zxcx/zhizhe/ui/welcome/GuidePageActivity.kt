@@ -25,7 +25,7 @@ class GuidePageActivity : BaseActivity() {
     /**
      * 3张引导页面的图片
      */
-    private val mImgIds = intArrayOf(R.drawable.guide2, R.drawable.guide3, R.drawable.guide4, R.drawable.guide1)
+    private val mImgIds = intArrayOf(R.drawable.yd_1, R.drawable.yd_2, R.drawable.yd_3, R.drawable.yd_4)
     /**
      * 图片资源容器
      */
@@ -110,6 +110,8 @@ class GuidePageActivity : BaseActivity() {
 
                 when (position) {
                     0 -> {
+                        lines.visibility = View.VISIBLE
+                        tv_skip.visibility = View.GONE
                         iv1.setImageResource(R.drawable.bg_backbutton)
                         iv2.setImageResource(R.drawable.bg_backbutton4)
                         iv3.setImageResource(R.drawable.bg_backbutton4)
@@ -117,6 +119,8 @@ class GuidePageActivity : BaseActivity() {
                     }
 
                     1 -> {
+                        lines.visibility = View.VISIBLE
+                        tv_skip.visibility = View.GONE
                         iv1.setImageResource(R.drawable.bg_backbutton4)
                         iv2.setImageResource(R.drawable.bg_backbutton)
                         iv3.setImageResource(R.drawable.bg_backbutton4)
@@ -124,6 +128,8 @@ class GuidePageActivity : BaseActivity() {
                     }
 
                     2 -> {
+                        lines.visibility = View.VISIBLE
+                        tv_skip.visibility = View.GONE
                         iv1.setImageResource(R.drawable.bg_backbutton4)
                         iv2.setImageResource(R.drawable.bg_backbutton4)
                         iv3.setImageResource(R.drawable.bg_backbutton)
@@ -131,6 +137,8 @@ class GuidePageActivity : BaseActivity() {
                     }
 
                     3 -> {
+                        lines.visibility = View.GONE
+                        tv_skip.visibility = View.VISIBLE
                         iv1.setImageResource(R.drawable.bg_backbutton4)
                         iv2.setImageResource(R.drawable.bg_backbutton4)
                         iv3.setImageResource(R.drawable.bg_backbutton4)

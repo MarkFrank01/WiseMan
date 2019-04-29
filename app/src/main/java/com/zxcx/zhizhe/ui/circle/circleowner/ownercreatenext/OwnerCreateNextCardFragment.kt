@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.zxcx.zhizhe.R
 import com.zxcx.zhizhe.event.GetBackNumAndDataEvent2
 import com.zxcx.zhizhe.event.GetNextCardEvent
 import com.zxcx.zhizhe.mvpBase.BaseFragment
-import com.zxcx.zhizhe.mvpBase.RefreshMvpFragment
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.adapter.ManageCreateCircleNextAdapter
 import com.zxcx.zhizhe.utils.LogCat
@@ -74,9 +72,11 @@ class OwnerCreateNextCardFragment :BaseFragment(),
         val bean = adapter.data[position] as CardBean
 
         if (cb.isChecked){
+            bean.mIfCheckOrNot = true
             mNumberCard++
             mBackList.add(bean.id)
         }else{
+            bean.mIfCheckOrNot = false
             mNumberCard--
             mBackList.remove(bean.id)
         }

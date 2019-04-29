@@ -111,10 +111,12 @@ BaseQuickAdapter.RequestLoadMoreListener,BaseQuickAdapter.OnItemClickListener,Ba
         val bean = adapter.data[position] as CardBean
 
         if (cb.isChecked){
+            bean.mIfCheckOrNot = true
             mNumberCard++
             mBackList.add(bean.id)
             listArcCard.add(bean)
         }else{
+            bean.mIfCheckOrNot = false
             mNumberCard--
             mBackList.remove(bean.id)
             listArcCard.remove(bean)

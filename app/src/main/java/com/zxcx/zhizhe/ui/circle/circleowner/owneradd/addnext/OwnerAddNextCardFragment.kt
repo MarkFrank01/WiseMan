@@ -66,9 +66,11 @@ class OwnerAddNextCardFragment : BaseFragment(),
         val bean = adapter.data[position] as CardBean
 
         if (cb.isChecked) {
+            bean.mIfCheckOrNot = true
             mNumberCard++
             mBackList.add(bean.id)
         } else {
+            bean.mIfCheckOrNot = false
             mNumberCard--
             mBackList.remove(bean.id)
         }
