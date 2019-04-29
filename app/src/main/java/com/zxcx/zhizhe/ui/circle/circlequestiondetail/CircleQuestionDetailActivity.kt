@@ -18,6 +18,7 @@ import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerActivit
 import com.zxcx.zhizhe.ui.circle.circlequestion.circleanwser.CircleAnswerChildActivity
 import com.zxcx.zhizhe.utils.*
 import com.zxcx.zhizhe.widget.CommentLoadMoreView
+import com.zxcx.zhizhe.widget.EmptyView
 import com.zxcx.zhizhe.widget.GoodView
 import kotlinx.android.synthetic.main.activity_question_detail.*
 
@@ -78,8 +79,8 @@ class CircleQuestionDetailActivity : MvpActivity<CircleQuestionDetailPresenter>(
         LogCat.e("显示把"+list.size)
         if (mPage == 0){
             mAdapter.setNewData(list as List<MultiItemEntity>)
-//            val emptyView = EmptyView.getEmptyView2(mActivity,"暂无评论",R.drawable.no_comment)
-//            mAdapter.emptyView = emptyView
+            val emptyView = EmptyView.getEmptyView(mActivity,"我要抢沙发",R.drawable.no_comment)
+            mAdapter.emptyView = emptyView
         }else{
             mAdapter.addData(list)
         }
