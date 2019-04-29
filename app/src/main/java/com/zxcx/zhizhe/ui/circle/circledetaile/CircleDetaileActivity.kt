@@ -198,9 +198,15 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         toolbar_title_1.text = bean.title
 
         hasJoinBoolean = bean.hasJoin
+        statusType = bean.statusType
+
 
         if (!bean.hasJoin) {
-            bottom_bt.text = "立即加入 ￥" + bean.price
+            if (statusType == 1){
+                bottom_bt.text = "限免加入 ￥" + bean.price
+            }else {
+                bottom_bt.text = "立即加入 ￥" + bean.price
+            }
             bottom_bt.visibility = View.VISIBLE
             ll_join.visibility = View.VISIBLE
             ll_comment_input.isEnabled = false
@@ -232,7 +238,6 @@ class CircleDetaileActivity : RefreshMvpActivity<CircleDetailePresenter>(), Circ
         classifyId = bean.classifyId
         limitedTimeType = bean.limitedTimeType
 
-        statusType = bean.statusType
 
         //存储数据
         mIntroduction = bean.sign

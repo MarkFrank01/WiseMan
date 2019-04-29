@@ -119,6 +119,10 @@ class CircleFragment : MvpFragment<CirclePresenter>(), CircleContract.View, Circ
 
         more_change.visibility = View.VISIBLE
 
+        if (mCircleListPage == 0&&list.size<6){
+            more_change.visibility = View.GONE
+        }
+
         if (list.size < 1) {
             mCircleListPage = 0
 //            getCircleById()

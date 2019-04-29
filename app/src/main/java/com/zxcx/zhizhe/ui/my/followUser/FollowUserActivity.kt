@@ -92,7 +92,8 @@ class FollowUserActivity : MvpActivity<FollowUserPresenter>(), FollowUserContrac
 	override fun postSuccess(bean: SearchUserBean) {
 		//关注成功回调
 		val position = mAdapter.data.indexOf(bean)
-		mAdapter.data[position].isFollow = !mAdapter.data[position].isFollow
+//		mAdapter.data[position].isFollow = !mAdapter.data[position].isFollow
+		mAdapter.data[position].followType = 1
 		mAdapter.notifyItemChanged(position + mAdapter.headerLayoutCount)
 	}
 

@@ -13,6 +13,7 @@ import com.zxcx.zhizhe.ui.article.articleDetails.ArticleDetailsActivity
 import com.zxcx.zhizhe.ui.card.cardDetails.SingleCardDetailsActivity
 import com.zxcx.zhizhe.ui.card.hot.CardBean
 import com.zxcx.zhizhe.ui.circle.allmycircle.EmptyCircleAdapter
+import com.zxcx.zhizhe.ui.circle.circledetaile.CircleDetaileActivity
 import com.zxcx.zhizhe.ui.circle.circlehome.CircleBean
 import com.zxcx.zhizhe.utils.ImageLoader
 import com.zxcx.zhizhe.utils.ZhiZheUtils
@@ -107,7 +108,10 @@ object EmptyView {
 
         var mAdapter:EmptyCircleAdapter = EmptyCircleAdapter(ArrayList())
         mAdapter.onItemChildClickListener = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
-
+            val bean = adapter.data[position] as CircleBean
+            activity.startActivity(CircleDetaileActivity::class.java) {
+                it.putExtra("circleID", bean.id)
+            }
         }
 
         emptyView.rv_empty_circle.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
