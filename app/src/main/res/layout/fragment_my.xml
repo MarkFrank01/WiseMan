@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <ImageView
+            android:visibility="invisible"
             android:layout_marginTop="12dp"
             android:id="@+id/my_ewm"
             android:layout_marginEnd="14dp"

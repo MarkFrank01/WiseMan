@@ -83,6 +83,9 @@ class CardDetailsActivity : MvpActivity<CardDetailsPresenter>(), CardDetailsCont
 //            window.attributes = lp
 //        }
 
+//        //测试右滑动返回
+//        val rootView = SlidingLayout(this)
+//        rootView.bindActivity(this)
     }
 
     override fun onBackPressed() {

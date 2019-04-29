@@ -27,6 +27,7 @@ import com.zxcx.zhizhe.ui.my.creation.CreationAgreementDialog
 import com.zxcx.zhizhe.ui.my.followUser.FansActivity
 import com.zxcx.zhizhe.ui.my.followUser.FollowUserActivity
 import com.zxcx.zhizhe.ui.my.intelligenceValue.IntelligenceValueActivity
+import com.zxcx.zhizhe.ui.my.invite.InviteBean
 import com.zxcx.zhizhe.ui.my.invite.MyInviteActivity
 import com.zxcx.zhizhe.ui.my.likeCards.LikeCardsActivity
 import com.zxcx.zhizhe.ui.my.message.MessageActivity
@@ -82,6 +83,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
             setViewLogout()
         } else {
             setViewLogin()
+            mPresenter.getInvitationInfo()
         }
 
         lastADTime = SharedPreferencesUtil.getLong(SVTSConstants.homeMyLastOpenedTime,0)
@@ -117,6 +119,7 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: LoginEvent) {
         setViewLogin()
+        mPresenter.getInvitationInfo()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -369,4 +372,15 @@ class MyFragment : MvpFragment<MyFragmentPresenter>(), MyFragmentContract.View {
     private fun onRefreshAD(lastADTime:Long,lastADID:Long) {
         mPresenter.getAD(lastADTime,lastADID)
     }
+
+    override fun getInvitationInfoSuccess(bean: InviteBean) {
+        LogCat.e("有活动")
+        my_ewm.visibility = View.VISIBLE
+    }
+
+    override fun ewmError(msg: String) {
+        LogCat.e("还没活动")
+        my_ewm.visibility = View.INVISIBLE
+    }
+
 }

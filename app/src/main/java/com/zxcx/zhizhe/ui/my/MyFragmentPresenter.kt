@@ -1,6 +1,7 @@
 package com.zxcx.zhizhe.ui.my
 
 import com.zxcx.zhizhe.mvpBase.BasePresenter
+import com.zxcx.zhizhe.ui.my.invite.InviteBean
 import com.zxcx.zhizhe.ui.welcome.ADBean
 
 /**
@@ -21,6 +22,10 @@ class MyFragmentPresenter(view:MyFragmentContract.View): BasePresenter<MyFragmen
         mModel.getAD(lastOpenedTime, lastOpenedAdId)
     }
 
+    fun getInvitationInfo() {
+        mModel.getInvitationInfo()
+    }
+
     override fun getADSuccess(list: MutableList<ADBean>) {
         if (mView!=null) {
             mView.getADSuccess(list)
@@ -36,6 +41,18 @@ class MyFragmentPresenter(view:MyFragmentContract.View): BasePresenter<MyFragmen
     }
 
     override fun getDataSuccess(bean: MutableList<MyTabBean>?) {
+    }
+
+    override fun getInvitationInfoSuccess(bean: InviteBean) {
+        if (mView!=null){
+            mView.getInvitationInfoSuccess(bean)
+        }
+    }
+
+    override fun ewmError(msg: String) {
+        if (mView!=null){
+            mView.ewmError(msg)
+        }
     }
 
     override fun getDataFail(msg: String?) {
